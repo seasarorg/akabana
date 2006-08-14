@@ -17,7 +17,7 @@ package org.seasar.flex2.rpc.remoting.security.realm;
 
 import org.seasar.flex2.rpc.remoting.security.RemotingServicePrincipal;
 
-public interface Realm {
+public interface RemotingServiceRealm {
     RemotingServicePrincipal authenticate(String username, String password);
 
     boolean hasRole(RemotingServicePrincipal principal, String role);

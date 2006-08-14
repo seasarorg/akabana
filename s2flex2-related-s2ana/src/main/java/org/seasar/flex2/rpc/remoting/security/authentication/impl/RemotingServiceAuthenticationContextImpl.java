@@ -21,31 +21,36 @@ import org.seasar.flex2.rpc.remoting.message.data.Message;
 import org.seasar.flex2.rpc.remoting.message.data.factory.MessageFactory;
 import org.seasar.flex2.rpc.remoting.security.RemotingServicePrincipal;
 import org.seasar.flex2.rpc.remoting.security.authentication.RemotingServiceAuthenticationContext;
-import org.seasar.flex2.rpc.remoting.security.realm.Realm;
+import org.seasar.flex2.rpc.remoting.security.realm.RemotingServiceRealm;
 
 public class RemotingServiceAuthenticationContextImpl implements
         RemotingServiceAuthenticationContext {
 
-	private boolean isNeedAuthentication = true;
-	
+    public static final String REMOTING_PASSWORD = "remotePassword";
+
+    public static final String REMOTING_USERNAME = "remoteUsername";
+
+    private boolean isNeedAuthentication = true;
+
     private MessageFactory messageFactory;
 
     private RemotingServicePrincipal principal;
 
-    private Realm realm;
+    private RemotingServiceRealm realm;
 
-    public void authenticate(){
-    	final Message requestMessage = messageFactory.createRequestMessage();
-    	if( principal == null ){
-	        final String userid = requestMessage.getHeader("remoteUsername");
-	        if (userid != null) {
-		        final String password = requestMessage.getHeader("remotePassword");
-	            principal = realm.authenticate(userid, password);
-	            if( principal != null ){
-	            	isNeedAuthentication = false;
-	            }
-	        }
-    	}
+    public void authenticate() {
+        final Message requestMessage = messageFactory.createRequestMessage();
+        if (principal == null) {
+            final String userid = requestMessage.getHeader(REMOTING_USERNAME);
+            if (userid != null) {
+                final String password = requestMessage
+                        .getHeader(REMOTING_PASSWORD);
+                principal = realm.authenticate(userid, password);
+                if (principal != null) {
+                    isNeedAuthentication = false;
+                }
+            }
+        }
     }
 
     public Principal getUserPrincipal() {
@@ -57,14 +62,14 @@ public class RemotingServiceAuthenticationContextImpl implements
         isNeedAuthentication = true;
     }
 
-    public boolean isAuthenticated(){
-    	if(isNeedAuthentication){
-    		authenticate();
-    	}
+    public boolean isAuthenticated() {
+        if (isNeedAuthentication) {
+            authenticate();
+        }
         return principal != null;
     }
 
-    public boolean isUserInRole(final String role){
+    public boolean isUserInRole(final String role) {
         boolean isUserInRole = false;
         if (isAuthenticated()) {
             if (realm.hasRole(principal, role)) {
@@ -73,12 +78,12 @@ public class RemotingServiceAuthenticationContextImpl implements
         }
         return isUserInRole;
     }
-    
-    public void setRealm(final Realm realm) {
-        this.realm = realm;
+
+    public void setMessageFactory(MessageFactory messageFactory) {
+        this.messageFactory = messageFactory;
     }
 
-	public void setMessageFactory(MessageFactory messageFactory) {
-		this.messageFactory = messageFactory;
-	}
+    public void setRealm(final RemotingServiceRealm realm) {
+        this.realm = realm;
+    }
 }

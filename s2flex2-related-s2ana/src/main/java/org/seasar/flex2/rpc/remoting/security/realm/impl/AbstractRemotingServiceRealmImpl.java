@@ -17,9 +17,9 @@ package org.seasar.flex2.rpc.remoting.security.realm.impl;
 
 import org.seasar.flex2.rpc.remoting.security.RemotingServicePrincipal;
 import org.seasar.flex2.rpc.remoting.security.factory.RemotingServicePrincipalFactory;
-import org.seasar.flex2.rpc.remoting.security.realm.Realm;
+import org.seasar.flex2.rpc.remoting.security.realm.RemotingServiceRealm;
 
-public abstract class AbstractRealmImpl implements Realm {
+public abstract class AbstractRemotingServiceRealmImpl implements RemotingServiceRealm {
 
     protected RemotingServicePrincipalFactory remotingServicePrincipalFactory;
 
