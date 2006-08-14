@@ -17,6 +17,7 @@ package org.seasar.flex2.rpc.remoting.security.authentication.impl;
 
 import java.security.Principal;
 
+import org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants;
 import org.seasar.flex2.rpc.remoting.message.data.Message;
 import org.seasar.flex2.rpc.remoting.message.data.factory.MessageFactory;
 import org.seasar.flex2.rpc.remoting.security.RemotingServicePrincipal;
@@ -25,10 +26,6 @@ import org.seasar.flex2.rpc.remoting.security.realm.RemotingServiceRealm;
 
 public class RemotingServiceAuthenticationContextImpl implements
         RemotingServiceAuthenticationContext {
-
-    public static final String REMOTING_PASSWORD = "remotePassword";
-
-    public static final String REMOTING_USERNAME = "remoteUsername";
 
     private boolean isNeedAuthentication = true;
 
@@ -41,10 +38,11 @@ public class RemotingServiceAuthenticationContextImpl implements
     public void authenticate() {
         final Message requestMessage = messageFactory.createRequestMessage();
         if (principal == null) {
-            final String userid = requestMessage.getHeader(REMOTING_USERNAME);
+            final String userid = requestMessage
+                    .getHeader(RemotingMessageConstants.REMOTE_CREDENTIALS_USERNAME);
             if (userid != null) {
                 final String password = requestMessage
-                        .getHeader(REMOTING_PASSWORD);
+                        .getHeader(RemotingMessageConstants.REMOTE_CREDENTIALS_PASSWORD);
                 principal = realm.authenticate(userid, password);
                 if (principal != null) {
                     isNeedAuthentication = false;
