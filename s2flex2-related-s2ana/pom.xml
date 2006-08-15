@@ -5,16 +5,16 @@
 >
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.seasar.flex2</groupId>
-  <artifactId>s2-flex2-related-s2ana</artifactId>
+  <artifactId>s2-flex2-ana</artifactId>
   <packaging>jar</packaging>
   <name>S2Flex2-related-S2AnA</name>
   <version>1.0.0-RC1-SNAPSHOT</version>
   <description></description>
   <url>http://akabana.sandbox.seasar.org/</url>
   <issueManagement>
-    <system>sourceforge.jp</system>
-    <url><![CDATA[http://sourceforge.jp/tracker/?atid=6582&group_id=689&func=browse]]></url>
-  </issueManagement>
+    <system>The Seasar Foundation Issues</system>
+    <url><![CDATA[https://www.seasar.org/issues/browse/AKABANA]]></url>
+  </issueManagement>>
   <inceptionYear>2006</inceptionYear>
   <mailingLists>
     <mailingList>
@@ -112,7 +112,7 @@
       <uniqueVersion>false</uniqueVersion>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Repository</name>
-     <url>scp://www.seasar.org/home/groups/sandbox/s2flex2/maven/maven2</url>
+     <url>scp://maven.seasar.org/home/groups/maven/public_html/maven2</url>
     </repository>
   </distributionManagement>
 </project>
