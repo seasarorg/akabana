@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<include path="convention.dicon"/>
+	<include path="remoting_message_mock.dicon" />
+	<include path="s2ana.dicon" />
+
+	<!--
+		Authentication
+	-->
+    <component
+    	class="org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalImpl"
+    	instance="session"
+    />
+    <component
+    	class="org.seasar.flex2.rpc.remoting.security.factory.impl.RemotingServicePrincipalFactoryImpl"
+    />
+
+    <component
+        name="authenticationContext"
+        class="org.seasar.flex2.rpc.remoting.security.authentication.impl.RemotingServiceAuthenticationContextImpl"
+        instance="session"
+    >
+    	<property name="realm">
+			<component
+		    	class="org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl"
+		   	>
+		   		<property name="userMap">
+		   			<component class="java.util.HashMap" >
+		   				<initMethod name="put">
+		   					<arg>"admin"</arg>
+		   					<arg>"adminpass"</arg>
+		   				</initMethod>
+		   			</component>
+		   		</property>
+		   		<property name="userRoleMap">
+		   			<component class="java.util.HashMap" >
+		   				<initMethod name="put">
+		   					<arg>"admin"</arg>
+		   					<arg>"adminrole"</arg>
+		   				</initMethod>
+		   			</component>
+		   		</property>
+		   	</component>
+    	</property>
+    </component>
+
+	<!--
+		Authorization
+	-->
+	<component
+		class="org.seasar.framework.container.autoregister.AspectAutoRegister"
+	>
+	  	<property name="interceptor">s2ana.requireLogin</property>
+	    <initMethod name="addClassPattern">
+	        <arg>"org.seasar.flex2.rpc.remoting.security"</arg>
+	        <arg>".*Test"</arg>
+	    </initMethod>
+	</component>
+</components>

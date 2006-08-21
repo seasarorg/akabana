@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN" 
+	"http://www.seasar.org/dtd/components23.dtd">
+<components namespace="remoting_amf3">
+	<component
+		class="org.seasar.flex2.rpc.remoting.message.data.MessageHeader"/>
+		
+	<component
+		name="requestMessage"
+		class="org.seasar.flex2.rpc.remoting.message.data.Message"
+		instance="request">
+		<initMethod name="addHeader">
+			<arg>
+				<component class="org.seasar.flex2.rpc.remoting.message.data.MessageHeader">
+					<property name="name">
+						@org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants@REMOTE_CREDENTIALS_USERNAME
+					</property>
+					<property name="value">
+						"admin"
+					</property>
+				</component>
+			</arg>
+		</initMethod>
+		<initMethod name="addHeader">
+			<arg>
+				<component class="org.seasar.flex2.rpc.remoting.message.data.MessageHeader">
+					<property name="name">
+						@org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants@REMOTE_CREDENTIALS_PASSWORD
+					</property>
+					<property name="value">
+						"adminpass"
+					</property>
+				</component>
+			</arg>
+		</initMethod>
+	</component>
+
+	<component
+		class="org.seasar.flex2.rpc.remoting.message.data.factory.impl.MessageFactoryImpl" />
+
+</components>
