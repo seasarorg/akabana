@@ -1,0 +1,20 @@
+<project name="s2flex2" default="dist" basedir=".">
+	<property name="ver" value="B1"/>
+
+	<target name="dist">
+		<zip zipfile="target/fds-s2factory-${ver}.zip">
+			<zipfileset prefix="fds-s2factory" dir=".">
+				<exclude name="**/target/**"/>
+			</zipfileset>
+			<zipfileset prefix="fds-s2factory/lib" dir="target">
+				<include name="s2flex2-${ver}.jar"/>
+			</zipfileset>
+			<zipfileset prefix="fds-s2factory/resources" dir="fds-s2factory/test/resources">
+				<include name="services-config.xml"/>
+				<include name="remoting-config.xml"/>
+				<include name="web.xml"/>
+			</zipfileset>
+		</zip>
+	</target>
+
+</project>
