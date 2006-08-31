@@ -1,5 +1,5 @@
 <project name="s2flex2-backport175" default="dist" basedir=".">
-	<property name="ver" value="B1"/>
+	<property name="ver" value="rc-2-SNAPSHOT"/>
 
 	<target name="dist">
 		<zip zipfile="target/S2Flex2-related-s2ana-${ver}.zip">
