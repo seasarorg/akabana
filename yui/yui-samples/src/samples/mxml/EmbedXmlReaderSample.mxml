@@ -2,7 +2,6 @@
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="initApp()">
 	<mx:Script>
 		<![CDATA[
-		    import flash.utils.describeType;
 			import org.seasar.flex2.resources.embed.EmbedReader;
 			import org.seasar.flex2.resources.embed.impl.EmbedXmlReader;
 
