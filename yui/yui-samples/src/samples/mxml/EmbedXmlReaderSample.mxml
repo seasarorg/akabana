@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="initApp()">
+	<mx:Script>
+		<![CDATA[
+		    import flash.utils.describeType;
+			import org.seasar.flex2.resources.embed.EmbedReader;
+			import org.seasar.flex2.resources.embed.impl.EmbedXmlReader;
+
+            [Bindable]
+            public var selectedNode:XML;
+            
+            [Bindable]
+            public var treeData:XML;
+			
+			[Embed(source='../resources/tree.xml', mimeType='application/octet-stream')]
+            private static const treeXml:Class;
+
+			private function initApp():void{
+				var embedReader:EmbedReader = new EmbedXmlReader();
+				treeData = embedReader.read( treeXml ) as XML;
+			}
+
+            public function treeChanged(event:Event):void {
+                selectedNode= Tree(event.target).selectedItem as XML;
+            }
+        ]]>
+    </mx:Script>
+
+    <mx:Panel title="埋め込みXMLツリーサンプル" height="75%" width="75%" 
+        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
+        <mx:HDividedBox width="100%" height="100%">
+            <mx:Tree id="myTree" width="50%" height="100%" labelField="@label" showRoot="true" dataProvider="{treeData}" change="treeChanged(event)"/>
+            <mx:TextArea height="100%" width="50%" text="選択した項目: {selectedNode.@label}"/>
+        </mx:HDividedBox>
+    </mx:Panel>
+</mx:Application>
