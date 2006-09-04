@@ -1,14 +1,14 @@
 package org.seasar.flex2.resources.embed.impl{
 	import flash.utils.ByteArray;
 	
-	import org.seasar.flex2.resources.embed.EmbedBinaryDataReader;
+	import org.seasar.flex2.resources.embed.EmbedReader;
 	
-	public class EmbedXmlReader implements EmbedBinaryDataReader {
+	public class EmbedXmlReader implements EmbedReader {
 		
-		public function read( byteArray:ByteArray ):Object{
-			return readXml( byteArray );
+		public function read( embedClass:Class ):Object{
+			return readXml( new embedClass() as ByteArray );
 		}
-		
+
 		private final function readXml( byteArray:ByteArray ):XML{
 			var xmlString:String = "";
 			var char:String;
