@@ -3,7 +3,10 @@
 <includeClasses>
 <classEntry path="org.seasar.flex2.resources.embed.EmbedReader"/>
 <classEntry path="org.seasar.flex2.resources.embed.impl.EmbedXmlReader"/>
+<classEntry path="org.seasar.flex2.test.Components"/>
 </includeClasses>
 <includeResources/>
-<namespaceManifests/>
+<namespaceManifests>
+<namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://www.seasar.org/akabana/yui/mxml"/>
+</namespaceManifests>
 </flexLibProperties>
