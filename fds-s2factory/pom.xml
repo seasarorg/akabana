@@ -98,6 +98,19 @@
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.seasar.flex2</groupId>
+      <artifactId>s2-flex2</artifactId>
+      <version>1.0.0-rc-1</version>
+      <scope>provided</scope>
+    </dependency>         
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-j2ee_1.4_spec</artifactId>
+      <version>1.0</version>
+      <type>jar</type>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
   <distributionManagement>
     <repository>
