@@ -15,7 +15,6 @@
  */
 package org.seasar.flex2.rpc.remoting.service.fds2.factory;
 
-import org.seasar.flex2.rpc.remoting.processor.RemotingMessageProcessor;
 import org.seasar.flex2.rpc.remoting.service.RemotingServiceLocator;
 import org.seasar.flex2.rpc.remoting.service.impl.RemotingServiceInvokerImpl;
 import org.seasar.framework.container.S2Container;
@@ -27,11 +26,12 @@ import flex.messaging.config.ConfigMap;
 
 public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 		FlexFactory {
-	
+
+	/**  source tag  name CONSTANT */
 	private static final String SOURCE = "source";
 
-    protected RemotingMessageProcessor processor;
-    protected RemotingServiceLocator remotingServiceLocator;
+	/** ServiceLocator */
+	protected RemotingServiceLocator remotingServiceLocator;
 
 	/**
 	 * This method is called when the definition of an instance that this factory
@@ -39,7 +39,6 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	 */
 	public FactoryInstance createFactoryInstance(String id, ConfigMap properties) {
 
-		
 		final FactoryInstance instance = new FactoryInstance(this, id,
 				properties);
 		instance.setSource(properties.getPropertyAsString(SOURCE, instance
@@ -50,13 +49,17 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	}
 
 	/**
+	 * flex-services.xmlで設定されているserviceNameのsourceタグで指定された
+	 * サービス名よりS2Containerに登録されているコンポーネントを取得します。
+	 * 
+	 * @param FactoryInstance
+	 * @return Object S2Containerより取得したコンポーネント
+	 * <br/>
 	 * Returns the instance specified by the source
 	 * and properties arguments. 
 	 */
-	
+
 	public Object lookup(FactoryInstance factoryInstance) {
-		
-		
 		//if source elements is not found,return the id attribute.
 		//see createFactoryInstance methods.
 		String serviceName = factoryInstance.getSource();
@@ -65,15 +68,16 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	}
 
 	/**
+	 *　設定情報とともにコンポーネントを初期化します。
 	 * Initializes the component with configuration information.
 	 * @param  id contains an identity you can use in diagnostic messages to determine which component's configuration this is
 	 * @param configMap  contains the properties for configuring this component.
 	 */
-	
+
 	public void initialize(final String id, final ConfigMap configMap) {
-        S2Container container = SingletonS2ContainerFactory.getContainer();
-        remotingServiceLocator = (RemotingServiceLocator) container
-                .getComponent(RemotingServiceLocator.class);
+		S2Container container = SingletonS2ContainerFactory.getContainer();
+		remotingServiceLocator = (RemotingServiceLocator) container
+				.getComponent(RemotingServiceLocator.class);
 	}
 
 }
