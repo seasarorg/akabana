@@ -51,6 +51,7 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	/**
 	 * flex-services.xmlで設定されているserviceNameのsourceタグで指定された
 	 * サービス名よりS2Containerに登録されているコンポーネントを取得します。
+	 * ロジック実行は、Adapterによって起動されます
 	 * 
 	 * @param FactoryInstance
 	 * @return Object S2Containerより取得したコンポーネント
@@ -68,10 +69,11 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	}
 
 	/**
+	 * 
 	 *　設定情報とともにコンポーネントを初期化します。
 	 * Initializes the component with configuration information.
 	 * @param  id contains an identity you can use in diagnostic messages to determine which component's configuration this is
-	 * @param configMap  contains the properties for configuring this component.
+	 * @param configMap  コンポーネントの設定情報 ncontains the properties for configuring this component.
 	 */
 
 	public void initialize(final String id, final ConfigMap configMap) {
