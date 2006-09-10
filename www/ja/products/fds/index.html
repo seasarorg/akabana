@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Content-Language" content="ja" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
-<title>AKABANA - S2Factory - FDS2</title>
+<title>AKABANA - S2Factory - FDS2(Beta1)</title>
 <link rel="stylesheet" type="text/css" href="http://www.seasar.org/theme/main.css" media="screen,projection" />
 <link rel="stylesheet" type="text/css" href="http://www.seasar.org/theme/print.css" media="print" />
 <link href="./css/maven-base.css" type="text/css" rel="stylesheet" media="screen" />
@@ -17,8 +17,9 @@
     <div class="line"><span class="hide">spacer</span></div>
     <div id="logo">
       <h1 id="h01" class="hide">The Seasar Foundation Project Site</h1>
-      <img align="LEFT" alt="The Seasar Foundation" src="images/logo-rc1.png"  /><img align="RIGHT"  alt="Akabana Project" height="110" src="images/seasar-logo.png" width="254"/></div>
-    <div id="tool">      <!--
+      <img src="../../images/logo-rc1.png" alt="The Seasar Foundation" width="400" height="110" align="LEFT"  /><img align="RIGHT"  alt="Akabana Project" height="110" src="../../images/seasar-logo.png" width="254"/></div>
+    <div id="tool">
+      <!--
 <h2><a href="http://search.seasar.org/">Site Search</a></h2>
 
 <form id="search" action="http://search.seasar.org/">
@@ -40,7 +41,7 @@
     </div>
   </div>
   <!-- header -->
-    <div id="contents_left">
+  <div id="contents_left">
     <h2>Menu</h2>
     <ul>
       <li class="none"> <strong>Introduction</strong> </li>
@@ -73,116 +74,111 @@
   <div id="contents_center">
     <div id="article">
       <div class="section">
-        <h1>S2Factory for FDS2</h1>
-        
+        <h2>S2Factory for FDS2(Beta1)</h2>
         <p>akabana.S2Factory for FDS2akabanaはFDS2からS2Containerに登録されたコンポーネントを呼び出すことを可能にする、Factoryです。</p>
-           * Overview
-FDS2 s2Factoryは、fds2(Flex Data Services 2)と、DIxAOPコンテナであるSeasar2を結ぶ
-Factoryです。
-FDS2で用意されているFactory Mechanismを利用してS2Flex2の処理部分を呼び出します。
-
-flex.messaging.FlexFactoryを実装したRemotingServiceInvokerを用意することで
-FDS2からs2flex2のロジック呼び出しを可能にしています。
-
-    * Features
-	・FDS 2の設定ファイルに記述されたserviceをもとにS2Containerに登録されているコンポーネントを呼び出します。
-　　　　・RemotingService(meta/Annotation)の有無による呼び出しコンポーネントの制限
-　　　　・アノテーションによるSessionからデータのimport,SessionへのデータExportをサポート
-
-    * Download
-	　akabanaのサイトよりdownloadすることができます。
-　　　　　また、ソースリポジトリより最新のものをチェックアウトすることも可能です。
-
-    * Prerequisites
-　　　　　FDS s2Factoryは以下のものに依存します。
-　　　・Flex Data Services2
-      ・S2Flex2
-      ・S2 Container2 2.4
-
-         その他S2Flex2/S2Containerで必要なものを一緒にdeployする必要があります。
-
-    * Install
-　　　FDS用のS2Factoryをインストールするには
-
-　　　jarの配置
-aopalliance-1.0.jar
-geronimo-jta_1.0.1B_spec-1.0.jar
-javassist-3.0.jar
-log4j-1.2.13.jar
-ognl-2.6.7.jar
-s2-extension-2.4.0-rc-1.jar
-s2-fds-s2factory-b1.jar
-s2-framework-2.4.0-rc-1.jar
-
-　　　web.xmlの更新
-　　    <servlet>
-        <servlet-name>s2servlet</servlet-name>
-        <servlet-class>org.seasar.framework.container.servlet.S2ContainerServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    　　</servlet>
-
-　    <servlet-mapping>
-        <servlet-name>s2servlet</servlet-name>
-        <url-pattern>/s2servlet</url-pattern>
-　    </servlet-mapping>
-    
-	<filter>
-		<filter-name>s2filter</filter-name>
-		<filter-class>org.seasar.framework.container.filter.S2ContainerFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>s2filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-　　　
-
-　　　　factoryを利用する設定(services-config.xml)
-        services-config.xmlに以下の設定を追加します。
-
-　　　　追加する場所は、<services-config>タグの下になります。
-
-        <factories>
-		<factory id="s2" class="org.seasar.flex2.rpc.remoting.service.fds2.factory.Seasar2Factory" />
-	</factories>
-　　　　
-　　　　　　　　上記の2ファイルの記述例をresources以下にサンプルとして用意しています。
-
-    * Usage
-
-　　　　remoting-config.xml
-        Flexクライアントから呼び出すserviceの設定を追加します。
-　　　　以下はaddServiceというサービスを設定する場合の例です。
-　　　　<destination id="addService">
-        <properties>
-			<factory>s2</factory>
-        </properties>
-   　　 </destination>
-        
-        factoryタグにservices-config.xmlで指定したFactoryのIDを指定します。
-
-    *remotingServiceを使ったServiceの呼び出し制限
-　　　S2flex2同様Flex2 クライアントから呼び出すことのできるServiceコンポーネントを制限することができます。
-　　　FDS2では、設定されたコンポーネント以外は呼び出すことができない
-　　　S2Flex2を通じてS2Containerに登録されたコンポーネントを呼び出す際には、
-　　　RemotingServiceが設定されていなければなりません。
-　　　　RemotingServiceは以下の方法で登録することが可能です。
-
-　　　　　・Metaタグ
-　　　　　・Annotation(JDK5.0のみ)
-     どちらも登録されていないときには、Flexクライアントから呼び出すことができません。
-　　 これは、FDS2のremoting-config.xmlに定義されていても同様です。
-       
+        <h2> <a name="Overview">概要</a></h2>
+        <p> FDS2 s2Factoryは、fds2(Flex Data Services 2)と、DIxAOPコンテナであるSeasar2を結ぶ
+          Factoryです。<br />
+          FDS2で用意されているFactory Mechanismを利用してS2Flex2の処理部分を呼び出します。</p>
+        <p>flex.messaging.FlexFactoryを実装したRemotingServiceInvokerを用意することで<br />
+          FDS2からs2flex2のロジック呼び出しを可能にしています。</p>
+        <h2><a name="Features">機能</a></h2>
+        <p> ・FDS 2の設定ファイルに記述されたserviceをもとにS2Containerに登録されているコンポーネントを呼び出します。<br />
+          ・RemotingService(meta/Annotation)の有無による呼び出しコンポーネントの制限 <br />
+          ・アノテーションによるSessionからデータのimport,SessionへのデータExportをサポート </p>
+        <h2><a name="Download">ダウンロード</a></h2>
+        <p> <a href="/">akabana</a>のサイトより<a href="../../../downloads/2006-08-22/fds-s2factory-example-B1.zip">download</a>することができます。<br />
+          また、<a href="../../source-repository.html">ソースリポジトリ</a>より最新のものをチェックアウトすることも可能です。 </p>
+        <h2><a name="Prerequisites" id="Prerequisites"></a>前提条件</h2>
+        <p><br />
+          FDS s2Factoryを利用するには以下のものを必要とします。</p>
+        <ul>
+          <li><a href="http://www.flex.org/" target="external">Flex Data Services2</a></li>
+          <li><a href="http://s2flex2.sandbox.seasar.org/" target="external">S2Flex2</a></li>
+          <li><a href="s2container.seasar.org/" target="exernal">S2 Container2 2.4</a></li>
+        </ul>
+        <p> その他S2Flex2/S2Containerで必要なものを一緒にdeployする必要があります。</p>
+        <h2><a name="Install" id="Install">インストール</a> </h2>
+        <p> FDS用のS2Factoryをインストールして使用するには</p>
+         <h4>　　　jarの配置</h4>
+         <p> s2flex2/S2Containerを利用する上で必要なファイルをコピーします。 </p>
+         <ul>
+           <li>aopalliance-1.0.jar</li>
+           <li>geronimo-jta_1.0.1B_spec-1.0.jar</li>
+           <li>javassist-3.0.jar</li>
+           <li>log4j-1.2.13.jar</li>
+           <li>ognl-2.6.7.jar</li>
+           <li>s2-extension-2.4.0-rc-1.jar</li>
+           <li>s2-fds-s2factory-b1.jar</li>
+           <li>s2-framework-2.4.0-rc-1.jar</li>
+         </ul>
+        <h4>　　　web.xmlの更新</h4>
+        <p>S2flex2を利用する為に必要な設定を追加します。<br />
+        web.xmlに以下の記述を追加します。</p>
+        <pre>
+   &lt;servlet&gt;
+   &lt;servlet-name&gt;s2servlet&lt;/servlet-name&gt;
+   &lt;servlet-class&gt;org.seasar.framework.container.servlet.S2ContainerServlet&lt;/servlet-class&gt;
+   &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+   &lt;/servlet&gt;</pre>
+        <pre>&lt;servlet-mapping&gt;
+           &lt;servlet-name&gt;s2servlet&lt;/servlet-name&gt;
+           &lt;url-pattern&gt;/s2servlet&lt;/url-pattern&gt;
+           &lt;/servlet-mapping&gt;
+           
+           &lt;filter&gt;
+           &lt;filter-name&gt;s2filter&lt;/filter-name&gt;
+           &lt;filter-class&gt;org.seasar.framework.container.filter.S2ContainerFilter&lt;/filter-class&gt;
+           &lt;/filter&gt;</pre>
+        <pre> &lt;filter-mapping&gt;
+           &lt;filter-name&gt;s2filter&lt;/filter-name&gt;
+           &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+           &lt;/filter-mapping&gt;</pre>
+        <p>　　　上記設定を追加したweb.xmlをresources以下にサンプルとして用意しています。</p>
+        <h4>　　　　factoryを利用する設定(services-config.xml)</h4>
+        <p><br />
+          services-config.xmlに以下の設定を追加します。</p>
+        <p>　　　　追加する場所は、&lt;services-config&gt;タグの下になります。</p>
+        <pre> &lt;factories&gt;
+           &lt;factory id=&quot;s2&quot; class=&quot;org.seasar.flex2.rpc.remoting.service.fds2.factory.Seasar2Factory&quot; /&gt;
+           &lt;/factories&gt;
+           </pre>
+        <p><br>
+          上記のservices-config.xmlの記述例をresources以下にサンプルとして用意しています。 </p>
+        <h2> <a name="Usage" id="Usage">使い方</a></h2>
+        <h4>　サービスの追加</h4>
+        <p>　　　remoting-config.xmlにFlexクライアントから呼び出すserviceの設定を追加します。<br />
+          以下はaddServiceというサービスを設定する場合の例です。</p>
+        <pre> 
+   &lt;destination id=&quot;addService&quot;&gt;
+   &lt;properties&gt;
+   &lt;factory&gt;s2&lt;/factory&gt;
+   &lt;/properties&gt;
+   &lt;/destination&gt;
+           </pre>
+        <p><br>
+          factoryタグにservices-config.xmlで指定したFactoryのIDを指定します。</p>
+        <h4> remotingServiceを使ったServiceの呼び出し制限</h4>
+        <p><br />
+          S2flex2同様Flex2 クライアントから呼び出すことのできるServiceコンポーネントを制限することができます。<br />
+          FDS2では、設定されたコンポーネント以外は呼び出すことができないようになっています。<br />
+          S2Flex2を通じてS2Containerに登録されたコンポーネントを呼び出す際には、RemotingServiceが設定されていなければなりません。<br />
+          RemotingServiceは以下の方法で登録することが可能です。</p>
+        <ul>
+          <li>Metaタグ</li>
+          <li>Annotation(JDK5.0のみ) </li>
+	    </ul>           
+            <p>
+              どちらも登録されていないときには、Flexクライアントから呼び出すことができません。<br />
+              これは、FDS2のremoting-config.xmlに定義されていても同様です。            </p>
       </div>
-      
     </div>
     <!-- article -->
   </div>
   <!-- contents_center -->
   <div id="footer">
     <address>
-&copy; Copyright 2006, The Seasar Foundation and the others. All rights reserved.
+    &copy; Copyright 2006, The Seasar Foundation and the others. All rights reserved.
     </address>
     <div class="line"><span class="hide">spacer</span></div>
   </div>
