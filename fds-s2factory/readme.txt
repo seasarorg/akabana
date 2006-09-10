@@ -1,4 +1,7 @@
-buildするには、
+																			2006.09.10
+■コンパイルするには。
+																			
+eclipseやantを利用してbuildするには、
 buildlib以下に２つファイルを追加する必要があります。
 
 ・flex-messaging.jar
@@ -20,4 +23,7 @@ flex-messaging-common.jar
 
 mvn install:install-file -Dfile="${workspaceフルパス}\fds-s2factory/buildlib/flex-messaging.jar" -DgroupId=com.adobe.flex2 -DartifactId=flex-messaging -Dversion=2.0.0 -Dpackaging=jar
 mvn install:install-file -Dfile="${workspaceフルパス}\fds-s2factory/buildlib/flex-messaging-common.jar" -DgroupId=com.adobe.flex2 -DartifactId=flex-messaging-common -Dversion=2.0.0 -Dpackaging=jar
+
+インストール後はpackageでjarファイルを作成することが可能です。
+mvn package
 

@@ -5,6 +5,8 @@
 		<zip zipfile="target/fds-s2factory-${ver}.zip">
 			<zipfileset prefix="fds-s2factory" dir=".">
 				<exclude name="**/target/**"/>
+				<exclude name="buildlib/flex-**"/>
+				<exclude name="src/test/**"/>
 			</zipfileset>
 			<zipfileset prefix="fds-s2factory/lib" dir="target">
 				<include name="s2flex2-${ver}.jar"/>
