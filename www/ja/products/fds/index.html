@@ -75,13 +75,11 @@
     <div id="article">
       <div class="section">
         <h2>S2Factory for FDS2(Beta1)</h2>
-        <p>akabana.S2Factory for FDS2akabanaはFDS2からS2Containerに登録されたコンポーネントを呼び出すことを可能にする、Factoryです。</p>
+        <p>FDS2(Flex Data Services 2)とSeasar 2/S2Flex2 を統合するものです。 </p>
         <h2> <a name="Overview">概要</a></h2>
-        <p> FDS2 s2Factoryは、fds2(Flex Data Services 2)と、DIxAOPコンテナであるSeasar2を結ぶ
-          Factoryです。<br />
-          FDS2で用意されているFactory Mechanismを利用してS2Flex2の処理部分を呼び出します。</p>
-        <p>flex.messaging.FlexFactoryを実装したRemotingServiceInvokerを用意することで<br />
-          FDS2からs2flex2のロジック呼び出しを可能にしています。</p>
+        <p>FDS2 s2Factoryは、fds2(Flex Data Services 2)と、DIxAOPコンテナであるSeasar2に登録されたコンポーネントを呼び出すことを可能にするFactoryです。<br />
+        FDS2で用意されているFactory Mechanismを利用してS2Flex2の処理部分を呼び出します。</p>
+        <p>flex.messaging.FlexFactoryを実装したRemotingServiceInvokerを用意することでFDS2からs2flex2のロジック呼び出しを可能にしています。</p>
         <h2><a name="Features">機能</a></h2>
         <p> ・FDS 2の設定ファイルに記述されたserviceをもとにS2Containerに登録されているコンポーネントを呼び出します。<br />
           ・RemotingService(meta/Annotation)の有無による呼び出しコンポーネントの制限 <br />
