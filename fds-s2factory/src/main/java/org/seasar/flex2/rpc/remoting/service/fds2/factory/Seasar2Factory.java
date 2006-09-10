@@ -24,6 +24,14 @@ import flex.messaging.FactoryInstance;
 import flex.messaging.FlexFactory;
 import flex.messaging.config.ConfigMap;
 
+/**
+ * <h4>Seasar2Factory</h4>
+ * FDS2のFactoryMechanismを利用したFactoryクラスです。
+ * Flex2クライアントから
+ * S2Containerに登録されたコンポーネントを呼び出すことが可能になります。
+ * 
+ *
+ */
 public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 		FlexFactory {
 
@@ -34,6 +42,7 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	protected RemotingServiceLocator remotingServiceLocator;
 
 	/**
+	 * この
 	 * This method is called when the definition of an instance that this factory
 	 * looks up is initialized.
 	 */
