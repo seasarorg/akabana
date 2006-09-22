@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Content-Language" content="ja" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
-<title>AKABANA - S2Flex2 related S2AnA(Beta1)</title>
+<title>AKABANA - S2Flex2 related S2AnA(1.0.0-rc-2)</title>
 <link rel="stylesheet" type="text/css" href="http://www.seasar.org/theme/main.css" media="screen,projection" />
 <link rel="stylesheet" type="text/css" href="http://www.seasar.org/theme/print.css" media="print" />
 <link href="./css/maven-base.css" type="text/css" rel="stylesheet" media="screen" />
@@ -74,32 +74,34 @@
   <div id="contents_center">
     <div id="article">
       <div class="section">
-        <h2>S2Flex2 related S2AnA(Beta1)</h2>
-        <p><a href="http://s2flex2.sandbox.seasar.org/ja/" target="external">S2Flex2</a>と<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA" target="external">S2AnA</a>の連携を可能にするプロダクトです。</p>
+        <h2>S2Flex2 related S2AnA(1.0.0-rc-2)</h2>
+        <p><a href="http://s2flex2.sandbox.seasar.org/ja/" target="external">S2Flex2</a>と<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA" target="external">S2AnA</a>の連携し認証と承認機能を追加することを目的としたプロジェクトです。<br/>いい名前を募集しています。</p>
         <h2> <a name="Overview">概要</a></h2>
         <p>S2Flex2 related S2AnAは S2Flex2に認証と承認機能を追加することを可能にするアドオンプロジェクトです。</p>
         <p>S2Flex2が動作しているWebApplicationに、<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA">S2AnA</a>のjarファイルと共にクラスパスに追加することで、Flexクライアントからサーバロジックを呼び出す際の認証としてS2AnAで設定されている認証情報を取得することが可能になります。</p>
 
-        <h2><a name="Features">機能</a>		</h2>
+        <h2><a name="Features">機能</a></h2>
         <ul>
           <li>S2AnAで設定されている認証・承認機能の呼び出し</li>
-          <li>S2Flex2Componentsからヘッダとしてユーザ情報を野セット。</li>
+          <li>S2Flex2Componentsからヘッダとしてユーザ情報をセット</li>
         </ul>
+        <p>その他S2AnAの機能についてはS2AnAの<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA">プロジェクトページ</a>をご参照ください。
         </p>
         <h2><a name="Download">ダウンロード</a></h2>
-        <p> <a href="/">akabana</a>のサイトより<a href="../../../downloads/2006-09-10/">download</a>することができます。<br />
+        <p> <a href="/">akabana</a>のサイトより<a href="../../../downloads/2006-09-16/">download</a>することができます。<br />
         また、<a href="../../source-repository.html">ソースリポジトリ</a>より最新のものをチェックアウトすることも可能です。 </p>
         <h2><a name="Prerequisites" id="Prerequisites"></a>前提条件</h2>
         <p><br />
-          FDS s2Factoryを利用するには以下のものを必要とします。</p>
+          S2Flex2-related-S2AnAを利用するには以下のものを必要とします。</p>
         <ul>
-          <li><a href="http://www.flex.org/" target="external">Flex Data Services2</a></li>
           <li><a href="http://s2flex2.sandbox.seasar.org/" target="external">S2Flex2</a></li>
-          <li><a href="http://s2container.seasar.org/" target="exernal">S2 Container2 2.4</a></li>
+          <li><a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA" target="external">S2AnA</a></li>
+		  <li><a href="http://s2flex2.sandbox.seasar.org/" target="external">S2Flex2-components</a></li>
+          <li><a href="http://s2container.seasar.org/" target="exernal">S2 Container 2.4(rc-1/rc-2)</a></li>
         </ul>
-        <p> その他S2Flex2/S2Containerで必要なものを一緒にdeployする必要があります。</p>
+        <p> その他S2AnAで必要としているもの、S2Flex2/S2Containerを利用する上で必要なものを一緒にdeployする必要があります。</p>
         <h2><a name="Install" id="Install">インストール</a> </h2>
-        <p> FDS用のS2Factoryをインストールして使用するには</p>
+        <p> S2Flex2-related-S2AnAをインストールして使用するには</p>
          <h4>　　　jarの配置</h4>
          <p> s2flex2/S2Containerを利用する上で必要なファイルをコピーします。 </p>
          <ul>
@@ -109,68 +111,31 @@
            <li>log4j-1.2.13.jar</li>
            <li>ognl-2.6.7.jar</li>
            <li>s2-extension-2.4.0-rc-1.jar</li>
-           <li>s2-fds-s2factory-b1.jar</li>
+           <li>s2-ana-core-0.1.7.jar</li>
+           <li>s2-flex2-ana-1.0.0-rc-2.jar</li>
            <li>s2-framework-2.4.0-rc-1.jar</li>
          </ul>
-        <h4>　　　web.xmlの更新</h4>
-        <p>S2flex2を利用する為に必要な設定を追加します。<br />
+        <h4>web.xmlの更新</h4>
+        <p>S2AnAと連携する為に必要な設定を追加します。<br />
         web.xmlに以下の記述を追加します。</p>
-        <pre>
-   &lt;servlet&gt;
-   &lt;servlet-name&gt;s2servlet&lt;/servlet-name&gt;
-   &lt;servlet-class&gt;org.seasar.framework.container.servlet.S2ContainerServlet&lt;/servlet-class&gt;
-   &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
-   &lt;/servlet&gt;</pre>
-        <pre>&lt;servlet-mapping&gt;
-           &lt;servlet-name&gt;s2servlet&lt;/servlet-name&gt;
-           &lt;url-pattern&gt;/s2servlet&lt;/url-pattern&gt;
-           &lt;/servlet-mapping&gt;
-           
-           &lt;filter&gt;
-           &lt;filter-name&gt;s2filter&lt;/filter-name&gt;
-           &lt;filter-class&gt;org.seasar.framework.container.filter.S2ContainerFilter&lt;/filter-class&gt;
-           &lt;/filter&gt;</pre>
-        <pre> &lt;filter-mapping&gt;
-           &lt;filter-name&gt;s2filter&lt;/filter-name&gt;
-           &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-           &lt;/filter-mapping&gt;</pre>
-        <p>　　　上記設定を追加したweb.xmlをresources以下にサンプルとして用意しています。</p>
-        <h4>　　　　factoryを利用する設定(services-config.xml)</h4>
+        <h4>　　　　S2AnAを利用する設定</h4>
         <p><br />
-          services-config.xmlに以下の設定を追加します。</p>
-        <p>　　　　追加する場所は、&lt;services-config&gt;タグの下になります。</p>
+        diconファイルに認証に必要な機能について記述を追加します。<br />
+        (TBD)
+        </p>
+        <!--
+        <p>追加する場所は、&lt;services-config&gt;タグの下になります。</p>
         <pre> &lt;factories&gt;
            &lt;factory id=&quot;s2&quot; class=&quot;org.seasar.flex2.rpc.remoting.service.fds2.factory.Seasar2Factory&quot; /&gt;
            &lt;/factories&gt;
            </pre>
+          --> 
         <p><br>
-          上記のservices-config.xmlの記述例をresources以下にサンプルとして用意しています。 </p>
+          上記の設定を追加したの記述例をresources以下にサンプルとして用意しています。 (s2flex-ana.dicon/s2ana.dicon)</p>
+          
         <h2> <a name="Usage" id="Usage">使い方</a></h2>
-        <h4>　サービスの追加</h4>
-        <p>　　　remoting-config.xmlにFlexクライアントから呼び出すserviceの設定を追加します。<br />
-          以下はaddServiceというサービスを設定する場合の例です。</p>
-        <pre> 
-   &lt;destination id=&quot;addService&quot;&gt;
-   &lt;properties&gt;
-   &lt;factory&gt;s2&lt;/factory&gt;
-   &lt;/properties&gt;
-   &lt;/destination&gt;
-           </pre>
-        <p><br>
-          factoryタグにservices-config.xmlで指定したFactoryのIDを指定します。</p>
-        <h4> remotingServiceを使ったServiceの呼び出し制限</h4>
-        <p><br />
-          S2flex2同様Flex2 クライアントから呼び出すことのできるServiceコンポーネントを制限することができます。<br />
-          FDS2では、設定されたコンポーネント以外は呼び出すことができないようになっています。<br />
-          S2Flex2を通じてS2Containerに登録されたコンポーネントを呼び出す際には、RemotingServiceが設定されていなければなりません。<br />
-          RemotingServiceは以下の方法で登録することが可能です。</p>
-        <ul>
-          <li>Metaタグ</li>
-          <li>Annotation(JDK5.0のみ) </li>
-	    </ul>           
-            <p>
-              どちらも登録されていないときには、Flexクライアントから呼び出すことができません。<br />
-              これは、FDS2のremoting-config.xmlに定義されていても同様です。            </p>
+        <h4>認証情報設定の追加</h4>
+		TBD
       </div>
     </div>
     <!-- article -->
