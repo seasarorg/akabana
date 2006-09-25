@@ -131,10 +131,64 @@
         <pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />&lt;!DOCTYPE components PUBLIC &quot;-//SEASAR2.1//DTD S2Container//EN&quot;<br />    &quot;http://www.seasar.org/dtd/components21.dtd&quot;&gt;<br />&lt;components namespace=&quot;s2ana&quot;&gt;<br />    &lt;component<br />    	name=&quot;requireLoginOnly&quot;<br />		class=&quot;org.seasar.security.authorization.AuthenticatedAccessOnlyInterceptor&quot;<br />	/&gt;<br />    &lt;component<br />    	name=&quot;requireLogin&quot;<br />		class=&quot;org.seasar.security.authorization.AllowInterceptor&quot;<br />	&gt;<br />		&lt;arg&gt;{&quot;adminrole&quot;}&lt;/arg&gt;<br />	&lt;/component&gt;<br />    &lt;component<br />    	name=&quot;invalidateLogin&quot;<br />		class=&quot;org.seasar.flex2.rpc.remoting.security.authorization.InvalidateInterceptor&quot;<br />	/&gt;<br />    &lt;component<br />    	name=&quot;authenticationContextResolver&quot;<br />    	class=&quot;org.seasar.security.authentication.impl.AuthenticationContextResolverImpl&quot;&gt;<br />		&lt;property name=&quot;container&quot;&gt;container.getRoot()&lt;/property&gt;<br />   	&lt;/component&gt;<br />&lt;/components&gt;<br />
         </pre>
         <h5>S2Flex2との連携で必要なdiconファイル(s2lex-ana.dicon)</h5>
-        <p>&nbsp;</p>
-        <h4>　　　　S2AnAを利用する設定</h4>
-        <p><br />
-          diconファイルに認証に必要な機能について記述を追加します。<br />
+        <p>次にS2AnAとS2Flex2を連携する上で必要なコンポーネントの設定を行います。上記のs2ana.diconをincludeし、Contextに認証に利用するrealmを指定します。下記にMapを利用した認証を行うrealmを指定した例を示します。</p>
+        <pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;Shift_JIS&quot;?&gt;
+           &lt;!DOCTYPE components PUBLIC &quot;-//SEASAR2.1//DTD S2Container//EN&quot;
+ &quot;http://www.seasar.org/dtd/components21.dtd&quot;&gt;
+ &lt;components&gt;
+  <strong>&lt;include path=&quot;s2ana.dicon&quot; /&gt;</strong>
+   &lt;component
+           class=&quot;org.seasar.flex2.rpc.remoting.message.data.factory.impl.MessageFactoryImpl&quot; /&gt;
+   
+   &lt;component
+           name=&quot;requestMessage&quot;
+           class=&quot;org.seasar.flex2.rpc.remoting.message.data.Message&quot;
+           instance=&quot;request&quot;&gt;
+   &lt;/component&gt;
+   &lt;!--
+           Authentication
+ 　  --&gt;
+   &lt;component
+           class=&quot;org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalImpl&quot;
+           instance=&quot;request&quot;
+           /&gt;
+   &lt;component
+           class=&quot;org.seasar.flex2.rpc.remoting.security.factory.impl.RemotingServicePrincipalFactoryImpl&quot;
+           /&gt;
+         &lt;component
+           name=&quot;authenticationContext&quot;
+           class=&quot;org.seasar.flex2.rpc.remoting.security.authentication.impl.RemotingServiceAuthenticationContextImpl&quot;
+           instance=&quot;request&quot;
+   &gt;
+   &lt;property name=&quot;realm&quot;&gt;
+   		&lt;component
+           class=&quot;org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl&quot;&gt;
+	   			&lt;property name=&quot;userMap&quot;&gt;
+   				&lt;component class=&quot;java.util.HashMap&quot; &gt;
+   					&lt;initMethod name=&quot;put&quot;&gt;
+   						&lt;arg&gt;&quot;admin&quot;&lt;/arg&gt;
+   						&lt;arg&gt;&quot;adminpass&quot;&lt;/arg&gt;
+   					&lt;/initMethod&gt;
+   				&lt;/component&gt;
+   			&lt;/property&gt;
+   			&lt;property name=&quot;userRoleMap&quot;&gt;
+   				&lt;component class=&quot;java.util.HashMap&quot; &gt;
+   					&lt;initMethod name=&quot;put&quot;&gt;
+   						&lt;arg&gt;&quot;admin&quot;&lt;/arg&gt;
+   						&lt;arg&gt;&quot;adminrole&quot;&lt;/arg&gt;
+   					&lt;/initMethod&gt;
+   				&lt;/component&gt;
+   			&lt;/property&gt;
+   	&lt;/component&gt;
+   &lt;/property&gt;
+   &lt;/component&gt;
+&lt;!--
+   Authorization
+--&gt;
+ &lt;/components&gt;</pre>
+        <h4>　　　　flex2クライアントからの認証情報を渡す</h4>
+        <p>flex2クライアントから認証情報をわたすには、NetConnection#setRemoteCredencialを利用してサーバにユーザ情報を渡します。<br />
+          <br />
           (TBD) </p>
         <!--
         <p>追加する場所は、&lt;services-config&gt;タグの下になります。</p>
