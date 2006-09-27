@@ -21,18 +21,18 @@ import org.seasar.framework.aop.interceptors.AbstractInterceptor;
 import org.seasar.security.authentication.AuthenticationContextResolver;
 
 public class InvalidateInterceptor extends AbstractInterceptor {
-    
+
     private static final long serialVersionUID = -9148338075349463864L;
-    
+
     private AuthenticationContextResolver authenticationContextResolver;
 
-    public Object invoke(MethodInvocation invocation) throws Throwable {
-        Object result;
+    public Object invoke(final MethodInvocation invocation) throws Throwable {
+        Object result = null;
 
         try {
             result = invocation.proceed();
         } finally {
-            RemotingServiceAuthenticationContext authContext = (RemotingServiceAuthenticationContext) authenticationContextResolver
+            final RemotingServiceAuthenticationContext authContext = (RemotingServiceAuthenticationContext) authenticationContextResolver
                     .resolve();
             authContext.invalidate();
         }

@@ -11,7 +11,6 @@
 	-->
     <component
     	class="org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalImpl"
-    	instance="session"
     />
     <component
     	class="org.seasar.flex2.rpc.remoting.security.factory.impl.RemotingServicePrincipalFactoryImpl"
@@ -20,30 +19,36 @@
     <component
         name="authenticationContext"
         class="org.seasar.flex2.rpc.remoting.security.authentication.impl.RemotingServiceAuthenticationContextImpl"
-        instance="session"
     >
-    	<property name="realm">
-			<component
-		    	class="org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl"
-		   	>
-		   		<property name="userMap">
-		   			<component class="java.util.HashMap" >
-		   				<initMethod name="put">
-		   					<arg>"admin"</arg>
-		   					<arg>"adminpass"</arg>
-		   				</initMethod>
-		   			</component>
-		   		</property>
-		   		<property name="userRoleMap">
-		   			<component class="java.util.HashMap" >
-		   				<initMethod name="put">
-		   					<arg>"admin"</arg>
-		   					<arg>"adminrole"</arg>
-		   				</initMethod>
-		   			</component>
-		   		</property>
-		   	</component>
+    	<property name="storage">
+    		<component
+    			class="org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalSessionStorageImpl"
+    		/>
     	</property>
+    	<initMethod name="configRealm">
+	    	<arg>
+				<component
+			    	class="org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl"
+			   	>
+			   		<property name="userMap">
+			   			<component class="java.util.HashMap" >
+			   				<initMethod name="put">
+			   					<arg>"admin"</arg>
+			   					<arg>"adminpass"</arg>
+			   				</initMethod>
+			   			</component>
+			   		</property>
+			   		<property name="userRoleMap">
+			   			<component class="java.util.HashMap" >
+			   				<initMethod name="put">
+			   					<arg>"admin"</arg>
+			   					<arg>"adminrole"</arg>
+			   				</initMethod>
+			   			</component>
+			   		</property>
+			   	</component>
+		   	</arg>
+    	</initMethod>
     </component>
 
 	<!--

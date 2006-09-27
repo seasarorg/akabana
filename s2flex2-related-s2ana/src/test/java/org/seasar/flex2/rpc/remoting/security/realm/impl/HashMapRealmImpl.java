@@ -28,7 +28,7 @@ public class HashMapRealmImpl extends AbstractRemotingServiceRealmImpl {
 
     public RemotingServicePrincipal authenticate(final String name, final String password) {
         RemotingServicePrincipal principal = null;
-        if (password.equalsIgnoreCase(getPassword(name))) {
+        if (password.equals(getPassword(name))) {
             principal = createPrincipal(name,getRole(name));
         }
         return principal;

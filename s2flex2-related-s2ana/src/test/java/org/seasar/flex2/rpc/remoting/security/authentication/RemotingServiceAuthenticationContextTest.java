@@ -26,9 +26,12 @@ public class RemotingServiceAuthenticationContextTest extends S2TestCase {
         include(PATH);
     }
     
-    public void testIsUserInRole(){
+    public void testIsAuthenticated(){
         assertTrue("1",context.isAuthenticated());
-        assertFalse("2",context.isUserInRole("user"));
-        assertTrue("3",context.isUserInRole("adminrole"));
+    }
+
+    public void testIsUserInRole(){
+        assertFalse("1",context.isUserInRole("user"));
+        assertTrue("2",context.isUserInRole("adminrole"));
     }
 }
