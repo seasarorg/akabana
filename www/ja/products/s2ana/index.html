@@ -18,24 +18,7 @@
     <div id="logo">
       <h1 id="h01" class="hide">The Seasar Foundation Project Site</h1>
       <img src="../../images/logo-rc1.png" alt="The Seasar Foundation" width="400" height="110" align="LEFT"  /><img align="RIGHT"  alt="Akabana Project" height="110" src="../../images/seasar-logo.png" width="254"/></div>
-    <div id="tool">
-      <!--
-<h2><a href="http://search.seasar.org/">Site Search</a></h2>
-
-<form id="search" action="http://search.seasar.org/">
-<div>
-	<input id="search_phrase" type="text" name="phrase" size="20" />
-	<input type="hidden" name="perpage" value="30" />
-	<input type="hidden" name="enc" value="UTF-8" />
-	<input id="search_go" type="submit" value="Search" />
-</div>
-</form>
-
-<h2>Seasar Banner</h2>
-
-<p><a href="http://www.seasar.org/images/seasar_banner.gif"><img src="http://www.seasar.org/images/seasar_banner.gif" alt="Seasar Banner" title="Seasar Banner" width="146" height="33" /></a></p>
--->
-    </div>
+    
     <div id="navi">
       <p><a href="../en/">English</a> | <a href="../ja/">Japanese</a></p>
     </div>
@@ -76,14 +59,15 @@
       <div class="section">
         <h2>S2Flex2 related S2AnA(1.0.0-rc-1)</h2>
         <p><a href="http://s2flex2.sandbox.seasar.org/ja/" target="external">S2Flex2</a>と<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA" target="external">S2AnA</a>の連携し認証と承認機能を追加することを目的としたプロジェクトです。<br/>
-          いい名前を募集しています。</p>
+          ちょっと名前が長いので、いい名前を募集しています。</p>
         <h2> <a name="Overview">概要</a></h2>
-        <p>S2Flex2 related S2AnAは S2Flex2に認証と承認機能を追加することを可能にするアドオンプロジェクトです。</p>
-        <p>S2Flex2が動作しているWebアプリケーションに、<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA">S2AnA</a>のjarファイルと共にクラスパスに追加することで、Flexクライアントからサーバロジックを呼び出す際の認証としてS2AnAで設定されている認証情報を取得することが可能になります。</p>
+        <p>S2Flex2 related S2AnAは <a href="http://s2flex2.sandbox.seasar.org/ja/" target="internal">S2Flex2</a>に認証と承認機能を追加することを可能にするアドオンプロジェクトです。</p>
+        <p><a href="http://s2flex2.sandbox.seasar.org/ja/" target="internal">S2Flex2</a>が動作しているWebアプリケーションに、<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA">S2AnA</a>のjarファイルと共にクラスパスに追加することで、Flexクライアントからサーバロジックを呼び出す際の認証としてS2AnAで設定されている認証情報を取得することが可能になります。</p>
         <h2><a name="Features">機能</a></h2>
         <ul>
           <li>S2AnAで設定されている認証・承認機能の呼び出し</li>
-          <li>S2Flex2Componentsからヘッダとしてユーザ情報を送信して認証・承認</li>
+          <li>S2Flex2-Componentsを利用してヘッダとしてユーザ情報を送信して認証・承認</li>
+          <li></li>
         </ul>
         <p>その他S2AnAの機能についてはS2AnAの<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA">プロジェクトページ</a>をご参照ください。 </p>
         <h2><a name="Download">ダウンロード</a></h2>
@@ -103,10 +87,10 @@
         <p> S2Flex2-related-S2AnAをインストールして使用するには次の作業をします。</p>
         <ul>
           <li>jarファイルの配置</li>
-          <li>diconファイルの作成</li>
           <li>認証用クラスの作成</li>
+          <li>diconファイルの作成</li>
         </ul>
-        <h4>　　　jarの配置</h4>
+        <h4>jarの配置</h4>
         <p> s2flex2/S2Containerを利用する上で必要なファイルをコピーします。 </p>
         <ul>
           <li>aopalliance-1.0.jar</li>
@@ -122,16 +106,23 @@
           <li>s2-ana-core-0.1.7.jar</li>
           <li>s2-flex2-ana-1.0.0-rc-2.jar</li>
         </ul>
-        <h4>diconファイルの追加</h4>
+		<h4>認証用クラスの作成</h4>
+		<p>認証に使用するContext(authenticationContext)としてセットするrelmを作成します。</p>
+		<pre>org.seasar.flex2.rpc.remoting.security.realm.RemotingServiceRealm</pre>
+		<p>を実装したクラスを用意してContextに設定するようにします。	 </p>
+		<p>S2Flex2-related-S2AnAでは、testとして、HashMapを利用したrealmの実装を用意しています。</p>
+		<p>org.seasar.flex2.rpc.remoting.security.realm.impl
+		.HashMapRealmImpl</p>
+		
+		<h4>diconファイルの追加</h4>
         <p>S2AnAと連携する為に必要な設定を追加します。<br />
           diconファイルを追加します。</p>
         <h5>S2AnA用のdiconファイル（s2ana.dicon)</h5>
         <p>S2AnAのコンポーネントを定義します。以下はテストでも利用しているサンプル記述例です。</p>
-
         <pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />&lt;!DOCTYPE components PUBLIC &quot;-//SEASAR2.1//DTD S2Container//EN&quot;<br />    &quot;http://www.seasar.org/dtd/components21.dtd&quot;&gt;<br />&lt;components namespace=&quot;s2ana&quot;&gt;<br />    &lt;component<br />    	name=&quot;requireLoginOnly&quot;<br />		class=&quot;org.seasar.security.authorization.AuthenticatedAccessOnlyInterceptor&quot;<br />	/&gt;<br />    &lt;component<br />    	name=&quot;requireLogin&quot;<br />		class=&quot;org.seasar.security.authorization.AllowInterceptor&quot;<br />	&gt;<br />		&lt;arg&gt;{&quot;adminrole&quot;}&lt;/arg&gt;<br />	&lt;/component&gt;<br />    &lt;component<br />    	name=&quot;invalidateLogin&quot;<br />		class=&quot;org.seasar.flex2.rpc.remoting.security.authorization.InvalidateInterceptor&quot;<br />	/&gt;<br />    &lt;component<br />    	name=&quot;authenticationContextResolver&quot;<br />    	class=&quot;org.seasar.security.authentication.impl.AuthenticationContextResolverImpl&quot;&gt;<br />		&lt;property name=&quot;container&quot;&gt;container.getRoot()&lt;/property&gt;<br />   	&lt;/component&gt;<br />&lt;/components&gt;<br />
         </pre>
         <h5>S2Flex2との連携で必要なdiconファイル(s2lex-ana.dicon)</h5>
-        <p>次にS2AnAとS2Flex2を連携する上で必要なコンポーネントの設定を行います。上記のs2ana.diconをincludeし、Contextに認証に利用するrealmを指定します。下記にMapを利用した認証を行うrealmを指定した例を示します。</p>
+        <p>次にS2AnAとS2Flex2を連携する上で必要なコンポーネントの設定を行います。上記のs2ana.diconをincludeし、Contextに認証に利用するrealmを指定します。下記にHashMapを利用した認証を行うrealmを指定した例を示します。</p>
         <pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;Shift_JIS&quot;?&gt;
            &lt;!DOCTYPE components PUBLIC &quot;-//SEASAR2.1//DTD S2Container//EN&quot;
  &quot;http://www.seasar.org/dtd/components21.dtd&quot;&gt;
@@ -143,26 +134,26 @@
    &lt;component
            name=&quot;requestMessage&quot;
            class=&quot;org.seasar.flex2.rpc.remoting.message.data.Message&quot;
-           instance=&quot;request&quot;&gt;
+           instance=&quot;<strong>request</strong>&quot;&gt;
    &lt;/component&gt;
    &lt;!--
            Authentication
  　  --&gt;
    &lt;component
            class=&quot;org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalImpl&quot;
-           instance=&quot;request&quot;
+           instance=&quot;<strong>request</strong>&quot;
            /&gt;
    &lt;component
            class=&quot;org.seasar.flex2.rpc.remoting.security.factory.impl.RemotingServicePrincipalFactoryImpl&quot;
            /&gt;
-         &lt;component
+　　　&lt;component
            name=&quot;authenticationContext&quot;
            class=&quot;org.seasar.flex2.rpc.remoting.security.authentication.impl.RemotingServiceAuthenticationContextImpl&quot;
-           instance=&quot;request&quot;
+           instance=&quot;<strong>request</strong>&quot;
    &gt;
-   &lt;property name=&quot;realm&quot;&gt;
+   <strong>&lt;property name=&quot;realm&quot;&gt;</strong>
    		&lt;component
-           class=&quot;org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl&quot;&gt;
+           　　　class=&quot;org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl&quot;&gt;
 	   			&lt;property name=&quot;userMap&quot;&gt;
    				&lt;component class=&quot;java.util.HashMap&quot; &gt;
    					&lt;initMethod name=&quot;put&quot;&gt;
@@ -182,14 +173,17 @@
    	&lt;/component&gt;
    &lt;/property&gt;
    &lt;/component&gt;
-&lt;!--
-   Authorization
---&gt;
- &lt;/components&gt;</pre>
-        <h4>　　　　flex2クライアントからの認証情報を渡す</h4>
-        <p>flex2クライアントから認証情報をわたすには、NetConnection#setRemoteCredencialを利用してサーバにユーザ情報を渡します。<br />
-          <br />
-          (TBD) </p>
+&lt;/components&gt;</pre>
+        <p>上記の設定を追加したの記述例をresources以下にサンプルとして用意しています。 (s2flex-ana.dicon/s2ana.dicon)</p>
+        <h4>flex2クライアントからの認証情報を渡す</h4>
+        <p>flex2クライアントから認証情報をわたすには、S2Flex2Service#setRemoteCredencialを利用してサーバにユーザ情報を渡します。</p>
+        <p>例)</p>
+        <p>var paramcheckService:S2Flex2Service = new S2Flex2Service(); <br />
+          paramCheckService.<strong>setRetemoCredencial(&quot;user&quot;,&quot;pass&quot;);</strong><br />
+          paramCheckService.	getTypeCDto(3,typeA,typeB);<br />
+         :<br />
+         :
+        </p>
         <!--
         <p>追加する場所は、&lt;services-config&gt;タグの下になります。</p>
         <pre> &lt;factories&gt;
@@ -198,10 +192,8 @@
            </pre>
           -->
         <p><br>
-          上記の設定を追加したの記述例をresources以下にサンプルとして用意しています。 (s2flex-ana.dicon/s2ana.dicon)</p>
-        <h2> <a name="Usage" id="Usage">使い方</a></h2>
-        <h4>認証情報設定の追加</h4>
-        TBD </div>
+        </p>
+        </div>
     </div>
     <!-- article -->
   </div>
