@@ -108,7 +108,7 @@
     <dependency>
       <groupId>org.seasar.flex2</groupId>
       <artifactId>s2-flex2</artifactId>
-      <version>1.0.0-rc-2</version>
+      <version>1.0.0-rc-3</version>
       <scope>provided</scope>
     </dependency>         
     <dependency>

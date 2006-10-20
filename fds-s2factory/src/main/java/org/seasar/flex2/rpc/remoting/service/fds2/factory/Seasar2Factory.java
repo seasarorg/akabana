@@ -15,14 +15,24 @@
  */
 package org.seasar.flex2.rpc.remoting.service.fds2.factory;
 
+
+
+import javax.servlet.ServletConfig;
+
 import org.seasar.flex2.rpc.remoting.service.RemotingServiceLocator;
 import org.seasar.flex2.rpc.remoting.service.impl.RemotingServiceInvokerImpl;
 import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.deployer.ComponentDeployerFactory;
+import org.seasar.framework.container.deployer.ExternalComponentDeployerProvider;
+import org.seasar.framework.container.external.servlet.HttpServletExternalContext;
+import org.seasar.framework.container.external.servlet.HttpServletExternalContextComponentDefRegister;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 
 import flex.messaging.FactoryInstance;
+import flex.messaging.FlexContext;
 import flex.messaging.FlexFactory;
 import flex.messaging.config.ConfigMap;
+import flex.messaging.util.StringUtils;
 
 /**
  * <h4>Seasar2Factory</h4>
@@ -41,10 +51,22 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	/** ServiceLocator */
 	protected RemotingServiceLocator remotingServiceLocator;
 
+	private static final long serialVersionUID = 407266935204779128L;
+
+    public static final String CONFIG_PATH_KEY = "configPath";
+
+    public static final String DEBUG_KEY = "debug";
+
+//    public static final String COMMAND = "command";
+
+  //  public static final String RESTART = "restart";
+
 	/**
-	 * この
+	 * このメソッドでは、Factoryの定義を初期化するときに呼ばれます。
+	 * <!--
 	 * This method is called when the definition of an instance that this factory
 	 * looks up is initialized.
+	 * -->
 	 */
 	public FactoryInstance createFactoryInstance(String id, ConfigMap properties) {
 
@@ -82,10 +104,48 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	 *　設定情報とともにコンポーネントを初期化します。
 	 * Initializes the component with configuration information.
 	 * @param  id contains an identity you can use in diagnostic messages to determine which component's configuration this is
-	 * @param configMap  コンポーネントの設定情報 ncontains the properties for configuring this component.
+	 * @param configMap  コンポーネントの設定情報 contains the properties for configuring this component.
 	 */
 
 	public void initialize(final String id, final ConfigMap configMap) {
+
+		//S2Container intialize sequence.
+		String configPath = null;
+
+		ServletConfig servletConfig =FlexContext.getServletConfig();
+		
+        if (servletConfig != null) {
+            configPath = servletConfig.getInitParameter(CONFIG_PATH_KEY);    
+
+        }
+        if (!StringUtils.isEmpty(configPath)) {
+            SingletonS2ContainerFactory.setConfigPath(configPath);
+        }
+
+        
+        /* ここからSingletonContainerInitializerのかわり */
+        if (ComponentDeployerFactory.getProvider() instanceof ComponentDeployerFactory.DefaultProvider) {
+            ComponentDeployerFactory
+                    .setProvider(new ExternalComponentDeployerProvider());
+        }
+        
+        HttpServletExternalContext extCtx = new HttpServletExternalContext();
+        extCtx.setApplication(FlexContext.getServletContext());
+        
+        SingletonS2ContainerFactory.setExternalContext(extCtx);
+        SingletonS2ContainerFactory
+                .setExternalContextComponentDefRegister(new HttpServletExternalContextComponentDefRegister());
+        SingletonS2ContainerFactory.init();
+        /* ここまでSingletonContainerInitializerのかわり */
+        
+        
+        /*
+        SingletonContainerInitializer initializer = new SingletonS2ContainerInitializer();
+        initializer.setConfigPath(configPath);
+        initializer.setApplication(getServletContext());
+        initializer.initialize();
+        */
+        
 		S2Container container = SingletonS2ContainerFactory.getContainer();
 		remotingServiceLocator = (RemotingServiceLocator) container
 				.getComponent(RemotingServiceLocator.class);
