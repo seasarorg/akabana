@@ -53,7 +53,7 @@ public class RemotingServiceAuthenticationContextImpl implements
     }
 
     public boolean isAuthenticated() {
-        if (getUserPrincipal() == null ) {
+        if (getUserPrincipal() == null) {
             authenticate();
         }
         return getUserPrincipal() != null;
@@ -80,10 +80,10 @@ public class RemotingServiceAuthenticationContextImpl implements
 
     private final void doAuthenticate(final Message requestMessage) {
         final String userid = requestMessage
-                .getHeader(RemotingMessageConstants.REMOTE_CREDENTIALS_USERNAME);
+                .getHeader(RemotingMessageConstants.CREDENTIALS_USERNAME);
         if (userid != null) {
             final String password = requestMessage
-                    .getHeader(RemotingMessageConstants.REMOTE_CREDENTIALS_PASSWORD);
+                    .getHeader(RemotingMessageConstants.CREDENTIALS_PASSWORD);
             storage.savePrincipal(realm.authenticate(userid, password));
         }
     }

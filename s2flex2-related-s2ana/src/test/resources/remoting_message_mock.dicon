@@ -13,7 +13,7 @@
 			<arg>
 				<component class="org.seasar.flex2.rpc.remoting.message.data.MessageHeader">
 					<property name="name">
-						@org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants@REMOTE_CREDENTIALS_USERNAME
+						@org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants@CREDENTIALS_USERNAME
 					</property>
 					<property name="value">
 						"admin"
@@ -25,7 +25,7 @@
 			<arg>
 				<component class="org.seasar.flex2.rpc.remoting.message.data.MessageHeader">
 					<property name="name">
-						@org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants@REMOTE_CREDENTIALS_PASSWORD
+						@org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants@CREDENTIALS_PASSWORD
 					</property>
 					<property name="value">
 						"adminpass"
