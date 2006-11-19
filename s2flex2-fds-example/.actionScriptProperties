@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionScriptProperties mainApplicationPath="s2flex2-fds-example.mxml" version="1">
+<compiler additionalCompilerArguments="" copyDependentFiles="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersion="9.0.0" htmlPlayerVersionCheck="true" outputFolderPath="" sourceFolderPath="seasar2" strict="true" warn="true">
+<compilerSourcePath>
+<compilerSourcePathEntry kind="1" linkType="1" path="/Users/funakura/Desktop/eclipse/workspace/s2flex2-fds-example/WEB-INF/flex/user_classes"/>
+</compilerSourcePath>
+<libraryPath>
+<libraryPathEntry kind="1" linkType="1" path="/Users/funakura/Desktop/eclipse/workspace/s2flex2-fds-example/WEB-INF/flex/user_classes"/>
+<libraryPathEntry kind="1" linkType="1" path="/Users/funakura/Desktop/eclipse/workspace/s2flex2-fds-example/WEB-INF/flex/libs"/>
+<libraryPathEntry kind="1" linkType="1" path="/Users/funakura/Desktop/eclipse/workspace/s2flex2-fds-example/WEB-INF/flex/locale/{locale}"/>
+</libraryPath>
+<sourceAttachmentPath>
+<sourceAttachmentPathEntry kind="3" linkType="1" path="${FRAMEWORKS}/libs/flex.swc" sourcepath="${FRAMEWORKS}/source"/>
+</sourceAttachmentPath>
+</compiler>
+<applications>
+<application path="add.mxml"/>
+<application path="param.mxml"/>
+<application path="check.mxml"/>
+<application path="amf0_example.mxml"/>
+<application path="CameraSnapShotMain.mxml"/>
+<application path="PerformanceTest.mxml"/>
+<application path="seasar2/exception_example.mxml"/>
+</applications>
+</actionScriptProperties>
