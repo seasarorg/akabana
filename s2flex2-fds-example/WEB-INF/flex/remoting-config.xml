@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="remoting-service" 
+    class="flex.messaging.services.RemotingService" 
+    messageTypes="flex.messaging.messages.RemotingMessage">
+
+    <adapters>
+        <adapter-definition id="java-object" class="flex.messaging.services.remoting.adapters.JavaAdapter" default="true"/>
+    </adapters>
+
+    <default-channels>
+        <channel ref="my-amf"/>
+    </default-channels>
+    <destination id="addService">
+	   <properties>
+	   <factory>s2</factory>
+	   </properties>
+   </destination>
+    <destination id="checkService">
+	   <properties>
+	   <factory>s2</factory>
+	   </properties>
+   </destination>
+    <destination id="checkDtoService">
+	   <properties>
+	   <factory>s2</factory>
+	   </properties>
+   </destination>
+	<destination id="paramCheckService">
+	   <properties>
+	   <factory>s2</factory>
+	   </properties>
+   </destination>
+     <destination id="snapshotService">
+	   <properties>
+	   <factory>s2</factory>
+	   </properties>
+   </destination>
+     <destination id="performanceTestService">
+	   <properties>
+	   <factory>s2</factory>
+	   </properties>
+   </destination>     
+</service>

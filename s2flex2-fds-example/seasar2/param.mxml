@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	xmlns:s2="http://www.seasar.org/s2flex2/mxml">
+	<mx:Script>
+
+		<![CDATA[
+			import examples.flex2.add.dto.AddDto;
+			import examples.flex2.param.TypeCDto;
+			import examples.flex2.param.TypeBDto;
+			import examples.flex2.param.TypeADto;
+			import mx.utils.ObjectUtil;
+			import mx.utils.XMLUtil;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			private function onResult(resultEvent:ResultEvent):void{
+				var typeC:TypeCDto = resultEvent.result as TypeCDto; 
+				ret_text.text=ObjectUtil.toString(
+				typeC);
+			}
+			private function onFault(faultEvent:FaultEvent):void{
+				ret_text.text=ObjectUtil.toString(faultEvent.fault);
+			}
+
+			private function doService():void{
+				ret_text.text="";
+				var typeA:TypeADto = new TypeADto();
+				var typeB:TypeBDto = new TypeBDto();
+				var typeC:TypeCDto = new TypeCDto();
+				typeA.age=100;
+				typeA.firstName="michell";
+				typeA.lastName="dommy";
+				
+				typeB.dept="tech";
+				typeB.deptCd="1";
+				typeB.type=3;
+				paramCheckService.getTypeCDto(6,typeA,typeB);	
+			}
+		]]>
+	</mx:Script>
+	<mx:RemoteObject id="paramCheckService" destination="paramCheckService" result="onResult(event)" fault="onFault(event)" >
+		
+	</mx:RemoteObject>
+	<mx:Panel x="25" y="30" width="402" height="275" layout="absolute" title="paramcheckService">
+		<mx:TextArea x="5" y="7" height="188" width="372" id="ret_text"/>
+		<mx:ControlBar>
+			<mx:Button label="paramCheckService" click="doService()"/>
+		</mx:ControlBar>
+	</mx:Panel>
+	
+</mx:Application>

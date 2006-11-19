@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" layout="absolute" >
+	<mx:Script source="amf0_example_script.as"/>
+	<mx:TextInput x="24" y="24" width="114" id="arg1"/>
+	<mx:TextInput x="166" y="24" width="114" id="arg2"/>
+	<mx:Text x="147" y="26" text="+"/>
+	<mx:Text x="283" y="26" text="="/>
+	<mx:Label x="304" y="26" id="sum" width="67"/>
+	<mx:Button x="396" y="24" label="calculate" id="calcButton" click="calcButtonClick()"/>
+	<mx:Button x="484" y="24" label="calculate2" id="calcButton2" click="calcButton2Click()"/>
+</mx:Application>
