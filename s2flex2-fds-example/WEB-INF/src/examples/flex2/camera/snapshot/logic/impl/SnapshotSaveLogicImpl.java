@@ -13,20 +13,20 @@ import examples.flex2.camera.snapshot.naming.FileNameResolver;
 
 public class SnapshotSaveLogicImpl implements SnapshotSaveLogic {
 
-    private FileNameResolver fileNameResolver;
+	private FileNameResolver fileNameResolver;
 
-    private SnapshotServiceConfig snapshotServiceConfig;
+	private SnapshotServiceConfig snapshotServiceConfig;
 
-    public FileNameResolver getFileNameResolver() {
-        return fileNameResolver;
-    }
+	public FileNameResolver getFileNameResolver() {
+		return fileNameResolver;
+	}
 
-    public SnapshotServiceConfig getSnapshotServiceConfig() {
-        return snapshotServiceConfig;
-    }
+	public SnapshotServiceConfig getSnapshotServiceConfig() {
+		return snapshotServiceConfig;
+	}
 
-    public String save(SnapshotDto snapshot) {
-        Byte[] bytes = snapshot.getSource();
+	public String save(SnapshotDto snapshot) {
+		Byte[] bytes = snapshot.getSource();
 		File file = createSnapshotFile();
 		FileOutputStream fileOutputStream = FileOutputStreamUtil.create(file);
 
@@ -46,44 +46,28 @@ public class SnapshotSaveLogicImpl implements SnapshotSaveLogic {
 				}
 			}
 		}
+		return snapshotServiceConfig.getRootUri() + file.getName();
+	}
 
-         
+	public void setFileNameResolver(FileNameResolver fileNameResolver) {
+		this.fileNameResolver = fileNameResolver;
+	}
 
-         return snapshotServiceConfig.getRootUri() + file.getName();
-         /*
-			 * ByteArray bytearray = snapshot.getSource();
-			 * bytearray.uncompress(); byte[] buffer =
-			 * bytearray.getBufferBytes(); File file = createSnapshotFile();
-			 * FileOutputStream fileOutputSteam =
-			 * FileOutputStreamUtil.create(file); try {
-			 * fileOutputSteam.write(buffer); fileOutputSteam.flush(); } catch
-			 * (IOException e) { e.printStackTrace(); } finally { if
-			 * (fileOutputSteam != null) { try { fileOutputSteam.close(); }
-			 * catch (IOException e) { e.printStackTrace(); } } }
-			 * 
-			 * return snapshotServiceConfig.getRootUri() + file.getName();
-			 */
-    }
+	public void setSnapshotServiceConfig(SnapshotServiceConfig serviceConfig) {
+		this.snapshotServiceConfig = serviceConfig;
+	}
 
-    public void setFileNameResolver(FileNameResolver fileNameResolver) {
-        this.fileNameResolver = fileNameResolver;
-    }
+	private final String createFileName() {
+		return snapshotServiceConfig.getPrefix()
+				+ fileNameResolver.getFileName(null)
+				+ snapshotServiceConfig.getSuffix();
+	}
 
-    public void setSnapshotServiceConfig(SnapshotServiceConfig serviceConfig) {
-        this.snapshotServiceConfig = serviceConfig;
-    }
-
-    private final String createFileName() {
-        return snapshotServiceConfig.getPrefix()
-                + fileNameResolver.getFileName(null)
-                + snapshotServiceConfig.getSuffix();
-    }
-
-    private final File createSnapshotFile() {
-        File saveDir = new File(snapshotServiceConfig.getRootPath());
-        if (!saveDir.exists()) {
-            saveDir.mkdir();
-        }
-        return new File(snapshotServiceConfig.getRootPath() + createFileName());
-    }
+	private final File createSnapshotFile() {
+		File saveDir = new File(snapshotServiceConfig.getRootPath());
+		if (!saveDir.exists()) {
+			saveDir.mkdir();
+		}
+		return new File(snapshotServiceConfig.getRootPath() + createFileName());
+	}
 }
