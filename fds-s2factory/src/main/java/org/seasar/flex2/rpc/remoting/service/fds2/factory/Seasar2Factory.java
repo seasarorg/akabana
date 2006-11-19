@@ -35,12 +35,50 @@ import flex.messaging.config.ConfigMap;
 import flex.messaging.util.StringUtils;
 
 /**
- * <h4>Seasar2Factory</h4>
- * FDS2のFactoryMechanismを利用したFactoryクラスです。
+ * <h4>Seasar2ComponentsFactory</h4>
+ * <p>FDS2のFactoryMechanismを利用したFactoryクラスです。
  * Flex2クライアントから
- * S2Containerに登録されたコンポーネントを呼び出すことが可能になります。
+ * S2Containerに登録されたコンポーネントを呼び出すことが可能になります</p>
  * 
+ * <p>このfactoryを利用するには、services-config.xmlに以下の記述を追加します。<br />
+ * services-config.xmlは、FDS2アプリケーションディレクトリのWEB-INF/flex/以下にあります。</p>
+ *	&lt;factories&gt;
+ *		&lt;factory id="s2" class="org.seasar.flex2.rpc.remoting.service.fds2.factory.Seasar2Factory" /&gt;
+ *	&lt;/factories&gt;
  *
+ * あわせて、S2Containerを利用するのに必要な設定をweb.xml(WEB-INF/web.xml)に追記します。
+ *         
+ * 	&lt;filter&gt;
+ *		&lt;filter-name&gt;s2filter&lt;/filter-name&gt;
+ *		&lt;filter-class>org.seasar.framework.container.filter.S2ContainerFilter&lt;/filter-class&gt;
+ *	&lt;/filter&gt;
+ *	&lt;filter-mapping&gt;
+ *		&lt;filter-name&gt;s2filter&lt;/filter-name&gt;
+ *		&lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+ *	&lt;/filter-mapping&gt;
+ *
+ * Seasar2と連携する為に必要なjarファイルをWEB-INF/lib以下にコピーします。
+ * 	<ul>
+ *		<li>aopalliance-1.0.jar</li>
+ *		<li>geronimo-jta_1.0.1B_spec-1.0.jar</li>
+ *		<li>javassist-3.0.jar</li>
+ *		<li>log4j-1.2.13.jar</li>
+ *		<li>ognl-2.6.7.jar</li>
+ *		<li>s2-extension-2.4.x.jar</li>
+ *		<li>s2-fds-s2factory-xx.jar</li>
+ *		<li>s2-framework-2.4.x.jar</li>
+ *	</ul>
+ *  
+ *  ここまでで連携に必要な準備完了です。
+ *  あとは呼び出すサービス毎に以下のような記述を、WEB-INF/flex/remoting-config.xmlに追加します。
+ *	&lt;destination id="addService"&gt;
+ *		&lt;properties&gt;
+ *			&lt;factory&gt;s2&lt;/factory&gt;
+ *		&lt;/properties&gt;
+ *	&lt;/destination&gt;
+ *  <strong>id</strong>のところに、service名を記述します。
+ *  @version b3
+ *  @author nod
  */
 public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 		FlexFactory {
@@ -48,18 +86,12 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	/**  source tag  name CONSTANT */
 	private static final String SOURCE = "source";
 
-	/** ServiceLocator */
+	/** ServiceLocatorのインスタンス */
 	protected RemotingServiceLocator remotingServiceLocator;
 
 	private static final long serialVersionUID = 407266935204779128L;
-
+	/** Containerの設定ファイルパスを示す定数 */
     public static final String CONFIG_PATH_KEY = "configPath";
-
-    public static final String DEBUG_KEY = "debug";
-
-//    public static final String COMMAND = "command";
-
-  //  public static final String RESTART = "restart";
 
 	/**
 	 * このメソッドでは、Factoryの定義を初期化するときに呼ばれます。
@@ -84,18 +116,24 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	 * サービス名よりS2Containerに登録されているコンポーネントを取得します。
 	 * ロジック実行は、Adapterによって起動されます
 	 * 
-	 * @param FactoryInstance
+	 * @param FactoryInstance FactoryInstance
 	 * @return Object S2Containerより取得したコンポーネント
 	 * <br/>
+	 * <!--
 	 * Returns the instance specified by the source
 	 * and properties arguments. 
+	 * -->
 	 */
 
 	public Object lookup(FactoryInstance factoryInstance) {
 		//if source elements is not found,return the id attribute.
 		//see createFactoryInstance methods.
+		
 		String serviceName = factoryInstance.getSource();
 		final Object service = remotingServiceLocator.getService(serviceName);
+		
+		//limits.
+		// 1.sessionData Import/Export not supported.
 		return service;
 	}
 
@@ -121,7 +159,6 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
         if (!StringUtils.isEmpty(configPath)) {
             SingletonS2ContainerFactory.setConfigPath(configPath);
         }
-
         
         /* ここからSingletonContainerInitializerのかわり */
         if (ComponentDeployerFactory.getProvider() instanceof ComponentDeployerFactory.DefaultProvider) {
@@ -137,15 +174,7 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
                 .setExternalContextComponentDefRegister(new HttpServletExternalContextComponentDefRegister());
         SingletonS2ContainerFactory.init();
         /* ここまでSingletonContainerInitializerのかわり */
-        
-        
-        /*
-        SingletonContainerInitializer initializer = new SingletonS2ContainerInitializer();
-        initializer.setConfigPath(configPath);
-        initializer.setApplication(getServletContext());
-        initializer.initialize();
-        */
-        
+
 		S2Container container = SingletonS2ContainerFactory.getContainer();
 		remotingServiceLocator = (RemotingServiceLocator) container
 				.getComponent(RemotingServiceLocator.class);

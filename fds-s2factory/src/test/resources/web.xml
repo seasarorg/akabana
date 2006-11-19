@@ -79,12 +79,14 @@
         <load-on-startup>10</load-on-startup>
     </servlet>
 
+<!-- 
+beta 2 no more required.
     <servlet>
         <servlet-name>s2servlet</servlet-name>
         <servlet-class>org.seasar.framework.container.servlet.S2ContainerServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    
+-->    
     <servlet-mapping>
         <servlet-name>MessageBrokerServlet</servlet-name>
         <url-pattern>/messagebroker/*</url-pattern>
@@ -114,12 +116,13 @@
         <servlet-name>FlexInternalServlet</servlet-name>
         <url-pattern>/flex-internal/*</url-pattern>
     </servlet-mapping>
-    
+<!--
+beta 2 no more requied.    
     <servlet-mapping>
         <servlet-name>s2servlet</servlet-name>
         <url-pattern>/s2servlet</url-pattern>
     </servlet-mapping>
-    
+-->    
 	<filter>
 		<filter-name>s2filter</filter-name>
 		<filter-class>org.seasar.framework.container.filter.S2ContainerFilter</filter-class>
