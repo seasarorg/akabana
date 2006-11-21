@@ -58,7 +58,7 @@
         </init-param>
         <!-- SwfServlet must be initialized after MxmlServlet -->
         <load-on-startup>2</load-on-startup>
-    </servlet>Fs2
+    </servlet>
     <servlet>
         <servlet-name>FlexForbiddenServlet</servlet-name>
         <display-name>Prevents access to *.as/*.swc files</display-name>
