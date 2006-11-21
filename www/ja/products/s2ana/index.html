@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Content-Language" content="ja" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
-<title>AKABANA - S2Flex2 related S2AnA(1.0.0-rc-1)</title>
+<title>AKABANA - S2Flex2 related S2AnA(1.0.0-rc-5)</title>
 <link rel="stylesheet" type="text/css" href="http://www.seasar.org/theme/main.css" media="screen,projection" />
 <link rel="stylesheet" type="text/css" href="http://www.seasar.org/theme/print.css" media="print" />
 <link href="./css/maven-base.css" type="text/css" rel="stylesheet" media="screen" />
@@ -57,7 +57,7 @@
   <div id="contents_center">
     <div id="article">
       <div class="section">
-        <h2>S2Flex2 related S2AnA(1.0.0-rc-1)</h2>
+        <h2>S2Flex2 related S2AnA(1.0.0-rc-5)</h2>
         <p><a href="http://s2flex2.sandbox.seasar.org/ja/" target="external">S2Flex2</a>と<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA" target="external">S2AnA</a>の連携し認証と承認機能を追加することを目的としたプロジェクトです。<br/>
           ちょっと名前が長いので、いい名前を募集しています。</p>
         <h2> <a name="Overview">概要</a></h2>
@@ -67,7 +67,7 @@
         <ul>
           <li>S2AnAで設定されている認証・承認機能の呼び出し</li>
           <li>S2Flex2-Componentsを利用してヘッダとしてユーザ情報を送信して認証・承認</li>
-          <li></li>
+          
         </ul>
         <p>その他S2AnAの機能についてはS2AnAの<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA">プロジェクトページ</a>をご参照ください。 </p>
         <h2><a name="Download">ダウンロード</a></h2>
@@ -77,10 +77,10 @@
         <p><br />
           S2Flex2-related-S2AnAを利用するには以下のものを必要とします。</p>
         <ul>
-          <li><a href="http://s2flex2.sandbox.seasar.org/" target="external">S2Flex2</a>(beta7以降 rc-2以降推奨) </li>
+          <li><a href="http://s2flex2.sandbox.seasar.org/" target="external">S2Flex2</a></li>
           <li><a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA" target="external">S2AnA</a></li>
           <li><a href="http://s2flex2.sandbox.seasar.org/ja/" target="external">S2Flex2-components</a></li>
-          <li><a href="http://s2container.seasar.org/" target="exernal">S2 Container 2.4(rc-1/rc-2)</a></li>
+          <li><a href="http://s2container.seasar.org/" target="exernal">S2 Container 2.4</a></li>
         </ul>
         <p> その他S2Flex2/S2Containerを利用する上で必要なものを一緒にdeployする必要があります。</p>
         <h2><a name="Install" id="Install">インストール</a> </h2>
@@ -98,13 +98,14 @@
           <li>javassist-3.0.jar</li>
           <li>log4j-1.2.13.jar</li>
           <li>ognl-2.6.7.jar</li>
-          <li>s2-extension-2.4.0-rc-1.jar</li>
-          <li>s2-framework-2.4.0-rc-1.jar</li>
+          <li>s2-extension-2.4.x.jar</li>
+          <li>s2-framework-2.4.x.jar</li>
+          <li>s2-flex2-1.0.1.jar</li>
         </ul>
         <p>S2AnA連携を行うのに、追加で必要なjarファイルは以下の通りです。
         <ul>
           <li>s2-ana-core-0.1.7.jar</li>
-          <li>s2-flex2-ana-1.0.0-rc-2.jar</li>
+          <li>s2-flex2-ana-1.0.0-rc-5.jar</li>
         </ul>
 		<h4>認証用クラスの作成</h4>
 		<p>認証に使用するContext(authenticationContext)としてセットするrelmを作成します。</p>
@@ -176,11 +177,11 @@
 &lt;/components&gt;</pre>
         <p>上記の設定を追加したの記述例をresources以下にサンプルとして用意しています。 (s2flex-ana.dicon/s2ana.dicon)</p>
         <h4>flex2クライアントからの認証情報を渡す</h4>
-        <p>flex2クライアントから認証情報をわたすには、S2Flex2Service#setRemoteCredencialを利用してサーバにユーザ情報を渡します。</p>
+        <p>flex2クライアントから認証情報をわたすには、S2Flex2Service#setCredencialを利用してサーバにユーザ情報を渡します。</p>
         <p>例)</p>
         <p>var paramcheckService:S2Flex2Service = new S2Flex2Service(); <br />
-          paramCheckService.<strong>setRetemoCredencial(&quot;user&quot;,&quot;pass&quot;);</strong><br />
-          paramCheckService.	getTypeCDto(3,typeA,typeB);<br />
+          paramCheckService.<strong>setCredencial(&quot;user&quot;,&quot;pass&quot;);</strong><br />
+          paramCheckService.getTypeCDto(3,typeA,typeB);<br />
          :<br />
          :
         </p>
