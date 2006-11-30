@@ -16,6 +16,12 @@
 		<property name="interceptorName">"aop.traceInterceptor"</property>
 		<property name="pointcut">"do.*, initialize"</property>
 	</component>
+	<!-- for s2AnA related -->
+	<component
+		name="serviceAspectCustomizer"
+		class="org.seasar.framework.container.customizer.AspectCustomizer">
+		<property name="interceptorName">"s2ana.requireLogin"</property>
+	</component>
 
 	<component
 		name="remotingServiceCustomizer"
@@ -66,13 +72,17 @@
 	<component
 		name="serviceCustomizer"
 		class="org.seasar.framework.container.customizer.CustomizerChain">
-		<!--
+
 		<initMethod name="addCustomizer">
 			<arg>defaultCustomizer</arg>
 		</initMethod>
-		-->
+
 		<initMethod name="addCustomizer">
 			<arg>remotingServiceCustomizer</arg>
+		</initMethod>
+
+		<initMethod name="addCustomizer">
+			<arg>serviceAspectCustomizer</arg>
 		</initMethod>
 	</component>
 </components>
