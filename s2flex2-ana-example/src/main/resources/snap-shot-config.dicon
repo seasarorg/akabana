@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<component
+		name="snapshotServiceConfig"
+		class="examples.flex2.camera.snapshot.config.SnapshotServiceConfig">
+        <property name="rootPath">application.getRealPath(".") + "/snapshot/"</property>
+        <property name="rootUri">"http://127.0.0.1:8080/s2flex2-ana-example/snapshot/"</property>
+        <property name="prefix">"snapshot_"</property>
+        <property name="suffix">".png"</property>
+    </component>
+        <component
+    	name="fileNameResolver" class="examples.flex2.camera.snapshot.naming.impl.FileNameResolverImpl" />
+</components>

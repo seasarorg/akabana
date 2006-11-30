@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+
+	<include path="s2ana.dicon" />
+	<component
+		class="org.seasar.flex2.rpc.remoting.message.data.factory.impl.MessageFactoryImpl" />
+	
+		<component
+		name="requestMessage"
+		class="org.seasar.flex2.rpc.remoting.message.data.Message"
+		instance="request">
+		<!--
+		<initMethod name="addHeader">
+			<arg>
+				<component class="org.seasar.flex2.rpc.remoting.message.data.MessageHeader">
+					<property name="name">
+						@org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants@REMOTE_CREDENTIALS_USERNAME
+					</property>
+					<property name="value">
+						"admin"
+					</property>
+				</component>
+			</arg>
+		</initMethod>
+		<initMethod name="addHeader">
+			<arg>
+				<component class="org.seasar.flex2.rpc.remoting.message.data.MessageHeader">
+					<property name="name">
+						@org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants@REMOTE_CREDENTIALS_PASSWORD
+					</property>
+					<property name="value">
+						"adminpass"
+					</property>
+				</component>
+			</arg>
+		</initMethod>
+		-->
+	</component>
+	<!--
+		Authentication
+	-->
+    <component
+    	class="org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalImpl"
+    	instance="request"
+    />
+    <component
+    	class="org.seasar.flex2.rpc.remoting.security.factory.impl.RemotingServicePrincipalFactoryImpl"
+    />
+
+    <component
+        name="authenticationContext"
+        class="org.seasar.flex2.rpc.remoting.security.authentication.impl.RemotingServiceAuthenticationContextImpl"
+        instance="request"
+    >
+    	<property name="realm">
+			<component
+		    	class="org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl"
+		   	>
+		   		<property name="userMap">
+		   			<component class="java.util.HashMap" >
+		   				<initMethod name="put">
+		   					<arg>"admin"</arg>
+		   					<arg>"adminpass"</arg>
+		   				</initMethod>
+		   			</component>
+		   		</property>
+		   		<property name="userRoleMap">
+		   			<component class="java.util.HashMap" >
+		   				<initMethod name="put">
+		   					<arg>"admin"</arg>
+		   					<arg>"adminrole"</arg>
+		   				</initMethod>
+		   			</component>
+		   		</property>
+		   	</component>
+    	</property>
+    </component>
+
+	<!--
+		Authorization
+	-->
+
+</components>

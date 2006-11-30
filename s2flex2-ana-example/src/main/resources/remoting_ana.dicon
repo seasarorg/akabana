@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN" 
+	"http://www.seasar.org/dtd/components23.dtd">
+<components namespace="remoting">
+	<include path="remoting_amf3.dicon"/>
+
+	<!--
+		Authentication
+	-->
+    <component
+    	class="org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalImpl"
+    	instance="prototype"
+    />
+    <component
+    	class="org.seasar.flex2.rpc.remoting.security.factory.impl.RemotingServicePrincipalFactoryImpl"
+    />
+
+    <component
+        name="authenticationContext"
+        class="org.seasar.flex2.rpc.remoting.security.authentication.impl.RemotingServiceAuthenticationContextImpl">
+            	<property name="realm">
+			<component
+		    	class="org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl"
+		   	>
+		   		<property name="userMap">
+		   			<component class="java.util.HashMap" >
+		   				<initMethod name="put">
+		   					<arg>"admin"</arg>
+		   					<arg>"adminpass"</arg>
+		   				</initMethod>
+		   			</component>
+		   		</property>
+		   		<property name="userRoleMap">
+		   			<component class="java.util.HashMap" >
+		   				<initMethod name="put">
+		   					<arg>"admin"</arg>
+		   					<arg>"adminrole"</arg>
+		   				</initMethod>
+		   			</component>
+		   		</property>
+		   	</component>
+    	</property>
+    	<property name="storage">
+    		<component
+    			class="org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalSessionStorageImpl"
+    		/>
+    	</property>
+    </component>
+</components>

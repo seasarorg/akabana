@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s2="http://www.seasar.org/s2flex2/mxml" xmlns="*" creationComplete="initApp()" layout="absolute" >
+	<mx:states>
+		<mx:State name="List">
+			<mx:AddChild position="lastChild">
+				<mx:DataGrid x="20" y="40" dataProvider="{this.checkDtoList}" height="254" width="758">
+					<mx:columns>
+						<mx:DataGridColumn headerText="id" dataField="id"/>
+						<mx:DataGridColumn headerText="name" dataField="name"/>
+						<mx:DataGridColumn headerText="address" dataField="address"/>
+						<mx:DataGridColumn headerText="doubleValue" dataField="doubleValue"/>
+						<mx:DataGridColumn headerText="minus" dataField="minus"/>
+						<mx:DataGridColumn headerText="createTime" dataField="createTime"/>													
+					</mx:columns>
+				</mx:DataGrid>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="20" y="10" label="getList" click="getCheckList()"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{id_txt}"/>
+			<mx:RemoveChild target="{name_txt}"/>
+			<mx:RemoveChild target="{create_date_txt}"/>
+			<mx:RemoveChild target="{button1}"/>
+			<mx:RemoveChild target="{list_txt}"/>
+			<mx:RemoveChild target="{array_txt}"/>
+			<mx:RemoveChild target="{address_txt}"/>
+			<mx:RemoveChild target="{dValue_txt}"/>
+			<mx:RemoveChild target="{boolean_txt}"/>
+			<mx:RemoveChild target="{minus_txt}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="625" y="10" label="back to the base state" click="currentState=''"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{button2}"/>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="20" y="319" width="253" height="42" id="debug"/>
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+<mx:Script source="check_script.as" />
+<s2:S2Flex2Service id="checkDtoService" destination="checkDtoService"
+	result="onResult(event)" fault="onFault(event)" showBusyCursor="true" />
+<s2:S2Flex2Service id="checkDtoServiceList" destination="checkDtoService"
+	result="onListResult(event)" fault="onFault(event)" showBusyCursor="true" />
+
+	<mx:Button x="20" y="27" label="getCheckDto" id="button1" click="getCheckDto()"/>
+	<mx:TextInput x="171" y="27" id="id_txt" text="{checkDto.id}"/>
+	<mx:TextInput x="171" y="57" id="name_txt" text="{checkDto.name}"/>
+	<mx:TextInput x="171" y="87" id="create_date_txt" text="{checkDto.createTime.toString()}"/>
+	<mx:TextInput x="171" y="147" id="boolean_txt" text="{checkDto.b.toString()}" />
+	<mx:TextInput x="171" y="177" id="dValue_txt" text="{checkDto.doubleValue.toString()}"/>
+	<mx:TextInput x="171" y="207" id="address_txt" text="{checkDto.address}"/>
+	<mx:TextInput x="171" y="117" id="minus_txt" text="{checkDto.minus.toString()}"/>
+	<mx:Button x="404" y="0" label="list" click="currentState='List'" id="button2"/>
+	<mx:TextArea x="171" y="289" id="list_txt" width="160" height="53"/>
+	<mx:TextArea x="171" y="237" id="array_txt" width="160"/>
+</mx:Application>

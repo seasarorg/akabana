@@ -1,0 +1,26 @@
+<project name="s2flex2-ana-example" default="dist" basedir=".">
+
+	<property name="ver" value="1.0.0"/>
+
+	<target name="dist">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="target"/>
+		</delete>
+		<mkdir dir="target"/>
+		<zip zipfile="target/s2flex2-ana-example-${ver}.zip">
+			<zipfileset prefix="s2flex2-ana-example" dir=".">				
+				<include name="WEB-INF"/>
+				<include name="WEB-INF/**"/>
+				<include name="work"/>
+				<include name="src"/>
+				<include name="src/**"/>
+				<include name="html-template"/>
+				<include name="html-template/**"/>
+				<include name="bin"/>
+				<include name="bin/**"/>
+				<include name=".*"/>
+				<include name="*" />
+			</zipfileset>
+		</zip>
+	</target>
+</project>

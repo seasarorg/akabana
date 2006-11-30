@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	xmlns:s2="http://www.seasar.org/s2flex2/mxml" xmlns:amf="com.renaun.rpc.*">
+	<mx:Script>
+
+		<![CDATA[
+
+			import mx.rpc.AsyncToken;
+			import examples.flex2.add.dto.AddDto;
+			import examples.flex2.param.TypeCDto;
+			import examples.flex2.param.TypeBDto;
+			import examples.flex2.param.TypeADto;
+			import mx.utils.ObjectUtil;
+			import mx.utils.XMLUtil;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import org.seasar.flex2.rpc.remoting.S2Flex2Service;
+			
+			private var addService:S2Flex2Service;
+			private function onResult(resultEvent:ResultEvent):void{
+			//private function onResult(resultEvent:*):void{
+			
+				var typeC:TypeCDto = resultEvent.result as TypeCDto; 
+				ret_text.text=ObjectUtil.toString(
+				typeC);
+			}
+			private function onFault(faultEvent:FaultEvent):void{
+				ret_text.text=ObjectUtil.toString(faultEvent.fault);
+			}
+			private function onGetData(resultEvent:ResultEvent):void{
+				var addDto:AddDto = resultEvent.result as AddDto;
+				if(addDto!=null){
+					arg1_txt.text=addDto.arg1.toString();
+					arg2_txt.text=addDto.arg2.toString();
+					sum_txt.text=addDto.sum.toString();
+				}
+			}
+			private function getFromSession():void{
+				//S2Flex2ServiceはScriptで生成する方法もあります。
+				addService=  new S2Flex2Service();
+				addService.destination="addService";
+				addService.addEventListener(ResultEvent.RESULT,onGetData);
+				addService.addEventListener(FaultEvent.FAULT,onFault);
+				addService.getAddDtoData();
+				
+				/*
+				    service.addEventListener(IOErrorEvent.IO_ERROR,failurProcess);
+		            service.addEventListener(IOErrorEvent.NETWORK_ERROR,failurProcess);
+		            service.addEventListener(NetStatusEvent.NET_STATUS,failurProcess);
+		            service.addEventListener(SecurityErrorEvent.SECURITY_ERROR,failurProcess);
+		            service.addEventListener(FaultEvent.FAULT, failurProcess)
+           		 */
+				
+			}
+			private function doService():void{
+				ret_text.text="";
+				var typeA:TypeADto = new TypeADto();
+				var typeB:TypeBDto = new TypeBDto();
+				var typeC:TypeCDto = new TypeCDto();
+				typeA.age=100;
+				typeA.firstName="michell";
+				typeA.lastName="dommy";
+				
+				typeB.dept="tech";
+				typeB.deptCd="1";
+				typeB.type=3;
+				
+				/*
+				result="onResult(event)" fault="onFault(event)" 
+				*/
+				//var call : Object =paramCheckService.getTypeCDto(6,typeA,typeB);
+
+			
+				//var asyncToken:AsyncToken = 
+				paramCheckService.getTypeCDto(3,typeA,typeB);
+				
+				
+				/*
+		  		
+  				asyncToken.addEventListener(ResultEvent.RESULT,onResult);
+				asyncToken.addEventListener(FaultEvent.FAULT,onFault);
+				*/
+				//asyncToken.addResponder(new mx.rpc.Responder(onResult,onFault));
+		  		//asyncToken.resultHandler = onResult;
+  				//asyncToken.faultHandler = onFault;
+				
+				
+			}
+		]]>
+	</mx:Script>
+		<!--
+	<amf:RemoteObjectAMF0 endpoint="http://localhost:8080/flex2_example/gateway" id="paramCheckService" source="paramCheckService" showBusyCursor="true" 		result="event.token.resultHandler( event )"
+		fault="event.token.faultHandler( event )"
+		 />
+-->
+
+	<s2:S2Flex2Service id="paramCheckService" destination="paramCheckService" result="onResult(event)" fault="onFault(event)" >
+		
+	</s2:S2Flex2Service>
+
+	<mx:Panel x="435" y="30" width="198" height="167" layout="absolute" title="AddDto(from Session)">
+		<mx:TextInput x="10" y="10" id="arg1_txt"/>
+		<mx:TextInput x="10" y="40" id="arg2_txt"/>
+		<mx:TextInput x="10" y="70" id="sum_txt"/>
+		<mx:Button x="10" y="100" label="getFromSession!" click="getFromSession()"/>
+	</mx:Panel>
+	<mx:Panel x="25" y="30" width="402" height="275" layout="absolute" title="paramcheckService">
+		<mx:TextArea x="5" y="7" height="188" width="372" id="ret_text"/>
+		<mx:ControlBar>
+			<mx:Button label="paramCheckService" click="doService()"/>
+		</mx:ControlBar>
+	</mx:Panel>
+	
+</mx:Application>

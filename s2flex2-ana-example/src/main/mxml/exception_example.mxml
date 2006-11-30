@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s2="http://www.seasar.org/s2flex2/mxml" xmlns="*"  layout="absolute" >
+<mx:Script source="exception_example_script.as" />
+<s2:S2Flex2Service id="amf" destination="exceptionService"  
+	result="onResult(event)" fault="onFault(event)" showBusyCursor="true" netStatus="onNetStatus(event)">
+</s2:S2Flex2Service>
+	<mx:TextArea x="225" y="22" id="faultcode_txt" wordWrap="true" width="248" height="79" text="faultcode"/>
+	<mx:TextArea x="225" y="118" id="description_txt" wordWrap="true" width="248" height="79" text="description"/>
+	<mx:TextArea x="225" y="219" id="message_txt" wordWrap="true" width="248" height="79" text="message"/>
+	<mx:Button x="10" y="22" label="exception" click="execute()"/>
+	<mx:Button x="10" y="52" label="exception(invalid ServiceName)" click="execute2()"/>
+</mx:Application>

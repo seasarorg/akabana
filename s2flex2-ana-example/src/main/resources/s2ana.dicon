@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+    "http://www.seasar.org/dtd/components21.dtd">
+<components namespace="s2ana">
+  	
+    <component
+    	name="requireLoginOnly"
+		class="org.seasar.security.authorization.AuthenticatedAccessOnlyInterceptor"
+	/>
+    <component
+    	name="requireLogin"
+		class="org.seasar.security.authorization.AllowInterceptor"
+	>
+		<arg>{"adminrole"}</arg>
+	</component>
+    <component
+    	name="invalidateLogin"
+		class="org.seasar.flex2.rpc.remoting.security.authorization.InvalidateInterceptor"
+	/>
+
+    <component
+    	name="authenticationContextResolver"
+    	class="org.seasar.security.authentication.impl.AuthenticationContextResolverImpl">
+		<property name="container">container.getRoot()</property>
+   	</component>
+
+</components>
+

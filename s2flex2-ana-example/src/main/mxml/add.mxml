@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s2="http://www.seasar.org/s2flex2/mxml" xmlns="*"  layout="absolute" >
+<mx:Script source="add_script.as" />
+<s2:S2Flex2Service id="amf" destination="addService" 
+	result="onResult(event)" fault="onFault(event)" showBusyCursor="true" />
+	<mx:Panel x="61.5" y="33" width="456" height="200" layout="absolute" title="足し算 ">
+		<mx:TextInput x="10" y="10" id="arg1_txt" width="58" tabIndex="1"/>
+		<mx:TextInput x="92" y="10" id="arg2_txt" width="46" tabIndex="2"/>
+		<mx:Label x="76" y="12" text="+" height="20"/>
+		<mx:TextInput x="161.5" y="10" id="ans_txt" editable="false"/>
+		<mx:Label x="146" y="12" text="=" height="20"/>
+		<mx:Button x="345.5" y="10" label="enter" click="calculate()" id="doBtn" tabIndex="3"/>
+	</mx:Panel>
+</mx:Application>
