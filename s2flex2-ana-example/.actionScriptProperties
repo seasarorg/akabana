@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<actionScriptProperties mainApplicationPath="add.mxml" version="1">
-<compiler additionalCompilerArguments="-locale en_US" copyDependentFiles="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersion="9.0.0" htmlPlayerVersionCheck="true" outputFolderPath="bin" sourceFolderPath="src/main/mxml" strict="true" warn="true">
-<compilerSourcePath>
-<compilerSourcePathEntry kind="1" linkType="1" path="/Users/funakura/Desktop/eclipse/workspace/flex2_example/src/main/actionscript"/>
-</compilerSourcePath>
-<libraryPath>
-<libraryPathEntry kind="3" linkType="2" path="${FRAMEWORKS}/libs/playerglobal.swc"/>
-<libraryPathEntry kind="3" linkType="1" path="${FRAMEWORKS}/libs/utilities.swc"/>
-<libraryPathEntry kind="3" linkType="1" path="${FRAMEWORKS}/libs/framework.swc" sourcepath="${FRAMEWORKS}/source"/>
-<libraryPathEntry kind="3" linkType="1" path="${FRAMEWORKS}/libs/rpc.swc"/>
-<libraryPathEntry kind="3" linkType="1" path="${FRAMEWORKS}/libs/charts.swc"/>
-<libraryPathEntry kind="1" linkType="1" path="${FRAMEWORKS}/locale/{locale}"/>
-<libraryPathEntry kind="3" linkType="1" path="/Users/funakura/Desktop/eclipse/workspace/flex2_example/src/lib/swc/s2flex2-components.swc"/>
-<libraryPathEntry kind="3" linkType="1" path="${FRAMEWORKS}/libs/flex.swc"/>
-</libraryPath>
-<sourceAttachmentPath>
-<sourceAttachmentPathEntry kind="3" linkType="1" path="${FRAMEWORKS}/libs/framework.swc" sourcepath="${FRAMEWORKS}/source"/>
-</sourceAttachmentPath>
-</compiler>
-<applications>
-<application path="add.mxml"/>
-<application path="param.mxml"/>
-<application path="check.mxml"/>
-<application path="PerformanceTest.mxml"/>
-<application path="CameraSnapShotMain.mxml"/>
-<application path="exception_example.mxml"/>
-</applications>
+<actionScriptProperties version="1" mainApplicationPath="add.mxml">
+  <compiler additionalCompilerArguments="-locale en_US" copyDependentFiles="true" generateAccessible="false" strict="true" warn="true" htmlGenerate="true" htmlPlayerVersionCheck="true" htmlPlayerVersion="9.0.0" htmlExpressInstall="true" htmlHistoryManagement="true" outputFolderPath="bin" sourceFolderPath="src\main\mxml">
+    <compilerSourcePath>
+      <compilerSourcePathEntry kind="1" path="${DOCUMENTS}\s2flex2-ana-example\src\main\actionscript"/>
+    </compilerSourcePath>
+    <libraryPath>
+      <libraryPathEntry kind="3" path="${FRAMEWORKS}/libs/playerglobal.swc" linkType="2"/>
+      <libraryPathEntry kind="3" path="${FRAMEWORKS}/libs/utilities.swc" linkType="1"/>
+      <libraryPathEntry kind="3" path="${FRAMEWORKS}/libs/framework.swc" linkType="1" sourcepath="${FRAMEWORKS}/source"/>
+      <libraryPathEntry kind="3" path="${FRAMEWORKS}/libs/rpc.swc" linkType="1"/>
+      <libraryPathEntry kind="3" path="${FRAMEWORKS}/libs/charts.swc" linkType="1"/>
+      <libraryPathEntry kind="1" path="${FRAMEWORKS}/locale/{locale}" linkType="1"/>
+      <libraryPathEntry kind="3" path="${FRAMEWORKS}/libs/flex.swc" linkType="1"/>
+      <libraryPathEntry kind="3" path="${DOCUMENTS}\s2flex2-ana-example\src\lib\swc\s2flex2-components.swc" linkType="1" sourcepath="${DOCUMENTS}\s2flex2-components"/>
+    </libraryPath>
+    <sourceAttachmentPath>
+      <sourceAttachmentPathEntry kind="3" path="${FRAMEWORKS}/libs/framework.swc" sourcepath="${FRAMEWORKS}/source"/>
+      <sourceAttachmentPathEntry kind="3" path="${DOCUMENTS}\s2flex2-ana-example\src\lib\swc\s2flex2-components.swc" sourcepath="${DOCUMENTS}\s2flex2-components"/>
+    </sourceAttachmentPath>
+  </compiler>
+  <applications>
+    <application path="add.mxml"/>
+    <application path="param.mxml"/>
+    <application path="check.mxml"/>
+    <application path="PerformanceTest.mxml"/>
+    <application path="CameraSnapShotMain.mxml"/>
+    <application path="exception_example.mxml"/>
+  </applications>
 </actionScriptProperties>

@@ -5,7 +5,7 @@
 	<include path="convention.dicon"/>
 	<include path="aop.dicon"/>
 	<include path="remoting_ana.dicon"/>
-	<include path="s2flex-ana.dicon" />
+
 	<include condition="#ENV != 'ut'" path="flex2_example-cooldeploy.dicon"/>
-	
+	<include path="s2flex-ana.dicon" />	
 </components>
