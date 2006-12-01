@@ -37,8 +37,8 @@
 			}
 			private function getFromSession():void{
 				//S2Flex2ServiceはScriptで生成する方法もあります。
-				addService=  new S2Flex2Service();
-				addService.destination="addService";
+				addService=  new S2Flex2Service("addService");
+				addService.initialized(this,"addService");
 				addService.addEventListener(ResultEvent.RESULT,onGetData);
 				addService.addEventListener(FaultEvent.FAULT,onFault);
 				addService.getAddDtoData();
