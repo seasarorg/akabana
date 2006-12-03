@@ -1,4 +1,6 @@
 package examples.flex2.check.dto {
+	import mx.collections.ArrayCollection;
+	
 	[RemoteClass(alias="examples.flex2.check.dto.CheckDto")]
 	public dynamic class CheckDto {
 		[Bindable]
@@ -18,6 +20,6 @@ package examples.flex2.check.dto {
 		[Bindable]
 		public var address:String;
 		[Bindable]
-		public var list:Array;
+		public var list:ArrayCollection;
 	}
 }
