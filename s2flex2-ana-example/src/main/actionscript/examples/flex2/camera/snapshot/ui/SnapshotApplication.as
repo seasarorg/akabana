@@ -40,8 +40,8 @@ package examples.flex2.camera.snapshot.ui
 
             	snapshotHolder.addChild(snapshotbitmap);
             	snapshotPanel.addChild(snapshotHolder);
-            	snapshotService = new S2Flex2Service();
-            	snapshotService.initilized(this,"snapshotService");
+            	snapshotService = new S2Flex2Service("snapshotService");
+            	snapshotService.initialized(this,"snapshotService");
             	snapshotService.destination="snapshotService";
 
             }
