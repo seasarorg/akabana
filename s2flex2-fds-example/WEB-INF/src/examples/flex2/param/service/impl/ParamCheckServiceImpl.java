@@ -7,9 +7,10 @@ import org.seasar.flex2.rpc.remoting.service.annotation.RemotingService;
 import examples.flex2.param.dto.TypeADto;
 import examples.flex2.param.dto.TypeBDto;
 import examples.flex2.param.dto.TypeCDto;
+import examples.flex2.param.service.ParamCheckService;
 
 @RemotingService
-public class ParamCheckServiceImpl {
+public class ParamCheckServiceImpl implements ParamCheckService{
 	public TypeCDto getTypeCDto(int index,TypeADto aDto,TypeBDto b){
 		TypeCDto typeCDto = new TypeCDto();
 		aDto.setAge(20);
