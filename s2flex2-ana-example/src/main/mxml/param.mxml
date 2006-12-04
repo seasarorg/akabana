@@ -56,9 +56,9 @@
 				typeB.dept="tech";
 				typeB.deptCd="1";
 				typeB.type=3;
-
+                
+				paramCheckService.setCredentials("admin","adminpass");
 				paramCheckService.getTypeCDto(3,typeA,typeB);
-
 			}
 		]]>
 	</mx:Script>
@@ -70,6 +70,7 @@
 		<mx:TextInput x="10" y="70" id="sum_txt"/>
 		<mx:Button x="10" y="100" label="getFromSession!" click="getFromSession()"/>
 	</mx:Panel>
+	
 	<mx:Panel x="25" y="30" width="402" height="275" layout="absolute" title="paramcheckService(sws)">
 		<mx:TextArea x="5" y="7" height="188" width="372" id="ret_text"/>
 		<mx:ControlBar>

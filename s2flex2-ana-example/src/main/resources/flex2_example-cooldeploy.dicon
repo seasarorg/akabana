@@ -5,13 +5,19 @@
 	<include path="convention.dicon"/>
 	<include path="flex2_example-customizer.dicon"/>
 	<include path="snap-shot-config.dicon" />
+	
 	<component
-		class="org.seasar.framework.container.creator.DtoCreator"/>
+		class="org.seasar.framework.container.creator.DtoCreator">
+		<property name="dtoCustomizer">dtoCustomizer</property>
+	</component>
 	<component
-		class="org.seasar.framework.container.creator.LogicCreator"/>
+		class="org.seasar.framework.container.creator.LogicCreator">
+		<property name="logicCustomizer">logicCustomizer</property>
+	</component>
 	<component
-		class="org.seasar.framework.container.creator.ServiceCreator"/>
-
+		class="org.seasar.framework.container.creator.ServiceCreator">
+		<property name="serviceCustomizer">serviceCustomizer</property>
+	</component>
 	<component class="org.seasar.framework.container.cooldeploy.CoolComponentAutoRegister"/>
 
 </components>
