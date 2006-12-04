@@ -30,7 +30,7 @@ public class RemotingServiceAuthenticationContextImpl implements
 
     private MessageFactory messageFactory;
 
-    private RemotingServiceRealm realm;
+    private RemotingServiceRealm remotingServiceRealm;
 
     private RemotingServicePrincipalStorage storage;
 
@@ -38,10 +38,6 @@ public class RemotingServiceAuthenticationContextImpl implements
         if (getRemotingServicePrincipal() == null) {
             doAuthenticate(messageFactory.createRequestMessage());
         }
-    }
-
-    public void configRealm(final RemotingServiceRealm realm) {
-        this.realm = realm;
     }
 
     public final Principal getUserPrincipal() {
@@ -63,15 +59,18 @@ public class RemotingServiceAuthenticationContextImpl implements
         boolean isUserInRole = false;
 
         if (isAuthenticated()) {
-            if (realm.hasRole(getRemotingServicePrincipal(), role)) {
-                isUserInRole = true;
-            }
+            isUserInRole = remotingServiceRealm.hasRole(getRemotingServicePrincipal(), role);
         }
+        
         return isUserInRole;
     }
 
     public void setMessageFactory(MessageFactory messageFactory) {
         this.messageFactory = messageFactory;
+    }
+
+    public void setRemotingServiceRealm(final RemotingServiceRealm remotingServiceRealm) {
+        this.remotingServiceRealm = remotingServiceRealm;
     }
 
     public void setStorage(RemotingServicePrincipalStorage storage) {
@@ -84,7 +83,7 @@ public class RemotingServiceAuthenticationContextImpl implements
         if (userid != null) {
             final String password = requestMessage
                     .getHeader(RemotingMessageConstants.CREDENTIALS_PASSWORD);
-            storage.savePrincipal(realm.authenticate(userid, password));
+            storage.savePrincipal(remotingServiceRealm.authenticate(userid, password));
         }
     }
 

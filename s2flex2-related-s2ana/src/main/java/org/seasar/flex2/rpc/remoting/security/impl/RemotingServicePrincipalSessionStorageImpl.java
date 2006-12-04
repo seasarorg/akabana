@@ -26,7 +26,7 @@ import org.seasar.framework.container.S2Container;
 public class RemotingServicePrincipalSessionStorageImpl implements
         RemotingServicePrincipalStorage {
 
-    private static final String PRINCEPAL_SESSION_KEY = "RSPrincipal";
+    private static final String PRINCEPAL_SESSION_KEY = "_rsPrincipal_";
 
     private S2Container container;
 
@@ -45,7 +45,7 @@ public class RemotingServicePrincipalSessionStorageImpl implements
     }
 
     private final void doSaveUserPrincipal(final Principal principal) {
-        getSession().setAttribute("RSPrincipal", principal);
+        getSession().setAttribute(PRINCEPAL_SESSION_KEY, principal);
     }
 
     private final HttpSession getSession() {

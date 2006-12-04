@@ -16,6 +16,33 @@
     	class="org.seasar.flex2.rpc.remoting.security.factory.impl.RemotingServicePrincipalFactoryImpl"
     />
 
+	<!--
+		Realm
+	-->
+	<component
+    	class="org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl"
+   	>
+   		<property name="userMap">
+   			<component class="java.util.HashMap" >
+   				<initMethod name="put">
+   					<arg>"admin"</arg>
+   					<arg>"adminpass"</arg>
+   				</initMethod>
+   			</component>
+   		</property>
+   		<property name="userRoleMap">
+   			<component class="java.util.HashMap" >
+   				<initMethod name="put">
+   					<arg>"admin"</arg>
+   					<arg>"adminrole"</arg>
+   				</initMethod>
+   			</component>
+   		</property>
+   	</component>
+
+	<!--
+		Authentication Context
+	-->
     <component
         name="authenticationContext"
         class="org.seasar.flex2.rpc.remoting.security.authentication.impl.RemotingServiceAuthenticationContextImpl"
@@ -25,30 +52,6 @@
     			class="org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalSessionStorageImpl"
     		/>
     	</property>
-    	<initMethod name="configRealm">
-	    	<arg>
-				<component
-			    	class="org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl"
-			   	>
-			   		<property name="userMap">
-			   			<component class="java.util.HashMap" >
-			   				<initMethod name="put">
-			   					<arg>"admin"</arg>
-			   					<arg>"adminpass"</arg>
-			   				</initMethod>
-			   			</component>
-			   		</property>
-			   		<property name="userRoleMap">
-			   			<component class="java.util.HashMap" >
-			   				<initMethod name="put">
-			   					<arg>"admin"</arg>
-			   					<arg>"adminrole"</arg>
-			   				</initMethod>
-			   			</component>
-			   		</property>
-			   	</component>
-		   	</arg>
-    	</initMethod>
     </component>
 
 	<!--
