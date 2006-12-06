@@ -9,6 +9,7 @@
 			</zipfileset>
 			<zipfileset prefix="s2flex2-related-s2ana/lib" dir="target">
 				<include name="s2-flex2-ana-${ver}.jar"/>
+				<include name="s2-flex2-ana-${ver}-sources.jar"/>
 			</zipfileset>	
 		</zip>
 	</target>
