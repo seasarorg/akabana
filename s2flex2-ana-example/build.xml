@@ -1,6 +1,6 @@
 <project name="s2flex2-ana-example" default="dist" basedir=".">
 
-	<property name="ver" value="1.0.0"/>
+	<property name="ver" value="1.0.0-rc-5"/>
 
 	<target name="dist">
 		<delete includeemptydirs="true" failonerror="false">
