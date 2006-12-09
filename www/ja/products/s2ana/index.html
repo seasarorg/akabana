@@ -126,57 +126,7 @@
         </pre>
         <h5>S2Flex2との連携で必要なdiconファイル(remoting_ana.dicon)</h5>
         <p>次にS2AnAとS2Flex2を連携する上で必要なコンポーネントの設定を行います。上記のs2ana.diconをincludeし、Contextに認証に利用するrealmを指定します。下記にHashMapを利用した認証を行うrealmを指定した例を示します。</p>
-        <pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;Shift_JIS&quot;?&gt;
-           &lt;!DOCTYPE components PUBLIC &quot;-//SEASAR2.1//DTD S2Container//EN&quot;
- &quot;http://www.seasar.org/dtd/components21.dtd&quot;&gt;
- &lt;components&gt;
-  <strong>&lt;include path=&quot;s2ana.dicon&quot; /&gt;</strong>
-   &lt;component
-           class=&quot;org.seasar.flex2.rpc.remoting.message.data.factory.impl.MessageFactoryImpl&quot; /&gt;
-   
-   &lt;component
-           name=&quot;requestMessage&quot;
-           class=&quot;org.seasar.flex2.rpc.remoting.message.data.Message&quot;
-           instance=&quot;<strong>request</strong>&quot;&gt;
-   &lt;/component&gt;
-   &lt;!--
-           Authentication
- 　  --&gt;
-   &lt;component
-           class=&quot;org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalImpl&quot;
-           instance=&quot;<strong>request</strong>&quot;
-           /&gt;
-   &lt;component
-           class=&quot;org.seasar.flex2.rpc.remoting.security.factory.impl.RemotingServicePrincipalFactoryImpl&quot;
-           /&gt;
-　　　&lt;component
-           name=&quot;authenticationContext&quot;
-           class=&quot;org.seasar.flex2.rpc.remoting.security.authentication.impl.RemotingServiceAuthenticationContextImpl&quot;
-           instance=&quot;<strong>request</strong>&quot;
-   &gt;
-   <strong>&lt;property name=&quot;realm&quot;&gt;</strong>
-   		&lt;component
-           　　　class=&quot;org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl&quot;&gt;
-	   			&lt;property name=&quot;userMap&quot;&gt;
-   				&lt;component class=&quot;java.util.HashMap&quot; &gt;
-   					&lt;initMethod name=&quot;put&quot;&gt;
-   						&lt;arg&gt;&quot;admin&quot;&lt;/arg&gt;
-   						&lt;arg&gt;&quot;adminpass&quot;&lt;/arg&gt;
-   					&lt;/initMethod&gt;
-   				&lt;/component&gt;
-   			&lt;/property&gt;
-   			&lt;property name=&quot;userRoleMap&quot;&gt;
-   				&lt;component class=&quot;java.util.HashMap&quot; &gt;
-   					&lt;initMethod name=&quot;put&quot;&gt;
-   						&lt;arg&gt;&quot;admin&quot;&lt;/arg&gt;
-   						&lt;arg&gt;&quot;adminrole&quot;&lt;/arg&gt;
-   					&lt;/initMethod&gt;
-   				&lt;/component&gt;
-   			&lt;/property&gt;
-   	&lt;/component&gt;
-   &lt;/property&gt;
-   &lt;/component&gt;
-&lt;/components&gt;</pre>
+        
         <pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;Shift_JIS&quot;?&gt;<br />&lt;!DOCTYPE components PUBLIC &quot;-//SEASAR//DTD S2Container 2.3//EN&quot; <br />	&quot;http://www.seasar.org/dtd/components23.dtd&quot;&gt;<br />&lt;components namespace=&quot;remoting_ana&quot;&gt;<br />	&lt;include path=&quot;remoting_amf3.dicon&quot;/&gt;<br />	&lt;!--<br />		Authentication<br />	--&gt;<br />    &lt;component<br />    	class=&quot;org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalImpl&quot;<br />    	instance=&quot;prototype&quot;<br />    /&gt;<br />    &lt;component<br />    	class=&quot;org.seasar.flex2.rpc.remoting.security.factory.impl.RemotingServicePrincipalFactoryImpl&quot;<br />    /&gt;
 
 	&lt;!--<br />		Realm<br />	--&gt;<br />	&lt;component<br />    	class=&quot;examples.security.realm.impl.HashMapRealmImpl&quot;<br />   	&gt;<br />   		&lt;property name=&quot;userMap&quot;&gt;<br />   			&lt;component class=&quot;java.util.HashMap&quot; &gt;<br />   				&lt;initMethod name=&quot;put&quot;&gt;<br />   					&lt;arg&gt;&quot;admin&quot;&lt;/arg&gt;<br />   					&lt;arg&gt;&quot;adminpass&quot;&lt;/arg&gt;<br />   				&lt;/initMethod&gt;<br />   			&lt;/component&gt;<br />   		&lt;/property&gt;<br />   		&lt;property name=&quot;userRoleMap&quot;&gt;<br />   			&lt;component class=&quot;java.util.HashMap&quot; &gt;<br />   				&lt;initMethod name=&quot;put&quot;&gt;<br />   					&lt;arg&gt;&quot;admin&quot;&lt;/arg&gt;<br />   					&lt;arg&gt;&quot;adminrole&quot;&lt;/arg&gt;<br />   				&lt;/initMethod&gt;<br />   			&lt;/component&gt;<br />   		&lt;/property&gt;<br />   	&lt;/component&gt;
