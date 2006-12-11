@@ -42,12 +42,13 @@ import flex.messaging.util.StringUtils;
  * 
  * <p>このfactoryを利用するには、services-config.xmlに以下の記述を追加します。<br />
  * services-config.xmlは、FDS2アプリケーションディレクトリのWEB-INF/flex/以下にあります。</p>
+ * <pre>
  *	&lt;factories&gt;
  *		&lt;factory id="s2" class="org.seasar.flex2.rpc.remoting.service.fds2.factory.Seasar2Factory" /&gt;
  *	&lt;/factories&gt;
- *
+ * </pre>
  * あわせて、S2Containerを利用するのに必要な設定をweb.xml(WEB-INF/web.xml)に追記します。
- *         
+ * <pre>        
  * 	&lt;filter&gt;
  *		&lt;filter-name&gt;s2filter&lt;/filter-name&gt;
  *		&lt;filter-class>org.seasar.framework.container.filter.S2ContainerFilter&lt;/filter-class&gt;
@@ -56,7 +57,7 @@ import flex.messaging.util.StringUtils;
  *		&lt;filter-name&gt;s2filter&lt;/filter-name&gt;
  *		&lt;url-pattern&gt;/*&lt;/url-pattern&gt;
  *	&lt;/filter-mapping&gt;
- *
+ * </pre>
  * Seasar2と連携する為に必要なjarファイルをWEB-INF/lib以下にコピーします。
  * 	<ul>
  *		<li>aopalliance-1.0.jar</li>
@@ -68,16 +69,18 @@ import flex.messaging.util.StringUtils;
  *		<li>s2-fds-s2factory-xx.jar</li>
  *		<li>s2-framework-2.4.x.jar</li>
  *	</ul>
- *  
+ *  <p>
  *  ここまでで連携に必要な準備完了です。
- *  あとは呼び出すサービス毎に以下のような記述を、WEB-INF/flex/remoting-config.xmlに追加します。
+ *  あとは呼び出すサービス毎に以下のような記述を、WEB-INF/flex/remoting-config.xmlに追加します。</p>
+ *  <pre>
  *	&lt;destination id="addService"&gt;
  *		&lt;properties&gt;
  *			&lt;factory&gt;s2&lt;/factory&gt;
  *		&lt;/properties&gt;
  *	&lt;/destination&gt;
+ *  </pre>
  *  <strong>id</strong>のところに、service名を記述します。
- *  @version b3
+ *  @version b2
  *  @author nod
  */
 public class Seasar2Factory extends RemotingServiceInvokerImpl implements
@@ -139,7 +142,7 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 
 	/**
 	 * 
-	 *　設定情報とともにコンポーネントを初期化します。
+	 *　設定情報とともにコンポーネントを初期化します。<br />
 	 * Initializes the component with configuration information.
 	 * @param  id contains an identity you can use in diagnostic messages to determine which component's configuration this is
 	 * @param configMap  コンポーネントの設定情報 contains the properties for configuring this component.
