@@ -9,7 +9,8 @@
 				<exclude name="src/test/**"/>
 			</zipfileset>
 			<zipfileset prefix="fds-s2factory/lib" dir="target">
-				<include name="s2flex2-${ver}.jar"/>
+				<include name="s2-fds-s2factory-${ver}.jar"/>
+				<include name="s2-fds-s2factory-${ver}-sources.jar"/>
 			</zipfileset>
 			<zipfileset prefix="fds-s2factory/resources" dir="src/test/resources">
 				<include name="services-config.xml"/>
