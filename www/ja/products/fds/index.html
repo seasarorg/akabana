@@ -81,11 +81,13 @@
         FDS2で用意されているFactory Mechanismを利用してS2Flex2の処理部分を呼び出します。</p>
         <p>flex.messaging.FlexFactoryを実装したRemotingServiceInvokerを用意することでFDS2からs2flex2のロジック呼び出しを可能にしています。</p>
         <h2><a name="Features">機能</a></h2>
-        <p> ・FDS 2の設定ファイルに記述されたserviceをもとにS2Containerに登録されているコンポーネントを呼び出します。<br />
-          ・RemotingService(meta/Annotation)の有無による呼び出しコンポーネントの制限 <br />
-          ・アノテーションによるSessionからデータのimport,SessionへのデータExportをサポート </p>
+        <ul>
+        	<li>FDS 2の設定ファイルに記述されたserviceをもとにS2Containerに登録されているコンポーネントを呼び出します。</li>
+        	<li>RemotingService(meta/Annotation)の有無による呼び出しコンポーネントの制限 </li>
+        	<li>アノテーションによるSessionからデータのimport,SessionへのデータExportをサポート </li>
+        </ul>	
         <h2><a name="Download">ダウンロード</a></h2>
-        <p> <a href="/">akabana</a>のサイトより<a href="../../../downloads/2006-08-22/fds-s2factory-example-B1.zip">download</a>することができます。<br />
+        <p> <a href="/">akabana</a>のサイトより<a href="../../../downloads.html">download</a>することができます。<br />
           また、<a href="../../source-repository.html">ソースリポジトリ</a>より最新のものをチェックアウトすることも可能です。 </p>
         <h2><a name="Prerequisites" id="Prerequisites"></a>前提条件</h2>
         <p><br />
@@ -108,8 +110,8 @@
            <li>ognl-2.6.7.jar</li>
            <li>s2-extension-2.4.x.jar</li>
            <li>s2-framework-2.4.x.jar</li>
-          <li>s2-fds-s2factory-b3.jar</li>
-           <li>s2-flex2-1.0.1.jar</li>
+          <li>s2-fds-s2factory-b2.jar</li>
+           <li>s2-flex2-1.0.x.jar</li>
          </ul>
         <h4>　　　web.xmlの更新</h4>
         <p>S2flex2を利用する為に必要な設定を追加します。<br />
