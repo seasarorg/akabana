@@ -1,0 +1,25 @@
+<project name="s2flex2-fds-example" default="dist" basedir=".">
+
+	<property name="ver" value="b2"/>
+
+	<target name="dist">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="target"/>
+		</delete>
+		<mkdir dir="target"/>
+		<zip zipfile="target/s2flex2-fds-example-${ver}.zip">
+			<zipfileset prefix="s2flex2-fds-example" dir=".">				
+				<include name="WEB-INF"/>
+				<include name="WEB-INF/**"/>
+				<include name="work"/>
+				<include name="src"/>
+				<include name="src/**"/>
+				<include name="seasar2"/>
+				<include name="seasar2/**"/>
+				<include name="snapshot"/>
+				<include name=".*"/>
+				<include name="*" />
+			</zipfileset>
+		</zip>
+	</target>
+</project>
