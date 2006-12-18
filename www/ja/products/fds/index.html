@@ -100,7 +100,7 @@
         <p> その他S2Flex2/S2Containerで必要なものを一緒にdeployする必要があります。</p>
         <h2><a name="Install" id="Install">インストール</a> </h2>
         <p> FDS用のS2Factoryをインストールして使用するには</p>
-         <h4>　　　jarの配置</h4>
+         <h4>jarの配置</h4>
          <p> s2flex2/S2Containerを利用する上で必要なファイルをコピーします。 </p>
          <ul>
            <li>aopalliance-1.0.jar</li>
@@ -113,7 +113,7 @@
           <li>s2-fds-s2factory-b2.jar</li>
            <li>s2-flex2-1.0.x.jar</li>
          </ul>
-        <h4>　　　web.xmlの更新</h4>
+        <h4>web.xmlの更新</h4>
         <p>S2flex2を利用する為に必要な設定を追加します。<br />
         web.xmlに以下の記述を追加します。</p>
 <!--        
@@ -128,8 +128,8 @@
    &lt;servlet-name&gt;s2servlet&lt;/servlet-name&gt;
    &lt;url-pattern&gt;/s2servlet&lt;/url-pattern&gt;
    &lt;/servlet-mapping&gt;
-		</pre>-->
-		filterの設定
+</pre>-->
+		<p>filterの設定</p>
         <pre>
    &lt;filter&gt;
    &lt;filter-name&gt;s2filter&lt;/filter-name&gt;
@@ -142,17 +142,17 @@
    &lt;/filter-mapping&gt;
            </pre>
         <p>　　　上記設定を追加したweb.xmlをresources以下にサンプルとして用意しています。</p>
-        <h4>　　　　factoryを利用する設定(services-config.xml)</h4>
-        <p><br />
-          services-config.xmlに以下の設定を追加します。</p>
-        <p>　　　　追加する場所は、&lt;services-config&gt;タグの下になります。</p>
+        <h4>factoryを利用する設定(services-config.xml)</h4>
+        <br />
+        <p>services-config.xmlに以下の設定を追加します。</p>
+        <p>追加する場所は、&lt;services-config&gt;タグの下になります。</p>
 <pre>&lt;factories&gt;
 	&lt;factory id=&quot;s2&quot; class=&quot;org.seasar.flex2.rpc.remoting.service.fds2.factory.Seasar2Factory&quot; /&gt;
 &lt;/factories&gt;</pre>
         <p><br>
           上記のservices-config.xmlの記述例をresources以下にサンプルとして用意しています。 </p>
         <h2> <a name="Usage" id="Usage">使い方</a></h2>
-        <h4>　サービスの追加</h4>
+        <h4>サービスの追加</h4>
         <p>　　　remoting-config.xmlにFlexクライアントから呼び出すserviceの設定を追加します。<br />
           以下はaddServiceというサービスを設定する場合の例です。</p>
         <pre>&lt;destination id=&quot;addService&quot;&gt;
@@ -169,12 +169,75 @@
           S2Flex2を通じてS2Containerに登録されたコンポーネントを呼び出す際には、RemotingServiceが設定されていなければなりません。<br />
           RemotingServiceは以下の方法で登録することが可能です。</p>
         <ul>
-          <li>Metaタグ</li>
-          <li>Annotation(JDK5.0のみ) </li>
+			<li>アノテーション(JDK5.0) </li>
+          <li>定数アノテーション(JDK1.4.x) </li>   
 	    </ul>           
             <p>
-              どちらも登録されていないときには、Flexクライアントから呼び出すことができません。<br />
-              これは、FDS2のremoting-config.xmlに定義されていても同様です。            </p>
+              いづれの方法でも登録されていないときには、AutoRegisterでも、SmartDeployでのCustomizerでもServiceクラスにMeta情報が登録されません。
+              RemotingSericeが設定されていないServiceは、Flexクライアントから呼び出すことができません。<br />
+              通常FDS2 ではremoting-config.xmlにSevriceを記述すれば呼び出す事が可能になりますが、S2Factoryを利用するときには、remoting-config.xmlに加えてRemotingServiceが定義されている必要があります。</p>
+			<h5>アノテーション</h5>
+              <p>JDK5.0のときには、アノテーションを利用してRemotingServiceを指定することができます。<br />
+              例）</p>
+              <pre>
+<b>@RemotingService</b>
+public class AddServiceImpl implements AddService {
+	:
+	:
+}
+			</pre>
+              <p>上記のRemotingServiceは、S2lex2-tigerに含まれています。<br />
+              アノテーションで設定するときには、S2Flex2とともにS2flex2-tigerを一緒にご利用ください。</p>
+              <p>flex2-fds-exampleはこのアノテーションを利用してFlex 2クライアントからServiceとして呼び出せるようにしています。</p>
+            
+			 <h5>定数アノテーション</h5>
+			 
+			 <p>JDK1.4環境では、定数アノテーションを指定することで、ServiceとしてFlex 2クライアントから呼び出すことが可能になります。<br />
+			 また、JDK5.0環境においても、S2Flex2-tigerがクラスパス上に無いときには、定数アノテーションで指定します。<br />
+           例）</p>
+              <pre>
+
+public class AddServiceImpl implements AddService {
+	<b>public static final String REMOTING_SERVICE = "addService";</b>
+:
+:
+}
+</pre>
+<h4>RemotingServiceの登録</h4>
+<p>アノテーションまたは、定数アノテーションでService単位に設定した後、Containerに登録する必要があります。<br />
+登録するには、以下の方法があります。</p>
+	<ul>
+      <li>Customizerによる登録 </li>
+      <li>AutoRegisterによる登録</li>
+    </ul>
+ <h5>Customizerによる登録</h5>
+<p>S2 Container 2.4から導入されたSmartDeployを利用するには、Customizerを利用します。customizer.dicon</p>
+<pre>
+&lt;component
+	name=&quot;remotingServiceCustomizer&quot;
+	class=&quot;org.seasar.flex2.rpc.remoting.service.customizer.RemotingServiceCustomizer&quot;&gt;
+&lt;/component&gt;
+</pre>
+    
+              <h5>AutoRegisterによる登録</h5>
+              <p>diconファイルで、以下のように指定します。</p>
+              <pre>
+&lt;component
+  class=&quot;org.seasar.flex2.rpc.remoting.service.autoregister.FileSystemRemotingServiceAutoRegister"&gt;
+    &lt;initMethod name=&quot;addClassPattern&quot;&gt;
+        <strong>&lt;arg&gt;&quot;examples.flex2&quot;&lt;/arg&gt;</strong>
+        <strong>&lt;arg&gt;&quot;.*ServiceImpl&quot;&lt;/arg>&gt;</strong>
+    &lt;/initMethod&gt;
+    &lt;initMethod name=&quot;addClassPattern&quot;&gt;
+        <strong>&lt;arg&gt;&quot;examples.flex2&quot;&lt;/arg&gt;</strong>
+        <strong>&lt;arg&gt;&quot;.*FacadeImpl&quot;&lt;/arg&gt;</strong>
+    &lt;/initMethod&gt;
+&lt;/component&gt;
+	</pre>
+<p>addClassPatternで指定するのは、第一引数がrootになるパッケージ、第二引数が登録するクラスパターンになります。<br/>
+上記の例では、example.flex2から始まるパッケージでServiceImplで終わるクラスを登録します。<br/
+addClassPatternは複数指定することができます。登録したいパターンだけ並べます。上記では、ひとつめのAddClassPatternでServiceImplで終わるクラスを、２つめのAddClassPatternでFacadeImplで終わるクラスもRemotingServiceを登録しています。</p>
+
       </div>
     </div>
     <!-- article -->
