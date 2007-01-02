@@ -8,7 +8,7 @@
   <artifactId>s2-fds-s2factory</artifactId>
   <packaging>jar</packaging>
   <name>fds-s2Facotry</name>
-  <version>b2</version>
+  <version>b3-SNAPSHOT</version>
   <description></description>
   <url>http://akabana.sandbox.seasar.org/</url>
   <issueManagement>
@@ -140,6 +140,12 @@
       <name>The Seasar Foundation Maven2 Repository</name>
       <url>scp://maven.seasar.org/home/groups/maven/public_html/maven2</url>
     </repository>
+    <snapshotRepository>
+      <uniqueVersion>true</uniqueVersion>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Snapshot Repository</name>
+      <url>scp://maven.seasar.org/home/groups/maven/maven/maven2-snapshot</url>
+    </snapshotRepository>
   </distributionManagement>
   <reporting>
     <plugins>
