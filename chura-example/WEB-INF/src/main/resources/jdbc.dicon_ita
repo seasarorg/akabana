@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components namespace="jdbc">
+	<include path="jta.dicon"/>
+
+	<component class="org.seasar.extension.jdbc.impl.BasicResultSetFactory"/>
+	<component class="org.seasar.extension.jdbc.impl.ConfigurableStatementFactory">
+		<arg>
+			<component class="org.seasar.extension.jdbc.impl.BasicStatementFactory"/>
+		</arg>
+		<property name="fetchSize">100</property>
+		<!--
+		<property name="maxRows">100</property>
+		-->
+	</component>
+	<!--
+	<component class="org.seasar.extension.jdbc.impl.OracleResultSetFactory"/>
+	<component class="org.seasar.extension.jdbc.impl.BooleanToIntStatementFactory"/>
+	-->
+
+	<!-- for Sybase -->
+	<component name="xaDataSource"
+		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
+		<property name="driverClassName">
+			"com.sybase.jdbc2.jdbc.SybDriver"
+		</property>
+		<property name="URL">
+			"jdbc:sybase:Tds:10.16.3.62:1025/ita?charset=cp932"
+		</property>
+		<property name="user">"ita"</property>
+		<property name="password">"asayen"</property>
+	</component>
+
+	<!-- for HSQLDB -->
+	<!-- 
+	<component name="xaDataSource"
+		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
+		<property name="driverClassName">
+			"org.hsqldb.jdbcDriver"
+		</property>
+		<property name="URL">
+			"jdbc:hsqldb:hsql://localhost:9001"
+
+			"jdbc:hsqldb:file:"
+				+ @org.seasar.framework.util.ResourceUtil@getBuildDir(@org.seasar.extension.dbcp.impl.ConnectionPoolImplTest@class).getCanonicalPath()
+				+ "/WEB-INF/data/demo"
+			
+		</property>
+		<property name="user">"sa"</property>
+		<property name="password">""</property>
+	</component>
+	-->
+	
+	<!-- for Oracle -->
+	<!--
+	<component name="xaDataSource"
+		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
+		<property name="driverClassName">
+			"oracle.jdbc.driver.OracleDriver"
+		</property>
+		<property name="URL">
+			"jdbc:oracle:thin:@xxx:1521:xxx"
+		</property>
+		<property name="user">"xxx"</property>
+		<property name="password">"xxx"</property>
+	</component>
+	-->
+
+	<!-- for PostgreSQL -->
+	<!--
+	<component name="xaDataSource"
+		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
+		<property name="driverClassName">
+			"org.postgresql.Driver"
+        </property>
+        <property name="URL">
+          "jdbc:postgresql://localhost/TEST"
+        </property>
+        <property name="user">"xxxx"</property>
+        <property name="password">"xxxx"</property>
+    </component>
+    -->
+
+	<!-- MySQL
+	- MySQL4.0以下でマルチバイト文字を扱�?場合には?��URL�?定�?�後に?�?
+		以下�?�接続パラメータを追�?で�?定してください?�?
+		useUnicode=true
+		characterEncoding=[MySQLのエンコー�?ィングに対応し�?
+		Javaのエンコー�?ィング名]
+		例�?"jdbc:mysql://localhost:3306/test?useUnicode=true" +
+		"&amp;characterEncoding=Windows-31J"
+		
+	- MySQL5.0以降で?��エンコー�?ィングがeucjpmsの列を扱�?場合には?�?
+		URL�?定�?�後に?��以下�?�接続パラメータを追�?で�?定してください?�?
+		characterEncoding=UTF-8また�?�Windows-31J
+		characterSetResults=UTF-8また�?�Windows-31J
+		例�?"jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8" +
+		"&amp;characterSetResults=UTF-8"
+		こ�?��?定をしな�?場合，Java側でUCS-2⇔EUC_JP_Solarisの変換�?
+		行なわれるた�??��ユーザー定義外字などの�?部の�?字が化けます�?
+		こ�?��?定をすることで?��MySQL側でeucjpms⇔ucs2⇔utf8(cp932)の
+		変換が行なわれ?��Java側でUCS-2⇔UTF-8(Windows-31J)の変換�?
+		行なわれるよ�?になります．この結果?��文字化けを防げます�?
+		なおJIS X 0212(補助漢�?)を使用する場合�?�?��Windows-31Jではな�?
+		UTF-8を指定する�?要があります�?
+		
+	- 上記以外�?�場合�?�?��my.cnfでdefault-character-setの設定を適�?に
+		(cp932やutf8など?��デフォルト�?�latin1は不可)行なって�?れ�?�?�?
+		�?字化け�?�防げます�?
+	<component name="xaDataSource"
+		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
+		<property name="driverClassName">
+			"com.mysql.jdbc.Driver"
+		</property>
+		<property name="URL">
+			"jdbc:mysql://localhost:3306/test"
+		</property>
+		<property name="user">"xxx"</property>
+		<property name="password">"xxx"</property>
+	</component>
+	-->
+
+	<!-- for SQLServer -->
+	<!--
+	<component name="xaDataSource"
+		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
+		<property name="driverClassName">
+			"net.sourceforge.jtds.jdbc.Driver"
+        </property>
+        <property name="URL">
+            "jdbc:jtds:sqlserver://localhost/TEST;instance=SQLEXPRESS"
+        </property>
+        <property name="user">"xxxx"</property>
+        <property name="password">"xxxx"</property>
+    </component>
+	-->
+
+	<component name="connectionPool"
+		class="org.seasar.extension.dbcp.impl.ConnectionPoolImpl">
+		<property name="timeout">600</property>
+		<property name="maxPoolSize">10</property>
+		<property name="allowLocalTx">true</property>
+		<destroyMethod name="close"/>
+	</component>
+
+	<component name="dataSource"
+		class="org.seasar.extension.dbcp.impl.DataSourceImpl"
+	/>
+
+	<!-- from JNDI -->
+	<!--
+	<component name="dataSource"
+		class="javax.sql.DataSource">
+		@org.seasar.extension.j2ee.JndiResourceLocator@lookup("java:comp/env/jdbc/DataSource")
+	</component>
+	-->
+</components>

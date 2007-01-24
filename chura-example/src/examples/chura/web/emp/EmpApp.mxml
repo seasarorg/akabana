@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" fontFamily="Arial"
+    fontSize="13" label="Employee Registration" title="Employee Registration" 
+    xmlns:seasar="http://www.seasar.org/s2flex2/mxml" 
+    xmlns:emp="examples.chura.web.emp.*"
+    creationComplete="page.creationCompleteHandler();">
+    
+    <seasar:S2Flex2Service id="service" destination="emp_empService" showBusyCursor="true"/>
+    
+    <emp:EmpAppPage id="page"/>
+    
+    <mx:Canvas>
+        <mx:Canvas height="29" horizontalScrollPolicy="off" left="0"
+            name="Header" tabIndex="17" top="0"
+            verticalScrollPolicy="off" width="481">
+            <mx:Text left="216" name="APPLabel" text="{page.appMode}" top="0"/>
+            <mx:Text left="416" name="SYSLabel" text="SYSLabel" top="0"/>
+            <mx:Button height="25" label="!" left="2" name="FHardCopy1"
+                tabEnabled="false" tabIndex="18" toolTip="TFHardCopy"
+                top="2" width="25"/>
+        </mx:Canvas>
+        
+        <mx:Button height="25" label="New" left="16" name="NewBtn"
+            tabIndex="1" top="48" width="75" id="beNew" enabled="{page.appMode == AppMode.NEUTRAL}"/>
+        <mx:Button height="25" label="Cor" left="104" name="CorrectBtn"
+            tabIndex="2" top="48" width="75" id="beCor" 
+            enabled="{empList.isItemSelected(empList.selectedItem) &amp;&amp; page.appMode == AppMode.NEUTRAL}"/>
+        <mx:Button height="25" label="Del" left="389" name="DeleteBtn"
+            tabIndex="2" top="48" width="75" id="remove" 
+            enabled="{empList.isItemSelected(empList.selectedItem) &amp;&amp; page.appMode == AppMode.NEUTRAL}"/>
+        <mx:Canvas height="169" horizontalScrollPolicy="off" left="8"
+            name="ViewPanel" tabIndex="3" top="88"
+            verticalScrollPolicy="off" width="465">
+            <mx:DataGrid height="150" horizontalScrollPolicy="auto"
+                left="8" name="SectionsDBGrid" resizableColumns="false"
+                tabIndex="4" top="8" width="449" id="empList" dataProvider="{page.empItems}"
+                enabled="{page.appMode == AppMode.NEUTRAL}">
+                <mx:columns>
+                    <mx:DataGridColumn dataField="empno"
+                        headerText="No" width="93"/>
+                    <mx:DataGridColumn dataField="ename"
+                        headerText="Name" width="163"/>
+                    <mx:DataGridColumn dataField="hiredate"
+                        headerText="Hiredate" width="68"/>
+                    <mx:DataGridColumn dataField="deptid"
+                        headerText="Department" width="58"/>
+                </mx:columns>
+            </mx:DataGrid>
+        </mx:Canvas>
+        <mx:Canvas height="153" horizontalScrollPolicy="off" left="8"
+            name="DetailsPanel" tabIndex="5" top="256"
+            verticalScrollPolicy="off" width="465" id="empForm"
+            enabled="{page.appMode != AppMode.NEUTRAL}">
+            <mx:Text left="8" name="idLabel" text="No" top="6"/>
+            <mx:Text left="160" name="nameLabel" text="Name" top="6"/>
+            <mx:TextInput left="8" maxChars="15"
+                tabIndex="6" top="24" width="129" id="empno" text="{page.emp.empno}"
+                enabled="{page.appMode != AppMode.COR}"/>
+            <mx:TextInput left="160" maxChars="30"
+                tabIndex="7" top="24" width="297" id="ename" text="{page.emp.ename}"/>
+        </mx:Canvas>
+    </mx:Canvas>
+    
+    <mx:ApplicationControlBar x="0" y="417" width="481" height="52">
+		<mx:ViewStack id="appCtrlBar" width="100%" selectedIndex="{page.appMode}">
+			<mx:HBox width="100%">
+				<mx:Button id="close" label="Close" width="80"/>
+			</mx:HBox>
+			<mx:HBox width="268" height="53">
+				<mx:HBox width="50%" horizontalAlign="left">
+					<mx:Button id="cancel" label="Cancel" width="80"/>
+				</mx:HBox>
+				<mx:HBox width="50%" horizontalAlign="right">
+					<mx:Button id="insert" label="Insert" width="80"/>
+				</mx:HBox>
+			</mx:HBox>			
+			<mx:HBox width="100%">
+				<mx:HBox width="50%" horizontalAlign="left">
+					<mx:Button id="cancel$1" label="Cancel" width="80"/>
+				</mx:HBox>
+				<mx:HBox width="50%" horizontalAlign="right">
+					<mx:Button id="update" label="Update" width="80" />
+				</mx:HBox>
+			</mx:HBox>
+		</mx:ViewStack>
+	</mx:ApplicationControlBar>
+	
+    <mx:Script>
+    	<![CDATA[
+    		import examples.chura.web.AppMode;
+    	]]>
+    </mx:Script>
+	
+</mx:Panel>

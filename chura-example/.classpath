@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="WEB-INF/src/main/java"/>
+	<classpathentry kind="src" path="WEB-INF/src/main/resources"/>
+	<classpathentry kind="src" path="WEB-INF/src/test/java"/>
+	<classpathentry kind="src" path="WEB-INF/src/test/resources"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/servlet-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jasper-runtime.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jsp-api.jar"/>
+	<classpathentry output="work" kind="src" path="work"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/geronimo-jta_1.0.1B_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/hsqldb-1.8.0.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/javassist-3.0.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/jconn2d.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/ognl-2.6.7.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/poi-2.5.1-final-20040804.jar"/>
+	<classpathentry sourcepath="WEB-INF/lib/s2-dao-1.0.38-sources.jar" kind="lib" path="WEB-INF/lib/s2-dao-1.0.38.jar"/>
+	<classpathentry sourcepath="WEB-INF/lib/s2-extension-2.4.2-sources.jar" kind="lib" path="WEB-INF/lib/s2-extension-2.4.2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-flex2-1.0.0.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-flex2-service-browser-B1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-flex2-tiger-1.0.0.jar"/>
+	<classpathentry sourcepath="WEB-INF/lib/s2-framework-2.4.2-sources.jar" kind="lib" path="WEB-INF/lib/s2-framework-2.4.2.jar"/>
+	<classpathentry kind="output" path="WEB-INF/classes"/>
+</classpath>

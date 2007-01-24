@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:seasar="http://www.seasar.org/s2flex2/mxml"
+	layout="absolute"  xmlns:ns1="examples.chura.web.emp.*">
+	
+	<ns1:EmpApp x="10" y="10">
+	</ns1:EmpApp>
+
+
+	
+
+<!--
+	<seasar:S2Flex2Service id="service" destination="addService" showBusyCursor="true"/>
+
+	<mx:TextInput x="10" y="10" id="arg1"/>
+	<mx:Label x="178" y="12" text="+"/>
+	<mx:TextInput x="205" y="10" id="arg2"/>
+	<mx:Label x="373" y="12" text="="/>
+	<mx:TextInput x="400" y="10" id="result"/>
+
+	<mx:Button x="568" y="10" label="計算" id="calculate" click="calculateOnClick()"/>
+	
+		
+	<mx:Script>
+		<![CDATA[
+			import mx.utils.ObjectUtil;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.collections.ItemResponder;
+			import mx.rpc.AsyncToken;
+			
+			public function calculateOnClick(): void {
+				var token: AsyncToken = service.calculate(int(arg1.text), int(arg2.text));
+				token.addResponder(new ItemResponder(onResult, onFault));
+			}
+			
+			public function onResult(ret: ResultEvent, token:Object = null): void {
+				result.text = ret.result.toString();
+			}
+			
+			public function onFault(ret:FaultEvent, token:Object = null): void {
+				Alert.show(ObjectUtil.toString(ret.fault), "Error");
+			}
+		]]>
+	</mx:Script>
+-->
+
+</mx:Application>

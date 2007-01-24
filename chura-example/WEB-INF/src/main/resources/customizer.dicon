@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<include path="aop.dicon"/>
+	<include path="dao.dicon"/>
+
+	<component
+		name="defaultCustomizer"
+		class="org.seasar.framework.container.customizer.AspectCustomizer">
+		<property name="interceptorName">"aop.classLoaderAwareTraceInterceptor"</property>
+	</component>
+	
+	<component 
+		name="txAspectCustomizer"
+		class="org.seasar.framework.container.customizer.AspectCustomizer">
+		<property name="interceptorName">"j2ee.requiredTx"</property>
+	</component>
+	
+	<component 
+		name="daoAspectCustomizer"
+		class="org.seasar.framework.container.customizer.AspectCustomizer">
+		<property name="interceptorName">"dao.interceptor"</property>
+	</component>
+
+	<component
+		name="commandAspectCustomizer"
+		class="org.seasar.framework.container.customizer.AspectCustomizer">
+		<property name="interceptorName">"aop.traceInterceptor"</property>
+		<property name="pointcut">"do.*, initialize"</property>
+	</component>
+
+	<component
+		name="remotingServiceCustomizer"
+		class="org.seasar.flex2.rpc.remoting.service.customizer.RemotingServiceCustomizer">
+	</component>
+	
+	
+	<component 
+		name="dtoCustomizer"
+		class="org.seasar.framework.container.customizer.CustomizerChain">
+	</component>
+	
+	
+	
+	<component name="daoCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>defaultCustomizer</arg>
+		</initMethod>
+		<initMethod name="addCustomizer">
+			<arg>daoAspectCustomizer</arg>
+		</initMethod>
+	</component>
+	
+	<!--
+	<component
+		name="dxoCustomizer"
+		class="org.seasar.framework.container.autoregister.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>defaultCustomizer</arg>
+		</initMethod>
+	</component>
+	
+	<component
+		name="helperCustomizer"
+		class="org.seasar.framework.container.autoregister.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>defaultCustomizer</arg>
+		</initMethod>
+	</component>
+	-->
+	<component
+		name="logicCustomizer"
+		class="org.seasar.framework.container.customizer.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>defaultCustomizer</arg>
+		</initMethod>
+		<initMethod name="addCustomizer">
+			<arg>txAspectCustomizer</arg>
+		</initMethod>
+	</component>
+	
+	<!--
+	<component
+		name="pageCustomizer"
+		class="org.seasar.framework.container.autoregister.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>commandAspectCustomizer</arg>
+		</initMethod>
+	</component>
+	-->
+	
+	<component
+		name="serviceCustomizer"
+		class="org.seasar.framework.container.customizer.CustomizerChain">
+		<!--
+		<initMethod name="addCustomizer">
+			<arg>defaultCustomizer</arg>
+		</initMethod>
+		-->
+		<initMethod name="addCustomizer">
+			<arg>remotingServiceCustomizer</arg>
+		</initMethod>
+	</component>
+</components>
