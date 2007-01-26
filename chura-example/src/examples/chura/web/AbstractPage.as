@@ -44,7 +44,7 @@ package examples.chura.web {
 		private var _hadlableEvents: Array = new Array();
 		
 		/** 不可視コンポーネントに設定されたイベントハンドラ (id+":" + handler名)*/
-		private var _handlerForInvisibleComponents:Array = new Array();	
+		private var _handlerForInvisibleComponents: Array = new Array();	
 		
 		
 		/**
@@ -56,15 +56,27 @@ package examples.chura.web {
 			_id = id;
 			
 			var pageInfo:XML = describeType(this);
-			for each(var methodInfo:XML in pageInfo.method){
-				trace(methodInfo.toString());
+			for each(var methodInfo: XML in pageInfo.method){
+				
 				var matchArray: Array;
 				var str: String;
 				
+				// つけたし（ルートタグのイベント仕込み　例：onCreationComplete）
+				matchArray = String(methodInfo.@name).match("on.*");
+				if (matchArray != null && 0 < matchArray.length) {
+					var matchString: String = String(matchArray[0]);
+					var eventName: String = matchString.substr(matchString.indexOf("on") + 2);
+					eventName = eventName.substr(0, 1).toLowerCase() + eventName.substring(1);
+					if(_hadlableEvents.indexOf(eventName) == -1) {
+						_hadlableEvents.push(eventName);
+					}
+				}
+				// ここまで
+				
 				matchArray = String(methodInfo.@name).match(".+On.+");
 				if (matchArray != null && 0 < matchArray.length) {
-					var matchString :String = String(matchArray[0]);
-					var eventName :String = matchString.substring(matchString.indexOf("On") + 2);
+					var matchString: String = String(matchArray[0]);
+					var eventName: String = matchString.substring(matchString.indexOf("On") + 2);
 					eventName = eventName.substr(0, 1).toLowerCase() + eventName.substring(1);
 					if(_hadlableEvents.indexOf(eventName) == -1){
 						_hadlableEvents.push(eventName);
@@ -78,80 +90,9 @@ package examples.chura.web {
 
 		/**
 		 * サーバ呼び出し。
-		 * 呼び出す関数は引数をとらないものとする
-		 * とりたい場合はPageクラスの属性にする
-		 * でも、引数が型がゆるくイマイチ。
-		 * */
-/*		
-		public function remoteCall2(funcname: String): void{
-			var page: Object = this;
-			var token: AsyncToken = page[funcname].call(null);
-        	token.addResponder(new ItemResponder(
-        		function(ret: ResultEvent, token: Object = null): void {
-					var pageInfo: XML = describeType(page);
-					for each(var methodInfo: XML in pageInfo.method) {
-						if(methodInfo.@name == funcname + "OnSuccess") {
-        					if (methodInfo.hasOwnProperty("parameter")) {
-        						page[funcname + "OnSuccess"].call(page, ret, token);
-        					} else {
-        						page[funcname + "OnSuccess"].call(page);
-        					}
-        				}
-        			}
-				}, 
-				function(ret: FaultEvent, token: Object=null): void {
-					Alert.show("エラー");	
-					//何かしらかの共通的なエラー処理
-					
-					if(page.hasOwnProperty(funcname + "OnFault")) {
-						page[funcname + "OnFault"].call(page, ret, token);
-					}
-				}
-			));
-        }
-*/
-		
-		/**
-		 * operationだとサーバサイドのメソッドになるのでダメ
-		 * */
-/*
-        public function remoteCall3(token: AsyncToken): void{
-        	if(token != null){
-	        	var operation: String = (token.message as RemoteMessage).operation;
-	        	var page: Object = this;
-	        	token.addResponder(new ItemResponder(
-	        		function(ret: ResultEvent, token: Object = null): void {
-						var pageInfo: XML = describeType(page);
-						for each(var methodInfo: XML in pageInfo.method) {
-							if(methodInfo.@name == operation + "OnSuccess") {
-	        					if (methodInfo.hasOwnProperty("parameter")) {
-	        						page[operation + "OnSuccess"].call(page, ret, token);
-	        					} else {
-	        						page[operation + "OnSuccess"].call(page);
-	        					}
-	        				}
-	        			}
-					}, 
-					function(ret: FaultEvent, token: Object=null): void {
-						Alert.show("エラー");	
-						//何かしらかの共通的なエラー処理
-						
-						if(page.hasOwnProperty(operation + "OnFault")) {
-							page[operation + "OnFault"].call(page, ret, token);
-						}
-					}
-				));
-        	}
-        }
-*/
-
-		/**
-		 * やっぱこれだな！(2007/1/24)
 		 * */
         public function remoteCall(token: AsyncToken, onSuccess: *, onFault: *): void{
         	if(token != null){
-//	        	trace("operation is " + (token.message as RemoteMessage).operation);
-//	        	trace("onsuccess=" + onSuccess.toString());
 	        	var operation:String = (token.message as RemoteMessage).operation;
 	        	var page:Object = this;
 	        	token.addResponder(new ItemResponder(
@@ -170,15 +111,24 @@ package examples.chura.web {
         	}
         }
 
+
 		/**
 		 * 画面描画された時のイベントハンドラ。
 		 * */
+		public function onCreationComplete(event: Event):void {
+			//serviceイベント登録
+			service.addEventListener("netStatus", netStatusHandler);
+			service.addEventListener("ioError", ioErrorHandler);
+			//registerRemoteInvocation();
+		}
+		/*
 		public function creationCompleteHandler():void {
 			//serviceイベント登録
 			service.addEventListener("netStatus", netStatusHandler);
 			service.addEventListener("ioError", ioErrorHandler);
 			//registerRemoteInvocation();
 		}
+		*/
 
 
 
@@ -187,6 +137,21 @@ package examples.chura.web {
 		 * 各コンポーネントにEvent登録をする。
 		 * */
 		public function registerAction(event:Event): void {
+			
+			// つけたし（ルートタグのイベント仕込み　例：onCreationComplete）
+			if (event.target == document) {
+				trace("[registAction] " + event.target);
+				var str: String;
+				for(var i: int = 0; i < _hadlableEvents.length ; i++) {
+					str = _hadlableEvents[i];
+					str = str.substr(0, 1).toUpperCase() + str.substring(1);
+					str = "on" + str;
+					if(this.hasOwnProperty(str)){
+//						trace("Add Handler:" + _hadlableEvents[i] + ":" + str);
+						event.target.addEventListener(_hadlableEvents[i], this[str]);
+					}
+				}
+			}
 
 			if (event.target.hasOwnProperty("id")) {
 				if (event.target.id != undefined && event.target.id != null 
@@ -270,14 +235,14 @@ package examples.chura.web {
 						
 						event.target.addEventListener("click", callService);
 					}
-					
+
 					//その他のEventHandlerの追加
 					//idOnEventName
 					var target:String = String(event.target.id);
 					if (target.indexOf("$") != -1) {
 						target = target.substring(0, target.indexOf("$"));
 					}
-					for(var i:int = 0; i < _hadlableEvents.length ; i++){	
+					for(var i: int = 0; i < _hadlableEvents.length ; i++) {
 						str = _hadlableEvents[i];
 						str = str.substr(0, 1).toUpperCase() + str.substring(1);
 						str = target + "On" + str;

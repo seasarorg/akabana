@@ -2,8 +2,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" fontFamily="Arial"
     fontSize="13" label="Employee Registration" title="Employee Registration" 
     xmlns:seasar="http://www.seasar.org/s2flex2/mxml" 
-    xmlns:emp="examples.chura.web.emp.*"
-    creationComplete="page.creationCompleteHandler();">
+    xmlns:emp="examples.chura.web.emp.*">
     
     <seasar:S2Flex2Service id="service" destination="emp_empService" showBusyCursor="true"/>
     

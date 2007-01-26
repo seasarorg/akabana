@@ -12,19 +12,24 @@ package examples.chura.web.emp {
 
 	[Bindable]
 	public class EmpAppPage extends AbstractPage {
-		
+
 		public var empItems: ArrayCollection;
 		public var emp: Emp;
-		
+
 		public var appMode: int;
-		
+
+		override public function onCreationComplete(event: Event): void {
+			super.onCreationComplete(event);
+			setInitEntryMode();
+			remoteCall(getEmpItems(), getEmpItemsOnSuccess, getEmpItemsOnFault);
+		}
+/*
 		override public function creationCompleteHandler(): void {
 			super.creationCompleteHandler();
 			setInitEntryMode();
-//			remoteCall3(getEmpItems());
-//			remoteCall("getEmpItems");
 			remoteCall(getEmpItems(), getEmpItemsOnSuccess, getEmpItemsOnFault);
 		}
+*/
 		
 		public function getEmpItems(): AsyncToken {
 			return service.getEmpItems();
