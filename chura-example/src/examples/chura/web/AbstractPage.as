@@ -22,7 +22,6 @@ package examples.chura.web {
 	import flash.utils.getDefinitionByName;
 	import mx.rpc.Fault;
 
-
 	/**
 	 * AbstractPageクラス。
 	 * 画面と対になり、画面の処理を記述するPageクラスの親クラス。
@@ -61,29 +60,30 @@ package examples.chura.web {
 				var matchArray: Array;
 				var str: String;
 				
-				// つけたし（ルートタグのイベント仕込み　例：onCreationComplete）
-				matchArray = String(methodInfo.@name).match("on.*");
+				var matchString: String;
+				var eventName: String;
+
+				matchArray = String(methodInfo.@name).match("^on.+");
 				if (matchArray != null && 0 < matchArray.length) {
-					var matchString: String = String(matchArray[0]);
-					var eventName: String = matchString.substr(matchString.indexOf("on") + 2);
+					matchString = String(matchArray[0]);
+					eventName = matchString.substr(matchString.indexOf("on") + 2);
 					eventName = eventName.substr(0, 1).toLowerCase() + eventName.substring(1);
 					if(_hadlableEvents.indexOf(eventName) == -1) {
 						_hadlableEvents.push(eventName);
 					}
 				}
-				// ここまで
-				
+
 				matchArray = String(methodInfo.@name).match(".+On.+");
 				if (matchArray != null && 0 < matchArray.length) {
-					var matchString: String = String(matchArray[0]);
-					var eventName: String = matchString.substring(matchString.indexOf("On") + 2);
+					matchString = String(matchArray[0]);
+					eventName = matchString.substring(matchString.indexOf("On") + 2);
 					eventName = eventName.substr(0, 1).toLowerCase() + eventName.substring(1);
 					if(_hadlableEvents.indexOf(eventName) == -1){
 						_hadlableEvents.push(eventName);
 					}
 				}
 			}
-			
+
 			//addイベント登録
 			document.addEventListener( Event.ADDED, registerAction );
 		}
@@ -101,7 +101,7 @@ package examples.chura.web {
 					}, 
 					function(ret: FaultEvent, token: Object=null): void {
 						Alert.show("エラー");	
-						//何かしらかの共通的なエラー処理
+						// 何かしらかの共通的なエラー処理を書くことができる
 						
 						if(onFault != null){
 							onFault.call(page, ret, token);
@@ -116,19 +116,11 @@ package examples.chura.web {
 		 * 画面描画された時のイベントハンドラ。
 		 * */
 		public function onCreationComplete(event: Event):void {
+			
 			//serviceイベント登録
 			service.addEventListener("netStatus", netStatusHandler);
 			service.addEventListener("ioError", ioErrorHandler);
-			//registerRemoteInvocation();
 		}
-		/*
-		public function creationCompleteHandler():void {
-			//serviceイベント登録
-			service.addEventListener("netStatus", netStatusHandler);
-			service.addEventListener("ioError", ioErrorHandler);
-			//registerRemoteInvocation();
-		}
-		*/
 
 
 
@@ -147,7 +139,6 @@ package examples.chura.web {
 					str = str.substr(0, 1).toUpperCase() + str.substring(1);
 					str = "on" + str;
 					if(this.hasOwnProperty(str)){
-//						trace("Add Handler:" + _hadlableEvents[i] + ":" + str);
 						event.target.addEventListener(_hadlableEvents[i], this[str]);
 					}
 				}
