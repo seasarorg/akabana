@@ -5,9 +5,6 @@
 
 	<component class="org.seasar.framework.convention.impl.NamingConventionImpl">
 		<initMethod name="addRootPackageName">
-			<arg>"examples.chura.add"</arg>
-		</initMethod>
-		<initMethod name="addRootPackageName">
 			<arg>"examples.chura"</arg>
 		</initMethod>
 	</component>
