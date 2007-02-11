@@ -1,5 +1,5 @@
 <project name="fds-s2factory" default="dist" basedir=".">
-	<property name="ver" value="b2"/>
+	<property name="ver" value="b3-SNAPSHOT"/>
 
 	<target name="dist">
 		<zip zipfile="target/fds-s2factory-${ver}.zip">
