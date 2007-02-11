@@ -8,13 +8,13 @@
   <artifactId>s2-flex2-ana</artifactId>
   <packaging>jar</packaging>
   <name>S2Flex2-related-S2AnA</name>
-  <version>1.0.0-rc-5</version>
+  <version>1.0.0-rc-6-SNAPSHOT</version>
   <description></description>
   <url>http://akabana.sandbox.seasar.org/</url>
   <issueManagement>
     <system>The Seasar Foundation Issues</system>
     <url><![CDATA[https://www.seasar.org/issues/browse/AKABANA]]></url>
-  </issueManagement>>
+  </issueManagement>
   <inceptionYear>2006</inceptionYear>
   <mailingLists>
     <mailingList>
@@ -63,8 +63,23 @@
             <encoding>UTF-8</encoding>
           </configuration>
         </plugin>
+      
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>source-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>  
+    </plugins>
   </build>
   <repositories>
     <repository>
