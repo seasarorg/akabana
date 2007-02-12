@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package org.seasar.flex2.rpc.remoting.security.authentication.impl;
 
 import java.security.Principal;
 
+import org.seasar.flex2.core.format.amf.type.AmfObject;
 import org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants;
 import org.seasar.flex2.rpc.remoting.message.data.Message;
 import org.seasar.flex2.rpc.remoting.message.data.factory.MessageFactory;
@@ -78,8 +79,17 @@ public class RemotingServiceAuthenticationContextImpl implements
     }
 
     private final void doAuthenticate(final Message requestMessage) {
-        final String userid = requestMessage
+    	
+    	AmfObject credentials = (AmfObject)requestMessage.getHeaderValue(RemotingMessageConstants.HEADER_NAME_CREDENTINALS);
+    	if(credentials != null){
+    		final String credentialId= (String)credentials.get(RemotingMessageConstants.USERID);
+    		final String credentialpassword =(String)credentials.get(RemotingMessageConstants.PASSWORD);
+    	    storage.savePrincipal(remotingServiceRealm.authenticate(credentialId, credentialpassword));
+    	}
+    	
+        final String userid =requestMessage
                 .getHeader(RemotingMessageConstants.CREDENTIALS_USERNAME);
+        
         if (userid != null) {
             final String password = requestMessage
                     .getHeader(RemotingMessageConstants.CREDENTIALS_PASSWORD);
