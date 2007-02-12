@@ -5,7 +5,7 @@ import flash.net.Responder;
 import mx.rpc.events.ResultEvent;
 import examples.flex2.add.dto.AddDto;
 
-public var gatewayURL:String = "http://localhost:8080/flex2_example/gateway";
+public var gatewayURL:String = "http://localhost:8080/s2flex2-ana-example/gateway";
 
 public function calculateResult(result:String):void {
     sum.text = result;
@@ -20,6 +20,7 @@ public function calcButtonClick():void {
     var conn:NetConnection = new NetConnection();
     conn.objectEncoding = ObjectEncoding.AMF0;
     conn.connect(gatewayURL);
+    conn.addHeader("Credentials", false, {userid: "admin", password: "adminpass"});
     var r:Responder = new Responder(calculateResult);
     conn.call("addService.calculate", r, arg1.text, arg2.text);
 }
