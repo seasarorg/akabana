@@ -60,9 +60,10 @@ public class RemotingServiceAuthenticationContextImpl implements
         boolean isUserInRole = false;
 
         if (isAuthenticated()) {
-            isUserInRole = remotingServiceRealm.hasRole(getRemotingServicePrincipal(), role);
+            isUserInRole = remotingServiceRealm.hasRole(
+                    getRemotingServicePrincipal(), role);
         }
-        
+
         return isUserInRole;
     }
 
@@ -70,7 +71,8 @@ public class RemotingServiceAuthenticationContextImpl implements
         this.messageFactory = messageFactory;
     }
 
-    public void setRemotingServiceRealm(final RemotingServiceRealm remotingServiceRealm) {
+    public void setRemotingServiceRealm(
+            final RemotingServiceRealm remotingServiceRealm) {
         this.remotingServiceRealm = remotingServiceRealm;
     }
 
@@ -79,21 +81,40 @@ public class RemotingServiceAuthenticationContextImpl implements
     }
 
     private final void doAuthenticate(final Message requestMessage) {
-    	
-    	AmfObject credentials = (AmfObject)requestMessage.getHeaderValue(RemotingMessageConstants.HEADER_NAME_CREDENTINALS);
-    	if(credentials != null){
-    		final String credentialId= (String)credentials.get(RemotingMessageConstants.USERID);
-    		final String credentialpassword =(String)credentials.get(RemotingMessageConstants.PASSWORD);
-    	    storage.savePrincipal(remotingServiceRealm.authenticate(credentialId, credentialpassword));
-    	}
-    	
-        final String userid =requestMessage
+
+        doAuthenticateOnAmf0(requestMessage);
+
+        doAuthenticateOnAmf3(requestMessage);
+    }
+
+    /**
+     * @param requestMessage
+     */
+    private final void doAuthenticateOnAmf0(final Message requestMessage) {
+        AmfObject credentials = (AmfObject) requestMessage
+                .getHeaderValue(RemotingMessageConstants.HEADER_NAME_CREDENTINALS);
+        if (credentials != null) {
+            final String credentialId = (String) credentials
+                    .get(RemotingMessageConstants.USERID);
+            final String credentialpassword = (String) credentials
+                    .get(RemotingMessageConstants.PASSWORD);
+            storage.savePrincipal(remotingServiceRealm.authenticate(
+                    credentialId, credentialpassword));
+        }
+    }
+
+    /**
+     * @param requestMessage
+     */
+    private final void doAuthenticateOnAmf3(final Message requestMessage) {
+        final String userid = requestMessage
                 .getHeader(RemotingMessageConstants.CREDENTIALS_USERNAME);
-        
+
         if (userid != null) {
             final String password = requestMessage
                     .getHeader(RemotingMessageConstants.CREDENTIALS_PASSWORD);
-            storage.savePrincipal(remotingServiceRealm.authenticate(userid, password));
+            storage.savePrincipal(remotingServiceRealm.authenticate(userid,
+                    password));
         }
     }
 
