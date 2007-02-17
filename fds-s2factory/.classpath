@@ -4,9 +4,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="buildlib/flex-messaging.jar"/>
 	<classpathentry kind="lib" path="buildlib/flex-messaging-common.jar"/>
-	<classpathentry sourcepath="/s2flex2" kind="lib" path="buildlib/s2-flex2-1.0.0.jar"/>
 	<classpathentry kind="lib" path="buildlib/geronimo-j2ee_1.4_spec-1.0.jar"/>
-	<classpathentry kind="lib" path="buildlib/s2-framework-2.4.4.jar"/>
-	<classpathentry kind="lib" path="buildlib/s2-extension-2.4.4.jar"/>
+	<classpathentry kind="lib" path="buildlib/s2-framework-2.4.9.jar" sourcepath="/seasar2"/>
+	<classpathentry kind="lib" path="buildlib/s2-flex2-1.0.1.jar" sourcepath="/s2flex2"/>
+	<classpathentry kind="lib" path="buildlib/s2-extension-2.4.9.jar" sourcepath="/seasar2"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
