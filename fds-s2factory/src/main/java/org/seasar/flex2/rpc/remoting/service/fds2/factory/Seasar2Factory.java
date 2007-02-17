@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import flex.messaging.util.StringUtils;
 /**
  * <h4>Seasar2ComponentsFactory</h4>
  * <p>FDS2のFactoryMechanismを利用したFactoryクラスです。
- * Flex2クライアントから
+ * Flex2クライアントからFDS2にアクセスした際に
  * S2Containerに登録されたコンポーネントを呼び出すことが可能になります</p>
  * 
  * <p>このfactoryを利用するには、services-config.xmlに以下の記述を追加します。<br />
@@ -65,9 +65,9 @@ import flex.messaging.util.StringUtils;
  *		<li>javassist-3.0.jar</li>
  *		<li>log4j-1.2.13.jar</li>
  *		<li>ognl-2.6.7.jar</li>
- *		<li>s2-extension-2.4.x.jar</li>
+ *		<li>s2-extension-2.4.x.jar(2.4.9以降)</li>
  *		<li>s2-fds-s2factory-xx.jar</li>
- *		<li>s2-framework-2.4.x.jar</li>
+ *		<li>s2-framework-2.4.x.jar(2.4.9以降)</li>
  *	</ul>
  *  <p>
  *  ここまでで連携に必要な準備完了です。
@@ -80,7 +80,7 @@ import flex.messaging.util.StringUtils;
  *	&lt;/destination&gt;
  *  </pre>
  *  <strong>id</strong>のところに、service名を記述します。
- *  @version b2
+ *  @version b3
  *  @author nod
  */
 public class Seasar2Factory extends RemotingServiceInvokerImpl implements
@@ -101,13 +101,16 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	 * <!--
 	 * This method is called when the definition of an instance that this factory
 	 * looks up is initialized.
+	 * @param id
+	 * @param properties コンポーネントの設定情報
+	 * @return FatoryInstance　指定されたIDに対するFactoryInstance
 	 * -->
 	 */
-	public FactoryInstance createFactoryInstance(String id, ConfigMap properties) {
+	public FactoryInstance createFactoryInstance(String id, ConfigMap configMap) {
 
 		final FactoryInstance instance = new FactoryInstance(this, id,
-				properties);
-		instance.setSource(properties.getPropertyAsString(SOURCE, instance
+				configMap);
+		instance.setSource(configMap.getPropertyAsString(SOURCE, instance
 				.getId()));
 
 		return instance;
@@ -137,12 +140,15 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 		
 		//limits.
 		// 1.sessionData Import/Export not supported.
+		// 2.argmentAjuster not supported.
+		// 3.remoting service validator not supported.
 		return service;
 	}
 
 	/**
 	 * 
 	 *　設定情報とともにコンポーネントを初期化します。<br />
+	 *  ここではS2Servletが行っているような、S2Containerの初期化を行います。
 	 * Initializes the component with configuration information.
 	 * @param  id contains an identity you can use in diagnostic messages to determine which component's configuration this is
 	 * @param configMap  コンポーネントの設定情報 contains the properties for configuring this component.
@@ -157,8 +163,8 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 		
         if (servletConfig != null) {
             configPath = servletConfig.getInitParameter(CONFIG_PATH_KEY);    
-
         }
+        
         if (!StringUtils.isEmpty(configPath)) {
             SingletonS2ContainerFactory.setConfigPath(configPath);
         }
@@ -171,6 +177,7 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
         
         HttpServletExternalContext extCtx = new HttpServletExternalContext();
         extCtx.setApplication(FlexContext.getServletContext());
+        
         
         SingletonS2ContainerFactory.setExternalContext(extCtx);
         SingletonS2ContainerFactory
