@@ -48,7 +48,7 @@ import flex.messaging.util.StringUtils;
  *	&lt;/factories&gt;
  * </pre>
  * あわせて、S2Containerを利用するのに必要な設定をweb.xml(WEB-INF/web.xml)に追記します。
- * <pre>        
+ * <pre>
  * 	&lt;filter&gt;
  *		&lt;filter-name&gt;s2filter&lt;/filter-name&gt;
  *		&lt;filter-class>org.seasar.framework.container.filter.S2ContainerFilter&lt;/filter-class&gt;
@@ -62,7 +62,7 @@ import flex.messaging.util.StringUtils;
  * 	<ul>
  *		<li>aopalliance-1.0.jar</li>
  *		<li>geronimo-jta_1.0.1B_spec-1.0.jar</li>
- *		<li>javassist-3.0.jar</li>
+ *		<li>javassist-3.4ga.jar</li>
  *		<li>log4j-1.2.13.jar</li>
  *		<li>ognl-2.6.7.jar</li>
  *		<li>s2-extension-2.4.x.jar(2.4.9以降)</li>
@@ -101,10 +101,11 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	 * <!--
 	 * This method is called when the definition of an instance that this factory
 	 * looks up is initialized.
+	 * -->
 	 * @param id
 	 * @param properties コンポーネントの設定情報
 	 * @return FatoryInstance　指定されたIDに対するFactoryInstance
-	 * -->
+	 * 
 	 */
 	public FactoryInstance createFactoryInstance(String id, ConfigMap configMap) {
 
@@ -148,7 +149,7 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	/**
 	 * 
 	 *　設定情報とともにコンポーネントを初期化します。<br />
-	 *  ここではS2Servletが行っているような、S2Containerの初期化を行います。
+	 *  ここではS2Servletが行っているような、S2Containerの初期化を行います。<br/>
 	 * Initializes the component with configuration information.
 	 * @param  id contains an identity you can use in diagnostic messages to determine which component's configuration this is
 	 * @param configMap  コンポーネントの設定情報 contains the properties for configuring this component.
