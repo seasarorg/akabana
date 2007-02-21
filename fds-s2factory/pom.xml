@@ -56,7 +56,7 @@
   <scm>
     <connection>scm:svn:https://www.seasar.org/svn/sandbox/akabana/trunk/fds-s2factory/</connection>
     <developerConnection>scm:svn:https://www.seasar.org/svn/sandbox/akabana/trunk/fds-s2factory/</developerConnection>
-    <url>http://www.seasar.org/websvn/listing.php?repname=akabana</url>
+    <url>http://svn.seasar.org/browse/?root=sandbox.akabana</url>
   </scm>
   <organization>
     <name>The Seasar Foundation</name>
