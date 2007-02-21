@@ -13,6 +13,8 @@
 				<include name="s2-fds-s2factory-${ver}-sources.jar"/>
 			</zipfileset>
 			<zipfileset prefix="fds-s2factory/resources" dir="src/test/resources">
+				<include name="remoting_amf3.dicon" />
+				<include name="log4j.properties" />
 				<include name="services-config.xml"/>
 				<include name="remoting-config.xml"/>
 				<include name="web.xml"/>

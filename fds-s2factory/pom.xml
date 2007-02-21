@@ -35,7 +35,7 @@
       <name>Seasar-dev</name>
       <subscribe>https://www.seasar.org/mailman/listinfo/seasar-dev</subscribe>
       <unsubscribe>https://www.seasar.org/mailman/listinfo/seasar-dev</unsubscribe>
-      <post>seasar-user@lists.sourceforge.jp</post>
+      <post>seasar-dev@ml.seasar.org</post>
       <archive>http://ml.seasar.org/archives/seasar-dev/</archive>
     </mailingList>
     <mailingList>
@@ -88,6 +88,13 @@
         </executions>
       </plugin>
     </plugins>
+    <extensions>
+     <extension>
+       <groupId>org.apache.maven.wagon</groupId>
+       <artifactId>wagon-webdav</artifactId>
+       <version>1.0-beta-2</version>
+     </extension>
+   </extensions>    
   </build>
   <repositories>
     <repository>
@@ -107,7 +114,7 @@
     <dependency>
       <groupId>org.seasar.container</groupId>
       <artifactId>s2-extension</artifactId>
-      <version>2.4.4</version>
+      <version>2.4.10</version>
       <type>jar</type>
     </dependency>
     <dependency>
@@ -120,7 +127,7 @@
     <dependency>
       <groupId>org.seasar.flex2</groupId>
       <artifactId>s2-flex2</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
       <scope>provided</scope>
     </dependency>         
     <dependency>
@@ -168,6 +175,11 @@
           <charset>UTF-8</charset>
           <docencoding>UTF-8</docencoding>
           <encoding>UTF-8</encoding>
+          <links>
+            <link>http://java.sun.com/javaee/5/docs/api/</link>
+          	<link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
+            <link>http://aopalliance.sourceforge.net/doc/</link>
+          </links>          
         </configuration>
       </plugin>
     </plugins>
