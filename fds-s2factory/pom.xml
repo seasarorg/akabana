@@ -92,7 +92,6 @@
      <extension>
        <groupId>org.apache.maven.wagon</groupId>
        <artifactId>wagon-webdav</artifactId>
-       <version>1.0-beta-2</version>
      </extension>
    </extensions>    
   </build>
@@ -157,13 +156,13 @@
       <uniqueVersion>false</uniqueVersion>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Repository</name>
-      <url>scp://maven.seasar.org/home/groups/maven/public_html/maven2</url>
+      <url>dav:https://www.seasar.org/maven/maven2</url>
     </repository>
     <snapshotRepository>
       <uniqueVersion>true</uniqueVersion>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Snapshot Repository</name>
-      <url>scp://maven.seasar.org/home/groups/maven/maven/maven2-snapshot</url>
+      <url>dav:https://www.seasar.org/maven/maven2-snapshot</url>
     </snapshotRepository>
   </distributionManagement>
   <reporting>
