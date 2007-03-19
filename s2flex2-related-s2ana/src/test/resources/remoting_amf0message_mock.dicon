@@ -16,7 +16,7 @@
 						@org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants@HEADER_NAME_CREDENTINALS
 					</property>
 					<property name="value">
-						<component class="org.seasar.flex2.core.format.amf.type.AmfObject" >
+						<component class="org.seasar.flex2.core.format.amf0.type.Amf0Object" >
 			   				<initMethod name="put">
    								<arg>"userid"</arg>
 			   					<arg>"admin"</arg>
