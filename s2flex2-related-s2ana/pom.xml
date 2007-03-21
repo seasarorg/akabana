@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
 >
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.seasar.flex2</groupId>
+  <groupId>org.seasar.akabana</groupId>
   <artifactId>s2-flex2-ana</artifactId>
   <packaging>jar</packaging>
   <name>S2Flex2-related-S2AnA</name>
@@ -118,7 +118,7 @@
     <dependency>
       <groupId>org.seasar.flex2</groupId>
       <artifactId>s2-flex2</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
+      <version>1.0.1</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
