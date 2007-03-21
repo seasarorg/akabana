@@ -102,14 +102,14 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	 * This method is called when the definition of an instance that this factory
 	 * looks up is initialized.
 	 * -->
-	 * @param id
-	 * @param properties コンポーネントの設定情報
+	 * @param id このファクトリのID
+	 * @param configMap コンポーネントの設定情報
 	 * @return FatoryInstance　指定されたIDに対するFactoryInstance
 	 * 
 	 */
 	public FactoryInstance createFactoryInstance(String id, ConfigMap configMap) {
 
-		final FactoryInstance instance = new FactoryInstance(this, id,
+		FactoryInstance instance = new FactoryInstance(this, id,
 				configMap);
 		instance.setSource(configMap.getPropertyAsString(SOURCE, instance
 				.getId()));
@@ -150,7 +150,9 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	 * 
 	 *　設定情報とともにコンポーネントを初期化します。<br />
 	 *  ここではS2Servletが行っているような、S2Containerの初期化を行います。<br/>
+	 *  <!--
 	 * Initializes the component with configuration information.
+	 * -->
 	 * @param  id contains an identity you can use in diagnostic messages to determine which component's configuration this is
 	 * @param configMap  コンポーネントの設定情報 contains the properties for configuring this component.
 	 */
