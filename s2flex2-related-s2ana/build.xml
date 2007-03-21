@@ -1,5 +1,5 @@
 <project name="s2flex2-related-s2ana" default="dist" basedir=".">
-	<property name="ver" value="1.0.0-rc-6-SNAPSHOT"/>
+	<property name="ver" value="1.0.0-rc-6"/>
 
 	<target name="dist">
 		<zip zipfile="target/S2Flex2-related-s2ana-${ver}.zip">
