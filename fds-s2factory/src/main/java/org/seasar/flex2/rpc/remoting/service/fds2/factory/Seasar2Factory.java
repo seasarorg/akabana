@@ -123,7 +123,7 @@ public class Seasar2Factory extends RemotingServiceInvokerImpl implements
 	 * サービス名よりS2Containerに登録されているコンポーネントを取得します。
 	 * ロジック実行は、Adapterによって起動されます
 	 * 
-	 * @param FactoryInstance FactoryInstance
+	 * @param factoryInstance factoryInstance
 	 * @return Object S2Containerより取得したコンポーネント
 	 * <br/>
 	 * <!--
