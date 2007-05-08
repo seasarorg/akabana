@@ -17,10 +17,10 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/flex-messaging-req.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/flex-messaging.jar"/>
 	<classpathentry kind="src" path="WEB-INF/src"/>
-	<classpathentry output="work" kind="src" path="work"/>
-	<classpathentry sourcepath="/s2flex2" kind="lib" path="WEB-INF/lib/s2-flex2-1.0.0.jar"/>
-	<classpathentry sourcepath="/fds-s2factory" kind="lib" path="WEB-INF/lib/s2-fds-s2factory-b3.jar"/>
-	<classpathentry sourcepath="/seasar2" kind="lib" path="WEB-INF/lib/s2-framework-2.4.1.jar"/>
-	<classpathentry sourcepath="/s2flex2-tiger" kind="lib" path="WEB-INF/lib/s2-flex2-tiger-1.0.0.jar"/>
+	<classpathentry kind="src" output="work" path="work"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-flex2-tiger-1.0.0.jar" sourcepath="/s2flex2-tiger"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-framework-2.4.13-rc2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-flex2-1.0.2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-fds-s2factory-b3-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
