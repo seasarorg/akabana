@@ -37,6 +37,8 @@ public class RemotingServicePrincipalSessionStorageImpl implements
     public void savePrincipal(final RemotingServicePrincipal principal) {
         if (principal != null) {
             doSaveUserPrincipal(principal);
+        } else {
+            doRemoveUserPrincipal();
         }
     }
 
@@ -44,6 +46,10 @@ public class RemotingServicePrincipalSessionStorageImpl implements
         this.container = container;
     }
 
+    private final void doRemoveUserPrincipal() {
+        getSession().removeAttribute(PRINCEPAL_SESSION_KEY);
+    }
+    
     private final void doSaveUserPrincipal(final Principal principal) {
         getSession().setAttribute(PRINCEPAL_SESSION_KEY, principal);
     }
