@@ -15,8 +15,9 @@
  */
 package org.seasar.flex2.rpc.remoting.security;
 
+import java.io.Serializable;
 import java.security.Principal;
 
-public interface RemotingServicePrincipal extends Principal {
-	String getRole();
+public interface RemotingServicePrincipal extends Principal, Serializable {
+    String getRole();
 }

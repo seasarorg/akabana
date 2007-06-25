@@ -18,24 +18,26 @@ package org.seasar.flex2.rpc.remoting.security.impl;
 import org.seasar.flex2.rpc.remoting.security.RemotingServicePrincipal;
 
 public class RemotingServicePrincipalImpl implements RemotingServicePrincipal {
-
+    
+    private static final long serialVersionUID = 6031075779572854825L;
+    
     private String name;
     
     private String role;
-
+    
     public String getName() {
         return name;
     }
-
+    
     public String getRole() {
-		return role;
-	}
-
-	public void setName(String name) {
+        return role;
+    }
+    
+    public void setName(String name) {
         this.name = name;
     }
-
-	public void setRole(String role) {
-		this.role = role;
-	}
+    
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
