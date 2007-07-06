@@ -13,10 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.flex2.resources.embed.impl{
+package org.seasar.akabana.yui.resources.embed{
+
 	import flash.utils.ByteArray;
 	
-	import org.seasar.flex2.resources.embed.EmbedReader;
+	import org.seasar.akabana.yui.resources.embed.EmbedReader;
 	
 	public class EmbedXmlReader implements EmbedReader {
 		
