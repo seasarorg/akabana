@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.framework.metadata {
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.framework.core.UIComponentRepository;
-    import org.seasar.akabana.yui.framework.auto.AutoEventRegister;
+    import org.seasar.akabana.yui.framework.customizer.EventCustomizer;
     
     internal class ViewMetadataParser {
         
@@ -30,7 +30,7 @@ package org.seasar.akabana.yui.framework.metadata {
             
             if( UIComponentRepository.hasComponent( variableName )){
                 var viewContainer:Container = UIComponentRepository.getComponent(variableName) as Container;
-                AutoEventRegister.register( viewContainer, target );
+                EventCustomizer.register( viewContainer, target );
                 target[ variableName ] = viewContainer;
             }
         }

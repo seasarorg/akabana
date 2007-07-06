@@ -22,7 +22,7 @@ package org.seasar.akabana.yui.framework.metadata {
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
-    import org.seasar.akabana.yui.framework.auto.AutoServiceEventRegister;
+    import org.seasar.akabana.yui.framework.customizer.ServiceEventCustomizer;
     
     internal class ServiceMetadataParser {
         
@@ -43,7 +43,7 @@ package org.seasar.akabana.yui.framework.metadata {
                 ServiceRepository.addService( service );
             }
             
-            AutoServiceEventRegister.register( service, target );
+            ServiceEventCustomizer.register( service, target );
             target[ variableName ] = service;
         }
     }

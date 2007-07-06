@@ -13,14 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.auto {
+package org.seasar.akabana.yui.framework.customizer {
 
     import flash.utils.describeType;
     
     import mx.core.Container;
     import mx.core.UIComponent;
     
-    public class AutoEventRegister {
+    public class EventCustomizer {
 
         private static var HANDLER:String = "Handler";
         

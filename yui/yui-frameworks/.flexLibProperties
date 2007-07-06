@@ -4,14 +4,14 @@
 <classEntry path="org.seasar.akabana.yui.framework.application.ApplicationUtil"/>
 <classEntry path="org.seasar.akabana.yui.framework.application.BaseYuiApplication"/>
 <classEntry path="org.seasar.akabana.yui.framework.application.mxml.YuiApplication"/>
-<classEntry path="org.seasar.akabana.yui.framework.auto.AutoBinder"/>
-<classEntry path="org.seasar.akabana.yui.framework.auto.AutoBindingDefaultPropertyResolver"/>
-<classEntry path="org.seasar.akabana.yui.framework.auto.AutoEventRegister"/>
-<classEntry path="org.seasar.akabana.yui.framework.auto.AutoServiceEventRegister"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.ClassLoader"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.ClassUtil"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.PropertyUtil"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.UIComponentRepository"/>
+<classEntry path="org.seasar.akabana.yui.framework.customizer.AutoBindingDefaultPropertyResolver"/>
+<classEntry path="org.seasar.akabana.yui.framework.customizer.BindCustomizer"/>
+<classEntry path="org.seasar.akabana.yui.framework.customizer.EventCustomizer"/>
+<classEntry path="org.seasar.akabana.yui.framework.customizer.ServiceEventCustomizer"/>
 <classEntry path="org.seasar.akabana.yui.framework.metadata.MetadataParser"/>
 <classEntry path="org.seasar.akabana.yui.framework.metadata.ModelMetadataParser"/>
 <classEntry path="org.seasar.akabana.yui.framework.metadata.ServiceMetadataParser"/>
@@ -38,7 +38,7 @@
 <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.mxml.RemotingService"/>
 </includeClasses>
 <includeResources>
-<resourceEntry destPath="org/seasar/akabana/yui/framework/core/metadata/AutoBindingDefaultProperty.xml" sourcePath="org/seasar/akabana/yui/framework/core/metadata/AutoBindingDefaultProperty.xml"/>
+<resourceEntry destPath="org/seasar/akabana/yui/framework/customizer/AutoBindingDefaultProperty.xml" sourcePath="org/seasar/akabana/yui/framework/customizer/AutoBindingDefaultProperty.xml"/>
 </includeResources>
 <namespaceManifests>
 <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://akabana.seasar.org/yui/mxml"/>

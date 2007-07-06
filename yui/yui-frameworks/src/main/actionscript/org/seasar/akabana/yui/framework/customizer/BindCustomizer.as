@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.auto {
+package org.seasar.akabana.yui.framework.customizer {
 
     import flash.utils.describeType;
     
@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.framework.auto {
     import mx.core.UIComponent;
     import mx.binding.utils.BindingUtils;
     
-    public class AutoBinder {
+    public class BindCustomizer {
 
         private static const READ_WRITE:String = "readwrite";
         
