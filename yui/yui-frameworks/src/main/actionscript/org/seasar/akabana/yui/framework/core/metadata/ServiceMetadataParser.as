@@ -27,12 +27,6 @@ package org.seasar.akabana.yui.framework.core.metadata {
         
         private static var NAME:String = "name";
         
-        private static var RESULT_HANDLER:String = "ResultHandler";
-        
-        private static var FAULT_HANDLER:String = "FaultHandler";
-        
-        private static var EVENT_HANDLER:String = "EventHandler";
-        
         public static function parse( owner:Object, target:Object, variableXML:XML, metadataXML:XML ):void{
             var variableName:String = variableXML.@name.toString();
             
@@ -48,90 +42,8 @@ package org.seasar.akabana.yui.framework.core.metadata {
                 ServiceRepository.addService( service );
             }
             
-            parseServiceEvent( service, target, metadataXML);
-            
+            AutoServiceEventRegister.register( service, target );
             target[ variableName ] = service;
         }
-
-
-        private static function parseServiceEvent( service:Service, target:Object, metadataXML:XML ):void{
-            var serviceName:String = service.destination;
-            var resultFunctions:Dictionary = new Dictionary();
-            var faultFunctions:Dictionary = new Dictionary();
-            var operations:Dictionary = new Dictionary();
-            var operationEvents:Dictionary = new Dictionary();
-            
-            var describeTypeXml:XML = describeType(Object(target).constructor);
-            var methods:XMLList = describeTypeXml.factory.method.(@name.toString().indexOf(serviceName) == 0 );
-			
-			var operationName:String;
-			var methodName:String;
-			var eventName:String;
-			var handlerIndex:int;
-			for each( var method:XML in methods ){
-				methodName = method.@name.toString();
-				//Resultイベント
-				{
-    				handlerIndex = methodName.lastIndexOf(RESULT_HANDLER);
-    				if( handlerIndex > -1 ){
-        				operationName = methodName.substr(serviceName.length,1).toLocaleLowerCase() + methodName.substring(serviceName.length+1,handlerIndex);
-                        resultFunctions[ operationName ] = methodName;
-                        if( operations[ operationName ] == null ){
-                            operations[ operationName ] = 1;
-                        }
-                        continue;
-                    }
-                }
-                //Faultイベント
-                {
-                    handlerIndex = methodName.lastIndexOf(FAULT_HANDLER);
-    				if( handlerIndex > -1 ){
-        				operationName = methodName.substr(serviceName.length,1).toLocaleLowerCase() + methodName.substring(serviceName.length+1,handlerIndex);
-                        faultFunctions[ operationName ] = methodName;
-                        if( operations[ operationName ] == null ){
-                            operations[ operationName ] = 1;
-                        }
-                        continue;
-                    }
-                }
-                //その他のイベント
-                {
-                    handlerIndex = methodName.lastIndexOf(EVENT_HANDLER);
-    				if( handlerIndex > -1 ){
-    				    eventName = methodName.substr(serviceName.length,1).toLocaleLowerCase() + methodName.substring(serviceName.length+1,handlerIndex);
-   						operationEvents[ eventName ] = target[ methodName ];
-                        continue;
-                    }
-                }
-			}
-			
-			var resultFunction:Function;
-			var faultFunction:Function;
-            for ( operationName in operations ){
-                
-                if( resultFunctions[ operationName ] != null ){
-                    resultFunction = target[resultFunctions[ operationName ]];
-                } else {
-                    resultFunction = null;
-                }
-                if( faultFunctions[ operationName ] != null ){
-                    faultFunction = target[faultFunctions[ operationName ]];
-                } else {
-                    faultFunction = null;
-                }
-                
-                service.addOperation( operationName, null, resultFunction, faultFunction );
-                
-                
-                addOperationEventListeners( service.getOperation( operationName ), operationEvents ); 
-            }
-        }
-        
-        private static function addOperationEventListeners( operation:Operation, operationEvents:Dictionary):void{
-            for ( var eventName:String in operationEvents ){
-                operation.addEventListener( eventName, operationEvents[ eventName ] );
-            }
-        }
-       
     }
 }

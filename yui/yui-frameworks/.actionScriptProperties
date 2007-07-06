@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actionScriptProperties mainApplicationPath="yui.as" version="3">
-<compiler additionalCompilerArguments="--optimize=true" copyDependentFiles="false" enableModuleDebug="false" flexSDK="Flex Moxie M2" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersion="9.0.0" htmlPlayerVersionCheck="true" outputFolderPath="target/swc" sourceFolderPath="src/main/actionscript" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
+<compiler additionalCompilerArguments="-load-config+=..\resources\yui-frameworks-config.xml" copyDependentFiles="false" enableModuleDebug="false" flexSDK="Flex Moxie M2" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersion="9.0.0" htmlPlayerVersionCheck="true" outputFolderPath="target/swc" sourceFolderPath="src/main/actionscript" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
 <compilerSourcePath/>
 <libraryPath defaultLinkType="1">
 <libraryPathEntry kind="4" path="">

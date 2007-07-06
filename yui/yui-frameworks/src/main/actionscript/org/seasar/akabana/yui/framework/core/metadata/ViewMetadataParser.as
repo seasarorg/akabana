@@ -24,33 +24,13 @@ package org.seasar.akabana.yui.framework.core.metadata {
     
     internal class ViewMetadataParser {
         
-        private static var HANDLER:String = "Handler";
-        
         public static function parse( owner:Object, target:Object, variableXML:XML, metadataXML:XML ):void{
             var variableName:String = variableXML.@name.toString();
             
-            var viewContainer:Container = UIComponentRepository.getComponent(variableName) as Container;
-            if( viewContainer != null ){
+            if( UIComponentRepository.hasComponent( variableName )){
+                var viewContainer:Container = UIComponentRepository.getComponent(variableName) as Container;
+                AutoEventRegister.register( viewContainer, target );
                 target[ variableName ] = viewContainer;
-                
-    			var viewContainerChildren:Array = viewContainer.getChildren();
-    			var logicDescribeTypeXml:XML = describeType(Object(target).constructor);
-    			
-    			var methods:XMLList;   			
-    			var childId:String;
-    			var methodName:String;
-    			var handlerIndex:int;
-    			var eventName:String;
-    			for each( var child:UIComponent in viewContainerChildren ){
-    				childId = child.id;
-    				methods = logicDescribeTypeXml.factory.method.(@name.toString().indexOf(childId) == 0 );
-    				for each( var method:XML in methods ){
-    				    methodName = method.@name.toString();
-    				    handlerIndex = methodName.lastIndexOf(HANDLER);
-    				    eventName = methodName.substr(childId.length,1).toLocaleLowerCase() + methodName.substring(childId.length+1,handlerIndex);
-   						viewContainer[childId].addEventListener(eventName, target[ methodName ]);
-    				}
-    			}
             }
         }
     }

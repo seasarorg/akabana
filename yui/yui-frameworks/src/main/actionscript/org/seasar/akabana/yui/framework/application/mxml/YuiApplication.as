@@ -18,5 +18,8 @@ package org.seasar.akabana.yui.framework.application.mxml {
     import org.seasar.akabana.yui.framework.application.BaseYuiApplication;
 
     public class YuiApplication extends BaseYuiApplication {
+        
+        public const version:String = "yui-framework 1.0 alpha 1";
+        
     }
 }

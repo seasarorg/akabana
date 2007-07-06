@@ -31,10 +31,8 @@ package org.seasar.akabana.yui.framework.application {
         
         private static const LOGIC:String = "Logic";
         
-        public const version:String = "yui-framework 1.0 alpha 1";
-        
         public function BaseYuiApplication(){
-            this.addEventListener(FlexEvent.ADD,addHandler, true, 10000, true);
+            this.addEventListener(FlexEvent.ADD,addHandler, true, int.MAX_VALUE, true);
         }
         
         private function addHandler( event:FlexEvent ):void{
@@ -64,13 +62,15 @@ package org.seasar.akabana.yui.framework.application {
                     ( container.name != null && container.name.indexOf( VIEW ) > 0 )
                 )
             ){
-                container.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler, false, 0.0, true);
+                container.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler, false, int.MAX_VALUE, true);
             }
         }
         
         private function creationCompoleteHandler( event:FlexEvent ):void{
             //trace( event + ":" + event.target );
             var container:Container = event.target as Container;
+            container.removeEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler);
+
             var parentContainer:Container = container.parent as Container;
             var viewLogicName:String = container.name + LOGIC;
             

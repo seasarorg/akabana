@@ -27,10 +27,6 @@ package org.seasar.akabana.yui.framework.core.metadata {
     internal class ModelMetadataParser {
         
         private static const BIND_VIEW:String = "bindView";
-        
-        private static const READ_WRITE:String = "readwrite";
-        
-        private static const GET_BIND_NAME:String = "getBindNameFrom";
     
         public static function parse( owner:Object, target:Object, variableXML:XML, metadataXML:XML ):void{
             var variableName:String = variableXML.@name.toString();
@@ -43,42 +39,13 @@ package org.seasar.akabana.yui.framework.core.metadata {
 
     	    var args:XMLList = metadataXML.arg.( @key=BIND_VIEW );
     	    if( args.length() > 0 ){
-    	        var typeXML:XML = describeType(Object(model).constructor).factory[0];
-            	var viewContainer:Container = UIComponentRepository.getComponent(args[0].@value.toString()) as Container;
-                if( viewContainer != null ){
-                    parseFields( typeXML.accessor.( @access == READ_WRITE ), viewContainer, model );
-                    parseFields( typeXML.variable, viewContainer, model );            				
+                if( UIComponentRepository.hasComponent( args[0].@value.toString() )){
+                    var viewContainer:Container = UIComponentRepository.getComponent( args[0].@value.toString()) as Container;
+                    AutoBinder.register( viewContainer, model);         				
                 }
             }
             
             target[ variableName ] = model;
-        }
-        
-        private static function parseFields( fieldsXMLList:XMLList, viewContainer:Container, model:Object ):void{
-			var varName:String;
-			var bindName:String;
-			var component:UIComponent;
-			var getBindNameFunction:Function;
-			
-			for each( var fieldXml:XML in fieldsXMLList){
-			    varName = fieldXml.@name.toString();
-			    if( viewContainer.hasOwnProperty(varName) ){
-			        component = viewContainer[ varName ];
-                    
-                    try {
-                        getBindNameFunction = ModelMetadataParser[ GET_BIND_NAME + component.className];
-                        bindName = getBindNameFunction.call(null,component);
-			            BindingUtils.bindProperty( component, bindName, model, varName);
-			            BindingUtils.bindProperty( model, varName, component, bindName);
-                    } catch( e:Error ){
-                        trace( "Not Found BindName Function for " + component.className );
-                    }
-			    }
-			}
-        }
-        
-        private static function getBindNameFromTextInput( component:UIComponent ):String{
-            return "text";
         }
     }
 }

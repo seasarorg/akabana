@@ -32,5 +32,9 @@ package org.seasar.akabana.yui.framework.component {
         public static function getComponent( name:String ):UIComponent{
             return componentMap[ name ] as UIComponent;
         }
+        
+        public static function hasComponent( name:String ):Boolean{
+            return componentMap.hasOwnProperty( name );
+        }
     }
 }
