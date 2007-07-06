@@ -24,7 +24,7 @@ package org.seasar.akabana.yui.framework.customizer {
 
         private static var HANDLER:String = "Handler";
         
-        public static function register( view:Container, logic:Object ):void {
+        public static function customizer( view:Container, logic:Object ):void {
             var viewContainerChildren:Array = view.getChildren();
 			var logicDescribeTypeXml:XML = describeType(Object(logic).constructor);
 			

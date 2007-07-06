@@ -43,7 +43,7 @@ package org.seasar.akabana.yui.framework.metadata {
                 ServiceRepository.addService( service );
             }
             
-            ServiceEventCustomizer.register( service, target );
+            ServiceEventCustomizer.customizer( service, target );
             target[ variableName ] = service;
         }
     }

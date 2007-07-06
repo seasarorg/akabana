@@ -42,7 +42,7 @@ package org.seasar.akabana.yui.framework.metadata {
     	    if( args.length() > 0 ){
                 if( UIComponentRepository.hasComponent( args[0].@value.toString() )){
                     var viewContainer:Container = UIComponentRepository.getComponent( args[0].@value.toString()) as Container;
-                    AutoBindCustomizer.register( viewContainer, model);         				
+                    AutoBindCustomizer.customizer( viewContainer, model);         				
                 }
             }
             

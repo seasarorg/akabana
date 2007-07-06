@@ -25,7 +25,7 @@ package org.seasar.akabana.yui.framework.customizer {
 
         private static const READ_WRITE:String = "readwrite";
         
-        public static function register( view:Container, model:Object ):void {
+        public static function customizer( view:Container, model:Object ):void {
             var typeXML:XML = describeType(Object(model).constructor).factory[0];
             parseFields( typeXML.accessor.( @access == READ_WRITE ), view, model );
             parseFields( typeXML.variable, view, model );            				

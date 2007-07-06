@@ -30,7 +30,7 @@ package org.seasar.akabana.yui.framework.metadata {
             
             if( UIComponentRepository.hasComponent( variableName )){
                 var viewContainer:Container = UIComponentRepository.getComponent(variableName) as Container;
-                EventCustomizer.register( viewContainer, target );
+                EventCustomizer.customizer( viewContainer, target );
                 target[ variableName ] = viewContainer;
             }
         }

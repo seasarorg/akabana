@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.framework.customizer {
         
         private static var EVENT_HANDLER:String = "EventHandler";
         
-        public static function register( service:Service, logic:Object ):void {
+        public static function customizer( service:Service, logic:Object ):void {
             var serviceName:String = service.destination;
             var resultFunctions:Dictionary = new Dictionary();
             var faultFunctions:Dictionary = new Dictionary();
