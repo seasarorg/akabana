@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.framework.metadata {
 	
 	import org.seasar.akabana.yui.framework.core.UIComponentRepository;
 	import org.seasar.akabana.yui.framework.core.ClassUtil;
-	import org.seasar.akabana.yui.framework.customizer.BindCustomizer;
+	import org.seasar.akabana.yui.framework.customizer.AutoBindCustomizer;
     
     internal class ModelMetadataParser {
         
@@ -42,7 +42,7 @@ package org.seasar.akabana.yui.framework.metadata {
     	    if( args.length() > 0 ){
                 if( UIComponentRepository.hasComponent( args[0].@value.toString() )){
                     var viewContainer:Container = UIComponentRepository.getComponent( args[0].@value.toString()) as Container;
-                    BindCustomizer.register( viewContainer, model);         				
+                    AutoBindCustomizer.register( viewContainer, model);         				
                 }
             }
             
