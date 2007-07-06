@@ -10,7 +10,7 @@
             [Bindable]
             public var treeData:XML;
 			
-			[Embed(source='./samples/resources/tree.xml', mimeType='application/octet-stream')]
+			[Embed(source='../resources/tree.xml', mimeType='application/octet-stream')]
             private static const treeXml:Class;
 
 			private function initApp():void{

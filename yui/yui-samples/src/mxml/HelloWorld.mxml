@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<yui:YuiApplication xmlns:yui="http://akabana.seasar.org/yui/mxml" layout="absolute" xmlns:view="examples.yui.helloworld.view.*" xmlns:logic="examples.yui.helloworld.logic.*">
+    <view:HelloWordView id="helloWorldView"/>
+    <logic:HelloWorldViewLogic id="helloWorldViewLogic"/>
+</yui:YuiApplication>
