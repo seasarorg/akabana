@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.core.metadata {
+package org.seasar.akabana.yui.framework.metadata {
     
     import flash.utils.Dictionary;
     import flash.utils.describeType;
@@ -22,6 +22,7 @@ package org.seasar.akabana.yui.framework.core.metadata {
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
+    import org.seasar.akabana.yui.framework.auto.AutoServiceEventRegister;
     
     internal class ServiceMetadataParser {
         

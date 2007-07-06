@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.core.metadata {
+package org.seasar.akabana.yui.framework.auto {
 
     import flash.utils.Dictionary;
     import flash.utils.describeType;
@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.framework.core.metadata {
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.Operation;
     
-    internal class AutoServiceEventRegister {
+    public class AutoServiceEventRegister {
 
         private static var RESULT_HANDLER:String = "ResultHandler";
         

@@ -13,11 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.core.metadata {
+package org.seasar.akabana.yui.framework.auto {
     
     import org.seasar.akabana.yui.resources.embed.EmbedXmlReader;
     
-    internal class AutoBindingDefaultPropertyResolver {
+    public class AutoBindingDefaultPropertyResolver {
 
 		[Embed(source='AutoBindingDefaultProperty.xml', mimeType='application/octet-stream')]
         private static const bindingPropertyMapEmbed:Class;

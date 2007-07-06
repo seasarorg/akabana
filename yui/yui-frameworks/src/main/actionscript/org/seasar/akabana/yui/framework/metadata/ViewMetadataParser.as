@@ -13,14 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.core.metadata {
+package org.seasar.akabana.yui.framework.metadata {
 
     import flash.utils.describeType;
 
     import mx.core.Container;
     import mx.core.UIComponent;
     
-    import org.seasar.akabana.yui.framework.component.UIComponentRepository;
+    import org.seasar.akabana.yui.framework.core.UIComponentRepository;
+    import org.seasar.akabana.yui.framework.auto.AutoEventRegister;
     
     internal class ViewMetadataParser {
         

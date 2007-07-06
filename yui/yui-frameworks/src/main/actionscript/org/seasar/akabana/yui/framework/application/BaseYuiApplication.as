@@ -20,8 +20,8 @@ package org.seasar.akabana.yui.framework.application {
     import mx.core.UIComponent;
     import mx.events.FlexEvent;
     
-    import org.seasar.akabana.yui.framework.component.UIComponentRepository;
-    import org.seasar.akabana.yui.framework.core.metadata.MetadataParser;
+    import org.seasar.akabana.yui.framework.core.UIComponentRepository;
+    import org.seasar.akabana.yui.framework.metadata.MetadataParser;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
     
