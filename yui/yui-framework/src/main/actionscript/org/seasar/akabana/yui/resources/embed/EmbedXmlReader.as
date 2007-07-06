@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,7 @@ package org.seasar.akabana.yui.resources.embed{
 
 	import flash.utils.ByteArray;
 	
-	import org.seasar.akabana.yui.resources.embed.EmbedReader;
-	
-	public class EmbedXmlReader implements EmbedReader {
+	public class EmbedXmlReader {
 		
 		public function read( embedClass:Class ):Object{
 			return readXml( new embedClass() as ByteArray );
