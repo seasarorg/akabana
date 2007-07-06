@@ -8,8 +8,8 @@
 <classEntry path="org.seasar.akabana.yui.framework.core.ClassUtil"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.PropertyUtil"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.UIComponentRepository"/>
+<classEntry path="org.seasar.akabana.yui.framework.customizer.AutoBindCustomizer"/>
 <classEntry path="org.seasar.akabana.yui.framework.customizer.AutoBindingDefaultPropertyResolver"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.BindCustomizer"/>
 <classEntry path="org.seasar.akabana.yui.framework.customizer.EventCustomizer"/>
 <classEntry path="org.seasar.akabana.yui.framework.customizer.ServiceEventCustomizer"/>
 <classEntry path="org.seasar.akabana.yui.framework.metadata.MetadataParser"/>

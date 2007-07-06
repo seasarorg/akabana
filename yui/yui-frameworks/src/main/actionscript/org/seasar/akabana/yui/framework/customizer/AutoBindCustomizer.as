@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import mx.core.UIComponent;
     import mx.binding.utils.BindingUtils;
     
-    public class BindCustomizer {
+    public class AutoBindCustomizer {
 
         private static const READ_WRITE:String = "readwrite";
         
