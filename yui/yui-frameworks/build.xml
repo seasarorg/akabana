@@ -1,0 +1,23 @@
+<project name="yui-framework" default="dist" basedir=".">
+	<property name="ver" value="alpha5"/>
+    <!-- ================================= 
+          target: dist              
+         ================================= -->	
+	<target name="dist" description="dist the project..">
+		<zip zipfile="target/yui-framework-${ver}.zip">
+			<zipfileset prefix="yui-framework" dir=".">
+				<exclude name="**/target/**.zip"/>
+			</zipfileset>
+		</zip>
+	</target>
+    <!-- ================================= 
+          target: clean             
+         ================================= -->	
+     <target name="clean">
+     	<delete>
+     		<fileset dir="target">
+     			<include name="*" />
+     		</fileset>
+     	</delete>
+     </target>
+</project>
