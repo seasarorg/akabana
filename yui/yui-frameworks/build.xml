@@ -1,11 +1,11 @@
-<project name="yui-framework" default="dist" basedir=".">
-	<property name="ver" value="alpha5"/>
+<project name="yui-frameworks" default="dist" basedir=".">
+	<property name="ver" value="alpha6-SNAPSHOT"/>
     <!-- ================================= 
           target: dist              
          ================================= -->	
 	<target name="dist" description="dist the project..">
-		<zip zipfile="target/yui-framework-${ver}.zip">
-			<zipfileset prefix="yui-framework" dir=".">
+		<zip zipfile="target/yui-frameworks-${ver}.zip">
+			<zipfileset prefix="yui-frameworks" dir=".">
 				<exclude name="**/target/**.zip"/>
 			</zipfileset>
 		</zip>
