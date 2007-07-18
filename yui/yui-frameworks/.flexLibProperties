@@ -1,41 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
 <includeClasses>
-<classEntry path="org.seasar.akabana.yui.framework.application.ApplicationUtil"/>
-<classEntry path="org.seasar.akabana.yui.framework.application.BaseYuiApplication"/>
-<classEntry path="org.seasar.akabana.yui.framework.application.mxml.YuiApplication"/>
-<classEntry path="org.seasar.akabana.yui.framework.core.ClassLoader"/>
-<classEntry path="org.seasar.akabana.yui.framework.core.ClassUtil"/>
-<classEntry path="org.seasar.akabana.yui.framework.core.PropertyUtil"/>
-<classEntry path="org.seasar.akabana.yui.framework.core.UIComponentRepository"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.AutoBindCustomizer"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.AutoBindingDefaultPropertyResolver"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.EventCustomizer"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.ServiceEventCustomizer"/>
-<classEntry path="org.seasar.akabana.yui.framework.metadata.MetadataParser"/>
-<classEntry path="org.seasar.akabana.yui.framework.metadata.ModelMetadataParser"/>
-<classEntry path="org.seasar.akabana.yui.framework.metadata.ServiceMetadataParser"/>
-<classEntry path="org.seasar.akabana.yui.framework.metadata.ViewMetadataParser"/>
-<classEntry path="org.seasar.akabana.yui.net.URLUtil"/>
-<classEntry path="org.seasar.akabana.yui.resources.embed.EmbedXmlReader"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.mxml.RemotingService"/>
 <classEntry path="org.seasar.akabana.yui.service.Operation"/>
-<classEntry path="org.seasar.akabana.yui.service.Service"/>
-<classEntry path="org.seasar.akabana.yui.service.ServiceRepository"/>
-<classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcOperation"/>
+<classEntry path="org.seasar.akabana.yui.framework.metadata.MetadataParser"/>
+<classEntry path="org.seasar.akabana.yui.framework.metadata.ViewMetadataParser"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingResponder"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcService"/>
-<classEntry path="org.seasar.akabana.yui.service.rpc.PendingCall"/>
-<classEntry path="org.seasar.akabana.yui.service.rpc.RpcResponder"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingConnection"/>
+<classEntry path="org.seasar.akabana.yui.reflect.MetaData"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.event.RpcResultEvent"/>
+<classEntry path="org.seasar.akabana.yui.resources.embed.EmbedXmlReader"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingService"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcOperation"/>
+<classEntry path="org.seasar.akabana.yui.service.Service"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.event.AbstractRpcEvent"/>
+<classEntry path="org.seasar.akabana.yui.framework.customizer.ServiceEventCustomizer"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.event.FaultStatus"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.event.RpcFaultEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.rpc.event.RpcInvokeEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.rpc.event.RpcResultEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingConnection"/>
+<classEntry path="org.seasar.akabana.yui.framework.metadata.ModelMetadataParser"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingConnectionFactory"/>
-<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation"/>
-<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingResponder"/>
-<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingService"/>
-<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.mxml.RemotingService"/>
+<classEntry path="org.seasar.akabana.yui.framework.metadata.ServiceMetadataParser"/>
+<classEntry path="org.seasar.akabana.yui.service.ServiceRepository"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.PendingCall"/>
+<classEntry path="org.seasar.akabana.yui.net.URLUtil"/>
+<classEntry path="org.seasar.akabana.yui.framework.core.UIComponentRepository"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.RpcResponder"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.event.RpcInvokeEvent"/>
 </includeClasses>
 <includeResources>
 <resourceEntry destPath="org/seasar/akabana/yui/framework/customizer/AutoBindingDefaultProperty.xml" sourcePath="org/seasar/akabana/yui/framework/customizer/AutoBindingDefaultProperty.xml"/>
