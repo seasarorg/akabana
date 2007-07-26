@@ -1,5 +1,5 @@
 <project name="yui-frameworks" default="dist" basedir=".">
-	<property name="ver" value="alpha6-SNAPSHOT"/>
+	<property name="ver" value="alpha-7"/>
     <!-- ================================= 
           target: dist              
          ================================= -->	
@@ -17,6 +17,7 @@
      	<delete>
      		<fileset dir="target">
      			<include name="*" />
+     			<include name="**/*" />
      		</fileset>
      	</delete>
      </target>
