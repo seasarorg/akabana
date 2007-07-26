@@ -19,30 +19,36 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import mx.core.Container;
     import mx.core.UIComponent;
+    import org.seasar.akabana.yui.framework.core.UIComponentUtil;
+    import org.seasar.akabana.yui.framework.core.UIComponentRepository;
     
     public class EventCustomizer {
 
         private static var HANDLER:String = "Handler";
         
+        private static var ON:String = "on";
+        
         public static function customizer( view:Container, logic:Object ):void {
-            var viewContainerChildren:Array = view.getChildren();
-			var logicDescribeTypeXml:XML = describeType(Object(logic).constructor);
+            var viewContainerChildren:Array = UIComponentRepository.getComponentChildren(view);
 			
-			var methods:XMLList;   			
-			var childId:String;
+			for each( var component:UIComponent in viewContainerChildren ){
+				doCustomizeByComponent( component.name, component, logic );
+			}
+			doCustomizeByComponent( ON, view, logic );
+        }
+
+        private static function doCustomizeByComponent( componentName:String, component:UIComponent, logic:Object ):void {
+			const methods:XMLList = describeType(Object(logic).constructor).factory.method.(@name.toString().indexOf(componentName) == 0 );
+			
 			var methodName:String;
 			var handlerIndex:int;
 			var eventName:String;
-			for each( var child:UIComponent in viewContainerChildren ){
-				childId = child.id;
-				methods = logicDescribeTypeXml.factory.method.(@name.toString().indexOf(childId) == 0 );
-				for each( var method:XML in methods ){
-				    methodName = method.@name.toString();
-				    handlerIndex = methodName.lastIndexOf(HANDLER);
-				    eventName = methodName.substr(childId.length,1).toLocaleLowerCase() + methodName.substring(childId.length+1,handlerIndex);
-   					view[childId].addEventListener(eventName, logic[ methodName ]);
-				}
+			for each( var method:XML in methods ){
+			    methodName = method.@name.toString();
+			    handlerIndex = methodName.lastIndexOf(HANDLER);
+			    eventName = methodName.substr(componentName.length,1).toLocaleLowerCase() + methodName.substring(componentName.length+1,handlerIndex);
+   				component.addEventListener(eventName, logic[ methodName ],false,0.0,true);
 			}
-        }   
+        } 
     }
 }

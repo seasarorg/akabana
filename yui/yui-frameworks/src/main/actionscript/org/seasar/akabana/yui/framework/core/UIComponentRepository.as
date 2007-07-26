@@ -23,10 +23,22 @@ package org.seasar.akabana.yui.framework.core {
         
         private static var componentMap:Dictionary = new Dictionary(true);
         
+        private static var componentChildrenMap:Dictionary = new Dictionary(true);
+        
         public static function addComponent( component:UIComponent ):void{
-            //TODO nameもnullなら、component.classから
-            const componentName:String = component.id != null ? component.id : component.name;
-            componentMap[ componentName ] = component;
+            const componentName:String = UIComponentUtil.getComponentName(component);
+            if( componentMap[ componentName ] == null ){
+                componentMap[ componentName ] = component;
+            } else {
+                throw new Error("UIコンポーネント登録重複エラー");
+            }
+            
+            var parentName:String = UIComponentUtil.getComponentName( component.parentDocument as UIComponent );
+            var componentChildrenArray:Array = componentChildrenMap[ parentName ];
+            if( componentChildrenArray == null ){
+                componentChildrenArray = componentChildrenMap[ parentName ] = [];
+            }
+            componentChildrenArray.push(component);
         }
         
         public static function getComponent( name:String ):UIComponent{
@@ -35,6 +47,22 @@ package org.seasar.akabana.yui.framework.core {
         
         public static function hasComponent( name:String ):Boolean{
             return componentMap.hasOwnProperty( name );
+        }
+
+        public static function getComponentChildren( object:Object ):Array{
+            var childrenArray:Array = [];
+            do {
+                if( object is String ){
+                    childrenArray = componentChildrenMap[ object as String ];
+                    break;
+                }
+                if( object is UIComponent ){
+                    childrenArray = componentChildrenMap[ UIComponentUtil.getComponentName( object as UIComponent )];
+                    break;
+                }
+            } while( false );
+            
+            return childrenArray;
         }
     }
 }

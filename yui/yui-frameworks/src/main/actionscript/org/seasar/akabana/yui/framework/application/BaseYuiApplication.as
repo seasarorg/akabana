@@ -24,58 +24,61 @@ package org.seasar.akabana.yui.framework.application {
     import org.seasar.akabana.yui.framework.metadata.MetadataParser;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
+    import org.seasar.akabana.yui.framework.core.UIComponentUtil;
     
     public class BaseYuiApplication extends Application {
         
         private static const VIEW:String = "View";
         
         private static const LOGIC:String = "Logic";
+
+        private static function isViewNaming( container:Container ):Boolean{
+            const id:String = UIComponentUtil.getComponentName( container );
+            return ( id != null && id.indexOf( VIEW ) > 0 );
+        }
         
         public function BaseYuiApplication(){
-            this.addEventListener(FlexEvent.ADD,addHandler, true, int.MAX_VALUE, true);
+            this.addEventListener(FlexEvent.ADD,addHandler, true, int.MAX_VALUE, false);
         }
         
         private function addHandler( event:FlexEvent ):void{
             //trace( event + ":" + event.target );
+            const target:Object = event.target;
             do{
-                if( event.target is Service ){
-                    processServiceRegister( event.target as Service );
+                if( target is Service ){
+                    processServiceRegister( target as Service );
                     break;
                 }
-                if( event.target is UIComponent ){
-                    processComponentRegister( event.target as UIComponent ); 
-                    processViewParse( event.target as Container );
+                if( target is UIComponent ){
+                    processComponentRegister( target as UIComponent ); 
+                    processViewParse( target as Container );
                     break;
                 }
-            } while (false );
+            } while ( false );
         }
         
         private function processComponentRegister( component:UIComponent ):void{
-            UIComponentRepository.addComponent(component);
+            UIComponentRepository.addComponent( component );
         }
         
         private function processViewParse( container:Container ):void{
-            if(
-                container != null &&
-                (
-                    ( container.id != null && container.id.indexOf( VIEW ) > 0 ) ||
-                    ( container.name != null && container.name.indexOf( VIEW ) > 0 )
-                )
-            ){
+            if( container != null && isViewNaming ( container )){
                 container.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler, false, int.MAX_VALUE, true);
             }
         }
         
         private function creationCompoleteHandler( event:FlexEvent ):void{
             //trace( event + ":" + event.target );
-            var container:Container = event.target as Container;
-            container.removeEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler);
-
-            var parentContainer:Container = container.parent as Container;
-            var viewLogicName:String = container.name + LOGIC;
-            
-            if( parentContainer.hasOwnProperty( viewLogicName )){
-                MetadataParser.parse( parentContainer, parentContainer[ viewLogicName ]);
+            const container:Container = event.target as Container;
+            if( container != null ){
+                container.removeEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler);
+    
+                var parentContainer:Container = container.parent as Container;
+                var viewLogicName:String = container.name + LOGIC;
+                
+                if( parentContainer.hasOwnProperty( viewLogicName )){
+                    MetadataParser.parse( parentContainer, parentContainer[ viewLogicName ]);
+                }
             }
         }
 
