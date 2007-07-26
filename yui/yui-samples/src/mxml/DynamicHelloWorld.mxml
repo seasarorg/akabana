@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<yui:YuiApplication
+    layout="absolute"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    xmlns:yui="http://akabana.seasar.org/yui/mxml"
+    xmlns:helloworld.view="examples.yui.helloworld.view.*"
+    xmlns:helloworld.logic="examples.yui.helloworld.logic.*"
+>
+    <mx:Label text="{this.version}"/>
+    <helloworld.view:DynamicHelloWorldView id="dynamicHelloWorldView"/>
+    <helloworld.logic:DynamicHelloWorldViewLogic id="dynamicHelloWorldViewLogic"/>
+    <helloworld.logic:HelloWorldViewLogic id="helloWorldViewLogic"/>
+</yui:YuiApplication>

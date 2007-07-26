@@ -20,6 +20,7 @@
 <sourceAttachmentPath/>
 </compiler>
 <applications>
+<application path="DynamicHelloWorld.mxml"/>
 <application path="EmbedXmlReaderSample.mxml"/>
 <application path="HelloWorld.mxml"/>
 </applications>
