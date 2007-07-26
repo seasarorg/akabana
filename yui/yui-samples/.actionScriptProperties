@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actionScriptProperties mainApplicationPath="HelloWorld.mxml" version="3">
-<compiler additionalCompilerArguments="-locale ja_JP -load-config+=..\..\lib\yui-metadata-config.xml" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="false" htmlPlayerVersion="9.0.28" htmlPlayerVersionCheck="false" outputFolderPath="target/bin" sourceFolderPath="src/mxml" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
+<compiler additionalCompilerArguments="-locale ja_JP -load-config+=..\..\lib\yui-metadata-config.xml" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="false" htmlGenerate="true" htmlHistoryManagement="false" htmlPlayerVersion="9.0.45" htmlPlayerVersionCheck="false" outputFolderPath="target/bin" sourceFolderPath="src/mxml" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
 <compilerSourcePath>
 <compilerSourcePathEntry kind="1" linkType="1" path="src/actionscript"/>
 </compilerSourcePath>
@@ -20,6 +20,7 @@
 <sourceAttachmentPath/>
 </compiler>
 <applications>
+<application path="EmbedXmlReaderSample.mxml"/>
 <application path="HelloWorld.mxml"/>
 </applications>
 <modules/>

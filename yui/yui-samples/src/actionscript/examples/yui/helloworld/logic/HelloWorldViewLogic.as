@@ -8,9 +8,17 @@ package examples.yui.helloworld.logic
         
         [View]
         public var helloWorldView:HelloWordView;
+
+        public function onDoubleClickHandler( event:MouseEvent ):void{
+            Alert.show("ダブルクリック","めっせーじ",4.0,helloWorldView);
+        }
+        
+        public function helloWorldPanelClickHandler( event:MouseEvent ):void{
+            Alert.show("クリック","めっせーじ",4.0,helloWorldView);
+        }
         
         public function showHelloWorldClickHandler( event:MouseEvent ):void{
-            Alert.show("はろーわーるど","めっせーじ",4.0,helloWorldView);
+            Alert.show("ハローワールド","めっせーじ",4.0,helloWorldView);
         }
     }
 }

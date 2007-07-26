@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="initApp()">
+<yui:YuiApplication
+    xmlns:yui="http://akabana.seasar.org/yui/mxml"
+    xmlns:mx="http://www.adobe.com/2006/mxml"
+    layout="absolute"
+    initialize="initApp()"
+>
 	<mx:Script>
 		<![CDATA[
 		    import org.seasar.akabana.yui.resources.embed.EmbedXmlReader;
@@ -31,4 +36,4 @@
             <mx:TextArea height="100%" width="50%" text="選択した項目: {selectedNode.@label}"/>
         </mx:HDividedBox>
     </mx:Panel>
-</mx:Application>
+</yui:YuiApplication>
