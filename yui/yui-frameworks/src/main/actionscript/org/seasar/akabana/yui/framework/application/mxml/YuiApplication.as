@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.framework.application.mxml {
 
     public class YuiApplication extends BaseYuiApplication {
         
-        public const version:String = "yui-framework 1.0 alpha 1";
+        public const version:String = "yui-framework 1.0-alpha-7-SNAPSHOT";
         
     }
 }
