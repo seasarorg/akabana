@@ -7,8 +7,8 @@
 <libraryPath defaultLinkType="1">
 <libraryPathEntry kind="4" path="">
 <excludedEntries>
-<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="false"/>
@@ -20,6 +20,7 @@
 <sourceAttachmentPath/>
 </compiler>
 <applications>
+<application path="HelloWorldNonViewMetadata.mxml"/>
 <application path="DynamicHelloWorld.mxml"/>
 <application path="EmbedXmlReaderSample.mxml"/>
 <application path="HelloWorld.mxml"/>
