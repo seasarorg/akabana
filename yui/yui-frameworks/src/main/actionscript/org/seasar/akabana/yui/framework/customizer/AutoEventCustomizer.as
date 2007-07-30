@@ -47,8 +47,8 @@ package org.seasar.akabana.yui.framework.customizer {
 			    methodName = method.@name.toString();
 			    handlerIndex = methodName.lastIndexOf(HANDLER);
 			    eventName = methodName.substr(componentName.length,1).toLocaleLowerCase() + methodName.substring(componentName.length+1,handlerIndex);
-			        trace(componentName + ".addEventListener(" + eventName + "," + logic + "." + methodName +")");
-   				    component.addEventListener(eventName, logic[ methodName ],false,0.0,true);
+		        trace(componentName + ".addEventListener(" + eventName + "," + logic + "." + methodName +")");
+   			    component.addEventListener(eventName, logic[ methodName ],false,0.0,true);
 			}
         } 
     }
