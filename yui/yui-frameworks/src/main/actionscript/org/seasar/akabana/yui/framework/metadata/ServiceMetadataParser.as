@@ -15,20 +15,18 @@
  */
 package org.seasar.akabana.yui.framework.metadata {
     
-    import flash.utils.Dictionary;
-    import flash.utils.describeType;
+    import mx.core.Container;
     
     import org.seasar.akabana.yui.framework.core.ClassUtil;
-    import org.seasar.akabana.yui.service.Operation;
+    import org.seasar.akabana.yui.framework.customizer.ServiceEventCustomizer;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
-    import org.seasar.akabana.yui.framework.customizer.ServiceEventCustomizer;
     
     internal class ServiceMetadataParser {
         
         private static var NAME:String = "name";
         
-        public static function parse( owner:Object, target:Object, variableXML:XML, metadataXML:XML ):void{
+        public static function parse( view:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
             var variableName:String = variableXML.@name.toString();
             
             var serviceName:String = metadataXML.arg.(@key == NAME).@value.toString();

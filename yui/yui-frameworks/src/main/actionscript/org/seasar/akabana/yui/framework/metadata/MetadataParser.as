@@ -26,16 +26,16 @@ package org.seasar.akabana.yui.framework.metadata {
         
         private static const METADATA:String = "Metadata";
         
-        public static function parse( owner:Container, target:Object ):void{
+        public static function parse( view:Container, target:Object ):void{
             var describeTypeXml:XML = describeType(Object(target).constructor);
 		    var variableXMLList:XMLList = describeTypeXml.factory.variable;
 
 			for each( var variableXML:XML in variableXMLList ){
-                parseVariableMetadata(owner,target,variableXML);
+                parseVariableMetadata(view,target,variableXML);
 			}
 		}
 		
-		private static function parseVariableMetadata( owner:Container, target:Object, variableXML:XML):void{
+		private static function parseVariableMetadata( view:Container, target:Object, variableXML:XML):void{
             var metadataXMLList:XMLList = variableXML.metadata;
             var metadataName:String;
             var parseMetadataFunction:Function;
@@ -47,24 +47,24 @@ package org.seasar.akabana.yui.framework.metadata {
                 try{
                     parseMetadataFunction = MetadataParser[ PARSE + metadataName + METADATA];
                 }catch( e:Error ){
-                    trace( "Not Found MetadataParse Function :" + metadataName + "@" + owner);
+                    trace( "Not Found MetadataParse Function :" + metadataName + "@" + view);
                 }
                 if( parseMetadataFunction != null && parseMetadataFunction is Function){
-                    parseMetadataFunction.apply(null,[owner, target, variableXML, metadataXML]);
+                    parseMetadataFunction.apply(null,[view, target, variableXML, metadataXML]);
                 }
             } 
 		}
 
-        public static function parseViewMetadata( owner:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
-            ViewMetadataParser.parse( owner, target, variableXML, metadataXML);
+        public static function parseViewMetadata( view:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
+            ViewMetadataParser.parse( view, target, variableXML, metadataXML);
         }
      
-        public static function parseModelMetadata( owner:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
-            ModelMetadataParser.parse( owner, target, variableXML, metadataXML);
+        public static function parseModelMetadata( view:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
+            ModelMetadataParser.parse( view, target, variableXML, metadataXML);
         }
 
-        public static function parseServiceMetadata( owner:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
-            ServiceMetadataParser.parse( owner, target, variableXML, metadataXML);
+        public static function parseServiceMetadata( view:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
+            ServiceMetadataParser.parse( view, target, variableXML, metadataXML);
         }
     }
 }

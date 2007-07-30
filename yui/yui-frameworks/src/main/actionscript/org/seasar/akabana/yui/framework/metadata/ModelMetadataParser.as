@@ -15,25 +15,23 @@
  */
 package org.seasar.akabana.yui.framework.metadata {
 	
-	import mx.binding.utils.BindingUtils;
-	import mx.core.Container;
-	import mx.core.UIComponent;
-
 	import flash.utils.describeType;
 	
-	import org.seasar.akabana.yui.framework.core.UIComponentRepository;
+	import mx.core.Container;
+	
 	import org.seasar.akabana.yui.framework.core.ClassUtil;
+	import org.seasar.akabana.yui.framework.core.UIComponentRepository;
 	import org.seasar.akabana.yui.framework.customizer.AutoBindCustomizer;
     
     internal class ModelMetadataParser {
         
         private static const BIND_VIEW:String = "bindView";
     
-        public static function parse( owner:Object, target:Object, variableXML:XML, metadataXML:XML ):void{
+        public static function parse( view:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
             var variableName:String = variableXML.@name.toString();
             var model:Object;
-            if( Object( owner ).hasOwnProperty( variableName )){
-                model = owner[ variableName ];
+            if( Object( view ).hasOwnProperty( variableName )){
+                model = view[ variableName ];
             } else {
                 model = ClassUtil.newInstance(variableXML.@type.toString());
             }

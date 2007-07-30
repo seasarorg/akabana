@@ -25,6 +25,7 @@ package org.seasar.akabana.yui.framework.application {
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
     import org.seasar.akabana.yui.framework.core.UIComponentUtil;
+    import org.seasar.akabana.yui.framework.customizer.AutoEventCustomizer;
     
     public class BaseYuiApplication extends Application {
         
@@ -73,12 +74,13 @@ package org.seasar.akabana.yui.framework.application {
             if( container != null ){
                 container.removeEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler);
     
-                var parentContainer:Container = container.parent as Container;
-                var viewLogicName:String = container.name + LOGIC;
+                const parentContainer:Container = container.parent as Container;
+                const viewLogicName:String = container.name + LOGIC;
                 
                 if( parentContainer.hasOwnProperty( viewLogicName )){
+                    AutoEventCustomizer.customizer(container,parentContainer[ viewLogicName ]);
                     MetadataParser.parse( parentContainer, parentContainer[ viewLogicName ]);
-                }
+                }  
             }
         }
 

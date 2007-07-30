@@ -21,16 +21,16 @@ package org.seasar.akabana.yui.framework.metadata {
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.framework.core.UIComponentRepository;
-    import org.seasar.akabana.yui.framework.customizer.EventCustomizer;
+    import org.seasar.akabana.yui.framework.customizer.AutoEventCustomizer;
     
     internal class ViewMetadataParser {
         
-        public static function parse( owner:Object, target:Object, variableXML:XML, metadataXML:XML ):void{
+        public static function parse( view:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
             var variableName:String = variableXML.@name.toString();
             
             if( UIComponentRepository.hasComponent( variableName )){
                 var viewContainer:Container = UIComponentRepository.getComponent(variableName) as Container;
-                EventCustomizer.customizer( viewContainer, target );
+                AutoEventCustomizer.customizer( viewContainer, target );
                 target[ variableName ] = viewContainer;
             }
         }

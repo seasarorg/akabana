@@ -22,7 +22,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.framework.core.UIComponentUtil;
     import org.seasar.akabana.yui.framework.core.UIComponentRepository;
     
-    public class EventCustomizer {
+    public class AutoEventCustomizer {
 
         private static var HANDLER:String = "Handler";
         
@@ -47,7 +47,8 @@ package org.seasar.akabana.yui.framework.customizer {
 			    methodName = method.@name.toString();
 			    handlerIndex = methodName.lastIndexOf(HANDLER);
 			    eventName = methodName.substr(componentName.length,1).toLocaleLowerCase() + methodName.substring(componentName.length+1,handlerIndex);
-   				component.addEventListener(eventName, logic[ methodName ],false,0.0,true);
+			        trace(componentName + ".addEventListener(" + eventName + "," + logic + "." + methodName +")");
+   				    component.addEventListener(eventName, logic[ methodName ],false,0.0,true);
 			}
         } 
     }
