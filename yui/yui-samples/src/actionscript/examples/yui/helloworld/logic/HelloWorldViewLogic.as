@@ -1,13 +1,13 @@
 package examples.yui.helloworld.logic
 {
-    import examples.yui.helloworld.view.HelloWordView;
+    import examples.yui.helloworld.view.HelloWorldView;
     import flash.events.MouseEvent;
     import mx.controls.Alert;
     
     public class HelloWorldViewLogic {
         
         [View]
-        public var helloWorldView:HelloWordView;
+        public var helloWorldView:HelloWorldView;
 
         public function onDoubleClickHandler( event:MouseEvent ):void{
             Alert.show("ダブルクリック","めっせーじ",4.0,helloWorldView);

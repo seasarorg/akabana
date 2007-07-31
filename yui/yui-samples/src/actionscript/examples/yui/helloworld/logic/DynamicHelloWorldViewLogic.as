@@ -3,7 +3,7 @@ package examples.yui.helloworld.logic
     import examples.yui.helloworld.view.DynamicHelloWorldView;
     
     import flash.events.MouseEvent;
-    import examples.yui.helloworld.view.HelloWordView;
+    import examples.yui.helloworld.view.HelloWorldView;
     
     public class DynamicHelloWorldViewLogic {
         
@@ -11,7 +11,7 @@ package examples.yui.helloworld.logic
         public var dynamicHelloWorldView:DynamicHelloWorldView;
 
         public function createViewClickHandler( event:MouseEvent ):void{
-            var helloWorldView:HelloWordView = new HelloWordView();
+            var helloWorldView:HelloWorldView = new HelloWorldView();
             helloWorldView.name = "helloWorldView";
             dynamicHelloWorldView.parent.addChild(helloWorldView);
         }

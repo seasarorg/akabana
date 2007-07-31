@@ -7,6 +7,6 @@
     xmlns:helloworld.logic="examples.yui.helloworld.logic.*"
 >
     <mx:Label text="{this.version}"/>
-    <helloworld.view:HelloWordView id="helloWorldView"/>
+    <helloworld.view:HelloWorldView id="helloWorldView"/>
     <helloworld.logic:HelloWorldViewLogicNonViewMetadata id="helloWorldViewLogic"/>
 </yui:YuiApplication>
