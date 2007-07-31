@@ -1,6 +1,6 @@
 package examples.yui.helloworld.logic
 {
-    import examples.yui.helloworld.view.HelloWordView;
+    import examples.yui.helloworld.view.HelloWorldView;
     import flash.events.MouseEvent;
     import mx.controls.Alert;
     
