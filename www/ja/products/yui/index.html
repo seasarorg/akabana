@@ -74,16 +74,32 @@
   <div id="contents_center">
     <div id="article">
       <div class="section">
-        <h2>Yui</h2>
+        <h2>Yui framework</h2>
         <p>デザイナーとプログラマが、互いに意識しないで、Flex 2アプリケーションを開発する上でのフレームワークです。<br />
         </p>
         <h2> <a name="Overview">概要</a></h2>
-        <p>TBD</p>
+        <p>yui frameworkは、FlexにおけるView(mxml)とLogic(ActionScript)を完全分離することを目的としたプレゼンテーションレイヤーのFrameworkであり、以下のような特徴を持ちます。<br />
+<h4>ViewとLogicの分離</h4><br />
+デザイナとの分業を目的に、画面の定義を行うView(mxml)ファイルにはロジックを記述しなくてもよいように設計されています。<br />
+例えば、今まではButtonタグ内に「click="function名"」など、多少なりともmxmlにスクリプトを記述する必要がありましたが、<br />
+YUIでは、それさえも不要になっており、mxmlで必要なのは、画面を構成するコンポーネントの配置と、そのそれぞれに「id」を記述する事のみになります。<br />
+<h4>Convention over Configuration</h4><br />
+Seasar2.4で導入されたConvention over Configuration ～設定より規約～ (元はRuby on Railsの特徴)<br />
+を導入し、ファンクション名などの命名規約によって関連付けを行います。<br />
+従って、設定ファイルを記述しなくてもコンポーネントとファンクションの関連付けを行うことができます。<br />
+<h4>メタデータを用いたDI</h4><br />
+YUIでは、View,Model,Serviceのメタが使用でき、それらを使用することによって自動的にDIされます。<br />
+ViewLogicクラス内にて、ViewインスタンスやRemotingServiceインスタンスをすぐに取得できます。<br />
+<h4>双方向バインディング</h4><br />
+Viewでの入力値と、Dtoのプロパティとの双方向バインディングが実現されています。<br />
+画面入力値は、(メタデータを使うことで)自動的にDtoにバインディングされます。<br />
+<h4>RPCの実装</h4><br />
+S2Flex2との連携は、従来のs2flex2-componentsを利用するのではなく、yui frameworks用に新たに実装されており、gatewayUrlの記述やjava側のServiceクラスの指定が省けるようになっています。</p>
         <h2><a name="Features">機能</a></h2>
         <p>TBD</p>
         <h2><a name="Download">ダウンロード</a></h2>
-        <p> このプロジェクトはまだダウンロードできるものはありません。<br />リポジトリにプレビューとなるものはあります。
-        </p>
+        <p> <a href="/">akabana</a>のサイトより<a href="../../downloads.html">download</a>することができます。<br />
+          また、<a href="../../source-repository.html">ソースリポジトリ</a>より最新のものをチェックアウトすることも可能です。 </p>
         <h2><a name="Prerequisites" id="Prerequisites"></a>前提条件</h2>
         <p>yuiはFlex2に対応したフレームワークになる予定です。        </p>
         <h2><a name="Install" id="Install">インストール</a> </h2>
