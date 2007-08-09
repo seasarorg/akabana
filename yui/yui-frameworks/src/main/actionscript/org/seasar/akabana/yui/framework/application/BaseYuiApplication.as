@@ -33,11 +33,6 @@ package org.seasar.akabana.yui.framework.application {
         
         private static const LOGIC:String = "Logic";
 
-        private static function isViewNaming( container:Container ):Boolean{
-            const id:String = UIComponentUtil.getComponentName( container );
-            return ( id != null && id.indexOf( VIEW ) > 0 );
-        }
-        
         public function BaseYuiApplication(){
             this.addEventListener(FlexEvent.ADD,addHandler, true, int.MAX_VALUE, false);
         }
@@ -46,24 +41,24 @@ package org.seasar.akabana.yui.framework.application {
             //trace( event + ":" + event.target );
             const target:Object = event.target;
             do{
-                if( target is Service ){
-                    processServiceRegister( target as Service );
+                if( target is UIComponent ){
+                    processRegisterComponent( target as UIComponent ); 
+                    processParseView( target as Container );
                     break;
                 }
-                if( target is UIComponent ){
-                    processComponentRegister( target as UIComponent ); 
-                    processViewParse( target as Container );
+                if( target is Service ){
+                    processRegisterService( target as Service );
                     break;
                 }
             } while ( false );
         }
         
-        private function processComponentRegister( component:UIComponent ):void{
+        private function processRegisterComponent( component:UIComponent ):void{
             UIComponentRepository.addComponent( component );
         }
         
-        private function processViewParse( container:Container ):void{
-            if( container != null && isViewNaming ( container )){
+        private function processParseView( container:Container ):void{
+            if( container != null && isNamingOfView ( container )){
                 container.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler, false, int.MAX_VALUE, true);
             }
         }
@@ -84,8 +79,14 @@ package org.seasar.akabana.yui.framework.application {
             }
         }
 
-        private function processServiceRegister( service:Service ):void{
+        private function processRegisterService( service:Service ):void{
             ServiceRepository.addService(service);
+        }
+
+
+        private function isNamingOfView( container:Container ):Boolean{
+            const id:String = UIComponentUtil.getComponentName( container );
+            return ( id != null && id.indexOf( VIEW ) > 0 );
         }
     }
 }
