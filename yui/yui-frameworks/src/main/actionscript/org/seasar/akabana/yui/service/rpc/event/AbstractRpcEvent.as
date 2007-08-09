@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.service.rpc.event {
     
     import org.seasar.akabana.yui.service.rpc.PendingCall;
     
-    internal class AbstractRpcEvent extends Event {
+    public class AbstractRpcEvent extends Event {
         
         private var pendigCall_:PendingCall;
         
