@@ -76,13 +76,31 @@
       <div class="section">
         <h2> <a name="Setup">セットアップ</a></h2>
         <p>ここではyui-frameworksのセットアップについて記述します。<br />
-        <h4>ダウンロード</h4>
+        <br />
+        <h4>前提条件</h4><br />
+        FlexBuilder3(Moxie)を使用します。また、yui-frameworks本体をダウンロードしておきます。<br />
+        <br />
+        ダウンロードは、<a href="/">akabana</a>のサイトより<a href="../../downloads.html">download</a>することができます。<br />
+        また、<a href="../../source-repository.html">ソースリポジトリ</a>より最新のものをチェックアウトすることも可能です。<br />
+        <br />
 
-        <h4>プロジェクトの作成</h4>
+        <h4>プロジェクトの作成</h4><br />
+        FlexBuilder(またはプラグイン)にて新規Flexプロジェクトを作成します。<br />
 
-        <h4>ライブラリをインクルード</h4>
+        <h4>ライブラリをインクルード</h4><br />
+        ダウンロードしたyui-frameworksを解凍後、target/swc/にyui-frameworks.swcを取り出してプロジェクトへコピーします。<br />
+        swcをコピーしたら、プロジェクトを右クリック、プロパティ > Flexライブラリパス にて同swcファイルを追加します。<br />
+        <br />
 
+        <h4>メタデータを保持する為の設定</h4><br />
+        src/main/resources/yui-metadata-config.xmlをプロジェクトへコピーします。コピー先はソースパスの通った場所に配置します。<br />
+        コピーしたら、プロジェクトを右クリック、プロパティ > Flexコンパイラ? > 追加コンパイラ引数に○を追記します。<br />
+        
+        ここまででセットアップは完了です。
+        <br />
+        
         <h4>付属のサンプルをImportする場合</h4>
+        サンプルをダウンロードし、Importして下さい。
 
         </p>
 
