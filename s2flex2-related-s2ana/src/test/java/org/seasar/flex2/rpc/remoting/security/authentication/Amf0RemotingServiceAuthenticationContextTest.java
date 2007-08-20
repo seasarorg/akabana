@@ -18,7 +18,7 @@ package org.seasar.flex2.rpc.remoting.security.authentication;
 import org.seasar.extension.unit.S2TestCase;
 
 public class Amf0RemotingServiceAuthenticationContextTest extends S2TestCase {
-    private final static String PATH = "s2flex2-ana-amf0test.dicon";
+    private final static String PATH = "s2flex2-ana-amf0-test.dicon";
     
     private RemotingServiceAuthenticationContext context;
 

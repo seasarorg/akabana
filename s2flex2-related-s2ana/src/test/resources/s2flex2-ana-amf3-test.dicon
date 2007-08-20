@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
+    "http://www.seasar.org/dtd/components24.dtd">
+<components
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+>
+	<include path="s2ana.dicon" />
+	<xi:include href="/remoting_amf3message_mock.dicon" />
+	<xi:include href="/s2flex2-ana-amf3.dicon" />
+
+	<!--
+		Authorization
+	-->
+	<component
+		class="org.seasar.framework.container.autoregister.AspectAutoRegister"
+	>
+	  	<property name="interceptor">s2ana.requireLogin</property>
+	    <initMethod name="addClassPattern">
+	        <arg>"org.seasar.flex2.rpc.remoting.security"</arg>
+	        <arg>".*Test"</arg>
+	    </initMethod>
+	</component>
+</components>

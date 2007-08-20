@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
+    "http://www.seasar.org/dtd/components24.dtd">
+<components namespace="s2flex2-ana-amf0"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+>
+	<xi:include href="/s2flex2-ana-realm.dicon" />
+
+	<!--
+		Authentication
+	-->
+    <component
+    	class="org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalImpl"
+    />
+    <component
+    	class="org.seasar.flex2.rpc.remoting.security.factory.impl.RemotingServicePrincipalFactoryImpl"
+    />
+
+	<!--
+		Authentication Context
+	-->
+	<component
+		class="org.seasar.flex2.rpc.remoting.message.data.factory.impl.MessageFactoryImpl" />
+    <component
+        name="authenticationContext"
+        class="org.seasar.flex2.rpc.remoting.security.authentication.impl.Amf0RemotingServiceAuthenticationContextImpl"
+    >
+    	<property name="storage">
+    		<component
+    			class="org.seasar.flex2.rpc.remoting.security.impl.RemotingServicePrincipalSessionStorageImpl"
+    		/>
+    	</property>
+    </component>
+</components>

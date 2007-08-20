@@ -21,5 +21,5 @@ public interface RemotingServicePrincipalStorage {
 
     Principal getUserPrincipal();
 
-    void savePrincipal(RemotingServicePrincipal principal);
+    void savePrincipal(Principal principal);
 }

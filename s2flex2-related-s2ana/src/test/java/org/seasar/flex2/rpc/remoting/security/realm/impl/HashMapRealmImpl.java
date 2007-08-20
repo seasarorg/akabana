@@ -18,43 +18,40 @@ package org.seasar.flex2.rpc.remoting.security.realm.impl;
 import java.util.Map;
 
 import org.seasar.flex2.rpc.remoting.security.RemotingServicePrincipal;
-import org.seasar.flex2.rpc.remoting.security.realm.impl.AbstractRemotingServiceRealmImpl;
+import org.seasar.flex2.rpc.remoting.security.realm.RemotingServiceRealm;
 
-public class HashMapRealmImpl extends AbstractRemotingServiceRealmImpl {
-
+public class HashMapRealmImpl implements RemotingServiceRealm {
+    
     private Map userMap;
-
+    
     private Map userRoleMap;
-
-    public RemotingServicePrincipal authenticate(final String name, final String password) {
-        RemotingServicePrincipal principal = null;
-        if (password.equals(getPassword(name))) {
-            principal = createPrincipal(name,getRole(name));
-        }
-        return principal;
+    
+    public boolean authenticate(final String name, final String password) {
+        return password.equals(getPassword(name));
     }
-
-    public boolean hasRole(final RemotingServicePrincipal principal, final String role) {
+    
+    public boolean hasRole(final RemotingServicePrincipal principal,
+            final String role) {
         boolean hasRole = false;
         if (userRoleMap.containsKey(principal.getName())) {
             hasRole = role.equalsIgnoreCase(getRole(principal.getName()));
         }
         return hasRole;
     }
-
+    
     public void setUserMap(Map userMap) {
         this.userMap = userMap;
     }
-
+    
     public void setUserRoleMap(Map userRoleMap) {
         this.userRoleMap = userRoleMap;
     }
-
+    
     protected String getPassword(String userid) {
         return (String) userMap.get(userid);
     }
-
-    protected String getRole(String name) {
+    
+    public String getRole(String name) {
         return (String) userRoleMap.get(name);
     }
 }

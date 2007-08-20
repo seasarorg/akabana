@@ -19,33 +19,32 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpSession;
 
-import org.seasar.flex2.rpc.remoting.security.RemotingServicePrincipal;
 import org.seasar.flex2.rpc.remoting.security.RemotingServicePrincipalStorage;
 import org.seasar.framework.container.S2Container;
 
 public class RemotingServicePrincipalSessionStorageImpl implements
         RemotingServicePrincipalStorage {
-
+    
     private static final String PRINCEPAL_SESSION_KEY = "_rsPrincipal_";
-
+    
     private S2Container container;
-
+    
     public final Principal getUserPrincipal() {
         return (Principal) getSession().getAttribute(PRINCEPAL_SESSION_KEY);
     }
-
-    public void savePrincipal(final RemotingServicePrincipal principal) {
+    
+    public void savePrincipal(final Principal principal) {
         if (principal != null) {
             doSaveUserPrincipal(principal);
         } else {
             doRemoveUserPrincipal();
         }
     }
-
+    
     public void setContainer(S2Container container) {
         this.container = container;
     }
-
+    
     private final void doRemoveUserPrincipal() {
         getSession().removeAttribute(PRINCEPAL_SESSION_KEY);
     }
@@ -53,7 +52,7 @@ public class RemotingServicePrincipalSessionStorageImpl implements
     private final void doSaveUserPrincipal(final Principal principal) {
         getSession().setAttribute(PRINCEPAL_SESSION_KEY, principal);
     }
-
+    
     private final HttpSession getSession() {
         final HttpSession session = (HttpSession) container
                 .getComponent("session");

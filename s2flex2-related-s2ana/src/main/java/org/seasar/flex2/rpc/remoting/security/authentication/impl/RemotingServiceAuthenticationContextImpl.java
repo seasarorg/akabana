@@ -17,108 +17,83 @@ package org.seasar.flex2.rpc.remoting.security.authentication.impl;
 
 import java.security.Principal;
 
-import org.seasar.flex2.core.format.amf.type.AmfObject;
-import org.seasar.flex2.rpc.remoting.message.RemotingMessageConstants;
 import org.seasar.flex2.rpc.remoting.message.data.Message;
 import org.seasar.flex2.rpc.remoting.message.data.factory.MessageFactory;
 import org.seasar.flex2.rpc.remoting.security.RemotingServicePrincipal;
 import org.seasar.flex2.rpc.remoting.security.RemotingServicePrincipalStorage;
 import org.seasar.flex2.rpc.remoting.security.authentication.RemotingServiceAuthenticationContext;
+import org.seasar.flex2.rpc.remoting.security.factory.RemotingServicePrincipalFactory;
 import org.seasar.flex2.rpc.remoting.security.realm.RemotingServiceRealm;
 
-public class RemotingServiceAuthenticationContextImpl implements
+public abstract class RemotingServiceAuthenticationContextImpl implements
         RemotingServiceAuthenticationContext {
-
+    
     private MessageFactory messageFactory;
-
-    private RemotingServiceRealm remotingServiceRealm;
-
-    private RemotingServicePrincipalStorage storage;
-
-    public void authenticate() {
-        if (getRemotingServicePrincipal() == null) {
-            doAuthenticate(messageFactory.createRequestMessage());
-        }
-    }
-
+    
+    protected RemotingServiceRealm remotingServiceRealm;
+    
+    protected RemotingServicePrincipalStorage storage;
+    
+    protected RemotingServicePrincipalFactory remotingServicePrincipalFactory;
+    
     public final Principal getUserPrincipal() {
         return storage.getUserPrincipal();
     }
-
+    
     public void invalidate() {
         storage.savePrincipal(null);
     }
-
+    
     public boolean isAuthenticated() {
         if (getUserPrincipal() == null) {
             authenticate();
         }
         return getUserPrincipal() != null;
     }
-
+    
     public boolean isUserInRole(final String role) {
         boolean isUserInRole = false;
-
+        
         if (isAuthenticated()) {
             isUserInRole = remotingServiceRealm.hasRole(
                     getRemotingServicePrincipal(), role);
         }
-
+        
         return isUserInRole;
     }
-
+    
     public void setMessageFactory(MessageFactory messageFactory) {
         this.messageFactory = messageFactory;
     }
-
+    
+    public void setRemotingServicePrincipalFactory(
+            final RemotingServicePrincipalFactory remotingServicePrincipalFactory) {
+        this.remotingServicePrincipalFactory = remotingServicePrincipalFactory;
+    }
+    
     public void setRemotingServiceRealm(
             final RemotingServiceRealm remotingServiceRealm) {
         this.remotingServiceRealm = remotingServiceRealm;
     }
-
+    
     public void setStorage(RemotingServicePrincipalStorage storage) {
         this.storage = storage;
     }
-
-    private final void doAuthenticate(final Message requestMessage) {
-
-        doAuthenticateOnAmf0(requestMessage);
-
-        doAuthenticateOnAmf3(requestMessage);
-    }
-
-    /**
-     * @param requestMessage
-     */
-    private final void doAuthenticateOnAmf0(final Message requestMessage) {
-        AmfObject credentials = (AmfObject) requestMessage
-                .getHeaderValue(RemotingMessageConstants.HEADER_NAME_CREDENTINALS);
-        if (credentials != null) {
-            final String credentialId = (String) credentials
-                    .get(RemotingMessageConstants.USERID);
-            final String credentialpassword = (String) credentials
-                    .get(RemotingMessageConstants.PASSWORD);
-            storage.savePrincipal(remotingServiceRealm.authenticate(
-                    credentialId, credentialpassword));
-        }
-    }
-
-    /**
-     * @param requestMessage
-     */
-    private final void doAuthenticateOnAmf3(final Message requestMessage) {
-        final String userid = requestMessage
-                .getHeader(RemotingMessageConstants.CREDENTIALS_USERNAME);
-
-        if (userid != null) {
-            final String password = requestMessage
-                    .getHeader(RemotingMessageConstants.CREDENTIALS_PASSWORD);
-            storage.savePrincipal(remotingServiceRealm.authenticate(userid,
-                    password));
-        }
-    }
-
+    
     private final RemotingServicePrincipal getRemotingServicePrincipal() {
         return (RemotingServicePrincipal) getUserPrincipal();
+    }
+    
+    protected void authenticate() {
+        if (getRemotingServicePrincipal() == null) {
+            doAuthenticate(messageFactory.createRequestMessage());
+        }
+    }
+    
+    protected abstract void doAuthenticate(final Message requestMessage);
+    
+    protected final Principal getUserPrincipalInRealm(String userid) {
+        final String role = remotingServiceRealm.getRole(userid);
+        return remotingServicePrincipalFactory.createPrincipal(userid, role);
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Shift_JIS"?>
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN" 
 	"http://www.seasar.org/dtd/components23.dtd">
-<components namespace="remoting_amf0">
+<components>
 	<component
 		class="org.seasar.flex2.rpc.remoting.message.data.MessageHeader"/>
 		
@@ -31,8 +31,5 @@
 			</arg>
 		</initMethod>
 	</component>
-
-	<component
-		class="org.seasar.flex2.rpc.remoting.message.data.factory.impl.MessageFactoryImpl" />
 
 </components>

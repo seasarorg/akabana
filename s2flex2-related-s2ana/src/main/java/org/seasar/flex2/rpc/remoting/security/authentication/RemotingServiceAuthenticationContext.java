@@ -20,7 +20,5 @@ import org.seasar.security.authentication.AuthenticationContext;
 public interface RemotingServiceAuthenticationContext extends
 		AuthenticationContext {
 
-	void authenticate();
-
 	void invalidate();
 }
