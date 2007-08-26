@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Content-Language" content="ja" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
-<title>AKABANA - S2Flex2 related S2AnA(1.0.0-rc-6)</title>
+<title>AKABANA - S2Flex2 related S2AnA(1.0.0-rc-7)</title>
 <link rel="stylesheet" type="text/css" href="http://www.seasar.org/theme/main.css" media="screen,projection" />
 <link rel="stylesheet" type="text/css" href="http://www.seasar.org/theme/print.css" media="print" />
 <link href="./css/maven-base.css" type="text/css" rel="stylesheet" media="screen" />
@@ -56,7 +56,7 @@
   <div id="contents_center">
     <div id="article">
       <div class="section">
-        <h2>S2Flex2 related S2AnA(1.0.0-rc-6)</h2>
+        <h2>S2Flex2 related S2AnA(1.0.0-rc-7)</h2>
         <p><a href="http://s2flex2.sandbox.seasar.org/ja/" target="external">S2Flex2</a>と<a href="http://www.seasar.org/wiki/index.php?Sandbox%2FS2AnA" target="external">S2AnA</a>の連携し認証と承認機能を追加することを目的としたプロジェクトです。<br/>
           ちょっと名前が長いので、いい名前を募集しています。</p>
         <h2> <a name="Overview">概要</a></h2>
@@ -92,23 +92,23 @@
         <p> s2flex2/S2Containerを利用する上で必要なファイルをコピーします。 </p>
         <ul>
           <li>aopalliance-1.0.jar</li>
-          <li>geronimo-jta_1.0.1B_spec-1.0.jar</li>
+          <li>geronimo-jta_1.1_spec-1.0.jar</li>
           <li>javassist-3.4ga.jar</li>
           <li>log4j-1.2.13.jar</li>
-          <li>ognl-2.6.7.jar</li>
+          <li>ognl-2.6.9-patch-20070624.jar</li>
           <li>s2-extension-2.4.x.jar</li>
           <li>s2-framework-2.4.x.jar</li>
-          <li>s2-flex2-1.0.1.jar</li>
+          <li>s2-flex2-1.1.0.jar</li>
         </ul>
         <p>S2AnA連携を行うのに、追加で必要なjarファイルは以下の通りです。
         <ul>
           <li>s2-ana-core-0.1.7.jar</li>
-          <li>s2-flex2-ana-1.0.0-rc-6.jar</li>
+          <li>s2-flex2-ana-1.0.0-rc-7.jar</li>
         </ul>
         <p>exampleではJDK5.0のアノテーションを利用する<a href="http://s2container.seasar.org/">S2-Tiger</a>を利用しているので以下のファイルも必要になります。</p>
         <ul>
-          <li>geronimo-ejb_2.1_spec-1.0.jar</li>
-          <li>s2-tiger-2.4.xjar</li>
+          <li>geronimo-ejb_3.0_spec-1.0.jar</li>
+          <li>s2-tiger-2.4.x.jar</li>
           <li>s2flex2-tiger-1.0.0.jar</li>
         </ul>
         <h4>認証用クラスの作成</h4>
