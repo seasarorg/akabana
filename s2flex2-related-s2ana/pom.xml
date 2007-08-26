@@ -46,6 +46,11 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <scm>
+    <connection>scm:svn:https://www.seasar.org/svn/sandbox/akabana/trunk/s2flex2-related-s2ana/</connection>
+    <developerConnection>scm:svn:https://www.seasar.org/svn/sandbox/akabana/trunk/s2flex2-related-s2ana/</developerConnection>
+    <url>http://svn.seasar.org/browse/?root=sandbox.akabana</url>
+  </scm>  
   <organization>
     <name>The Seasar Foundation</name>
     <url>http://www.seasar.org/</url>
@@ -63,7 +68,15 @@
             <encoding>UTF-8</encoding>
           </configuration>
         </plugin>
-      
+			<plugin>  
+				<groupId>org.apache.maven.plugins</groupId>  
+				<artifactId>maven-site-plugin</artifactId>  
+				<configuration>  
+					<locales>ja,en</locales>  
+					<inputEncoding>UTF-8</inputEncoding>  
+					<outputEncoding>UTF-8</outputEncoding>  
+				</configuration>  
+		</plugin>        
       </plugins>
     </pluginManagement>
     <plugins>
@@ -142,4 +155,22 @@
 		<url>dav:https://www.seasar.org/maven/maven2-snapshot</url>
 	</snapshotRepository>    
   </distributionManagement>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <encoding>UTF-8</encoding>
+          <docencoding>UTF-8</docencoding>
+          <charset>UTF-8</charset>
+          <links>
+            <link>http://java.sun.com/javaee/5/docs/api/</link>
+          	<link>http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/</link>
+            <link>http://aopalliance.sourceforge.net/doc/</link>
+          </links>
+	      </configuration>
+      </plugin>
+    </plugins>
+  </reporting>  
 </project>
