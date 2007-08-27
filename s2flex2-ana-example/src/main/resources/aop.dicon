@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="Shift_JIS"?>
-<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
 	"http://www.seasar.org/dtd/components24.dtd">
-<components namespace="aop">
-	<component name="traceInterceptor"
-		class="org.seasar.framework.aop.interceptors.TraceInterceptor"/>
-	<component name="traceThrowsInterceptor"
-		class="org.seasar.framework.aop.interceptors.TraceThrowsInterceptor"/>
-	<component name="classLoaderAwareTraceInterceptor"
-		class="org.seasar.framework.aop.interceptors.ClassLoaderAwareTraceInterceptor"/>
+<components>
+	<include path="convention.dicon"/>
+	<include path="aop.dicon"/>
+	<include path="s2ana.dicon" />
+	<include path="remoting_ana.dicon"/>
+
+	<include condition="#ENV != 'ut'" path="flex2_example-cooldeploy.dicon"/>
 </components>
