@@ -15,6 +15,7 @@ import examples.flex2.add.service.AddService;
 @RemotingService
 public class AddServiceImpl implements AddService {
 
+	private static final long serialVersionUID = -3992983806172401104L;
 	private AddDto addDto;
 	
     public int calculate(int arg1, int arg2) {
@@ -22,7 +23,6 @@ public class AddServiceImpl implements AddService {
     }
 
     public AddDto calculate2(AddDto addDto) {
-
     	addDto.setArg1(addDto.getArg1());
     	addDto.setArg2(addDto.getArg2());
         addDto.setSum(addDto.getArg1() + addDto.getArg2());
@@ -38,7 +38,6 @@ public class AddServiceImpl implements AddService {
     	this.addDto = new AddDto();
     	return this.addDto;
     }
-
 
     @Export(storage = StorageType.SESSION)
 	public AddDto getAddDto() {
