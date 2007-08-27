@@ -1,10 +1,15 @@
 package examples.flex2.add.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class AddDto {
+public class AddDto implements Serializable{
 
-    private int arg1;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -723908599734399800L;
+	private int arg1;
     private int arg2;
     private int sum;
     private Date calclateDate;
