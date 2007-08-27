@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components namespace="s2flex2-ana-realm" >
+	<!--
+		Realm
+	-->
+	<component
+		name="remotingServiceRealm"
+    	class="org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl"
+   	>
+   		<property name="userMap">
+   			<component class="java.util.HashMap" >
+   				<initMethod name="put">
+   					<arg>"admin"</arg>
+   					<arg>"adminpass"</arg>
+   				</initMethod>
+   			</component>
+   		</property>
+   		<property name="userRoleMap">
+   			<component class="java.util.HashMap" >
+   				<initMethod name="put">
+   					<arg>"admin"</arg>
+   					<arg>"adminrole"</arg>
+   				</initMethod>
+   			</component>
+   		</property>
+   	</component> 		
+</components>

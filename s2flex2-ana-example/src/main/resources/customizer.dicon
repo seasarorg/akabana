@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+    <include path="default-customizer.dicon"/>
+
+	<component name="defaultCustomizer" class="org.seasar.framework.container.customizer.AspectCustomizer">
+		<property name="interceptorName">"aop.traceInterceptor"</property>
+	</component>
+<!--
+	<component name="daoSupportAspectCustomizer" class="org.seasar.framework.container.customizer.AspectCustomizer">
+		<property name="interceptorName">"dao.interceptor"</property>
+	</component>
+	
+	<component name="daoCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>defaultCustomizer</arg>
+		</initMethod>
+		<initMethod name="addCustomizer">
+			<arg>daoSupportAspectCustomizer</arg>
+		</initMethod>
+	</component>
+-->	
+	<component name="logicCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>defaultCustomizer</arg>
+		</initMethod>
+	</component>
+
+	<component name="remotingServiceCustomizer"
+		class="org.seasar.flex2.rpc.remoting.service.customizer.RemotingServiceCustomizer">
+	</component>
+	
+	<!--
+	<component name="serviceCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>defaultCustomizer</arg>
+		</initMethod>
+	</component>
+	-->
+	<component name="serviceCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>traceCustomizer</arg>
+		</initMethod>
+	
+		<initMethod name="addCustomizer">
+			<arg>remotingServiceCustomizer</arg>
+		</initMethod>
+		<initMethod name="addCustomizer">
+			<arg>requiredTxCustomizer</arg>
+		</initMethod>
+	</component>	
+	
+	<component name="configCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+	</component>
+	<component name="resolverCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+	</component>	
+</components>
