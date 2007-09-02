@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+
+    <components namespace="s2flex2-ana-realm" >
+    <include path="dao.dicon"/>
+    <include path="RemotingServicePrincipal-mock.dicon" />
+	<!--
+		Realm
+	-->
+	<component
+		name="remotingServiceRealm"
+    	class="examples.security.realm.impl.JdbcRealmImpl"
+   	>
+		<property name="userDao">
+   			<component class="examples.security.realm.dao.UserDao">
+				<aspect>dao.interceptor</aspect>
+   			</component>
+   		</property>
+		<property name="userRolesDao">
+   			<component class="examples.security.realm.dao.UserRolesDao">
+				<aspect>dao.interceptor</aspect>
+   			</component>
+   		</property>
+<!--
+   		<property name="userMap">
+   			<component class="java.util.HashMap" >
+   				<initMethod name="put">
+   					<arg>"admin"</arg>
+   					<arg>"adminpass"</arg>
+   				</initMethod>
+   			</component>
+   		</property>
+   		<property name="userRoleMap">
+   			<component class="java.util.HashMap" >
+   				<initMethod name="put">
+   					<arg>"admin"</arg>
+   					<arg>"adminrole"</arg>
+   				</initMethod>
+   			</component>
+   		</property>
+-->
+   	</component>
+</components>
