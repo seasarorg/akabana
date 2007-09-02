@@ -13,7 +13,7 @@ public function calculate():void
 	var addDto:AddDto = new AddDto();
 	addDto.arg1=int(arg1_txt.text);
 	addDto.arg2=int(arg2_txt.text);
-	amf.setCredentials("admin","adminpass");
+	amf.setCredentials("admin","adminpassword");
 	amf.calculate2(addDto);
 }
 
