@@ -4,7 +4,7 @@
 <components namespace="remoting_ana"
     xmlns:xi="http://www.w3.org/2001/XInclude"
 >
+	<include path="dao.dicon"/>
 	<xi:include href="/remoting_amf3.dicon"/>
 	<xi:include href="/s2flex2-ana-amf3.dicon"/>
-	
 </components>

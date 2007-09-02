@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="Shift_JIS"?>
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
-	"http://www.seasar.org/dtd/components21.dtd">
-<components namespace="s2flex2-ana-realm" >
+	"http://www.seasar.org/dtd/components21.dtd">	
+    <components namespace="s2flex2-ana-realm" >
+
 	<!--
 		Realm
 	-->
+		<component
+		name="remotingServiceRealm"
+    	class="examples.security.realm.impl.JdbcRealmImpl">
+			<property name="userDao">
+	   			<component class="examples.security.realm.dao.UserDao">
+					<aspect>dao.interceptor</aspect>
+	   			</component>
+	   		</property>
+			<property name="userRolesDao">
+	   			<component class="examples.security.realm.dao.UserRolesDao">
+					<aspect>dao.interceptor</aspect>
+	   			</component>
+	   		</property>
+   		</component>
+	<!--
 	<component
 		name="remotingServiceRealm"
     	class="org.seasar.flex2.rpc.remoting.security.realm.impl.HashMapRealmImpl"
@@ -25,5 +41,6 @@
    				</initMethod>
    			</component>
    		</property>
-   	</component> 		
+   	</component>
+  	--> 		
 </components>

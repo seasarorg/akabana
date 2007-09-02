@@ -7,7 +7,7 @@
 	<component name="defaultCustomizer" class="org.seasar.framework.container.customizer.AspectCustomizer">
 		<property name="interceptorName">"aop.traceInterceptor"</property>
 	</component>
-<!--
+
 	<component name="daoSupportAspectCustomizer" class="org.seasar.framework.container.customizer.AspectCustomizer">
 		<property name="interceptorName">"dao.interceptor"</property>
 	</component>
@@ -20,7 +20,7 @@
 			<arg>daoSupportAspectCustomizer</arg>
 		</initMethod>
 	</component>
--->	
+
 	<component name="logicCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
 		<initMethod name="addCustomizer">
 			<arg>defaultCustomizer</arg>
