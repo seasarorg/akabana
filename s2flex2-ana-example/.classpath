@@ -3,7 +3,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-flex2-service-browser-B1.jar" sourcepath="/s2flex2-service-browser"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" path="src/test/resources"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/servlet-api.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jasper-runtime.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jsp-api.jar"/>
@@ -15,5 +16,17 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-tiger-2.4.17.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-flex2-tiger-1.0.0.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-framework-2.4.17.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-flex2-service-browser-1.0.0-rc-2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/h2-2007-04-29.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-extension-2.4.17.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/javassist-3.4.ga.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/geronimo-jta_1.1_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/geronimo-ejb_3.0_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ognl-2.6.9-patch-20070624.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-dao-tiger-1.0.46.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-dao-1.0.46.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-ana-core-0.1.7.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/junit-3.8.2.jar"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>
