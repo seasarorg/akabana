@@ -25,6 +25,7 @@ public class JdbcRealImplTest extends S2TestCase {
 	    	assertNotNull("realm implementation is not null",remotingServiceRealm);
 	    	assertTrue("hasRole",remotingServiceRealm.hasRole(remotingServicePricipal, "admin"));
 	    	assertTrue("hasRole",remotingServiceRealm.hasRole(remotingServicePricipal, "manager"));
+	    	assertFalse("hasRole=false",remotingServiceRealm.hasRole(remotingServicePricipal, "hoge"));
 
 	    }
 	    
