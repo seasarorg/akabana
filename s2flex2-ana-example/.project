@@ -3,6 +3,7 @@
 	<name>s2flex2-ana-example</name>
 	<comment></comment>
 	<projects>
+		<project>s2flex2-ana-example</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -39,12 +40,15 @@
 		<nature>com.adobe.flexbuilder.project.flexnature</nature>
 		<nature>org.seasar.diigu.eclipse.diiguNature</nature>
 		<nature>org.seasar.kijimuna.core.nature</nature>
+		<nature>org.seasar.dolteng.eclipse.nature</nature>
+		<nature>org.seasar.dolteng.eclipse.nature.flex</nature>
+		<nature>org.seasar.dblauncher.nature</nature>
 	</natures>
 	<linkedResources>
 		<link>
 			<name>[source path] actionscript</name>
 			<type>2</type>
-			<location>C:/Documents and Settings/jfuna/My Documents/Flex Builder 2/s2flex2-ana-example/src/main/actionscript</location>
+			<location>/Users/funakura/Desktop/eclipse/workspace/s2flex2-ana-example/src/main/actionscript</location>
 		</link>
 	</linkedResources>
 </projectDescription>
