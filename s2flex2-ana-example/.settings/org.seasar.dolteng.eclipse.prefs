@@ -1,0 +1,12 @@
+#Tue Aug 28 08:10:43 JST 2007
+DaoType=S2Dao
+DefaultResourcePath=/s2flex2-ana-example/src/main/resources
+DefaultRootPackage=examples.flex2.add
+DefaultSrcPath=/s2flex2-ana-example/src/main/java
+ServletPath=/s2flex2-ana-example
+UseDIMarker=false
+UsePageMarker=false
+ViewType=Flex2
+WebContentsRoot=/src/main/webapp
+eclipse.preferences.version=1
+flexSrcPath=/s2flex2-ana-example/src/main/mxml
