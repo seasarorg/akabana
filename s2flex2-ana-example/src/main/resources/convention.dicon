@@ -12,11 +12,5 @@
 		<initMethod name="addRootPackageName">
 			<arg>"examples.flex2.param"</arg>
 		</initMethod>
-		<initMethod name="addRootPackageName">
-			<arg>"examples.flex2.performance"</arg>
-		</initMethod>
-		<initMethod name="addRootPackageName">
-			<arg>"examples.flex2.camera.snapshot"</arg>
-		</initMethod>
 	</component>
 </components>
