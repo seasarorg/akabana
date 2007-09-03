@@ -21,11 +21,8 @@
 </compiler>
 <applications>
 <application path="add.mxml"/>
-<application path="exception_example.mxml"/>
 <application path="param.mxml"/>
-<application path="CameraSnapShotMain.mxml"/>
 <application path="check.mxml"/>
-<application path="PerformanceTest.mxml"/>
 </applications>
 <buildCSSFiles/>
 </actionScriptProperties>
