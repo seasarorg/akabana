@@ -1,14 +1,17 @@
-<?xml version="1.0" encoding="Shift_JIS"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 	"http://www.seasar.org/dtd/components21.dtd">	
     <components namespace="s2flex2-ana-realm" >
+    <include path="dao.dicon"/>
+    <include path="RemotingServicePrincipal-mock.dicon" />
 
 	<!--
 		Realm
 	-->
 		<component
 		name="remotingServiceRealm"
-    	class="examples.security.realm.impl.JdbcRealmImpl">
+    	class="examples.security.realm.impl.JdbcRealmImpl"
+		>
 			<property name="userDao">
 	   			<component class="examples.security.realm.dao.UserDao">
 					<aspect>dao.interceptor</aspect>
