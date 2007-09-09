@@ -22,23 +22,5 @@
 				<aspect>dao.interceptor</aspect>
    			</component>
    		</property>
-<!--
-   		<property name="userMap">
-   			<component class="java.util.HashMap" >
-   				<initMethod name="put">
-   					<arg>"admin"</arg>
-   					<arg>"adminpass"</arg>
-   				</initMethod>
-   			</component>
-   		</property>
-   		<property name="userRoleMap">
-   			<component class="java.util.HashMap" >
-   				<initMethod name="put">
-   					<arg>"admin"</arg>
-   					<arg>"adminrole"</arg>
-   				</initMethod>
-   			</component>
-   		</property>
--->
    	</component>
 </components>
