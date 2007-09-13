@@ -68,14 +68,14 @@
             <encoding>UTF-8</encoding>
           </configuration>
         </plugin>
-			<plugin>  
-				<groupId>org.apache.maven.plugins</groupId>  
-				<artifactId>maven-site-plugin</artifactId>  
-				<configuration>  
-					<locales>ja,en</locales>  
-					<inputEncoding>UTF-8</inputEncoding>  
-					<outputEncoding>UTF-8</outputEncoding>  
-				</configuration>  
+		<plugin>  
+			<groupId>org.apache.maven.plugins</groupId>  
+			<artifactId>maven-site-plugin</artifactId>  
+			<configuration>  
+				<locales>ja,en</locales>  
+				<inputEncoding>UTF-8</inputEncoding>  
+				<outputEncoding>UTF-8</outputEncoding>  
+			</configuration>  
 		</plugin>        
       </plugins>
     </pluginManagement>
