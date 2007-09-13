@@ -3,7 +3,7 @@
 <mx:Script source="add_script.as" />
 <s2:S2Flex2Service id="amf" destination="addService" 
 	result="onResult(event)" fault="onFault(event)" showBusyCursor="true" />
-	<mx:Panel x="61.5" y="33" width="456" height="200" layout="absolute" title="足し算 ">
+	<mx:Panel x="61.5" y="33" width="456" height="200" layout="absolute" title="足し算 (+session保存)">
 		<mx:TextInput x="10" y="10" id="arg1_txt" width="58" tabIndex="1"/>
 		<mx:TextInput x="92" y="10" id="arg2_txt" width="46" tabIndex="2"/>
 		<mx:Label x="76" y="12" text="+" height="20"/>
