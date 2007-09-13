@@ -13,8 +13,8 @@ import examples.flex2.check.service.CheckDtoService;
 public class CheckDtoServiceImpl implements CheckDtoService {
 
 	public List getCheckDtoList() {
-		List l = new ArrayList();
-		List internalList = new ArrayList();
+		List<CheckDto> l = new ArrayList<CheckDto>();
+		List<String> internalList = new ArrayList<String>();
 		internalList.add("red");
 		internalList.add("blue");
 		internalList.add("yellow");
@@ -44,7 +44,7 @@ public class CheckDtoServiceImpl implements CheckDtoService {
 		checkDto.setMinus(-12433);
 		checkDto.setName("I am CheckDto instance");
 		checkDto.setStringArray(new String[]{"music","movie"});
-		List list = new ArrayList();
+		List<String> list = new ArrayList<String>();
 		list.add("yes");
 		list.add("no");
 		list.add("both");
