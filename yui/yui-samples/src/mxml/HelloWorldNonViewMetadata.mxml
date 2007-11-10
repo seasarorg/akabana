@@ -5,8 +5,12 @@
     xmlns:yui="http://akabana.seasar.org/yui/mxml"
     xmlns:helloworld.view="examples.yui.helloworld.view.*"
     xmlns:helloworld.logic="examples.yui.helloworld.logic.*"
+    
 >
     <mx:Label text="{this.version}"/>
-    <helloworld.view:HelloWorldView id="helloWorldView"/>
-    <helloworld.logic:HelloWorldViewLogicNonViewMetadata id="helloWorldViewLogic"/>
+    <helloworld.logic:HelloWorldViewLogicNonViewMetadata id="helloWorldViewLogic"/>  
+    <mx:Panel horizontalCenter="0" verticalCenter="0">
+    	<helloworld.view:HelloWorldView id="helloWorldView"/>
+    </mx:Panel>
+
 </yui:YuiApplication>
