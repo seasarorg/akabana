@@ -69,13 +69,19 @@ package org.seasar.akabana.yui.framework.application {
             if( container != null ){
                 container.removeEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler);
     
-                const parentContainer:Container = container.parent as Container;
                 const viewLogicName:String = container.name + LOGIC;
                 
+                const parentContainer:Container = container.parent as Container;
                 if( parentContainer.hasOwnProperty( viewLogicName )){
-                    AutoEventCustomizer.customizer(container,parentContainer[ viewLogicName ]);
+                    AutoEventCustomizer.customizer(container, parentContainer[ viewLogicName ]);
                     MetadataParser.parse( parentContainer, parentContainer[ viewLogicName ]);
-                }  
+                }
+                
+                const parentDocument:Container = container.parentDocument as Container;
+                if( parentDocument.hasOwnProperty( viewLogicName )){
+                    AutoEventCustomizer.customizer(container, parentDocument[ viewLogicName ]);
+                    MetadataParser.parse( parentContainer, parentDocument[ viewLogicName ]);
+                }                 
             }
         }
 
