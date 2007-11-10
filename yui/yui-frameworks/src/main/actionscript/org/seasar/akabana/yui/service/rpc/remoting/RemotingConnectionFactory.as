@@ -21,6 +21,8 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     import org.seasar.akabana.yui.net.URLUtil;
     
     public class RemotingConnectionFactory {
+    	
+    	public static var defaultGateway:String;
         
         private static const REMOTING_PREFIX:String = "remoting.";
         
@@ -53,6 +55,9 @@ package org.seasar.akabana.yui.service.rpc.remoting {
                 }
                 
                 gatewayUrl = ApplicationUtil.getParameterValue( DEFAULT_GATEWAY );
+                if( gatewayUrl == null && RemotingConnectionFactory.defaultGateway != null ){
+                	gatewayUrl = RemotingConnectionFactory.defaultGateway;
+                }
                 
             } while( false );
             
