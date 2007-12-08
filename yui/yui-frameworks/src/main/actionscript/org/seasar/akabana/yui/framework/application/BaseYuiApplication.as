@@ -38,11 +38,6 @@ package org.seasar.akabana.yui.framework.application {
 
         public function BaseYuiApplication(){
             this.addEventListener(FlexEvent.ADD,addHandler, true, int.MAX_VALUE, false);
-            this.addEventListener(ChildExistenceChangedEvent.CHILD_ADD,traceHandler);
-            this.addEventListener(FlexEvent.APPLICATION_COMPLETE,traceHandler);
-        }
-        private function traceHandler( event:Event ):void{
-            //trace( event + ":" + event.target );
         }
         
         private function addHandler( event:FlexEvent ):void{
