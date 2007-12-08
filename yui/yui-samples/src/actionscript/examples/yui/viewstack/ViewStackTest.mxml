@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:viewstack.view="examples.yui.viewstack.view.*"
+    xmlns:viewstack.logic="examples.yui.viewstack.logic.*"
+>
+    <viewstack.logic:ViewStackTestViewLogic id="viewStackTestViewLogic"/>
+    <mx:VBox width="100%" height="100%">
+    	<viewstack.view:ViewStackTestView id="viewStackTestView" width="100%" height="100%"/>    	    	
+    </mx:VBox>
+</mx:Canvas>
