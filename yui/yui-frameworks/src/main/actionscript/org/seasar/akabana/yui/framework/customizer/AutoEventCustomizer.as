@@ -32,7 +32,9 @@ package org.seasar.akabana.yui.framework.customizer {
             var viewContainerChildren:Array = UIComponentRepository.getComponentChildren(view);
 			
 			for each( var component:UIComponent in viewContainerChildren ){
-				if( component.name.indexOf("View") < 0 ){
+				if(
+					component.name.indexOf("View") < 0
+				){
 					doCustomizeByComponent( component.name, component, logic );
 				}
 			}

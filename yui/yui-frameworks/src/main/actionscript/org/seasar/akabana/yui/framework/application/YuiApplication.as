@@ -13,13 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.application.mxml {
-    
-    import org.seasar.akabana.yui.framework.application.BaseYuiApplication;
+package org.seasar.akabana.yui.framework.application {
 
-    public class YuiApplication extends BaseYuiApplication {
+	import mx.core.Application;
+
+	[Frame(factoryClass="org.seasar.akabana.yui.framework.YuiFrameworkSystemManager")]
+    public class YuiApplication extends Application {
         
-        public const version:String = "yui-framework 1.0-alpha-7-SNAPSHOT";
+        public const version:String = "yui-framework 1.0-alpha-8-SNAPSHOT";
         
     }
 }
