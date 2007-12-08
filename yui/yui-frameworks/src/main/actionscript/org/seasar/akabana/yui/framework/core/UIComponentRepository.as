@@ -15,6 +15,7 @@
  */
 package org.seasar.akabana.yui.framework.core {
     
+    import flash.display.DisplayObjectContainer;
     import flash.utils.Dictionary;
     
     import mx.core.UIComponent;
@@ -33,12 +34,9 @@ package org.seasar.akabana.yui.framework.core {
                 throw new Error("UIコンポーネント登録重複エラー");
             }
             
-            var parentName:String = UIComponentUtil.getComponentName( component.parentDocument as UIComponent );
-            var componentChildrenArray:Array = componentChildrenMap[ parentName ];
-            if( componentChildrenArray == null ){
-                componentChildrenArray = componentChildrenMap[ parentName ] = [];
-            }
-            componentChildrenArray.push(component);
+            addParentRelation( component );
+            addParentDocumentRelation( component );
+
         }
         
         public static function getComponent( name:String ):UIComponent{
@@ -64,5 +62,22 @@ package org.seasar.akabana.yui.framework.core {
             
             return childrenArray;
         }
+        
+        private static function addParentRelation( component:UIComponent ):void{
+            addRelation( component.parent, component);
+        }
+
+        private static function addParentDocumentRelation( component:UIComponent ):void{            
+            addRelation( component.parentDocument as DisplayObjectContainer, component);
+        }
+        
+        private static function addRelation( parent:DisplayObjectContainer, child:UIComponent ):void{            
+            var parentName:String = UIComponentUtil.getComponentName( parent as UIComponent );
+            var componentChildrenArray:Array = componentChildrenMap[ parentName ];
+            if( componentChildrenArray == null ){
+                componentChildrenArray = componentChildrenMap[ parentName ] = [];
+            }
+            componentChildrenArray.push(child);
+        }        
     }
 }

@@ -47,7 +47,7 @@ package org.seasar.akabana.yui.framework.metadata {
                 try{
                     parseMetadataFunction = MetadataParser[ PARSE + metadataName + METADATA];
                 }catch( e:Error ){
-                    trace( "Not Found MetadataParse Function :" + metadataName + "@" + view);
+                    //trace "Not Found MetadataParse Function :" + metadataName + "@" + view);
                 }
                 if( parseMetadataFunction != null && parseMetadataFunction is Function){
                     parseMetadataFunction.apply(null,[view, target, variableXML, metadataXML]);
