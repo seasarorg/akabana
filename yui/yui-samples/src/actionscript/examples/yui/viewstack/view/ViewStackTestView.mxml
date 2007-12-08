@@ -3,11 +3,11 @@
 	width="100%" height="100%"
 >
     <mx:ViewStack width="100%" height="100%" id="myViewStack">
-       <mx:VBox width="100%" height="100%" id="viewMainView">
+       <mx:VBox width="100%" height="100%" id="viewMainView" creationPolicy="queued">
            <mx:Text id="textA" x="0" y="0" text="Main"/>
            <mx:Button id="nextButton" label="Next"/> 
        </mx:VBox>
-       <mx:VBox width="100%" height="100%" id="viewSubView" creationPolicy="queued">
+       <mx:VBox width="100%" height="100%" id="viewSubView" doubleClickEnabled="true" >
            <mx:Text id="textB" x="0" y="0" text="Sub"/>
            <mx:Button id="backButton" label="Back"/>
        </mx:VBox>

@@ -17,6 +17,10 @@ package examples.yui.viewstack.logic
     	
     	[View]
     	public var myViewStack:ViewStack;
+    	
+    	public function viewSubViewDoubleClickHandler( event:MouseEvent ):void{
+    		trace( "ダブルクリック",event );
+    	}
         
         public function textAClickHandler( event:MouseEvent ):void{
         	trace( event.currentTarget );
