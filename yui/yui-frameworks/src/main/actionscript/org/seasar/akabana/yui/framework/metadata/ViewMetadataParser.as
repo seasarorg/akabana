@@ -29,9 +29,7 @@ package org.seasar.akabana.yui.framework.metadata {
             var variableName:String = variableXML.@name.toString();
             
             if( UIComponentRepository.hasComponent( variableName )){
-                var viewContainer:Container = UIComponentRepository.getComponent(variableName) as Container;
-                //AutoEventCustomizer.customizer( viewContainer, target );
-                target[ variableName ] = viewContainer;
+                target[ variableName ] = UIComponentRepository.getComponent(variableName) as Container;
             }
         }
     }

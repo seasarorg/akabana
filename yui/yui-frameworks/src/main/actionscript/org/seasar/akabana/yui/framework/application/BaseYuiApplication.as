@@ -42,11 +42,11 @@ package org.seasar.akabana.yui.framework.application {
             this.addEventListener(FlexEvent.APPLICATION_COMPLETE,traceHandler);
         }
         private function traceHandler( event:Event ):void{
-            //trace event + ":" + event.target );
+            //trace( event + ":" + event.target );
         }
         
         private function addHandler( event:FlexEvent ):void{
-            //trace event + ":" + event.target );
+            //trace( event + ":" + event.target );
             const target:Object = event.target;
             do{
                 if( target is UIComponent ){
@@ -72,7 +72,7 @@ package org.seasar.akabana.yui.framework.application {
         }
         
         private function creationCompoleteHandler( event:FlexEvent ):void{
-            //trace event, event.target, event.target.isDocument );
+            //trace( event, event.target, event.target.isDocument );
             const container:Container = event.target as Container;
             if( container != null ){
                 container.removeEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler);
@@ -86,10 +86,10 @@ package org.seasar.akabana.yui.framework.application {
 	                    AutoEventCustomizer.customizer( container, parentContainer[ viewLogicName ]);
 	                    MetadataParser.parse( parentContainer, parentContainer[ viewLogicName ]);
 	                } else {
-		                const parentDocument:Container = parentContainer.parentDocument as Container;
+		                parentContainer = parentContainer.parentDocument as Container;
 		                if( parentDocument.hasOwnProperty( viewLogicName )){
-		                    AutoEventCustomizer.customizer(container, parentDocument[ viewLogicName ]);
-		                    MetadataParser.parse( parentContainer, parentDocument[ viewLogicName ]);
+		                    AutoEventCustomizer.customizer(container, parentContainer[ viewLogicName ]);
+		                    MetadataParser.parse( parentContainer, parentContainer[ viewLogicName ]);
 		                }
 	                }
     			} else {
