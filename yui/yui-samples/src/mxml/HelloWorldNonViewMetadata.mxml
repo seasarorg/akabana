@@ -9,8 +9,10 @@
 >
     <mx:Label text="{this.version}"/>
     <helloworld.logic:HelloWorldViewLogicNonViewMetadata id="helloWorldViewLogic"/>  
-    <mx:Panel horizontalCenter="0" verticalCenter="0">
+    <mx:VBox
+    	width="100%" height="100%" 
+    	verticalAlign="middle" horizontalAlign="center">
     	<helloworld.view:HelloWorldView id="helloWorldView"/>
-    </mx:Panel>
+    </mx:VBox>
 
 </yui:YuiApplication>
