@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties mainApplicationPath="ViewStackTestMain.mxml" version="3">
+<actionScriptProperties mainApplicationPath="HelloWorld.mxml" version="3">
   <compiler additionalCompilerArguments="-locale ja_JP -load-config+=../../lib/yui-metadata-config.xml" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="false" htmlGenerate="true" htmlHistoryManagement="false" htmlPlayerVersion="9.0.45" htmlPlayerVersionCheck="false" outputFolderPath="target/bin" sourceFolderPath="src/mxml" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="src/actionscript"/>
@@ -11,8 +11,8 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="1" path="${DOCUMENTS}/yui-frameworks/target/swc/yui-frameworks.swc" useDefaultLinkType="false"/>
@@ -20,7 +20,11 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
+    <application path="HelloWorldNonViewMetadata.mxml"/>
+    <application path="DynamicHelloWorld.mxml"/>
     <application path="ViewStackTestMain.mxml"/>
+    <application path="HelloWorld.mxml"/>
+    <application path="EmbedXmlReaderSample.mxml"/>
   </applications>
   <modules/>
   <buildCSSFiles/>
