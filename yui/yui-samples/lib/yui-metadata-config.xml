@@ -5,8 +5,6 @@
             <name>Service</name>
             <name>Model</name>
             <name>View</name>
-            <name>BindView</name>
-            <name>ServiceLocator</name>
         </keep-as3-metadata>
     </compiler>
 </flex-config>
