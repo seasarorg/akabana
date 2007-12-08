@@ -4,10 +4,10 @@ package examples.yui.helloworld.logic
     import flash.events.MouseEvent;
     import mx.controls.Alert;
     
-    public class HelloWorldViewLogic {
+    public class HelloWorldAddViewLogic {
         
         [View]
-        public var helloWorldView:HelloWorldView;
+        public var helloWorldView:HelloWorldAddView;
 
         public function onDoubleClickHandler( event:MouseEvent ):void{
         	trace("ダブルクリック","めっせーじ");
@@ -22,12 +22,7 @@ package examples.yui.helloworld.logic
         public function showHelloWorldClickHandler( event:MouseEvent ):void{
         	trace("ハローワールド","めっせーじ");
             Alert.show("ハローワールド","めっせーじ",4.0,helloWorldView);
-            helloWorldView.currentState = "newPanel";
+            helloWorldView.removeChild(helloWorldView.helloWorldChildView);
         }
-        
-        public function showHelloAddWorldClickHandler( event:MouseEvent ):void{
-        	trace("ハローワールド","メッセージ");
-            Alert.show("ハローワールド","メッセージ",4.0,helloWorldView);
-        }        
     }
 }

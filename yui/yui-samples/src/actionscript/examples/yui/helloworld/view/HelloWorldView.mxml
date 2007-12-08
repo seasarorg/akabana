@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" doubleClickEnabled="true">
+    <mx:states>
+        <mx:State name="newPanel">
+            <mx:RemoveChild target="{helloWorldPanelView}"/>
+            <mx:AddChild position="lastChild">
+		        <mx:Panel title="パネル" name="helloWorldAddPanelView">
+		            <mx:Button x="10" y="10" label="ハローワールドを表示する" name="showHelloAddWorld"/>
+		        </mx:Panel>
+            </mx:AddChild>
+        </mx:State>
+    </mx:states>
     <mx:VBox id="helloWorldChildView" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
-        <mx:Panel title="パネル" id="helloWorldPanel">
+        <mx:Panel title="パネル" id="helloWorldPanelView">
             <mx:Button x="10" y="10" label="はろーわーるどを表示する" id="showHelloWorld"/>
         </mx:Panel>
     </mx:VBox>
