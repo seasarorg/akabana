@@ -32,10 +32,14 @@ package org.seasar.akabana.yui.framework.customizer {
             var viewContainerChildren:Array = UIComponentRepository.getComponentChildren(view);
 			
 			for each( var component:UIComponent in viewContainerChildren ){
-				doCustomizeByComponent( component.name, component, logic );
+				if( component.name.indexOf("View") < 0 ){
+					doCustomizeByComponent( component.name, component, logic );
+				}
 			}
 			if( view.isDocument ){
 				doCustomizeByComponent( ON, view, logic );
+			} else {
+				doCustomizeByComponent( view.name, view, logic );
 			}
         }
 
@@ -50,7 +54,7 @@ package org.seasar.akabana.yui.framework.customizer {
 			    handlerIndex = methodName.lastIndexOf(HANDLER);
 			    eventName = methodName.substr(componentName.length,1).toLocaleLowerCase() + methodName.substring(componentName.length+1,handlerIndex);
 		        
-	        	//trace( componentName + ".addEventListener(" + eventName + "," + logic + "." + methodName +")");
+	        	trace( componentName + ".addEventListener(" + eventName + "," + logic + "." + methodName +")");
 	        	component.removeEventListener(eventName, logic[ methodName ],false);
 	        	component.addEventListener(eventName, logic[ methodName ],false,0.0,true);
 			}

@@ -41,7 +41,7 @@ package org.seasar.akabana.yui.framework.application {
         }
         
         private function addHandler( event:FlexEvent ):void{
-            //trace( event + ":" + event.target );
+            trace( event + ":" + event.target );
             const target:Object = event.target;
             do{
                 if( target is UIComponent ){
@@ -67,7 +67,7 @@ package org.seasar.akabana.yui.framework.application {
         }
         
         private function creationCompoleteHandler( event:FlexEvent ):void{
-            //trace( event, event.target, event.target.isDocument );
+            trace( event, event.target, event.target.isDocument );
             const container:Container = event.target as Container;
             if( container != null ){
                 container.removeEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler);
