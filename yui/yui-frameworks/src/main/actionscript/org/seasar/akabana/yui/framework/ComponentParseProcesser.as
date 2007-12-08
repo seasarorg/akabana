@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.framework
         
         private static const LOGIC:String = "Logic";
         
-		public function parse( target:Object ):void{
+		public function add( target:Object ):void{
             do{
                 if( target is UIComponent ){
                     processRegisterComponent( target as UIComponent ); 
@@ -30,11 +30,21 @@ package org.seasar.akabana.yui.framework
                 }
             } while ( false );
         }
+
+		public function remove( target:Object ):void{
+            if( target is UIComponent ){
+                processUnRegisterComponent( target as UIComponent ); 
+            }
+        }
         
         private function processRegisterComponent( component:UIComponent ):void{
             UIComponentRepository.addComponent( component );
         }
         
+        private function processUnRegisterComponent( component:UIComponent ):void{
+            UIComponentRepository.removeComponent( component );
+        }
+                
         private function processParseView( container:Container ):void{
             if( container != null && isNamingOfView ( container )){
                 container.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompoleteHandler, false, int.MAX_VALUE, true);

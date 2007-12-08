@@ -18,6 +18,7 @@ package org.seasar.akabana.yui.framework.core {
     import flash.display.DisplayObjectContainer;
     import flash.utils.Dictionary;
     
+    import mx.core.Container;
     import mx.core.UIComponent;
     
     public class UIComponentRepository {
@@ -35,8 +36,30 @@ package org.seasar.akabana.yui.framework.core {
             }
             
             addParentRelation( component );
-            addParentDocumentRelation( component );
+            if( component.parent !== component.parentDocument ){
+            	addParentDocumentRelation( component );
+            }
 
+        }
+        
+        public static function removeComponent( component:UIComponent ):void{
+        	if( component != null ){
+	            const componentName:String = UIComponentUtil.getComponentName(component);
+	        	componentMap[ componentName ] = null;
+	        	delete componentMap[ componentName ];
+	        	
+	        	componentChildrenMap[ component ] = null;
+	        	delete componentChildrenMap[ component ];
+	        	
+	        	removeRelation( component.parent, component );
+	        	removeRelation( component.parentDocument as DisplayObjectContainer, component );
+	        	
+				if( component is Container && component.numChildren > 0 ){
+					for( var i:int = 0; i < component.numChildren; i++ ){
+						removeComponent( component.getChildAt( i ) as UIComponent);
+					}
+				}
+        	}
         }
         
         public static function getComponent( name:String ):UIComponent{
@@ -78,6 +101,21 @@ package org.seasar.akabana.yui.framework.core {
                 componentChildrenArray = componentChildrenMap[ parentName ] = [];
             }
             componentChildrenArray.push(child);
-        }        
+        }
+        
+        private static function removeRelation( parent:DisplayObjectContainer, child:UIComponent ):void{            
+            var parentName:String = UIComponentUtil.getComponentName( parent as UIComponent );
+            var componentChildrenArray:Array = componentChildrenMap[ parentName ];
+            if( componentChildrenArray != null ){
+            	var component:UIComponent;
+            	for( var i:int = 0; i < componentChildrenArray.length; i++ ){
+            		component = componentChildrenArray[ i ];
+            		if( component === child ){
+            			componentChildrenArray.splice( i, 1 );
+            			break;
+            		}
+            	}
+            }
+        }   
     }
 }
