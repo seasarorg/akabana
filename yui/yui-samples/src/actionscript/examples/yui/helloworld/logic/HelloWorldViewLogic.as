@@ -22,7 +22,6 @@ package examples.yui.helloworld.logic
         public function showHelloWorldClickHandler( event:MouseEvent ):void{
         	trace("ハローワールド","めっせーじ");
             Alert.show("ハローワールド","めっせーじ",4.0,helloWorldView);
-            helloWorldView.currentState = "newPanel";
         }
         
         public function showHelloAddWorldClickHandler( event:MouseEvent ):void{
