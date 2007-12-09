@@ -11,7 +11,7 @@ package org.seasar.akabana.yui.framework
 	import org.seasar.akabana.yui.service.Service;
 	import org.seasar.akabana.yui.service.ServiceRepository;
 	
-	public class ComponentParseProcesser
+	internal class ComponentParseProcesser
 	{
         private static const VIEW:String = "View";
         
@@ -32,9 +32,16 @@ package org.seasar.akabana.yui.framework
         }
 
 		public function remove( target:Object ):void{
-            if( target is UIComponent ){
-                processUnRegisterComponent( target as UIComponent ); 
-            }
+            do{
+                if( target is UIComponent ){
+                    processUnRegisterComponent( target as UIComponent ); 
+                    break;
+                }
+                if( target is Service ){
+                    processUnRegisterService( target as Service );
+                    break;
+                }
+            } while ( false );
         }
         
         private function processRegisterComponent( component:UIComponent ):void{
@@ -87,6 +94,9 @@ package org.seasar.akabana.yui.framework
             ServiceRepository.addService(service);
         }
 
+        private function processUnRegisterService( service:Service ):void{
+            ServiceRepository.removeService(service);
+        }
 
         private function isNamingOfView( container:Container ):Boolean{
             const id:String = UIComponentUtil.getComponentName( container );
