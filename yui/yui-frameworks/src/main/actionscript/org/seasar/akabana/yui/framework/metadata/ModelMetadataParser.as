@@ -15,9 +15,8 @@
  */
 package org.seasar.akabana.yui.framework.metadata {
 	
-	import flash.utils.describeType;
-	
 	import mx.core.Container;
+	import mx.core.UIComponent;
 	
 	import org.seasar.akabana.yui.framework.core.ClassUtil;
 	import org.seasar.akabana.yui.framework.core.UIComponentRepository;
@@ -30,11 +29,18 @@ package org.seasar.akabana.yui.framework.metadata {
         public static function parse( view:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
             var variableName:String = variableXML.@name.toString();
             var model:Object;
-            if( Object( view ).hasOwnProperty( variableName )){
-                model = view[ variableName ];
-            } else {
+            
+            do{
+	            if( Object( view ).hasOwnProperty( variableName )){
+	                model = view[ variableName ];
+	                break;
+	            }
+	            if( target is UIComponent && ( target as UIComponent ).parentDocument.hasOwnProperty( variableName )){
+                    model = ( target as UIComponent ).parentDocument[ variableName ];
+                    break;
+                }
                 model = ClassUtil.newInstance(variableXML.@type.toString());
-            }
+            } while( false );
 
     	    var args:XMLList = metadataXML.arg.( @key=BIND_VIEW );
     	    if( args.length() > 0 ){
