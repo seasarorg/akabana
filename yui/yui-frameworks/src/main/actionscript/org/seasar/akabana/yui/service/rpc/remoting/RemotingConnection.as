@@ -28,11 +28,11 @@ package org.seasar.akabana.yui.service.rpc.remoting {
             super.connect( url, rest);
         }
         
-        protected function reconnect( uri:String ):void{
-            if( this.connected ){
+        protected function reconnect( newUri:String ):void{
+            if( this.uri != null ){
                 this.close();
             }
-            this.connect( uri );
+            this.connect( newUri );
         }
         
         public function AppendToGatewayUrl(append:String):void{ 
