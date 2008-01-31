@@ -15,21 +15,17 @@
  */
 package org.seasar.akabana.yui.framework.metadata {
 
-    import flash.utils.describeType;
-
     import mx.core.Container;
-    import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.framework.core.UIComponentRepository;
-    import org.seasar.akabana.yui.framework.customizer.AutoEventCustomizer;
     
     internal class ViewMetadataParser {
         
         public static function parse( view:Container, target:Object, variableXML:XML, metadataXML:XML ):void{
             var variableName:String = variableXML.@name.toString();
-            
-            if( UIComponentRepository.hasComponent( variableName )){
-                target[ variableName ] = UIComponentRepository.getComponent(variableName) as Container;
+            var viewName:String = variableXML.@type.toString() + "#" + variableXML.@name.toString();
+            if( UIComponentRepository.hasComponent( viewName )){
+                target[ variableName ] = UIComponentRepository.getComponent( viewName ) as Container;
             }
         }
     }

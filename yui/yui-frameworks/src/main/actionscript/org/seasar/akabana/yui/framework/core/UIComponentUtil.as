@@ -15,6 +15,8 @@
  */
 package org.seasar.akabana.yui.framework.core{
     
+    import flash.utils.getQualifiedClassName;
+    
     import mx.core.UIComponent;
     
     public class UIComponentUtil {
@@ -27,7 +29,7 @@ package org.seasar.akabana.yui.framework.core{
                     componentName = component.name;
                 }
             }
-            return componentName;
+            return getQualifiedClassName(component) + "#" + componentName;
         }
     }
 }
