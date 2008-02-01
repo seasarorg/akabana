@@ -12,6 +12,7 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/datavisualization.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_flashflexkit.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
         </excludedEntries>
@@ -19,7 +20,7 @@
     </libraryPath>
     <sourceAttachmentPath>
       <sourceAttachmentPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" sourcepath="${PROJECT_FRAMEWORKS}/source" useDefaultLinkType="false"/>
-      <sourceAttachmentPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" sourcepath="${PROJECT_FRAMEWORKS}/source" useDefaultLinkType="false"/>
+      <sourceAttachmentPathEntry kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" sourcepath="${PROJECT_FRAMEWORKS}/source" useDefaultLinkType="true"/>
     </sourceAttachmentPath>
   </compiler>
   <applications/>

@@ -40,9 +40,7 @@
     <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingService"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.mxml.RemotingService"/>
   </includeClasses>
-  <includeResources>
-    <resourceEntry destPath="org/seasar/akabana/yui/framework/customizer/AutoBindingDefaultProperty.xml" sourcePath="org/seasar/akabana/yui/framework/customizer/AutoBindingDefaultProperty.xml"/>
-  </includeResources>
+  <includeResources/>
   <namespaceManifests>
     <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://akabana.seasar.org/yui/mxml"/>
   </namespaceManifests>
