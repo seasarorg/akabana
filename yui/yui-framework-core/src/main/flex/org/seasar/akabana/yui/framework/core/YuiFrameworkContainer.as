@@ -1,3 +1,18 @@
+/*
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.seasar.akabana.yui.framework.core
 {
     import flash.display.DisplayObject;
@@ -69,20 +84,7 @@ package org.seasar.akabana.yui.framework.core
                 removeCompleteHandler,
                 true,
                 int.MAX_VALUE
-            );    
-                        
-//            _application.addEventListener(
-//                FlexEvent.CREATION_COMPLETE,
-//                creationCompleteHandler,
-//                true,
-//                int.MAX_VALUE
-//            );                        
-//            _application.addEventListener(
-//                FlexEvent.REMOVE,
-//                removeCompleteHandler,
-//                true,
-//                int.MAX_VALUE
-//            );            
+            );           
         }
         
         public function YuiFrameworkContainer(){
@@ -93,7 +95,6 @@ package org.seasar.akabana.yui.framework.core
             if( component != null ){
                 do{                 
                     if( component is Application ){
-                        trace("application registerComponent");
                         application = component as Application;
                         break;
                     }
@@ -168,23 +169,19 @@ package org.seasar.akabana.yui.framework.core
         }
         
         private function creationCompleteHandler(event:Event):void{
-            trace(event,event.target,event.currentTarget);
             var component:UIComponent = event.target as UIComponent;
             registerComponent(component);
         }
 
         private function removeCompleteHandler(event:Event):void{
-            trace(event,event.target,event.currentTarget);
             unregisterComponent(event.target as DisplayObject);
         }        
         
         protected function registerView( container:Container ):void{            
             const className:String = ClassRef.getQualifiedClassName(container);
-            trace("container add to stage",container,container.isDocument,container.className,container.id);
             
             if( namingConvention.isTargetClassName( className )){
                 if(namingConvention.isViewName( className )){
-                    trace(">>add View",className);
                     if( !UIComponentRepository.hasComponent( className )){
                         UIComponentRepository.addComponent( className, container );              
                     }
@@ -198,7 +195,6 @@ package org.seasar.akabana.yui.framework.core
                     viewName != null && 
                     namingConvention.isViewName( viewName )
                 ){
-                    trace(">>add View",viewName);
                     if( !UIComponentRepository.hasComponent( viewName )){
                         UIComponentRepository.addComponent( viewName, container );  
                     }            
@@ -211,11 +207,9 @@ package org.seasar.akabana.yui.framework.core
 
         protected function unregisterView( container:Container ):void{
             const className:String = ClassRef.getQualifiedClassName(container);
-            //trace("container add to stage",container,container.isDocument,container.className,container.id);
             
             if( namingConvention.isTargetClassName( className )){
                 if(namingConvention.isViewName( className )){
-                    trace(">>add View",className);
                     if( container.initialized ){
                         disassembleView( className, container);
                     }
@@ -229,7 +223,6 @@ package org.seasar.akabana.yui.framework.core
                     viewName != null && 
                     namingConvention.isViewName( viewName )
                 ){
-                    trace(">>add View",viewName);            
                     if( container.initialized ){
                         disassembleView(viewName, container);
                     }

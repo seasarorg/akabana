@@ -18,7 +18,6 @@ package org.seasar.akabana.yui.framework.customizer
         
         protected function addEventListener( component:IEventDispatcher, eventName:String, handler:Function ):void{
             component.addEventListener( eventName, handler, false, 0, true );
-            trace( component + ".addEventListener(" + eventName + ")");
         } 
         
         protected function storeEnhancedEventHandler( component:UIComponent, eventName:String, handler:Function ):void{
@@ -37,7 +36,6 @@ package org.seasar.akabana.yui.framework.customizer
                 var callee:Object = arguments.callee; 
                 var error:Error = null;                              
                 try{
-//                   trace("$ call event start - " + eventName );
                    callee.proto.apply(callee.owner,[event]);
                 } catch(re:RuntimeError){
                     error = re;
@@ -52,7 +50,7 @@ package org.seasar.akabana.yui.framework.customizer
                     throw e;
                 } finally {
                     if( error != null ){
-                        trace(error.getStackTrace());
+                        //trace(error.getStackTrace());
                     }
                 }
             };
@@ -64,7 +62,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         private static function getEnhancedFunctionName( eventName:String ):String{
-              return "__enhanced_" + eventName + "Handler";
+            return "__enhanced_" + eventName + "Handler";
         }
         
         private static function checkDescriptor(component:UIComponent):void{

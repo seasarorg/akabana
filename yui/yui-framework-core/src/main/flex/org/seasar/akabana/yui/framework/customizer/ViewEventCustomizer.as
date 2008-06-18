@@ -31,7 +31,6 @@ package org.seasar.akabana.yui.framework.customizer {
             var actionName:String;
             var dxoName:String;
             actionName = namingConvention.getActionName(name);
-//            trace("view:"+name,"action:",actionName);      
 
             var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
             if( action_ != null){
