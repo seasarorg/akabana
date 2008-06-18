@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<flex-config xmlns="http://www.adobe.com/2006/flex-config">
+    <includes>
+        <symbol>org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin</symbol>
+        <symbol>org.seasar.akabana.yui.framework.YuiFrameworkSystemManager</symbol>
+    </includes>
+    <compiler>
+        <keep-as3-metadata>
+            <name>Service</name>
+            <name>Model</name>
+            <name>View</name>
+        </keep-as3-metadata>
+    </compiler>
+</flex-config>

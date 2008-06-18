@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:akabana="http://akabana.seasar.org/yui/mxml" xmlns:view="examples.yui.helloworld.view.*" xmlns:helloworld="examples.yui.helloworld.*">
+    <mx:Style>
+        global{
+            font-size:18pt;
+        }
+    </mx:Style>
+    
+    <akabana:YuiFrameworkMixin>
+        <akabana:conventions>
+            examples.yui.helloworld
+        </akabana:conventions>
+    </akabana:YuiFrameworkMixin>
+    
+    
+    <helloworld:HelloWorldClasses/>
+    <mx:TabNavigator width="100%" height="100%">
+        <view:HelloWorldView/>
+    </mx:TabNavigator>
+</mx:Application>

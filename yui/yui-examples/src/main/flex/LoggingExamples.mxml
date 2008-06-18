@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+    applicationComplete="initApp()"
+    >
+    <mx:Script>
+        <![CDATA[
+            import org.seasar.akabana.yui.logging.Logger;
+
+            private function initApp():void{
+                Logger.getLogger(LoggingExamples).debug("debug");
+                Logger.getLogger(LoggingExamples).warn("warn");                
+                Logger.getLogger(LoggingExamples).fatal("fatal");
+                Logger.getLogger(LoggingExamples).info("info");
+                Logger.getLogger(LoggingExamples).error("error");
+            }
+        ]]>
+    </mx:Script>
+</mx:Application>

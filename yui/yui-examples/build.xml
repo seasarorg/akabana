@@ -1,0 +1,26 @@
+<project name="yui-samples" default="dist" basedir=".">
+	<property name="ver" value="alpha-7"/>
+    <!-- ================================= 
+          target: dist              
+         ================================= -->	
+	<target name="dist" description="dist the project..">
+		<zip zipfile="target/yui-samples-${ver}.zip">
+			<zipfileset prefix="yui-samples" dir=".">
+				<exclude name="**/target/*"/>
+				<exclude name="**/target/**.zip"/>
+			</zipfileset>
+		</zip>
+	</target>
+    <!-- ================================= 
+          target: clean             
+         ================================= -->	
+     <target name="clean">
+     	<delete>
+     		<fileset dir="target">
+     			<exclude name="**/generated/*" />
+     			<include name="*" />
+				<include name="**/bin/*" />
+     		</fileset>
+     	</delete>
+     </target>
+</project>

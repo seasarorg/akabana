@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<node label="メール送受フォルダ">
+    <node label="受信箱">
+        <node label="仕事"/>
+        <node label="プライベート"/>
+    </node>
+    <node label="送信箱">
+        <node label="会社"/>
+        <node label="個人"/>
+    </node>
+    <node label="迷惑メール"/>
+</node>
