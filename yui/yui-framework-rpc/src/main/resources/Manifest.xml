@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<componentPackage>
+    <component id="RemotingService" class="org.seasar.akabana.yui.service.rpc.remoting.mxml.RemotingService"/>
+</componentPackage>
