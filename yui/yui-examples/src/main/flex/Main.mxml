@@ -5,7 +5,7 @@
             font-size:18pt;
         }
     </mx:Style>
-    
+
     <akabana:YuiFrameworkMixin>
         <akabana:conventions>
             examples.yui.helloworld

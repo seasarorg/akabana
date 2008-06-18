@@ -13,9 +13,9 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
-      <libraryPathEntry kind="3" linkType="1" path="/yui-framework-core/target/swc/yui-framework-core.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/yui-framework-logging/target/swc/yui-framework-logging.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/yui-framework-rpc/target/swc/yui-framework-rpc.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/yui-core/target/swc/yui-core.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/yui-framework/target/swc/yui-framework.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/yui-logging/target/swc/yui-logging.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
