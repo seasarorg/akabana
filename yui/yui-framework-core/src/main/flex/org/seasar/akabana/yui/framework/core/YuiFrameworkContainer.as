@@ -234,7 +234,7 @@ package org.seasar.akabana.yui.framework.core
         } 
         
         protected function assembleView( name:String, view:Container ):void{
-            if( view != null ){
+            if( view != null && view.initialized){
                 if( view.descriptor == null ){
                     view.descriptor = new UIComponentDescriptor({});
                 }

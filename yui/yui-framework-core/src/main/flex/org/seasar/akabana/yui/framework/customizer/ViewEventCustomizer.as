@@ -83,9 +83,6 @@ package org.seasar.akabana.yui.framework.customizer {
 			    handlerIndex = functionName.lastIndexOf(HANDLER);
 			    if( componentName != null ){
 			        component = view.getChildByName(componentName) as IEventDispatcher;
-			        if( component == null ){
-                        component = view[ componentName ];
-			        }
 			        
 			        eventName = functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);
                     
