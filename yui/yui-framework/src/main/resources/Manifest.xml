@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<componentPackage>
+    <component id="YuiFrameworkMixin" class="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
+</componentPackage>
