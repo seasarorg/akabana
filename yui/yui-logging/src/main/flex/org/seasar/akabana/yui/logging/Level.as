@@ -15,6 +15,8 @@
  */
 package org.seasar.akabana.yui.logging
 {
+    import mx.utils.StringUtil;
+    
     public class Level {
 
         public static const OFF_INT:int   = int.MAX_VALUE;
@@ -34,6 +36,36 @@ package org.seasar.akabana.yui.logging
         public static const DEBUG:Level = new Level( DEBUG_INT, "DEBUG");
         public static const TRACE:Level = new Level( TRACE_INT, "TRACE");
         public static const ALL:Level   = new Level( ALL_INT,   "ALL");
+        
+        public static function getLevel( name:String ):Level{
+            var levelName_:String = StringUtil.trim(name).toUpperCase();
+            
+            switch( true ){
+                case levelName_ == OFF.name:{
+                    return OFF;
+                }
+                case levelName_ == FATAL.name:{
+                    return FATAL;
+                }
+                case levelName_ == ERROR.name:{
+                    return ERROR;
+                }
+                case levelName_ == WARN.name:{
+                    return WARN;
+                }
+                case levelName_ == INFO.name:{
+                    return INFO;
+                }
+                case levelName_ == DEBUG.name:{
+                    return DEBUG;
+                }
+                case levelName_ == TRACE.name:{
+                    return TRACE;
+                }
+                default:
+            }            
+            return ALL;
+        }
         
         public var value:int = ALL_INT;
         

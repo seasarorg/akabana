@@ -15,18 +15,17 @@
  */
 package org.seasar.akabana.yui.logging
 {
-    public interface Category
+    public class LoggingConsts
     {
-        function get name():String;
-        function set name( value:String ):void;
+        public static var PREFIX:String = "log4yui.";
+        
+        public static var APPENDER:String = "appender";
+        
+        public static var CATEGORY:String = "category";
+        
+        public static var ROOT_LOGGER:String = "rootLogger";
+        
+        public static var LAYOUT:String = "layout";
 
-        function get level():Level;
-        function set level( value:Level ):void;
-        
-        function get appenderCount():int;
-        function getAppenderAt( index:int ):Appender; 
-        
-        function addAppender( appender:Appender ):void;
-        function removeAppender( appender:Appender ):void;
     }
 }

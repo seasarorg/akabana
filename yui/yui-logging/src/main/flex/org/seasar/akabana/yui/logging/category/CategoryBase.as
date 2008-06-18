@@ -51,6 +51,10 @@ package org.seasar.akabana.yui.logging.category
             _appenders = [];
             _level = Level.ALL;
         }
+
+        public function getAppenderAt( index:int ):Appender{
+            return _appenders[ index ] as Appender;
+        }
         
         public function addAppender( appender:Appender ):void{
             if( appender != null ){

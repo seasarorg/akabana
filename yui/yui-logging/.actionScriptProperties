@@ -4,6 +4,7 @@
     <compilerSourcePath/>
     <libraryPath defaultLinkType="1">
       <libraryPathEntry kind="4" path=""/>
+      <libraryPathEntry kind="3" linkType="1" path="/yui-core/target/swc/yui-core.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
