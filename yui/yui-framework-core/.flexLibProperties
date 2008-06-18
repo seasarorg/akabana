@@ -13,33 +13,9 @@
     <classEntry path="org.seasar.akabana.yui.core.reflection.PropertyRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.Reflector"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.Reflectors"/>
-    <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
-    <classEntry path="org.seasar.akabana.yui.framework.core.UIComponentRepository"/>
-    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractEventCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.ViewEventCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.error.RuntimeError"/>
-    <classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
-    <classEntry path="org.seasar.akabana.yui.framework.util.ApplicationUtil"/>
-    <classEntry path="org.seasar.akabana.yui.framework.util.UIComponentUtil"/>
     <classEntry path="org.seasar.akabana.yui.net.URLUtil"/>
     <classEntry path="org.seasar.akabana.yui.resources.embed.EmbedXmlReader"/>
-    <classEntry path="org.seasar.akabana.yui.service.Operation"/>
-    <classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
-    <classEntry path="org.seasar.akabana.yui.service.Responder"/>
-    <classEntry path="org.seasar.akabana.yui.service.Service"/>
-    <classEntry path="org.seasar.akabana.yui.service.ServiceRepository"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.AbstractServiceEvent"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.FaultEvent"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.FaultStatus"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.InvokeEvent"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
   </includeClasses>
   <includeResources/>
-  <namespaceManifests>
-    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://akabana.seasar.org/yui/mxml"/>
-  </namespaceManifests>
+  <namespaceManifests/>
 </flexLibProperties>
