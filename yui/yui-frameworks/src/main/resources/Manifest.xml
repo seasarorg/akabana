@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<componentPackage>
-    <component id="YuiApplication" class="org.seasar.akabana.yui.framework.application.YuiApplication"/>
-    <component id="RemotingService" class="org.seasar.akabana.yui.service.rpc.remoting.mxml.RemotingService"/>
-</componentPackage>
