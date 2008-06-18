@@ -4,9 +4,15 @@
     >
     <mx:Script>
         <![CDATA[
+            import org.seasar.akabana.yui.core.reflection.ClassRef;
+            import org.seasar.akabana.yui.logging.LogManager;
             import org.seasar.akabana.yui.logging.Logger;
 
             private function initApp():void{
+                LogManager.init();
+                
+                trace( ClassRef.getQualifiedClassName(LogManager));
+                
                 Logger.getLogger(LoggingExamples).debug("debug");
                 Logger.getLogger(LoggingExamples).warn("warn");                
                 Logger.getLogger(LoggingExamples).fatal("fatal");
