@@ -150,6 +150,7 @@ package org.seasar.akabana.yui.logging
                 for each( var categoryName:String in CATEGORY_NAME ){
                     if( fullClassName.indexOf(categoryName) == 0 ){
                         category = CATEGORY_CACHE[ categoryName ];
+                        break;
                     }
                 }
                 if( category == null ){
