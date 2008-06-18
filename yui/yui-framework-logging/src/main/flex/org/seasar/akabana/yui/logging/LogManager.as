@@ -18,14 +18,33 @@ package org.seasar.akabana.yui.logging
     import flash.utils.describeType;
     import flash.utils.getQualifiedClassName;
     
+    import mx.resources.ResourceBundle;
+    
     import org.seasar.akabana.yui.logging.appender.SimpleAppender;
     import org.seasar.akabana.yui.logging.layout.PatternLayout;
     
     public class LogManager
     {
+        [ResourceBundle("log4yui")]
+        private static const defaultProperties:ResourceBundle;
+
         private static const CACHE:Object= {};
         
+        private static const logManager:LogManager = new LogManager();
+        
+        public static function init(propertyUrl:String=""):void{
+            logManager.init( propertyUrl );
+        }
+        
         public static function getLogger( targetClass:Class ):Logger{
+            return logManager.getLogger( targetClass );
+        }
+        
+        private final function init(propertyUrl:String):void{    
+        }
+
+        private final function getLogger( targetClass:Class ):Logger{
+            
             var fullClassName:String = describeType( targetClass ).@name.toString();
             var logger_:Logger = CACHE[ fullClassName ];
             
@@ -44,5 +63,6 @@ package org.seasar.akabana.yui.logging
                         
             return logger_;
         }
+
     }
 }

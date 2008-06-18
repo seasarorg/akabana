@@ -16,6 +16,8 @@
     <classEntry path="org.seasar.akabana.yui.logging.layout.PatternLayout"/>
     <classEntry path="org.seasar.akabana.yui.logging.layout.SimpleLayout"/>
   </includeClasses>
-  <includeResources/>
+  <includeResources>
+    <resourceEntry destPath="log4yui.properties" sourcePath="log4yui.properties"/>
+  </includeResources>
   <namespaceManifests/>
 </flexLibProperties>
