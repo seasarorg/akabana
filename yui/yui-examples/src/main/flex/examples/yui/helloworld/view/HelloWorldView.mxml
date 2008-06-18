@@ -4,5 +4,5 @@
     verticalAlign="middle"
     horizontalAlign="center"
     >
-    <mx:Button label="はろーわーるどを表示する" id="showHelloWorld"/>
+    <mx:Button label="はろーわーるどを表示する" id="showHelloWorld" height="68" width="210"/>
 </mx:VBox>
