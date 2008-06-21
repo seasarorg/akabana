@@ -15,8 +15,11 @@
  */
 package org.seasar.akabana.yui.framework.core
 {
+    
     import flash.display.DisplayObject;
     import flash.events.Event;
+    import flash.events.TimerEvent;
+    import flash.utils.Timer;
     
     import mx.core.Application;
     import mx.core.Container;
@@ -32,6 +35,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.ViewEventCustomizer;
+    import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
@@ -50,6 +54,7 @@ package org.seasar.akabana.yui.framework.core
         
         protected var _application:Application;
         
+        protected var _callTimer:Timer = new Timer(100,1);
         
         public function get application():Application{
             return _application;
@@ -142,7 +147,17 @@ package org.seasar.akabana.yui.framework.core
             }
             
             application.visible = true;
-            application.dispatchEvent(new Event("assembled"));
+            application.dispatchEvent(new FrameworkEvent(FrameworkEvent.ASSEMBLED));
+         
+            _callTimer.addEventListener(TimerEvent.TIMER_COMPLETE,callApplicationStart,false,0,true);
+            _callTimer.start();
+        }
+        
+        private function callApplicationStart( event:TimerEvent ):void{
+            var rootView:DisplayObject = application.getChildByName("rootView");
+            if( rootView != null ){
+                rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+            }
         }
         
         private function getViewName( container:Container ):String{

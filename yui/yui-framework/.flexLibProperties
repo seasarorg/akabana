@@ -10,6 +10,7 @@
     <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.ViewEventCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.error.RuntimeError"/>
+    <classEntry path="org.seasar.akabana.yui.framework.event.FrameworkEvent"/>
     <classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
     <classEntry path="org.seasar.akabana.yui.framework.util.ApplicationUtil"/>
     <classEntry path="org.seasar.akabana.yui.framework.util.UIComponentUtil"/>
