@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.framework.core {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     
-    public class UIComponentRepository {
+    public class ComponentRepository {
         
         public static var componentNameMap:Dictionary = new Dictionary(true);
         
@@ -31,25 +31,29 @@ package org.seasar.akabana.yui.framework.core {
         
         public static var componentChildrenMap:Dictionary = new Dictionary(true);
         
-        public static function addComponent( componentName:String, component:UIComponent ):void{
+        public static function addComponent( componentName:String, component:Object ):void{
             if( componentMap[ componentName ] == null ){
                 componentMap[ componentName ] = component;
             } else {
                 throw new Error("UIコンポーネント登録重複エラー:"+componentName);
             }
             componentNameMap[ component ] = componentName;
-            
-        	addRelation( component.parentDocument as DisplayObjectContainer, componentName, component );
+
+            if( component is UIComponent ){           
+        	    addRelation( UIComponent(component).parentDocument as DisplayObjectContainer, componentName, UIComponent(component) );
+            }
         }
         
-        public static function removeComponent( componentName:String, component:UIComponent ):void{
+        public static function removeComponent( componentName:String, component:Object ):void{
         	if( componentMap.hasOwnProperty(componentName)){
                 componentMap[ componentName ] = null;
                 delete componentMap[ componentName ];        	    
         	}
         	
         	if( component != null ){
-	        	removeParentDocumentRelation( component.parentDocument as DisplayObjectContainer, componentName, component );	        	
+	        	if( component is UIComponent ){
+	        	    removeParentDocumentRelation( UIComponent(component).parentDocument as DisplayObjectContainer, componentName, UIComponent(component) ); 
+	        	}	        	
                 
                 componentChildrenMap[ component ] = null;
                 delete componentChildrenMap[ component ];
@@ -57,12 +61,12 @@ package org.seasar.akabana.yui.framework.core {
         	}
         }
 
-        public static function getComponentName( component:UIComponent ):String{
+        public static function getComponentName( component:Object ):String{
             return componentNameMap[ component ];
         }
         
-        public static function getComponent( name:String ):UIComponent{
-            return componentMap[ name ] as UIComponent;
+        public static function getComponent( name:String ):Object{
+            return componentMap[ name ];
         }
         
         public static function hasComponent( name:String ):Boolean{

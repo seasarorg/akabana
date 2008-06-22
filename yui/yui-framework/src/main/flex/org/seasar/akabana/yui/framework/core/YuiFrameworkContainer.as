@@ -142,8 +142,8 @@ package org.seasar.akabana.yui.framework.core
                 customizers = getDefaultCustomizers();
             }
             
-            for ( var key:String in UIComponentRepository.componentMap ){
-                assembleView(key,UIComponentRepository.getComponent(key) as Container);
+            for ( var key:String in ComponentRepository.componentMap ){
+                assembleView(key,ComponentRepository.getComponent(key) as Container);
             }
             
             application.visible = true;
@@ -197,8 +197,8 @@ package org.seasar.akabana.yui.framework.core
             
             if( namingConvention.isTargetClassName( className )){
                 if(namingConvention.isViewName( className )){
-                    if( !UIComponentRepository.hasComponent( className )){
-                        UIComponentRepository.addComponent( className, container );              
+                    if( !ComponentRepository.hasComponent( className )){
+                        ComponentRepository.addComponent( className, container );              
                     }
                     if( container.initialized ){
                         assembleView( className, container);
@@ -210,8 +210,8 @@ package org.seasar.akabana.yui.framework.core
                     viewName != null && 
                     namingConvention.isViewName( viewName )
                 ){
-                    if( !UIComponentRepository.hasComponent( viewName )){
-                        UIComponentRepository.addComponent( viewName, container );  
+                    if( !ComponentRepository.hasComponent( viewName )){
+                        ComponentRepository.addComponent( viewName, container );  
                     }            
                     if( container.initialized ){
                         assembleView(viewName, container);
@@ -228,8 +228,8 @@ package org.seasar.akabana.yui.framework.core
                     if( container.initialized ){
                         disassembleView( className, container);
                     }
-                    if( UIComponentRepository.hasComponent( className )){
-                        UIComponentRepository.removeComponent( className, container );              
+                    if( ComponentRepository.hasComponent( className )){
+                        ComponentRepository.removeComponent( className, container );              
                     }
                 }               
             } else {
@@ -241,8 +241,8 @@ package org.seasar.akabana.yui.framework.core
                     if( container.initialized ){
                         disassembleView(viewName, container);
                     }
-                    if( UIComponentRepository.hasComponent( viewName )){
-                        UIComponentRepository.removeComponent( viewName, container );  
+                    if( ComponentRepository.hasComponent( viewName )){
+                        ComponentRepository.removeComponent( viewName, container );  
                     }
                 }
             }

@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.core.reflection.Reflectors;
-    import org.seasar.akabana.yui.framework.core.UIComponentRepository;
+    import org.seasar.akabana.yui.framework.core.ComponentRepository;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
     
@@ -55,16 +55,22 @@ package org.seasar.akabana.yui.framework.customizer {
         
         protected function processHelperCustomize( propertyRef:PropertyRef ):Object{
             var helperClassRef:ClassRef = Reflectors.getClassReflector( propertyRef.type );
-            var helper:Object = helperClassRef.getInstance();
             
-            var viewName:String = namingConvention.getViewName( helperClassRef.name );
-            
-            for each( var helperPropertyRef:PropertyRef in helperClassRef.getPropertyRefByType(viewName) ){
-                if( helperPropertyRef != null ){
-                    helper[ helperPropertyRef.name ] = UIComponentRepository.getComponent(viewName);
-                    break;
+            var helper:Object;
+            if( ComponentRepository.hasComponent(propertyRef.type) ){
+                helper = ComponentRepository.getComponent(propertyRef.type);
+            } else {
+                helper = helperClassRef.getInstance();
+                ComponentRepository.addComponent(propertyRef.type,helper);
+                var viewName:String = namingConvention.getViewName( helperClassRef.name );
+                
+                for each( var helperPropertyRef:PropertyRef in helperClassRef.getPropertyRefByType(viewName) ){
+                    if( helperPropertyRef != null ){
+                        helper[ helperPropertyRef.name ] = ComponentRepository.getComponent(viewName);
+                        break;
+                    }
                 }
-            }
+            }            
                         
             return helper;
         }
