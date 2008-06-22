@@ -20,45 +20,39 @@ package org.seasar.akabana.yui.service.rpc {
     import org.seasar.akabana.yui.service.event.FaultStatus;
     import org.seasar.akabana.yui.service.event.ResultEvent;
     
-	public class RpcPendingCall implements PendingCall {
+    public class RpcPendingCall implements PendingCall {
         
-        private var responders_:Array;
+        private var _responder:Responder;
         
         public function RpcPendingCall(){
-            responders_ = [];
         }
         
         public function addResponder( responder:Responder ):void{
-            responders_.push( responder );   
+            _responder = responder;
         }
 
         public function addResponceHandler( resultHandler:Function, faultFunction:Function ):void{
-            responders_.push( new RpcResponder( resultHandler, faultFunction ) );   
-        }        
+            _responder = new RpcResponder( resultHandler, faultFunction );   
+        }
         
         public function onResult( result:* ):void{
             var resultEvent:ResultEvent = new ResultEvent();
             resultEvent.pendigCall = this;
             resultEvent.result = result;
             
-            for each( var responder:Object in responders_ ){
-                if( responder is Responder){
-                    responder.onResult( resultEvent );
-                }                
-            }
+            _responder.onResult( resultEvent );
         }
         
         public function onStatus( status:* ):void{
-            var faultStatus:FaultStatus = new FaultStatus( status.code, status.description, status.details);
             var faultEvent:FaultEvent = new FaultEvent();
             faultEvent.pendigCall = this;            
-            faultEvent.faultStatus = faultStatus;
             
-            for each( var responder:Object in responders_ ){
-                if( responder is Responder){
-                    responder.onFault( faultEvent );
-                }
+            if( status != null ){
+                var faultStatus:FaultStatus = new FaultStatus( status.code, status.description, status.details);
+                faultEvent.faultStatus = faultStatus;
             }
+            
+            _responder.onFault( faultEvent );
         }
     }
 }

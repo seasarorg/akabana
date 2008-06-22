@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
   <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingService"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcOperation"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcService"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.RpcPendingCall"/>
+    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation"/>
+    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.mxml.RemotingService"/>
+    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingConnectionFactory"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.RpcResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingConnection"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingConnectionFactory"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingService"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.mxml.RemotingService"/>
+    <classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcService"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests>
