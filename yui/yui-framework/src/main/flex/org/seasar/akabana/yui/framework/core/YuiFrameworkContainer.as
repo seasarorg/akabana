@@ -254,7 +254,9 @@ package org.seasar.akabana.yui.framework.core
                     view.descriptor = new UIComponentDescriptor({});
                 }
                 for each( var customizer_:IComponentCustomizer in customizers ){
-                    customizer_.namingConvention = namingConvention;
+                    if( customizer_.namingConvention == null ){
+                        customizer_.namingConvention = namingConvention;
+                    }
                     customizer_.customize( name, view );                    
                 }
             }
