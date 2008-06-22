@@ -18,6 +18,7 @@ package org.seasar.akabana.yui.framework.core
     
     import flash.display.DisplayObject;
     import flash.events.Event;
+    import flash.events.TimerEvent;
     import flash.utils.Timer;
     
     import mx.core.Application;
@@ -149,11 +150,11 @@ package org.seasar.akabana.yui.framework.core
             application.visible = true;
             application.dispatchEvent(new FrameworkEvent(FrameworkEvent.ASSEMBLED));
          
-//            _callTimer.addEventListener(TimerEvent.TIMER,callApplicationStart,false,0,true);
-//            _callTimer.start();
-//        }
-//        
-//        private function callApplicationStart( event:TimerEvent ):void{
+            _callTimer.addEventListener(TimerEvent.TIMER,callApplicationStart,false,0,true);
+            _callTimer.start();
+        }
+        
+        private function callApplicationStart( event:TimerEvent ):void{
             var rootView:DisplayObject = application.getChildByName("rootView");
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
@@ -200,9 +201,6 @@ package org.seasar.akabana.yui.framework.core
                     if( !ViewComponentRepository.hasComponent( className )){
                         ViewComponentRepository.addComponent( className, container );              
                     }
-//                    if( container.initialized ){
-//                        assembleView( className, container);
-//                    }
                 }
             } else {
                 var viewName:String = getViewName(container);
@@ -212,12 +210,9 @@ package org.seasar.akabana.yui.framework.core
                 ){
                     if( !ViewComponentRepository.hasComponent( viewName )){
                         ViewComponentRepository.addComponent( viewName, container );  
-                    }            
-//                    if( container.initialized ){
-//                        assembleView(viewName, container);
-//                    }
+                    }
                 }
-            }      
+            }
         }
 
         protected function unregisterView( container:Container ):void{
