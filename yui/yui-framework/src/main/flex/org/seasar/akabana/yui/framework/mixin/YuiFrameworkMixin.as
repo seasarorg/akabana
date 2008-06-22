@@ -23,8 +23,8 @@ package org.seasar.akabana.yui.framework.mixin
 	import mx.events.FlexEvent;
 	import mx.managers.ISystemManager;
 	
-	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
 	import org.seasar.akabana.yui.framework.convention.NamingConvention;
+	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
 	
 	[Mixin]
 	/**
@@ -49,7 +49,7 @@ package org.seasar.akabana.yui.framework.mixin
                 systemManager.addEventListener(
                     FlexEvent.APPLICATION_COMPLETE,
                     _this.applicationCompleteHandler,
-                    true,
+                    false,
                     int.MAX_VALUE
                 );    
             }
@@ -60,6 +60,8 @@ package org.seasar.akabana.yui.framework.mixin
             namingConvention_.conventions = value;
             _container.namingConvention = namingConvention_;
         }
+        
+        protected var initialized:Boolean;
         
         private function addedToStageHandler( event:Event ):void{
             _container.registerComponent(event.target as DisplayObject);
@@ -76,11 +78,13 @@ package org.seasar.akabana.yui.framework.mixin
                 systemManager.removeEventListener(
                     FlexEvent.APPLICATION_COMPLETE,
                     applicationCompleteHandler,
-                    true
+                    false
                 );
+                if( !initialized ){
+                    initialized = true;
+                    _container.init();
+                }
             }
-            
-            _container.init();
         }
 	}
 }

@@ -9,10 +9,9 @@ package org.seasar.akabana.yui.framework.event
         
         public static const APPLICATION_START:String = "applicationStart";
         
-        public function FrameworkEvent(type:String, bubbles:Boolean=true, cancelable:Boolean=true)
+        public function FrameworkEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
         {
             super(type, bubbles, cancelable);
         }
-        
     }
 }

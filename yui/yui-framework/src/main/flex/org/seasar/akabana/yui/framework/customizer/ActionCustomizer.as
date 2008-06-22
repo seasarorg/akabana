@@ -30,25 +30,28 @@ package org.seasar.akabana.yui.framework.customizer {
             var actionName:String = _namingConvention.getActionName(name);
             var actionClassRef:ClassRef = Reflectors.getClassReflector(actionName);
             var action:Object;
-            
-            if( actionClassRef != null ){
-                action = view.descriptor.properties[ namingConvention.getActionPackageName() ]  = actionClassRef.getInstance();
-            }
-            if( action != null ){
-                for each( var actionPropertyRef:PropertyRef in actionClassRef.properties ){
-                    if( namingConvention.isViewHelperName( actionPropertyRef.type )){
-                        action[ actionPropertyRef.name ] = processHelperCustomize(actionPropertyRef);
-                        continue;
-                    }
 
-                    if(
-                        actionPropertyRef.typeClassRef.concreteClass == Service ||
-                        actionPropertyRef.typeClassRef.isAssignableFrom( Service )
-                    ){
-                        action[ actionPropertyRef.name ] = processServiceCustomize(actionPropertyRef);
-                        continue;
+            if( ComponentRepository.hasComponent(actionName) ){
+                action = ComponentRepository.getComponent(actionName);
+            } else {
+                if( actionClassRef != null ){
+                    action = view.descriptor.properties[ namingConvention.getActionPackageName() ]  = actionClassRef.getInstance();
+                }
+                if( action != null ){
+                    for each( var actionPropertyRef:PropertyRef in actionClassRef.properties ){
+                        if( namingConvention.isViewHelperName( actionPropertyRef.type )){
+                            action[ actionPropertyRef.name ] = processHelperCustomize(actionPropertyRef);
+                            continue;
+                        }
+    
+                        if(
+                            actionPropertyRef.typeClassRef.concreteClass == Service ||
+                            actionPropertyRef.typeClassRef.isAssignableFrom( Service )
+                        ){
+                            action[ actionPropertyRef.name ] = processServiceCustomize(actionPropertyRef);
+                            continue;
+                        }
                     }
-
                 }
             }
         }

@@ -149,11 +149,11 @@ package org.seasar.akabana.yui.framework.core
             application.visible = true;
             application.dispatchEvent(new FrameworkEvent(FrameworkEvent.ASSEMBLED));
          
-            _callTimer.addEventListener(TimerEvent.TIMER_COMPLETE,callApplicationStart,false,0,true);
-            _callTimer.start();
-        }
-        
-        private function callApplicationStart( event:TimerEvent ):void{
+//            _callTimer.addEventListener(TimerEvent.TIMER,callApplicationStart,false,0,true);
+//            _callTimer.start();
+//        }
+//        
+//        private function callApplicationStart( event:TimerEvent ):void{
             var rootView:DisplayObject = application.getChildByName("rootView");
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
