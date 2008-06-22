@@ -21,6 +21,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.core.reflection.Reflectors;
     import org.seasar.akabana.yui.framework.core.ComponentRepository;
+    import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
     
@@ -38,6 +39,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     action = view.descriptor.properties[ namingConvention.getActionPackageName() ]  = actionClassRef.getInstance();
                 }
                 if( action != null ){
+                    ComponentRepository.addComponent(actionName,action);
                     for each( var actionPropertyRef:PropertyRef in actionClassRef.properties ){
                         if( namingConvention.isViewHelperName( actionPropertyRef.type )){
                             action[ actionPropertyRef.name ] = processHelperCustomize(actionPropertyRef);
@@ -69,7 +71,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 
                 for each( var helperPropertyRef:PropertyRef in helperClassRef.getPropertyRefByType(viewName) ){
                     if( helperPropertyRef != null ){
-                        helper[ helperPropertyRef.name ] = ComponentRepository.getComponent(viewName);
+                        helper[ helperPropertyRef.name ] = ViewComponentRepository.getComponent(viewName);
                         break;
                     }
                 }

@@ -38,10 +38,6 @@ package org.seasar.akabana.yui.framework.core {
                 throw new Error("UIコンポーネント登録重複エラー:"+componentName);
             }
             componentNameMap[ component ] = componentName;
-
-            if( component is UIComponent ){           
-        	    addRelation( UIComponent(component).parentDocument as DisplayObjectContainer, componentName, UIComponent(component) );
-            }
         }
         
         public static function removeComponent( componentName:String, component:Object ):void{
@@ -51,13 +47,8 @@ package org.seasar.akabana.yui.framework.core {
         	}
         	
         	if( component != null ){
-	        	if( component is UIComponent ){
-	        	    removeParentDocumentRelation( UIComponent(component).parentDocument as DisplayObjectContainer, componentName, UIComponent(component) ); 
-	        	}	        	
-                
-                componentChildrenMap[ component ] = null;
-                delete componentChildrenMap[ component ];
-                
+	        	componentChildrenMap[ component ] = null;
+                delete componentChildrenMap[ component ];                
         	}
         }
 
@@ -71,42 +62,6 @@ package org.seasar.akabana.yui.framework.core {
         
         public static function hasComponent( name:String ):Boolean{
             return componentMap.hasOwnProperty( name );
-        }
-
-        public static function getComponentChildren( object:Object ):Array{
-            var childrenArray:Array = [];
-            do {
-                if( object is String ){
-                    childrenArray = componentChildrenMap[ object as String ];
-                    break;
-                }
-                if( object is UIComponent ){
-                    childrenArray = componentChildrenMap[ UIComponentUtil.getName( object as UIComponent )];
-                    break;
-                }
-            } while( false );
-            
-            return childrenArray;
-        }
-        
-        private static function addRelation( parent:DisplayObjectContainer, componentName:String, child:UIComponent ):void{            
-            var parentClassName:String = ClassRef.getQualifiedClassName( parent );
-            var componentChildrenMap_:Dictionary = componentChildrenMap[ parentClassName ];
-            if( componentChildrenMap_ == null ){
-                componentChildrenMap_ = componentChildrenMap[ parentClassName ] = new Dictionary(true);
-            }
-            componentChildrenMap_[ componentName ] = child;
-        }
-        
-        private static function removeParentDocumentRelation( parent:DisplayObjectContainer, componentName:String, child:UIComponent ):void{            
-            var parentClassName:String = ClassRef.getQualifiedClassName( parent );
-            var componentChildrenMap_:Dictionary = componentChildrenMap[ parentClassName ] as Dictionary;
-            if( componentChildrenMap_ != null ){
-            	if( componentChildrenMap_.hasOwnProperty(componentName)){
-            	    componentChildrenMap_[ componentName ] = null;
-            	    delete componentChildrenMap_[ componentName ];
-            	}
-            }
-        }   
+        } 
     }
 }

@@ -18,7 +18,6 @@ package org.seasar.akabana.yui.framework.core
     
     import flash.display.DisplayObject;
     import flash.events.Event;
-    import flash.events.TimerEvent;
     import flash.utils.Timer;
     
     import mx.core.Application;
@@ -142,8 +141,9 @@ package org.seasar.akabana.yui.framework.core
                 customizers = getDefaultCustomizers();
             }
             
-            for ( var key:String in ComponentRepository.componentMap ){
-                assembleView(key,ComponentRepository.getComponent(key) as Container);
+            var componentMap:Object = ViewComponentRepository.componentMap;
+            for ( var key:String in componentMap ){
+                assembleView(key,ViewComponentRepository.getComponent(key) as Container);
             }
             
             application.visible = true;
@@ -197,25 +197,25 @@ package org.seasar.akabana.yui.framework.core
             
             if( namingConvention.isTargetClassName( className )){
                 if(namingConvention.isViewName( className )){
-                    if( !ComponentRepository.hasComponent( className )){
-                        ComponentRepository.addComponent( className, container );              
+                    if( !ViewComponentRepository.hasComponent( className )){
+                        ViewComponentRepository.addComponent( className, container );              
                     }
-                    if( container.initialized ){
-                        assembleView( className, container);
-                    }
-                }               
+//                    if( container.initialized ){
+//                        assembleView( className, container);
+//                    }
+                }
             } else {
                 var viewName:String = getViewName(container);
                 if(
                     viewName != null && 
                     namingConvention.isViewName( viewName )
                 ){
-                    if( !ComponentRepository.hasComponent( viewName )){
-                        ComponentRepository.addComponent( viewName, container );  
+                    if( !ViewComponentRepository.hasComponent( viewName )){
+                        ViewComponentRepository.addComponent( viewName, container );  
                     }            
-                    if( container.initialized ){
-                        assembleView(viewName, container);
-                    }
+//                    if( container.initialized ){
+//                        assembleView(viewName, container);
+//                    }
                 }
             }      
         }
@@ -228,8 +228,8 @@ package org.seasar.akabana.yui.framework.core
                     if( container.initialized ){
                         disassembleView( className, container);
                     }
-                    if( ComponentRepository.hasComponent( className )){
-                        ComponentRepository.removeComponent( className, container );              
+                    if( ViewComponentRepository.hasComponent( className )){
+                        ViewComponentRepository.removeComponent( className, container );              
                     }
                 }               
             } else {
@@ -241,8 +241,8 @@ package org.seasar.akabana.yui.framework.core
                     if( container.initialized ){
                         disassembleView(viewName, container);
                     }
-                    if( ComponentRepository.hasComponent( viewName )){
-                        ComponentRepository.removeComponent( viewName, container );  
+                    if( ViewComponentRepository.hasComponent( viewName )){
+                        ViewComponentRepository.removeComponent( viewName, container );  
                     }
                 }
             }
