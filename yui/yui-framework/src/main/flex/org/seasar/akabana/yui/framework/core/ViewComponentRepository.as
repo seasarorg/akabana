@@ -69,20 +69,40 @@ package org.seasar.akabana.yui.framework.core {
             return componentMap.hasOwnProperty( name );
         }
 
-        public static function getComponentChildren( object:Object ):Array{
-            var childrenArray:Array = [];
+        public static function hasComponentChildren( object:Object ):Boolean{
+            var hasChildren:Boolean = false;
+            var componentName:String = "";
             do {
                 if( object is String ){
-                    childrenArray = componentChildrenMap[ object as String ];
+                    componentName = object as String;
                     break;
                 }
                 if( object is UIComponent ){
-                    childrenArray = componentChildrenMap[ UIComponentUtil.getName( object as UIComponent )];
+                    componentName = UIComponentUtil.getName( object as UIComponent );
                     break;
                 }
             } while( false );
             
-            return childrenArray;
+            return componentChildrenMap.hasOwnProperty(componentName);
+        }
+
+        public static function getComponentChildren( object:Object ):Object{
+            var children:Object = Dictionary;
+            do {
+                if( object is String ){
+                    children = componentChildrenMap[ object as String ] as Dictionary;
+                    break;
+                }
+                if( object is UIComponent ){
+                    children = componentChildrenMap[ UIComponentUtil.getName( object as UIComponent )] as Dictionary;
+                    break;
+                }
+            } while( false );
+            
+            if( children == null ){
+                children = {};
+            }
+            return children;
         }
         
         private static function addRelation( parent:DisplayObjectContainer, componentName:String, child:UIComponent ):void{            
