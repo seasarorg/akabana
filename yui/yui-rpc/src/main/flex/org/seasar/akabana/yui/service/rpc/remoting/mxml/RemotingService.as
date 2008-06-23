@@ -23,6 +23,8 @@ package org.seasar.akabana.yui.service.rpc.remoting.mxml {
 
     public class RemotingService extends org.seasar.akabana.yui.service.rpc.remoting.RemotingService implements IMXMLObject {
 
+        YuiCoreClasses;
+
         protected var parent_:Container;
         
         protected var id_:String;
