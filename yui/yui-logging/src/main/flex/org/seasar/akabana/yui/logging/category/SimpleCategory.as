@@ -15,6 +15,8 @@
  */
 package org.seasar.akabana.yui.logging.category
 {
+    import mx.resources.ResourceManager;
+    
     import org.seasar.akabana.yui.logging.Appender;
     import org.seasar.akabana.yui.logging.Level;
     import org.seasar.akabana.yui.logging.LoggingEvent;
@@ -28,10 +30,28 @@ package org.seasar.akabana.yui.logging.category
             }
         }
         
+        public function fatalMessage(bundleName:String, resourceName:String,...parameters):void{
+            fatal(
+                substitute(
+                    ResourceManager.getInstance().getString(bundleName,resourceName),
+                    parameters
+                )
+            );
+        }
+        
         public function error( message:String, erorr:Error = null ):void{
             if( Level.ERROR.isGreaterOrEqual( _level )){
                 doLog( Level.ERROR, message, erorr);
             }
+        }
+        
+        public function errorMessage(bundleName:String, resourceName:String,...parameters):void{
+            error(
+                substitute(
+                    ResourceManager.getInstance().getString(bundleName,resourceName),
+                    parameters
+                )
+            );
         }
         
         public function warn( message:String, erorr:Error = null ):void{
@@ -40,22 +60,43 @@ package org.seasar.akabana.yui.logging.category
             }
         }
         
+        public function warnMessage(bundleName:String, resourceName:String,...parameters):void{
+            warn(
+                substitute(
+                    ResourceManager.getInstance().getString(bundleName,resourceName),
+                    parameters
+                )
+            );
+        }
+        
         public function info( message:String, erorr:Error = null ):void{
             if( Level.INFO.isGreaterOrEqual( _level )){
                 doLog( Level.INFO, message, erorr);
             }
+        }
+        
+        public function infoMessage(bundleName:String, resourceName:String,...parameters):void{
+            info(
+                substitute(
+                    ResourceManager.getInstance().getString(bundleName,resourceName),
+                    parameters
+                )
+            );
         }
                                 
         public function debug( message:String, erorr:Error = null ):void{
             if( Level.DEBUG.isGreaterOrEqual( _level )){
                 doLog( Level.DEBUG, message, erorr);
             }
-        }       
-                 
-        public function trace( message:String, erorr:Error = null ):void{
-            if( Level.TRACE.isGreaterOrEqual( _level )){
-                doLog( _level, message, erorr);
-            }
+        } 
+        
+        public function debugMessage(bundleName:String, resourceName:String,...parameters):void{
+            debug(
+                substitute(
+                    ResourceManager.getInstance().getString(bundleName,resourceName),
+                    parameters
+                )
+            );
         }
         
         protected function doLog( level:Level, message:String, erorr:Error=null):void{

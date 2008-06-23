@@ -21,6 +21,26 @@ package org.seasar.akabana.yui.logging.category
     
     public class CategoryBase implements Category
     {
+        protected static function substitute(str:String, ... rest):String
+        {
+            if (str == null) return '';
+            
+            var len:uint = rest.length;
+            var args:Array;
+            if (len == 1 && rest[0] is Array){
+                args = rest[0] as Array;
+                len = args.length;
+            } else {
+                args = rest;
+            }
+            
+            for (var i:int = 0; i < len; i++){
+                str = str.replace(new RegExp("\\{"+i+"\\}", "g"), args[i]);
+            }
+    
+            return str;
+        }
+        
         protected var _name:String;
         
         public function get name():String{
