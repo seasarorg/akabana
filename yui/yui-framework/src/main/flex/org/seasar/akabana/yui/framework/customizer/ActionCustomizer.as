@@ -22,10 +22,13 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.Reflectors;
     import org.seasar.akabana.yui.framework.core.ComponentRepository;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
+    import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
     
     public class ActionCustomizer extends AbstractComponentCustomizer {
+        
+        private static const logger:Logger = Logger.getLogger(ActionCustomizer);
         
         public override function customize( name:String, view:Container ):void {
             var actionName:String = _namingConvention.getActionName(name);
@@ -54,6 +57,7 @@ package org.seasar.akabana.yui.framework.customizer {
                             continue;
                         }
                     }
+                    
                 }
             }
         }

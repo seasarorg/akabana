@@ -22,20 +22,34 @@ package org.seasar.akabana.yui.framework.mixin
 	import mx.core.IFlexModuleFactory;
 	import mx.events.FlexEvent;
 	import mx.managers.ISystemManager;
+	import mx.resources.ResourceManager;
 	
 	import org.seasar.akabana.yui.framework.convention.NamingConvention;
 	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
+	import org.seasar.akabana.yui.logging.LogManager;
 	
 	[Mixin]
-	/**
+	[ResourceBundle("yui_framework")]
+    /**
 	 * YuiFramework設定用MIXIN
 	 *  
 	 */
 	public class YuiFrameworkMixin
 	{
+	    YuiCoreClasses;
+	    YuiLoggingClasses;
+	    YuiFrameworkClasses;
+	    
+	    private static const _logManagerInitialized:Boolean = initLogManager();
+	    
 		private static const _this:YuiFrameworkMixin = new YuiFrameworkMixin();
 		
 		private static const _container:YuiFrameworkContainer = new YuiFrameworkContainer();
+		
+		public static function initLogManager():Boolean{
+		    LogManager.init();
+		    return true;
+		}
 		
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{
             if( flexModuleFactory is ISystemManager ){
