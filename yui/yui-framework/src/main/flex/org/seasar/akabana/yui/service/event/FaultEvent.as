@@ -15,8 +15,6 @@
  */
 package org.seasar.akabana.yui.service.event {
     
-    import mx.rpc.AbstractService;
-    
     public class FaultEvent extends AbstractServiceEvent {
         
         public static const FAULT:String = "fault";

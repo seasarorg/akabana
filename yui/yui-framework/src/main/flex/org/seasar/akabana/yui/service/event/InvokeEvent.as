@@ -15,8 +15,6 @@
  */
 package org.seasar.akabana.yui.service.event {
     
-    import mx.rpc.AbstractService;
-    
     public class InvokeEvent extends AbstractServiceEvent {
         
         public static const INVOKE:String = "invoke";
