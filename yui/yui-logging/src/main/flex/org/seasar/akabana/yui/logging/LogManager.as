@@ -25,7 +25,6 @@ package org.seasar.akabana.yui.logging
     
     public class LogManager
     {
-        LoggingClasses;
         
         [ResourceBundle("log4yui")]
         private static var defaultProperties:ResourceBundle;
@@ -158,7 +157,7 @@ package org.seasar.akabana.yui.logging
                 }
                 
                 logger_ = new Logger();
-                logger_.name = fullClassName;
+                logger_.name = fullClassName.substring(fullClassName.lastIndexOf(".")+1);
                 logger_.level = category.level;
                 var appenderNum:int = category.appenderCount;
                 for( var i:int = 0; i < appenderNum; i++ ){
