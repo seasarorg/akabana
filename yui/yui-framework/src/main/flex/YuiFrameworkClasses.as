@@ -45,10 +45,10 @@ package
         ApplicationUtil;
         UIComponentUtil;
         
+        Service;
         Operation;
         PendingCall;
         Responder;
-        Service;
         ServiceRepository;
         FaultEvent;
         ResultEvent;

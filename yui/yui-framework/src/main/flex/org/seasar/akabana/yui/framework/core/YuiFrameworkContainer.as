@@ -146,7 +146,7 @@ package org.seasar.akabana.yui.framework.core
             application.visible = true;
             application.dispatchEvent(new FrameworkEvent(FrameworkEvent.ASSEMBLED));
             
-            logger.debugMessage("yui_framework","ViewComponentAssembleEnd");
+            logger.debugMessage("yui_framework","ViewComponentAssembleEnd"); 
          
             _callTimer.addEventListener(TimerEvent.TIMER,callApplicationStart,false,0,true);
             _callTimer.start();
