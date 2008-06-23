@@ -24,8 +24,11 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.Reflectors;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
+    import org.seasar.akabana.yui.logging.Logger;
     
     public class ViewEventCustomizer extends AbstractEventCustomizer{
+        
+        private static const logger:Logger = Logger.getLogger(ViewEventCustomizer);
         
         public override function customize( name:String, view:Container ):void {
             var actionName:String;
@@ -42,6 +45,8 @@ package org.seasar.akabana.yui.framework.customizer {
             var actionClassRef:ClassRef = Reflectors.getClassReflector(action);
             var component:UIComponent;
             var componentName:String;
+
+            logger.debugMessage("yui_framework","ViewEventCustomizing",name,actionClassRef.name);
 			for( var index:int =0; index < view.numChildren; index++ ){
 			    component = view.getChildAt(index) as UIComponent;
 			    if( component != null ){
@@ -96,7 +101,8 @@ package org.seasar.akabana.yui.framework.customizer {
                     addEventListener(component,eventName,enhancedFunction);
 		        
 		            storeEnhancedEventHandler(view,componentName + "_" + eventName,enhancedFunction);
-            
+                    
+                    logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName,eventName,functionName);
 		        } else {
 		            component = view as IEventDispatcher;
 		            
@@ -113,6 +119,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     
 		            storeEnhancedEventHandler(view,eventName,enhancedFunction);
                 
+                    logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName,eventName,functionName);
                 }
 			}
         }

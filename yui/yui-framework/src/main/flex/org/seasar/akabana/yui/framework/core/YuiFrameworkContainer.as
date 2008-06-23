@@ -29,8 +29,6 @@ package org.seasar.akabana.yui.framework.core
     import mx.managers.CursorManager;
     import mx.managers.DragManager;
     import mx.managers.PopUpManager;
-    import mx.resources.ResourceManager;
-    import mx.utils.StringUtil;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
@@ -38,7 +36,6 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.ViewEventCustomizer;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
-    import org.seasar.akabana.yui.framework.message.MessageUtil;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
     
@@ -106,13 +103,13 @@ package org.seasar.akabana.yui.framework.core
                     if( component is Application ){
                         application = component as Application;
                         application.visible = false;
-                        logger.debug(MessageUtil.getMessage("yui_framework","ApplicationRegistered",component.toString()));
+                        logger.debugMessage("yui_framework","ApplicationRegistered",component.toString());
                         break;
                     }
 
                     if( component is Container ){
                         registerView( component as Container );
-                        logger.debug(MessageUtil.getMessage("yui_framework","ViewComponentRegistered",component.toString()));    
+                        logger.debugMessage("yui_framework","ViewComponentRegistered",component.toString());    
                         break;   
                     }
                 
@@ -124,7 +121,7 @@ package org.seasar.akabana.yui.framework.core
             if( component != null ){
                 do{
                     if( component is Container ){
-                        logger.debug(MessageUtil.getMessage("yui_framework","ViewComponentUnRegistered",component.toString())); 
+                        logger.debugMessage("yui_framework","ViewComponentUnRegistered",component.toString()); 
                         unregisterView( component as Container );
                         break;   
                     }
@@ -134,7 +131,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public function init():void{
-            logger.debug(MessageUtil.getMessage("yui_framework","ApplicationInit"));
+            logger.debugMessage("yui_framework","ApplicationInit");
             
             if( customizers == null ){
                 customizers = getDefaultCustomizers();
@@ -142,21 +139,21 @@ package org.seasar.akabana.yui.framework.core
             
             var componentMap:Object = ViewComponentRepository.componentMap;
             for ( var key:String in componentMap ){
-                logger.debug(MessageUtil.getMessage("yui_framework","ViewComponentAssembleStart",key)); 
+                logger.debugMessage("yui_framework","ViewComponentAssembleStart",key); 
                 assembleView(key,ViewComponentRepository.getComponent(key) as Container);
             }
             
             application.visible = true;
             application.dispatchEvent(new FrameworkEvent(FrameworkEvent.ASSEMBLED));
             
-            logger.debug(MessageUtil.getMessage("yui_framework","ViewComponentAssembleEnd"));
+            logger.debugMessage("yui_framework","ViewComponentAssembleEnd");
          
             _callTimer.addEventListener(TimerEvent.TIMER,callApplicationStart,false,0,true);
             _callTimer.start();
         }
         
         private function callApplicationStart( event:TimerEvent ):void{
-            logger.debug(MessageUtil.getMessage("yui_framework","ApplicationStart"));
+            logger.debugMessage("yui_framework","ApplicationStart");
             var rootView:DisplayObject = application.getChildByName("rootView");
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
@@ -180,6 +177,7 @@ package org.seasar.akabana.yui.framework.core
         private function creationCompleteHandler(event:Event):void{
             var component:UIComponent = event.target as UIComponent;
             registerComponent(component);
+            assembleComponent(component);
         }
 
         private function removeCompleteHandler(event:Event):void{
@@ -234,7 +232,18 @@ package org.seasar.akabana.yui.framework.core
                     }
                 }
             }
-        } 
+        }
+
+        public function assembleComponent(component:Object):void{
+            if( component != null ){
+                if( component is Container ){
+                    var componentName:String = ViewComponentRepository.getComponentName(component as Container);
+                    if( componentName != null ){
+                        assembleView( componentName, component as Container);    
+                    }
+                }                
+            }
+        }
         
         protected function assembleView( name:String, view:Container ):void{
             if( view != null && view.initialized){
@@ -247,7 +256,7 @@ package org.seasar.akabana.yui.framework.core
                     }
                     customizer_.customize( name, view );                    
                 }
-                logger.debug(MessageUtil.getMessage("yui_framework","ViewComponentAssembled",name));
+                logger.debugMessage("yui_framework","ViewComponentAssembled",name);
             }
         }
 
