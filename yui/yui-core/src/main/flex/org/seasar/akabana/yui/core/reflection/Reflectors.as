@@ -47,7 +47,8 @@ package org.seasar.akabana.yui.core.reflection
                         break;
                     }
                 }
-            } catch( e:Error ){                
+            } catch( e:Error ){
+                throw e;            
             }
             
             if( clazz != null ){
