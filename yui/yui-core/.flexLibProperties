@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
   <includeClasses>
+    <classEntry path="YuiCoreClasses"/>
     <classEntry path="org.seasar.akabana.yui.core.ClassLoader"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedObjectRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedReflector"/>
