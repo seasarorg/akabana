@@ -137,6 +137,8 @@ package org.seasar.akabana.yui.framework.core
                 customizers = getDefaultCustomizers();
             }
             
+            logger.debugMessage("yui_framework","ViewComponentAssembleStart"); 
+            
             var componentMap:Object = ViewComponentRepository.componentMap;
             for ( var key:String in componentMap ){
                 logger.debugMessage("yui_framework","ViewComponentAssembleStart",key); 
