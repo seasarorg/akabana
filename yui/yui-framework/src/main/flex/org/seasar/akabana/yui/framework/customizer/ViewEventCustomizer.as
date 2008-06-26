@@ -119,7 +119,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     
 		            storeEnhancedEventHandler(view,eventName,enhancedFunction);
                 
-                    logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName,eventName,functionName);
+                    logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,view.className,eventName,functionName);
                 }
 			}
         }
