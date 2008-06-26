@@ -15,13 +15,7 @@
  */
 package org.seasar.akabana.yui.framework.core {
     
-    import flash.display.DisplayObjectContainer;
     import flash.utils.Dictionary;
-    
-    import mx.core.UIComponent;
-    
-    import org.seasar.akabana.yui.core.reflection.ClassRef;
-    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     
     public class ComponentRepository {
         
@@ -40,16 +34,17 @@ package org.seasar.akabana.yui.framework.core {
             componentNameMap[ component ] = componentName;
         }
         
-        public static function removeComponent( componentName:String, component:Object ):void{
+        public static function removeComponent( componentName:String ):void{
+        	var component:Object = null;
         	if( componentMap.hasOwnProperty(componentName)){
-                componentMap[ componentName ] = null;
+                component = componentMap[ componentName ] = null;
+                if( component != null ){
+                    componentChildrenMap[ component ] = null;
+                    delete componentChildrenMap[ component ];                
+                }
                 delete componentMap[ componentName ];        	    
         	}
         	
-        	if( component != null ){
-	        	componentChildrenMap[ component ] = null;
-                delete componentChildrenMap[ component ];                
-        	}
         }
 
         public static function getComponentName( component:Object ):String{

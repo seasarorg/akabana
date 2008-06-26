@@ -63,7 +63,14 @@ package org.seasar.akabana.yui.framework.customizer {
                 }
             }
         }
-        
+
+        public override function uncustomize( name:String ):void{
+            var actionName:String = _namingConvention.getActionName(name);
+            ComponentRepository.removeComponent(actionName);
+            var helpName:String = _namingConvention.getHelperName(name);
+            ComponentRepository.removeComponent(helpName);
+        }
+
         protected function processHelperCustomize( propertyRef:PropertyRef ):Object{
             var helperClassRef:ClassRef = Reflectors.getClassReflector( propertyRef.type );
             

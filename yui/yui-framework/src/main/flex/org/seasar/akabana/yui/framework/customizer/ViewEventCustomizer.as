@@ -23,6 +23,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.Reflectors;
+    import org.seasar.akabana.yui.framework.core.ComponentRepository;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
     
@@ -31,10 +32,8 @@ package org.seasar.akabana.yui.framework.customizer {
         private static const logger:Logger = Logger.getLogger(ViewEventCustomizer);
         
         public override function customize( name:String, view:Container ):void {
-            var actionName:String;
+            var actionName:String = namingConvention.getActionName(name);;
             var dxoName:String;
-            actionName = namingConvention.getActionName(name);
-
             var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
             if( action_ != null){
                  doCustomizer(name,view,action_);

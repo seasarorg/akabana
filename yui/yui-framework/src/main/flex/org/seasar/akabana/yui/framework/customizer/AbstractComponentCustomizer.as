@@ -35,7 +35,7 @@ package org.seasar.akabana.yui.framework.customizer
             
         }
 
-        public function uncustomize( name:String, view:Container ):void{
+        public function uncustomize( name:String ):void{
             
         }
 

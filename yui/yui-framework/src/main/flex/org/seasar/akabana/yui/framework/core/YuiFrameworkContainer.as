@@ -266,7 +266,7 @@ package org.seasar.akabana.yui.framework.core
             if( view != null ){
                 for each( var customizer_:IComponentCustomizer in customizers ){
                     customizer_.namingConvention = namingConvention;
-                    customizer_.uncustomize( name, view );                    
+                    customizer_.uncustomize( name );                    
                 }
             }
         }        
