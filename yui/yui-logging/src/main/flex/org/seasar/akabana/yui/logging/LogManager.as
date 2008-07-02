@@ -44,6 +44,7 @@ package org.seasar.akabana.yui.logging
         private static const logManager:LogManager = new LogManager();
         
         public static function init():void{
+            YuiLoggingClasses;
             logManager.init(defaultProperties.content);
         }
         

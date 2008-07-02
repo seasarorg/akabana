@@ -13,6 +13,7 @@
             import org.seasar.akabana.yui.logging.Logger;
 
             private function initApp():void{
+                
                 LogManager.init();
                 
                 trace( ClassRef.getQualifiedClassName(LogManager));
