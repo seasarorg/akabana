@@ -4,10 +4,9 @@
     >
     <mx:Script>
         <![CDATA[
+            import examples.yui.helloworld.view.HelloWorldView;
             import examples.yui.helloworld.action.HelloWorldAction;
             import examples.yui.helloworld.helper.HelloWorldHelper;
-            import examples.yui.viewstack.ViewStackClasses;
-            import examples.yui.helloworld.HelloWorldClasses;
             import org.seasar.akabana.yui.core.reflection.ClassRef;
             import org.seasar.akabana.yui.logging.LogManager;
             import org.seasar.akabana.yui.logging.Logger;
@@ -18,28 +17,28 @@
                 
                 trace( ClassRef.getQualifiedClassName(LogManager));
                 
-                Logger.getLogger(HelloWorldClasses).debug("debug");
-                Logger.getLogger(HelloWorldHelper).debug("debug");
+                Logger.getLogger(HelloWorldView).debug("debug");
                 Logger.getLogger(HelloWorldAction).debug("debug");
+                Logger.getLogger(HelloWorldHelper).debug("debug");
                 
 
-                Logger.getLogger(HelloWorldClasses).warn("warn");
-                Logger.getLogger(HelloWorldHelper).warn("warn");
+                Logger.getLogger(HelloWorldView).warn("warn");
                 Logger.getLogger(HelloWorldAction).warn("warn");
+                Logger.getLogger(HelloWorldHelper).warn("warn");
 
 
-                Logger.getLogger(HelloWorldClasses).fatal("fatal");
-                Logger.getLogger(HelloWorldHelper).fatal("fatal");
+                Logger.getLogger(HelloWorldView).fatal("fatal");
                 Logger.getLogger(HelloWorldAction).fatal("fatal");
+                Logger.getLogger(HelloWorldHelper).fatal("fatal");
 
 
-                Logger.getLogger(HelloWorldClasses).info("info");
-                Logger.getLogger(HelloWorldHelper).info("info");
+                Logger.getLogger(HelloWorldView).info("info");
                 Logger.getLogger(HelloWorldAction).info("info");
+                Logger.getLogger(HelloWorldHelper).info("info");
 
-                Logger.getLogger(HelloWorldClasses).error("error");
-                Logger.getLogger(HelloWorldHelper).error("error");
+                Logger.getLogger(HelloWorldView).error("error");
                 Logger.getLogger(HelloWorldAction).error("error");
+                Logger.getLogger(HelloWorldHelper).error("error");
 
 
             }
