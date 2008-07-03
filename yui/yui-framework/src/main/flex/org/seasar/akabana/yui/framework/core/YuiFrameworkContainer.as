@@ -172,7 +172,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         private function childAddHandler( event:ChildExistenceChangedEvent ):void{
-            doRegisterComponent(event.target as UIComponent);
+            doRegisterComponent(event.relatedObject as UIComponent);
         }
 
         private function childRemoveHandler( event:ChildExistenceChangedEvent ):void{
