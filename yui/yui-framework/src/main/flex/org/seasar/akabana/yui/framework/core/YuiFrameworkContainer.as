@@ -15,8 +15,6 @@
  */
 package org.seasar.akabana.yui.framework.core
 {
-    
-    import flash.display.DisplayObject;
     import flash.events.Event;
     import flash.events.TimerEvent;
     import flash.utils.Timer;
@@ -25,6 +23,7 @@ package org.seasar.akabana.yui.framework.core
     import mx.core.Container;
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
+    import mx.events.ChildExistenceChangedEvent;
     import mx.events.FlexEvent;
     import mx.managers.CursorManager;
     import mx.managers.DragManager;
@@ -67,13 +66,25 @@ package org.seasar.akabana.yui.framework.core
                     FlexEvent.CREATION_COMPLETE,
                     creationCompleteHandler,
                     true
-                );              
-                _application.systemManager.addEventListener(
+                ); 
+
+                _application.systemManager.removeEventListener(
                     FlexEvent.REMOVE,
                     removeCompleteHandler,
-                    true,
-                    int.MAX_VALUE
+                    true
                 );
+                
+                _application.removeEventListener(
+                    ChildExistenceChangedEvent.CHILD_ADD,
+                    childAddHandler,
+                    true
+                );
+                
+//                _application.removeEventListener(
+//                    ChildExistenceChangedEvent.CHILD_REMOVE,
+//                    childRemoveHandler,
+//                    true
+//                ); 
             }
             
             _application = value;
@@ -90,44 +101,23 @@ package org.seasar.akabana.yui.framework.core
                 removeCompleteHandler,
                 true,
                 int.MAX_VALUE
-            );           
+            );
+            
+            _application.addEventListener(
+                ChildExistenceChangedEvent.CHILD_ADD,
+                childAddHandler,
+                true
+            );
+             
+//            _application.addEventListener(
+//                ChildExistenceChangedEvent.CHILD_REMOVE,
+//                childRemoveHandler,
+//                true
+//            ); 
         }
         
         public function YuiFrameworkContainer(){
             
-        }
-        
-        public function registerComponent(component:Object):void{
-            if( component != null ){
-                do{                 
-                    if( component is Application ){
-                        application = component as Application;
-                        application.visible = false;
-                        logger.debugMessage("yui_framework","ApplicationRegistered",component.toString());
-                        break;
-                    }
-
-                    if( component is Container ){
-                        registerView( component as Container );
-                        logger.debugMessage("yui_framework","ViewComponentRegistered",component.toString());    
-                        break;   
-                    }
-                
-                } while( false );
-            }
-        }
-        
-        public function unregisterComponent(component:Object):void{
-            if( component != null ){
-                do{
-                    if( component is Container ){
-                        logger.debugMessage("yui_framework","ViewComponentUnRegistered",component.toString()); 
-                        unregisterView( component as Container );
-                        break;   
-                    }
-                
-                } while( false );
-            }
         }
         
         public function init():void{
@@ -141,8 +131,9 @@ package org.seasar.akabana.yui.framework.core
             
             var componentMap:Object = ViewComponentRepository.componentMap;
             for ( var key:String in componentMap ){
-                logger.debugMessage("yui_framework","ViewComponentAssembleStart",key); 
-                assembleView(key,ViewComponentRepository.getComponent(key) as Container);
+                logger.debugMessage("yui_framework","ViewComponentAssembleing",key); 
+                processAssembleView(key,ViewComponentRepository.getComponent(key) as Container);
+                logger.debugMessage("yui_framework","ViewComponentAssembled",key); 
             }
             
             application.visible = true;
@@ -154,9 +145,13 @@ package org.seasar.akabana.yui.framework.core
             _callTimer.start();
         }
         
+        public function registerComponent( component:UIComponent ):void{
+            doRegisterComponent(component);
+        }
+        
         private function callApplicationStart( event:TimerEvent ):void{
             logger.debugMessage("yui_framework","ApplicationStart");
-            var rootView:DisplayObject = application.getChildByName("rootView");
+            var rootView:UIComponent = application.getChildByName("rootView") as UIComponent;
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
             }
@@ -176,17 +171,61 @@ package org.seasar.akabana.yui.framework.core
             return viewName;
         }
         
+        private function childAddHandler( event:ChildExistenceChangedEvent ):void{
+            doRegisterComponent(event.target as UIComponent);
+        }
+
+        private function childRemoveHandler( event:ChildExistenceChangedEvent ):void{
+            doUnregisterComponent(event.target as UIComponent);
+        }
+        
         private function creationCompleteHandler(event:Event):void{
-            var component:UIComponent = event.target as UIComponent;
-            registerComponent(component);
-            assembleComponent(component);
+            doRegisterComponent(event.target as UIComponent);
         }
 
         private function removeCompleteHandler(event:Event):void{
-            unregisterComponent(event.target as DisplayObject);
-        }        
+            doUnregisterComponent(event.target as UIComponent);
+        }
         
-        protected function registerView( container:Container ):void{            
+        protected function doRegisterComponent( component:UIComponent ):void{
+            if( component != null ){
+                processRegisterComponent(component);
+                processAssembleComponent(component);                
+            }
+        }     
+
+        protected function processRegisterComponent(component:Object):void{
+            do{                 
+                if( component is Application ){
+                    application = component as Application;
+                    application.visible = false;
+                    logger.debugMessage("yui_framework","ApplicationRegistered",component.toString());
+                    break;
+                }
+
+                if( component is Container ){
+                    processRegisterView( component as Container );
+                    logger.debugMessage("yui_framework","ViewComponentRegistered",component.toString());    
+                    break;   
+                }
+            
+            } while( false );
+        }
+        
+        protected function doUnregisterComponent(component:Object):void{
+            if( component != null ){
+                do{
+                    if( component is Container ){
+                        processUnregisterView( component as Container );
+                        logger.debugMessage("yui_framework","ViewComponentUnRegistered",component.toString()); 
+                        break;   
+                    }
+                
+                } while( false );
+            }
+        }
+        
+        protected function processRegisterView( container:Container ):void{            
             const className:String = ClassRef.getQualifiedClassName(container);
             
             if( namingConvention.isTargetClassName( className )){
@@ -208,13 +247,13 @@ package org.seasar.akabana.yui.framework.core
             }
         }
 
-        protected function unregisterView( container:Container ):void{
+        protected function processUnregisterView( container:Container ):void{
             const className:String = ClassRef.getQualifiedClassName(container);
             
             if( namingConvention.isTargetClassName( className )){
                 if(namingConvention.isViewName( className )){
                     if( container.initialized ){
-                        disassembleView( className, container);
+                        processDisassembleView( className, container);
                     }
                     if( ViewComponentRepository.hasComponent( className )){
                         ViewComponentRepository.removeComponent( className, container );              
@@ -227,7 +266,7 @@ package org.seasar.akabana.yui.framework.core
                     namingConvention.isViewName( viewName )
                 ){
                     if( container.initialized ){
-                        disassembleView(viewName, container);
+                        processDisassembleView(viewName, container);
                     }
                     if( ViewComponentRepository.hasComponent( viewName )){
                         ViewComponentRepository.removeComponent( viewName, container );  
@@ -236,18 +275,16 @@ package org.seasar.akabana.yui.framework.core
             }
         }
 
-        public function assembleComponent(component:Object):void{
-            if( component != null ){
-                if( component is Container ){
-                    var componentName:String = ViewComponentRepository.getComponentName(component as Container);
-                    if( componentName != null ){
-                        assembleView( componentName, component as Container);    
-                    }
-                }                
-            }
+        public function processAssembleComponent(component:Object):void{
+            if( component is Container ){
+                var componentName:String = ViewComponentRepository.getComponentName(component as Container);
+                if( componentName != null ){
+                    processAssembleView( componentName, component as Container);    
+                }
+            }  
         }
         
-        protected function assembleView( name:String, view:Container ):void{
+        protected function processAssembleView( name:String, view:Container ):void{
             if( view != null && view.initialized){
                 if( view.descriptor == null ){
                     view.descriptor = new UIComponentDescriptor({});
@@ -258,11 +295,10 @@ package org.seasar.akabana.yui.framework.core
                     }
                     customizer_.customize( name, view );                    
                 }
-                logger.debugMessage("yui_framework","ViewComponentAssembled",name);
             }
         }
 
-        protected function disassembleView( name:String, view:Container ):void{
+        protected function processDisassembleView( name:String, view:Container ):void{
             if( view != null ){
                 for each( var customizer_:IComponentCustomizer in customizers ){
                     customizer_.namingConvention = namingConvention;

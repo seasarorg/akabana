@@ -32,19 +32,27 @@ package org.seasar.akabana.yui.framework.customizer {
         
         public override function customize( name:String, view:Container ):void {
             var actionName:String = _namingConvention.getActionName(name);
-            var actionClassRef:ClassRef = Reflectors.getClassReflector(actionName);
+            var actionClassRef:ClassRef = null;
+            try{
+                actionClassRef = Reflectors.getClassReflector(actionName);
+                processActionCustomize( name, view, actionClassRef );
+            } catch( e:Error ){
+                logger.debugMessage("yui_framework","ActionClassNotFoundError",name,actionName);
+            }
+        }
+            
+        protected function processActionCustomize( name:String, view:Container, actionClassRef:ClassRef ):void{
             var action:Object;
-
-            if( ComponentRepository.hasComponent(actionName) ){
-                action = ComponentRepository.getComponent(actionName);
+            if( ComponentRepository.hasComponent(actionClassRef.name) ){
+                action = ComponentRepository.getComponent(actionClassRef.name);
             } else {
                 if( actionClassRef != null ){
                     action = view.descriptor.properties[ namingConvention.getActionPackageName() ]  = actionClassRef.getInstance();
                 }
                 if( action != null ){
-                    logger.debugMessage("yui_framework","ActionCustomizing",name,actionName);
+                    logger.debugMessage("yui_framework","ActionCustomizing",name,actionClassRef.name);
                     
-                    ComponentRepository.addComponent(actionName,action);
+                    ComponentRepository.addComponent(actionClassRef.name,action);
                     for each( var actionPropertyRef:PropertyRef in actionClassRef.properties ){
                         if( namingConvention.isViewHelperName( actionPropertyRef.type )){
                             action[ actionPropertyRef.name ] = processHelperCustomize(actionPropertyRef);
@@ -59,7 +67,6 @@ package org.seasar.akabana.yui.framework.customizer {
                             continue;
                         }
                     }
-                    
                 }
             }
         }

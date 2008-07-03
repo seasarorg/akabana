@@ -16,10 +16,10 @@
 package org.seasar.akabana.yui.framework.mixin
 {
 	
-	import flash.display.DisplayObject;
 	import flash.events.Event;
 	
 	import mx.core.IFlexModuleFactory;
+	import mx.core.UIComponent;
 	import mx.events.FlexEvent;
 	import mx.managers.ISystemManager;
 	
@@ -77,7 +77,7 @@ package org.seasar.akabana.yui.framework.mixin
         protected var initialized:Boolean;
         
         private function addedToStageHandler( event:Event ):void{
-            _container.registerComponent(event.target as DisplayObject);
+            _container.registerComponent(event.target as UIComponent);
         }
         
         private function applicationCompleteHandler( event:FlexEvent ):void{

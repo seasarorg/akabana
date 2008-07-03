@@ -15,9 +15,9 @@
  */
 package org.seasar.akabana.yui.framework.core {
     
-    import flash.display.DisplayObjectContainer;
     import flash.utils.Dictionary;
     
+    import mx.core.Container;
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
@@ -39,7 +39,7 @@ package org.seasar.akabana.yui.framework.core {
             }
             componentNameMap[ component ] = componentName;
             
-        	addRelation( component.parentDocument as DisplayObjectContainer, componentName, component );
+        	addRelation( component.parentDocument as Container, componentName, component );
         }
         
         public static function removeComponent( componentName:String, component:UIComponent ):void{
@@ -49,7 +49,7 @@ package org.seasar.akabana.yui.framework.core {
         	}
         	
         	if( component != null ){
-	        	removeParentDocumentRelation( component.parentDocument as DisplayObjectContainer, componentName, component );	        	
+	        	removeParentDocumentRelation( component.parentDocument as Container, componentName, component );	        	
                 
                 componentChildrenMap[ component ] = null;
                 delete componentChildrenMap[ component ];
@@ -105,7 +105,7 @@ package org.seasar.akabana.yui.framework.core {
             return children;
         }
         
-        private static function addRelation( parent:DisplayObjectContainer, componentName:String, child:UIComponent ):void{            
+        private static function addRelation( parent:Container, componentName:String, child:UIComponent ):void{            
             var parentClassName:String = ClassRef.getQualifiedClassName( parent );
             var componentChildrenMap_:Dictionary = componentChildrenMap[ parentClassName ];
             if( componentChildrenMap_ == null ){
@@ -114,7 +114,7 @@ package org.seasar.akabana.yui.framework.core {
             componentChildrenMap_[ componentName ] = child;
         }
         
-        private static function removeParentDocumentRelation( parent:DisplayObjectContainer, componentName:String, child:UIComponent ):void{            
+        private static function removeParentDocumentRelation( parent:Container, componentName:String, child:UIComponent ):void{            
             var parentClassName:String = ClassRef.getQualifiedClassName( parent );
             var componentChildrenMap_:Dictionary = componentChildrenMap[ parentClassName ] as Dictionary;
             if( componentChildrenMap_ != null ){
