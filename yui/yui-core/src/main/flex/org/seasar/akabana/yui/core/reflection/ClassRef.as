@@ -18,12 +18,53 @@ package org.seasar.akabana.yui.core.reflection
     import flash.utils.describeType;
     import flash.utils.getQualifiedClassName;
     
+    import org.seasar.akabana.yui.core.ClassLoader;
+    
     
     public class ClassRef extends AnnotatedObjectRef
     {
         public static function getQualifiedClassName( object:Object ):String{
             return flash.utils.getQualifiedClassName(object).replace(CLASS_NAME_SEPARATOR,DOT);
         }
+        
+        public static var classLoader:ClassLoader = new ClassLoader();
+        
+        public static function getReflector( target:Object ):ClassRef{
+
+            var clazz:Class = null;
+            try {
+                switch( true ){
+                    case ( target is Class ):{
+                        clazz = target as Class;
+                        break;
+                    }
+                    
+                    case ( target is String ):{
+                        clazz = classLoader.findClass(target as String);
+                        break;
+                    }
+                    
+                    default:{
+                        clazz = classLoader.findClass(getQualifiedClassName(target));
+                        break;
+                    }
+                }
+            } catch( e:Error ){
+                throw e;            
+            }
+            
+            if( clazz != null ){
+                var classRef:ClassRef = cache_[ clazz ];
+                if( classRef == null ){
+                    classRef = new ClassRef(clazz);                    
+                    cache_[ clazz ] = classRef;
+                }                
+            }
+            
+            return classRef;
+        }
+        
+        private static const cache_:Object = {};     
         
         private static const CLASS_NAME_SEPARATOR:String = "::";
         
@@ -206,7 +247,7 @@ package org.seasar.akabana.yui.core.reflection
             var interfaceRef:ClassRef = null;
             var interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
             for each( var interfaceXML:XML in interfacesXMLList ){
-                interfaceRef = Reflectors.getClassReflector(getTypeString(interfaceXML.@type));
+                interfaceRef = getReflector(getTypeString(interfaceXML.@type));
                 
                 _interfaces.push( interfaceRef );
                 _interfaceMap[ interfaceRef.name ] = interfaceRef;

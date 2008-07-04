@@ -19,7 +19,6 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
-    import org.seasar.akabana.yui.core.reflection.Reflectors;
     import org.seasar.akabana.yui.framework.core.ComponentRepository;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.logging.Logger;
@@ -34,7 +33,7 @@ package org.seasar.akabana.yui.framework.customizer {
             var actionName:String = _namingConvention.getActionName(name);
             var actionClassRef:ClassRef = null;
             try{
-                actionClassRef = Reflectors.getClassReflector(actionName);
+                actionClassRef = ClassRef.getReflector(actionName);
                 processActionCustomize( name, view, actionClassRef );
             } catch( e:Error ){
                 logger.debugMessage("yui_framework","ActionClassNotFoundError",name,actionName);
@@ -79,7 +78,7 @@ package org.seasar.akabana.yui.framework.customizer {
         }
 
         protected function processHelperCustomize( propertyRef:PropertyRef ):Object{
-            var helperClassRef:ClassRef = Reflectors.getClassReflector( propertyRef.type );
+            var helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
             
             var helper:Object;
             if( ComponentRepository.hasComponent(propertyRef.type) ){

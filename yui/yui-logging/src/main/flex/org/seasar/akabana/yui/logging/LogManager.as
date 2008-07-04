@@ -20,7 +20,6 @@ package org.seasar.akabana.yui.logging
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
-    import org.seasar.akabana.yui.core.reflection.Reflectors;
     import org.seasar.akabana.yui.logging.category.SimpleCategory;
     
     public class LogManager
@@ -70,7 +69,7 @@ package org.seasar.akabana.yui.logging
                 
                 var appenderConfig:Object = appenderConfigTree[ key ];
                 
-                var classRef:ClassRef = Reflectors.getClassReflector(appenderConfig[VALUE]);
+                var classRef:ClassRef = ClassRef.getReflector(appenderConfig[VALUE]);
                 appender = classRef.getInstance() as Appender;
                 
                 if( appender != null ){
@@ -83,7 +82,7 @@ package org.seasar.akabana.yui.logging
         }
 
         private final function configureAppenderLayout( layoutConfig:Object ):Layout{
-            var classRef:ClassRef = Reflectors.getClassReflector(layoutConfig[VALUE]);
+            var classRef:ClassRef = ClassRef.getReflector(layoutConfig[VALUE]);
             var layout:Layout = classRef.getInstance() as Layout;
             
             for each( var propRef:PropertyRef in classRef.properties ){

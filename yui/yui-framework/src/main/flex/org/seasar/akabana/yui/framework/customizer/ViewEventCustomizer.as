@@ -22,7 +22,6 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
-    import org.seasar.akabana.yui.core.reflection.Reflectors;
     import org.seasar.akabana.yui.framework.core.ComponentRepository;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
@@ -41,7 +40,7 @@ package org.seasar.akabana.yui.framework.customizer {
         }
         
         private function doCustomizer( name:String, view:Container, action:Object ):void{
-            var actionClassRef:ClassRef = Reflectors.getClassReflector(action);
+            var actionClassRef:ClassRef = ClassRef.getReflector(action);
             var component:UIComponent;
             var componentName:String;
 

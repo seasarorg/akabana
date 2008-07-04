@@ -37,7 +37,7 @@ package org.seasar.akabana.yui.core.reflection
         }
         
         public function get typeClassRef():ClassRef{
-            return Reflectors.getClassReflector(type);
+            return ClassRef.getReflector(type);
         }
         
         private var _declaredBy:String;

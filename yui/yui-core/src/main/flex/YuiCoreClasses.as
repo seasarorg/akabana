@@ -8,8 +8,6 @@ package
     import org.seasar.akabana.yui.core.reflection.MetadataRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
-    import org.seasar.akabana.yui.core.reflection.Reflector;
-    import org.seasar.akabana.yui.core.reflection.Reflectors;
     import org.seasar.akabana.yui.net.URLUtil;
     import org.seasar.akabana.yui.resources.embed.EmbedXmlReader;
     
@@ -24,8 +22,6 @@ package
         MetadataRef;
         ParameterRef;
         PropertyRef;
-        Reflector;
-        Reflectors;
         
         URLUtil;
         
