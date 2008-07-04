@@ -228,7 +228,7 @@ package org.seasar.akabana.yui.framework.core
         protected function processRegisterView( container:Container ):void{            
             const className:String = ClassRef.getQualifiedClassName(container);
             
-            if( namingConvention.isTargetClassName( className )){
+            if( !namingConvention.isTargetClassName( className )){
                 if(namingConvention.isViewName( className )){
                     if( !ViewComponentRepository.hasComponent( className )){
                         ViewComponentRepository.addComponent( className, container );              
@@ -250,7 +250,7 @@ package org.seasar.akabana.yui.framework.core
         protected function processUnregisterView( container:Container ):void{
             const className:String = ClassRef.getQualifiedClassName(container);
             
-            if( namingConvention.isTargetClassName( className )){
+            if( !namingConvention.isTargetClassName( className )){
                 if(namingConvention.isViewName( className )){
                     if( container.initialized ){
                         processDisassembleView( className, container);
