@@ -34,6 +34,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.ViewEventCustomizer;
+    import org.seasar.akabana.yui.framework.error.RuntimeError;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
@@ -204,8 +205,7 @@ package org.seasar.akabana.yui.framework.core
                 }
 
                 if( component is Container ){
-                    processRegisterView( component as Container );
-                    logger.debugMessage("yui_framework","ViewComponentRegistered",component.toString());    
+                    processRegisterView( component as Container );    
                     break;   
                 }
             
@@ -216,8 +216,9 @@ package org.seasar.akabana.yui.framework.core
             if( component != null ){
                 do{
                     if( component is Container ){
+                        processDisassembleView( component as Container );
                         processUnregisterView( component as Container );
-                        logger.debugMessage("yui_framework","ViewComponentUnRegistered",component.toString()); 
+                        
                         break;   
                     }
                 
@@ -227,51 +228,38 @@ package org.seasar.akabana.yui.framework.core
         
         protected function processRegisterView( container:Container ):void{            
             const className:String = ClassRef.getQualifiedClassName(container);
-            
-            if( !namingConvention.isTargetClassName( className )){
-                if(namingConvention.isViewName( className )){
-                    if( !ViewComponentRepository.hasComponent( className )){
-                        ViewComponentRepository.addComponent( className, container );              
-                    }
-                }
-            } else {
-                var viewName:String = getViewName(container);
-                if(
-                    viewName != null && 
-                    namingConvention.isViewName( viewName )
-                ){
-                    if( !ViewComponentRepository.hasComponent( viewName )){
-                        ViewComponentRepository.addComponent( viewName, container );  
-                    }
-                }
+
+            if(
+                namingConvention.isTargetClassName( className ) &&
+                namingConvention.isViewName( className )
+            ){
+                var componentName:String = UIComponentUtil.getName(container);
+                
+                if( !ViewComponentRepository.hasComponent( componentName )){
+                    ViewComponentRepository.addComponent( componentName, container );              
+                    logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);
+                } else {
+                    throw new RuntimeError(componentName+"is already registered.");
+                }            
             }
         }
 
         protected function processUnregisterView( container:Container ):void{
             const className:String = ClassRef.getQualifiedClassName(container);
-            
-            if( !namingConvention.isTargetClassName( className )){
-                if(namingConvention.isViewName( className )){
-                    if( container.initialized ){
-                        processDisassembleView( className, container);
-                    }
-                    if( ViewComponentRepository.hasComponent( className )){
-                        ViewComponentRepository.removeComponent( className, container );              
-                    }
-                }               
-            } else {
-                var viewName:String = getViewName(container);
-                if(
-                    viewName != null && 
-                    namingConvention.isViewName( viewName )
-                ){
-                    if( container.initialized ){
-                        processDisassembleView(viewName, container);
-                    }
-                    if( ViewComponentRepository.hasComponent( viewName )){
-                        ViewComponentRepository.removeComponent( viewName, container );  
-                    }
+
+            if(
+                namingConvention.isTargetClassName( className ) &&
+                namingConvention.isViewName( className )
+            ){
+                var componentName:String = container.id;
+                if( componentName == null ){
+                    componentName = container.name;
                 }
+                
+                if( ViewComponentRepository.hasComponent( componentName )){
+                    ViewComponentRepository.removeComponent( componentName, container );  
+                    logger.debugMessage("yui_framework","ViewComponentUnRegistered",container.toString(),componentName);
+                }                
             }
         }
 
@@ -298,11 +286,12 @@ package org.seasar.akabana.yui.framework.core
             }
         }
 
-        protected function processDisassembleView( name:String, view:Container ):void{
+        protected function processDisassembleView( view:Container ):void{
             if( view != null ){
+                var viewName:String = UIComponentUtil.getName(view);
                 for each( var customizer_:IComponentCustomizer in customizers ){
                     customizer_.namingConvention = namingConvention;
-                    customizer_.uncustomize( name );                    
+                    customizer_.uncustomize( viewName, view);                    
                 }
             }
         }        

@@ -19,7 +19,6 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
-    import org.seasar.akabana.yui.framework.core.ComponentRepository;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.service.Service;
@@ -29,77 +28,64 @@ package org.seasar.akabana.yui.framework.customizer {
         
         private static const logger:Logger = Logger.getLogger(ActionCustomizer);
         
-        public override function customize( name:String, view:Container ):void {
-            var actionName:String = _namingConvention.getActionName(name);
+        public override function customize( viewName:String, view:Container ):void {
+            var viewClassName:String = ClassRef.getReflector(view).name;
+            var actionName:String = _namingConvention.getActionName(viewClassName);
             var actionClassRef:ClassRef = null;
             try{
                 actionClassRef = ClassRef.getReflector(actionName);
-                processActionCustomize( name, view, actionClassRef );
+                processActionCustomize( viewName, view, actionClassRef );
             } catch( e:Error ){
-                logger.debugMessage("yui_framework","ActionClassNotFoundError",name,actionName);
+                logger.debugMessage("yui_framework","ActionClassNotFoundError",viewName,actionName);
             }
         }
             
-        protected function processActionCustomize( name:String, view:Container, actionClassRef:ClassRef ):void{
-            var action:Object;
-            if( ComponentRepository.hasComponent(actionClassRef.name) ){
-                action = ComponentRepository.getComponent(actionClassRef.name);
-            } else {
-                if( actionClassRef != null ){
-                    action = view.descriptor.properties[ namingConvention.getActionPackageName() ]  = actionClassRef.getInstance();
-                }
-                if( action != null ){
-                    logger.debugMessage("yui_framework","ActionCustomizing",name,actionClassRef.name);
-                    
-                    ComponentRepository.addComponent(actionClassRef.name,action);
-                    for each( var actionPropertyRef:PropertyRef in actionClassRef.properties ){
-                        if( namingConvention.isViewHelperName( actionPropertyRef.type )){
-                            action[ actionPropertyRef.name ] = processHelperCustomize(actionPropertyRef);
-                            continue;
-                        }
-    
-                        if(
-                            actionPropertyRef.typeClassRef.concreteClass == Service ||
-                            actionPropertyRef.typeClassRef.isAssignableFrom( Service )
-                        ){
-                            action[ actionPropertyRef.name ] = processServiceCustomize(actionPropertyRef);
-                            continue;
-                        }
+        protected function processActionCustomize( viewName:String, view:Container, actionClassRef:ClassRef ):void{
+            var action:Object = null;
+            if( actionClassRef != null ){
+                action = view.descriptor.properties[ namingConvention.getActionPackageName() ]  = actionClassRef.getInstance();
+            }
+            if( action != null ){
+                logger.debugMessage("yui_framework","ActionCustomizing",viewName,actionClassRef.name);
+                
+                for each( var actionPropertyRef:PropertyRef in actionClassRef.properties ){
+                    if( namingConvention.isViewHelperName( actionPropertyRef.type )){
+                        action[ actionPropertyRef.name ] = processHelperCustomize(viewName,actionPropertyRef);
+                        continue;
+                    }
+
+                    if(
+                        actionPropertyRef.typeClassRef.concreteClass == Service ||
+                        actionPropertyRef.typeClassRef.isAssignableFrom( Service )
+                    ){
+                        action[ actionPropertyRef.name ] = processServiceCustomize(viewName,actionPropertyRef);
+                        continue;
                     }
                 }
             }
         }
 
-        public override function uncustomize( name:String ):void{
-            var actionName:String = _namingConvention.getActionName(name);
-            ComponentRepository.removeComponent(actionName);
-            var helpName:String = _namingConvention.getHelperName(name);
-            ComponentRepository.removeComponent(helpName);
+        public override function uncustomize( name:String, view:Container ):void{
+            view.descriptor.properties[ namingConvention.getActionPackageName() ] = null;           
         }
 
-        protected function processHelperCustomize( propertyRef:PropertyRef ):Object{
+        protected function processHelperCustomize( viewName:String, propertyRef:PropertyRef ):Object{
             var helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
             
-            var helper:Object;
-            if( ComponentRepository.hasComponent(propertyRef.type) ){
-                helper = ComponentRepository.getComponent(propertyRef.type);
-            } else {
-                helper = helperClassRef.getInstance();
-                ComponentRepository.addComponent(propertyRef.type,helper);
-                var viewName:String = namingConvention.getViewName( helperClassRef.name );
+            var helper:Object = helperClassRef.getInstance();
+            var viewClassName:String = namingConvention.getViewName( helperClassRef.name );
                 
-                for each( var helperPropertyRef:PropertyRef in helperClassRef.getPropertyRefByType(viewName) ){
-                    if( helperPropertyRef != null ){
-                        helper[ helperPropertyRef.name ] = ViewComponentRepository.getComponent(viewName);
-                        break;
-                    }
+            for each( var helperPropertyRef:PropertyRef in helperClassRef.getPropertyRefByType(viewClassName) ){
+                if( helperPropertyRef != null ){
+                    helper[ helperPropertyRef.name ] = ViewComponentRepository.getComponent(viewName);
+                    break;
                 }
-            }            
+            }
                         
             return helper;
         }
         
-        protected function processServiceCustomize( propertyRef:PropertyRef ):Service{
+        protected function processServiceCustomize( viewName:String, propertyRef:PropertyRef ):Service{
             var rpcservice:Service = ServiceRepository.getService( propertyRef.name );
             if( rpcservice == null && !propertyRef.typeClassRef.isInterface){
                 rpcservice = propertyRef.typeClassRef.getInstance() as Service;

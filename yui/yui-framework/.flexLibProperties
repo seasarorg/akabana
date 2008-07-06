@@ -3,7 +3,6 @@
   <includeClasses>
     <classEntry path="YuiFrameworkClasses"/>
     <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
-    <classEntry path="org.seasar.akabana.yui.framework.core.ComponentRepository"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>

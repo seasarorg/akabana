@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.framework.customizer
     {
         function customize( name:String, view:Container ):void;
         
-        function uncustomize( name:String ):void;
+        function uncustomize( name:String, view:Container ):void;
         
         function get namingConvention():NamingConvention;
         

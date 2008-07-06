@@ -1,7 +1,6 @@
 package
 {
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
-    import org.seasar.akabana.yui.framework.core.ComponentRepository;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
@@ -28,8 +27,6 @@ package
         
         NamingConvention;
         
-        ComponentRepository;
-        ViewComponentRepository;
         YuiFrameworkContainer;
         
         IComponentCustomizer;
