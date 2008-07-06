@@ -158,20 +158,6 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
-        private function getViewName( container:Container ):String{
-            var viewName:String = null;
-            if( container.isDocument ){
-                viewName = ClassRef.getQualifiedClassName(container);
-            } else {
-                var parentDocument_:UIComponent = container.parentDocument as UIComponent;
-                var parentDocumentClassName:String = ClassRef.getQualifiedClassName(parentDocument_);
-                var dotLastIndex:int = parentDocumentClassName.lastIndexOf(".");
-                var packageName:String = parentDocumentClassName.substring(0,dotLastIndex);
-                viewName = packageName + "." + UIComponentUtil.getName(container);
-            }
-            return viewName;
-        }
-        
         private function childAddHandler( event:ChildExistenceChangedEvent ):void{
             doRegisterComponent(event.relatedObject as UIComponent);
         }
