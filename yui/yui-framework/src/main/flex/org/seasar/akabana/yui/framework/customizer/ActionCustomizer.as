@@ -48,17 +48,19 @@ package org.seasar.akabana.yui.framework.customizer {
             if( action != null ){
                 logger.debugMessage("yui_framework","ActionCustomizing",viewName,actionClassRef.name);
                 
-                for each( var actionPropertyRef:PropertyRef in actionClassRef.properties ){
-                    if( namingConvention.isViewHelperName( actionPropertyRef.type )){
-                        action[ actionPropertyRef.name ] = processHelperCustomize(viewName,actionPropertyRef);
+                for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
+                    if( namingConvention.isViewHelperName( propertyRef_.type )){
+                        action[ propertyRef_.name ] = processHelperCustomize(viewName,propertyRef_);
+                        logger.debugMessage("yui_framework","HelperCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
                         continue;
                     }
 
                     if(
-                        actionPropertyRef.typeClassRef.concreteClass == Service ||
-                        actionPropertyRef.typeClassRef.isAssignableFrom( Service )
+                        propertyRef_.typeClassRef.concreteClass == Service ||
+                        propertyRef_.typeClassRef.isAssignableFrom( Service )
                     ){
-                        action[ actionPropertyRef.name ] = processServiceCustomize(viewName,actionPropertyRef);
+                        action[ propertyRef_.name ] = processServiceCustomize(viewName,propertyRef_);
+                        logger.debugMessage("yui_framework","ServiceCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
                         continue;
                     }
                 }
@@ -80,8 +82,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     helper[ helperPropertyRef.name ] = ViewComponentRepository.getComponent(viewName);
                     break;
                 }
-            }
-                        
+            }            
             return helper;
         }
         
