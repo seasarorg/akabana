@@ -1,10 +1,8 @@
 package
 {
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
-    import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
-    import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.ViewEventCustomizer;
     import org.seasar.akabana.yui.framework.error.RuntimeError;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
@@ -29,7 +27,6 @@ package
         
         YuiFrameworkContainer;
         
-        IComponentCustomizer;
         ActionCustomizer;
         ViewEventCustomizer;
         

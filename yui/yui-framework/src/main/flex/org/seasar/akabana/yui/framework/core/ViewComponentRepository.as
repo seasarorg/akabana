@@ -21,6 +21,7 @@ package org.seasar.akabana.yui.framework.core {
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     
     public class ViewComponentRepository {
@@ -36,14 +37,16 @@ package org.seasar.akabana.yui.framework.core {
         public static function addComponent( componentName:String, component:UIComponent ):void{
             if( componentMap[ componentName ] == null ){
                 componentMap[ componentName ] = component;
+                
                 var className:String = ClassRef.getReflector(component).name;
                 componentClassMap[ className ] = component;
+
+                componentNameMap[ component ] = componentName;
             } else {
-                throw new Error("UIコンポーネント登録重複エラー:"+componentName);
+                throw new ComponentDuplicatedRegistrationError("UIコンポーネント登録重複エラー:"+componentName);
             }
-            componentNameMap[ component ] = componentName;
             
-        	addRelation( component.parentDocument as Container, componentName, component );
+            addRelation( component.parentDocument as Container, componentName, component );                
         }
         
         public static function removeComponent( componentName:String, component:UIComponent ):void{

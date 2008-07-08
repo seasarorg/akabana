@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
   <includeClasses>
-    <classEntry path="YuiFrameworkClasses"/>
-    <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
-    <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
-    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractEventCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.ViewEventCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.error.RuntimeError"/>
-    <classEntry path="org.seasar.akabana.yui.framework.event.FrameworkEvent"/>
-    <classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
-    <classEntry path="org.seasar.akabana.yui.framework.util.ApplicationUtil"/>
-    <classEntry path="org.seasar.akabana.yui.framework.util.UIComponentUtil"/>
-    <classEntry path="org.seasar.akabana.yui.service.Operation"/>
+    <classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
     <classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
-    <classEntry path="org.seasar.akabana.yui.service.Responder"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
     <classEntry path="org.seasar.akabana.yui.service.Service"/>
+    <classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
+    <classEntry path="org.seasar.akabana.yui.service.Responder"/>
     <classEntry path="org.seasar.akabana.yui.service.ServiceRepository"/>
     <classEntry path="org.seasar.akabana.yui.service.event.AbstractServiceEvent"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.FaultEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.util.UIComponentUtil"/>
+    <classEntry path="org.seasar.akabana.yui.framework.util.ApplicationUtil"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ViewEventCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.service.event.FaultStatus"/>
+    <classEntry path="org.seasar.akabana.yui.framework.event.FrameworkEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.error.RuntimeError"/>
+    <classEntry path="org.seasar.akabana.yui.service.Operation"/>
+    <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
+    <classEntry path="org.seasar.akabana.yui.service.event.FaultEvent"/>
     <classEntry path="org.seasar.akabana.yui.service.event.InvokeEvent"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>
+    <classEntry path="YuiFrameworkClasses"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractEventCustomizer"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/ja_JP/yui_framework.properties" sourcePath="locale/ja_JP/yui_framework.properties"/>
