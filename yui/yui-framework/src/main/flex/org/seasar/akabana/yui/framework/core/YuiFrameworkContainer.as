@@ -250,7 +250,7 @@ package org.seasar.akabana.yui.framework.core
             }
         }
 
-        public function processAssembleComponent(component:Object):void{
+        protected function processAssembleComponent(component:Object):void{
             if( component is Container ){
                 var componentName:String = ViewComponentRepository.getComponentName(component as Container);
                 if( componentName != null ){
