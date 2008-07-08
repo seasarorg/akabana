@@ -164,11 +164,11 @@ package org.seasar.akabana.yui.core.reflection
             do{
                 if( interfaceType is Class ){
                     isAssignable_ = _interfaceMap[ ClassRef.getQualifiedClassName(interfaceType as Class) ] != null;
-                    break;   
+                    break;
                 }
                 if( interfaceType is String ){
                     isAssignable_ = _interfaceMap[ interfaceType ] != null;
-                    break;   
+                    break;
                 }                
                 
             }while(false);

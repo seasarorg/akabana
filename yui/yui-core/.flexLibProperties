@@ -3,15 +3,16 @@
   <includeClasses>
     <classEntry path="org.seasar.akabana.yui.core.reflection.ParameterRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.ObjectRef"/>
+    <classEntry path="org.seasar.akabana.yui.core.error.ClassNotFoundError"/>
     <classEntry path="org.seasar.akabana.yui.resources.embed.EmbedXmlReader"/>
     <classEntry path="org.seasar.akabana.yui.core.ClassLoader"/>
-    <classEntry path="org.seasar.akabana.yui.net.URLUtil"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.Reflector"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.Constructor"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedObjectRef"/>
+    <classEntry path="org.seasar.akabana.yui.core.reflection.Constructor"/>
+    <classEntry path="org.seasar.akabana.yui.core.reflection.Reflector"/>
+    <classEntry path="org.seasar.akabana.yui.net.URLUtil"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.FunctionRef"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.ClassRef"/>
     <classEntry path="YuiCoreClasses"/>
+    <classEntry path="org.seasar.akabana.yui.core.reflection.ClassRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.PropertyRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.MetadataRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedReflector"/>

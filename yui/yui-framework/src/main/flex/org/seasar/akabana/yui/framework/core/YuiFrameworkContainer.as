@@ -224,9 +224,10 @@ package org.seasar.akabana.yui.framework.core
                 if( !ViewComponentRepository.hasComponent( componentName )){
                     ViewComponentRepository.addComponent( componentName, container );              
                     logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);
-                } else {
-                    throw new RuntimeError(componentName+"is already registered.");
-                }            
+                }
+//                 else {
+//                    throw new RuntimeError(componentName+"is already registered.");
+//                }
             }
         }
 

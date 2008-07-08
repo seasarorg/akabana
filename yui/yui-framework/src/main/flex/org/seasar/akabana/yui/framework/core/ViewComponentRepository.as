@@ -28,12 +28,16 @@ package org.seasar.akabana.yui.framework.core {
         public static var componentNameMap:Dictionary = new Dictionary(true);
         
         public static var componentMap:Dictionary = new Dictionary(true);
+
+        public static var componentClassMap:Dictionary = new Dictionary(true);
         
         public static var componentChildrenMap:Dictionary = new Dictionary(true);
         
         public static function addComponent( componentName:String, component:UIComponent ):void{
             if( componentMap[ componentName ] == null ){
                 componentMap[ componentName ] = component;
+                var className:String = ClassRef.getReflector(component).name;
+                componentClassMap[ className ] = component;
             } else {
                 throw new Error("UIコンポーネント登録重複エラー:"+componentName);
             }
@@ -45,15 +49,18 @@ package org.seasar.akabana.yui.framework.core {
         public static function removeComponent( componentName:String, component:UIComponent ):void{
         	if( componentMap.hasOwnProperty(componentName)){
                 componentMap[ componentName ] = null;
-                delete componentMap[ componentName ];        	    
+                delete componentMap[ componentName ];
+
+                var className:String = ClassRef.getReflector(component).name;
+                componentClassMap[ className ] = null;
+                delete componentClassMap[ className ];  
         	}
         	
         	if( component != null ){
 	        	removeParentDocumentRelation( component.parentDocument as Container, componentName, component );	        	
-                
+
                 componentChildrenMap[ component ] = null;
                 delete componentChildrenMap[ component ];
-                
         	}
         }
 
@@ -61,8 +68,22 @@ package org.seasar.akabana.yui.framework.core {
             return componentNameMap[ component ];
         }
         
-        public static function getComponent( name:String ):UIComponent{
-            return componentMap[ name ] as UIComponent;
+        public static function getComponent( key:Object ):UIComponent{
+            var component:UIComponent = null;
+            
+            do{
+                if( key is Class ){
+                    var className:String = ClassRef.getReflector(key as Class).name;
+                    component = componentClassMap[ className ] as UIComponent;
+                    break;
+                }   
+                if( key is String ){
+                    component = componentMap[ key ] as UIComponent;
+                    break;
+                }
+            } while( false );
+            
+            return component;
         }
         
         public static function hasComponent( name:String ):Boolean{

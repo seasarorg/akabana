@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.framework.customizer {
 
     import mx.core.Container;
     
+    import org.seasar.akabana.yui.core.error.ClassNotFoundError;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
@@ -36,7 +37,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 actionClassRef = ClassRef.getReflector(actionName);
                 processActionCustomize( viewName, view, actionClassRef );
             } catch( e:Error ){
-                logger.debugMessage("yui_framework","ActionClassNotFoundError",viewName,actionName);
+                logger.debugMessage("yui_framework","ClassNotFoundError",viewName,actionName);
             }
         }
             
@@ -72,17 +73,27 @@ package org.seasar.akabana.yui.framework.customizer {
         }
 
         protected function processHelperCustomize( viewName:String, propertyRef:PropertyRef ):Object{
-            var helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
+            var helper:Object = null;
             
-            var helper:Object = helperClassRef.getInstance();
-            var viewClassName:String = namingConvention.getViewName( helperClassRef.name );
-                
-            for each( var helperPropertyRef:PropertyRef in helperClassRef.getPropertyRefByType(viewClassName) ){
-                if( helperPropertyRef != null ){
-                    helper[ helperPropertyRef.name ] = ViewComponentRepository.getComponent(viewName);
-                    break;
+            var helperClassRef:ClassRef = null;
+
+            try{
+                helperClassRef = ClassRef.getReflector( propertyRef.type );
+                helper = helperClassRef.getInstance();
+                var viewClassName:String = namingConvention.getViewName( helperClassRef.name );
+                var propertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName); 
+                    
+                for each( var propertyRef_:PropertyRef in propertyRefs ){
+                    if( propertyRef_.name == "view"){
+                        helper[ propertyRef_.name ] = ViewComponentRepository.getComponent(propertyRef_.typeClassRef.concreteClass);
+                    } else {
+                        helper[ propertyRef_.name ] = ViewComponentRepository.getComponent(propertyRef_.name );
+                    }
                 }
-            }            
+            } catch( e:ClassNotFoundError ){ 
+                logger.debugMessage("yui_framework","ClassNotFoundError",viewName,propertyRef.type);
+            }
+            
             return helper;
         }
         
