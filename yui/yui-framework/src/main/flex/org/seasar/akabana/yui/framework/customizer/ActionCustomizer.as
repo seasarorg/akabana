@@ -69,7 +69,9 @@ package org.seasar.akabana.yui.framework.customizer {
         }
 
         public override function uncustomize( name:String, view:Container ):void{
-            view.descriptor.properties[ namingConvention.getActionPackageName() ] = null;           
+            if( view.descriptor != null ){
+                view.descriptor.properties[ namingConvention.getActionPackageName() ] = null;           
+            }
         }
 
         protected function processHelperCustomize( viewName:String, propertyRef:PropertyRef ):Object{
