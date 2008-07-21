@@ -35,18 +35,24 @@ package org.seasar.akabana.yui.framework.core {
         public static var componentChildrenMap:Dictionary = new Dictionary(true);
         
         public static function addComponent( componentName:String, component:UIComponent ):void{
-            if( componentMap[ componentName ] == null ){
-                componentMap[ componentName ] = component;
-                
-                var className:String = ClassRef.getReflector(component).name;
-                componentClassMap[ className ] = component;
-
-                componentNameMap[ component ] = componentName;
+            var className:String = ClassRef.getReflector(component).name;
+            if( componentName == null ){
+                componentName = className;
+                if( componentMap[ componentName ] == null ){
+                    componentMap[ componentName ] = component;
+                    componentClassMap[ componentName ] = component;
+                    componentNameMap[ component ] = componentName;
+                } else {
+                    throw new ComponentDuplicatedRegistrationError("UIコンポーネント登録重複エラー:"+componentName);
+                }
             } else {
-                throw new ComponentDuplicatedRegistrationError("UIコンポーネント登録重複エラー:"+componentName);
+                componentMap[ componentName ] = component;
+                componentNameMap[ component ] = componentName;
+                componentClassMap[ className ] = component;
+                componentNameMap[ component ] = componentName;
             }
             
-            addRelation( component.parentDocument as Container, componentName, component );                
+//            addRelation( component.parentDocument as Container, componentName, component );                
         }
         
         public static function removeComponent( componentName:String, component:UIComponent ):void{

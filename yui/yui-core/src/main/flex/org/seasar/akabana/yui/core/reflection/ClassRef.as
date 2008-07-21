@@ -23,11 +23,18 @@ package org.seasar.akabana.yui.core.reflection
     
     public class ClassRef extends AnnotatedObjectRef
     {
+        
+        private static const cache_:Object = {};     
+        
+        private static const CLASS_NAME_SEPARATOR:String = "::";
+        
+        private static const DOT:String = ".";
+        
+        public static var classLoader:ClassLoader = new ClassLoader();
+        
         public static function getQualifiedClassName( object:Object ):String{
             return flash.utils.getQualifiedClassName(object).replace(CLASS_NAME_SEPARATOR,DOT);
         }
-        
-        public static var classLoader:ClassLoader = new ClassLoader();
         
         public static function getReflector( target:Object ):ClassRef{
 
@@ -64,11 +71,24 @@ package org.seasar.akabana.yui.core.reflection
             return classRef;
         }
         
-        private static const cache_:Object = {};     
+        private static function isTargetAccessor( rootDescribeTypeXml:XML ):Boolean{
+            var isTarget:Boolean = true;
+            var list:XMLList = rootDescribeTypeXml.@declaredBy;
+            if( list.length() != null ){
+                var declaredBy_:String = list.toString();
+                if( declaredBy_.search(/mx\.|flash\.|fl\.|air\./) == 0 ){
+                    isTarget = false;
+                }
+            }
+            
+            return isTarget;
+        }
         
-        private static const CLASS_NAME_SEPARATOR:String = "::";
-        
-        private static const DOT:String = ".";
+        private static function isTargetVariable( rootDescribeTypeXml:XML ):Boolean{
+            var name_:String = rootDescribeTypeXml.@name.toString();
+            
+            return name_.indexOf("_") != 0;
+        }
         
         public var concreteClass:Class;
 
@@ -186,27 +206,32 @@ package org.seasar.akabana.yui.core.reflection
             _propertyMap = {};
             _typeToPropertyMap = {};
             
+            const typeName:String = describeType.@type.toString();
             var propertyRef:PropertyRef = null;
             var propertysXMLList:XMLList = rootDescribeTypeXml.accessor;
             for each( var accessorXML:XML in propertysXMLList ){
-                propertyRef = new PropertyRef(accessorXML);
-                
-                _properties.push( propertyRef );
-                _propertyMap[ propertyRef.name ] = propertyRef;
-                
-                assembleTypeOfPropertyRef(propertyRef);
+                if( isTargetAccessor(accessorXML) ){
+                    propertyRef = new PropertyRef(accessorXML);
+                    
+                    _properties.push( propertyRef );
+                    _propertyMap[ propertyRef.name ] = propertyRef;
+                    
+                    assembleTypeOfPropertyRef(propertyRef);
+                }
             }
             
             propertysXMLList = rootDescribeTypeXml.variable;
             for each( var variableXML:XML in propertysXMLList ){
-                variableXML.@access = "readwrite";
-                variableXML.@declaredBy = _name;
-                propertyRef = new PropertyRef(variableXML);
-                
-                _properties.push( propertyRef );
-                _propertyMap[ propertyRef.name ] = propertyRef;
-                
-                assembleTypeOfPropertyRef(propertyRef);
+                if( isTargetVariable(variableXML) ){
+                    variableXML.@access = "readwrite";
+                    variableXML.@declaredBy = _name;
+                    propertyRef = new PropertyRef(variableXML);
+                    
+                    _properties.push( propertyRef );
+                    _propertyMap[ propertyRef.name ] = propertyRef;
+                    
+                    assembleTypeOfPropertyRef(propertyRef);
+                }
             }            
             
         }

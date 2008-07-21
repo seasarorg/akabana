@@ -15,9 +15,11 @@
  */
 package org.seasar.akabana.yui.framework.customizer {
 
-    import mx.core.Container;
+    import flash.utils.Dictionary;
     
-    import org.seasar.akabana.yui.core.error.ClassNotFoundError;
+    import mx.core.Container;
+    import mx.core.UIComponent;
+    
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
@@ -28,6 +30,8 @@ package org.seasar.akabana.yui.framework.customizer {
     public class ActionCustomizer extends AbstractComponentCustomizer {
         
         private static const logger:Logger = Logger.getLogger(ActionCustomizer);
+        
+        private static const viewToHelper:Object = new Dictionary(true);
         
         public override function customize( viewName:String, view:Container ):void {
             var viewClassName:String = ClassRef.getReflector(view).name;
@@ -51,7 +55,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 
                 for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
                     if( namingConvention.isViewHelperName( propertyRef_.type )){
-                        action[ propertyRef_.name ] = processHelperCustomize(viewName,propertyRef_);
+                        action[ propertyRef_.name ] = processHelperCustomize(view,propertyRef_);
                         logger.debugMessage("yui_framework","HelperCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
                         continue;
                     }
@@ -74,27 +78,35 @@ package org.seasar.akabana.yui.framework.customizer {
             }
         }
 
-        protected function processHelperCustomize( viewName:String, propertyRef:PropertyRef ):Object{
+        protected function processHelperCustomize( view:Container, propertyRef:PropertyRef ):Object{
+            const baseViewClassRef:ClassRef = ClassRef.getReflector(view);
             var helper:Object = null;
-            
             var helperClassRef:ClassRef = null;
-
+            
             try{
+                
                 helperClassRef = ClassRef.getReflector( propertyRef.type );
-                helper = helperClassRef.getInstance();
                 var viewClassName:String = namingConvention.getViewName( helperClassRef.name );
-                var propertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName); 
-                    
-                for each( var propertyRef_:PropertyRef in propertyRefs ){
-                    if( propertyRef_.name == "view"){
-                        helper[ propertyRef_.name ] = ViewComponentRepository.getComponent(propertyRef_.typeClassRef.concreteClass);
+                var propertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
+                
+                if( propertyRefs.length > 0 ){
+                    var helperView:UIComponent;
+                    var propertyRef_:PropertyRef = propertyRefs[0];
+                    if( propertyRef_.typeClassRef == baseViewClassRef){
+                        helperView = view;
                     } else {
-                        helper[ propertyRef_.name ] = ViewComponentRepository.getComponent(propertyRef_.name );
+                        helperView = ViewComponentRepository.getComponent(propertyRef_.typeClassRef.concreteClass );
                     }
+                    helper = viewToHelper[ helperView ];
+                    if( helper == null ){
+                        helper = helperClassRef.getInstance();
+                        viewToHelper[ helperView ] = helper;
+                    } 
+                    helper[ propertyRef_.name ] = helperView;
                 }
-            } catch( e:ClassNotFoundError ){ 
-                logger.debugMessage("yui_framework","ClassNotFoundError",viewName,propertyRef.type);
-            }
+            } catch( e:Error ){
+                logger.debugMessage("yui_framework","HelperCustomizeError",propertyRef.type,e.getStackTrace());
+            } 
             
             return helper;
         }

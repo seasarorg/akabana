@@ -40,6 +40,9 @@ package org.seasar.akabana.yui.logging.layout
         }
         
         public function parse(event:LoggingEvent):String{
+            if( this.pattern == null ){
+                this.pattern = "%m";
+            }
             var patternCharArray:Array = this.pattern.split("");
             var result_:String = "";
             for( var i:int = 0; i < patternCharArray.length; i++ ){

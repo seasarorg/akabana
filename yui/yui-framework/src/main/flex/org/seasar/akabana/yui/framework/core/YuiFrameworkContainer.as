@@ -219,14 +219,18 @@ package org.seasar.akabana.yui.framework.core
                 namingConvention.isTargetClassName( className ) &&
                 namingConvention.isViewName( className )
             ){
-                var componentName:String = UIComponentUtil.getName(container);
-                
-                if( !ViewComponentRepository.hasComponent( componentName )){
+                var componentName:String = container.id;
+                if( componentName == null ){
+                    componentName = container.name;
                     ViewComponentRepository.addComponent( componentName, container );              
-                    logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);
-                }
-                 else {
-                    throw new RuntimeError(componentName+"is already registered.");
+                    logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);                  
+                } else {
+                    if( !ViewComponentRepository.hasComponent( componentName )){
+                        ViewComponentRepository.addComponent( componentName, container );              
+                        logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);
+                    } else {
+                        throw new RuntimeError(componentName+"is already registered.");
+                    }
                 }
             }
         }
