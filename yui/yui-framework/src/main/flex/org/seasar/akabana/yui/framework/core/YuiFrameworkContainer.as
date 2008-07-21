@@ -33,7 +33,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
-    import org.seasar.akabana.yui.framework.customizer.ViewEventCustomizer;
+    import org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer;
     import org.seasar.akabana.yui.framework.error.RuntimeError;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
@@ -225,9 +225,9 @@ package org.seasar.akabana.yui.framework.core
                     ViewComponentRepository.addComponent( componentName, container );              
                     logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);
                 }
-//                 else {
-//                    throw new RuntimeError(componentName+"is already registered.");
-//                }
+                 else {
+                    throw new RuntimeError(componentName+"is already registered.");
+                }
             }
         }
 
@@ -286,7 +286,7 @@ package org.seasar.akabana.yui.framework.core
         protected function getDefaultCustomizers():Array{
             return [
                 new ActionCustomizer(),
-                new ViewEventCustomizer()
+                new EventHandlerCustomizer()
             ];
         }     
     }

@@ -25,9 +25,9 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
     
-    public class ViewEventCustomizer extends AbstractEventCustomizer{
+    public class EventHandlerCustomizer extends AbstractEventCustomizer{
         
-        private static const logger:Logger = Logger.getLogger(ViewEventCustomizer);
+        private static const logger:Logger = Logger.getLogger(EventHandlerCustomizer);
         
         public override function customize( viewName:String, view:Container ):void {
             var viewClassName:String = ClassRef.getReflector(view).name;
