@@ -38,10 +38,14 @@ package org.seasar.akabana.yui.framework.customizer {
             var actionName:String = _namingConvention.getActionName(viewClassName);
             var actionClassRef:ClassRef = null;
             try{
+//                if( view.descriptor.properties[ namingConvention.getActionPackageName() ] != null ){
+//                    throw new Error("already Customized");
+//                }
+                
                 actionClassRef = ClassRef.getReflector(actionName);
                 processActionCustomize( viewName, view, actionClassRef );
             } catch( e:Error ){
-                logger.debugMessage("yui_framework","ClassNotFoundError",viewName,actionName);
+                logger.debugMessage("yui_framework","HelperCustomizeError",viewName,e.getStackTrace());
             }
         }
             

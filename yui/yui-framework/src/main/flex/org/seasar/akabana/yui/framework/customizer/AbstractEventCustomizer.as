@@ -65,7 +65,7 @@ package org.seasar.akabana.yui.framework.customizer
                     throw e;
                 } finally {
                     if( error != null ){
-                        //trace(error.getStackTrace());
+                        trace(error.getStackTrace());
                     }
                 }
             };

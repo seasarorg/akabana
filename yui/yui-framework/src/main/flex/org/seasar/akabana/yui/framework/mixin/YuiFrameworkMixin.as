@@ -77,7 +77,9 @@ package org.seasar.akabana.yui.framework.mixin
         protected var initialized:Boolean;
         
         private function addedToStageHandler( event:Event ):void{
-            _container.registerComponent(event.target as UIComponent);
+            if( event.target is UIComponent ){
+                _container.registerComponent(event.target as UIComponent);
+            }
         }
         
         private function applicationCompleteHandler( event:FlexEvent ):void{

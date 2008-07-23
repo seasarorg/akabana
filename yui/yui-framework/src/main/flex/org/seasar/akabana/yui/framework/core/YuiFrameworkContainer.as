@@ -32,8 +32,8 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
-    import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer;
+    import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.error.RuntimeError;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
@@ -47,6 +47,7 @@ package org.seasar.akabana.yui.framework.core
         
         public var customizers:Array;
         
+        
         protected var cursorManager:CursorManager;
         
         protected var popUpManager:PopUpManager;
@@ -55,70 +56,18 @@ package org.seasar.akabana.yui.framework.core
         
         protected var _application:Application;
         
-        protected var _callTimer:Timer = new Timer(100,1);
-        
         public function get application():Application{
             return _application;
         }
         
         public function set application( value:Application ):void{
-            if( _application != null ){
-                _application.systemManager.removeEventListener(
-                    FlexEvent.CREATION_COMPLETE,
-                    creationCompleteHandler,
-                    true
-                ); 
-
-                _application.systemManager.removeEventListener(
-                    FlexEvent.REMOVE,
-                    removeCompleteHandler,
-                    true
-                );
-                
-                _application.removeEventListener(
-                    ChildExistenceChangedEvent.CHILD_ADD,
-                    childAddHandler,
-                    true
-                );
-                
-//                _application.removeEventListener(
-//                    ChildExistenceChangedEvent.CHILD_REMOVE,
-//                    childRemoveHandler,
-//                    true
-//                ); 
-            }
-            
             _application = value;
-
-            _application.systemManager.addEventListener(
-                FlexEvent.CREATION_COMPLETE,
-                creationCompleteHandler,
-                true,
-                int.MAX_VALUE
-            );    
-
-            _application.systemManager.addEventListener(
-                FlexEvent.REMOVE,
-                removeCompleteHandler,
-                true,
-                int.MAX_VALUE
-            );
-            
-            _application.addEventListener(
-                ChildExistenceChangedEvent.CHILD_ADD,
-                childAddHandler,
-                true
-            );
-             
-//            _application.addEventListener(
-//                ChildExistenceChangedEvent.CHILD_REMOVE,
-//                childRemoveHandler,
-//                true
-//            ); 
+            applicationMonitoringStart();
         }
         
-        public function YuiFrameworkContainer(){
-            
+        protected var _callTimer:Timer = new Timer(100,1);
+        
+        public function YuiFrameworkContainer(){            
         }
         
         public function init():void{
@@ -130,8 +79,8 @@ package org.seasar.akabana.yui.framework.core
             
             logger.debugMessage("yui_framework","ViewComponentAssembleStart"); 
             
-            var componentMap:Object = ViewComponentRepository.componentMap;
-            for ( var key:String in componentMap ){
+            var viewMap:Object = ViewComponentRepository.componentMap;
+            for ( var key:String in viewMap ){
                 logger.debugMessage("yui_framework","ViewComponentAssembleing",key); 
                 processAssembleView(key,ViewComponentRepository.getComponent(key) as Container);
                 logger.debugMessage("yui_framework","ViewComponentAssembled",key); 
@@ -175,26 +124,23 @@ package org.seasar.akabana.yui.framework.core
         }
         
         protected function doRegisterComponent( component:UIComponent ):void{
-            if( component != null ){
-                processRegisterComponent(component);
-                processAssembleComponent(component);                
+            if( component != null && component is Container){
+                processRegisterComponent(component as Container);
+                processAssembleComponent(component as Container);                
             }
         }     
 
-        protected function processRegisterComponent(component:Object):void{
+        protected function processRegisterComponent(container:Container):void{
             do{                 
-                if( component is Application ){
-                    application = component as Application;
+                if( container is Application ){
+                    application = container as Application;
                     application.visible = false;
-                    logger.debugMessage("yui_framework","ApplicationRegistered",component.toString());
+                    logger.debugMessage("yui_framework","ApplicationRegistered",container.toString());
                     break;
                 }
-
-                if( component is Container && component.initialized ){
-                    processRegisterView( component as Container );    
-                    break;   
-                }
-            
+                
+                processRegisterView( container );
+               
             } while( false );
         }
         
@@ -225,11 +171,14 @@ package org.seasar.akabana.yui.framework.core
                     ViewComponentRepository.addComponent( componentName, container );              
                     logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);                  
                 } else {
-                    if( !ViewComponentRepository.hasComponent( componentName )){
-                        ViewComponentRepository.addComponent( componentName, container );              
-                        logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);
+                    if( ViewComponentRepository.hasComponent( componentName )){
+                        var view:UIComponent = ViewComponentRepository.getComponent( componentName );                         
+                        if( !view.initialized ){
+                            throw new RuntimeError(componentName+"is already registered.");
+                        }
                     } else {
-                        throw new RuntimeError(componentName+"is already registered.");
+                        ViewComponentRepository.addComponent( componentName, container );              
+                        logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);                    
                     }
                 }
             }
@@ -254,38 +203,90 @@ package org.seasar.akabana.yui.framework.core
             }
         }
 
-        protected function processAssembleComponent(component:Object):void{
-            if( component is Container ){
-                var componentName:String = ViewComponentRepository.getComponentName(component as Container);
-                if( componentName != null ){
-                    processAssembleView( componentName, component as Container);    
+        protected function processAssembleComponent(container:Container):void{
+            if( container.initialized ){
+                var viewName:String = ViewComponentRepository.getComponentName(container);
+                if( viewName != null ){
+                    processAssembleView( viewName, container);    
                 }
-            }  
+            }
         }
         
-        protected function processAssembleView( name:String, view:Container ):void{
-            if( view != null && view.initialized){
-                if( view.descriptor == null ){
-                    view.descriptor = new UIComponentDescriptor({});
+        protected function processAssembleView( viewName:String, container:Container ):void{
+            if( container.descriptor == null ){
+                container.descriptor = new UIComponentDescriptor({});
+            }
+            for each( var customizer_:IComponentCustomizer in customizers ){
+                if( customizer_.namingConvention == null ){
+                    customizer_.namingConvention = namingConvention;
                 }
-                for each( var customizer_:IComponentCustomizer in customizers ){
-                    if( customizer_.namingConvention == null ){
-                        customizer_.namingConvention = namingConvention;
-                    }
-                    customizer_.customize( name, view );                    
-                }
+                customizer_.customize( viewName, container );                    
             }
         }
 
-        protected function processDisassembleView( view:Container ):void{
-            if( view != null ){
-                var viewName:String = UIComponentUtil.getName(view);
+        protected function processDisassembleView( container:Container ):void{
+            if( container != null ){
+                var viewName:String = UIComponentUtil.getName(container);
                 for each( var customizer_:IComponentCustomizer in customizers ){
                     customizer_.namingConvention = namingConvention;
-                    customizer_.uncustomize( viewName, view);                    
+                    customizer_.uncustomize( viewName, container);                    
                 }
             }
-        }        
+        }
+        
+        protected function applicationMonitoringStart():void{
+            if( application != null ){
+                application.systemManager.removeEventListener(
+                    FlexEvent.CREATION_COMPLETE,
+                    creationCompleteHandler,
+                    true
+                ); 
+
+                application.systemManager.removeEventListener(
+                    FlexEvent.REMOVE,
+                    removeCompleteHandler,
+                    true
+                );
+                
+                application.removeEventListener(
+                    ChildExistenceChangedEvent.CHILD_ADD,
+                    childAddHandler,
+                    true
+                );
+                
+//                application.removeEventListener(
+//                    ChildExistenceChangedEvent.CHILD_REMOVE,
+//                    childRemoveHandler,
+//                    true
+//                ); 
+            }
+
+            application.systemManager.addEventListener(
+                FlexEvent.CREATION_COMPLETE,
+                creationCompleteHandler,
+                true,
+                int.MAX_VALUE
+            );    
+
+            application.systemManager.addEventListener(
+                FlexEvent.REMOVE,
+                removeCompleteHandler,
+                true,
+                int.MAX_VALUE
+            );
+            
+            application.addEventListener(
+                ChildExistenceChangedEvent.CHILD_ADD,
+                childAddHandler,
+                true
+            );
+             
+//            _application.addEventListener(
+//                ChildExistenceChangedEvent.CHILD_REMOVE,
+//                childRemoveHandler,
+//                true
+//            ); 
+        }     
         
         protected function getDefaultCustomizers():Array{
             return [
