@@ -190,7 +190,7 @@ package org.seasar.akabana.yui.framework.core
                     break;
                 }
 
-                if( component is Container ){
+                if( component is Container && component.initialized ){
                     processRegisterView( component as Container );    
                     break;   
                 }
