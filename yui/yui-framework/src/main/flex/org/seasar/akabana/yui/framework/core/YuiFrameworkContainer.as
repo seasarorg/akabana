@@ -54,6 +54,8 @@ package org.seasar.akabana.yui.framework.core
         
         protected var dragManager:DragManager;
         
+        protected var _callTimer:Timer = new Timer(100,1);
+        
         protected var _application:Application;
         
         public function get application():Application{
@@ -64,8 +66,6 @@ package org.seasar.akabana.yui.framework.core
             _application = value;
             applicationMonitoringStart();
         }
-        
-        protected var _callTimer:Timer = new Timer(100,1);
         
         public function YuiFrameworkContainer(){            
         }
