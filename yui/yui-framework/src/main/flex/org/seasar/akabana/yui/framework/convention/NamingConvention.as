@@ -43,6 +43,10 @@ package org.seasar.akabana.yui.framework.convention
             return "service";
         }
         
+        public function getLogicPackageName():String{
+            return "logic";
+        }
+        
         public function getViewSuffix():String{
             return "View";
         }
@@ -57,6 +61,10 @@ package org.seasar.akabana.yui.framework.convention
 
         public function getServiceSuffix():String{
             return "Service";
+        }
+        
+        public function getLogicSuffix():String{
+            return "Logic";
         }
 
         public function getViewName( name:String ):String{
@@ -81,7 +89,13 @@ package org.seasar.akabana.yui.framework.convention
             var classPathArray:Array = viewName.match(/^(.+)\.view\.(.+?)View$/);
             return classPathArray[1] + ".helper." + classPathArray[classPathArray.length-1] + "Helper";
         }
-
+		
+		public function getLogicName( viewName:String ):String
+		{
+			var classPathArray:Array = viewName.match(/^(.+)\.view\.(.+?)View$/);
+			return classPathArray[1] + ".Logic." + classPathArray[classPathArray.length-1] + "Logic";
+		}
+		
         public function isViewName( className:String ):Boolean{
             return isTargetName(className,getViewPackageName(),getViewSuffix());
         }
@@ -96,6 +110,10 @@ package org.seasar.akabana.yui.framework.convention
 
         public function isServiceName( className:String ):Boolean{
             return isTargetName(className,getServicePackageName(),getServiceSuffix());
+        }
+        
+        public function isLogicName( className:String ):Boolean{
+            return isTargetName(className,getLogicPackageName(),getLogicSuffix());
         }
         
         public function isTargetClassName( className:String ):Boolean{
