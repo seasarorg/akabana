@@ -58,7 +58,7 @@ package org.seasar.akabana.yui.framework.mixin
                     _this.addedToStageHandler,
                     true,
                     int.MAX_VALUE
-                ); 
+                );              
                 systemManager.addEventListener(
                     FlexEvent.APPLICATION_COMPLETE,
                     _this.applicationCompleteHandler,
@@ -86,18 +86,13 @@ package org.seasar.akabana.yui.framework.mixin
             if( event.currentTarget is ISystemManager ){
                 var systemManager:ISystemManager = event.currentTarget as ISystemManager;
                 systemManager.removeEventListener(
-                    Event.ADDED_TO_STAGE,
-                    addedToStageHandler,
-                    true
-                );
-                systemManager.removeEventListener(
                     FlexEvent.APPLICATION_COMPLETE,
                     applicationCompleteHandler,
                     false
                 );
                 if( !initialized ){
                     initialized = true;
-                    _container.init();
+                    _container.initialize();
                 }
             }
         }
