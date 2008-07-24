@@ -13,16 +13,19 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.service.event {
-    
-    public class ResultEvent extends AbstractServiceEvent {
-        
+package org.seasar.akabana.yui.service.event 
+{
+    public class ResultEvent extends AbstractServiceEvent 
+    {
         public static const RESULT:String = "result";
         
         public var result:Object;
         
-        public function ResultEvent( bubbles:Boolean = false, cancelable:Boolean = false ){
-            super( RESULT, bubbles, cancelable);
+        public function ResultEvent( bubbles:Boolean = false, cancelable:Boolean = false, result:Object = null )
+        {
+            super( RESULT, bubbles, cancelable );
+            
+            this.result = result;
         }
     }
 }
