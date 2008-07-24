@@ -47,7 +47,6 @@ package org.seasar.akabana.yui.framework.core
         
         public var customizers:Array;
         
-        
         protected var cursorManager:CursorManager;
         
         protected var popUpManager:PopUpManager;
