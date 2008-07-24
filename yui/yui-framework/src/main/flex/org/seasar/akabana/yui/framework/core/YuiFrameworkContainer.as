@@ -98,7 +98,6 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public function registerComponent( component:UIComponent ):void{
-            trace( ">registerComponent>",component );
             doRegisterComponent(component);
         }
         
@@ -119,7 +118,6 @@ package org.seasar.akabana.yui.framework.core
         }
         
         private function creationCompleteHandler(event:Event):void{
-            trace( "###",event.target );
             doAssembleComponent(event.target as UIComponent);
         }
 
