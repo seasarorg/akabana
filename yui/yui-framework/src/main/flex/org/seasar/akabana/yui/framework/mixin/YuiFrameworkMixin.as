@@ -58,7 +58,13 @@ package org.seasar.akabana.yui.framework.mixin
                     _this.addedToStageHandler,
                     true,
                     int.MAX_VALUE
-                );              
+                );   
+                systemManager.addEventListener(
+                    Event.ADDED,
+                    function( event:Event ):void{trace(event.target);},
+                    true,
+                    int.MAX_VALUE
+                );           
                 systemManager.addEventListener(
                     FlexEvent.APPLICATION_COMPLETE,
                     _this.applicationCompleteHandler,

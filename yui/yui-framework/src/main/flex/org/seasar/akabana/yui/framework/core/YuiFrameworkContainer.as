@@ -98,6 +98,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public function registerComponent( component:UIComponent ):void{
+            trace( ">registerComponent>",component );
             doRegisterComponent(component);
         }
         
@@ -118,6 +119,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         private function creationCompleteHandler(event:Event):void{
+            trace( "###",event.target );
             doAssembleComponent(event.target as UIComponent);
         }
 
@@ -180,7 +182,7 @@ package org.seasar.akabana.yui.framework.core
                 } else {
                     if( ViewComponentRepository.hasComponent( componentName )){
                         var view:UIComponent = ViewComponentRepository.getComponent( componentName );                         
-                        if( !view.initialized ){
+                        if( view.initialized ){
                             throw new RuntimeError(componentName+"is already registered.");
                         }
                     } else {
