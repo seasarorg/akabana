@@ -1,0 +1,57 @@
+global{
+    font-size:14;
+}
+
+Application{
+    padding-top:0;
+    padding-bottom:0;
+    padding-left:0;
+    padding-right:0;   
+    vertical-gap:0;
+    horizontal-gap:0; 
+}
+
+Canvas{
+    background-color:#FFFFFF;   
+}
+
+VBox{
+    padding-top:0;
+    padding-bottom:0;
+    padding-left:0;
+    padding-right:0;
+    vertical-gap:0;
+    horizontal-gap:0;
+}
+
+HBox{
+    padding-top:0;
+    padding-bottom:0;
+    padding-left:0;
+    padding-right:0;   
+    vertical-gap:0;
+    horizontal-gap:0; 
+}
+
+HBox.GreenBox{
+    padding-top:0;
+    padding-bottom:0;
+    padding-left:0;
+    padding-right:0;   
+    vertical-gap:0;
+    horizontal-gap:0; 
+    vertical-align:middle;
+    background-color:#308FAA;
+}
+
+Label.copyright{
+    color:#FFFFFF;
+}
+
+Label.title{
+    color:#FFFFFF;
+}
+
+Tree.menuTree{
+    border-style:none;   
+}

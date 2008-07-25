@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical"
+    width="1024" height="633"
+    >
+    <mx:Style source="application.css"/>
+    <mx:Canvas width="100%">
+        <mx:Image x="0" y="0" source="assets/images/yui_logo2.jpg"/>
+        <mx:Image x="770" y="0" source="assets/images/seasar-logo.png"/>
+    </mx:Canvas>
+    <mx:Canvas width="100%" height="100%">
+        <mx:HBox width="100%" height="100%">
+            <mx:VBox width="150" height="100%">
+                <mx:HBox width="100%" styleName="GreenBox">
+                    <mx:Label text="Menu" styleName="title"/>
+                </mx:HBox>
+                <mx:Tree labelField="@label" width="100%" height="100%" styleName="menuTree">
+                    <mx:dataProvider>
+                        <mx:XMLList xmlns="">
+                                <node label="紹介"/>
+                                <node label="ダウンロード"/>
+                                <node label="チュートリアル"/>
+                                <node label="サンプル"/>
+                                <node label="ユーザガイド"/>
+                                <node label="開発者ガイド"/>
+                                <node label="ASDoc"/>
+                                <node label="FAQ"/>
+                        </mx:XMLList>
+                    </mx:dataProvider>
+                </mx:Tree>
+                
+            </mx:VBox>
+            <mx:VRule width="20" height="100%">
+                
+            </mx:VRule>
+            <mx:VBox width="100%" height="100%">
+                <mx:HBox width="100%" styleName="GreenBox">
+                    <mx:Label text="yui-frameworks" styleName="title"/>
+                </mx:HBox>
+                <mx:Text width="100%">
+                    <mx:text><![CDATA[
+デザイナーとプログラマが、互いに意識しない。
+yui-frameworksは、Flexアプリケーションを開発する上でのプレゼンテーションレイヤーのフレームワークです。
+                    ]]></mx:text>
+                </mx:Text>
+                <mx:HBox width="100%" styleName="GreenBox">
+                    <mx:Label text="概要" styleName="title"/>
+                </mx:HBox>
+                <mx:Text width="100%" height="100%"/>
+                
+            </mx:VBox>
+            
+        </mx:HBox>
+    </mx:Canvas>
+    <mx:HBox width="100%" height="30" styleName="GreenBox">
+        <mx:Spacer width="20"/>
+        <mx:Label styleName="copyright" text="© Copyright 2006, The Seasar Foundation and the others. All rights reserved."/>
+    </mx:HBox>    
+</mx:Application>
