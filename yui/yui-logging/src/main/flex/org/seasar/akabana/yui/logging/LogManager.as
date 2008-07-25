@@ -70,7 +70,7 @@ package org.seasar.akabana.yui.logging
                 var appenderConfig:Object = appenderConfigTree[ key ];
                 
                 var classRef:ClassRef = ClassRef.getReflector(appenderConfig[VALUE]);
-                appender = classRef.getInstance() as Appender;
+                appender = classRef.newInstance() as Appender;
                 
                 if( appender != null ){
                     appender.layout = configureAppenderLayout( appenderConfig[ LoggingConsts.LAYOUT ] );                    
@@ -83,7 +83,7 @@ package org.seasar.akabana.yui.logging
 
         private final function configureAppenderLayout( layoutConfig:Object ):Layout{
             var classRef:ClassRef = ClassRef.getReflector(layoutConfig[VALUE]);
-            var layout:Layout = classRef.getInstance() as Layout;
+            var layout:Layout = classRef.newInstance() as Layout;
             
             for each( var propRef:PropertyRef in classRef.properties ){
                 if( propRef.isWriteable ){
