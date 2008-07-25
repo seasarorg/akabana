@@ -21,6 +21,9 @@ package org.seasar.akabana.yui.service.rpc.remoting.mxml {
     import org.seasar.akabana.yui.service.ServiceRepository;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingService;
 
+    [Event(name="invoke", type="org.seasar.akabana.yui.service.event.InvokeEvent")]
+    [Event(name="fault", type="org.seasar.akabana.yui.service.event.FaultEvent")]
+    [Event(name="result", type="org.seasar.akabana.yui.service.event.ResultEvent")]
     public class RemotingService extends org.seasar.akabana.yui.service.rpc.remoting.RemotingService implements IMXMLObject {
 
         YuiCoreClasses;
