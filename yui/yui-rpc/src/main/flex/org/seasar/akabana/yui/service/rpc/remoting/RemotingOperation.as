@@ -23,6 +23,8 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     import flash.net.Responder;
     
     import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.event.FaultEvent;
+    import org.seasar.akabana.yui.service.event.FaultStatus;
     import org.seasar.akabana.yui.service.rpc.AbstractRpcOperation;
     import org.seasar.akabana.yui.service.rpc.AbstractRpcService;
     import org.seasar.akabana.yui.service.rpc.RpcPendingCall;
@@ -51,7 +53,32 @@ package org.seasar.akabana.yui.service.rpc.remoting {
         }
 
         private function errorEventHandler(event:Event):void {
-            service_.dispatchEvent(event);
+            var faultEvent:FaultEvent = new FaultEvent();
+            if( event is NetStatusEvent ){
+                var netStatusEvent:NetStatusEvent = event as NetStatusEvent;
+                faultEvent.faultStatus = new FaultStatus(
+                    netStatusEvent.type,
+                    netStatusEvent.info["code"]+":"+netStatusEvent.info["level"],
+                    netStatusEvent.toString()
+                ); 
+            }
+            if( event is SecurityErrorEvent ){
+                var securityErrorEvent:SecurityErrorEvent = event as SecurityErrorEvent;
+                faultEvent.faultStatus = new FaultStatus(
+                    securityErrorEvent.type,
+                    "",
+                    securityErrorEvent.toString()
+                    ); 
+            }
+            if( event is IOErrorEvent ){
+                var ioErrorEvent:IOErrorEvent = event as IOErrorEvent;
+                faultEvent.faultStatus = new FaultStatus(
+                    ioErrorEvent.type,
+                    ioErrorEvent.text,
+                    ioErrorEvent.toString()
+                    ); 
+            }                        
+            service_.dispatchEvent(faultEvent);
         }
 
         private function createServiceInvokeArgs( serviceOperationName:String, operationArgs:Array, pendingCall:PendingCall ):Array{
