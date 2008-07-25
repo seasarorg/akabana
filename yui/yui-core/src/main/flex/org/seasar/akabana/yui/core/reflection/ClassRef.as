@@ -154,7 +154,7 @@ package org.seasar.akabana.yui.core.reflection
             assembleThis( describeTypeXml );
         }
         
-        public function getInstance():Object{
+        public function newInstance():Object{
             return new concreteClass();
         }
         
