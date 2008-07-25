@@ -38,9 +38,9 @@ package org.seasar.akabana.yui.framework.customizer {
             var actionName:String = _namingConvention.getActionName(viewClassName);
             var actionClassRef:ClassRef = null;
             try{
-//                if( view.descriptor.properties[ namingConvention.getActionPackageName() ] != null ){
-//                    throw new Error("already Customized");
-//                }
+                if( view.descriptor.properties[ namingConvention.getActionPackageName() ] != null ){
+                    throw new Error("already Customized");
+                }
                 
                 actionClassRef = ClassRef.getReflector(actionName);
                 processActionCustomize( viewName, view, actionClassRef );
@@ -52,7 +52,9 @@ package org.seasar.akabana.yui.framework.customizer {
         protected function processActionCustomize( viewName:String, view:Container, actionClassRef:ClassRef ):void{
             var action:Object = null;
             if( actionClassRef != null ){
-                action = view.descriptor.properties[ namingConvention.getActionPackageName() ]  = actionClassRef.getInstance();
+                action = 
+                    view.descriptor.properties[ namingConvention.getActionPackageName() ] = 
+                    actionClassRef.newInstance();
             }
             if( action != null ){
                 logger.debugMessage("yui_framework","ActionCustomizing",viewName,actionClassRef.name);
@@ -64,6 +66,12 @@ package org.seasar.akabana.yui.framework.customizer {
                         continue;
                     }
 
+                    if( namingConvention.isLogicName( propertyRef_.type )){
+                        action[ propertyRef_.name ] = processLogicCustomize(view,propertyRef_);
+                        logger.debugMessage("yui_framework","LogicCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
+                        continue;
+                    }
+
                     if(
                         propertyRef_.typeClassRef.concreteClass == Service ||
                         propertyRef_.typeClassRef.isAssignableFrom( Service )
@@ -72,6 +80,8 @@ package org.seasar.akabana.yui.framework.customizer {
                         logger.debugMessage("yui_framework","ServiceCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
                         continue;
                     }
+                    
+                    
                 }
             }
         }
@@ -103,7 +113,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     }
                     helper = viewToHelper[ helperView ];
                     if( helper == null ){
-                        helper = helperClassRef.getInstance();
+                        helper = helperClassRef.newInstance();
                         viewToHelper[ helperView ] = helper;
                     } 
                     helper[ propertyRef_.name ] = helperView;
@@ -114,11 +124,22 @@ package org.seasar.akabana.yui.framework.customizer {
             
             return helper;
         }
+
+        protected function processLogicCustomize( view:Container, propertyRef:PropertyRef ):Object{
+            var logic:Object = null;            
+            try{
+                logic = propertyRef.typeClassRef.newInstance();
+            } catch( e:Error ){
+                logger.debugMessage("yui_framework","HelperCustomizeError",propertyRef.type,e.getStackTrace());
+            } 
+            
+            return logic;
+        }
         
         protected function processServiceCustomize( viewName:String, propertyRef:PropertyRef ):Service{
             var rpcservice:Service = ServiceRepository.getService( propertyRef.name );
             if( rpcservice == null && !propertyRef.typeClassRef.isInterface){
-                rpcservice = propertyRef.typeClassRef.getInstance() as Service;
+                rpcservice = propertyRef.typeClassRef.newInstance() as Service;
                 rpcservice.destination = propertyRef.name;
                 ServiceRepository.addService( rpcservice );
             }
