@@ -67,7 +67,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     }
 
                     if( namingConvention.isLogicName( propertyRef_.type )){
-                        action[ propertyRef_.name ] = processLogicCustomize(view,propertyRef_);
+                        action[ propertyRef_.name ] = processLogicCustomize(viewName,propertyRef_);
                         logger.debugMessage("yui_framework","LogicCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
                         continue;
                     }
@@ -125,10 +125,20 @@ package org.seasar.akabana.yui.framework.customizer {
             return helper;
         }
 
-        protected function processLogicCustomize( view:Container, propertyRef:PropertyRef ):Object{
+        protected function processLogicCustomize( viewName:String, propertyRef:PropertyRef ):Object{
             var logic:Object = null;            
             try{
                 logic = propertyRef.typeClassRef.newInstance();
+                for each( var propertyRef_:PropertyRef in propertyRef.typeClassRef.properties ){
+                    if(
+                        propertyRef_.typeClassRef.concreteClass == Service ||
+                        propertyRef_.typeClassRef.isAssignableFrom( Service )
+                    ){
+                        logic[ propertyRef_.name ] = processServiceCustomize(viewName,propertyRef_);
+                        logger.debugMessage("yui_framework","ServiceCustomized",propertyRef.name,propertyRef_.name,propertyRef_.type);
+                        continue;
+                    }
+                }
             } catch( e:Error ){
                 logger.debugMessage("yui_framework","HelperCustomizeError",propertyRef.type,e.getStackTrace());
             } 
