@@ -29,5 +29,7 @@ package org.seasar.akabana.yui.service {
         function getOperation( operationName:String ):Operation;
         
         function hasOperation( operationName:String ):Boolean;
+        
+        function setCredentials(username:String, password:String):void;
     }
 }

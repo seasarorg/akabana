@@ -43,7 +43,11 @@ package org.seasar.akabana.yui.service.rpc {
         protected var destination_:String;
         
         protected var requestTimeout_:int; 
-                     
+
+        protected var credentialsUsername:String;
+
+        protected var credentialsPassword:String;
+                             
         private var innerEventdispatcher:EventDispatcher;
 
         public function AbstractRpcService(){
@@ -86,6 +90,11 @@ package org.seasar.akabana.yui.service.rpc {
     	
     	public function hasOperation( name:String ):Boolean{
     	    return operations.hasOwnProperty( name );
+    	}
+    	
+    	public function setCredentials(username:String, password:String):void{
+            credentialsUsername = username;
+            credentialsPassword = password;   	    
     	}
     	   
 	    public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, weakRef:Boolean = false):void{

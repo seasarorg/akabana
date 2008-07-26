@@ -47,6 +47,11 @@ package org.seasar.akabana.yui.service.rpc.remoting {
 			    addOperation(operationName);
             }
             operation = getOperation( operationName );
+            if( operation is RemotingOperation ){
+                RemotingOperation(operation).credentialsUsername = credentialsUsername;
+                RemotingOperation(operation).credentialsPassword = credentialsPassword;
+            }
+            
             return operation.invoke( operationArgs );
     	}
     }

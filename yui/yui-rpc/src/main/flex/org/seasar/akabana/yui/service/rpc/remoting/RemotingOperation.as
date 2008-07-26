@@ -32,6 +32,10 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     
     public class RemotingOperation extends AbstractRpcOperation{
         
+        public static const CREDENTIALS_PASSWORD:String = "credentialsPassword";
+        
+        public static const CREDENTIALS_USERNAME:String = "credentialsUsername";
+        
         private var remotingConnection:RemotingConnection;
         
         [Inspectable(type="Boolean",defaultValue="true")]
@@ -41,7 +45,10 @@ package org.seasar.akabana.yui.service.rpc.remoting {
             return service_ as RemotingService;
         }
         
-                
+        internal var credentialsUsername:String;
+
+        internal var credentialsPassword:String;
+        
         public function RemotingOperation( service:AbstractRpcService, name:String ){
             super( service, name );
         }
@@ -94,6 +101,23 @@ package org.seasar.akabana.yui.service.rpc.remoting {
             
             return callArgs;
         }
+        
+        private function setupCredentials(rc:RemotingConnection):void {
+            if( credentialsUsername != null ){
+                rc.addHeader(
+                    CREDENTIALS_USERNAME,
+                    false,
+                    credentialsUsername
+                );
+                rc.addHeader(
+                    CREDENTIALS_PASSWORD,
+                    false,
+                    credentialsPassword
+                );
+                credentialsUsername = null;
+                credentialsPassword = null;
+            }
+        }
 
         protected override function createRpcOperation( resultHandler:Function, faultHandler:Function ):RpcResponder{
             return new RpcResponder(resultHandler,faultHandler);
@@ -106,6 +130,7 @@ package org.seasar.akabana.yui.service.rpc.remoting {
             var invokeArgs:Array = createServiceInvokeArgs( serviceOperationName, operationArgs, pendingCall );
             
             var rc:RemotingConnection = lookupConnection();
+            setupCredentials(rc);
             
             rc.call.apply(rc,invokeArgs);
             
