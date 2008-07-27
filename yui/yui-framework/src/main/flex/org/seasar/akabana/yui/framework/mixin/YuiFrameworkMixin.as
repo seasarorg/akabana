@@ -90,6 +90,17 @@ package org.seasar.akabana.yui.framework.mixin
                     applicationCompleteHandler,
                     false
                 );
+                systemManager.removeEventListener(
+                    Event.ADDED_TO_STAGE,
+                    _this.addedToStageHandler,
+                    true
+                );  
+                systemManager.addEventListener(
+                    Event.ADDED,
+                    _this.addedToStageHandler,
+                    true,
+                    int.MAX_VALUE
+                );                  
                 if( !initialized ){
                     initialized = true;
                     _container.initialize();
