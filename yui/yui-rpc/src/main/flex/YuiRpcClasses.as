@@ -26,8 +26,8 @@ package
         
         RemotingService;
         
-        RemotingOperation;
         RemotingConnection;
+        RemotingOperation;
         RemotingConnectionFactory;
 
     }
