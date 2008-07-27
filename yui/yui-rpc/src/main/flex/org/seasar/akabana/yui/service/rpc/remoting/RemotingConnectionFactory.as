@@ -30,19 +30,29 @@ package org.seasar.akabana.yui.service.rpc.remoting {
         
         private static const DEFAULT_GATEWAY:String = REMOTING_PREFIX + "defaultGateway";
         
+        private static const gatewayUrlToRc:Object = {};
+        
         public static function createConnection( gatewayUrl:String, destination:String ):RemotingConnection{
-        	var connection:RemotingConnection = new RemotingConnection();
-			connection.objectEncoding = ObjectEncoding.AMF3;
-			if( gatewayUrl == null ){
-			    gatewayUrl = resolveGatewayUrl( destination );
-			}
-			
-			if( gatewayUrl != null ){
-                connection.connect( gatewayUrl );			    
-            } else {
-			    throw new Error("gatewayUrlが設定されていません。");
-			}
-			
+            if( gatewayUrl == null ){
+                gatewayUrl = resolveGatewayUrl( destination );            
+            }
+            if( gatewayUrl == null ){
+                throw new Error("gatewayUrlが設定されていません。");
+            }
+            var connection:RemotingConnection = gatewayUrlToRc[ gatewayUrl ];
+            if( connection == null ){            
+                connection = new RemotingConnection();
+                connection.connect( gatewayUrl );
+    			connection.objectEncoding = ObjectEncoding.AMF3;
+    			
+    			if( gatewayUrl != null ){
+                    connection.connect( gatewayUrl );			    
+                } else {
+    			    throw new Error("gatewayUrlが設定されていません。");
+    			}
+    			
+    			gatewayUrlToRc[ gatewayUrl ] = connection;
+            }
 			return connection;
         }
 

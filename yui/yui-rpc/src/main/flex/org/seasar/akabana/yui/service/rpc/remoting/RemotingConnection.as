@@ -16,12 +16,26 @@
 package org.seasar.akabana.yui.service.rpc.remoting {
 
     import flash.net.NetConnection;
+    import flash.net.Responder;
 
-    public class RemotingConnection extends NetConnection{
+    public dynamic class RemotingConnection extends NetConnection{
 
         private var originalUrl_:String;
 
         private var append_:String=null;
+        
+        public function RemotingConnection(){
+            super();
+            client = new CallBackProxy( this );
+        }
+
+        public override function call(command:String,responder:Responder,...parameters):void{
+            if( append_ != null){
+                reconnect( originalUrl_ + append_ );
+                append_ = null;
+            }
+            super.call.apply( this, [command, responder].concat( parameters ));
+        }
         
         public override function connect( url:String, ...rest):void{
             originalUrl_ = url;
@@ -32,12 +46,7 @@ package org.seasar.akabana.yui.service.rpc.remoting {
             if( this.uri != null ){
                 this.close();
             }
-            this.connect( newUri );
-        }
-        
-        public function AppendToGatewayUrl(append:String):void{ 
-            append_ = append;
-            reconnect( originalUrl_ + append_ );
+            this.connect( newUri );            
         }
         
         public function ReplaceGatewayUrl(url:String):void{
@@ -55,5 +64,35 @@ package org.seasar.akabana.yui.service.rpc.remoting {
             }
             return url;
         }
+        
+        public function appendToGatewayUrl(append:String):void{ 
+            append_ = append;
+        }
+    }
+}
+import flash.utils.Proxy;
+import flash.utils.flash_proxy;
+import org.seasar.akabana.yui.service.rpc.remoting.RemotingConnection;
+
+dynamic class CallBackProxy extends Proxy {
+    
+    public var rc:RemotingConnection;
+    
+    function CallBackProxy( rc:RemotingConnection ){
+        this.rc = rc;
+    }
+    
+    override flash_proxy function hasProperty(name:*):Boolean{
+        if( name == "AppendToGatewayUrl" ){
+            return true;
+        }
+        return false;
+    }
+    
+    override flash_proxy function getProperty(name:*):* {
+        if( QName(name).localName == "AppendToGatewayUrl" ){
+            return rc.appendToGatewayUrl as Function;
+        }
+        return function(...args):*{};
     }
 }
