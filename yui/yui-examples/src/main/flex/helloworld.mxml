@@ -9,5 +9,5 @@
         </akabana:conventions>
     </akabana:YuiFrameworkMixin>
     
-    <view:HelloWorldView/>
+    <view:HelloWorldView id="rootView"/>
 </mx:Application>
