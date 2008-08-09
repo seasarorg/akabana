@@ -64,7 +64,7 @@ package org.seasar.akabana.yui.framework.customizer {
                             action,
                             actionClassRef.functions.filter(
                                 function(item:*, index:int, array:Array):Boolean{
-                                    return FunctionRef(item).name.indexOf(component.id) == 0;
+                                    return ( FunctionRef(item).name.indexOf(component.id) == 0 );
                                 }
                             )
                         );			        
@@ -78,7 +78,8 @@ package org.seasar.akabana.yui.framework.customizer {
                 action,
                 actionClassRef.functions.filter(
                     function(item:*, index:int, array:Array):Boolean{
-                        return FunctionRef(item).name.indexOf(SELF_EVENT_PREFIX) == 0;
+                        return ( FunctionRef(item).name.indexOf(SELF_EVENT_PREFIX) == 0 ) &&
+                               ( FunctionRef(item).name.indexOf(HANDLER) > 3 ) ;
                     }
                 )
             );  
