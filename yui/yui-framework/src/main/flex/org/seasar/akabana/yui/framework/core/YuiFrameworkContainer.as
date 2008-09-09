@@ -176,9 +176,9 @@ package org.seasar.akabana.yui.framework.core
                 if( componentName == null ){
                     
                     componentName = container.name;
-                    if(componentName == "hiddenItem"){
-                        return;
-                    }                    
+//                    if(componentName == "hiddenItem"){
+//                        return;
+//                    }                    
                     ViewComponentRepository.addComponent( componentName, container );              
                     logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);                  
                 } else {
