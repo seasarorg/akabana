@@ -103,6 +103,7 @@ package org.seasar.akabana.yui.framework.mixin
                     _this.addedToStageHandler,
                     true
                 );  
+
                 systemManager.addEventListener(
                     Event.ADDED,
                     _this.addedHandler,
