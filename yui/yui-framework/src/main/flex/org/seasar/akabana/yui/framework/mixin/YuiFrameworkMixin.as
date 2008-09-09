@@ -81,6 +81,12 @@ package org.seasar.akabana.yui.framework.mixin
                 _container.registerComponent(event.target as UIComponent);
             }
         }
+
+        private function addedHandler( event:Event ):void{
+            if( event.target is UIComponent ){
+                _container.registerComponent(event.target as UIComponent);
+            }
+        }        
         
         private function applicationCompleteHandler( event:FlexEvent ):void{
             if( event.currentTarget is ISystemManager ){
@@ -97,7 +103,7 @@ package org.seasar.akabana.yui.framework.mixin
                 );  
                 systemManager.addEventListener(
                     Event.ADDED,
-                    _this.addedToStageHandler,
+                    _this.addedHandler,
                     true,
                     int.MAX_VALUE
                 );                  
