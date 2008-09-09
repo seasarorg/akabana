@@ -30,7 +30,7 @@ package org.seasar.akabana.yui.framework.mixin
 	[Mixin]
 	[ResourceBundle("yui_framework")]
     /**
-	 * YuiFramework設定用MIXIN
+	 * YuiFramework初期設定用Mixinクラス
 	 * 
 	 * @author $Author$
 	 * @version $Revision$
