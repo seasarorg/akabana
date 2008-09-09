@@ -32,8 +32,6 @@ package org.seasar.akabana.yui.framework.core {
 
         public static var componentClassMap:Dictionary = new Dictionary(true);
         
-        public static var componentChildrenMap:Dictionary = new Dictionary(true);
-        
         public static function addComponent( componentName:String, component:UIComponent ):void{
             var className:String = ClassRef.getReflector(component).name;
             if( componentName == null ){
@@ -51,8 +49,6 @@ package org.seasar.akabana.yui.framework.core {
                 componentClassMap[ className ] = component;
                 componentNameMap[ component ] = componentName;
             }
-            
-//            addRelation( component.parentDocument as Container, componentName, component );                
         }
         
         public static function removeComponent( componentName:String, component:UIComponent ):void{
@@ -63,14 +59,7 @@ package org.seasar.akabana.yui.framework.core {
                 var className:String = ClassRef.getReflector(component).name;
                 componentClassMap[ className ] = null;
                 delete componentClassMap[ className ];  
-        	}
-        	
-        	if( component != null ){
-	        	removeParentDocumentRelation( component.parentDocument as Container, componentName, component );	        	
-
-                componentChildrenMap[ component ] = null;
-                delete componentChildrenMap[ component ];
-        	}
+        	}        
         }
 
         public static function getComponentName( component:UIComponent ):String{
@@ -98,61 +87,5 @@ package org.seasar.akabana.yui.framework.core {
         public static function hasComponent( name:String ):Boolean{
             return componentMap.hasOwnProperty( name );
         }
-
-        public static function hasComponentChildren( object:Object ):Boolean{
-            var hasChildren:Boolean = false;
-            var componentName:String = "";
-            do {
-                if( object is String ){
-                    componentName = object as String;
-                    break;
-                }
-                if( object is UIComponent ){
-                    componentName = UIComponentUtil.getName( object as UIComponent );
-                    break;
-                }
-            } while( false );
-            
-            return componentChildrenMap.hasOwnProperty(componentName);
-        }
-
-        public static function getComponentChildren( object:Object ):Object{
-            var children:Object = Dictionary;
-            do {
-                if( object is String ){
-                    children = componentChildrenMap[ object as String ] as Dictionary;
-                    break;
-                }
-                if( object is UIComponent ){
-                    children = componentChildrenMap[ UIComponentUtil.getName( object as UIComponent )] as Dictionary;
-                    break;
-                }
-            } while( false );
-            
-            if( children == null ){
-                children = {};
-            }
-            return children;
-        }
-        
-        private static function addRelation( parent:Container, componentName:String, child:UIComponent ):void{            
-            var parentClassName:String = ClassRef.getQualifiedClassName( parent );
-            var componentChildrenMap_:Dictionary = componentChildrenMap[ parentClassName ];
-            if( componentChildrenMap_ == null ){
-                componentChildrenMap_ = componentChildrenMap[ parentClassName ] = new Dictionary(true);
-            }
-            componentChildrenMap_[ componentName ] = child;
-        }
-        
-        private static function removeParentDocumentRelation( parent:Container, componentName:String, child:UIComponent ):void{            
-            var parentClassName:String = ClassRef.getQualifiedClassName( parent );
-            var componentChildrenMap_:Dictionary = componentChildrenMap[ parentClassName ] as Dictionary;
-            if( componentChildrenMap_ != null ){
-            	if( componentChildrenMap_.hasOwnProperty(componentName)){
-            	    componentChildrenMap_[ componentName ] = null;
-            	    delete componentChildrenMap_[ componentName ];
-            	}
-            }
-        }   
     }
 }
