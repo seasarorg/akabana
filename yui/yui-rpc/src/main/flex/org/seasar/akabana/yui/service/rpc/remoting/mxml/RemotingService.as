@@ -15,7 +15,8 @@
  */
 package org.seasar.akabana.yui.service.rpc.remoting.mxml {
     
-    import mx.core.Container;
+    import flash.display.DisplayObjectContainer;
+    
     import mx.core.IMXMLObject;
     
     import org.seasar.akabana.yui.service.ServiceRepository;
@@ -28,7 +29,7 @@ package org.seasar.akabana.yui.service.rpc.remoting.mxml {
 
         YuiCoreClasses;
 
-        protected var parent_:Container;
+        protected var parent_:DisplayObjectContainer;
         
         protected var id_:String;
 
@@ -36,7 +37,7 @@ package org.seasar.akabana.yui.service.rpc.remoting.mxml {
             return id_;
         }
 
-        public function get parent():Container{
+        public function get parent():DisplayObjectContainer{
             return parent_;
         }
 
@@ -45,7 +46,7 @@ package org.seasar.akabana.yui.service.rpc.remoting.mxml {
         }
         
         public function initialized(document:Object, id:String):void{
-            parent_ = document as Container;
+            parent_ = document as DisplayObjectContainer;
             id_ = id;
             ServiceRepository.addService(this);
         }
