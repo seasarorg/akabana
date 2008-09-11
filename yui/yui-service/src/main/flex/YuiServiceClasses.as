@@ -28,7 +28,7 @@ package
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingService;
     
-    public class YuiRpcClasses
+    public class YuiServiceClasses
     {
 
         Service;

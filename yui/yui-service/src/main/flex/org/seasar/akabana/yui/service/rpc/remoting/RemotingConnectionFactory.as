@@ -17,8 +17,6 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     
     import flash.net.ObjectEncoding;
     
-    import mx.core.Application;
-    
     import org.seasar.akabana.yui.mx.util.ApplicationUtil;
     import org.seasar.akabana.yui.util.URLUtil;
     
@@ -86,7 +84,7 @@ package org.seasar.akabana.yui.service.rpc.remoting {
 
         private static function resolveGatewayUrlByURL():String{
             var gatewayUrl:String = null;
-            var url:String = Application.application.url;
+            var url:String = ApplicationUtil.url;
             
             if( URLUtil.isValidHttpUrl(url)){
                 gatewayUrl = url.substring(0, url.lastIndexOf("/")+1 ) + "gateway";
