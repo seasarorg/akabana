@@ -15,14 +15,30 @@
  */
 package
 {
+    import org.seasar.akabana.yui.service.Operation;
+    import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.Responder;
+    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.ServiceRepository;
+    import org.seasar.akabana.yui.service.event.FaultEvent;
+    import org.seasar.akabana.yui.service.event.FaultStatus;
+    import org.seasar.akabana.yui.service.event.ResultEvent;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingConnection;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingConnectionFactory;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation;
-    import org.seasar.akabana.yui.service.rpc.remoting.mxml.RemotingService;
+    import org.seasar.akabana.yui.service.rpc.remoting.RemotingService;
     
     public class YuiRpcClasses
     {
-        YuiFrameworkClasses;
+
+        Service;
+        Operation;
+        PendingCall;
+        Responder;
+        ServiceRepository;
+        FaultEvent;
+        ResultEvent;
+        FaultStatus;
         
         RemotingService;
         

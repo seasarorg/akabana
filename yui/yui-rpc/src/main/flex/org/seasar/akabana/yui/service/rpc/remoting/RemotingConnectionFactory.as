@@ -19,8 +19,9 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     
     import mx.core.Application;
     
-    import org.seasar.akabana.yui.framework.util.ApplicationUtil;
-    import org.seasar.akabana.yui.net.URLUtil;
+    import org.seasar.akabana.yui.mx.util.ApplicationUtil;
+    import org.seasar.akabana.yui.util.URLUtil;
+    
     
     public class RemotingConnectionFactory {
     	
