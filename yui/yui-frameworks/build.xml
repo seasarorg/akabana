@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Flex Lib Builder" basedir="." default="rsl">
+	<property file="build.properties"/>
+    <property file="flex3.properties"/>
+	
+	<property name="LIB_ROOT" value="${basedir}"/>
+    <property name="LIB_SRC" value="${LIB_ROOT}${FLEX_SRC}"/>
+    <property name="LIB_MAIN" value="${LIB_NAME}${FLEX_MXML_SUFFIX}"/>
+    <property name="LIB_PUBLISH_DIR" value="${LIB_ROOT}${FLEX_SWC_OUTPUT}"/>
+    <property name="LIB_PUBLISH_SWC_FILE" value="${LIB_NAME}_${LIB_VERSION}${FLEX_SWC_SUFFIX}"/>
+    <property name="LIB_PUBLISH_SWF_FILE" value="${LIB_NAME}_${LIB_VERSION}${FLEX_SWF_SUFFIX}"/>
+    <property name="LIB_PUBLISH_FILE" value="${LIB_NAME}_${LIB_VERSION}"/>
+	
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_TASKS_JAR}"/>
+
+    <target name="clean">
+        <delete dir="${LIB_SRC}/generated"/>
+        <delete dir="${LIB_PUBLISH_DIR}"/>
+    </target>
+    
+    <target name="setup" depends="clean">
+        <mkdir dir="${LIB_PUBLISH_DIR}"/>
+    </target>
+            
+    <target name="compile" depends="setup">
+        <compc 
+            output="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}"
+            include-classes="${LIB_CLASSES}"
+            >
+            <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+            <source-path path-element="${LIB_ROOT}/../mx-wrappers${FLEX_SRC}"/>
+        	<source-path path-element="${LIB_ROOT}/../yui-core${FLEX_SRC}"/>
+        	<source-path path-element="${LIB_ROOT}/../yui-framework${FLEX_SRC}"/>
+    		<source-path path-element="${LIB_ROOT}/../yui-logging${FLEX_SRC}"/>
+        	<source-path path-element="${LIB_ROOT}/../yui-service${FLEX_SRC}"/>
+            <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
+                <include name="libs" />
+            </external-library-path>           
+        </compc>
+    </target>
+	
+	<target name="rsl" depends="compile">
+        <unzip
+            src="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}"
+            dest="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_FILE}" 
+            />
+		<java jar="${FLEX_HOME}/lib/optimizer.jar" fork="true" failonerror="true">
+			  <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib=${FLEX_HOME}/frameworks -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" /> 
+			  <arg line="'${LIB_PUBLISH_DIR}/${LIB_PUBLISH_FILE}/library.swf' --output '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWF_FILE}'" /> 
+		</java>
+    </target>
+</project>
