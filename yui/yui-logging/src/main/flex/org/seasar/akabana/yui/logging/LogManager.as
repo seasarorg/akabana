@@ -42,7 +42,6 @@ package org.seasar.akabana.yui.logging
         private static const logManager:LogManager = new LogManager();
         
         public static function init():void{
-            YuiLoggingClasses;
             logManager.init(defaultProperties.content);
         }
         
@@ -124,6 +123,7 @@ package org.seasar.akabana.yui.logging
         }
 
         private final function doWalkCategoryTree( packeageName:String, categoryConfigTree:Object ):void{
+           try{
             for( var key:String in categoryConfigTree ){
                 if( key != VALUE ){
                     doWalkCategoryTree(
@@ -134,6 +134,14 @@ package org.seasar.akabana.yui.logging
                     configureCategory( packeageName, categoryConfigTree[key]);
                 }
             }
+           } catch( e:Error ){
+               trace("a");
+               trace("a");
+               trace("a");
+               trace("a");
+               
+               
+           }
         }        
         
 

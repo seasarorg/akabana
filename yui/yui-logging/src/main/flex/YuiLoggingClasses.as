@@ -52,6 +52,6 @@ package
         LoggingConsts;
         LoggingEvent;
         LogManager;
-        
+
     }
 }
