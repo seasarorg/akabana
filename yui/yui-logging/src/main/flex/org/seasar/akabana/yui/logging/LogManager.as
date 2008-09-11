@@ -22,8 +22,7 @@ package org.seasar.akabana.yui.logging
     import org.seasar.akabana.yui.logging.category.SimpleCategory;
     
     public class LogManager
-    {
-        
+    {        
         [ResourceBundle("log4yui")]
         private static var defaultProperties:ResourceBundle;
 
@@ -42,6 +41,7 @@ package org.seasar.akabana.yui.logging
         private static const logManager:LogManager = new LogManager();
         
         public static function init():void{
+            YuiLoggingClasses;
             logManager.init(defaultProperties.content);
         }
         
