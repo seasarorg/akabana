@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.mx.util {
     
     public class ApplicationUtil {        
 
-        public static function get url():String{
+        public static function get loadedUrl():String{
             return application.url;
         }
         

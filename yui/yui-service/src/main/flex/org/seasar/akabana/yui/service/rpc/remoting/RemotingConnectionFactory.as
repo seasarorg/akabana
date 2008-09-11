@@ -84,7 +84,7 @@ package org.seasar.akabana.yui.service.rpc.remoting {
 
         private static function resolveGatewayUrlByURL():String{
             var gatewayUrl:String = null;
-            var url:String = ApplicationUtil.url;
+            var url:String = ApplicationUtil.loadedUrl;
             
             if( URLUtil.isValidHttpUrl(url)){
                 gatewayUrl = url.substring(0, url.lastIndexOf("/")+1 ) + "gateway";
