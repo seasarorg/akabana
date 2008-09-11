@@ -4,7 +4,6 @@
     <property file="flex3.properties"/>
 	
 	<property name="LIB_ROOT" value="${basedir}"/>
-    <property name="LIB_SRC" value="${LIB_ROOT}${FLEX_SRC}"/>
     <property name="LIB_MAIN" value="${LIB_NAME}${FLEX_MXML_SUFFIX}"/>
     <property name="LIB_PUBLISH_DIR" value="${LIB_ROOT}${FLEX_SWC_OUTPUT}"/>
     <property name="LIB_PUBLISH_SWC_FILE" value="${LIB_NAME}_${LIB_VERSION}${FLEX_SWC_SUFFIX}"/>
@@ -33,7 +32,12 @@
         	<source-path path-element="${LIB_ROOT}/../yui-framework${FLEX_SRC}"/>
     		<source-path path-element="${LIB_ROOT}/../yui-logging${FLEX_SRC}"/>
         	<source-path path-element="${LIB_ROOT}/../yui-service${FLEX_SRC}"/>
-            <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
+
+            <include-namespaces uri="http://akabana.seasar.org/yui/mxml" /> 
+            <namespace uri="http://akabana.seasar.org/yui/mxml" manifest="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/Manifest.xml" /> 
+            <include-file name="locale/ja_JP/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/yui_framework.properties" /> 
+                    	
+        	<external-library-path dir="${FLEX_FRAMEWORK}" append="true">
                 <include name="libs" />
             </external-library-path>           
         </compc>
