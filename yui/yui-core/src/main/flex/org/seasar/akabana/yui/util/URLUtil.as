@@ -14,7 +14,6 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.util {
-    import mx.core.Application;
     
     import org.seasar.akabana.yui.mx.util.ApplicationUtil;
     
@@ -56,8 +55,8 @@ package org.seasar.akabana.yui.util {
 			return _newUrl;
         }
         
-        private static function resolveUrl( _url:String, application:Application=null):String{
-            const swfUrl:String = ApplicationUtil.url;
+        private static function resolveUrl( _url:String ):String{
+            const swfUrl:String = ApplicationUtil.loadedUrl;
             const slashIndex:int = _url.indexOf(SLASH);
             var resolvedUrl:String = null;
             var urlMatchResult:Array;
