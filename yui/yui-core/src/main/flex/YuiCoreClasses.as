@@ -16,6 +16,7 @@
 package
 {
     import org.seasar.akabana.yui.core.ClassLoader;
+    import org.seasar.akabana.yui.core.error.ClassNotFoundError;
     import org.seasar.akabana.yui.core.reflection.AnnotatedReflector;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.Constructor;
@@ -24,17 +25,20 @@ package
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.resources.embed.EmbedXmlReader;
+    import org.seasar.akabana.yui.util.URLUtil;
     
     public class YuiCoreClasses
     {
         ClassLoader;
-
+        ClassNotFoundError;
         AnnotatedReflector;
         ClassRef;
         Constructor;
         FunctionRef;
         MetadataRef;
         ParameterRef;
-        PropertyRef;        
+        PropertyRef;
+        EmbedXmlReader;
+        URLUtil;
     }
 }
