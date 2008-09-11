@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flexLibProperties version="1">
+<includeClasses>
+<classEntry path="org.seasar.akabana.yui.mx.util.DateFormatterUtil"/>
+<classEntry path="org.seasar.akabana.yui.mx.util.ApplicationUtil"/>
+</includeClasses>
+<includeResources/>
+<namespaceManifests/>
+</flexLibProperties>
