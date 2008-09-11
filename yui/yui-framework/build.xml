@@ -30,12 +30,13 @@
             >
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
       	    
-        	<include-namespaces uri="http://akabana.seasar.org/yui/mxml" /> 
-        	<namespace uri="http://akabana.seasar.org/yui/mxml" manifest="${LIB_RESOURCE_SRC}/Manifest.xml" /> 
-        	<include-file name="locale/ja_JP/yui_framework.properties" path="${LIB_SRC}/locale/ja_JP/yui_framework.properties" /> 
-            
         	<source-path path-element="${LIB_SRC}"/> 
-            <library-path dir="${LIB_ROOT}" append="true">
+
+            <include-namespaces uri="http://akabana.seasar.org/yui/mxml" /> 
+            <namespace uri="http://akabana.seasar.org/yui/mxml" manifest="${LIB_RESOURCE_SRC}/Manifest.xml" /> 
+            <include-file name="locale/ja_JP/yui_framework.properties" path="${LIB_SRC}/locale/ja_JP/yui_framework.properties" /> 
+             
+        	<library-path dir="${LIB_ROOT}" append="true">
                 <include name="libs" />
             </library-path>   
             <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
