@@ -16,17 +16,6 @@
 <classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
 <classEntry path="org.seasar.akabana.yui.framework.util.ApplicationUtil"/>
 <classEntry path="org.seasar.akabana.yui.framework.util.UIComponentUtil"/>
-<classEntry path="org.seasar.akabana.yui.framework.util.URLUtil"/>
-<classEntry path="org.seasar.akabana.yui.service.Operation"/>
-<classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
-<classEntry path="org.seasar.akabana.yui.service.Responder"/>
-<classEntry path="org.seasar.akabana.yui.service.Service"/>
-<classEntry path="org.seasar.akabana.yui.service.ServiceRepository"/>
-<classEntry path="org.seasar.akabana.yui.service.event.AbstractServiceEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.event.FaultEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.event.FaultStatus"/>
-<classEntry path="org.seasar.akabana.yui.service.event.InvokeEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
 </includeClasses>
 <includeResources>
 <resourceEntry destPath="locale/ja_JP/yui_framework.properties" sourcePath="locale/ja_JP/yui_framework.properties"/>
