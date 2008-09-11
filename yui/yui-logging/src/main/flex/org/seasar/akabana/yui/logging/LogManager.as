@@ -16,7 +16,6 @@
 package org.seasar.akabana.yui.logging
 {
     import mx.resources.ResourceBundle;
-    import mx.utils.StringUtil;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
@@ -110,7 +109,7 @@ package org.seasar.akabana.yui.logging
                 category.level = ROOT_LOGGER.level;
             }
             if( values.length > 1 ){
-                category.addAppender(APPENDER_CACHE[StringUtil.trim(values[1])]);
+                category.addAppender(APPENDER_CACHE[values[1]]);
             } else {
                 var rootAppenderNum:int = ROOT_LOGGER.appenderCount;
                 for( var i:int = 0; i < rootAppenderNum; i++ ){

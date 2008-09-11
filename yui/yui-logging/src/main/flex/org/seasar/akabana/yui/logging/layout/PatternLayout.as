@@ -15,9 +15,8 @@
  */
 package org.seasar.akabana.yui.logging.layout
 {
-    import mx.formatters.DateFormatter;
-    
     import org.seasar.akabana.yui.logging.LoggingEvent;
+    import org.seasar.akabana.yui.mx.util.DateFormatterUtil;
     
     /**
      * %c category name
@@ -29,8 +28,6 @@ package org.seasar.akabana.yui.logging.layout
      */ 
     public class PatternLayout extends LayoutBase
     {
-        private static const DATE_FORMATTER:DateFormatter = new DateFormatter();
-        
         private static const DATE_FORMAT:String = "YYYY/MM/DD JJ:NN:SS";
         
         public var pattern:String;
@@ -65,8 +62,7 @@ package org.seasar.akabana.yui.logging.layout
                                         i++;
                                     }
                                 }
-                                DATE_FORMATTER.formatString = formatString;
-                                result_ = DATE_FORMATTER.format(new Date());
+                                result_ = DateFormatterUtil.format(new Date(),formatString);
                                 break;
                             case 't':
                                 result_ += event.error != null ? event.error.getStackTrace() : "";
