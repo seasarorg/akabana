@@ -37,22 +37,15 @@ package org.seasar.akabana.yui.framework.mixin
 	 */
 	public class YuiFrameworkMixin
 	{
-        YuiCoreClasses;
-        LogManager.init();
-        YuiFrameworkClasses;
-        
-	    private static const _logManagerInitialized:Boolean = initLogManager();
-	    
-		private static const _this:YuiFrameworkMixin = new YuiFrameworkMixin();
+		private static var _this:YuiFrameworkMixin;
 		
-		private static const _container:YuiFrameworkContainer = new YuiFrameworkContainer();
-		
-		public static function initLogManager():Boolean{
-		    LogManager.init();
-		    return true;
-		}
+		private static var _container:YuiFrameworkContainer;
 		
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{
+            LogManager.init();
+            _this = new YuiFrameworkMixin();
+            _container = new YuiFrameworkContainer();
+
             if( flexModuleFactory is ISystemManager ){
                 var systemManager:ISystemManager = flexModuleFactory as ISystemManager;
                 systemManager.addEventListener(

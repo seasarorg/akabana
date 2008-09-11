@@ -18,9 +18,10 @@
 <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
 </excludedEntries>
 </libraryPathEntry>
-<libraryPathEntry kind="3" linkType="2" path="/yui-core/target/swc/yui-core.swc" useDefaultLinkType="false"/>
-<libraryPathEntry kind="3" linkType="2" path="/yui-logging/target/swc/yui-logging.swc" useDefaultLinkType="false"/>
-<libraryPathEntry kind="3" linkType="2" path="/yui-services/target/swc/yui-services.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="/mx-wrappers/target/swc/mx-wrappers.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="/yui-core/target/swc/yui-core.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="/yui-logging/target/swc/yui-logging.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="/yui-service/target/swc/yui-service.swc" useDefaultLinkType="false"/>
 </libraryPath>
 <sourceAttachmentPath/>
 </compiler>

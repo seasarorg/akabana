@@ -16,9 +16,12 @@
 package
 {
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
     import org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer;
+    import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
+    import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
     import org.seasar.akabana.yui.framework.error.RuntimeError;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin;
@@ -26,22 +29,19 @@ package
     
     public class YuiFrameworkClasses
     {
-        YuiCoreClasses;
-        YuiLoggingClasses;
-        
         NamingConvention;
-        
+        ViewComponentRepository;
         YuiFrameworkContainer;
-        
+        IComponentCustomizer;
         ActionCustomizer;
         EventHandlerCustomizer;
-        
-        YuiFrameworkMixin;
-        
+        ComponentDuplicatedRegistrationError;
         RuntimeError;
         
         FrameworkEvent;
         
         UIComponentUtil;
+        
+        YuiFrameworkMixin;
     }
 }
