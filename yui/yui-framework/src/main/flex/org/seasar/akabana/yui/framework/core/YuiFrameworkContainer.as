@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.framework.core
 {
     import flash.events.Event;
     import flash.events.TimerEvent;
+    import flash.utils.Dictionary;
     import flash.utils.Timer;
     
     import mx.core.Application;
@@ -66,7 +67,10 @@ package org.seasar.akabana.yui.framework.core
             applicationMonitoringStart();
         }
         
-        public function YuiFrameworkContainer(){            
+        public function YuiFrameworkContainer(){    
+    	    CursorManager;
+	        PopUpManager;
+	        DragManager;
         }
         
         public function initialize():void{
@@ -89,7 +93,6 @@ package org.seasar.akabana.yui.framework.core
             }
             
             application.visible = true;
-            application.dispatchEvent(new FrameworkEvent(FrameworkEvent.ASSEMBLED));
             
             logger.debugMessage("yui_framework","ViewComponentAssembleEnd"); 
          
@@ -106,6 +109,11 @@ package org.seasar.akabana.yui.framework.core
             var rootView:UIComponent = application.getChildByName("rootView") as UIComponent;
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+            }
+            
+            var componentMap:Dictionary = ViewComponentRepository.componentMap;
+            for each( var view:Container in componentMap ){
+            	view.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
             }
         }
         
@@ -233,6 +241,7 @@ package org.seasar.akabana.yui.framework.core
                 }
                 customizer_.customize( viewName, container );                    
             }
+            container.dispatchEvent( new FrameworkEvent(FrameworkEvent.ASSEMBLE_COMPELETE));
         }
 
         protected function processDisassembleView( container:Container ):void{
@@ -240,7 +249,7 @@ package org.seasar.akabana.yui.framework.core
                 var viewName:String = UIComponentUtil.getName(container);
                 for each( var customizer_:IComponentCustomizer in customizers ){
                     customizer_.namingConvention = namingConvention;
-                    customizer_.uncustomize( viewName, container);                    
+                    customizer_.uncustomize( viewName, container);
                 }
             }
         }

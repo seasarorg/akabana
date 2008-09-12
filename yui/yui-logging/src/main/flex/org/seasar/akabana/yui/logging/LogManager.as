@@ -20,6 +20,7 @@ package org.seasar.akabana.yui.logging
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.logging.category.SimpleCategory;
+    import org.seasar.akabana.yui.util.StringUtil;
     
     public class LogManager
     {        
@@ -108,7 +109,7 @@ package org.seasar.akabana.yui.logging
                 category.level = ROOT_LOGGER.level;
             }
             if( values.length > 1 ){
-                category.addAppender(APPENDER_CACHE[values[1]]);
+                category.addAppender(APPENDER_CACHE[StringUtil.trim(values[1])]);
             } else {
                 var rootAppenderNum:int = ROOT_LOGGER.appenderCount;
                 for( var i:int = 0; i < rootAppenderNum; i++ ){
@@ -123,7 +124,6 @@ package org.seasar.akabana.yui.logging
         }
 
         private final function doWalkCategoryTree( packeageName:String, categoryConfigTree:Object ):void{
-           try{
             for( var key:String in categoryConfigTree ){
                 if( key != VALUE ){
                     doWalkCategoryTree(
@@ -134,14 +134,6 @@ package org.seasar.akabana.yui.logging
                     configureCategory( packeageName, categoryConfigTree[key]);
                 }
             }
-           } catch( e:Error ){
-               trace("a");
-               trace("a");
-               trace("a");
-               trace("a");
-               
-               
-           }
         }        
         
 
