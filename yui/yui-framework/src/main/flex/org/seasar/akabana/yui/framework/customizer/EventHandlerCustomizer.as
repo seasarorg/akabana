@@ -17,13 +17,17 @@ package org.seasar.akabana.yui.framework.customizer {
 
     import flash.events.IEventDispatcher;
     
+    import mx.containers.ControlBar;
+    import mx.containers.Panel;
     import mx.core.Container;
     import mx.core.UIComponent;
-    import mx.core.UIComponentDescriptor;
+    import mx.core.mx_internal;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.logging.Logger;
+    
+    use namespace mx_internal;
     
     public class EventHandlerCustomizer extends AbstractEventCustomizer{
         
@@ -45,32 +49,41 @@ package org.seasar.akabana.yui.framework.customizer {
 
             logger.debugMessage("yui_framework","ViewEventCustomizing",viewName,actionClassRef.name);
             for( var index:int = 0; index < view.numChildren; index++ ){
-                do {
-                    component = view.getChildAt(index) as Container;
-                    if( component != null &&
-                        !namingConvention.isViewName(ClassRef.getReflector(component).name )
-                    ){
-                        doCustomizeByContainer(
-                            view,
-                            component as Container,
-                            action
-                        );
-                    }
-    			    component = view.getChildAt(index) as UIComponent;
-    			    if( component != null && component.id != null){
-    			        doCustomizeByComponent(
-                            view,
-                            component.id,
-                            action,
-                            actionClassRef.functions.filter(
-                                function(item:*, index:int, array:Array):Boolean{
-                                    return ( FunctionRef(item).name.indexOf(component.id) == 0 );
-                                }
-                            )
-                        );			        
-    			    }
-			    } while( false );
+
+                component = view.getChildAt(index) as Container;
+                if( component != null &&
+                    !namingConvention.isViewName(ClassRef.getReflector(component).name )
+                ){
+                    doCustomizeByContainer(
+                        view,
+                        component as Container,
+                        action
+                    );
+                }
+
+			    component = view.getChildAt(index) as UIComponent;
+			    if( component != null && component.id != null){
+			        doCustomizeByComponent(
+                        view,
+                        component.id,
+                        action,
+                        actionClassRef.functions.filter(
+                            function(item:*, index:int, array:Array):Boolean{
+                                return ( FunctionRef(item).name.indexOf(component.id) == 0 );
+                            }
+                        )
+                    );			        
+			    }
 			}
+			
+            if( view is Panel ){
+            	var controlBar:ControlBar = Panel(view).mx_internal::getControlBar() as ControlBar;
+                doCustomizeByContainer(
+                    view,
+                    controlBar,
+                    action
+                );
+            }
 			
             doCustomizeByComponent(
                 view,
