@@ -78,11 +78,13 @@ package org.seasar.akabana.yui.framework.customizer {
 			
             if( view is Panel ){
             	var controlBar:ControlBar = Panel(view).mx_internal::getControlBar() as ControlBar;
-                doCustomizeByContainer(
-                    view,
-                    controlBar,
-                    action
-                );
+                if( controlBar != null){
+	                doCustomizeByContainer(
+	                    view,
+	                    controlBar,
+	                    action
+	                );
+                }
             }
 			
             doCustomizeByComponent(
