@@ -16,10 +16,18 @@
     <target name="clean">
         <delete dir="${LIB_SRC}/generated"/>
         <delete dir="${LIB_PUBLISH_DIR}"/>
+        <delete>
+        	<fileset dir="libs" includes="*.swc"></fileset>
+    	</delete>    	
     </target>
     
     <target name="setup" depends="clean">
         <mkdir dir="${LIB_PUBLISH_DIR}"/>
+        <mkdir dir="${LIB_PUBLISH_DIR}"/>
+    	<copy todir="libs">
+    		<fileset dir="../mx-wrappers/target/swc" includes="*.swc" />
+    		<fileset dir="../yui-core/target/swc" includes="*.swc" />
+    	</copy>
     </target>
             
     <target name="compile" depends="setup">
@@ -66,6 +74,10 @@
 				<exclude name="**/build.properties"/>
 				<exclude name="**/flex3.properties"/>
 			</zipfileset>
+			<zipfileset prefix="${LIB_NAME}/target/swc" dir="target/swc">
+				<include name="*.swc"/>
+				<include name="*.swf"/>
+			</zipfileset>			
 		</zip>
 	</target>	
 </project>
