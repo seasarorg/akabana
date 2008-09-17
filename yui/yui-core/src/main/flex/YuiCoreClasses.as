@@ -25,6 +25,7 @@ package
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.resources.embed.EmbedXmlReader;
+    import org.seasar.akabana.yui.util.StringUtil;
     import org.seasar.akabana.yui.util.URLUtil;
     
     public class YuiCoreClasses
@@ -40,5 +41,6 @@ package
         PropertyRef;
         EmbedXmlReader;
         URLUtil;
+        StringUtil;
     }
 }
