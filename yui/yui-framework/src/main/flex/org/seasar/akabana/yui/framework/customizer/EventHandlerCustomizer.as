@@ -30,8 +30,6 @@ package org.seasar.akabana.yui.framework.customizer {
     use namespace mx_internal;
     
     public class EventHandlerCustomizer extends AbstractEventCustomizer{
-    	
-    	private static const ENHANCED_FUNCTION_SEPARETOR:String = "$";
         
         private static const logger:Logger = Logger.getLogger(EventHandlerCustomizer);
         

@@ -26,7 +26,11 @@ package org.seasar.akabana.yui.framework.customizer
     
     internal class AbstractEventCustomizer extends AbstractComponentCustomizer
     {
-
+    	
+    	protected static const ENHANCED_FUNCTION_SEPARETOR:String = "$";
+    	
+    	protected static const ENHANCED_FUNCTION_PREFIX:String = "enhanced$";
+        
         protected static const HANDLER_SUFFIX:String = "Handler";
         
         protected static const SELF_HANDLER_PREFIX:String = "on";
@@ -77,7 +81,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         private static function getEnhancedFunctionName( eventName:String ):String{
-            return "__enhanced_" + eventName + "Handler";
+            return ENHANCED_FUNCTION_PREFIX + eventName + HANDLER_SUFFIX;
         }
         
         private static function checkDescriptor(component:UIComponent):void{
