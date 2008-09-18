@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.framework.customizer
 
         protected static const HANDLER_SUFFIX:String = "Handler";
         
-        protected static const SELF_EVENT_PREFIX:String = "on";
+        protected static const SELF_HANDLER_PREFIX:String = "on";
         
         protected function addEventListener( component:IEventDispatcher, eventName:String, handler:Function ):void{
             component.addEventListener( eventName, handler, false, 0, true );

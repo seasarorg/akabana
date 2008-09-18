@@ -95,7 +95,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 action,
                 actionClassRef.functions.filter(
                     function(item:*, index:int, array:Array):Boolean{
-                        return ( FunctionRef(item).name.indexOf(SELF_EVENT_PREFIX) == 0 ) &&
+                        return ( FunctionRef(item).name.indexOf(SELF_HANDLER_PREFIX) == 0 ) &&
                                ( FunctionRef(item).name.indexOf(HANDLER_SUFFIX) > 3 ) ;
                     }
                 )
@@ -149,7 +149,9 @@ package org.seasar.akabana.yui.framework.customizer {
 			for each( var functionRef:FunctionRef in functionRefs ){
 			    functionName = functionRef.name;
 			    handlerIndex = functionName.lastIndexOf(HANDLER_SUFFIX);
+			    
 			    if( componentName != null ){
+			    	
 			        component = view[componentName] as IEventDispatcher;
 			        
 			        eventName = functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);
@@ -161,29 +163,24 @@ package org.seasar.akabana.yui.framework.customizer {
                     }
                     
                     enhancedFunction = createEnhancedEventHandler(component,action[functionName]);
-                    addEventListener(component,eventName,enhancedFunction);
-		        
-		            storeEnhancedEventHandler(view,componentName + ENHANCED_FUNCTION_SEPARETOR + eventName,enhancedFunction);
-                    
-                    logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName,eventName,functionName);
 		        } else {
+		        	
 		            component = view as IEventDispatcher;
 		            
 		            eventName = functionName.substr(2,1).toLocaleLowerCase() + functionName.substring(3,handlerIndex);
                     
-                    enhancedFunctionName = SELF_EVENT_PREFIX + ENHANCED_FUNCTION_SEPARETOR + eventName;
+                    enhancedFunctionName = SELF_HANDLER_PREFIX + ENHANCED_FUNCTION_SEPARETOR + eventName;
 		            enhancedFunction = loadEnhancedEventHandler( view, enhancedFunctionName);
                     if( enhancedFunction != null ){
                         view.removeEventListener(eventName, enhancedFunction);
                     }
-                    		            
+
                     enhancedFunction = createEnhancedEventHandler(component,action[functionName]);
-                    addEventListener(component,eventName,enhancedFunction);
-                    
-		            storeEnhancedEventHandler(view,eventName,enhancedFunction);
-                
-                    logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,view.className,eventName,functionName);
                 }
+
+                addEventListener(component,eventName,enhancedFunction);	        
+	            storeEnhancedEventHandler(view,enhancedFunctionName,enhancedFunction);                
+                logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName,eventName,functionName);
 			}
         }
     }
