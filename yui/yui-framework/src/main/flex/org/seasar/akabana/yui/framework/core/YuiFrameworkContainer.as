@@ -29,6 +29,8 @@ package org.seasar.akabana.yui.framework.core
     import mx.managers.CursorManager;
     import mx.managers.DragManager;
     import mx.managers.PopUpManager;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
@@ -50,12 +52,6 @@ package org.seasar.akabana.yui.framework.core
         
         public var customizers:Array;
         
-        protected var cursorManager:CursorManager;
-        
-        protected var popUpManager:PopUpManager;
-        
-        protected var dragManager:DragManager;
-        
         protected var _callTimer:Timer = new Timer(100,1);
         
         protected var _application:Application;
@@ -67,9 +63,10 @@ package org.seasar.akabana.yui.framework.core
         public function set application( value:Application ):void{
             _application = value;
             applicationMonitoringStart();
+            initNamingConvention();
         }
         
-        public function YuiFrameworkContainer(){    
+        public function YuiFrameworkContainer(){
     	    CursorManager;
 	        PopUpManager;
 	        DragManager;
@@ -186,9 +183,9 @@ package org.seasar.akabana.yui.framework.core
                 if( componentName == null ){
                     
                     componentName = container.name;
-//                    if(componentName == "hiddenItem"){
-//                        return;
-//                    }                    
+                    if(componentName == "hiddenItem"){
+                        return;
+                    }                
                     ViewComponentRepository.addComponent( componentName, container );              
                     logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);                  
                 } else {
@@ -284,7 +281,12 @@ package org.seasar.akabana.yui.framework.core
                 true,
                 int.MAX_VALUE
             );
-        }     
+        }    
+        
+        protected function initNamingConvention():void{
+            namingConvention = new NamingConvention();
+            namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");            
+        } 
         
         protected function getDefaultCustomizers():Array{
             return [

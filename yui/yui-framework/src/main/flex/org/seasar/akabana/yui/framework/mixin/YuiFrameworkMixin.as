@@ -29,7 +29,8 @@ package org.seasar.akabana.yui.framework.mixin
 	
 	[Mixin]
 	[ResourceBundle("yui_framework")]
-    /**
+	[ResourceBundle("conventions")]
+	/**
 	 * YuiFramework初期設定用Mixinクラス
 	 * 
 	 * @author $Author$
@@ -81,7 +82,7 @@ package org.seasar.akabana.yui.framework.mixin
             if( event.target is UIComponent ){
                 _container.registerComponent(event.target as UIComponent);
             }
-        }        
+        } 
         
         private function applicationCompleteHandler( event:FlexEvent ):void{
             if( event.currentTarget is ISystemManager ){
