@@ -27,9 +27,9 @@ package org.seasar.akabana.yui.framework.customizer
     internal class AbstractEventCustomizer extends AbstractComponentCustomizer
     {
 
-        protected static var HANDLER:String = "Handler";
+        protected static const HANDLER_SUFFIX:String = "Handler";
         
-        protected static var SELF_EVENT_PREFIX:String = "on";
+        protected static const SELF_EVENT_PREFIX:String = "on";
         
         protected function addEventListener( component:IEventDispatcher, eventName:String, handler:Function ):void{
             component.addEventListener( eventName, handler, false, 0, true );

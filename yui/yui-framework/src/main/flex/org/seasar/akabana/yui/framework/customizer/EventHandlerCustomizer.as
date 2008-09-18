@@ -30,6 +30,8 @@ package org.seasar.akabana.yui.framework.customizer {
     use namespace mx_internal;
     
     public class EventHandlerCustomizer extends AbstractEventCustomizer{
+    	
+    	private static const ENHANCED_FUNCTION_SEPARETOR:String = "$";
         
         private static const logger:Logger = Logger.getLogger(EventHandlerCustomizer);
         
@@ -94,7 +96,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 actionClassRef.functions.filter(
                     function(item:*, index:int, array:Array):Boolean{
                         return ( FunctionRef(item).name.indexOf(SELF_EVENT_PREFIX) == 0 ) &&
-                               ( FunctionRef(item).name.indexOf(HANDLER) > 3 ) ;
+                               ( FunctionRef(item).name.indexOf(HANDLER_SUFFIX) > 3 ) ;
                     }
                 )
             );  
@@ -146,13 +148,13 @@ package org.seasar.akabana.yui.framework.customizer {
 			var component:IEventDispatcher;
 			for each( var functionRef:FunctionRef in functionRefs ){
 			    functionName = functionRef.name;
-			    handlerIndex = functionName.lastIndexOf(HANDLER);
+			    handlerIndex = functionName.lastIndexOf(HANDLER_SUFFIX);
 			    if( componentName != null ){
 			        component = view[componentName] as IEventDispatcher;
 			        
 			        eventName = functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);
                     
-                    enhancedFunctionName = componentName + "_" + eventName;
+                    enhancedFunctionName = componentName + ENHANCED_FUNCTION_SEPARETOR + eventName;
                     enhancedFunction = loadEnhancedEventHandler( view, enhancedFunctionName);
                     if( enhancedFunction != null ){
                         component.removeEventListener(eventName, enhancedFunction);
@@ -161,7 +163,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     enhancedFunction = createEnhancedEventHandler(component,action[functionName]);
                     addEventListener(component,eventName,enhancedFunction);
 		        
-		            storeEnhancedEventHandler(view,componentName + "_" + eventName,enhancedFunction);
+		            storeEnhancedEventHandler(view,componentName + ENHANCED_FUNCTION_SEPARETOR + eventName,enhancedFunction);
                     
                     logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName,eventName,functionName);
 		        } else {
@@ -169,7 +171,7 @@ package org.seasar.akabana.yui.framework.customizer {
 		            
 		            eventName = functionName.substr(2,1).toLocaleLowerCase() + functionName.substring(3,handlerIndex);
                     
-                    enhancedFunctionName = "on_" + eventName;
+                    enhancedFunctionName = SELF_EVENT_PREFIX + ENHANCED_FUNCTION_SEPARETOR + eventName;
 		            enhancedFunction = loadEnhancedEventHandler( view, enhancedFunctionName);
                     if( enhancedFunction != null ){
                         view.removeEventListener(eventName, enhancedFunction);
