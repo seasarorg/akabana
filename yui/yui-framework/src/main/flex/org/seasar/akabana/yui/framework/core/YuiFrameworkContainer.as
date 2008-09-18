@@ -284,8 +284,10 @@ package org.seasar.akabana.yui.framework.core
         }    
         
         protected function initNamingConvention():void{
-            namingConvention = new NamingConvention();
-            namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");            
+        	if( namingConvention == null ){
+            	namingConvention = new NamingConvention();
+            	namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");            
+         	}
         } 
         
         protected function getDefaultCustomizers():Array{
