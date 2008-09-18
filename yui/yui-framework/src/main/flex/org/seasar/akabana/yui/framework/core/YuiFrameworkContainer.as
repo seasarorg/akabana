@@ -42,6 +42,8 @@ package org.seasar.akabana.yui.framework.core
     
     public class YuiFrameworkContainer
     {
+    	private static const ROOT_VIEW:String = "rootView";
+    	
         private static const logger:Logger = Logger.getLogger(YuiFrameworkContainer);
                 
         public var namingConvention:NamingConvention;
@@ -106,7 +108,7 @@ package org.seasar.akabana.yui.framework.core
         
         private function callApplicationStart( event:TimerEvent ):void{
             logger.debugMessage("yui_framework","ApplicationStart");
-            var rootView:UIComponent = application.getChildByName("rootView") as UIComponent;
+            var rootView:UIComponent = application.getChildByName(ROOT_VIEW) as UIComponent;
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
             }
