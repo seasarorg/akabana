@@ -10,6 +10,7 @@
           <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
         </modifiedEntries>
         <excludedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/datavisualization.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
@@ -18,10 +19,10 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
-      <libraryPathEntry kind="3" linkType="1" path="/mx-wrappers/target/swc/mx-wrappers.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/yui-core/target/swc/yui-core.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/yui-logging/target/swc/yui-logging.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/yui-service/target/swc/yui-service.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/mx-wrappers/target/swc/mx-wrappers.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/yui-core/target/swc/yui-core.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/yui-logging/target/swc/yui-logging.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/yui-service/target/swc/yui-service.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
