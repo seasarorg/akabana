@@ -74,11 +74,11 @@ package org.seasar.akabana.yui.framework.core
         
         public function initialize():void{
             logger.debugMessage("yui_framework","ApplicationInit");
+            logger.debugMessage("yui_framework","ApplicationConventions",namingConvention.conventions.toString());
             
             if( customizers == null ){
                 customizers = getDefaultCustomizers();
             }
-            
             logger.debugMessage("yui_framework","ViewComponentAssembleStart"); 
             
             var viewMap:Object = ViewComponentRepository.componentMap;
@@ -112,7 +112,9 @@ package org.seasar.akabana.yui.framework.core
             
             var componentMap:Dictionary = ViewComponentRepository.componentMap;
             for each( var view:Container in componentMap ){
-            	view.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+                if( rootView != view ){
+            	   view.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+                }
             }
         }
         
@@ -286,7 +288,7 @@ package org.seasar.akabana.yui.framework.core
         protected function initNamingConvention():void{
         	if( namingConvention == null ){
             	namingConvention = new NamingConvention();
-            	namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");            
+            	namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");
          	}
         } 
         

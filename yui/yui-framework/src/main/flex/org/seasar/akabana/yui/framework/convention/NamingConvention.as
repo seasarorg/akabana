@@ -18,11 +18,15 @@ package org.seasar.akabana.yui.framework.convention
     public class NamingConvention
     {
         private var _conventions:Array;
+
+        public function get conventions():Array{
+            return _conventions;
+        }
         
         public function set conventions( value:Array ):void{
             _conventions = value;
         }
-        
+                
         public function NamingConvention()
         {
         }

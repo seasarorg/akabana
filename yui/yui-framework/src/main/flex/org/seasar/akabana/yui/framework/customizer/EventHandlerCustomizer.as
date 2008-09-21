@@ -138,6 +138,16 @@ package org.seasar.akabana.yui.framework.customizer {
         }
 
         private function doCustomizeByComponent( view:Container, componentName:String, action:Object, functionRefs:Array):void {
+
+            var componentViewName:String;
+            if( componentName != null ){
+                componentViewName = componentName;
+                component = view[componentName] as IEventDispatcher;
+            } else {
+                componentViewName = SELF_HANDLER_PREFIX;
+                component = view as IEventDispatcher;
+            }
+            
             var functionName:String;
 			var handlerIndex:int;
 			var eventName:String;
@@ -148,37 +158,18 @@ package org.seasar.akabana.yui.framework.customizer {
 			    functionName = functionRef.name;
 			    handlerIndex = functionName.lastIndexOf(HANDLER_SUFFIX);
 			    
-			    if( componentName != null ){
-			    	
-			        component = view[componentName] as IEventDispatcher;
-			        
-			        eventName = functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);
-                    
-                    enhancedFunctionName = componentName + ENHANCED_FUNCTION_SEPARETOR + eventName;
-                    enhancedFunction = loadEnhancedEventHandler( view, enhancedFunctionName);
-                    if( enhancedFunction != null ){
-                        component.removeEventListener(eventName, enhancedFunction);
-                    }
-                    
-                    enhancedFunction = createEnhancedEventHandler(component,action[functionName]);
-		        } else {
-		        	
-		            component = view as IEventDispatcher;
-		            
-		            eventName = functionName.substr(2,1).toLocaleLowerCase() + functionName.substring(3,handlerIndex);
-                    
-                    enhancedFunctionName = SELF_HANDLER_PREFIX + ENHANCED_FUNCTION_SEPARETOR + eventName;
-		            enhancedFunction = loadEnhancedEventHandler( view, enhancedFunctionName);
-                    if( enhancedFunction != null ){
-                        view.removeEventListener(eventName, enhancedFunction);
-                    }
-
-                    enhancedFunction = createEnhancedEventHandler(component,action[functionName]);
+			    eventName = functionName.substr(componentViewName.length,1).toLocaleLowerCase() + functionName.substring(componentViewName.length+1,handlerIndex);
+                enhancedFunctionName = componentViewName + ENHANCED_FUNCTION_SEPARETOR + eventName;
+                
+                enhancedFunction = loadEnhancedEventHandler( view, enhancedFunctionName);
+                if( enhancedFunction != null ){
+                    component.removeEventListener(eventName, enhancedFunction);
                 }
-
+                enhancedFunction = createEnhancedEventHandler(component,action[functionName]);
+                
                 addEventListener(component,eventName,enhancedFunction);	        
 	            storeEnhancedEventHandler(view,enhancedFunctionName,enhancedFunction);                
-                logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName,eventName,functionName);
+                logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName != null ? componentViewName : view.name, eventName,functionName);
 			}
         }
     }
