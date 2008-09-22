@@ -66,6 +66,10 @@
 				<exclude name="**/build.properties"/>
 				<exclude name="**/flex3.properties"/>
 			</zipfileset>
+			<zipfileset prefix="${LIB_NAME}/target/swc" dir="target/swc">
+				<include name="*.swc"/>
+				<include name="*.swf"/>
+			</zipfileset>			
 		</zip>
 	</target>	
 </project>
