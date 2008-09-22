@@ -1,5 +1,5 @@
 <project name="yui-samples" default="dist" basedir=".">
-	<property name="ver" value="alpha-7"/>
+	<property name="ver" value="beta1"/>
     <!-- ================================= 
           target: dist              
          ================================= -->	
