@@ -18,6 +18,7 @@
      	<delete>
      		<fileset dir="target">
      			<exclude name="**/generated/*" />
+     			<exclude name="**/build.xml" />
      			<include name="*" />
 				<include name="**/bin/*" />
      		</fileset>
