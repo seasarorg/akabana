@@ -30,8 +30,6 @@ package org.seasar.akabana.yui.service.ds {
     
     public dynamic class RemotingService extends RemoteObject implements Service {
         
-        private var gatewayUrl_:String;
-        
         private var parentApplication:Application;
 
         public function get name():String{
