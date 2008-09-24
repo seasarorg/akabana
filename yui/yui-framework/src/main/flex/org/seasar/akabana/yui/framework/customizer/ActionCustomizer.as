@@ -103,7 +103,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 var viewClassName:String = namingConvention.getViewName( helperClassRef.name );
                 var propertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
                 
-                if( propertyRefs.length > 0 ){
+                if( propertyRefs != null && propertyRefs.length > 0 ){
                     var helperView:UIComponent;
                     var propertyRef_:PropertyRef = propertyRefs[0];
                     if( propertyRef_.typeClassRef == baseViewClassRef){
