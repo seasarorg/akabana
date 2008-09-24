@@ -154,8 +154,32 @@ package org.seasar.akabana.yui.core.reflection
             assembleThis( describeTypeXml );
         }
         
-        public function newInstance():Object{
-            return new concreteClass();
+        public function newInstance(... args):Object{
+            var instance_:Object;
+            
+            switch( args.length ){
+                case 1:
+                    instance_ = new concreteClass( args[0] );
+                    break;
+                case 2:
+                    instance_ = new concreteClass( args[0], args[1] );
+                    break;
+                case 3:
+                    instance_ = new concreteClass( args[0], args[1], args[2] );
+                    break;
+                case 4:
+                    instance_ = new concreteClass( args[0], args[1], args[2], args[3] );
+                    break;
+                case 5:
+                    instance_ = new concreteClass( args[0], args[1], args[2], args[3], args[4] );
+                    break;
+                    
+                default:
+                    instance_ = new concreteClass();
+                
+            }
+            
+            return instance_;
         }
         
         public function getFunctionRef( functionName:String ):FunctionRef{
