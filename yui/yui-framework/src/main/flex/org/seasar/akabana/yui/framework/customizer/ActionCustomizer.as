@@ -149,7 +149,7 @@ package org.seasar.akabana.yui.framework.customizer {
         protected function processServiceCustomize( viewName:String, propertyRef:PropertyRef ):Service{
             var rpcservice:Service = ServiceRepository.getService( propertyRef.name );
             if( rpcservice == null && !propertyRef.typeClassRef.isInterface){
-                rpcservice = propertyRef.typeClassRef.newInstance() as Service;
+                rpcservice = propertyRef.typeClassRef.newInstance(propertyRef.name) as Service;
                 rpcservice.destination = propertyRef.name;
                 ServiceRepository.addService( rpcservice );
             }
