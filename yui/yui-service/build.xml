@@ -23,7 +23,6 @@
     
     <target name="setup" depends="clean">
         <mkdir dir="${LIB_PUBLISH_DIR}"/>
-        <mkdir dir="${LIB_PUBLISH_DIR}"/>
     	<copy todir="libs">
     		<fileset dir="../mx-wrappers/target/swc" includes="*.swc" />
     		<fileset dir="../yui-core/target/swc" includes="*.swc" />
