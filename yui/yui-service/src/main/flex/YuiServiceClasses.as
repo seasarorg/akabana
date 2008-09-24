@@ -23,10 +23,12 @@ package
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.FaultStatus;
     import org.seasar.akabana.yui.service.event.ResultEvent;
+    import org.seasar.akabana.yui.service.rpc.RpcService;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingConnection;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingConnectionFactory;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingService;
+    import org.seasar.akabana.yui.service.rpc.remoting.util.GatewayUtil;
     
     public class YuiServiceClasses
     {
@@ -40,11 +42,15 @@ package
         ResultEvent;
         FaultStatus;
         
+        RpcService;
+        
         RemotingService;
         
         RemotingConnection;
         RemotingOperation;
         RemotingConnectionFactory;
+        
+        GatewayUtil;
 
     }
 }

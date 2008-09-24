@@ -17,23 +17,16 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     
     import flash.net.ObjectEncoding;
     
-    import org.seasar.akabana.yui.mx.util.ApplicationUtil;
-    import org.seasar.akabana.yui.util.URLUtil;
+    import org.seasar.akabana.yui.service.rpc.remoting.util.GatewayUtil;
     
     
     public class RemotingConnectionFactory {
-    	
-    	public static var defaultGateway:String;
-        
-        private static const REMOTING_PREFIX:String = "remoting.";
-        
-        private static const DEFAULT_GATEWAY:String = REMOTING_PREFIX + "defaultGateway";
         
         private static const gatewayUrlToRc:Object = {};
         
         public static function createConnection( gatewayUrl:String, destination:String ):RemotingConnection{
             if( gatewayUrl == null ){
-                gatewayUrl = resolveGatewayUrl( destination );            
+                gatewayUrl = GatewayUtil.resolveGatewayUrl( destination );            
             }
             if( gatewayUrl == null ){
                 throw new Error("gatewayUrlが設定されていません。");
@@ -53,44 +46,6 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     			gatewayUrlToRc[ gatewayUrl ] = connection;
             }
 			return connection;
-        }
-
-        private static function resolveGatewayUrl( destination:String ):String{
-            var gatewayUrl:String = null;
-            do{ 
-                gatewayUrl = ApplicationUtil.getParameterValue(REMOTING_PREFIX + destination );
-                if( gatewayUrl != null ){
-                    break;
-                }
-
-                gatewayUrl = RemotingConnectionFactory.defaultGateway;
-                if( gatewayUrl != null ){
-                    break;
-                }
-                
-                gatewayUrl = ApplicationUtil.getParameterValue( DEFAULT_GATEWAY );
-                if( gatewayUrl != null ){
-                	RemotingConnectionFactory.defaultGateway = gatewayUrl;
-                	break;
-                }
-                
-                gatewayUrl = resolveGatewayUrlByURL();
-                
-                
-            } while( false );
-            
-            return gatewayUrl;
-        }
-
-        private static function resolveGatewayUrlByURL():String{
-            var gatewayUrl:String = null;
-            var url:String = ApplicationUtil.loadedUrl;
-            
-            if( URLUtil.isValidHttpUrl(url)){
-                gatewayUrl = url.substring(0, url.lastIndexOf("/")+1 ) + "gateway";
-            }
-                        
-            return gatewayUrl;
         }
     }
 }

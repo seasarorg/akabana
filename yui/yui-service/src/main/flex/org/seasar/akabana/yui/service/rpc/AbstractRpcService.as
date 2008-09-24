@@ -23,11 +23,10 @@ package org.seasar.akabana.yui.service.rpc {
     
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.Service;
 
     use namespace flash_proxy;
 
-    public dynamic class AbstractRpcService extends Proxy implements Service {
+    public dynamic class AbstractRpcService extends Proxy implements RpcService {
         
         protected static const OBJECT_FUNCTION_MAP:Object = {
             hasOwnProperty:true,
@@ -92,7 +91,7 @@ package org.seasar.akabana.yui.service.rpc {
     	    return operations.hasOwnProperty( name );
     	}
     	
-    	public function setCredentials(username:String, password:String):void{
+    	public function setCredentials(username:String, password:String, charset:String=null):void{
             credentialsUsername = username;
             credentialsPassword = password;   	    
     	}
