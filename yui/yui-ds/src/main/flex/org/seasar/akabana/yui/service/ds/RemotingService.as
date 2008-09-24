@@ -30,8 +30,6 @@ package org.seasar.akabana.yui.service.ds {
     
     public dynamic class RemotingService extends RemoteObject implements Service {
         
-        public var channelName:String;
-        
         private var gatewayUrl_:String;
         
         private var parentApplication:Application;
