@@ -20,11 +20,13 @@ package org.seasar.akabana.yui.framework.customizer {
     import mx.containers.ControlBar;
     import mx.containers.Panel;
     import mx.core.Container;
+    import mx.core.IMXMLObject;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
+    import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.logging.Logger;
     
     use namespace mx_internal;
@@ -48,6 +50,8 @@ package org.seasar.akabana.yui.framework.customizer {
             var component:UIComponent;
 
             logger.debugMessage("yui_framework","ViewEventCustomizing",viewName,actionClassRef.name);
+            
+            //for children
             for( var index:int = 0; index < view.numChildren; index++ ){
 
                 component = view.getChildAt(index) as Container;
@@ -75,18 +79,37 @@ package org.seasar.akabana.yui.framework.customizer {
                     );			        
 			    }
 			}
-			
+
             if( view is Panel ){
-            	var controlBar:ControlBar = Panel(view).mx_internal::getControlBar() as ControlBar;
+                var controlBar:ControlBar = Panel(view).mx_internal::getControlBar() as ControlBar;
                 if( controlBar != null){
-	                doCustomizeByContainer(
-	                    view,
-	                    controlBar,
-	                    action
-	                );
+                    doCustomizeByContainer(
+                        view,
+                        controlBar,
+                        action
+                    );
+                }
+            }
+            
+            //for children
+			var props:Array = ClassRef.getReflector(ClassRef.getQualifiedClassName(view)).properties;
+            for each( var prop:PropertyRef in props ){
+                var child:IMXMLObject = view[ prop.name ] as IMXMLObject;
+                if( child != null && child is IEventDispatcher ){
+                    doCustomizeByComponent(
+                        view,
+                        prop.name,
+                        action,
+                        actionClassRef.functions.filter(
+                            function(item:*, index:int, array:Array):Boolean{
+                                return ( FunctionRef(item).name.indexOf(prop.name) == 0 );
+                            }
+                        )
+                    );
                 }
             }
 			
+			//for self
             doCustomizeByComponent(
                 view,
                 null,
