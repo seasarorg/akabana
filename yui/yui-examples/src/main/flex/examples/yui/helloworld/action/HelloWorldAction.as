@@ -10,12 +10,18 @@ package examples.yui.helloworld.action
         
         public var helloWorldHelper:HelloWorldHelper;
         
+        private var isFirst:Boolean = true;
+        
         public function onApplicationStartHandler( event:FrameworkEvent ):void{
             trace( event );
         }
         
         public function showHelloWorldClickHandler( event:MouseEvent ):void{
-            helloWorldHelper.showAlert("showHelloWorldクリックされました。");
+            if( isFirst ){
+                isFirst = false;
+                helloWorldHelper.showAlert("showHelloWorldクリックされました。");
+                helloWorldHelper.disableButton();    
+            }
         }
     }
 }

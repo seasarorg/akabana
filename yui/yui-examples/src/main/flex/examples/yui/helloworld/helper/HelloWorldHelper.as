@@ -7,11 +7,14 @@ package examples.yui.helloworld.helper
     public class HelloWorldHelper
     {
         public var view:HelloWorldView;
-        
-        
+                
         public function showAlert( message:String ):void{
             Alert.show(message,"message");
         }
 
+        public function disableButton():void{
+            view.showHelloWorld.enabled = false;
+            view.showHelloWorld.label = "";
+        }
     }
 }
