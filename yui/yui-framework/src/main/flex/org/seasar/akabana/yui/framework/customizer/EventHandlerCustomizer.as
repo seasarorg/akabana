@@ -163,6 +163,7 @@ package org.seasar.akabana.yui.framework.customizer {
         private function doCustomizeByComponent( view:Container, componentName:String, action:Object, functionRefs:Array):void {
 
             var componentViewName:String;
+            var component:IEventDispatcher;
             if( componentName != null ){
                 componentViewName = componentName;
                 component = view[componentName] as IEventDispatcher;
@@ -174,24 +175,23 @@ package org.seasar.akabana.yui.framework.customizer {
             var functionName:String;
 			var handlerIndex:int;
 			var eventName:String;
+            var enhancedEventName:String;
 			var enhancedFunction:Function;
-            var enhancedFunctionName:String;
-			var component:IEventDispatcher;
 			for each( var functionRef:FunctionRef in functionRefs ){
 			    functionName = functionRef.name;
 			    handlerIndex = functionName.lastIndexOf(HANDLER_SUFFIX);
 			    
 			    eventName = functionName.substr(componentViewName.length,1).toLocaleLowerCase() + functionName.substring(componentViewName.length+1,handlerIndex);
-                enhancedFunctionName = componentViewName + ENHANCED_FUNCTION_SEPARETOR + eventName;
+                enhancedEventName = getEnhancedEventName(componentViewName,eventName);
                 
-                enhancedFunction = loadEnhancedEventHandler( view, enhancedFunctionName);
+                enhancedFunction = loadEnhancedEventHandler( view, enhancedEventName);
                 if( enhancedFunction != null ){
                     component.removeEventListener(eventName, enhancedFunction);
                 }
                 enhancedFunction = createEnhancedEventHandler(component,action[functionName]);
                 
-                addEventListener(component,eventName,enhancedFunction);	        
-	            storeEnhancedEventHandler(view,enhancedFunctionName,enhancedFunction);                
+                addEventListener( component, eventName, enhancedFunction);	        
+	            storeEnhancedEventHandler(view, enhancedEventName,enhancedFunction);                
                 logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName != null ? componentViewName : view.name, eventName,functionName);
 			}
         }

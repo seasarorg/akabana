@@ -26,14 +26,23 @@ package org.seasar.akabana.yui.framework.customizer
     
     internal class AbstractEventCustomizer extends AbstractComponentCustomizer
     {
-    	
-    	protected static const ENHANCED_FUNCTION_SEPARETOR:String = "$";
-    	
-    	protected static const ENHANCED_FUNCTION_PREFIX:String = "enhanced$";
+        protected static const ENHANCED_SEPARETOR:String = "$";
+        
+        protected static const ENHANCED_PREFIX:String = ENHANCED_SEPARETOR + "enhanced" + ENHANCED_SEPARETOR;
         
         protected static const HANDLER_SUFFIX:String = "Handler";
         
         protected static const SELF_HANDLER_PREFIX:String = "on";
+        
+        private static function checkDescriptor(component:UIComponent):void{
+            if( component.descriptor.events == null ){
+                component.descriptor.events = new Dictionary(true);
+            }
+        }
+        
+        protected static function getEnhancedEventName( viewName:String, eventName:String ):String{
+            return viewName + ENHANCED_PREFIX + eventName;
+        }        
         
         protected function addEventListener( component:IEventDispatcher, eventName:String, handler:Function ):void{
             component.addEventListener( eventName, handler, false, 0, true );
@@ -41,12 +50,12 @@ package org.seasar.akabana.yui.framework.customizer
         
         protected function storeEnhancedEventHandler( component:UIComponent, eventName:String, handler:Function ):void{
             checkDescriptor(component);
-            component.descriptor.events[getEnhancedFunctionName(eventName)] = handler;
+            component.descriptor.events[eventName] = handler;
         }
 
-        protected function loadEnhancedEventHandler( component:UIComponent, functionName:String ):Function{
+        protected function loadEnhancedEventHandler( component:UIComponent, eventName:String ):Function{
             checkDescriptor(component);
-            return component.descriptor.events[getEnhancedFunctionName(functionName)];
+            return component.descriptor.events[eventName];
         }
         
         protected function createEnhancedEventHandler( owner:IEventDispatcher, handler:Function ):Function{
@@ -78,16 +87,6 @@ package org.seasar.akabana.yui.framework.customizer
             func_.proto = handler;
             
             return func_ as Function;
-        }
-        
-        private static function getEnhancedFunctionName( eventName:String ):String{
-            return ENHANCED_FUNCTION_PREFIX + eventName + HANDLER_SUFFIX;
-        }
-        
-        private static function checkDescriptor(component:UIComponent):void{
-            if( component.descriptor.events == null ){
-                component.descriptor.events = new Dictionary(true);
-            }
         }
     }
 }
