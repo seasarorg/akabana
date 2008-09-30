@@ -294,9 +294,9 @@ package org.seasar.akabana.yui.framework.core
         
         protected function getDefaultCustomizers():Array{
             return [
+                new ValidatorCustomizer(),
                 new ActionCustomizer(),
-                new EventHandlerCustomizer(),
-                new ValidatorCustomizer()
+                new EventHandlerCustomizer()
             ];
         }     
     }

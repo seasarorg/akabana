@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.framework.convention
     {
         private static const DOT:String = ".";
 
-        protected static function changePackageTo( viewName:String, packageName:String, suffix:String ):String{
+        protected static function changeViewPackageTo( viewName:String, packageName:String, suffix:String ):String{
             var classPathArray:Array = viewName.match(/^(.+)\.view\.(.+?)View$/);
             return classPathArray[1] + DOT + packageName + DOT + classPathArray[2] + suffix;
         }
@@ -89,32 +89,32 @@ package org.seasar.akabana.yui.framework.convention
         public function getViewName( name:String ):String{
             var viewName:String = null;
             
-            var classPathArray:Array = name.match(/^(.+)\.helper\.(.+?)Helper/);
+            var classPathArray:Array = name.match(/^(.+)\.helper\.(.+?)Helper$/);
             if( classPathArray.length <= 1 ){
-                classPathArray = name.match(/^(.+)\.action\.(.+?)Action/);
+                classPathArray = name.match(/^(.+)\.action\.(.+?)Action$/);
             }
             if( classPathArray.length > 1 ){
-                viewName = classPathArray[1] + ".view." + classPathArray[classPathArray.length-1] + "View";                
+                viewName = classPathArray[1] + DOT + getViewPackageName() + DOT + classPathArray[classPathArray.length-1] + getViewSuffix();                
             }
             return viewName;
         }
 
         public function getActionName( viewName:String ):String{
-            return changePackageTo( viewName, getActionPackageName(), getActionSuffix() );            
+            return changeViewPackageTo( viewName, getActionPackageName(), getActionSuffix() );            
         }
         
         public function getHelperName( viewName:String ):String{
-            return changePackageTo( viewName, getHelperPackageName(), getHelperSuffix()); 
+            return changeViewPackageTo( viewName, getHelperPackageName(), getHelperSuffix()); 
         }
 		
 		public function getLogicName( viewName:String ):String
 		{
-            return changePackageTo( viewName, getLogicPackageName(), getLogicSuffix() ); 
+            return changeViewPackageTo( viewName, getLogicPackageName(), getLogicSuffix() ); 
 		}
 
         public function getValidatorName( viewName:String ):String
         {
-            return changePackageTo( viewName, getValidatorPackageName(), getValidatorSuffix() ); 
+            return changeViewPackageTo( viewName, getValidatorPackageName(), getValidatorSuffix() ); 
         }		
 		
         public function isViewName( className:String ):Boolean{

@@ -33,6 +33,8 @@ package org.seasar.akabana.yui.framework.customizer {
         
         private static const viewToHelper:Object = new Dictionary(true);
         
+        private static const viewToValidator:Object = new Dictionary(true);
+        
         public override function customize( viewName:String, view:Container ):void {
             var viewClassName:String = ClassRef.getReflector(view).name;
             var actionName:String = _namingConvention.getActionName(viewClassName);
@@ -45,7 +47,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 actionClassRef = ClassRef.getReflector(actionName);
                 processActionCustomize( viewName, view, actionClassRef );
             } catch( e:Error ){
-                logger.debugMessage("yui_framework","HelperCustomizeError",viewName,e.getStackTrace());
+                logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
             }
         }
             
@@ -80,8 +82,6 @@ package org.seasar.akabana.yui.framework.customizer {
                         logger.debugMessage("yui_framework","ServiceCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
                         continue;
                     }
-                    
-                    
                 }
             }
         }
@@ -117,10 +117,19 @@ package org.seasar.akabana.yui.framework.customizer {
                         viewToHelper[ helperView ] = helper;
                     } 
                     helper[ propertyRef_.name ] = helperView;
+
+                    var validatorClassName:String = namingConvention.getValidatorName( viewClassName );
+                    propertyRefs = helperClassRef.getPropertyRefByType(validatorClassName);
+                
+                    if( propertyRefs != null && propertyRefs.length > 0 ){
+                        propertyRef_ = propertyRefs[0];
+                        helper[ propertyRef_.name ] = helperView.descriptor.properties[ namingConvention.getValidatorPackageName() ];
+                    }
                 }
+                
             } catch( e:Error ){
-                logger.debugMessage("yui_framework","HelperCustomizeError",propertyRef.type,e.getStackTrace());
-            } 
+                logger.debugMessage("yui_framework","CustomizeError",propertyRef.type,e.getStackTrace());
+            }
             
             return helper;
         }
@@ -140,7 +149,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     }
                 }
             } catch( e:Error ){
-                logger.debugMessage("yui_framework","HelperCustomizeError",propertyRef.type,e.getStackTrace());
+                logger.debugMessage("yui_framework","CustomizeError",propertyRef.type,e.getStackTrace());
             } 
             
             return logic;

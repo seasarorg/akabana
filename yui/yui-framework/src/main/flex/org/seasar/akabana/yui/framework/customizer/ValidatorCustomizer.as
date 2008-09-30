@@ -41,7 +41,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 validatorClassRef = ClassRef.getReflector(validatorName);
                 processValidatorCustomize( viewName, view, validatorClassRef );
             } catch( e:Error ){
-                logger.debugMessage("yui_framework","HelperCustomizeError",viewName,e.getStackTrace());
+                logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
             }            
         }
         
