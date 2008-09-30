@@ -17,6 +17,13 @@ package org.seasar.akabana.yui.framework.convention
 {
     public class NamingConvention
     {
+        private static const DOT:String = ".";
+
+        protected static function changePackageTo( viewName:String, packageName:String, suffix:String ):String{
+            var classPathArray:Array = viewName.match(/^(.+)\.view\.(.+?)View$/);
+            return classPathArray[1] + DOT + packageName + DOT + classPathArray[2] + suffix;
+        }
+                
         private var _conventions:Array;
 
         public function get conventions():Array{
@@ -51,6 +58,10 @@ package org.seasar.akabana.yui.framework.convention
             return "logic";
         }
         
+        public function getValidatorPackageName():String{
+            return "validator";
+        }
+        
         public function getViewSuffix():String{
             return "View";
         }
@@ -70,6 +81,10 @@ package org.seasar.akabana.yui.framework.convention
         public function getLogicSuffix():String{
             return "Logic";
         }
+        
+        public function getValidatorSuffix():String{
+            return "Validator";
+        }
 
         public function getViewName( name:String ):String{
             var viewName:String = null;
@@ -85,20 +100,22 @@ package org.seasar.akabana.yui.framework.convention
         }
 
         public function getActionName( viewName:String ):String{
-            var classPathArray:Array = viewName.match(/^(.+)\.view\.(.+?)View$/);
-            return classPathArray[1] + ".action." + classPathArray[classPathArray.length-1] + "Action";
+            return changePackageTo( viewName, getActionPackageName(), getActionSuffix() );            
         }
         
         public function getHelperName( viewName:String ):String{
-            var classPathArray:Array = viewName.match(/^(.+)\.view\.(.+?)View$/);
-            return classPathArray[1] + ".helper." + classPathArray[classPathArray.length-1] + "Helper";
+            return changePackageTo( viewName, getHelperPackageName(), getHelperSuffix()); 
         }
 		
 		public function getLogicName( viewName:String ):String
 		{
-			var classPathArray:Array = viewName.match(/^(.+)\.view\.(.+?)View$/);
-			return classPathArray[1] + ".Logic." + classPathArray[classPathArray.length-1] + "Logic";
+            return changePackageTo( viewName, getLogicPackageName(), getLogicSuffix() ); 
 		}
+
+        public function getValidatorName( viewName:String ):String
+        {
+            return changePackageTo( viewName, getValidatorPackageName(), getValidatorSuffix() ); 
+        }		
 		
         public function isViewName( className:String ):Boolean{
             return isTargetName(className,getViewPackageName(),getViewSuffix());
@@ -119,6 +136,10 @@ package org.seasar.akabana.yui.framework.convention
         public function isLogicName( className:String ):Boolean{
             return isTargetName(className,getLogicPackageName(),getLogicSuffix());
         }
+
+        public function isValidatorName( className:String ):Boolean{
+            return isTargetName(className,getValidatorPackageName(),getViewSuffix());
+        }        
         
         public function isTargetClassName( className:String ):Boolean{
             var isTarget:Boolean = false;
@@ -149,5 +170,6 @@ package org.seasar.akabana.yui.framework.convention
             
             return isTarget;
         }
+
     }
 }

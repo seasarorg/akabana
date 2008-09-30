@@ -54,7 +54,7 @@ package org.seasar.akabana.yui.framework.customizer {
             if( actionClassRef != null ){
                 action = 
                     view.descriptor.properties[ namingConvention.getActionPackageName() ] = 
-                    actionClassRef.newInstance();
+                        actionClassRef.newInstance();
             }
             if( action != null ){
                 logger.debugMessage("yui_framework","ActionCustomizing",viewName,actionClassRef.name);

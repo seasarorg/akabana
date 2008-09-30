@@ -29,7 +29,6 @@ package org.seasar.akabana.yui.framework.core
     import mx.managers.CursorManager;
     import mx.managers.DragManager;
     import mx.managers.PopUpManager;
-    import mx.resources.IResourceManager;
     import mx.resources.ResourceManager;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
@@ -37,6 +36,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
     import org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
+    import org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer;
     import org.seasar.akabana.yui.framework.error.RuntimeError;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
@@ -295,7 +295,8 @@ package org.seasar.akabana.yui.framework.core
         protected function getDefaultCustomizers():Array{
             return [
                 new ActionCustomizer(),
-                new EventHandlerCustomizer()
+                new EventHandlerCustomizer(),
+                new ValidatorCustomizer()
             ];
         }     
     }

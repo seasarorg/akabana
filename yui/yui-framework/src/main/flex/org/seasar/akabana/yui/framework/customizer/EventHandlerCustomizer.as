@@ -38,7 +38,6 @@ package org.seasar.akabana.yui.framework.customizer {
         public override function customize( viewName:String, view:Container ):void {
             var viewClassName:String = ClassRef.getReflector(view).name;
             var actionName:String = namingConvention.getActionName(viewClassName);
-            var dxoName:String;
             var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
             if( action_ != null){
                  doCustomizer(viewName,view,action_);
