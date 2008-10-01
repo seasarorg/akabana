@@ -19,6 +19,7 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import mx.core.Container;
     import mx.core.UIComponent;
+    import mx.validators.Validator;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
@@ -26,7 +27,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
-    
+
     public class ActionCustomizer extends AbstractComponentCustomizer {
         
         private static const logger:Logger = Logger.getLogger(ActionCustomizer);
@@ -82,6 +83,14 @@ package org.seasar.akabana.yui.framework.customizer {
                         logger.debugMessage("yui_framework","ServiceCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
                         continue;
                     }
+                    
+                    if( namingConvention.isValidatorName( propertyRef_.type ) ){
+                        if( view.descriptor.properties.hasOwnProperty( namingConvention.getValidatorPackageName() )){
+                            action[ propertyRef_.name ] = view.descriptor.properties[ namingConvention.getValidatorPackageName() ];
+                            logger.debugMessage("yui_framework","ValidatorCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
+                        }
+                        continue;
+                    }                    
                 }
             }
         }
@@ -96,7 +105,7 @@ package org.seasar.akabana.yui.framework.customizer {
             const baseViewClassRef:ClassRef = ClassRef.getReflector(view);
             var helper:Object = null;
             var helperClassRef:ClassRef = null;
-            
+
             try{
                 
                 helperClassRef = ClassRef.getReflector( propertyRef.type );
@@ -120,7 +129,7 @@ package org.seasar.akabana.yui.framework.customizer {
 
                     var validatorClassName:String = namingConvention.getValidatorName( viewClassName );
                     propertyRefs = helperClassRef.getPropertyRefByType(validatorClassName);
-                
+
                     if( propertyRefs != null && propertyRefs.length > 0 ){
                         propertyRef_ = propertyRefs[0];
                         helper[ propertyRef_.name ] = helperView.descriptor.properties[ namingConvention.getValidatorPackageName() ];
@@ -150,11 +159,11 @@ package org.seasar.akabana.yui.framework.customizer {
                 }
             } catch( e:Error ){
                 logger.debugMessage("yui_framework","CustomizeError",propertyRef.type,e.getStackTrace());
-            } 
-            
+            }
+
             return logic;
         }
-        
+
         protected function processServiceCustomize( viewName:String, propertyRef:PropertyRef ):Service{
             var rpcservice:Service = ServiceRepository.getService( propertyRef.name );
             if( rpcservice == null && !propertyRef.typeClassRef.isInterface){
@@ -164,6 +173,5 @@ package org.seasar.akabana.yui.framework.customizer {
             }
             return rpcservice;
         }
-        
     }
 }
