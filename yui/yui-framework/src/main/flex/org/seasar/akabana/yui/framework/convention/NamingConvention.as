@@ -138,7 +138,7 @@ package org.seasar.akabana.yui.framework.convention
         }
 
         public function isValidatorName( className:String ):Boolean{
-            return isTargetName(className,getValidatorPackageName(),getViewSuffix());
+            return isTargetName(className,getValidatorPackageName(),getValidatorSuffix());
         }        
         
         public function isTargetClassName( className:String ):Boolean{
