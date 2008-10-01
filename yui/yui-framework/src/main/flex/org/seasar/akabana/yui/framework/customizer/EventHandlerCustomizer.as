@@ -19,6 +19,7 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import mx.containers.ControlBar;
     import mx.containers.Panel;
+    import mx.controls.NavBar;
     import mx.core.Container;
     import mx.core.IMXMLObject;
     import mx.core.UIComponent;
@@ -133,14 +134,14 @@ package org.seasar.akabana.yui.framework.customizer {
                 do {
                     component = container.getChildAt(index) as Container;
                     if( component != null &&
-                        !namingConvention.isViewName(ClassRef.getReflector(component).name )
+                        !( namingConvention.isViewName(ClassRef.getReflector(component).name ) )&&
+                        !( component is NavBar )
                     ){
                         doCustomizeByContainer(
                             view,
                             component as Container,
                             action
                         );
-                        break;
                     }
                     component = container.getChildAt(index) as UIComponent;
                     if( component != null && component.id != null){
