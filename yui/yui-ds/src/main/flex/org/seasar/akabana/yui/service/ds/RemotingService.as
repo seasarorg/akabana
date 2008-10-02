@@ -15,6 +15,8 @@
  */
 package org.seasar.akabana.yui.service.ds {
     
+    import flash.net.registerClassAlias;
+    
     import mx.core.Application;
     import mx.core.Container;
     import mx.core.mx_internal;
@@ -23,13 +25,57 @@ package org.seasar.akabana.yui.service.ds {
     import mx.messaging.ChannelSet;
     import mx.messaging.channels.AMFChannel;
     import mx.messaging.channels.SecureAMFChannel;
+    import mx.messaging.config.ConfigMap;
+    import mx.messaging.management.Attribute;
+    import mx.messaging.management.MBeanAttributeInfo;
+    import mx.messaging.management.MBeanConstructorInfo;
+    import mx.messaging.management.MBeanFeatureInfo;
+    import mx.messaging.management.MBeanInfo;
+    import mx.messaging.management.MBeanOperationInfo;
+    import mx.messaging.management.MBeanParameterInfo;
+    import mx.messaging.management.ObjectInstance;
+    import mx.messaging.management.ObjectName;
+    import mx.messaging.messages.AcknowledgeMessage;
+    import mx.messaging.messages.AcknowledgeMessageExt;
+    import mx.messaging.messages.AsyncMessage;
+    import mx.messaging.messages.AsyncMessageExt;
+    import mx.messaging.messages.CommandMessage;
+    import mx.messaging.messages.CommandMessageExt;
+    import mx.messaging.messages.ErrorMessage;
+    import mx.messaging.messages.MessagePerformanceInfo;
+    import mx.messaging.messages.RemotingMessage;
     import mx.rpc.remoting.mxml.RemoteObject;
     
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.rpc.remoting.util.GatewayUtil;
     
     public dynamic class RemotingService extends RemoteObject implements Service {
-        
+
+        private static function registerClassesAlias():void{
+            registerClassAlias( "flex.messaging.config.ConfigMap", ConfigMap);
+            
+            registerClassAlias( "flex.management.jmx.Attribute", Attribute);
+            registerClassAlias( "flex.management.jmx.MBeanAttributeInfo", MBeanAttributeInfo);
+            registerClassAlias( "flex.management.jmx.MBeanConstructorInfo", MBeanConstructorInfo);
+            registerClassAlias( "flex.management.jmx.MBeanFeatureInfo", MBeanFeatureInfo);
+            registerClassAlias( "flex.management.jmx.MBeanInfo", MBeanInfo);
+            registerClassAlias( "flex.management.jmx.MBeanOperationInfo", MBeanOperationInfo);
+            registerClassAlias( "flex.management.jmx.MBeanParameterInfo", MBeanParameterInfo);
+            
+            registerClassAlias( "flex.management.jmx.ObjectInstance", ObjectInstance);
+            registerClassAlias( "flex.management.jmx.ObjectName", ObjectName);
+            
+            registerClassAlias( "flex.messaging.messages.AcknowledgeMessage", AcknowledgeMessage);
+            registerClassAlias( "DSK", AcknowledgeMessageExt);
+            registerClassAlias( "flex.messaging.messages.AsyncMessage", AsyncMessage);
+            registerClassAlias( "DSA", AsyncMessageExt);
+            registerClassAlias( "flex.messaging.messages.CommandMessage", CommandMessage);
+            registerClassAlias( "DSC", CommandMessageExt);
+            registerClassAlias( "flex.messaging.messages.ErrorMessage", ErrorMessage);
+            registerClassAlias( "flex.messaging.messages.MessagePerformanceInfo", MessagePerformanceInfo);
+            registerClassAlias( "flex.messaging.messages.RemotingMessage", RemotingMessage);
+        }
+
         private var parentApplication:Application;
 
         public function get name():String{
@@ -47,6 +93,7 @@ package org.seasar.akabana.yui.service.ds {
             if( id != null ){
                 mx_internal::id = destination;
             }
+            registerClassesAlias();            
         }
         
         public override function initialized(document:Object, id:String):void
