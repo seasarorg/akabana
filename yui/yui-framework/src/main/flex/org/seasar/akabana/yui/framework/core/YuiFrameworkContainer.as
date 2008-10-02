@@ -191,12 +191,7 @@ package org.seasar.akabana.yui.framework.core
                     ViewComponentRepository.addComponent( componentName, container );              
                     logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);                  
                 } else {
-                    if( ViewComponentRepository.hasComponent( componentName )){
-                        var view:UIComponent = ViewComponentRepository.getComponent( componentName );                         
-                        if( view.initialized ){
-                            throw new RuntimeError(componentName+"is already registered.");
-                        }
-                    } else {
+                    if( !ViewComponentRepository.hasComponent( componentName )){
                         ViewComponentRepository.addComponent( componentName, container );              
                         logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);                    
                     }
