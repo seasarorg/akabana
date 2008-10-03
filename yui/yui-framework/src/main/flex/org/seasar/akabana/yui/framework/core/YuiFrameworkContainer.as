@@ -37,7 +37,6 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer;
-    import org.seasar.akabana.yui.framework.error.RuntimeError;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
@@ -189,11 +188,12 @@ package org.seasar.akabana.yui.framework.core
                         return;
                     }                
                     ViewComponentRepository.addComponent( componentName, container );              
-                    logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);                  
+                    logger.debugMessage("yui_framework","ViewComponentRegistered",componentName);                  
                 } else {
-                    if( !ViewComponentRepository.hasComponent( componentName )){
+                    componentName = container.toString();
+                    if( !ViewComponentRepository.hasComponent( componentName ) ){
                         ViewComponentRepository.addComponent( componentName, container );              
-                        logger.debugMessage("yui_framework","ViewComponentRegistered",container.toString(),componentName);                    
+                        logger.debugMessage("yui_framework","ViewComponentRegistered",componentName);                    
                     }
                 }
             }
@@ -209,6 +209,8 @@ package org.seasar.akabana.yui.framework.core
                 var componentName:String = container.id;
                 if( componentName == null ){
                     componentName = container.name;
+                } else {
+                    componentName = container.toString();
                 }
                 
                 if( ViewComponentRepository.hasComponent( componentName )){
