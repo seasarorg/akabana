@@ -13,7 +13,6 @@
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_TASKS_JAR}"/>
 
     <target name="clean">
-        <delete dir="${LIB_SRC}/generated"/>
         <delete dir="${LIB_PUBLISH_DIR}"/>
     </target>
     
@@ -25,6 +24,7 @@
         <compc 
             output="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}"
             include-classes="${LIB_CLASSES}"
+        	compute-digest="true"
             >
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
             <source-path path-element="${LIB_ROOT}/../mx-wrappers${FLEX_SRC}"/>
@@ -52,8 +52,12 @@
             />
 		<java jar="${FLEX_HOME}/lib/optimizer.jar" fork="true" failonerror="true">
 			  <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib=${FLEX_HOME}/frameworks -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" /> 
-			  <arg line="'${LIB_PUBLISH_DIR}/${LIB_PUBLISH_FILE}/library.swf' --output '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWF_FILE}'" /> 
+			  <arg line="'${LIB_PUBLISH_DIR}/${LIB_PUBLISH_FILE}/library.swf' --output '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWF_FILE}' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient,RemoteClass' " /> 
 		</java>
+        <java jar="${FLEX_HOME}/lib/digest.jar" fork="true" failonerror="true"> 
+               <jvmarg line="-ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/> 
+               <arg line="--digest.rsl-file '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWF_FILE}' --digest.swc-path '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}'"/> 
+        </java> 		
     </target>
     <!-- ================================= 
           target: dist              
