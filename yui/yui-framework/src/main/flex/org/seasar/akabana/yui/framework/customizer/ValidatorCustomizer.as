@@ -31,14 +31,14 @@ package org.seasar.akabana.yui.framework.customizer {
         
         public override function customize( viewName:String, view:Container ):void {
             var viewClassName:String = ClassRef.getReflector(view).name;
-            var validatorName:String = namingConvention.getValidatorName(viewClassName);
+            var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);
             var validatorClassRef:ClassRef = null;
             try{
                 if( view.descriptor.properties[ namingConvention.getValidatorPackageName() ] != null ){
                     throw new Error("already Customized");
                 }
                 
-                validatorClassRef = ClassRef.getReflector(validatorName);
+                validatorClassRef = ClassRef.getReflector(validatorClassName);
                 processValidatorCustomize( viewName, view, validatorClassRef );
             } catch( e:Error ){
                 //logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());

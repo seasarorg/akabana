@@ -38,14 +38,13 @@ package org.seasar.akabana.yui.framework.customizer {
         
         public override function customize( viewName:String, view:Container ):void {
             var viewClassName:String = ClassRef.getReflector(view).name;
-            var actionName:String = _namingConvention.getActionName(viewClassName);
+            var actionClassName:String = _namingConvention.getActionClassName(viewClassName);
             var actionClassRef:ClassRef = null;
             try{
                 if( view.descriptor.properties[ namingConvention.getActionPackageName() ] != null ){
                     throw new Error("already Customized");
                 }
-                
-                actionClassRef = ClassRef.getReflector(actionName);
+                actionClassRef = ClassRef.getReflector(actionClassName);
                 processActionCustomize( viewName, view, actionClassRef );
             } catch( e:Error ){
                 logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
@@ -63,13 +62,13 @@ package org.seasar.akabana.yui.framework.customizer {
                 logger.debugMessage("yui_framework","ActionCustomizing",viewName,actionClassRef.name);
                 
                 for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
-                    if( namingConvention.isViewHelperName( propertyRef_.type )){
+                    if( namingConvention.isHelperClassName( propertyRef_.type )){
                         action[ propertyRef_.name ] = processHelperCustomize(view,propertyRef_);
                         logger.debugMessage("yui_framework","HelperCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
                         continue;
                     }
 
-                    if( namingConvention.isLogicName( propertyRef_.type )){
+                    if( namingConvention.isLogicClassName( propertyRef_.type )){
                         action[ propertyRef_.name ] = processLogicCustomize(viewName,propertyRef_);
                         logger.debugMessage("yui_framework","LogicCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
                         continue;
@@ -84,7 +83,7 @@ package org.seasar.akabana.yui.framework.customizer {
                         continue;
                     }
                     
-                    if( namingConvention.isValidatorName( propertyRef_.type ) ){
+                    if( namingConvention.isValidatorClassName( propertyRef_.type ) ){
                         if( view.descriptor.properties.hasOwnProperty( namingConvention.getValidatorPackageName() )){
                             action[ propertyRef_.name ] = view.descriptor.properties[ namingConvention.getValidatorPackageName() ];
                             logger.debugMessage("yui_framework","ValidatorCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type);
@@ -109,7 +108,7 @@ package org.seasar.akabana.yui.framework.customizer {
             try{
                 
                 helperClassRef = ClassRef.getReflector( propertyRef.type );
-                var viewClassName:String = namingConvention.getViewName( helperClassRef.name );
+                var viewClassName:String = namingConvention.getViewClassName( helperClassRef.name );
                 var propertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
                 
                 if( propertyRefs != null && propertyRefs.length > 0 ){
@@ -118,7 +117,10 @@ package org.seasar.akabana.yui.framework.customizer {
                     if( propertyRef_.typeClassRef == baseViewClassRef){
                         helperView = view;
                     } else {
-                        helperView = ViewComponentRepository.getComponent(propertyRef_.typeClassRef.concreteClass );
+                        if( namingConvention.isHelperName( propertyRef.name )){
+                            helperView = ViewComponentRepository.getComponent(
+                                            propertyRef_.typeClassRef.concreteClass);                            
+                        }
                     }
                     helper = viewToHelper[ helperView ];
                     if( helper == null ){
@@ -127,7 +129,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     } 
                     helper[ propertyRef_.name ] = helperView;
 
-                    var validatorClassName:String = namingConvention.getValidatorName( viewClassName );
+                    var validatorClassName:String = namingConvention.getValidatorClassName( viewClassName );
                     propertyRefs = helperClassRef.getPropertyRefByType(validatorClassName);
 
                     if( propertyRefs != null && propertyRefs.length > 0 ){

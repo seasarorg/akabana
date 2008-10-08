@@ -17,12 +17,10 @@ package org.seasar.akabana.yui.framework.core {
     
     import flash.utils.Dictionary;
     
-    import mx.core.Container;
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
-    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     
     public class ViewComponentRepository {
         
@@ -34,20 +32,25 @@ package org.seasar.akabana.yui.framework.core {
         
         public static function addComponent( componentName:String, component:UIComponent ):void{
             var className:String = ClassRef.getReflector(component).name;
+            if( componentClassMap[ className ] == null ){
+                componentClassMap[ className ] = {};
+            }
+            var componentClasses:Object = componentClassMap[ className ];
+
             if( componentName == null ){
                 componentName = className;
                 if( componentMap[ componentName ] == null ){
                     componentMap[ componentName ] = component;
-                    componentClassMap[ componentName ] = component;
-                    componentNameMap[ component ] = componentName;
+                    componentNameMap[ component.toString() ] = componentName;
+                    componentClasses[ component.name ] = component;
                 } else {
                     throw new ComponentDuplicatedRegistrationError("UIコンポーネント登録重複エラー:"+componentName);
                 }
             } else {
                 componentMap[ componentName ] = component;
                 componentNameMap[ component ] = componentName;
-                componentClassMap[ className ] = component;
                 componentNameMap[ component ] = componentName;
+                componentClasses[ component.id ] = component;
             }
         }
         
@@ -57,8 +60,10 @@ package org.seasar.akabana.yui.framework.core {
                 delete componentMap[ componentName ];
 
                 var className:String = ClassRef.getReflector(component).name;
-                componentClassMap[ className ] = null;
-                delete componentClassMap[ className ];  
+                
+                var componentClasses:Object = componentClassMap[ className ];
+                componentClasses[ component.id ] = null;
+                delete componentClasses[ component.id ];  
         	}        
         }
 
@@ -66,17 +71,31 @@ package org.seasar.akabana.yui.framework.core {
             return componentNameMap[ component ];
         }
         
-        public static function getComponent( key:Object ):UIComponent{
+        public static function getComponent( key:Object, componentId:String = null ):UIComponent{
             var component:UIComponent = null;
             
             do{
                 if( key is Class ){
                     var className:String = ClassRef.getReflector(key as Class).name;
-                    component = componentClassMap[ className ] as UIComponent;
+                    var componentClasses:Object = componentClassMap[ className ];
+                    if( componentId != null){
+                        component = componentClasses[ componentId ] as UIComponent;
+                    } else {
+                        for each( var component_:UIComponent in componentClasses ){
+                            if( component_ != null ){
+                                component = component_;
+                            }
+                        }
+                    }
                     break;
                 }   
                 if( key is String ){
                     component = componentMap[ key ] as UIComponent;
+                    if( componentId != null ){
+                        if( component.id != componentId ){
+                            component = null;
+                        }
+                    }
                     break;
                 }
             } while( false );

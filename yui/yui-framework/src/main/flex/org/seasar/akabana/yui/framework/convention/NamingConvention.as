@@ -86,12 +86,25 @@ package org.seasar.akabana.yui.framework.convention
             return "Validator";
         }
 
-        public function getViewName( name:String ):String{
+        public function getViewName( varName:String ):String{
             var viewName:String = null;
             
-            var classPathArray:Array = name.match(/^(.+)\.helper\.(.+?)Helper$/);
+            var classPathArray:Array = varName.match(/^(.+?)Helper$/);
             if( classPathArray.length <= 1 ){
-                classPathArray = name.match(/^(.+)\.action\.(.+?)Action$/);
+                classPathArray = varName.match(/^(.+?)Action$/);
+            }
+            if( classPathArray.length > 1 ){
+                viewName = classPathArray[1] + getViewSuffix();                
+            }
+            return viewName;
+        }
+
+        public function getViewClassName( fullClassName:String ):String{
+            var viewName:String = null;
+            
+            var classPathArray:Array = fullClassName.match(/^(.+)\.(.+)\.(.+?)Helper$/);
+            if( classPathArray.length <= 1 ){
+                classPathArray = fullClassName.match(/^(.+)\.action\.(.+?)Action$/);
             }
             if( classPathArray.length > 1 ){
                 viewName = classPathArray[1] + DOT + getViewPackageName() + DOT + classPathArray[classPathArray.length-1] + getViewSuffix();                
@@ -99,62 +112,53 @@ package org.seasar.akabana.yui.framework.convention
             return viewName;
         }
 
-        public function getActionName( viewName:String ):String{
-            return changeViewPackageTo( viewName, getActionPackageName(), getActionSuffix() );            
+        public function getActionClassName( viewClassName:String ):String{
+            return changeViewPackageTo( viewClassName, getActionPackageName(), getActionSuffix() );            
         }
         
-        public function getHelperName( viewName:String ):String{
-            return changeViewPackageTo( viewName, getHelperPackageName(), getHelperSuffix()); 
+        public function getHelperClassName( viewClassName:String ):String{
+            return changeViewPackageTo( viewClassName, getHelperPackageName(), getHelperSuffix()); 
         }
 		
-		public function getLogicName( viewName:String ):String
+		public function getLogicClassName( viewClassName:String ):String
 		{
-            return changeViewPackageTo( viewName, getLogicPackageName(), getLogicSuffix() ); 
+            return changeViewPackageTo( viewClassName, getLogicPackageName(), getLogicSuffix() ); 
 		}
 
-        public function getValidatorName( viewName:String ):String
+        public function getValidatorClassName( viewClassName:String ):String
         {
-            return changeViewPackageTo( viewName, getValidatorPackageName(), getValidatorSuffix() ); 
+            return changeViewPackageTo( viewClassName, getValidatorPackageName(), getValidatorSuffix() ); 
         }		
 		
-        public function isViewName( className:String ):Boolean{
-            return isTargetName(className,getViewPackageName(),getViewSuffix());
-        }
-        
-        public function isViewHelperName( className:String ):Boolean{
-            return isTargetName(className,getHelperPackageName(),getHelperSuffix());
+        public function isViewClassName( className:String ):Boolean{
+            return isCoustomClassName(className,getViewPackageName(),getViewSuffix());
         }
 
-        public function isActionName( className:String ):Boolean{
-            return isTargetName(className,getActionPackageName(),getActionSuffix());
+        public function isHelperClassName( className:String ):Boolean{
+            return isCoustomClassName(className,getHelperPackageName(),getHelperSuffix());
+        }
+
+        public function isHelperName( varName:String ):Boolean{
+            return isCoustomName(varName,getHelperSuffix());
+        }
+
+        public function isActionClassName( className:String ):Boolean{
+            return isCoustomClassName(className,getActionPackageName(),getActionSuffix());
         }        
 
-        public function isServiceName( className:String ):Boolean{
-            return isTargetName(className,getServicePackageName(),getServiceSuffix());
+        public function isServiceClassName( className:String ):Boolean{
+            return isCoustomClassName(className,getServicePackageName(),getServiceSuffix());
         }
         
-        public function isLogicName( className:String ):Boolean{
-            return isTargetName(className,getLogicPackageName(),getLogicSuffix());
+        public function isLogicClassName( className:String ):Boolean{
+            return isCoustomClassName(className,getLogicPackageName(),getLogicSuffix());
         }
 
-        public function isValidatorName( className:String ):Boolean{
-            return isTargetName(className,getValidatorPackageName(),getValidatorSuffix());
+        public function isValidatorClassName( className:String ):Boolean{
+            return isCoustomClassName(className,getValidatorPackageName(),getValidatorSuffix());
         }        
         
-        public function isTargetClassName( className:String ):Boolean{
-            var isTarget:Boolean = false;
-            
-            for each( var rootPath:String in _conventions ){
-                if( className.indexOf(rootPath) == 0 ){
-                    isTarget = true;
-                    break;
-                }
-            }
-            
-            return isTarget;  
-        }
-        
-        protected function isTargetName( className:String, packageName:String, suffix:String ):Boolean{
+        protected function isCoustomClassName( className:String, packageName:String, suffix:String ):Boolean{
             var isTarget:Boolean = false;
             
             for each( var rootPath:String in _conventions ){
@@ -171,5 +175,15 @@ package org.seasar.akabana.yui.framework.convention
             return isTarget;
         }
 
+        protected function isCoustomName( varName:String, suffix:String ):Boolean{
+            var isTarget:Boolean = false;
+            
+            var regexp_:String = "^.+?" + suffix + "$";
+            if( varName.search(new RegExp(regexp_)) == 0 ){
+                isTarget = true;
+            }
+            
+            return isTarget;
+        }
     }
 }
