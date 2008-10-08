@@ -31,11 +31,11 @@ package org.seasar.akabana.yui.mx.util {
             return Application.application as Application;
         }
 
-        public static function enable():void {
+        public static function show():void {
             Application.application.enabled = true;
         }        
 
-        public static function disable():void {
+        public static function hide():void {
             Application.application.enabled = false;
         }        
         
