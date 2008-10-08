@@ -30,5 +30,14 @@ package org.seasar.akabana.yui.mx.util {
         private static function get application():Application{
             return Application.application as Application;
         }
+
+        public static function enable():void {
+            Application.application.enabled = true;
+        }        
+
+        public static function disable():void {
+            Application.application.enabled = false;
+        }        
+        
     }
 }

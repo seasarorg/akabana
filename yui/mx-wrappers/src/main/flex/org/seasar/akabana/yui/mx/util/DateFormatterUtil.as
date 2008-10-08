@@ -12,4 +12,17 @@ package org.seasar.akabana.yui.mx.util
         }
 
     }
-}
+}.
+
+
+
+        public function dispatchSesssionReserveEvent():void{
+            var event:SessionInfoEvent = SessionInfoEvent.createReserveEvent(view.data as SessionDto );
+            view.dispatchEvent( event );
+        }
+
+        public function dispatchSesssionCancelEvent():void{
+            view.dispatchEvent(
+                SessionInfoEvent.createCancelEvent(view.data as SessionDto )
+            );            
+        } 
