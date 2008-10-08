@@ -24,6 +24,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import mx.core.IMXMLObject;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
+    import mx.effects.IEffect;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
@@ -93,8 +94,11 @@ package org.seasar.akabana.yui.framework.customizer {
             //for children
 			var props:Array = ClassRef.getReflector(ClassRef.getQualifiedClassName(view)).properties;
             for each( var prop:PropertyRef in props ){
-                var child:IMXMLObject = view[ prop.name ] as IMXMLObject;
-                if( child != null && child is IEventDispatcher ){
+                var child:Object = view[ prop.name ];
+                if( child != null &&
+                    child is IEventDispatcher &&
+                    ( child is IMXMLObject || child is IEffect )
+                ){
                     doCustomizeByComponent(
                         view,
                         prop.name,
