@@ -71,8 +71,24 @@
 				<exclude name="**/target/swc/*/catalog.xml"/>
 				<exclude name="**/lib/**"/>
 				<exclude name="**/build.xml"/>
+				<exclude name="**/pom.xml"/>
 				<exclude name="**/build.properties"/>
 				<exclude name="**/flex3.properties"/>
+			</zipfileset>
+			<zipfileset prefix="${LIB_NAME}" dir="../mx-wrappers/">
+				<include name="**/*.as" />
+			</zipfileset>
+			<zipfileset prefix="${LIB_NAME}" dir="../yui-core/">
+				<include name="**/*.as" />
+			</zipfileset>
+			<zipfileset prefix="${LIB_NAME}" dir="../yui-logging/">
+				<include name="**/*.as" />
+			</zipfileset>
+			<zipfileset prefix="${LIB_NAME}" dir="../yui-service/">
+				<include name="**/*.as" />
+			</zipfileset>
+			<zipfileset prefix="${LIB_NAME}" dir="../yui-framework/">
+				<include name="**/*.as" />
 			</zipfileset>
 			<zipfileset prefix="${LIB_NAME}/target/swc" dir="target/swc">
 				<include name="*.swc"/>
