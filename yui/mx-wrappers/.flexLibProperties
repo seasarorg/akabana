@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
-  <includeClasses>
-    <classEntry path="MxWrappersClasses"/>
-    <classEntry path="org.seasar.akabana.yui.mx.util.DateFormatterUtil"/>
-    <classEntry path="org.seasar.akabana.yui.mx.util.ApplicationUtil"/>
-  </includeClasses>
-  <includeResources/>
-  <namespaceManifests/>
+<includeClasses>
+<classEntry path="org.seasar.akabana.yui.mx.util.ApplicationUtil"/>
+<classEntry path="org.seasar.akabana.yui.mx.util.DateFormatterUtil"/>
+<classEntry path="org.seasar.akabana.yui.mx.util.PopUpUtil"/>
+</includeClasses>
+<includeResources/>
+<namespaceManifests/>
 </flexLibProperties>
