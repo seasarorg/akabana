@@ -4,5 +4,22 @@
     verticalAlign="middle"
     horizontalAlign="center"
     >
+    <mx:states>
+        <mx:State name="hideButtonState">
+            <mx:SetProperty target="{showHelloWorld}" name="visible" value="false"/>
+        </mx:State>
+    </mx:states>
+    <mx:transitions>
+        <mx:Transition>
+            <mx:Fade id="fadeOut" target="{showHelloWorld}" alphaFrom="1" alphaTo="0"/>
+        </mx:Transition>
+    </mx:transitions>
+    <mx:Validator id="inputDataValidator" required="true" source="{inputData}" property="text"/>
+    <mx:TextInput id="inputText" restrict="0-9"/>
+    <mx:TextInput id="inputData" />    
     <mx:Button label="はろーわーるどを表示する" id="showHelloWorld" height="242" width="402"/>
+    <mx:RadioButtonGroup id="radiogroup1"/>
+    <mx:RadioButton label="Button 1" groupName="radiogroup1"/>
+    <mx:RadioButton label="Button 2" groupName="radiogroup1"/>
+    
 </mx:VBox>
