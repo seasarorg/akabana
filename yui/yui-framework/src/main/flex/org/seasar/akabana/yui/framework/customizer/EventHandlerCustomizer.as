@@ -54,8 +54,9 @@ package org.seasar.akabana.yui.framework.customizer {
             //for children
             for( var index:int = 0; index < view.numChildren; index++ ){
 
-                component = view.getChildAt(index) as Container;
+                component = view.getChildAt(index) as UIComponent;
                 if( component != null &&
+                    component is Container &&
                     !namingConvention.isViewClassName(ClassRef.getReflector(component).name )
                 ){
                     doCustomizeByContainer(
@@ -65,7 +66,6 @@ package org.seasar.akabana.yui.framework.customizer {
                     );
                 }
 
-			    component = view.getChildAt(index) as UIComponent;
 			    if( component != null && component.id != null){
 			        doCustomizeByComponent(
                         view,
@@ -135,8 +135,9 @@ package org.seasar.akabana.yui.framework.customizer {
             }
             for( var index:int =0; index < container.numChildren; index++ ){
                 do {
-                    component = container.getChildAt(index) as Container;
+                    component = container.getChildAt(index) as UIComponent;
                     if( component != null &&
+                        component is Container &&
                         !( namingConvention.isViewClassName(ClassRef.getReflector(component).name ) )&&
                         !( component is NavBar )
                     ){
@@ -146,7 +147,7 @@ package org.seasar.akabana.yui.framework.customizer {
                             action
                         );
                     }
-                    component = container.getChildAt(index) as UIComponent;
+                    
                     if( component != null && component.id != null){
                         doCustomizeByComponent(
                             view,
@@ -160,6 +161,17 @@ package org.seasar.akabana.yui.framework.customizer {
                         );                  
                     }
                 } while( false );
+            }
+
+            if( container is Panel ){
+                var controlBar:ControlBar = Panel(container).mx_internal::getControlBar() as ControlBar;
+                if( controlBar != null){
+                    doCustomizeByContainer(
+                        view,
+                        controlBar,
+                        action
+                    );
+                }
             }
         }
 
