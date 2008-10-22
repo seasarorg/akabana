@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.framework.core {
     
     import flash.utils.Dictionary;
     
+    import mx.core.Container;
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
@@ -71,7 +72,7 @@ package org.seasar.akabana.yui.framework.core {
             return componentNameMap[ component ];
         }
         
-        public static function getComponent( key:Object, componentId:String = null ):UIComponent{
+        public static function getComponent( key:Object, componentId:String = null):UIComponent{
             var component:UIComponent = null;
             
             do{
@@ -99,6 +100,22 @@ package org.seasar.akabana.yui.framework.core {
                     break;
                 }
             } while( false );
+            
+            return component;
+        }
+
+        public static function getComponentByParent( key:Class, parent:Container):UIComponent{
+            var component:UIComponent = null;
+            
+            var className:String = ClassRef.getReflector(key as Class).name;
+            var componentClasses:Object = componentClassMap[ className ];
+
+            for each( var component_:UIComponent in componentClasses ){
+                if( parent.contains(component_) ){
+                    component = component_;
+                    break;
+                }
+            }
             
             return component;
         }
