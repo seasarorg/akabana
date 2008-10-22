@@ -3,6 +3,7 @@ package org.seasar.akabana.yui.mx.util
     import flash.display.DisplayObject;
     import flash.events.IEventDispatcher;
     
+    import mx.core.Container;
     import mx.core.IFlexDisplayObject;
     import mx.core.IUIComponent;
     import mx.core.UIComponent;
@@ -73,6 +74,12 @@ package org.seasar.akabana.yui.mx.util
             }
             PopUpManager.removePopUp(popUp);
         }
-
+        
+        public static function lookupPopupOwner( popup:Container ):Container{
+            var descriptor:UIComponentDescriptor = popup.mx_internal::_documentDescriptor;
+            var popupOwner:Container = descriptor.properties[POPUP_OWNER];
+            
+            return popupOwner;
+        }
     }
 }
