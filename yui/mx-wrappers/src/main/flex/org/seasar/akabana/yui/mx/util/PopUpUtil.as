@@ -2,10 +2,12 @@ package org.seasar.akabana.yui.mx.util
 {
     import flash.display.DisplayObject;
     import flash.events.IEventDispatcher;
-    import flash.utils.getTimer;
     
     import mx.core.IFlexDisplayObject;
+    import mx.core.IUIComponent;
     import mx.core.UIComponent;
+    import mx.core.UIComponentDescriptor;
+    import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.managers.PopUpManager;
     
@@ -20,57 +22,57 @@ package org.seasar.akabana.yui.mx.util
                                             creationCompleteCallBack:Function=null
                                             ):IFlexDisplayObject{
 
-            var popup_:UIComponent = PopUpManager.createPopUp(
-                                        parent, 
-                                        className, 
-                                        modal,
-                                        childList
-                                        ) as UIComponent;
+            var window:IUIComponent = new className();
 
-            if( popup_ is IEventDispatcher && 
+                window.addEventListener(
+                    FlexEvent.INITIALIZE,
+                    function(event:FlexEvent):void{
+                        var descriptor:UIComponentDescriptor = 
+                            UIComponent(event.target).mx_internal::_documentDescriptor;
+                        descriptor.properties[POPUP_OWNER] = parent; 
+                    },
+                    false,
+                    int.MAX_VALUE,
+                    true
+                );
+                
+            PopUpManager.addPopUp(
+                window,
+                parent, 
+                modal,
+                childList
+                ) as UIComponent;
+                
+            if( window is IEventDispatcher && 
                 creationCompleteCallBack != null
             ){
-                popup_.addEventListener(
+
+                window.addEventListener(
                     FlexEvent.CREATION_COMPLETE,
                     function(event:FlexEvent):void{
-                        var popup:UIComponent = event.target as UIComponent;
-                        if( popup.descriptor != null ){                      
-                            trace("P1",getTimer(),UIComponent(popup).descriptor);
-                            popup.descriptor.properties[POPUP_OWNER] = parent;           
-                        } else {
-                            trace("P2",getTimer(),UIComponent(popup).descriptor);
-                        }
                         creationCompleteCallBack.call();
                     },
                     false,
-                    0,
+                    int.MAX_VALUE,
                     true
                 );
             }
             
-            return popup_;
+            return window;
         }
 
-//        function addPopUp(window:IFlexDisplayObject,
-//                parent:DisplayObject,
-//                modal:Boolean = false,
-//                childList:String = null):void;
-//
-//        function centerPopUp(popUp:IFlexDisplayObject):void;
-//
         public static function removePopUp(popUp:IFlexDisplayObject):void{
-            if( popUp is UIComponent){              
-                if( UIComponent(popUp).descriptor != null ){
-                    UIComponent(popUp).descriptor.properties[POPUP_OWNER] = null;
-                    delete UIComponent(popUp).descriptor.properties[POPUP_OWNER];
-                } else {
-                    trace("D",getTimer(),UIComponent(popUp).descriptor);
+            if( popUp is UIComponent){
+                var documentDescriptor:UIComponentDescriptor = UIComponent(popUp).mx_internal::_documentDescriptor;
+                if( documentDescriptor != null ){
+                    if( documentDescriptor.properties != null ){
+                        documentDescriptor.properties[POPUP_OWNER] = null;
+                        delete documentDescriptor.properties[POPUP_OWNER];
+                    }
                 }
             }
             PopUpManager.removePopUp(popUp);
         }
-//
-//        function bringToFront(popUp:IFlexDisplayObject):void;
 
     }
 }
