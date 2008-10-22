@@ -19,8 +19,6 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import mx.core.Container;
     import mx.core.UIComponent;
-    import mx.core.UIComponentDescriptor;
-    import mx.core.mx_internal;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
@@ -34,7 +32,7 @@ package org.seasar.akabana.yui.framework.customizer {
         
         private static const logger:Logger = Logger.getLogger(ActionCustomizer);
         
-        private static const viewToHelper:Object = new Dictionary(true);
+        private static const viewToHelperMap:Object = new Dictionary(true);
         
         private static const viewToValidator:Object = new Dictionary(true);
         
@@ -121,31 +119,30 @@ package org.seasar.akabana.yui.framework.customizer {
                         helperView = view;
                     } else {
                         if( namingConvention.isHelperName( propertyRef.name )){
-                            if( !view.isPopUp ){                            
-                                helperView = ViewComponentRepository.getComponent(
-                                            propertyRef_.typeClassRef.concreteClass);
-                            } else {
-                                var descriptor:UIComponentDescriptor = 
-                                                    view.mx_internal::_documentDescriptor;
-                                var popupOwner:Container = descriptor.properties[PopUpUtil.POPUP_OWNER];
-                                
+                            if( view.isPopUp ){
+                                var popupOwner:Container = PopUpUtil.lookupPopupOwner(view);
                                 if( ClassRef.getReflector(popupOwner).concreteClass == 
-                                                propertyRef_.typeClassRef.concreteClass ){
+                                    propertyRef_.typeClassRef.concreteClass
+                                ){
                                     helperView = popupOwner;
                                 } else {
-                                    helperView = ViewComponentRepository.getComponent(
-                                            propertyRef_.typeClassRef.concreteClass);
+                                    throw new Error("Helpers other than parents are registered in PopupView.");
                                 }
-                            }            
+                            } else {
+                                helperView = ViewComponentRepository.getComponentByParent(
+                                                propertyRef_.typeClassRef.concreteClass,view
+                                                );                                
+                            }
                         }
                     }
-                    helper = viewToHelper[ helperView ];
+                    helper = viewToHelperMap[ helperView.toString() ];
                     if( helper == null ){
                         helper = helperClassRef.newInstance();
-                        viewToHelper[ helperView ] = helper;
+                        viewToHelperMap[ helperView.toString() ] = helper;
                     } 
                     helper[ propertyRef_.name ] = helperView;
 
+                    //for vilidator
                     var validatorClassName:String = namingConvention.getValidatorClassName( viewClassName );
                     propertyRefs = helperClassRef.getPropertyRefByType(validatorClassName);
 
