@@ -19,12 +19,14 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import mx.core.Container;
     import mx.core.UIComponent;
-    import mx.validators.Validator;
+    import mx.core.UIComponentDescriptor;
+    import mx.core.mx_internal;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.logging.Logger;
+    import org.seasar.akabana.yui.mx.util.PopUpUtil;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
 
@@ -114,12 +116,27 @@ package org.seasar.akabana.yui.framework.customizer {
                 if( propertyRefs != null && propertyRefs.length > 0 ){
                     var helperView:UIComponent;
                     var propertyRef_:PropertyRef = propertyRefs[0];
+                    
                     if( propertyRef_.typeClassRef == baseViewClassRef){
                         helperView = view;
                     } else {
                         if( namingConvention.isHelperName( propertyRef.name )){
-                            helperView = ViewComponentRepository.getComponent(
-                                            propertyRef_.typeClassRef.concreteClass);                            
+                            if( !view.isPopUp ){                            
+                                helperView = ViewComponentRepository.getComponent(
+                                            propertyRef_.typeClassRef.concreteClass);
+                            } else {
+                                var descriptor:UIComponentDescriptor = 
+                                                    view.mx_internal::_documentDescriptor;
+                                var popupOwner:Container = descriptor.properties[PopUpUtil.POPUP_OWNER];
+                                
+                                if( ClassRef.getReflector(popupOwner).concreteClass == 
+                                                propertyRef_.typeClassRef.concreteClass ){
+                                    helperView = popupOwner;
+                                } else {
+                                    helperView = ViewComponentRepository.getComponent(
+                                            propertyRef_.typeClassRef.concreteClass);
+                                }
+                            }            
                         }
                     }
                     helper = viewToHelper[ helperView ];
