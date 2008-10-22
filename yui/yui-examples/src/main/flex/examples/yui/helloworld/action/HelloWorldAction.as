@@ -55,5 +55,9 @@ package examples.yui.helloworld.action
             trace(event);
             
         }      
+        
+        public function controlButtonClickHandler( event:MouseEvent ):void{
+            trace(event);
+        }
     }
 }

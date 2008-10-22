@@ -15,11 +15,17 @@
         </mx:Transition>
     </mx:transitions>
     <mx:Validator id="inputDataValidator" required="true" source="{inputData}" property="text"/>
-    <mx:TextInput id="inputText" restrict="0-9"/>
-    <mx:TextInput id="inputData" />    
-    <mx:Button label="はろーわーるどを表示する" id="showHelloWorld" height="242" width="402"/>
-    <mx:RadioButtonGroup id="radiogroup1"/>
-    <mx:RadioButton label="Button 1" groupName="radiogroup1"/>
-    <mx:RadioButton label="Button 2" groupName="radiogroup1"/>
+
+    <mx:Panel>
+        <mx:TextInput id="inputText" restrict="0-9"/>
+        <mx:TextInput id="inputData" />    
+        <mx:Button label="はろーわーるどを表示する" id="showHelloWorld" height="242" width="402"/>
+        <mx:RadioButtonGroup id="radiogroup1"/>
+        <mx:RadioButton label="Button 1" groupName="radiogroup1"/>
+        <mx:RadioButton label="Button 2" groupName="radiogroup1"/>
+        <mx:ControlBar>
+            <mx:Button id="controlButton"/>
+        </mx:ControlBar>        
+    </mx:Panel>
     
 </mx:VBox>
