@@ -15,31 +15,35 @@
  */
 package org.seasar.akabana.yui.util
 {
-
-	public class StringUtil
+    
+    public class StringUtil
 	{
-	    public static function trim(str:String):String
-	    {
-	        if (str == null) return '';
+	    public static const EMPTY:String = "";
+
+	    public static function trim(str:String):String {
+	        if (str == null){
+	           return null;
+	        }
 	        
 	        var startIndex:int = 0;
-	        while (isWhitespace(str.charAt(startIndex)))
+	        while( isWhitespace(str.charAt(startIndex))){
 	            ++startIndex;
+	        }
 	
 	        var endIndex:int = str.length - 1;
-	        while (isWhitespace(str.charAt(endIndex)))
+	        while( isWhitespace(str.charAt(endIndex))){
 	            --endIndex;
+	        }
 	
-	        if (endIndex >= startIndex)
+	        if( endIndex >= startIndex ){
 	            return str.slice(startIndex, endIndex + 1);
-	        else
-	            return "";
+	        } else {
+	            return EMPTY;
+	        }
 	    }
 	    
-	    public static function isWhitespace(character:String):Boolean
-	    {
-	        switch (character)
-	        {
+	    public static function isWhitespace(character:String):Boolean{
+	        switch( character ){
 	            case " ":
 	            case "\t":
 	            case "\r":
@@ -52,29 +56,41 @@ package org.seasar.akabana.yui.util
 	        }
 	    }
 	
-	    public static function substitute(str:String, ... rest):String
-	    {
-	        if (str == null) return '';
+	    public static function substitute(str:String, ... rest):String{
+	        if( str == null ){
+	           return null;
+	        }
 	        
-	        // Replace all of the parameters in the msg string.
 	        var len:uint = rest.length;
 	        var args:Array;
-	        if (len == 1 && rest[0] is Array)
-	        {
+	        if( len == 1 && rest[0] is Array ){
 	            args = rest[0] as Array;
 	            len = args.length;
-	        }
-	        else
-	        {
+	        } else {
 	            args = rest;
 	        }
 	        
-	        for (var i:int = 0; i < len; i++)
-	        {
+	        for( var i:int = 0; i < len; i++ ){
 	            str = str.replace(new RegExp("\\{"+i+"\\}", "g"), args[i]);
 	        }
 	
 	        return str;
 	    }
+
+        public static function fill(value:Object, len:int, padding:String):String{
+            var result:String = "";
+    
+            var valueLen:int = value.toString().length;
+            if( valueLen < len){
+                var paddingLen:int = len - valueLen;
+                for( var i:int = 0; i < paddingLen; i++){
+                    result += padding;
+                }
+            }
+    
+            result += value.toString();
+    
+            return result;
+        }	    
 	}
 }
