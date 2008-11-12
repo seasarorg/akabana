@@ -17,11 +17,12 @@ package org.seasar.akabana.yui.formatter
 {
     import org.seasar.akabana.yui.formatter.error.FormatError;
     import org.seasar.akabana.yui.formatter.naming.DateFormatNaming;
+    import org.seasar.akabana.yui.formatter.naming.IDateFormatNaming;
     import org.seasar.akabana.yui.util.StringUtil;
     
     public class DateFormatter extends StringFormatter {
 
-        public static var dateFormatNaming:DateFormatNaming = new DateFormatNaming();
+        public static var dateFormatNaming:IDateFormatNaming = new DateFormatNaming();
         
         private static const FILL_ZERO:String = "0";
         

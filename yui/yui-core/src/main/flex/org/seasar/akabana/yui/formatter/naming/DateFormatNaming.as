@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.formatter.naming
 {
-    public class DateFormatNaming {
+    public class DateFormatNaming implements IDateFormatNaming{
 
         public static var MONTH_SHORT:Array = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
         

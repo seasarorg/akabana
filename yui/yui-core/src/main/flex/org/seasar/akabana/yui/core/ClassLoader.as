@@ -24,18 +24,23 @@ package org.seasar.akabana.yui.core
     {
         public function findClass( name:String ):Class {
             var clazz:Class = null;
-            
             try{
                 clazz = getDefinitionByName( name ) as Class;
-                if ( clazz == null ){
-                    clazz = getClassByAlias( name );   
-                }
             } catch( e:Error ){
+            }
+            if ( clazz == null ){
+                try{                
+                    clazz = getClassByAlias( name );   
+                } catch( e:Error ){
+                }
+            }            
+            if( clazz == null){
                 var e:ClassNotFoundError = new ClassNotFoundError();
                 e.className = name;
                 
-                throw e;
+                throw e;                
             }
+            
             
             return clazz;
         }
