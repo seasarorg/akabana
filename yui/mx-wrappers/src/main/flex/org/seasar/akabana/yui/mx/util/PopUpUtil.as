@@ -25,17 +25,17 @@ package org.seasar.akabana.yui.mx.util
 
             var window:IUIComponent = new className();
 
-                window.addEventListener(
-                    FlexEvent.INITIALIZE,
-                    function(event:FlexEvent):void{
-                        var descriptor:UIComponentDescriptor = 
-                            UIComponent(event.target).mx_internal::_documentDescriptor;
-                        descriptor.properties[POPUP_OWNER] = parent; 
-                    },
-                    false,
-                    int.MAX_VALUE,
-                    true
-                );
+            window.addEventListener(
+                FlexEvent.INITIALIZE,
+                function(event:FlexEvent):void{
+                    var descriptor:UIComponentDescriptor = 
+                        UIComponent(event.target).mx_internal::_documentDescriptor;
+                    descriptor.properties[POPUP_OWNER] = parent; 
+                },
+                false,
+                int.MAX_VALUE,
+                true
+            );
                 
             PopUpManager.addPopUp(
                 window,
