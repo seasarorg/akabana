@@ -3,7 +3,6 @@
   <includeClasses>
     <classEntry path="org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory"/>
     <classEntry path="org.seasar.akabana.yui.logging.config.factory.PropertiesConfigurationBuilder"/>
-    <classEntry path="org.seasar.akabana.yui.logging.config.factory.XmlConfigurationBuilder"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/en_US/log4yui.properties" sourcePath="locale/en_US/log4yui.properties"/>

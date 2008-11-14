@@ -25,18 +25,11 @@ package org.seasar.akabana.yui.logging.config.factory
         [ResourceBundle("log4yui")]
         private static var propertiesConfigFile:ResourceBundle;
         
-        [Embed(source="log4yui.xml", mimeType="application/octet-stream")]
-        private static var xmlCofingFile:Class
-        
         public function create():Configuration {
             var configuration:Configuration;
             if( propertiesConfigFile.content.hasOwnProperty(PropertiesConfigurationBuilder.LOG4YUI_ROOT_LOGGER)){
                 configuration = PropertiesConfigurationBuilder.create(propertiesConfigFile);
                 trace("Logging Configuration is loaded from log4yui.properties.");
-            } else {
-                var embedReader:EmbedXmlReader = new EmbedXmlReader();
-                configuration = XmlConfigurationBuilder.create(embedReader.read( xmlCofingFile ) as XML);
-                trace("Logging Configuration is loaded from log4yui.xml.");
             }
 
             return configuration;
