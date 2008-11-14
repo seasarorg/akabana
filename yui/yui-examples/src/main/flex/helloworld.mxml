@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:akabana="http://akabana.seasar.org/yui/mxml" xmlns:view="examples.yui.helloworld.view.*" xmlns:helloworld="examples.yui.helloworld.*">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:akabana="http://akabana.seasar.org/yui/mxml" xmlns:view="examples.yui.helloworld.view.*" xmlns:helloworld="examples.yui.helloworld.*" xmlns:factory="org.seasar.akabana.yui.logging.config.factory.*">
     <mx:Style source="assets/css/applicationStyles.css"/>
     <mx:Style source="examples/yui/helloworld/helloworldClasses.css"/>
     
@@ -8,6 +8,8 @@
             examples.yui.helloworld
         </akabana:conventions>
     </akabana:YuiFrameworkMixin>
+    
+    <factory:ConfigurationFactory/>
     
     <view:HelloWorldView id="rootView"/>
 </mx:Application>
