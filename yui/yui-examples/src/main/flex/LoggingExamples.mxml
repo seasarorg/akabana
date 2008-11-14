@@ -4,6 +4,8 @@
     >
     <mx:Script>
         <![CDATA[
+            import org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory;
+            import org.seasar.akabana.yui.TestClass;
             import examples.yui.helloworld.view.HelloWorldView;
             import examples.yui.helloworld.action.HelloWorldAction;
             import examples.yui.helloworld.helper.HelloWorldHelper;
@@ -12,10 +14,10 @@
             import org.seasar.akabana.yui.logging.Logger;
 
             private function initApp():void{
-                
+                ConfigurationFactory;                
                 LogManager.init();
                 
-                trace( ClassRef.getQualifiedClassName(LogManager));
+                trace( ClassRef.getQualifiedClassName(TestClass));
                 
                 Logger.getLogger(HelloWorldView).debug("debug");
                 Logger.getLogger(HelloWorldAction).debug("debug");
