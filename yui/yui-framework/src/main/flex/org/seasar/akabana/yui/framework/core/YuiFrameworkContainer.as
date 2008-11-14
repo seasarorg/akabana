@@ -38,6 +38,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
+    import org.seasar.akabana.yui.framework.message.Messages;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
     
@@ -72,27 +73,27 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public function initialize():void{
-            logger.debugMessage("yui_framework","ApplicationInit");
-            logger.debugMessage("yui_framework","ApplicationConventions",namingConvention.conventions.toString());
+            logger.debug(Messages.getMessage("yui_framework","ApplicationInit"));
+            logger.debug(Messages.getMessage("yui_framework","ApplicationConventions",namingConvention.conventions.toString()));
             
             if( customizers == null ){
                 customizers = getDefaultCustomizers();
             }
-            logger.debugMessage("yui_framework","ViewComponentAssembleStart"); 
+            logger.debug(Messages.getMessage("yui_framework","ViewComponentAssembleStart")); 
             
             var viewMap:Object = ViewComponentRepository.componentMap;
             for ( var key:String in viewMap ){
-                logger.debugMessage("yui_framework","ViewComponentAssembleing",key); 
+                logger.debug(Messages.getMessage("yui_framework","ViewComponentAssembleing",key)); 
                 var view:Container = ViewComponentRepository.getComponent(key) as Container;
                 if( view.initialized ){
                     processAssembleView(key,view);
                 }
-                logger.debugMessage("yui_framework","ViewComponentAssembled",key); 
+                logger.debug(Messages.getMessage("yui_framework","ViewComponentAssembled",key)); 
             }
             
             application.visible = true;
             
-            logger.debugMessage("yui_framework","ViewComponentAssembleEnd"); 
+            logger.debug(Messages.getMessage("yui_framework","ViewComponentAssembleEnd")); 
          
             _callTimer.addEventListener(TimerEvent.TIMER,callApplicationStart,false,0,true);
             _callTimer.start();
@@ -103,7 +104,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         private function callApplicationStart( event:TimerEvent ):void{
-            logger.debugMessage("yui_framework","ApplicationStart");
+            logger.debug(Messages.getMessage("yui_framework","ApplicationStart"));
             var rootView:UIComponent = application.getChildByName(ROOT_VIEW) as UIComponent;
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
@@ -150,7 +151,7 @@ package org.seasar.akabana.yui.framework.core
                 if( container is Application ){
                     application = container as Application;
                     application.visible = false;
-                    logger.debugMessage("yui_framework","ApplicationRegistered",container.toString());
+                    logger.debug(Messages.getMessage("yui_framework","ApplicationRegistered",container.toString()));
                     break;
                 }
                 
@@ -185,12 +186,12 @@ package org.seasar.akabana.yui.framework.core
                         return;
                     }                
                     ViewComponentRepository.addComponent( componentName, container );              
-                    logger.debugMessage("yui_framework","ViewComponentRegistered",componentName);                  
+                    logger.debug(Messages.getMessage("yui_framework","ViewComponentRegistered",componentName));                  
                 } else {
                     componentName = container.toString();
                     if( !ViewComponentRepository.hasComponent( componentName ) ){
                         ViewComponentRepository.addComponent( componentName, container );              
-                        logger.debugMessage("yui_framework","ViewComponentRegistered",componentName);                    
+                        logger.debug(Messages.getMessage("yui_framework","ViewComponentRegistered",componentName));                    
                     }
                 }
             }
@@ -208,7 +209,7 @@ package org.seasar.akabana.yui.framework.core
                 
                 if( ViewComponentRepository.hasComponent( componentName )){
                     ViewComponentRepository.removeComponent( componentName, container );  
-                    logger.debugMessage("yui_framework","ViewComponentUnRegistered",container.toString(),componentName);
+                    logger.debug(Messages.getMessage("yui_framework","ViewComponentUnRegistered",container.toString(),componentName));
                 }
             }
         }

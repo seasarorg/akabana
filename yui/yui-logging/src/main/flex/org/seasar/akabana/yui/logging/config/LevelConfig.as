@@ -13,19 +13,9 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.logging
+package org.seasar.akabana.yui.logging.config
 {
-    public class LoggingConsts
-    {
-        public static var PREFIX:String = "log4yui.";
-        
-        public static var APPENDER:String = "appender";
-        
-        public static var CATEGORY:String = "category";
-        
-        public static var ROOT_LOGGER:String = "rootLogger";
-        
-        public static var LAYOUT:String = "layout";
-
+    public class LevelConfig{
+        public var value:String;
     }
 }

@@ -15,8 +15,10 @@
  */
 package org.seasar.akabana.yui.logging.layout
 {
-    import org.seasar.akabana.yui.logging.LoggingEvent;
-    import org.seasar.akabana.yui.mx.util.DateFormatterUtil;
+    import flash.utils.getTimer;
+    
+    import org.seasar.akabana.yui.formatter.DateFormatter;
+    import org.seasar.akabana.yui.logging.LoggingData;
     
     /**
      * %c category name
@@ -28,15 +30,17 @@ package org.seasar.akabana.yui.logging.layout
      */ 
     public class PatternLayout extends LayoutBase
     {
+        private static const dateFormatter:DateFormatter = new DateFormatter();
+        
         private static const DATE_FORMAT:String = "YYYY/MM/DD JJ:NN:SS";
         
         public var pattern:String;
 
-        public override function format( event:LoggingEvent ):String{
-            return parse(event);
+        public override function format( data:LoggingData ):String{
+            return parse(data);
         }
         
-        public function parse(event:LoggingEvent):String{
+        protected function parse( data:LoggingData ):String{
             if( this.pattern == null ){
                 this.pattern = "%m";
             }
@@ -50,7 +54,7 @@ package org.seasar.akabana.yui.logging.layout
                     } else {
                         switch( patternCharArray[i] ){
                             case 'c':
-                                result_ += event.categoryName;
+                                result_ += data.categoryName;
                                 break;
                             case 'd':
                                 var formatString:String = DATE_FORMAT;
@@ -62,16 +66,20 @@ package org.seasar.akabana.yui.logging.layout
                                         i++;
                                     }
                                 }
-                                result_ = DateFormatterUtil.format(new Date(),formatString);
+                                dateFormatter.formatString = formatString;
+                                result_ = dateFormatter.format(new Date());
+                                break;
+                            case 'e':
+                                result_ += data.error != null ? data.error.getStackTrace() : "";
                                 break;
                             case 't':
-                                result_ += event.error != null ? event.error.getStackTrace() : "";
+                                result_ += getTimer();
                                 break;
                             case 'l':
-                                result_ += event.level.name;
+                                result_ += data.level.name;
                                 break;
                             case 'm':
-                                result_ += event.message;
+                                result_ += data.message;
                                 break;
                             case 'n':
                                 result_ += '\n';

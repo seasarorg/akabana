@@ -22,6 +22,7 @@
       <libraryPathEntry kind="3" linkType="2" path="/mx-wrappers/target/swc/mx-wrappers.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="/yui-core/target/swc/yui-core.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="/yui-logging/target/swc/yui-logging.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/yui-logging-addins/target/swc/yui-logging-addins.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="/yui-service/target/swc/yui-service.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>

@@ -13,14 +13,21 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.logging.appender
+package org.seasar.akabana.yui.logging.config
 {
-    import org.seasar.akabana.yui.logging.LoggingData;
-
-    public class SimpleAppender extends AppenderBase{
+    public class AppenderConfig{
         
-        public override function append(data:LoggingData):void{
-            trace( _layout.format(data));
+        public var name:String;
+        
+        public var clazz:Class;
+        
+        public var paramMap:Object;
+        
+        public var layout:LayoutConfig;
+        
+        public function AppenderConfig(){
+            paramMap = {};
         }
+        
     }
 }

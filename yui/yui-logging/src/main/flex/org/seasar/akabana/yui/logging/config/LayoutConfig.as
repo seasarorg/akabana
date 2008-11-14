@@ -13,28 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.logging
+package org.seasar.akabana.yui.logging.config
 {
-    public class LoggingEvent
-    {
-        public static const startTime:Number = new Date().time;
+    public class LayoutConfig{
+        public var clazz:Class;
         
-        public var categoryName:String;
+        public var paramMap:Object;
         
-        public var level:Level;
-        
-        public var message:String;
-        
-        public var timeStamp:Number;
-        
-        public var error:Error;
-        
-        public function LoggingEvent( message:String, level:Level=null, logger:Category=null, error:Error=null){
-            this.timeStamp = new Date().time;
-            this.categoryName = logger.name;
-            this.message = message;
-            this.level = level;
-            this.error = error;
+        public function LayoutConfig(){
+            paramMap = {};
         }
+
     }
 }

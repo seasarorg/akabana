@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
   <includeClasses>
-    <classEntry path="YuiFrameworkClasses"/>
     <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
@@ -10,9 +9,13 @@
     <classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError"/>
     <classEntry path="org.seasar.akabana.yui.framework.error.RuntimeError"/>
     <classEntry path="org.seasar.akabana.yui.framework.event.FrameworkEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.Message"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.Messages"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.ResourceMessage"/>
     <classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
     <classEntry path="org.seasar.akabana.yui.framework.util.UIComponentUtil"/>
   </includeClasses>

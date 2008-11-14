@@ -14,29 +14,16 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.logging.category
-{
-    import mx.resources.ResourceManager;
-    
-    import org.seasar.akabana.yui.logging.Appender;
+{   
     import org.seasar.akabana.yui.logging.Level;
-    import org.seasar.akabana.yui.logging.LoggingEvent;
+    import org.seasar.akabana.yui.logging.LoggingData;
     
-    public class SimpleCategory extends CategoryBase
-    {
+    public class SimpleCategory extends CategoryBase{
         
         public function fatal( message:String, erorr:Error = null ):void{
             if( Level.FATAL.isGreaterOrEqual( _level )){
                 doLog( Level.FATAL, message, erorr);
             }
-        }
-        
-        public function fatalMessage(bundleName:String, resourceName:String,...parameters):void{
-            fatal(
-                substitute(
-                    ResourceManager.getInstance().getString(bundleName,resourceName),
-                    parameters
-                )
-            );
         }
         
         public function error( message:String, erorr:Error = null ):void{
@@ -45,28 +32,10 @@ package org.seasar.akabana.yui.logging.category
             }
         }
         
-        public function errorMessage(bundleName:String, resourceName:String,...parameters):void{
-            error(
-                substitute(
-                    ResourceManager.getInstance().getString(bundleName,resourceName),
-                    parameters
-                )
-            );
-        }
-        
         public function warn( message:String, erorr:Error = null ):void{
             if( Level.WARN.isGreaterOrEqual( _level )){
                 doLog( Level.WARN, message, erorr);
             }
-        }
-        
-        public function warnMessage(bundleName:String, resourceName:String,...parameters):void{
-            warn(
-                substitute(
-                    ResourceManager.getInstance().getString(bundleName,resourceName),
-                    parameters
-                )
-            );
         }
         
         public function info( message:String, erorr:Error = null ):void{
@@ -74,39 +43,19 @@ package org.seasar.akabana.yui.logging.category
                 doLog( Level.INFO, message, erorr);
             }
         }
-        
-        public function infoMessage(bundleName:String, resourceName:String,...parameters):void{
-            info(
-                substitute(
-                    ResourceManager.getInstance().getString(bundleName,resourceName),
-                    parameters
-                )
-            );
-        }
                                 
         public function debug( message:String, erorr:Error = null ):void{
             if( Level.DEBUG.isGreaterOrEqual( _level )){
                 doLog( Level.DEBUG, message, erorr);
             }
-        } 
-        
-        public function debugMessage(bundleName:String, resourceName:String,...parameters):void{
-            debug(
-                substitute(
-                    ResourceManager.getInstance().getString(bundleName,resourceName),
-                    parameters
-                )
-            );
         }
         
         protected function doLog( level:Level, message:String, erorr:Error=null):void{
-            callAppenders(new LoggingEvent( message, _level, this, erorr));
+            callAppenders(new LoggingData( message, _level, this, erorr));
         }
         
-        protected function callAppenders( event:LoggingEvent ):void{
-            for each( var appender_:Appender in _appenders ){
-                appender_.append(event);
-            }
+        protected function callAppenders( data:LoggingData ):void{
+            _appender.append(data);
         }
     }
 }

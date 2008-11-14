@@ -15,14 +15,13 @@
  */
 package org.seasar.akabana.yui.logging.layout
 {
-    import org.seasar.akabana.yui.logging.LoggingEvent;
+    import org.seasar.akabana.yui.logging.LoggingData;
 
-    public class SimpleLayout extends LayoutBase
-    {
+    public class SimpleLayout extends LayoutBase{
 
-        public override function format( event:LoggingEvent ):String{
+        public override function format( data:LoggingData ):String{
             
-            return event.level.name + " - " + event.message;
+            return data.level.name + " - " + data.message;
         }
     }
 }

@@ -18,14 +18,8 @@ package org.seasar.akabana.yui.logging.category
     import org.seasar.akabana.yui.logging.Appender;
     import org.seasar.akabana.yui.logging.Category;
     import org.seasar.akabana.yui.logging.Level;
-    import org.seasar.akabana.yui.util.StringUtil;
     
-    public class CategoryBase implements Category
-    {
-        protected static function substitute(str:String, ... args):String
-        {
-            return StringUtil.substitute.apply( null, [str].concat( args ));
-        }
+    public class CategoryBase implements Category {
         
         protected var _name:String;
         
@@ -47,30 +41,18 @@ package org.seasar.akabana.yui.logging.category
             _level = value;
         }
         
-        protected var _appenders:Array;
-        
-        public function get appenderCount():int{
-            return _appenders.length;
+        protected var _appender:Appender;
+
+        public function get appender():Appender{
+            return _appender;
+        }
+
+        public function set appender( value:Appender ):void{
+            _appender = value;
         }
         
         public function CategoryBase(){
-            _appenders = [];
             _level = Level.ALL;
-        }
-
-        public function getAppenderAt( index:int ):Appender{
-            return _appenders[ index ] as Appender;
-        }
-        
-        public function addAppender( appender:Appender ):void{
-            if( appender != null ){
-                _appenders.push( appender );
-            }
-        }
-
-        public function removeAppender( appender:Appender ):void{
-            var appenderIndex_:int = _appenders.indexOf(appender);
-            _appenders.splice(appenderIndex_,1);
         }
     }
 }

@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.logging.appender
 {
     import org.seasar.akabana.yui.logging.Appender;
     import org.seasar.akabana.yui.logging.Layout;
-    import org.seasar.akabana.yui.logging.LoggingEvent;
+    import org.seasar.akabana.yui.logging.LoggingData;
 
     public class AppenderBase implements Appender
     {
@@ -56,7 +56,7 @@ package org.seasar.akabana.yui.logging.appender
             
         }
         
-        public function append(event:LoggingEvent):void
+        public function append( data:LoggingData ):void
         {
         }
     }

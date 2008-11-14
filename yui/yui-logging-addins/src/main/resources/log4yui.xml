@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    
+    <appender name="SA" class="org.seasar.akabana.yui.logging.appender.SimpleAppender">
+        <layout class="org.seasar.akabana.yui.logging.layout.PatternLayout">
+            <param name="pattern" value="%d(%t) [%c] %l - %m" />
+        </layout>
+    </appender>    
+
+    <appender name="RA" class="org.seasar.akabana.yui.logging.appender.SimpleAppender">
+        <layout class="org.seasar.akabana.yui.logging.layout.PatternLayout">
+            <param name="pattern" value="%d [%c] %l - %m" />
+        </layout>
+    </appender>  
+    
+    <category name="org.seasar">
+        <level value="DEBUG" />
+        <appender-ref ref="SA" />
+    </category>
+    
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="RA"/>
+    </root>
+    
+</log4j:configuration>

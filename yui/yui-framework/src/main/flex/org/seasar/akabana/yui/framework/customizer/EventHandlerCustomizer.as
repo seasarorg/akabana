@@ -29,6 +29,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
+    import org.seasar.akabana.yui.framework.message.Messages;
     import org.seasar.akabana.yui.logging.Logger;
     
     use namespace mx_internal;
@@ -49,7 +50,7 @@ package org.seasar.akabana.yui.framework.customizer {
             var actionClassRef:ClassRef = ClassRef.getReflector(action);
             var component:UIComponent;
 
-            logger.debugMessage("yui_framework","ViewEventCustomizing",viewName,actionClassRef.name);
+            logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizing",viewName,actionClassRef.name));
             
             //for children
             for( var index:int = 0; index < view.numChildren; index++ ){
@@ -207,7 +208,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 
                 addEventListener( component, eventName, enhancedFunction);	        
 	            storeEnhancedEventHandler(view, enhancedEventName,enhancedFunction);                
-                logger.debugMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName != null ? componentViewName : view.name, eventName,functionName);
+                logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName != null ? componentViewName : view.name, eventName,functionName));
 			}
         }
     }

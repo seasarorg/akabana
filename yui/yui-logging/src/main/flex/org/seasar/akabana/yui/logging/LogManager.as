@@ -14,19 +14,17 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.logging
-{
-    import mx.resources.ResourceBundle;
-    
+{   
     import org.seasar.akabana.yui.core.reflection.ClassRef;
-    import org.seasar.akabana.yui.core.reflection.PropertyRef;
-    import org.seasar.akabana.yui.logging.category.SimpleCategory;
-    import org.seasar.akabana.yui.util.StringUtil;
+    import org.seasar.akabana.yui.logging.config.AppenderConfig;
+    import org.seasar.akabana.yui.logging.config.CategoryConfig;
+    import org.seasar.akabana.yui.logging.config.Configuration;
+    import org.seasar.akabana.yui.logging.config.ConfigurationProvider;
+    import org.seasar.akabana.yui.logging.config.LayoutConfig;
+    import org.seasar.akabana.yui.logging.config.ParamConfig;
     
     public class LogManager
-    {        
-        [ResourceBundle("log4yui")]
-        private static var defaultProperties:ResourceBundle;
-
+    {
         private static var CACHE:Object= {};
         
         private static var APPENDER_CACHE:Object= {};
@@ -43,100 +41,73 @@ package org.seasar.akabana.yui.logging
         
         public static function init():void{
             YuiLoggingClasses;
-            logManager.init(defaultProperties.content);
+            logManager.init(ConfigurationProvider.createConfiguration());
         }
         
         public static function getLogger( targetClass:Class ):Logger{
             return logManager.getLogger( targetClass );
         }
         
-        private final function init(propertyMap:Object):void{    
-            var configTree:Object = parsePropertyMap( propertyMap );
-            configure( configTree );
+        private final function init(configuration:Configuration):void{    
+            configure( configuration );
         }
         
-        private final function configure( configTree:Object ):void{
-            configureAppender( configTree[LoggingConsts.APPENDER] );
-            configureRootLogger( configTree[LoggingConsts.ROOT_LOGGER] );
-            doWalkCategoryTree("",configTree[LoggingConsts.CATEGORY]);
-            CATEGORY_NAME = CATEGORY_NAME.sort(Array.DESCENDING);
+        private final function configure( configuration:Configuration ):void{
+            configureAppenders( configuration.appenderMap );
+            configureRootLogger( configuration.root );
+            configureCategories(configuration.categoryMap);
+            
+            CATEGORY_NAME.sort(Array.DESCENDING);
         }
         
-        private final function configureAppender( appenderConfigTree:Object ):void{
+        private final function configureAppenders( appenderConfigMap:Object ):void{
             var appender:Appender;
-            for( var key:String in appenderConfigTree ){
-                
-                var appenderConfig:Object = appenderConfigTree[ key ];
-                
-                var classRef:ClassRef = ClassRef.getReflector(appenderConfig[VALUE]);
-                appender = classRef.newInstance() as Appender;
+            for each( var appenderConfig:AppenderConfig in appenderConfigMap ){
+                var appenderClass:Class = appenderConfig.clazz;
+                appender = new appenderClass() as Appender;
                 
                 if( appender != null ){
-                    appender.layout = configureAppenderLayout( appenderConfig[ LoggingConsts.LAYOUT ] );                    
+                    appender.layout = configureLayout( appenderConfig.layout);                    
                 }
                 
-                appender.name = key;
-                APPENDER_CACHE[ key ] = appender;
+                APPENDER_CACHE[ appenderConfig.name ] = appender;
             }
         }
 
-        private final function configureAppenderLayout( layoutConfig:Object ):Layout{
-            var classRef:ClassRef = ClassRef.getReflector(layoutConfig[VALUE]);
-            var layout:Layout = classRef.newInstance() as Layout;
+        private final function configureLayout( layoutConfig:LayoutConfig ):Layout{
+            var layout:Layout = ClassRef.getReflector(layoutConfig.clazz).newInstance() as Layout;
             
-            for each( var propRef:PropertyRef in classRef.properties ){
-                if( propRef.isWriteable ){
-                    if( layoutConfig.hasOwnProperty( propRef.name )){
-                        layout[ propRef.name ] = layoutConfig[ propRef.name ][VALUE];
-                    }
+            for each( var param:ParamConfig in layoutConfig.paramMap ){
+                if( Object(layout).hasOwnProperty( param.name )){
+                    layout[ param.name ] = param.value;
                 }
             }
             
             return layout;
         }
         
-        private final function configureRootLogger( rootLoggerConfig:Object ):void{
-            ROOT_LOGGER = configureCategory( LoggingConsts.ROOT_LOGGER, rootLoggerConfig[VALUE] as String );
+        private final function configureRootLogger( categoryConfig:CategoryConfig ):void{
+            ROOT_LOGGER = configureCategory( categoryConfig );
         }
         
-        private final function configureCategory( packeageName:String, info:String ):Category{
-            var value:String = info;
-            var category:Category = new SimpleCategory();
-            var values:Array = value.split(",");
-            if( values.length > 0 ){
-                category.level = Level.getLevel(values[0]);
-            } else {
-                category.level = ROOT_LOGGER.level;
-            }
-            if( values.length > 1 ){
-                category.addAppender(APPENDER_CACHE[StringUtil.trim(values[1])]);
-            } else {
-                var rootAppenderNum:int = ROOT_LOGGER.appenderCount;
-                for( var i:int = 0; i < rootAppenderNum; i++ ){
-                    category.addAppender(ROOT_LOGGER.getAppenderAt(i));
-                }
-            }
-            category.name = packeageName;
-            CATEGORY_NAME.push( packeageName );
-            CATEGORY_CACHE[ packeageName ] = category;
+        private final function configureCategory( categoryConfig:CategoryConfig ):Category{
+            var category:Category = ClassRef.getReflector(categoryConfig.clazz).newInstance() as Category;
+            category.level = Level.getLevel(categoryConfig.level.value);
+
+            category.appender = APPENDER_CACHE[categoryConfig.appenderRef] as Appender;
+            
+            CATEGORY_NAME.push( categoryConfig.name );
+            CATEGORY_CACHE[ categoryConfig.name ] = category;
             
             return category;
         }
 
-        private final function doWalkCategoryTree( packeageName:String, categoryConfigTree:Object ):void{
-            for( var key:String in categoryConfigTree ){
-                if( key != VALUE ){
-                    doWalkCategoryTree(
-                        packeageName.length > 0 ? packeageName+"."+key : key,
-                        categoryConfigTree[key]
-                    );
-                } else {
-                    configureCategory( packeageName, categoryConfigTree[key]);
-                }
+        private final function configureCategories( categoryConfigMap:Object ):void{
+            for each( var categoryConfig:CategoryConfig in categoryConfigMap ){
+                configureCategory( categoryConfig );
             }
-        }        
+        }
         
-
         private final function getLogger( targetClass:Class ):Logger{
             
             var fullClassName:String = ClassRef.getQualifiedClassName(targetClass);
@@ -158,35 +129,12 @@ package org.seasar.akabana.yui.logging
                 logger_ = new Logger();
                 logger_.name = fullClassName.substring(fullClassName.lastIndexOf(".")+1);
                 logger_.level = category.level;
-                var appenderNum:int = category.appenderCount;
-                for( var i:int = 0; i < appenderNum; i++ ){
-                    logger_.addAppender(category.getAppenderAt(i));
-                }
+                logger_.appender = category.appender;
                 
                 CACHE[ fullClassName ] = logger_;
             }
                         
             return logger_;
-        }
-
-        private final function parsePropertyMap(propertyMap:Object):Object{
-            var configTree:Object = {};
-            for( var key:String in propertyMap ){
-                var attrs:Array = key.split(".");
-                var temp:Object = configTree;
-                for( var i:int = 1; i < attrs.length; i++ ){
-                    var attr:String = attrs[i];
-                    if( !temp.hasOwnProperty(attr)){
-                        temp[ attr ] = {};
-                    }
-                    temp = temp[ attr ];
-                    if( temp is String ){
-                        
-                    }
-                }
-                temp["value"] = propertyMap[ key ]
-            }
-            return configTree;
         }
     }
 }

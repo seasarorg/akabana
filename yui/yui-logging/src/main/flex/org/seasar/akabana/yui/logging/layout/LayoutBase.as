@@ -16,10 +16,10 @@
 package org.seasar.akabana.yui.logging.layout
 {
     import org.seasar.akabana.yui.logging.Layout;
-    import org.seasar.akabana.yui.logging.LoggingEvent;
+    import org.seasar.akabana.yui.logging.LoggingData;
 
-    public class LayoutBase implements Layout
-    {
+    public class LayoutBase implements Layout {
+        
         private static const EMPTY_STRING:String = "";
         
         protected var _header:String;
@@ -42,7 +42,7 @@ package org.seasar.akabana.yui.logging.layout
             _footer = value;
         }
 
-        public function format( event:LoggingEvent ):String{
+        public function format( data:LoggingData ):String{
             return EMPTY_STRING;
         }
     }
