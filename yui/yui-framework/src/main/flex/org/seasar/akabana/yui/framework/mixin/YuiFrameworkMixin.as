@@ -25,7 +25,6 @@ package org.seasar.akabana.yui.framework.mixin
 	
 	import org.seasar.akabana.yui.framework.convention.NamingConvention;
 	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
-	import org.seasar.akabana.yui.framework.logging.config.factory.PropertiesConfigurationFactory;
 	import org.seasar.akabana.yui.logging.LogManager;
 	
 	[Mixin]
@@ -44,7 +43,6 @@ package org.seasar.akabana.yui.framework.mixin
 		private static var _container:YuiFrameworkContainer;
 		
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{
-            PropertiesConfigurationFactory.init();
             LogManager.init();
 
             _this = new YuiFrameworkMixin();
