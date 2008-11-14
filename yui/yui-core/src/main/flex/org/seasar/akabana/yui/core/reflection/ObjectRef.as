@@ -15,8 +15,8 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
-    internal class ObjectRef implements Reflector
-    {
+    internal class ObjectRef implements Reflector {
+        
         private var _describeTypeXml:XML;
         
         public function get describeType():XML{

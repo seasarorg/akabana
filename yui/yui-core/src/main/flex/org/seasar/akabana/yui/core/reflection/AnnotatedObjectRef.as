@@ -17,8 +17,7 @@ package org.seasar.akabana.yui.core.reflection
 {
     import flash.utils.describeType;
     
-    internal class AnnotatedObjectRef extends ObjectRef implements AnnotatedReflector
-    {
+    internal class AnnotatedObjectRef extends ObjectRef implements AnnotatedReflector{
         
         [ArrayElementType("my.core.metadata.MetadataRef")]
         private var _metadatas:Array;

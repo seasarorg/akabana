@@ -16,8 +16,8 @@
 package org.seasar.akabana.yui.core.reflection
 {
     
-    public interface AnnotatedReflector extends Reflector
-    {
+    public interface AnnotatedReflector extends Reflector {
+        
         function hasMetadata( metadata:String ):Boolean;
         
         function getMetadata( metadata:String ):MetadataRef;
