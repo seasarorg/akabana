@@ -15,6 +15,7 @@
  */
 package org.seasar.akabana.yui.logging.config
 {
+    import org.seasar.akabana.yui.core.error.ClassNotFoundError;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.logging.config.factory.DefaultConfigurationFactory;
     import org.seasar.akabana.yui.logging.config.factory.IConfigurationFactory;
@@ -40,11 +41,13 @@ package org.seasar.akabana.yui.logging.config
                     configuration = factory.create();
                 }
             } catch( e:Error ){
-                trace("Logging Configuration is faild.");
-            }
-            if( configuration == null ){
-                factory = new DefaultConfigurationFactory();
-                configuration = factory.create();
+            	e.message = "Logging ConfigurationFactory is faild.\n" + e.message;
+                trace(e.getStackTrace());
+            } finally {
+	            if( configuration == null ){
+	                factory = new DefaultConfigurationFactory();
+	                configuration = factory.create();
+	            }
             }
             
             return configuration;
