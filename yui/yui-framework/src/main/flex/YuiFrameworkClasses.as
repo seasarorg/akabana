@@ -22,8 +22,8 @@ package
     import org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
-    import org.seasar.akabana.yui.framework.error.RuntimeError;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
+    import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     
@@ -36,7 +36,7 @@ package
         ActionCustomizer;
         EventHandlerCustomizer;
         ComponentDuplicatedRegistrationError;
-        RuntimeError;
+        RuntimeErrorEvent;
         
         FrameworkEvent;
         

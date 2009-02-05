@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
   <includeClasses>
-    <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
-    <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
-    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractEventCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError"/>
-    <classEntry path="org.seasar.akabana.yui.framework.error.RuntimeError"/>
-    <classEntry path="org.seasar.akabana.yui.framework.event.FrameworkEvent"/>
-    <classEntry path="org.seasar.akabana.yui.framework.message.Message"/>
-    <classEntry path="org.seasar.akabana.yui.framework.message.Messages"/>
-    <classEntry path="org.seasar.akabana.yui.framework.message.ResourceMessage"/>
-    <classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
     <classEntry path="org.seasar.akabana.yui.framework.util.UIComponentUtil"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.event.FrameworkEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.event.RuntimeErrorEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.ResourceMessage"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
+    <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.Message"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
+    <classEntry path="org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.Messages"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractEventCustomizer"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/ja_JP/conventions.properties" sourcePath="locale/ja_JP/conventions.properties"/>
