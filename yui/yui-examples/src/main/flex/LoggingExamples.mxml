@@ -14,7 +14,7 @@
             import org.seasar.akabana.yui.logging.Logger;
 
             private function initApp():void{
-                ConfigurationFactory;                
+                //ConfigurationFactory;                
                 LogManager.init();
                 
                 trace( ClassRef.getQualifiedClassName(TestClass));
