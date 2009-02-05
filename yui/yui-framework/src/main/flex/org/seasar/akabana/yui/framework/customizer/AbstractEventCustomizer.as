@@ -15,17 +15,19 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
-    import flash.events.ErrorEvent;
     import flash.events.Event;
     import flash.events.IEventDispatcher;
     import flash.utils.Dictionary;
     
     import mx.core.UIComponent;
     
-    import org.seasar.akabana.yui.framework.error.RuntimeError;
+    import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.logging.Logger;
     
     internal class AbstractEventCustomizer extends AbstractComponentCustomizer
     {
+    	private static const logger:Logger = Logger.getLogger(AbstractEventCustomizer);
+    	
         protected static const ENHANCED_SEPARETOR:String = "$";
         
         protected static const ENHANCED_PREFIX:String = ENHANCED_SEPARETOR + "enhanced" + ENHANCED_SEPARETOR;
@@ -62,29 +64,31 @@ package org.seasar.akabana.yui.framework.customizer
             
             var func_:Object = function( event:Event ):void{
                 var callee:Object = arguments.callee; 
-                var error:Error = null;                              
                 try{
-                   callee.proto.apply(callee.owner,[event]);
-                } catch(re:RuntimeError){
-                    error = re;
-                    if( callee.owner is IEventDispatcher ){
-                        var event:Event = new ErrorEvent(ErrorEvent.ERROR,true,false,re.message);                   
-                        IEventDispatcher(callee.owner).dispatchEvent(event);
-                    } else {
-                        throw re;
-                    }
+                   	var proto:Function = callee.properties["proto"] as Function;
+                   	if( proto != null ){
+                   		proto.apply(null,[event]);
+                   	} else {
+                   		throw new Error("EnhancedEventHandler doesn't have prote Handler");
+                   	}
                 } catch(e:Error){
-                    error = e;
-                    throw e;
-                } finally {
-                    if( error != null ){
-                        trace(error.getStackTrace());
+                    logger.debug(e.getStackTrace());
+                   	var owner:Object = callee.properties["owner"];
+                   	if( owner is IEventDispatcher ){
+                        var runtimeErrorEvent:RuntimeErrorEvent = new RuntimeErrorEvent(RuntimeErrorEvent.RUNTIME_ERROR);
+                        runtimeErrorEvent.text = e.message;
+                        runtimeErrorEvent.stackTrace = e.getStackTrace();
+                        IEventDispatcher(owner).dispatchEvent(runtimeErrorEvent);
+                    } else {
+                        throw e;
                     }
                 }
             };
 
-            func_.owner = owner;
-            func_.proto = handler;
+            var properties:Dictionary = new Dictionary(true);
+            properties["owner"] = owner;
+            properties["proto"] = handler;
+			func_.properties = properties;
             
             return func_ as Function;
         }

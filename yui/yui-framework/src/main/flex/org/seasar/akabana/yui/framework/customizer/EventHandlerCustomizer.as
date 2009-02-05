@@ -204,7 +204,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 if( enhancedFunction != null ){
                     component.removeEventListener(eventName, enhancedFunction);
                 }
-                enhancedFunction = createEnhancedEventHandler(component,action[functionName]);
+                enhancedFunction = createEnhancedEventHandler( view,action[functionName]);
                 
                 addEventListener( component, eventName, enhancedFunction);	        
 	            storeEnhancedEventHandler(view, enhancedEventName,enhancedFunction);                
