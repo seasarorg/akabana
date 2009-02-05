@@ -10,6 +10,10 @@ package org.seasar.akabana.yui.framework.event
 		
 		public function RuntimeErrorEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = ""){
 			super(type,bubbles,cancelable,text);
-		}		
+		}
+		
+		public override function toString():String{
+			return stackTrace;
+		}
 	}
 }
