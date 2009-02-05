@@ -35,10 +35,8 @@ package org.seasar.akabana.yui.core
                 }
             }            
             if( clazz == null){
-                var e:ClassNotFoundError = new ClassNotFoundError();
-                e.className = name;
-                
-                throw e;                
+                var e:ClassNotFoundError = ClassNotFoundError.createError(name);
+                throw e;
             }
             
             

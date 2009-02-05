@@ -15,14 +15,19 @@
  */
 package org.seasar.akabana.yui.core.error
 {
-    public class ClassNotFoundError extends Error
-    {
+    public class ClassNotFoundError extends Error{
+    	
+    	public static function createError(className:String):ClassNotFoundError{
+    		var e:ClassNotFoundError = new ClassNotFoundError();
+    		e.className = className;
+    		e.message = "org.seasar.akabana.yui.core.error.ClassNotFoundError: " + className + " is not found.";
+    		return e;
+    	}
+    	
         public var className:String;
         
-        public function ClassNotFoundError(message:String="", id:int=0)
-        {
+        public function ClassNotFoundError(message:String="", id:int=0){
             super(message, id);
         }
-
     }
 }
