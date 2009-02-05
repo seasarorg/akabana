@@ -11,6 +11,7 @@ package examples.yui.helloworld.action
     import mx.validators.Validator;
     
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
+    import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
     
     public class HelloWorldAction {
         
@@ -23,9 +24,13 @@ package examples.yui.helloworld.action
         public function onApplicationStartHandler( event:FrameworkEvent ):void{
             trace( event );
         }
+
+        public function onRuntimeErrorHandler( event:RuntimeErrorEvent ):void{
+        	trace(">",event.stackTrace);
+        }        
         
         public function radiogroup1ChangeHandler( event:Event ):void{
-            trace( event );
+        	throw new Error("aaaa");
         }
         
         public function showHelloWorldClickHandler( event:MouseEvent ):void{
