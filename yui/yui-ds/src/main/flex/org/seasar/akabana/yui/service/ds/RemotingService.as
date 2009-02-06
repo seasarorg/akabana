@@ -109,6 +109,7 @@ package org.seasar.akabana.yui.service.ds {
         }
         
         private function preinitializeHandler( event:FlexEvent ):void{
+        	parentApplication.removeEventListener( FlexEvent.CREATION_COMPLETE, preinitializeHandler, false ); 
             if( destination == null || destination.length == 0){
                 mx_internal::asyncRequest.destination = mx_internal::id;
             }
