@@ -34,7 +34,6 @@ package org.seasar.akabana.yui.service.rpc.remoting {
             var connection:RemotingConnection = gatewayUrlToRc[ gatewayUrl ];
             if( connection == null ){            
                 connection = new RemotingConnection();
-                connection.connect( gatewayUrl );
     			connection.objectEncoding = ObjectEncoding.AMF3;
     			
     			if( gatewayUrl != null ){
