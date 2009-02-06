@@ -3,6 +3,7 @@ package examples.yui.helloworld.action
     import examples.yui.helloworld.helper.HelloWorldHelper;
     import examples.yui.helloworld.validator.HelloWorldValidator;
     
+    import flash.errors.IllegalOperationError;
     import flash.events.Event;
     import flash.events.MouseEvent;
     
@@ -30,7 +31,7 @@ package examples.yui.helloworld.action
         }        
         
         public function radiogroup1ChangeHandler( event:Event ):void{
-        	throw new Error("aaaa");
+        	throw new IllegalOperationError("aaaa");
         }
         
         public function showHelloWorldClickHandler( event:MouseEvent ):void{
