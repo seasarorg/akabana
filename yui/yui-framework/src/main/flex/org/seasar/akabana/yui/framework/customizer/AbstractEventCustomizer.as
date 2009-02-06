@@ -75,10 +75,7 @@ package org.seasar.akabana.yui.framework.customizer
                     logger.debug(e.getStackTrace());
                    	var owner:Object = callee.properties["owner"];
                    	if( owner is IEventDispatcher ){
-                        var runtimeErrorEvent:RuntimeErrorEvent = new RuntimeErrorEvent(RuntimeErrorEvent.RUNTIME_ERROR);
-                        runtimeErrorEvent.text = e.message;
-                        runtimeErrorEvent.stackTrace = e.getStackTrace();
-                        IEventDispatcher(owner).dispatchEvent(runtimeErrorEvent);
+                        IEventDispatcher(owner).dispatchEvent(RuntimeErrorEvent.createEvent(e));
                     } else {
                         throw e;
                     }
