@@ -91,6 +91,14 @@ package org.seasar.akabana.yui.util
             result += value.toString();
     
             return result;
-        }	    
+        }
+        
+        public static function toLowerCamel(value:String):String{
+        	return value.substr(0,1).toLocaleLowerCase() + value.substring(1,value.length);
+        }
+        
+        public static function toUpperCamel(value:String):String{
+        	return value.substr(0,1).toLocaleUpperCase() + value.substring(1,value.length);
+        }
 	}
 }

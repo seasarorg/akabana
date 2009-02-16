@@ -14,21 +14,50 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.service.rpc {
+    import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Responder;
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.FaultStatus;
     import org.seasar.akabana.yui.service.event.ResultEvent;
+    import org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation;
+    import org.seasar.akabana.yui.util.StringUtil;
     
     public class RpcPendingCall implements PendingCall {
         
-        private var _responder:Responder;
+        private static const RESULT_HANDLER:String = "ResultHandler";
         
-        public function RpcPendingCall(){
+        private static const FAULT_HANDLER:String = "FaultHandler";
+        
+        private static function createResponder( operation:RemotingOperation, responder:Object ):Responder{
+        	var rpcResponder:RpcResponder = null;
+        	
+        	const classRef:ClassRef = ClassRef.getReflector(responder);
+        	const serviceMethod:String = StringUtil.toLowerCamel( operation.service.name ) + StringUtil.toUpperCamel( operation.name );
+        	const result:FunctionRef = classRef.getFunctionRef( serviceMethod + RESULT_HANDLER);
+        	const fault:FunctionRef = classRef.getFunctionRef( serviceMethod + FAULT_HANDLER);
+       	
+        	if( result != null && fault != null){
+        		rpcResponder = new RpcResponder(result.getFunction(responder),fault.getFunction(responder));
+        	}
+    		return rpcResponder;
         }
         
-        public function addResponder( responder:Responder ):void{
-            _responder = responder;
+        private var _responder:Responder;
+        
+        private var _operation:RemotingOperation;
+        
+        public function RpcPendingCall(opration:RemotingOperation){
+        	this._operation = opration as RemotingOperation;
+        }
+        
+        public function addResponder( responder:Object ):void{
+        	if( responder is Responder ){
+            	_responder = responder as Responder;
+         	} else {
+         		_responder = createResponder( _operation, responder );
+         	}
         }
 
         public function addResponceHandler( resultHandler:Function, faultFunction:Function ):void{
@@ -40,7 +69,9 @@ package org.seasar.akabana.yui.service.rpc {
             resultEvent.pendigCall = this;
             resultEvent.result = result;
             
-            _responder.onResult( resultEvent );
+            if( _responder != null ){
+            	_responder.onResult( resultEvent );
+            }
         }
         
         public function onStatus( status:* ):void{
@@ -52,7 +83,9 @@ package org.seasar.akabana.yui.service.rpc {
                 faultEvent.faultStatus = faultStatus;
             }
             
-            _responder.onFault( faultEvent );
+            if( _responder != null ){
+            	_responder.onFault( faultEvent );
+            }
         }
     }
 }

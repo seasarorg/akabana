@@ -126,7 +126,7 @@ package org.seasar.akabana.yui.service.rpc.remoting {
         protected override function doInvoke( operationArgs:Array ):PendingCall{
             var serviceOperationName:String =service_.destination +"." +name_;
             
-            var pendingCall:PendingCall = new RpcPendingCall();
+            var pendingCall:PendingCall = new RpcPendingCall(this);
             var invokeArgs:Array = createServiceInvokeArgs( serviceOperationName, operationArgs, pendingCall );
             
             var rc:RemotingConnection = lookupConnection();

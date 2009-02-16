@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.service
 {
     public interface PendingCall
     {
-        function addResponder( responder:Responder ):void;
+        function addResponder( responder:Object ):void;
         
         function addResponceHandler( resultHandler:Function, faultFunction:Function ):void;
 
