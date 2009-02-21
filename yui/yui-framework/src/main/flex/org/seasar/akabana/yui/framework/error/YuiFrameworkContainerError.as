@@ -13,23 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.util{
-    
-    import flash.utils.getQualifiedClassName;
-    
-    import mx.core.UIComponent;
-    
-    public class UIComponentUtil {
+package org.seasar.akabana.yui.framework.error
+{
+    public class YuiFrameworkContainerError extends Error
+    {
+        public function YuiFrameworkContainerError(message:String="", id:int=0)
+        {
+            super(message, id);
+        }
         
-        public static function getName( component:UIComponent ):String{
-            var componentName:String = null;
-            if( component != null ){
-                componentName = component.id;
-                if( componentName == null ){
-                    componentName = component.name;
-                }
-            }
-            return componentName;
-        }        
     }
 }

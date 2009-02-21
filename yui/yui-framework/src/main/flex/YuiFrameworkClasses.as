@@ -40,8 +40,6 @@ package
         
         FrameworkEvent;
         
-        UIComponentUtil;
-        
         YuiFrameworkMixin;
     }
 }

@@ -21,6 +21,7 @@ package org.seasar.akabana.yui.framework.customizer
     
     import mx.core.UIComponent;
     
+    import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.logging.Logger;
     
@@ -35,13 +36,14 @@ package org.seasar.akabana.yui.framework.customizer
         protected static const HANDLER_SUFFIX:String = "Handler";
         
         protected static const SELF_HANDLER_PREFIX:String = "on";
-        
-        private static function checkDescriptor(component:UIComponent):void{
-            if( component.descriptor.events == null ){
-                component.descriptor.events = new Dictionary(true);
-            }
+
+        protected static function getEventName( functionRef:FunctionRef, componentName:String):String{
+			var functionName:String = functionRef.name;
+			var handlerIndex:int = functionName.lastIndexOf(HANDLER_SUFFIX);
+            
+			return functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);			
         }
-        
+                
         protected static function getEnhancedEventName( viewName:String, eventName:String ):String{
             return viewName + ENHANCED_PREFIX + eventName;
         }        
@@ -55,13 +57,24 @@ package org.seasar.akabana.yui.framework.customizer
             component.descriptor.events[eventName] = handler;
         }
 
-        protected function loadEnhancedEventHandler( component:UIComponent, eventName:String ):Function{
-            checkDescriptor(component);
+        protected function removeEnhancedEventHandler( component:UIComponent, eventName:String ):void{
+            if( component.descriptor.events != null ){
+            	component.descriptor.events[eventName] = null;
+            	delete component.descriptor.events[eventName];
+            }
+        }
+
+        protected function checkDescriptor(component:UIComponent):void{
+            if( component.descriptor.events == null ){
+                component.descriptor.events = new Dictionary(true);
+            }
+        }
+        
+        protected function getEnhancedEventHandler( component:UIComponent, eventName:String ):Function{
             return component.descriptor.events[eventName];
         }
         
         protected function createEnhancedEventHandler( owner:IEventDispatcher, handler:Function ):Function{
-            
             var func_:Object = function( event:Event ):void{
                 var callee:Object = arguments.callee; 
                 try{

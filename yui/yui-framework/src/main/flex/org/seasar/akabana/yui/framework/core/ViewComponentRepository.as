@@ -22,80 +22,72 @@ package org.seasar.akabana.yui.framework.core {
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
+    import org.seasar.akabana.yui.mx.util.UIComponentUtil;
+    import org.seasar.akabana.yui.util.StringUtil;
     
     public class ViewComponentRepository {
         
-        public static var componentNameMap:Dictionary = new Dictionary(true);
-        
         public static var componentMap:Dictionary = new Dictionary(true);
 
-        public static var componentClassMap:Dictionary = new Dictionary(true);
+        public static var componentInstanceMap:Dictionary = new Dictionary(true);
         
-        public static function addComponent( componentName:String, component:UIComponent ):void{
+        public static function addComponent( component:UIComponent ):void{
             var className:String = ClassRef.getReflector(component).name;
-            if( componentClassMap[ className ] == null ){
-                componentClassMap[ className ] = {};
+            if( componentInstanceMap[ className ] == null ){
+                componentInstanceMap[ className ] = new Dictionary(true);
             }
-            var componentClasses:Object = componentClassMap[ className ];
+            var componentInstances:Object = componentInstanceMap[ className ];
 
-            if( componentName == null ){
-                componentName = className;
-                if( componentMap[ componentName ] == null ){
-                    componentMap[ componentName ] = component;
-                    componentNameMap[ component.toString() ] = componentName;
-                    componentClasses[ component.name ] = component;
-                } else {
-                    throw new ComponentDuplicatedRegistrationError("UIコンポーネント登録重複エラー:"+componentName);
-                }
+			var componentId:String = component.id;
+            if( componentId == null ){
+                component.name = componentId = StringUtil.toLowerCamel(className);
+            }
+            if( componentMap[ componentId ] == null ){
+                componentMap[ componentId ] = component;
+                componentInstances[ componentId ] = component;
             } else {
-                componentMap[ componentName ] = component;
-                componentNameMap[ component ] = componentName;
-                componentNameMap[ component ] = componentName;
-                componentClasses[ component.id ] = component;
+                throw new ComponentDuplicatedRegistrationError("UIコンポーネント登録重複エラー:"+componentId);
             }
         }
         
-        public static function removeComponent( componentName:String, component:UIComponent ):void{
-        	if( componentMap.hasOwnProperty(componentName)){
-                componentMap[ componentName ] = null;
-                delete componentMap[ componentName ];
+        public static function removeComponent( component:UIComponent ):void{
+        	if( componentMap.hasOwnProperty(component.name)){
+                componentMap[ component.name ] = null;
+                delete componentMap[ component.name ];
 
                 var className:String = ClassRef.getReflector(component).name;
                 
-                var componentClasses:Object = componentClassMap[ className ];
-                componentClasses[ component.id ] = null;
-                delete componentClasses[ component.id ];  
+                var componentInstances:Object = componentInstanceMap[ className ];
+                componentInstances[ component.name ] = null;
+                delete componentInstances[ component.name ];  
         	}        
-        }
-
-        public static function getComponentName( component:UIComponent ):String{
-            return componentNameMap[ component ];
         }
         
         public static function getComponent( key:Object, componentId:String = null):UIComponent{
             var component:UIComponent = null;
-            
+            var componentInstances:Object;
             do{
                 if( key is Class ){
                     var className:String = ClassRef.getReflector(key as Class).name;
-                    var componentClasses:Object = componentClassMap[ className ];
+                    componentInstances = componentInstanceMap[ className ];
                     if( componentId != null){
-                        component = componentClasses[ componentId ] as UIComponent;
+                        component = componentInstances[ componentId ] as UIComponent;
                     } else {
-                        for each( var component_:UIComponent in componentClasses ){
+                        for each( var component_:UIComponent in componentInstances ){
                             if( component_ != null ){
                                 component = component_;
+                                break;
                             }
                         }
                     }
                     break;
                 }   
                 if( key is String ){
-                    component = componentMap[ key ] as UIComponent;
                     if( componentId != null ){
-                        if( component.id != componentId ){
-                            component = null;
-                        }
+						componentInstances = componentInstanceMap[ key ];
+						component = componentInstances[ componentId ] as UIComponent;
+                    } else {
+                    	component = componentMap[ key ] as UIComponent;
                     }
                     break;
                 }
@@ -107,10 +99,10 @@ package org.seasar.akabana.yui.framework.core {
         public static function getComponentByParent( key:Class, parent:Container):UIComponent{
             var component:UIComponent = null;
             
-            var className:String = ClassRef.getReflector(key as Class).name;
-            var componentClasses:Object = componentClassMap[ className ];
+            var className:String = ClassRef.getReflector(key).name;
+            var componentInstances:Object = componentInstanceMap[ className ];
 
-            for each( var component_:UIComponent in componentClasses ){
+            for each( var component_:UIComponent in componentInstances ){
                 if( parent.contains(component_) ){
                     component = component_;
                     break;

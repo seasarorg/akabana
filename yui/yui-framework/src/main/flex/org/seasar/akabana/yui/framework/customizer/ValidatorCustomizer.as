@@ -44,6 +44,18 @@ package org.seasar.akabana.yui.framework.customizer {
                 //logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
             }            
         }
+
+        public override function uncustomize( viewName:String, view:Container ):void{
+            var viewClassName:String = ClassRef.getReflector(view).name;
+            var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);
+            var validatorClassRef:ClassRef = null;
+            try{
+                validatorClassRef = ClassRef.getReflector(validatorClassName);
+                processValidatorUnCustomize( viewName, view, validatorClassRef );
+            } catch( e:Error ){
+                //logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
+            }   
+        }
         
         protected function processValidatorCustomize( viewName:String, view:Container, validatorClassRef:ClassRef ):void{
             var validator:Object = null;
@@ -61,6 +73,20 @@ package org.seasar.akabana.yui.framework.customizer {
                     }
                 }
             }
+        }
+        
+        protected function processValidatorUnCustomize( viewName:String, view:Container, validatorClassRef:ClassRef ):void{
+            var validator:Object = view.descriptor.properties[ namingConvention.getValidatorPackageName() ]; 
+            if( validator != null ){
+                for each( var propertyRef_:PropertyRef in validatorClassRef.properties ){
+                    var childValidator:Validator = validator[ propertyRef_.name ] as Validator;
+                    if( childValidator != null ){
+                        childValidator.source = null;
+                    }
+                }
+            }
+            view.descriptor.properties[ namingConvention.getValidatorPackageName() ] = null;
+            delete view.descriptor.properties[ namingConvention.getValidatorPackageName() ];
         }
 
     }

@@ -83,7 +83,13 @@ package org.seasar.akabana.yui.framework.mixin
             if( event.target is UIComponent ){
                 _container.registerComponent(event.target as UIComponent);
             }
-        } 
+        }
+
+        private function removedHandler( event:Event ):void{
+            if( event.target is UIComponent ){
+                _container.unregisterComponent(event.target as UIComponent);
+            }
+        }         
         
         private function applicationCompleteHandler( event:FlexEvent ):void{
             if( event.currentTarget is ISystemManager ){
@@ -97,11 +103,16 @@ package org.seasar.akabana.yui.framework.mixin
                     Event.ADDED_TO_STAGE,
                     _this.addedToStageHandler,
                     true
-                );  
-
+                );
                 systemManager.addEventListener(
                     Event.ADDED,
                     _this.addedHandler,
+                    true,
+                    int.MAX_VALUE
+                );
+                systemManager.addEventListener(
+                    Event.REMOVED_FROM_STAGE,
+                    _this.removedHandler,
                     true,
                     int.MAX_VALUE
                 );                  

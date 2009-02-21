@@ -33,9 +33,7 @@ package org.seasar.akabana.yui.framework.customizer {
         
         private static const logger:Logger = Logger.getLogger(ActionCustomizer);
         
-        private static const viewToHelperMap:Object = new Dictionary(true);
-        
-        private static const viewToValidator:Object = new Dictionary(true);
+        private static var viewToHelperMap:Object = new Dictionary(true);
         
         public override function customize( viewName:String, view:Container ):void {
             var viewClassName:String = ClassRef.getReflector(view).name;
@@ -47,6 +45,18 @@ package org.seasar.akabana.yui.framework.customizer {
                 }
                 actionClassRef = ClassRef.getReflector(actionClassName);
                 processActionCustomize( viewName, view, actionClassRef );
+            } catch( e:Error ){
+                logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+            }
+        }
+
+        public override function uncustomize( viewName:String, view:Container ):void{
+            var viewClassName:String = ClassRef.getReflector(view).name;
+            var actionClassName:String = _namingConvention.getActionClassName(viewClassName);
+            var actionClassRef:ClassRef = null;
+            try{
+                actionClassRef = ClassRef.getReflector(actionClassName);
+                processActionUnCustomize( viewName, view, actionClassRef );
             } catch( e:Error ){
                 logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
             }
@@ -94,62 +104,54 @@ package org.seasar.akabana.yui.framework.customizer {
                 }
             }
         }
+            
+        protected function processActionUnCustomize( viewName:String, view:Container, actionClassRef:ClassRef ):void{
+            var action:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
+            if( action != null ){
+                logger.debug(Messages.getMessage("yui_framework","ActionUnCustomizing",viewName,actionClassRef.name));
+                
+                for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
+                    if( namingConvention.isHelperClassName( propertyRef_.type )){
+						action[ propertyRef_.name ] = null;
+                        delete action[ propertyRef_.name ];
 
-        public override function uncustomize( name:String, view:Container ):void{
-            if( view.descriptor != null ){
-                view.descriptor.properties[ namingConvention.getActionPackageName() ] = null;           
+                        processHelperUnCustomize(view,propertyRef_);
+                        logger.debug(Messages.getMessage("yui_framework","HelperUnCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+                        continue;
+                    }                 
+                }
             }
+            view.descriptor.properties[ namingConvention.getActionPackageName() ] = null;
+            delete view.descriptor.properties[ namingConvention.getActionPackageName() ];
         }
 
         protected function processHelperCustomize( view:Container, propertyRef:PropertyRef ):Object{
-            const baseViewClassRef:ClassRef = ClassRef.getReflector(view);
             var helper:Object = null;
-            var helperClassRef:ClassRef = null;
 
             try{
-                
-                helperClassRef = ClassRef.getReflector( propertyRef.type );
+            	const baseViewClassRef:ClassRef = ClassRef.getReflector(view);
+                var helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
                 var viewClassName:String = namingConvention.getViewClassName( helperClassRef.name );
-                var propertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
+                var helperPropertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
                 
-                if( propertyRefs != null && propertyRefs.length > 0 ){
-                    var helperView:UIComponent;
-                    var propertyRef_:PropertyRef = propertyRefs[0];
-                    
-                    if( propertyRef_.typeClassRef == baseViewClassRef){
-                        helperView = view;
-                    } else {
-                        if( namingConvention.isHelperName( propertyRef.name )){
-                            if( view.isPopUp ){
-                                var popupOwner:Container = PopUpUtil.lookupPopupOwner(view);
-                                if( ClassRef.getReflector(popupOwner).concreteClass == 
-                                    propertyRef_.typeClassRef.concreteClass
-                                ){
-                                    helperView = popupOwner;
-                                } else {
-                                    throw new Error("Helpers other than parents are registered in PopupView.");
-                                }
-                            } else {
-                                helperView = ViewComponentRepository.getComponentByParent(
-                                                propertyRef_.typeClassRef.concreteClass,view
-                                                );                                
-                            }
-                        }
-                    }
+                if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
+            		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
+            		var helperView:UIComponent = getHelperView(view,helperPropertyRef_);
+
                     helper = viewToHelperMap[ helperView.toString() ];
                     if( helper == null ){
                         helper = helperClassRef.newInstance();
                         viewToHelperMap[ helperView.toString() ] = helper;
                     } 
-                    helper[ propertyRef_.name ] = helperView;
+                    helper[ helperPropertyRef_.name ] = helperView;
 
                     //for vilidator
                     var validatorClassName:String = namingConvention.getValidatorClassName( viewClassName );
-                    propertyRefs = helperClassRef.getPropertyRefByType(validatorClassName);
+                    helperPropertyRefs = helperClassRef.getPropertyRefByType(validatorClassName);
 
-                    if( propertyRefs != null && propertyRefs.length > 0 ){
-                        propertyRef_ = propertyRefs[0];
-                        helper[ propertyRef_.name ] = helperView.descriptor.properties[ namingConvention.getValidatorPackageName() ];
+                    if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
+                        helperPropertyRef_ = helperPropertyRefs[0];
+                        helper[ helperPropertyRef_.name ] = helperView.descriptor.properties[ namingConvention.getValidatorPackageName() ];
                     }
                 }
                 
@@ -160,6 +162,24 @@ package org.seasar.akabana.yui.framework.customizer {
             return helper;
         }
 
+        protected function processHelperUnCustomize( view:Container, propertyRef:PropertyRef ):void{
+            try{
+                var helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
+                var viewClassName:String = namingConvention.getViewClassName( helperClassRef.name );
+                var helperPropertyRefs:Array = helperClassRef.getPropertyRefByType( viewClassName );
+                
+                if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
+            		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
+            		var helperView:UIComponent = getHelperView(view,helperPropertyRef_);
+                    viewToHelperMap[ helperView.toString() ] = null;
+                    delete viewToHelperMap[ helperView.toString() ];
+                }
+                
+            } catch( e:Error ){
+                logger.debug(Messages.getMessage("yui_framework","UnCustomizeError",propertyRef.type,e.getStackTrace()));
+            }
+        }
+        
         protected function processLogicCustomize( viewName:String, propertyRef:PropertyRef ):Object{
             var logic:Object = null;            
             try{
@@ -190,5 +210,35 @@ package org.seasar.akabana.yui.framework.customizer {
             }
             return rpcservice;
         }
+
+        private function getHelperView( view:Container, propertyRef:PropertyRef ):UIComponent{
+            var helperView:UIComponent;
+            const baseViewClassRef:ClassRef = ClassRef.getReflector(view);
+            
+            if( propertyRef.typeClassRef == baseViewClassRef){
+                helperView = view;
+            } else {
+                if( namingConvention.isHelperName( propertyRef.name )){
+                    if( view.isPopUp ){
+                        var popupOwner:Container = PopUpUtil.lookupPopupOwner(view);
+                        if( ClassRef.getReflector(popupOwner).concreteClass == 
+                            propertyRef.typeClassRef.concreteClass
+                        ){
+                            helperView = popupOwner;
+                        } else {
+                            throw new Error("Helpers other than parents are registered in PopupView.");
+                        }
+                    } else {
+                        helperView = ViewComponentRepository.getComponentByParent(
+                                        propertyRef.typeClassRef.concreteClass,
+                                        view
+                                        );                                
+                    }
+                }
+            }
+        	
+            return helperView;
+        }
+
     }
 }
