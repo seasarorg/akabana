@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties version="1">
+  <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.command.ComplexCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.impl.WaitCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.StatefulObject"/>
+    <classEntry path="org.seasar.akabana.yui.command.impl.AsyncServiceCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.impl.AbstractComplexCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.impl.AbstractCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.events.CommandEvent"/>
+    <classEntry path="org.seasar.akabana.yui.command.impl.SequenceCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.Command"/>
+    <classEntry path="org.seasar.akabana.yui.command.impl.ConditionalCommand"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
