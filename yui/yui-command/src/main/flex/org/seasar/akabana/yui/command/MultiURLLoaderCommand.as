@@ -2,11 +2,11 @@ package org.seasar.akabana.yui.command
 {
     import flash.net.URLLoader;
     import flash.net.URLLoaderDataFormat;
+    import flash.net.URLRequest;
     
-    import yui.command.Command;
-    import yui.command.ComplexCommand;
-    import yui.command.events.CommandEvent;
-    import yui.command.impl.SequenceCommand;
+    import org.seasar.akabana.yui.command.core.Command;
+    import org.seasar.akabana.yui.command.core.ComplexCommand;
+    import org.seasar.akabana.yui.command.events.CommandEvent;
 
     public class MultiURLLoaderCommand extends SequenceCommand
     {
@@ -27,7 +27,7 @@ package org.seasar.akabana.yui.command
             fileloader = new URLLoaderCommand(null,childDataFormat);
 
             this.configUrl = configUrl;
-            configloader = new URLLoaderCommand(configUrl,URLLoaderDataFormat.TEXT);
+            configloader = new URLLoaderCommand(new URLRequest(configUrl),URLLoaderDataFormat.TEXT);
             configIndex = 0;    
         }
         
@@ -54,7 +54,7 @@ package org.seasar.akabana.yui.command
             if( configList != null && configList.length > 0 ){
                 fileloader.start(configList[configIndex]);
             } else {
-                dispatchCompleteEvent(this,[]);
+                dispatchCompleteEvent([]);
             }
         }     
 
@@ -65,12 +65,12 @@ package org.seasar.akabana.yui.command
                 }
                 fileloader.start(configList[configIndex++]);
             } else {
-                dispatchCompleteEvent(this,configList);
+                dispatchCompleteEvent(configList);
             }
         }     
 
         protected function fileloadErrorEventHandler(event:CommandEvent):void{
-            dispatchErrorEvent(this,event);
+            dispatchErrorEvent(event);
         }
     }
 }

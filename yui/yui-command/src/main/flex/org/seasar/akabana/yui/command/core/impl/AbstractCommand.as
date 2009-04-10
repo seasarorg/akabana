@@ -45,17 +45,14 @@ package org.seasar.akabana.yui.command.core.impl
             return this;
         }
         
-        public function dispatchCompleteEvent(command:Command,value:Object):void
+        public function dispatchCompleteEvent(value:Object=null):void
         {
-            dispatchEvent(CommandEvent.createCompleteEvent(command,value));
+            dispatchEvent(CommandEvent.createCompleteEvent(this,value));
         } 
         
-        public function dispatchErrorEvent(command:Command,message:Object):void
+        public function dispatchErrorEvent(message:Object):void
         {
-            dispatchEvent(CommandEvent.createErrorEvent(command,message));
-        }
-        
-        protected function dispose():void{
+            dispatchEvent(CommandEvent.createErrorEvent(this,message));
         }
     }
 }

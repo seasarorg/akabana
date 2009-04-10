@@ -73,12 +73,12 @@ package org.seasar.akabana.yui.command
             var loader:URLLoader = URLLoader(event.target);
             loader.close();
             removeListeners(loader);
-            dispatchCompleteEvent(this,loader);
+            dispatchCompleteEvent(loader);
         }
 
         private function securityErrorHandler(event:SecurityErrorEvent):void {
             removeListeners(loader);
-            dispatchErrorEvent(this,event);
+            dispatchErrorEvent(event);
         }
 
         private function httpStatusHandler(event:HTTPStatusEvent):void {
@@ -86,7 +86,7 @@ package org.seasar.akabana.yui.command
 
         private function ioErrorHandler(event:IOErrorEvent):void {
             removeListeners(loader);
-            dispatchErrorEvent(this,event);
+            dispatchErrorEvent(event);
         }
     }
 }

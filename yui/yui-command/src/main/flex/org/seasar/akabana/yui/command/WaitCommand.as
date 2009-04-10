@@ -50,7 +50,7 @@ package org.seasar.akabana.yui.command
             if( timer.running ){
                 timer.stop();
             }
-            dispatchCompleteEvent(this,null);
+            dispatchCompleteEvent();
         }
     }
 }

@@ -86,11 +86,11 @@ package org.seasar.akabana.yui.command
         }
         
         protected function commandCompleteEventListener(event:CommandEvent):void{
-            dispatchCompleteEvent(this,event.value);
+            dispatchCompleteEvent(event.value);
         }
 
         protected function commandErrorEventListener(event:CommandEvent):void{
-            dispatchErrorEvent(this,event.value);            
+            dispatchErrorEvent(event.value);            
         }
     }
 }

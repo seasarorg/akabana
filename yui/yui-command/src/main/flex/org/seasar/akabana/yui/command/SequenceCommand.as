@@ -37,12 +37,12 @@ package org.seasar.akabana.yui.command
             if( currentCommandIndex < commands.length ){
                 doStartCommand();   
             } else {
-                dispatchCompleteEvent(this,null);
+                dispatchCompleteEvent();
             }
         }     
 
         protected override function commandErrorEventHandler(event:CommandEvent):void{
-            dispatchErrorEvent(this,event);
+            dispatchErrorEvent(event);
         }
         
     }
