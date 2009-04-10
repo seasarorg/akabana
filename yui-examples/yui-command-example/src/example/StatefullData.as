@@ -6,7 +6,9 @@ package example
     {
         public function get state():String
         {
-            return Math.floor(Math.random()*10).toString();
+            var result:String = Math.floor(Math.random()*10).toString();
+            trace("state is",result);
+            return result;
         }
     }
 }

@@ -74,7 +74,7 @@ package
                     )
                 .addCommand(
                         new ConditionalCommand()
-                            .setTarget(new StatefullData())
+                            .setTargetByName("namedcommand")
                             .addCaseCommand("1",new WaitCommand(100))
                             .addCaseCommand("2",new WaitCommand(200))
                             .addCaseCommand("3",new WaitCommand(400))

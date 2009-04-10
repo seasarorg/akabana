@@ -28,7 +28,7 @@ package
                         .setDefaultCommand(new WaitCommand(1000))
                     )
                 .addCommand(new SimpleCommand())
-                .setChildCompleteEventListener(childCommandCompleteHandler)                 
+                                 
                 .setCompleteEventListener(commandCompleteHandler)
                 .setErrorEventListener(commandErrorHandler)         
                 .start();

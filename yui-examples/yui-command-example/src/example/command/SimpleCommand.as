@@ -8,6 +8,7 @@ package example.command
     {
         public override function start(...args):Command
         {
+            trace("command:",this);
             dispatchCompleteEvent("value");            
             return this;
         }        
