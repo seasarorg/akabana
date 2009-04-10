@@ -13,6 +13,7 @@
     <classEntry path="org.seasar.akabana.yui.command.core.SubCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractSubCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.events.CommandEvent"/>
   </includeClasses>
   <includeResources/>

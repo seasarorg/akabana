@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.command.core.impl
     import org.seasar.akabana.yui.command.core.SubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
     
-    public class AbstractComplexCommand extends AbstractCommand implements ComplexCommand
+    public class AbstractComplexCommand extends AbstractSubCommand implements ComplexCommand
     {
         protected var commands:Array;
         

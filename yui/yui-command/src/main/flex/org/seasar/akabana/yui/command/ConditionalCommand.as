@@ -16,13 +16,11 @@
 package org.seasar.akabana.yui.command
 {
     import org.seasar.akabana.yui.command.core.Command;
-    import org.seasar.akabana.yui.command.core.ComplexCommand;
     import org.seasar.akabana.yui.command.core.StatefulObject;
-    import org.seasar.akabana.yui.command.core.SubCommand;
-    import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
+    import org.seasar.akabana.yui.command.core.impl.AbstractSubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
-    public class ConditionalCommand extends AbstractCommand implements SubCommand
+    public class ConditionalCommand extends AbstractSubCommand
     {       
         protected var target:StatefulObject;
         
@@ -31,16 +29,6 @@ package org.seasar.akabana.yui.command
         protected var caseMap:Object;
         
         protected var defaultCommand:Command;
-
-        private var _parent:ComplexCommand;
-
-        public function get parent():ComplexCommand{
-            return _parent;
-        }
-        
-        public function set parent( value:ComplexCommand ):void{
-            _parent = value;
-        }
         
         public function ConditionalCommand()
         {
