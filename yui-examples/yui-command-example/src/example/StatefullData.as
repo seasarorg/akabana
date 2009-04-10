@@ -10,7 +10,7 @@ package example
 
         public function get state():String
         {
-            return "3";
+            return Math.floor(Math.random()*10).toString();
         }
         
     }
