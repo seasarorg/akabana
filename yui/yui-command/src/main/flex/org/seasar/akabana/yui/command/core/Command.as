@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.command.core
      * 
      */
     public interface Command {
-        
+
         /**
          * コマンド開始する
          * 
@@ -30,7 +30,7 @@ package org.seasar.akabana.yui.command.core
          * 
          */
         function start(...args):Command;
-        
+
         /**
          * コマンド完了イベントリスナーを設定する
          * 
@@ -39,7 +39,7 @@ package org.seasar.akabana.yui.command.core
          * 
          */
         function setCompleteEventListener(handler:Function):Command;
-        
+
         /**
          * コマンドエラーイベントリスナーを設定する
          * 
