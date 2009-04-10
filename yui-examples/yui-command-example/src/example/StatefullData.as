@@ -1,0 +1,17 @@
+package example
+{
+    import org.seasar.akabana.yui.command.core.StatefulObject;
+
+    public class StatefullData implements StatefulObject
+    {
+        public function StatefullData()
+        {
+        }
+
+        public function get state():String
+        {
+            return "3";
+        }
+        
+    }
+}
