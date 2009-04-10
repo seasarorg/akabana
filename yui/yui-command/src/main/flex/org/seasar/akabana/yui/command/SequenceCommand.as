@@ -16,6 +16,7 @@
 package org.seasar.akabana.yui.command
 {
     import org.seasar.akabana.yui.command.core.Command;
+    import org.seasar.akabana.yui.command.core.SubCommand;
     import org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
@@ -31,6 +32,9 @@ package org.seasar.akabana.yui.command
         
         protected override function commandCompleteEventHandler(event:CommandEvent):void{
             if( childCompleteEventHandler != null ){
+                if( event.command is SubCommand ){
+                    trace(event.command);
+                }
                 childCompleteEventHandler(event);
             }
             currentCommandIndex++;
