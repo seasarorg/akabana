@@ -23,8 +23,20 @@ package org.seasar.akabana.yui.command.core
      */
     public interface SubCommand extends Command {
 
+        /**
+         * 親となる複合コマンドを取得する。
+         * 
+         * @return 複合コマンド
+         * 
+         */
         function get parent():ComplexCommand;
         
+        /**
+         * 親となる複合コマンドを設定する。
+         * 
+         * @param value
+         * 
+         */
         function set parent( value:ComplexCommand ):void;
     }
 }
