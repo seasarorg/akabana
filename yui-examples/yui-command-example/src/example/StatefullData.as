@@ -4,14 +4,9 @@ package example
 
     public class StatefullData implements StatefulObject
     {
-        public function StatefullData()
-        {
-        }
-
         public function get state():String
         {
             return Math.floor(Math.random()*10).toString();
         }
-        
     }
 }
