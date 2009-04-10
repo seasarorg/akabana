@@ -13,9 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.command.impl
+package org.seasar.akabana.yui.command
 {
     import flash.events.IEventDispatcher;
+    
+    import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     
     public class AsyncServiceCommand extends AbstractCommand
     {

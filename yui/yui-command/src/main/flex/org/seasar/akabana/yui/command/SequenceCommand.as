@@ -13,9 +13,10 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.command.impl
+package org.seasar.akabana.yui.command
 {
-    import org.seasar.akabana.yui.command.Command;
+    import org.seasar.akabana.yui.command.core.Command;
+    import org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
     public class SequenceCommand extends AbstractComplexCommand

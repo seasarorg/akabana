@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.command.events
 {
     import flash.events.Event;
     
-    import org.seasar.akabana.yui.command.Command;
+    import org.seasar.akabana.yui.command.core.Command;
 
     public class CommandEvent extends Event
     {
