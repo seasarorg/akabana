@@ -15,9 +15,9 @@
  */
 package org.seasar.akabana.yui.command.core.impl
 {
-    import org.seasar.akabana.yui.command.ConditionalCommand;
     import org.seasar.akabana.yui.command.core.Command;
     import org.seasar.akabana.yui.command.core.ComplexCommand;
+    import org.seasar.akabana.yui.command.core.SubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
     
     public class AbstractComplexCommand extends AbstractCommand implements ComplexCommand
@@ -48,24 +48,14 @@ package org.seasar.akabana.yui.command.core.impl
         
         public function addCommand(command:Command):ComplexCommand
         {
-            command.setCompleteEventListener(commandCompleteEventHandler);            
-            command.setErrorEventListener(commandErrorEventHandler);
-            commands.push(command);
-            if( command is ConditionalCommand ){
-                (command as ConditionalCommand).parent = this;
-            }
+            doAddCommand(command);
             return this;
         }
 
         public function addNamedCommand(name:String,command:Command):ComplexCommand
         {
-            command.setCompleteEventListener(commandCompleteEventHandler);            
-            command.setErrorEventListener(commandErrorEventHandler);
-            commands.push(command);
+            doAddCommand(command);
             commandMap[name] = command;
-            if( command is ConditionalCommand ){
-                (command as ConditionalCommand).parent = this;
-            }
             return this;
         }
 
@@ -85,5 +75,14 @@ package org.seasar.akabana.yui.command.core.impl
             var command:Command = commands[ currentCommandIndex ];
             command.start.apply(null,commandArguments);
         }  
+        
+        private function doAddCommand(command:Command):void{
+            command.setCompleteEventListener(commandCompleteEventHandler);            
+            command.setErrorEventListener(commandErrorEventHandler);
+            commands.push(command);
+            if( command is SubCommand ){
+                (command as SubCommand).parent = this;
+            }
+        }
     }
 }
