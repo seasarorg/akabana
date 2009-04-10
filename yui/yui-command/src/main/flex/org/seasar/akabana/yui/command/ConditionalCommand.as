@@ -38,7 +38,7 @@ package org.seasar.akabana.yui.command
             return _parent;
         }
         
-        public function set paret( value:ComplexCommand ):void{
+        public function set parent( value:ComplexCommand ):void{
             _parent = value;
         }
         
