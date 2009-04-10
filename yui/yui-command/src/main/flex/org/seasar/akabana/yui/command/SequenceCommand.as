@@ -32,9 +32,6 @@ package org.seasar.akabana.yui.command
         
         protected override function commandCompleteEventHandler(event:CommandEvent):void{
             if( childCompleteEventHandler != null ){
-                if( event.command is SubCommand ){
-                    trace(event.command);
-                }
                 childCompleteEventHandler(event);
             }
             currentCommandIndex++;
