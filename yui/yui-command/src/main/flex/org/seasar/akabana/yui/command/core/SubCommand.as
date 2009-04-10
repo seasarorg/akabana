@@ -34,7 +34,7 @@ package org.seasar.akabana.yui.command.core
         /**
          * 親となる複合コマンドを設定する。
          * 
-         * @param value
+         * @param value 複合コマンド
          * 
          */
         function set parent( value:ComplexCommand ):void;
