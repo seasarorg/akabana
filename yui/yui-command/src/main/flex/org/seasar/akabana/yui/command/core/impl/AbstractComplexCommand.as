@@ -26,23 +26,28 @@ package org.seasar.akabana.yui.command.core.impl
         
         protected var commandMap:Object;
         
-        protected var currentCommandIndex:int;
-        
         protected var commandArguments:Array;
         
         protected var childCompleteEventHandler:Function;
+        
+        protected var childErrorEventHandler:Function;
         
         public function AbstractComplexCommand()
         {
             super();
             commands = [];
             commandMap = {};
-            currentCommandIndex = 0;
         }
 
         public function setChildCompleteEventListener(handler:Function):ComplexCommand
         {
             this.childCompleteEventHandler = handler;
+            return this;
+        }
+
+        public function setChildErrorEventListener(handler:Function):ComplexCommand
+        {
+            this.childErrorEventHandler = handler;
             return this;
         }
         
@@ -65,20 +70,15 @@ package org.seasar.akabana.yui.command.core.impl
             return result;
         } 
         
-        protected function commandCompleteEventHandler(event:CommandEvent):void{
+        protected function childCommandCompleteEventHandler(event:CommandEvent):void{
         }        
 
-        protected function commandErrorEventHandler(event:CommandEvent):void{
+        protected function childCommandErrorEventHandler(event:CommandEvent):void{
         }   
         
-        protected function doStartCommand():void{
-            var command:Command = commands[ currentCommandIndex ];
-            command.start.apply(null,commandArguments);
-        }  
-        
         private function doAddCommand(command:Command):void{
-            command.setCompleteEventListener(commandCompleteEventHandler);            
-            command.setErrorEventListener(commandErrorEventHandler);
+            command.setCompleteEventListener(childCommandCompleteEventHandler);            
+            command.setErrorEventListener(childCommandErrorEventHandler);
             commands.push(command);
             if( command is SubCommand ){
                 (command as SubCommand).parent = this;

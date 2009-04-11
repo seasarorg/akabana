@@ -49,7 +49,7 @@ package org.seasar.akabana.yui.command
             return this;
         }
                 
-        protected override function commandCompleteEventHandler(event:CommandEvent):void{         
+        protected override function childCommandErrorEventHandler(event:CommandEvent):void{         
             configList = ((event.value as URLLoader).data as String).replace(/\r/g,"").split("\n");
             if( configList != null && configList.length > 0 ){
                 fileloader.start(configList[configIndex]);

@@ -16,49 +16,66 @@
 package org.seasar.akabana.yui.command
 {
     import org.seasar.akabana.yui.command.core.Command;
-    import org.seasar.akabana.yui.command.core.SubCommand;
     import org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
-    public class SequenceCommand extends AbstractComplexCommand
+    public class ParallelCommand extends AbstractComplexCommand
     {
-        protected var currentCommandIndex:int;
+        protected var finishedCommand:Object;
         
-        public function SequenceCommand(){
+        protected var finishedCommandCount:int;
+        
+        protected var hasError:Boolean;
+        
+        protected var errorCommandEvents:Array;
+        
+        public function ParallelCommand()
+        {
             super();
-            currentCommandIndex = 0;
         }
-        
+
         public override function start(...args):Command
         {
-            currentCommandIndex = 0;
             commandArguments = args;
             doStartCommand();
             return this;
-        }
-        
+        } 
+
+        protected function doStartCommand():void{
+            finishedCommand = {};
+            finishedCommandCount = 0;
+            hasError = false;
+            errorCommandEvents = [];
+            for each( var command:Command in commands ){
+                command.start.apply(null,commandArguments);
+            }
+        }   
+
         protected override function childCommandCompleteEventHandler(event:CommandEvent):void{
             if( childCompleteEventHandler != null ){
                 childCompleteEventHandler(event);
             }
-            currentCommandIndex++;
-            if( currentCommandIndex < commands.length ){
-                doStartCommand();   
-            } else {
-                dispatchCompleteEvent();
-            }
+            doCheckFinishedCommand();
         }     
 
         protected override function childCommandErrorEventHandler(event:CommandEvent):void{
             if( childErrorEventHandler != null ){
                 childErrorEventHandler(event);
             }
-            dispatchErrorEvent(event);
+            hasError = true;
+            errorCommandEvents.push( event );
+            doCheckFinishedCommand();
+        }  
+        
+        protected function doCheckFinishedCommand():void{
+            finishedCommandCount++;
+            if( finishedCommandCount >= commands.length ){
+                if( hasError ){
+                    dispatchErrorEvent(errorCommandEvents);
+                } else {
+                    dispatchCompleteEvent();
+                }
+            }
         }
-
-        protected function doStartCommand():void{
-            var command:Command = commands[ currentCommandIndex ];
-            command.start.apply(null,commandArguments);
-        }         
     }
 }
