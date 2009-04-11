@@ -1,24 +1,24 @@
 package
 {
-    import example.command.SimpleSubCommand;
+    import example.command.SimpleErrorCommand;
     
     import flash.display.Sprite;
-    import flash.utils.getTimer;
     
-    import org.seasar.akabana.yui.command.SequenceCommand;
+    import org.seasar.akabana.yui.command.ParallelCommand;
+    import org.seasar.akabana.yui.command.WaitCommand;
     import org.seasar.akabana.yui.command.core.Command;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
-    public class testSequenceCommandAndSubCommand extends Sprite {
+    public class testParallelCommandOnError extends Sprite {
 
-        public function testSequenceCommandAndSubCommand(){
+        public function testParallelCommandOnError(){
               
-            var s:Command = new SequenceCommand()
-                .addCommand(new SimpleSubCommand())
-                .addCommand(new SimpleSubCommand())
-                .addCommand(new SimpleSubCommand())
-                .addCommand(new SimpleSubCommand())
-                .addCommand(new SimpleSubCommand())
+            var s:Command = new ParallelCommand()
+                .addCommand(new WaitCommand(100))
+                .addCommand(new SimpleErrorCommand())
+                .addCommand(new WaitCommand(300))
+                .addCommand(new SimpleErrorCommand())
+                .addCommand(new WaitCommand(800))
                 .setChildCompleteEventListener(childCommandCompleteHandler)                 
                 .setCompleteEventListener(commandCompleteHandler)
                 .setErrorEventListener(commandErrorHandler)         
@@ -26,7 +26,7 @@ package
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{
-            log("child:",event,"parent is " + (event.command as SimpleSubCommand).parent);
+            log("child:",event);
         }
 
         public function commandCompleteHandler(event:CommandEvent):void{

@@ -1,11 +1,9 @@
 package
 {
     import example.command.SimpleCommand;
+    import example.command.SimpleSubCommand;
     
     import flash.display.Sprite;
-    import flash.events.EventDispatcher;
-    import flash.events.IEventDispatcher;
-    import flash.utils.getTimer;
     
     import org.seasar.akabana.yui.command.SequenceCommand;
     import org.seasar.akabana.yui.command.core.Command;
@@ -28,15 +26,15 @@ package
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{
-            trace(getTimer()+"child"+event);
+            log("child:",event,"parent is " + (event.command as SimpleSubCommand).parent);
         }
-
+        
         public function commandCompleteHandler(event:CommandEvent):void{
-            trace(getTimer()+event);
+            log("parent:",event);
         }        
                 
         public function commandErrorHandler(event:CommandEvent):void{
-            trace(getTimer()+event);
+            log("parent:",event);
         }
     }
 }
