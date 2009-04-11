@@ -50,7 +50,7 @@ package org.seasar.akabana.yui.framework.core
         
         private static var _container:YuiFrameworkContainer;
                 
-        public static function get container():YuiFrameworkContainer{
+        public static function get yuicontainer():YuiFrameworkContainer{
         	return _container;
         }
         
@@ -141,14 +141,14 @@ package org.seasar.akabana.yui.framework.core
             doUnregisterComponent(event.target as UIComponent);
         }
 
-        protected function isViewComponent( container:Object ):Boolean{
-        	if( container == null){ 
+        protected function isViewComponent( component:Object ):Boolean{
+        	if( component == null){ 
         		return false;
         	}
-        	if( !(container is Container )){ 
+        	if( !(component is Container )){ 
         		return false;
         	}
-            return namingConvention.isViewClassName( ClassRef.getQualifiedClassName(container) );
+            return namingConvention.isViewClassName( ClassRef.getQualifiedClassName(component) );
         }  
                 
         protected function doRegisterComponent( component:UIComponent ):void{
@@ -158,23 +158,23 @@ package org.seasar.akabana.yui.framework.core
         }     
 
         protected function doAssembleComponent( component:UIComponent ):void{
-            if( isViewComponent(container)){
+            if( isViewComponent(component)){
 	            if( component != null && component is Container){
 	                processAssembleComponent(component as Container);
 	            }
             }
         }     
 
-        protected function processRegisterComponent(container:Container):void{
+        protected function processRegisterComponent(component:Container):void{
             do{                 
-                if( container is Application ){
-                    application = container as Application;
+                if( component is Application ){
+                    application = component as Application;
                     application.visible = false;
-                    logger.debug(Messages.getMessage("yui_framework","ApplicationRegistered",container.toString()));
+                    logger.debug(Messages.getMessage("yui_framework","ApplicationRegistered",component.toString()));
                     break;
                 }
                 
-                processRegisterView( container );
+                processRegisterView( component );
                
             } while( false );
         }

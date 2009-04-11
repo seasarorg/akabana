@@ -49,10 +49,7 @@ package org.seasar.akabana.yui.framework.mixin
             _container = new YuiFrameworkContainer();
 
             if( flexModuleFactory is ISystemManager ){
-                var systemManager:ISystemManager = (flexModuleFactory as ISystemManager).getSandboxRoot() as ISystemManager;
-                if( systemManager == null ){
-                	systemManager = (flexModuleFactory as ISystemManager);
-                }
+                var systemManager:ISystemManager = flexModuleFactory as ISystemManager;
                 systemManager.addEventListener(
                     Event.ADDED_TO_STAGE,
                     _this.addedToStageHandler,

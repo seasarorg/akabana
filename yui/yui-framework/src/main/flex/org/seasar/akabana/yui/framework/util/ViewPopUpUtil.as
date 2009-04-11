@@ -31,13 +31,13 @@ package org.seasar.akabana.yui.framework.util
         }
         
         public static function removePopUp(popUp:IFlexDisplayObject):void{
-            customizer.namingConvention = YuiFrameworkContainer.container.namingConvention;
+            customizer.namingConvention = YuiFrameworkContainer.yuicontainer.namingConvention;
         	customizer.uncustomizeComponent(popUp as UIComponent,PopUpUtil.lookupRelatedOwner(popUp as Container));
         	PopUpUtil.removePopUp(popUp);
         }        
         
         private static function creationCompleteCallBack(event:FlexEvent):void{
-            customizer.namingConvention = YuiFrameworkContainer.container.namingConvention;
+            customizer.namingConvention = YuiFrameworkContainer.yuicontainer.namingConvention;
             var popup:Container = event.target as Container;
             customizer.customizeComponent(popup,PopUpUtil.lookupRelatedOwner(popup));
         }
