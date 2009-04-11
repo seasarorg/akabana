@@ -53,13 +53,18 @@ package org.seasar.akabana.yui.command.core.impl
         
         public function addCommand(command:Command):ComplexCommand
         {
-            doAddCommand(command);
+            if( command is AbstractCommand ){
+                doAddCommand(command as AbstractCommand);
+            } else {
+                doAddExternalCommand(command as AbstractCommand);
+            }
+            doRegisterCommand(command);
             return this;
         }
 
         public function addNamedCommand(name:String,command:Command):ComplexCommand
         {
-            doAddCommand(command);
+            addCommand(command);
             commandMap[name] = command;
             return this;
         }
@@ -69,20 +74,35 @@ package org.seasar.akabana.yui.command.core.impl
             var result:Command = commandMap[name];
             return result;
         } 
-        
+
+        protected function doStartCommandAt(index:int):void{
+            var command:Command = commands[ index ];
+            command.start.apply(null,commandArguments);
+        }         
+                
         protected function childCommandCompleteEventHandler(event:CommandEvent):void{
         }        
 
         protected function childCommandErrorEventHandler(event:CommandEvent):void{
         }   
         
-        private function doAddCommand(command:Command):void{
+        private function doAddCommand(command:AbstractCommand):void{
+            command.addCompleteEventListener(childCommandCompleteEventHandler);            
+            command.addErrorEventListener(childCommandErrorEventHandler);
+        } 
+        
+        private function doAddExternalCommand(command:Command):void{
             command.setCompleteEventListener(childCommandCompleteEventHandler);            
             command.setErrorEventListener(childCommandErrorEventHandler);
+        }
+        
+        private function doRegisterCommand(command:Command):void{
             commands.push(command);
             if( command is SubCommand ){
                 (command as SubCommand).parent = this;
             }
         }
+
+        
     }
 }

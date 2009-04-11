@@ -34,14 +34,14 @@ package org.seasar.akabana.yui.command.core.impl
         public function setCompleteEventListener(handler:Function):Command
         {
             this.completeEventHandler = handler;
-            addEventListener(CommandEvent.COMPLETE,handler,false,0);
+            addEventListener(CommandEvent.COMPLETE,handler,false,int.MAX_VALUE);
             return this;
         }
         
         public function setErrorEventListener(handler:Function):Command
         {
             this.errorEventHandler = handler;
-            addEventListener(CommandEvent.ERROR,handler,false,0);
+            addEventListener(CommandEvent.ERROR,handler,false,int.MAX_VALUE);
             return this;
         }
         
@@ -53,6 +53,20 @@ package org.seasar.akabana.yui.command.core.impl
         public function dispatchErrorEvent(message:Object):void
         {
             dispatchEvent(CommandEvent.createErrorEvent(this,message));
+        }
+
+        internal function addCompleteEventListener(handler:Function):Command
+        {
+            this.completeEventHandler = handler;
+            addEventListener(CommandEvent.COMPLETE,handler,false,0);
+            return this;
+        }
+        
+        internal function addErrorEventListener(handler:Function):Command
+        {
+            this.errorEventHandler = handler;
+            addEventListener(CommandEvent.ERROR,handler,false,0);
+            return this;
         }
     }
 }

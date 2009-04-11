@@ -36,8 +36,7 @@ package org.seasar.akabana.yui.command
         {
             addCommand(configloader);
             addFileLoaderCommand(fileloader);
-            currentCommandIndex = 0;
-            doStartCommand();
+            doStartCommands(args);
             return this;
         }
 

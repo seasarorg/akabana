@@ -8,10 +8,9 @@ package org.seasar.akabana.yui.command
     import flash.net.URLRequest;
     
     import org.seasar.akabana.yui.command.core.Command;
-    import org.seasar.akabana.yui.command.core.StatefulObject;
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
 
-    public class URLLoaderCommand extends AbstractCommand implements StatefulObject
+    public class URLLoaderCommand extends AbstractCommand
     {
         protected var dataFormat:String;
         
@@ -24,6 +23,10 @@ package org.seasar.akabana.yui.command
             this.dataFormat = dataFormat;
         }
         
+        public function getRequest():URLRequest{
+            return url;
+        }
+                
         public override function start(...args):Command{
             var req:URLRequest;
             if( args.length > 0 ){
@@ -38,14 +41,6 @@ package org.seasar.akabana.yui.command
             loader.load(req);
            
             return this;
-        }
-                
-        public function get state():String{
-            var result:String = null;
-            if( (loader.data != null) && ((loader.data as String).length > 0 )){
-                result = loader.data;
-            }
-            return result;
         }
         
         protected function createURLLoader():URLLoader{

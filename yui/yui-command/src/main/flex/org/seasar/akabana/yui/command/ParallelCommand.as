@@ -15,6 +15,9 @@
  */
 package org.seasar.akabana.yui.command
 {
+    import flash.events.TimerEvent;
+    import flash.utils.Timer;
+    
     import org.seasar.akabana.yui.command.core.Command;
     import org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
@@ -29,6 +32,10 @@ package org.seasar.akabana.yui.command
         
         protected var errorCommandEvents:Array;
         
+        private var commandStartTimer:Timer;
+        
+        private var currentCommandIndex:int;
+        
         public function ParallelCommand()
         {
             super();
@@ -37,18 +44,24 @@ package org.seasar.akabana.yui.command
         public override function start(...args):Command
         {
             commandArguments = args;
-            doStartCommand();
+            if( commands.length > 0 ){            
+                doStartCommands(args);
+            } else {
+                dispatchCompleteEvent(null);
+            }
             return this;
         } 
 
-        protected function doStartCommand():void{
+        protected function doStartCommands(args:Array):void{
+            commandArguments = args;
             finishedCommand = {};
             finishedCommandCount = 0;
             hasError = false;
             errorCommandEvents = [];
-            for each( var command:Command in commands ){
-                command.start.apply(null,commandArguments);
-            }
+            currentCommandIndex = 0;
+            commandStartTimer = new Timer(24);
+            commandStartTimer.addEventListener(TimerEvent.TIMER,commandStartTimerHandler);
+            commandStartTimer.start();
         }   
 
         protected override function childCommandCompleteEventHandler(event:CommandEvent):void{
@@ -75,6 +88,15 @@ package org.seasar.akabana.yui.command
                 } else {
                     dispatchCompleteEvent();
                 }
+            }
+        }
+        
+        private function commandStartTimerHandler(event:TimerEvent):void{
+            doStartCommandAt(currentCommandIndex);
+            currentCommandIndex++;
+            
+            if( currentCommandIndex >= commands.length ){
+                commandStartTimer.stop();
             }
         }
     }
