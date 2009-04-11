@@ -27,6 +27,7 @@ package org.seasar.akabana.yui.framework.core
     import mx.events.FlexEvent;
     import mx.managers.CursorManager;
     import mx.managers.DragManager;
+    import mx.managers.ISystemManager;
     import mx.managers.PopUpManager;
     import mx.resources.ResourceManager;
     
@@ -39,6 +40,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.message.Messages;
+    import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
     import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.mx.util.UIComponentUtil;
     
@@ -248,28 +250,29 @@ package org.seasar.akabana.yui.framework.core
         }
         
         protected function applicationMonitoringStart():void{
+        	var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager( application.systemManager );
             if( application != null ){
-                application.systemManager.removeEventListener(
+                systemManager_.removeEventListener(
                     FlexEvent.CREATION_COMPLETE,
                     creationCompleteHandler,
                     true
                 ); 
 
-                application.systemManager.removeEventListener(
+                systemManager_.removeEventListener(
                     FlexEvent.REMOVE,
                     removeCompleteHandler,
                     true
                 );
             }
 
-            application.systemManager.addEventListener(
+            systemManager_.addEventListener(
                 FlexEvent.CREATION_COMPLETE,
                 creationCompleteHandler,
                 true,
                 int.MAX_VALUE
             );    
 
-            application.systemManager.addEventListener(
+            systemManager_.addEventListener(
                 FlexEvent.REMOVE,
                 removeCompleteHandler,
                 true,

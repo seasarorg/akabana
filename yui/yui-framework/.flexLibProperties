@@ -1,32 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
-<includeClasses>
-<classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
-<classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
-<classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractEventCustomizer"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
-<classEntry path="org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer"/>
-<classEntry path="org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError"/>
-<classEntry path="org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError"/>
-<classEntry path="org.seasar.akabana.yui.framework.event.FrameworkEvent"/>
-<classEntry path="org.seasar.akabana.yui.framework.event.RuntimeErrorEvent"/>
-<classEntry path="org.seasar.akabana.yui.framework.message.Message"/>
-<classEntry path="org.seasar.akabana.yui.framework.message.Messages"/>
-<classEntry path="org.seasar.akabana.yui.framework.message.ResourceMessage"/>
-<classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
-<classEntry path="org.seasar.akabana.yui.framework.util.ViewPopUpUtil"/>
-</includeClasses>
-<includeResources>
-<resourceEntry destPath="locale/ja_JP/yui_framework.properties" sourcePath="locale/ja_JP/yui_framework.properties"/>
-<resourceEntry destPath="locale/en_US/conventions.properties" sourcePath="locale/en_US/conventions.properties"/>
-<resourceEntry destPath="locale/en_US/yui_framework.properties" sourcePath="locale/en_US/yui_framework.properties"/>
-<resourceEntry destPath="locale/ja_JP/conventions.properties" sourcePath="locale/ja_JP/conventions.properties"/>
-</includeResources>
-<namespaceManifests>
-<namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://akabana.seasar.org/yui/mxml"/>
-</namespaceManifests>
+  <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.framework.util.ViewPopUpUtil"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.event.FrameworkEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.event.RuntimeErrorEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.ResourceMessage"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
+    <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.Message"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
+    <classEntry path="org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.Messages"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.util.SystemManagerUtil"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractEventCustomizer"/>
+  </includeClasses>
+  <includeResources>
+    <resourceEntry destPath="locale/ja_JP/conventions.properties" sourcePath="locale/ja_JP/conventions.properties"/>
+    <resourceEntry destPath="locale/en_US/conventions.properties" sourcePath="locale/en_US/conventions.properties"/>
+    <resourceEntry destPath="locale/ja_JP/yui_framework.properties" sourcePath="locale/ja_JP/yui_framework.properties"/>
+    <resourceEntry destPath="locale/en_US/yui_framework.properties" sourcePath="locale/en_US/yui_framework.properties"/>
+  </includeResources>
+  <namespaceManifests>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://akabana.seasar.org/yui/mxml"/>
+  </namespaceManifests>
 </flexLibProperties>

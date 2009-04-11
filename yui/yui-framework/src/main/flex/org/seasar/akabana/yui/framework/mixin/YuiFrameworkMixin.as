@@ -25,6 +25,7 @@ package org.seasar.akabana.yui.framework.mixin
 	
 	import org.seasar.akabana.yui.framework.convention.NamingConvention;
 	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
+	import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
 	import org.seasar.akabana.yui.logging.LogManager;
 	
 	[Mixin]
@@ -49,19 +50,30 @@ package org.seasar.akabana.yui.framework.mixin
             _container = new YuiFrameworkContainer();
 
             if( flexModuleFactory is ISystemManager ){
-                var systemManager:ISystemManager = flexModuleFactory as ISystemManager;
-                systemManager.addEventListener(
+                var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager(flexModuleFactory as ISystemManager);
+                
+                systemManager_.addEventListener(
                     Event.ADDED_TO_STAGE,
                     _this.addedToStageHandler,
                     true,
                     int.MAX_VALUE
-                );       
-                systemManager.addEventListener(
+                );
+                systemManager_.addEventListener(
                     FlexEvent.APPLICATION_COMPLETE,
                     _this.applicationCompleteHandler,
                     false,
                     int.MAX_VALUE
-                );    
+                );        
+                
+                if( systemManager_ != flexModuleFactory ){
+	                (flexModuleFactory as ISystemManager)
+	                	.addEventListener(
+		                    FlexEvent.APPLICATION_COMPLETE,
+		                    _this.applicationCompleteHandler,
+		                    false,
+		                    int.MAX_VALUE
+		                ); 
+                }
             }            
         }
         
@@ -93,24 +105,33 @@ package org.seasar.akabana.yui.framework.mixin
         
         private function applicationCompleteHandler( event:FlexEvent ):void{
             if( event.currentTarget is ISystemManager ){
-                var systemManager:ISystemManager = event.currentTarget as ISystemManager;
-                systemManager.removeEventListener(
+                var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager(event.currentTarget as ISystemManager);
+                systemManager_.removeEventListener(
                     FlexEvent.APPLICATION_COMPLETE,
                     applicationCompleteHandler,
                     false
                 );
-                systemManager.removeEventListener(
+
+                if( systemManager_ != event.currentTarget ){
+	                (event.currentTarget as ISystemManager)
+	                	.removeEventListener(
+		                    FlexEvent.APPLICATION_COMPLETE,
+		                    applicationCompleteHandler,
+		                    false
+		                ); 
+                }                
+                systemManager_.removeEventListener(
                     Event.ADDED_TO_STAGE,
                     _this.addedToStageHandler,
                     true
                 );
-                systemManager.addEventListener(
+                systemManager_.addEventListener(
                     Event.ADDED,
                     _this.addedHandler,
                     true,
                     int.MAX_VALUE
                 );
-                systemManager.addEventListener(
+                systemManager_.addEventListener(
                     Event.REMOVED_FROM_STAGE,
                     _this.removedHandler,
                     true,
