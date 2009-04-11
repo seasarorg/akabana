@@ -252,32 +252,36 @@ package org.seasar.akabana.yui.framework.core
         protected function applicationMonitoringStart():void{
         	var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager( application.systemManager );
             if( application != null ){
-                systemManager_.removeEventListener(
-                    FlexEvent.CREATION_COMPLETE,
-                    creationCompleteHandler,
-                    true
-                ); 
+                systemManager_
+                	.removeEventListener(
+                    	FlexEvent.CREATION_COMPLETE,
+                    	creationCompleteHandler,
+                    	true
+                		); 
 
-                systemManager_.removeEventListener(
-                    FlexEvent.REMOVE,
-                    removeCompleteHandler,
-                    true
-                );
+                systemManager_
+                	.removeEventListener(
+                    	FlexEvent.REMOVE,
+                    	removeCompleteHandler,
+                    	true
+                		);
             }
 
-            systemManager_.addEventListener(
-                FlexEvent.CREATION_COMPLETE,
-                creationCompleteHandler,
-                true,
-                int.MAX_VALUE
-            );    
+            systemManager_
+            	.addEventListener(
+                	FlexEvent.CREATION_COMPLETE,
+                	creationCompleteHandler,
+                	true,
+                	int.MAX_VALUE
+            		);    
 
-            systemManager_.addEventListener(
-                FlexEvent.REMOVE,
-                removeCompleteHandler,
-                true,
-                int.MAX_VALUE
-            );
+            systemManager_
+	            .addEventListener(
+	                FlexEvent.REMOVE,
+	                removeCompleteHandler,
+	                true,
+	                int.MAX_VALUE
+	            );
         }    
         
         protected function initNamingConvention():void{
