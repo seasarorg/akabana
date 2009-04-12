@@ -39,7 +39,6 @@ package org.seasar.akabana.yui.core
                 throw e;
             }
             
-            
             return clazz;
         }
     }

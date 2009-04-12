@@ -41,23 +41,19 @@ package org.seasar.akabana.yui.core.reflection
             var clazz:Class = null;
             try {
                 switch( true ){
-                    case ( target is Class ):{
+                    case ( target is Class ):
                         clazz = target as Class;
                         break;
-                    }
                     
-                    case ( target is String ):{
+                    case ( target is String ):
                         clazz = classLoader.findClass(target as String);
                         break;
-                    }
                     
-                    default:{
+                    default:
                         clazz = classLoader.findClass(getQualifiedClassName(target));
-                        break;
-                    }
                 }
             } catch( e:Error ){
-                throw e;            
+            	throw e;
             }
             
             if( clazz != null ){
