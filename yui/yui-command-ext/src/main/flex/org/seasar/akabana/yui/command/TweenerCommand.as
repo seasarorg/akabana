@@ -35,9 +35,10 @@ package org.seasar.akabana.yui.command
         }
 
         protected override function doRun(...args):void{
-            trace("command:",this);
+            if( args.length > 0 ){
+                parameter["time"] = args[0];
+            }
             parameter["onComplete"] = rotateCompleteHandler;
-            parameter["time"] = args[0];
             Tweener.addTween(target, parameter);
         }  
         
