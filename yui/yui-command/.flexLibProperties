@@ -9,11 +9,10 @@
     <classEntry path="org.seasar.akabana.yui.command.WaitCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.Command"/>
-    <classEntry path="org.seasar.akabana.yui.command.URLLoaderCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.MultiURLLoaderCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.SubCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.ComplexCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.ConditionalCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.core.ComplexCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractSubCommand"/>
   </includeClasses>
