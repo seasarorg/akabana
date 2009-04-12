@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
   <includeClasses>
-    <classEntry path="org.seasar.akabana.yui.command.MoveCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.MultiURLLoaderCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.RotateCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.TweenerCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.URLLoaderCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.TweenerCommand"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
