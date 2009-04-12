@@ -6,13 +6,14 @@ package
     import caurina.transitions.properties.DisplayShortcuts;
     import caurina.transitions.properties.FilterShortcuts;
     
+    import example.command.MoveCommand;
+    import example.command.RotateCommand;
+    
     import flash.display.Graphics;
     import flash.display.Shape;
     import flash.display.Sprite;
     
-    import org.seasar.akabana.yui.command.MoveCommand;
     import org.seasar.akabana.yui.command.ParallelCommand;
-    import org.seasar.akabana.yui.command.RotateCommand;
     import org.seasar.akabana.yui.command.SequenceCommand;
     import org.seasar.akabana.yui.command.TweenerCommand;
 
