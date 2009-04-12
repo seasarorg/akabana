@@ -62,6 +62,16 @@ package org.seasar.akabana.yui.framework.core
         
         protected var _callTimer:Timer = new Timer(100,1);
         
+        protected var _systemManager:ISystemManager;
+        
+        public function get systemManager():ISystemManager{
+            return _systemManager;
+        }
+        
+        public function set systemManager( value:ISystemManager ):void{
+            _systemManager = value;
+        }
+        
         protected var _application:Application;
         
         public function get application():Application{
@@ -250,7 +260,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         protected function applicationMonitoringStart():void{
-        	var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager( application.systemManager );
+        	var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager( _systemManager );
             if( application != null ){
                 systemManager_
                 	.removeEventListener(

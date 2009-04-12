@@ -50,7 +50,8 @@ package org.seasar.akabana.yui.framework.mixin
             _container = new YuiFrameworkContainer();
 
             if( flexModuleFactory is ISystemManager ){
-                var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager(flexModuleFactory as ISystemManager);
+            	_container.systemManager = flexModuleFactory as ISystemManager;
+                var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager(_container.systemManager);
                 
                 systemManager_
 	                .addEventListener(
@@ -107,7 +108,7 @@ package org.seasar.akabana.yui.framework.mixin
         
         private function applicationCompleteHandler( event:FlexEvent ):void{
             if( event.currentTarget is ISystemManager ){
-                var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager(event.currentTarget as ISystemManager);
+                var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager(_container.systemManager);
                 systemManager_
 	                .removeEventListener(
 	                    FlexEvent.APPLICATION_COMPLETE,
