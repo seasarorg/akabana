@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.command
 {
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     
-    public class AsyncServiceCommand extends AbstractCommand
+    public class AsyncLogicCommand extends AbstractCommand
     {        
         protected override  function doRun(...args):void{
             
