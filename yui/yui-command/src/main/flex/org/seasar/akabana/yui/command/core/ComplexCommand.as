@@ -57,5 +57,14 @@ package org.seasar.akabana.yui.command.core
          * 
          */
         function setChildCompleteEventListener( handler:Function ):ComplexCommand;
+
+        /**
+         * 子コマンドのイベントエラーリスナーを設定する
+         * 
+         * @param handler イベントエラーハンドラ
+         * @return 複合コマンド
+         * 
+         */
+        function setChildErrorEventListener( handler:Function ):ComplexCommand;        
     }
 }

@@ -15,30 +15,30 @@ package org.seasar.akabana.yui.command
         
         protected var loader:URLLoader;
         
-        protected var url:URLRequest;
+        protected var urlRequest:URLRequest;
         
-        public function URLLoaderCommand(url:URLRequest=null,dataFormat:String="text"){
+        public function URLLoaderCommand(urlRequest:URLRequest=null,dataFormat:String="text"){
             super();
-            this.url = url;
+            this.urlRequest = urlRequest;
             this.dataFormat = dataFormat;
         }
         
         public function getRequest():URLRequest{
-            return url;
+            return urlRequest;
         }
                 
         protected override function doRun(...args):void{
-            var req:URLRequest;
+            var request:URLRequest;
             if( args.length > 0 ){
-                req = args[0];
+                request = args[0];
             } else {
-                req = url;
+                request = urlRequest;
             }
             if( loader == null ){
                 loader = createURLLoader();
             }
             addListeners(loader);
-            loader.load(req);
+            loader.load(request);
         }
         
         protected function createURLLoader():URLLoader{

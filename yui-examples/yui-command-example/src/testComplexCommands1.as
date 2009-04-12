@@ -14,16 +14,16 @@ package
     import org.seasar.akabana.yui.command.core.Command;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
-    public class testCommands extends Sprite {
+    public class testComplexCommands1 extends Sprite {
 
-        public function testCommands(){
+        public function testComplexCommands1(){
             
             var s:Command = new SequenceCommand()
                 .addCommand(new WaitCommand(250))
                 .addNamedCommand(
                     "namedcommand",
                     new StatefulURLLoaderCommand(
-                        new URLRequest("a.txt")
+                        new URLRequest("http://192.168.1.152/a.txt")
                         )
                     )
                 .addCommand(
@@ -40,7 +40,7 @@ package
                     new ParallelCommand()
                         .addCommand(
                             new URLLoaderCommand(
-                                new URLRequest("http://192.168.1.152/a1.txt?"+getTimer())
+                                new URLRequest("http://192.168.1.152/a11.txt?"+getTimer())
                                 )
                             )
                         .addCommand(
@@ -56,6 +56,7 @@ package
                         .setChildCompleteEventListener(urlLoaderCommandCompleteHandler)
                     )    
                 .setChildCompleteEventListener(childCommandCompleteHandler)          
+                .setChildErrorEventListener(childCommandErrorHandler)
                 .setCompleteEventListener(commandCompleteHandler)
                 .setErrorEventListener(commandErrorHandler)         
                 .execute();
@@ -64,15 +65,19 @@ package
         }
 
         public function commandCompleteHandler(event:CommandEvent):void{
-            log("p:",event.command);
+            log("p complete:",event.command);
         }
 
         public function commandErrorHandler(event:CommandEvent):void{
-            log("p:",event.command);
+            log("p error:",event.command);
         } 
         
         public function childCommandCompleteHandler(event:CommandEvent):void{
-            log("c:",event.command);
+            log("c complete:",event.command);
+        }  
+        
+        public function childCommandErrorHandler(event:CommandEvent):void{
+            log("c error:",event.command);
         }  
                 
         public function urlLoaderCommandCompleteHandler(event:CommandEvent):void{
