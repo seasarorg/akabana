@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties mainApplicationPath="testComplexCommands1.as" version="3">
+<actionScriptProperties mainApplicationPath="testAnimateCommands1.as" version="3">
   <compiler additionalCompilerArguments="-target-player=10" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="false" htmlPlayerVersion="9.0.124" htmlPlayerVersionCheck="false" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="1">
@@ -19,10 +19,12 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="1" path="/yui-command/target/swc/yui-command.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="libs/tweener_1_31_74_as3.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
   <applications>
+    <application path="testAnimateCommands1.as"/>
     <application path="testNestSequenceCommand.as"/>
     <application path="testWaitCommand.as"/>
     <application path="testSimpleErrorCommand.as"/>
