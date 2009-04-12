@@ -28,6 +28,6 @@ package org.seasar.akabana.yui.command.core.impl
         
         public function set parent( value:ComplexCommand ):void{
             _parent = value;
-        }
+        }  
     }
 }

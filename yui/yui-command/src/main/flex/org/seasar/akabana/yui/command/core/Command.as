@@ -23,13 +23,12 @@ package org.seasar.akabana.yui.command.core
     public interface Command {
 
         /**
-         * コマンド開始する
+         * コマンドを開始する
          * 
          * @param args コマンド引数
-         * @return コマンド
          * 
          */
-        function start(...args):Command;
+        function execute(...args):Command;
 
         /**
          * コマンド完了イベントリスナーを設定する
@@ -48,5 +47,18 @@ package org.seasar.akabana.yui.command.core
          * 
          */
         function setErrorEventListener(handler:Function):Command;
+        
+        /**
+         * コマンド完了イベントリスナーを削除する
+         * 
+         */
+        function removeCompleteEventListener():void;
+
+        /**
+         * コマンドエラーイベントリスナーを削除する
+         * 
+         */
+        function removeErrorEventListener():void;
+        
     }
 }

@@ -18,7 +18,6 @@ package org.seasar.akabana.yui.command
     import flash.events.TimerEvent;
     import flash.utils.Timer;
     
-    import org.seasar.akabana.yui.command.core.Command;
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     
     public class WaitCommand extends AbstractCommand
@@ -33,11 +32,9 @@ package org.seasar.akabana.yui.command
             this.sleep = sleep;
         }
         
-        public override function start(...args):Command
-        {
+        protected override function doRun(...args):void{
             timer = createTimer();
             timer.start();
-            return this;
         }
         
         protected function createTimer():Timer{
@@ -47,10 +44,12 @@ package org.seasar.akabana.yui.command
         }
         
         protected function timerHandler( event:TimerEvent ):void{
-            if( timer.running ){
+            if( timer != null ){
                 timer.stop();
+                timer.removeEventListener(TimerEvent.TIMER,timerHandler,false);
+                timer = null;
             }
-            dispatchCompleteEvent();
+            complete();
         }
     }
 }

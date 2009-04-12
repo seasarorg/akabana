@@ -15,15 +15,12 @@
  */
 package org.seasar.akabana.yui.command
 {
-    import flash.events.IEventDispatcher;
-    
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     
     public class AsyncServiceCommand extends AbstractCommand
-    {
-        public function AsyncServiceCommand( s:IEventDispatcher )
-        {
-            super();
+    {        
+        protected override  function doRun(...args):void{
+            
         }
         
     }

@@ -18,7 +18,6 @@ package org.seasar.akabana.yui.command
     import flash.events.TimerEvent;
     import flash.utils.Timer;
     
-    import org.seasar.akabana.yui.command.core.Command;
     import org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
@@ -36,20 +35,14 @@ package org.seasar.akabana.yui.command
         
         private var currentCommandIndex:int;
         
-        public function ParallelCommand()
-        {
-            super();
-        }
-
-        public override function start(...args):Command
-        {
+        protected override  function doRun(...args):void{
+         
             commandArguments = args;
             if( commands.length > 0 ){            
                 doStartCommands(args);
             } else {
-                dispatchCompleteEvent(null);
+                complete(null);
             }
-            return this;
         } 
 
         protected function doStartCommands(args:Array):void{
@@ -84,11 +77,15 @@ package org.seasar.akabana.yui.command
             finishedCommandCount++;
             if( finishedCommandCount >= commands.length ){
                 if( hasError ){
-                    dispatchErrorEvent(errorCommandEvents);
+                    error(errorCommandEvents);
                 } else {
-                    dispatchCompleteEvent();
+                    complete();
                 }
             }
+        }
+        
+        protected function doReset():void{
+            
         }
         
         private function commandStartTimerHandler(event:TimerEvent):void{

@@ -7,7 +7,6 @@ package org.seasar.akabana.yui.command
     import flash.net.URLLoader;
     import flash.net.URLRequest;
     
-    import org.seasar.akabana.yui.command.core.Command;
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
 
     public class URLLoaderCommand extends AbstractCommand
@@ -19,6 +18,7 @@ package org.seasar.akabana.yui.command
         protected var url:URLRequest;
         
         public function URLLoaderCommand(url:URLRequest=null,dataFormat:String="text"){
+            super();
             this.url = url;
             this.dataFormat = dataFormat;
         }
@@ -27,7 +27,7 @@ package org.seasar.akabana.yui.command
             return url;
         }
                 
-        public override function start(...args):Command{
+        protected override function doRun(...args):void{
             var req:URLRequest;
             if( args.length > 0 ){
                 req = args[0];
@@ -39,8 +39,6 @@ package org.seasar.akabana.yui.command
             }
             addListeners(loader);
             loader.load(req);
-           
-            return this;
         }
         
         protected function createURLLoader():URLLoader{
@@ -68,12 +66,12 @@ package org.seasar.akabana.yui.command
             var loader:URLLoader = URLLoader(event.target);
             loader.close();
             removeListeners(loader);
-            dispatchCompleteEvent(loader);
+            complete(loader);
         }
 
         private function securityErrorHandler(event:SecurityErrorEvent):void {
             removeListeners(loader);
-            dispatchErrorEvent(event);
+            error(event);
         }
 
         private function httpStatusHandler(event:HTTPStatusEvent):void {
@@ -81,7 +79,7 @@ package org.seasar.akabana.yui.command
 
         private function ioErrorHandler(event:IOErrorEvent):void {
             removeListeners(loader);
-            dispatchErrorEvent(event);
+            error(event);
         }
     }
 }

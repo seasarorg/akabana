@@ -28,19 +28,12 @@ package org.seasar.akabana.yui.command
 
             this.configUrl = configUrl;
             configloader = new URLLoaderCommand(new URLRequest(configUrl),URLLoaderDataFormat.TEXT);
-            configIndex = 0;    
-        }
-        
-        
-        public override function start(...args):Command
-        {
+            configIndex = 0; 
+            
             addCommand(configloader);
-            addFileLoaderCommand(fileloader);
-            doStartCommands(args);
-            return this;
+            addFileLoaderCommand(fileloader);   
         }
-
-
+        
         protected function addFileLoaderCommand(command:Command):ComplexCommand
         {
             command.setCompleteEventListener(fileloadCompleteEventHandler);
@@ -51,9 +44,9 @@ package org.seasar.akabana.yui.command
         protected override function childCommandErrorEventHandler(event:CommandEvent):void{         
             configList = ((event.value as URLLoader).data as String).replace(/\r/g,"").split("\n");
             if( configList != null && configList.length > 0 ){
-                fileloader.start(configList[configIndex]);
+                fileloader.execute(configList[configIndex]);
             } else {
-                dispatchCompleteEvent([]);
+                complete([]);
             }
         }     
 
@@ -62,14 +55,14 @@ package org.seasar.akabana.yui.command
                 if( childCompleteEventHandler != null ){
                     childCompleteEventHandler(event);
                 }
-                fileloader.start(configList[configIndex++]);
+                fileloader.execute(configList[configIndex++]);
             } else {
-                dispatchCompleteEvent(configList);
+                complete(configList);
             }
         }     
 
         protected function fileloadErrorEventHandler(event:CommandEvent):void{
-            dispatchErrorEvent(event);
+            error(event);
         }
     }
 }

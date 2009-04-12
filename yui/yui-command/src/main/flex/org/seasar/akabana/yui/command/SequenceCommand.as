@@ -15,7 +15,6 @@
  */
 package org.seasar.akabana.yui.command
 {
-    import org.seasar.akabana.yui.command.core.Command;
     import org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
@@ -23,19 +22,13 @@ package org.seasar.akabana.yui.command
     {
         protected var currentCommandIndex:int;
         
-        public function SequenceCommand(){
-            super();
+        protected override function doRun(...args):void{
             currentCommandIndex = 0;
-        }
-        
-        public override function start(...args):Command
-        {
             if( commands.length > 0 ){
                 doStartCommands(args);
             } else {
-                dispatchCompleteEvent(null);
+                complete();
             }
-            return this;
         }
         
         protected override function childCommandCompleteEventHandler(event:CommandEvent):void{
@@ -46,7 +39,8 @@ package org.seasar.akabana.yui.command
             if( currentCommandIndex < commands.length ){
                 doStartCommandAt(currentCommandIndex);
             } else {
-                dispatchCompleteEvent();
+                childCompleteEventHandler = null;
+                complete();
             }
         }     
 
@@ -54,7 +48,8 @@ package org.seasar.akabana.yui.command
             if( childErrorEventHandler != null ){
                 childErrorEventHandler(event);
             }
-            dispatchErrorEvent(event);
+            childErrorEventHandler = null;
+            error(event);
         }
         
         protected function doStartCommands(args:Array):void{

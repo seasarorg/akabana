@@ -32,6 +32,7 @@ package org.seasar.akabana.yui.command
         
         public function ConditionalCommand()
         {
+            super();
             caseMap = {};
         }
         
@@ -45,8 +46,8 @@ package org.seasar.akabana.yui.command
             return this;
         }
 
-        public override function start(...args):Command
-        {
+        protected override  function doRun(...args):void{
+         
             var result:Command = null;
             if( target == null && targetName != null && targetName.length > 0 ){
                 target = parent.getCommandByName(targetName) as StatefulObject;
@@ -59,8 +60,7 @@ package org.seasar.akabana.yui.command
             }
             result.setCompleteEventListener(commandCompleteEventListener);
             result.setErrorEventListener(commandErrorEventListener);
-            result.start(target);
-            return this;
+            result.execute(target);
         }
         
         public function addCaseCommand( value:String, command:Command ):ConditionalCommand{
@@ -74,11 +74,11 @@ package org.seasar.akabana.yui.command
         }
         
         protected function commandCompleteEventListener(event:CommandEvent):void{
-            dispatchCompleteEvent(event.value);
+            complete(event.value);
         }
 
         protected function commandErrorEventListener(event:CommandEvent):void{
-            dispatchErrorEvent(event.value);            
+            error(event.value);            
         }
     }
 }
