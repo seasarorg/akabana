@@ -1,9 +1,8 @@
 package example.command
 {
-    import org.seasar.akabana.yui.command.core.Command;
-    import org.seasar.akabana.yui.command.core.impl.AbstractSubCommand;
+    import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
 
-    public class TraceCommand extends AbstractSubCommand
+    public class TraceCommand extends AbstractCommand
     {
         public var word:String;
         
@@ -11,11 +10,10 @@ package example.command
             this.word = str;    
         }
         
-        public override function start(...args):Command
+        protected override function doRun(...args):void
         {
             trace(this.word);
-            dispatchCompleteEvent();            
-            return this;
+            complete();
         }        
     }
 }

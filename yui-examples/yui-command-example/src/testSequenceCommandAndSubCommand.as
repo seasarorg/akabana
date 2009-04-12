@@ -22,7 +22,7 @@ package
                 .setChildCompleteEventListener(childCommandCompleteHandler)                 
                 .setCompleteEventListener(commandCompleteHandler)
                 .setErrorEventListener(commandErrorHandler)         
-                .start();         
+                .execute();         
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{

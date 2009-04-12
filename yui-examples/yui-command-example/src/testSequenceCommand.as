@@ -22,11 +22,11 @@ package
                 .setChildCompleteEventListener(childCommandCompleteHandler)                 
                 .setCompleteEventListener(commandCompleteHandler)
                 .setErrorEventListener(commandErrorHandler)         
-                .start();         
+                .execute();         
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{
-            log("child:",event,"parent is " + (event.command as SimpleSubCommand).parent);
+            log("child:",event,"parent is " + event.command);
         }
         
         public function commandCompleteHandler(event:CommandEvent):void{

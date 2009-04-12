@@ -15,15 +15,15 @@ package
             var command1:Command = new SimpleCommand()
                 .setCompleteEventListener(commandCompleteHandler)
                 .setErrorEventListener(commandErrorHandler)
-                .start();        
+                .execute();        
         }
 
         public function commandCompleteHandler(event:CommandEvent):void{
-            trace(getTimer()+event);
+            log(event);
         }
 
         public function commandErrorHandler(event:CommandEvent):void{
-            trace(getTimer()+event);
+            log(event);
         }
     }
 }

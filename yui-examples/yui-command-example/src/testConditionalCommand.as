@@ -31,19 +31,19 @@ package
                                  
                 .setCompleteEventListener(commandCompleteHandler)
                 .setErrorEventListener(commandErrorHandler)         
-                .start();
+                .execute();
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{
-            trace(getTimer()+"child"+event);
+            log("child"+event);
         }
 
         public function commandCompleteHandler(event:CommandEvent):void{
-            trace(getTimer()+event);
+            log(event);
         }        
                 
         public function commandErrorHandler(event:CommandEvent):void{
-            trace(getTimer()+event);
+            log(event);
         }
     }
 }

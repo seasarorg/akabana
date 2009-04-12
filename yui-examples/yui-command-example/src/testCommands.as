@@ -58,7 +58,7 @@ package
                 .setChildCompleteEventListener(childCommandCompleteHandler)          
                 .setCompleteEventListener(commandCompleteHandler)
                 .setErrorEventListener(commandErrorHandler)         
-                .start();
+                .execute();
 
    
         }
