@@ -24,17 +24,18 @@ package org.seasar.akabana.yui.command.core.impl
      * 
      * 
      */
-    public class AbstractCommand extends EventDispatcher implements Command
-    {
-        private var completeEventHandler:Function;
+    public class AbstractCommand extends EventDispatcher implements Command {
+
+        private var _completeEventHandler:Function;
         
-        private var errorEventHandler:Function;
+        private var _errorEventHandler:Function;
 
         /**
          * 
          * 
          */
         public function AbstractCommand(){
+            super();
         }
         
         /**
@@ -42,10 +43,9 @@ package org.seasar.akabana.yui.command.core.impl
          * @param args
          * 
          */
-        public function execute(...args):Command
-        {
+        public function execute( ...args ):Command{
             try{
-                (this.doRun as Function).apply(null,args);
+                ( this.doRun as Function ).apply( null, args );
             }catch( e:Error ){
                 error(e);
             }
@@ -58,10 +58,9 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function setCompleteEventListener(handler:Function):Command
-        {
-            this.completeEventHandler = handler;
-            addEventListener(CommandEvent.COMPLETE,handler,false,int.MAX_VALUE,true);
+        public function setCompleteEventListener( handler:Function ):Command{
+            _completeEventHandler = handler;
+            addEventListener( CommandEvent.COMPLETE, handler, false, int.MAX_VALUE, true );
             return this;
         }
         
@@ -71,10 +70,9 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function setErrorEventListener(handler:Function):Command
-        {
-            this.errorEventHandler = handler;
-            addEventListener(CommandEvent.ERROR,handler,false,int.MAX_VALUE,true);
+        public function setErrorEventListener( handler:Function ):Command{
+            _errorEventHandler = handler;
+            addEventListener( CommandEvent.ERROR, handler, false, int.MAX_VALUE, true );
             return this;
         }
         
@@ -82,11 +80,10 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          * 
          */
-        public function removeCompleteEventListener():void
-        {
-            if( this.completeEventHandler != null ){
-                removeEventListener(CommandEvent.COMPLETE,completeEventHandler,false);
-                this.completeEventHandler = null;
+        public function removeCompleteEventListener():void{
+            if( _completeEventHandler != null ){
+                removeEventListener( CommandEvent.COMPLETE, _completeEventHandler, false );
+                _completeEventHandler = null;
             }
         }
         
@@ -94,11 +91,10 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          * 
          */
-        public function removeErrorEventListener():void
-        {
-            if( this.errorEventHandler != null ){
-                removeEventListener(CommandEvent.ERROR,errorEventHandler,false);
-                this.errorEventHandler = null;
+        public function removeErrorEventListener():void{
+            if( _errorEventHandler != null ){
+                removeEventListener( CommandEvent.ERROR,_errorEventHandler, false );
+                _errorEventHandler = null;
             }
         }
         
@@ -107,9 +103,8 @@ package org.seasar.akabana.yui.command.core.impl
          * @param value
          * 
          */
-        public function complete(value:Object=null):void
-        {
-            dispatchEvent(CommandEvent.createCompleteEvent(this,value));
+        public function complete( value:Object = null ):void{
+            dispatchEvent( CommandEvent.createCompleteEvent( this, value ) );
             removeCompleteEventListener();
         } 
         
@@ -118,9 +113,8 @@ package org.seasar.akabana.yui.command.core.impl
          * @param message
          * 
          */
-        public function error(message:Object=null):void
-        {
-            dispatchEvent(CommandEvent.createErrorEvent(this,message));
+        public function error( message:Object = null ):void{
+            dispatchEvent( CommandEvent.createErrorEvent( this, message ) );
             removeErrorEventListener();
         }
 
@@ -129,23 +123,21 @@ package org.seasar.akabana.yui.command.core.impl
          * @param args
          * 
          */
-        protected function doRun(...args):void
+        protected function doRun( ...args ):void
         {
-            throw new Error("no implements");
+            throw new Error( "no implements" );
         }
 
-        internal function addCompleteEventListener(handler:Function):void
+        internal function addCompleteEventListener( handler:Function ):void
         {
-            this.completeEventHandler = handler;
-            addEventListener(CommandEvent.COMPLETE,handler,false,0,true);
+            _completeEventHandler = handler;
+            addEventListener( CommandEvent.COMPLETE, handler, false, 0, true );
         }
         
         internal function addErrorEventListener(handler:Function):void
         {
-            this.errorEventHandler = handler;
-            addEventListener(CommandEvent.ERROR,handler,false,0,true);
-        }
-
-        
+            _errorEventHandler = handler;
+            addEventListener( CommandEvent.ERROR, handler, false, 0, true );
+        }        
     }
 }
