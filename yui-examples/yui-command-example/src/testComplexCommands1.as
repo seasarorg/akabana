@@ -23,7 +23,7 @@ package
                 .addNamedCommand(
                     "namedcommand",
                     new StatefulURLLoaderCommand(
-                        new URLRequest("http://192.168.1.152/a.txt")
+                        new URLRequest("http://127.0.0.1/a.txt")
                         )
                     )
                 .addCommand(
@@ -40,17 +40,17 @@ package
                     new ParallelCommand()
                         .addCommand(
                             new URLLoaderCommand(
-                                new URLRequest("http://192.168.1.152/a11.txt?"+getTimer())
+                                new URLRequest("http://127.0.0.1/a11.txt?"+getTimer())
                                 )
                             )
                         .addCommand(
                             new URLLoaderCommand(
-                                new URLRequest("http://192.168.1.152/a2.txt?"+getTimer())
+                                new URLRequest("http://127.0.0.1/a2.txt?"+getTimer())
                                 )
                             )
                         .addCommand(
                             new URLLoaderCommand(
-                                new URLRequest("http://192.168.1.152/a3.txt?"+getTimer())
+                                new URLRequest("http://127.0.0.1/a3.txt?"+getTimer())
                                 )
                             )
                         .setChildCompleteEventListener(urlLoaderCommandCompleteHandler)
