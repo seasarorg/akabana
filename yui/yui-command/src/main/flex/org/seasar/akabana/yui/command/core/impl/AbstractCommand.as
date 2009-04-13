@@ -123,19 +123,16 @@ package org.seasar.akabana.yui.command.core.impl
          * @param args
          * 
          */
-        protected function doRun( ...args ):void
-        {
+        protected function doRun( ...args ):void{
             throw new Error( "no implements" );
         }
 
-        internal function addCompleteEventListener( handler:Function ):void
-        {
+        internal function addCompleteEventListener( handler:Function ):void{
             _completeEventHandler = handler;
             addEventListener( CommandEvent.COMPLETE, handler, false, 0, true );
         }
         
-        internal function addErrorEventListener(handler:Function):void
-        {
+        internal function addErrorEventListener(handler:Function):void{
             _errorEventHandler = handler;
             addEventListener( CommandEvent.ERROR, handler, false, 0, true );
         }        
