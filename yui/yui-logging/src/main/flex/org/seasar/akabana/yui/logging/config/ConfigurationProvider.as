@@ -35,7 +35,7 @@ package org.seasar.akabana.yui.logging.config
             var factoryClass:Class = null;
             
             try{
-                factoryClass = ClassRef.classLoader.findClass("org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory");
+                factoryClass = ClassRef.classLoader.findClass("org.seasar.akabana.yui.logging.config.factory.DefaultConfigurationFactory");
                 if( factoryClass != null ){
                     factory = new factoryClass();
                     configuration = factory.create();
