@@ -40,7 +40,7 @@ package org.seasar.akabana.yui.framework.core {
 
 			var componentId:String = component.id;
             if( componentId == null ){
-                component.name = componentId = StringUtil.toLowerCamel(className);
+                componentId = component.name;
             }
             if( componentMap[ componentId ] == null ){
                 componentMap[ componentId ] = component;
