@@ -41,6 +41,7 @@ package org.seasar.akabana.yui.framework.core {
 			var componentId:String = component.id;
             if( componentId == null ){
                 componentId = component.name;
+                component.id = componentId;
             }
             if( componentMap[ componentId ] == null ){
                 componentMap[ componentId ] = component;
