@@ -18,21 +18,22 @@ package org.seasar.akabana.yui.logging.config.factory
     import mx.resources.ResourceBundle;
     
     import org.seasar.akabana.yui.logging.config.Configuration;
-    import org.seasar.akabana.yui.resources.embed.EmbedXmlReader;
 
-    public class ConfigurationFactory implements IConfigurationFactory{
+    public class ConfigurationFactory implements IConfigurationFactory {
 
         [ResourceBundle("log4yui")]
         private static var propertiesConfigFile:ResourceBundle;
         
-        public function create():Configuration {
+        public function create():Configuration{
             var configuration:Configuration;
-            if( propertiesConfigFile.content.hasOwnProperty(PropertiesConfigurationBuilder.LOG4YUI_ROOT_LOGGER)){
+            if( hasConfiguration() ){
                 configuration = PropertiesConfigurationBuilder.create(propertiesConfigFile);
-                trace("Logging Configuration is loaded from log4yui.properties.");
             }
-
             return configuration;
+        }
+        
+        private function hasConfiguration():Boolean{
+			return propertiesConfigFile.content.hasOwnProperty(PropertiesConfigurationBuilder.LOG4YUI_ROOT_LOGGER);        	
         }
         
     }
