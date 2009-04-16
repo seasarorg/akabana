@@ -62,6 +62,8 @@ package org.seasar.akabana.yui.framework.core
         
         protected var _callTimer:Timer = new Timer(100,1);
         
+        protected var isApplicationStarted:Boolean = true;
+        
         protected var _systemManager:ISystemManager;
         
         public function get systemManager():ISystemManager{
@@ -115,9 +117,9 @@ package org.seasar.akabana.yui.framework.core
             }
             
             application.visible = true;
-            
             logger.debug(Messages.getMessage("yui_framework","ViewComponentAssembleEnd")); 
          
+            isApplicationStarted = true;
             _callTimer.addEventListener(TimerEvent.TIMER,callApplicationStart,false,0,true);
             _callTimer.start();
         }
@@ -166,6 +168,9 @@ package org.seasar.akabana.yui.framework.core
         protected function doRegisterComponent( component:UIComponent ):void{
             if( component != null && component is Container){
                 processRegisterComponent(component as Container);               
+	        	if( isApplicationStarted && component.initialized ){
+	        		doAssembleComponent(component);
+	        	}
             }
         }     
 
