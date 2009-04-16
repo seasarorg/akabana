@@ -27,7 +27,6 @@ package org.seasar.akabana.yui.framework.mixin
 	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
 	import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
 	import org.seasar.akabana.yui.logging.LogManager;
-	import org.seasar.akabana.yui.logging.Logger;
 	
 	[Mixin]
 	[ResourceBundle("yui_framework")]
@@ -80,8 +79,6 @@ package org.seasar.akabana.yui.framework.mixin
                 }
             }            
         }
-    	
-        private static const logger:Logger = Logger.getLogger(YuiFrameworkMixin);
         
         public function set conventions( value:Array ):void{
             var namingConvention_:NamingConvention = new NamingConvention();
@@ -93,7 +90,6 @@ package org.seasar.akabana.yui.framework.mixin
         
         private function addedToStageHandler( event:Event ):void{
             if( event.target is UIComponent ){
-				logger.debug("addedToStageHandler"+event.target.toString()+","+(event.target as UIComponent).initialized);
                 _container.registerComponent(event.target as UIComponent);
             }
         }
