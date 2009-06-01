@@ -27,6 +27,10 @@ package org.seasar.akabana.yui.command
         
         protected var nextStatusEvent:CommandEvent;
         
+        /**
+         * 
+         * 
+         */
         public function AsyncCommand(){
             dispatchTimer = new Timer(1);
         }
@@ -53,17 +57,30 @@ package org.seasar.akabana.yui.command
             dispatchTimerStart();
         }
         
+        /**
+         * 
+         * 
+         */
         protected function dispatchTimerStart():void{
             dispatchTimer.addEventListener(TimerEvent.TIMER,dispatchTimerHandler);
             dispatchTimer.start();
         }
         
+        /**
+         * 
+         * 
+         */
         protected function dispatchTimerStop():void{
             if( dispatchTimer.running ){
                 dispatchTimer.stop();
             }
         }
         
+        /**
+         * 
+         * @param event
+         * 
+         */
         protected function dispatchTimerHandler(event:TimerEvent):void{
             dispatchTimer.removeEventListener(TimerEvent.TIMER,dispatchTimerHandler);
             dispatchTimerStop();
