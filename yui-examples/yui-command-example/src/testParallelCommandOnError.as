@@ -14,15 +14,15 @@ package
         public function testParallelCommandOnError(){
               
             var s:Command = new ParallelCommand()
-                .addCommand(new WaitCommand(100))
-                .addCommand(new SimpleErrorCommand())
-                .addCommand(new WaitCommand(300))
-                .addCommand(new SimpleErrorCommand())
-                .addCommand(new WaitCommand(800))
-                .setChildCompleteEventListener(childCommandCompleteHandler)                 
-                .setCompleteEventListener(commandCompleteHandler)
-                .setErrorEventListener(commandErrorHandler)         
-                .execute();         
+                .add(new WaitCommand(100))
+                .add(new SimpleErrorCommand())
+                .add(new WaitCommand(300))
+                .add(new SimpleErrorCommand())
+                .add(new WaitCommand(800))
+                .childComplete(childCommandCompleteHandler)                 
+                .complete(commandCompleteHandler)
+                .error(commandErrorHandler)         
+                .start();         
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{

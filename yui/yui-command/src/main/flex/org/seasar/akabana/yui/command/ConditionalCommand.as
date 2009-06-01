@@ -46,11 +46,11 @@ package org.seasar.akabana.yui.command
             return this;
         }
 
-        protected override  function doRun(...args):void{
+        protected override function run(...args):void{
          
             var result:Command = null;
             if( target == null && targetName != null && targetName.length > 0 ){
-                target = parent.getCommandByName(targetName) as StatefulObject;
+                target = parent.fetch(targetName) as StatefulObject;
             }
             var state:String = target.state;
             if( caseMap.hasOwnProperty( state )){
@@ -58,9 +58,9 @@ package org.seasar.akabana.yui.command
             } else {
                 result = defaultCommand;
             }
-            result.setCompleteEventListener(commandCompleteEventListener);
-            result.setErrorEventListener(commandErrorEventListener);
-            result.execute(target);
+            result.complete(commandCompleteEventListener);
+            result.error(commandErrorEventListener);
+            result.start(target);
         }
         
         public function addCaseCommand( value:String, command:Command ):ConditionalCommand{
@@ -74,11 +74,11 @@ package org.seasar.akabana.yui.command
         }
         
         protected function commandCompleteEventListener(event:CommandEvent):void{
-            complete(event.value);
+            done(event.value);
         }
 
         protected function commandErrorEventListener(event:CommandEvent):void{
-            error(event.value);            
+            failed(event.value);            
         }
     }
 }

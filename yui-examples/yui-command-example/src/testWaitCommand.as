@@ -15,13 +15,13 @@ package
         public function testWaitCommand(){
               
             var s:Command = new SequenceCommand()
-                .addCommand(new WaitCommand(500))
-                .addCommand(new SimpleCommand())
-                .addCommand(new WaitCommand(1000))
-                .setChildCompleteEventListener(childCommandCompleteHandler)                 
-                .setCompleteEventListener(commandCompleteHandler)
-                .setErrorEventListener(commandErrorHandler)         
-                .execute();
+                .add(new WaitCommand(500))
+                .add(new SimpleCommand())
+                .add(new WaitCommand(1000))
+                .childComplete(childCommandCompleteHandler)                 
+                .complete(commandCompleteHandler)
+                .error(commandErrorHandler)         
+                .start();
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{

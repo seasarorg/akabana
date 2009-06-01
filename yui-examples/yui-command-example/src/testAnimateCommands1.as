@@ -29,15 +29,15 @@ package
             CurveModifiers.init();
             ColorShortcuts.init();
             new SequenceCommand()
-                .addCommand(
+                .add(
                     new ParallelCommand()
-                        .addCommand(new MoveCommand( shape, 100, 100 ))
-                        .addCommand(new RotateCommand( shape, 180))
+                        .add(new MoveCommand( shape, 100, 100 ))
+                        .add(new RotateCommand( shape, 180))
                     )
-                .addCommand(new MoveCommand( shape, 200, 100 ))
-                .addCommand(new RotateCommand( shape, 90))
-                .addCommand(new TweenerCommand( shape, {x:0,y:0,rotation:0,alpha:0,delay:0,transition:'linear',_color:0xff0000,_bezier:[{x:157,y:50},{x:72,y:276},{x:307,y:248}]}))
-                .execute(1);            
+                .add(new MoveCommand( shape, 200, 100 ))
+                .add(new RotateCommand( shape, 90))
+                .add(new TweenerCommand( shape, {x:0,y:0,rotation:0,alpha:0,delay:0,transition:'linear',_color:0xff0000,_bezier:[{x:157,y:50},{x:72,y:276},{x:307,y:248}]}))
+                .start(1);            
         }   
         
         private function createRedSquare():Shape{

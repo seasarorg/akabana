@@ -22,12 +22,12 @@ package org.seasar.akabana.yui.command
     {
         protected var currentCommandIndex:int;
         
-        protected override function doRun(...args):void{
+        protected override function run(...args):void{
             currentCommandIndex = 0;
             if( commands.length > 0 ){
                 doStartCommands(args);
             } else {
-                complete();
+                done();
             }
         }
         
@@ -40,7 +40,7 @@ package org.seasar.akabana.yui.command
                 doStartCommandAt(currentCommandIndex);
             } else {
                 childCompleteEventHandler = null;
-                complete();
+                done();
             }
         }     
 
@@ -49,7 +49,7 @@ package org.seasar.akabana.yui.command
                 childErrorEventHandler(event);
             }
             childErrorEventHandler = null;
-            error(event);
+            failed(event);
         }
         
         protected function doStartCommands(args:Array):void{

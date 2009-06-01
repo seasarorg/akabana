@@ -28,8 +28,14 @@ package org.seasar.akabana.yui.command.core
          * @param args コマンド引数
          * 
          */
-        function execute(...args):Command;
+        function start(...args):Command;
 
+        /**
+         * コマンドを停止する
+         * 
+         */        
+        function stop():void;
+        
         /**
          * コマンド完了イベントリスナーを設定する
          * 
@@ -37,7 +43,7 @@ package org.seasar.akabana.yui.command.core
          * @return コマンド
          * 
          */
-        function setCompleteEventListener(handler:Function):Command;
+        function complete(handler:Function):Command;
 
         /**
          * コマンドエラーイベントリスナーを設定する
@@ -46,19 +52,7 @@ package org.seasar.akabana.yui.command.core
          * @return コマンド
          * 
          */
-        function setErrorEventListener(handler:Function):Command;
-        
-        /**
-         * コマンド完了イベントリスナーを削除する
-         * 
-         */
-        function removeCompleteEventListener():void;
+        function error(handler:Function):Command;
 
-        /**
-         * コマンドエラーイベントリスナーを削除する
-         * 
-         */
-        function removeErrorEventListener():void;
-        
     }
 }

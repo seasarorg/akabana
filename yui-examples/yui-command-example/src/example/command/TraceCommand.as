@@ -10,10 +10,10 @@ package example.command
             this.word = str;    
         }
         
-        protected override function doRun(...args):void
+        protected override function run(...args):void
         {
             trace(this.word);
-            complete();
+            done();
         }        
     }
 }

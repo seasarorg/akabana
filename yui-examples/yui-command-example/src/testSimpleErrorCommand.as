@@ -12,9 +12,9 @@ package
 
         public function testSimpleErrorCommand(){
             var command1:Command = new SimpleErrorCommand()
-                .setCompleteEventListener(commandCompleteHandler)
-                .setErrorEventListener(commandErrorHandler)
-                .execute();        
+                .complete(commandCompleteHandler)
+                .error(commandErrorHandler)
+                .start();        
         }
 
         public function commandCompleteHandler(event:CommandEvent):void{

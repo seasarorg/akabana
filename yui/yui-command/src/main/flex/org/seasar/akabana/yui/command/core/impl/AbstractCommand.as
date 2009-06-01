@@ -43,79 +43,13 @@ package org.seasar.akabana.yui.command.core.impl
          * @param args
          * 
          */
-        public function execute( ...args ):Command{
+        public function start( ...args ):Command{
             try{
-                ( this.doRun as Function ).apply( null, args );
+                ( this.run as Function ).apply( null, args );
             }catch( e:Error ){
-                error(e);
+                failed(e);
             }
             return this;
-        }
-        
-        /**
-         * 
-         * @param handler
-         * @return 
-         * 
-         */
-        public function setCompleteEventListener( handler:Function ):Command{
-            _completeEventHandler = handler;
-            addEventListener( CommandEvent.COMPLETE, handler, false, int.MAX_VALUE, true );
-            return this;
-        }
-        
-        /**
-         * 
-         * @param handler
-         * @return 
-         * 
-         */
-        public function setErrorEventListener( handler:Function ):Command{
-            _errorEventHandler = handler;
-            addEventListener( CommandEvent.ERROR, handler, false, int.MAX_VALUE, true );
-            return this;
-        }
-        
-        /**
-         * 
-         * 
-         */
-        public function removeCompleteEventListener():void{
-            if( _completeEventHandler != null ){
-                removeEventListener( CommandEvent.COMPLETE, _completeEventHandler, false );
-                _completeEventHandler = null;
-            }
-        }
-        
-        /**
-         * 
-         * 
-         */
-        public function removeErrorEventListener():void{
-            if( _errorEventHandler != null ){
-                removeEventListener( CommandEvent.ERROR,_errorEventHandler, false );
-                _errorEventHandler = null;
-            }
-        }
-        
-        /**
-         * 
-         * @param value
-         * 
-         */
-        public function complete( value:Object = null ):void{
-            dispatchEvent( CommandEvent.createCompleteEvent( this, value ) );
-            removeCompleteEventListener();
-        } 
-        
-        /**
-         * 
-         * @param message
-         * 
-         */
-        public function error( message:Object = null ):void{
-            dispatchEvent( CommandEvent.createErrorEvent( this, message ) );
-            removeErrorEventListener();
         }
 
         /**
@@ -123,10 +57,75 @@ package org.seasar.akabana.yui.command.core.impl
          * @param args
          * 
          */
-        protected function doRun( ...args ):void{
+        public function stop():void{
             throw new Error( "no implements" );
         }
+        
+        /**
+         * 
+         * @param handler
+         * @return 
+         * 
+         */
+        public function complete( handler:Function ):Command{
+            if( handler == null ){
+                if( _completeEventHandler != null ){
+                    removeEventListener( CommandEvent.COMPLETE, _completeEventHandler, false );
+                    _completeEventHandler = null;
+                }                
+            } else {
+                _completeEventHandler = handler;
+                addEventListener( CommandEvent.COMPLETE, handler, false, int.MAX_VALUE, true );
+            }
+            return this;
+        }
+        
+        /**
+         * 
+         * @param handler
+         * @return 
+         * 
+         */
+        public function error( handler:Function ):Command{
+            if( handler == null ){
+                if( _errorEventHandler != null ){
+                    removeEventListener( CommandEvent.ERROR,_errorEventHandler, false );
+                    _errorEventHandler = null;
+                }                
+            } else {
+                _errorEventHandler = handler;
+                addEventListener( CommandEvent.ERROR, handler, false, int.MAX_VALUE, true );
+            }
+            return this;            
+        }
+        
+        /**
+         * 
+         * @param value
+         * 
+         */
+        public function done( value:Object = null ):void{
+            dispatchEvent( CommandEvent.createCompleteEvent( this, value ) );
+        } 
+        
+        /**
+         * 
+         * @param message
+         * 
+         */
+        public function failed( message:Object = null ):void{
+            dispatchEvent( CommandEvent.createErrorEvent( this, message ) );
+        }
 
+        /**
+         * 
+         * @param args
+         * 
+         */
+        protected function run( ...args ):void{
+            throw new Error( "no implements" );
+        }
+        
         internal function addCompleteEventListener( handler:Function ):void{
             _completeEventHandler = handler;
             addEventListener( CommandEvent.COMPLETE, handler, false, 0, true );

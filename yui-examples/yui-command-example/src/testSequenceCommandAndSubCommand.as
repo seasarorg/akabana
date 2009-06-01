@@ -14,15 +14,15 @@ package
         public function testSequenceCommandAndSubCommand(){
               
             var s:Command = new SequenceCommand()
-                .addCommand(new SimpleSubCommand())
-                .addCommand(new SimpleSubCommand())
-                .addCommand(new SimpleSubCommand())
-                .addCommand(new SimpleSubCommand())
-                .addCommand(new SimpleSubCommand())
-                .setChildCompleteEventListener(childCommandCompleteHandler)                 
-                .setCompleteEventListener(commandCompleteHandler)
-                .setErrorEventListener(commandErrorHandler)         
-                .execute();         
+                .add(new SimpleSubCommand())
+                .add(new SimpleSubCommand())
+                .add(new SimpleSubCommand())
+                .add(new SimpleSubCommand())
+                .add(new SimpleSubCommand())
+                .childComplete(childCommandCompleteHandler)                 
+                .complete(commandCompleteHandler)
+                .error(commandErrorHandler)         
+                .start();         
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{

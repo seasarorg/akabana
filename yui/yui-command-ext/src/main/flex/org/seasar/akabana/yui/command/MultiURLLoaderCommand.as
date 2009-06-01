@@ -45,23 +45,23 @@ package org.seasar.akabana.yui.command
             configloader = new URLLoaderCommand(new URLRequest(configUrl),URLLoaderDataFormat.TEXT);
             configIndex = 0; 
             
-            addCommand(configloader);
+            add(configloader);
             addFileLoaderCommand(fileloader);   
         }
         
         protected function addFileLoaderCommand(command:Command):ComplexCommand
         {
-            command.setCompleteEventListener(fileloadCompleteEventHandler);
-            command.setErrorEventListener(fileloadErrorEventHandler);
+            command.complete(fileloadCompleteEventHandler);
+            command.error(fileloadErrorEventHandler);
             return this;
         }
                 
         protected override function childCommandErrorEventHandler(event:CommandEvent):void{         
             configList = ((event.value as URLLoader).data as String).replace(/\r/g,"").split("\n");
             if( configList != null && configList.length > 0 ){
-                fileloader.execute(configList[configIndex]);
+                fileloader.start(configList[configIndex]);
             } else {
-                complete([]);
+                done([]);
             }
         }     
 
@@ -70,14 +70,14 @@ package org.seasar.akabana.yui.command
                 if( childCompleteEventHandler != null ){
                     childCompleteEventHandler(event);
                 }
-                fileloader.execute(configList[configIndex++]);
+                fileloader.start(configList[configIndex++]);
             } else {
-                complete(configList);
+                done(configList);
             }
         }     
 
         protected function fileloadErrorEventHandler(event:CommandEvent):void{
-            error(event);
+            failed(event);
         }
     }
 }

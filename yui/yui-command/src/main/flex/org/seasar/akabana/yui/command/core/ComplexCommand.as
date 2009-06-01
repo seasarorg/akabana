@@ -25,20 +25,11 @@ package org.seasar.akabana.yui.command.core
          * コマンドを追加する
          * 
          * @param command コマンド
+         * @param name コマンド名
          * @return 複合コマンド
          * 
          */
-        function addCommand( command:Command ):ComplexCommand;
-        
-        /**
-         * コマンドを名前付きで追加する
-         * 
-         * @param name
-         * @param command コマンド
-         * @return 複合コマンド
-         * 
-         */
-        function addNamedCommand( name:String, command:Command ):ComplexCommand;
+        function add( command:Command, name:String=null ):ComplexCommand;
         
         /**
          * 名前よりコマンドを取得する
@@ -47,7 +38,7 @@ package org.seasar.akabana.yui.command.core
          * @return 複合コマンド
          * 
          */
-        function getCommandByName( name:String ):Command;
+        function fetch( name:String ):Command;
         
         /**
          * 子コマンドのイベント完了リスナーを設定する
@@ -56,7 +47,7 @@ package org.seasar.akabana.yui.command.core
          * @return 複合コマンド
          * 
          */
-        function setChildCompleteEventListener( handler:Function ):ComplexCommand;
+        function childComplete( handler:Function ):ComplexCommand;
 
         /**
          * 子コマンドのイベントエラーリスナーを設定する
@@ -65,6 +56,6 @@ package org.seasar.akabana.yui.command.core
          * @return 複合コマンド
          * 
          */
-        function setChildErrorEventListener( handler:Function ):ComplexCommand;        
+        function childError( handler:Function ):ComplexCommand;        
     }
 }

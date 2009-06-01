@@ -4,9 +4,9 @@ package example.command
 
     public class SimpleErrorCommand extends AbstractCommand
     {
-        protected override function doRun(...args):void
+        protected override function run(...args):void
         {
-            error("error message");            
+            failed("error message");            
         }        
     }
 }

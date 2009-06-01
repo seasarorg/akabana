@@ -18,13 +18,13 @@ package example.command
             this.rotation = rotation;
         }
 
-        protected override function doRun(...args):void{
+        protected override function run(...args):void{
             trace("command:",this);
             Tweener.addTween(target, {rotation:this.rotation, onComplete:rotateCompleteHandler, time:args[0], transition:"linear"});
         }  
         
         private function rotateCompleteHandler():void{
-            complete("value"); 
+            done("value"); 
         }
     }
 }

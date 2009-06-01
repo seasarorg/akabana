@@ -5,9 +5,9 @@ package example.command
     public class SimpleSubCommand extends AbstractSubCommand
     {
         
-        protected override function doRun(...args):void
+        protected override function run(...args):void
         {
-            complete("value");
+            done("value");
         }        
     }
 }

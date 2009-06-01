@@ -13,17 +13,9 @@ package
 
         public function testSimpleCommand(){
             var command1:Command = new SimpleCommand()
-                .setCompleteEventListener(commandCompleteHandler)
-                .setErrorEventListener(commandErrorHandler)
-                .execute();        
-        }
-
-        public function commandCompleteHandler(event:CommandEvent):void{
-            log(event);
-        }
-
-        public function commandErrorHandler(event:CommandEvent):void{
-            log(event);
+                .complete(log)
+                .error(log)
+                .start();        
         }
     }
 }

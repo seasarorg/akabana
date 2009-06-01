@@ -68,7 +68,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function setChildCompleteEventListener(handler:Function):ComplexCommand
+        public function childComplete(handler:Function):ComplexCommand
         {
             this.childCompleteEventHandler = handler;
             return this;
@@ -80,7 +80,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function setChildErrorEventListener(handler:Function):ComplexCommand
+        public function childError(handler:Function):ComplexCommand
         {
             this.childErrorEventHandler = handler;
             return this;
@@ -92,12 +92,15 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function addCommand(command:Command):ComplexCommand
+        public function add(command:Command,name:String=null):ComplexCommand
         {
             if( command is AbstractCommand ){
                 doAddCommand(command as AbstractCommand);
             } else {
                 doAddExternalCommand(command as AbstractCommand);
+            }
+            if( name != null ){
+                commandMap[name] = command;
             }
             doRegisterCommand(command);
             return this;
@@ -106,24 +109,10 @@ package org.seasar.akabana.yui.command.core.impl
         /**
          * 
          * @param name
-         * @param command
          * @return 
          * 
          */
-        public function addNamedCommand(name:String,command:Command):ComplexCommand
-        {
-            addCommand(command);
-            commandMap[name] = command;
-            return this;
-        }
-
-        /**
-         * 
-         * @param name
-         * @return 
-         * 
-         */
-        public function getCommandByName(name:String):Command
+        public function fetch(name:String):Command
         {
             var result:Command = commandMap[name];
             return result;
@@ -134,10 +123,10 @@ package org.seasar.akabana.yui.command.core.impl
          * @param value
          * 
          */
-        public override function complete(value:Object=null):void
+        public override function done(value:Object=null):void
         {
             doRemoveAllChildCommandEventHandler();
-            super.complete(value);
+            super.done(value);
         } 
         
         /**
@@ -145,10 +134,10 @@ package org.seasar.akabana.yui.command.core.impl
          * @param message
          * 
          */
-        public override function error(message:Object=null):void
+        public override function failed(message:Object=null):void
         {
             doRemoveAllChildCommandEventHandler();
-            super.error(message);
+            super.failed(message);
         }
 
         /**
@@ -158,7 +147,7 @@ package org.seasar.akabana.yui.command.core.impl
          */
         protected function doStartCommandAt(index:int):void{
             var command:Command = commands[ index ];
-            (command.execute as Function).apply(null,commandArguments);
+            (command.start as Function).apply(null,commandArguments);
         }         
                 
         /**
@@ -193,8 +182,8 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function doAddExternalCommand(command:Command):void{
-            command.setCompleteEventListener(childCommandCompleteEventHandler);            
-            command.setErrorEventListener(childCommandErrorEventHandler);
+            command.complete(childCommandCompleteEventHandler);            
+            command.error(childCommandErrorEventHandler);
         }
         
         /**
@@ -212,8 +201,8 @@ package org.seasar.akabana.yui.command.core.impl
         private function doRemoveAllChildCommandEventHandler():void{
             if( commands != null ){
                 for each( var command:Command in commands ){
-                    command.removeCompleteEventListener();
-                    command.removeErrorEventListener();
+                    command.complete( null );
+                    command.error( null );
                 }
             }
         }

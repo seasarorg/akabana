@@ -16,21 +16,21 @@ package
         public function testNestSequenceCommand(){
               
             var s:Command = new SequenceCommand()
-                .addCommand(new SimpleCommand())
-                .addCommand(new SimpleCommand())
-                .addCommand(
+                .add(new SimpleCommand())
+                .add(new SimpleCommand())
+                .add(
                     new SequenceCommand()
-                        .addCommand(new SimpleCommand())
-                        .addCommand(new SimpleCommand())
-                        .addCommand(new SimpleCommand())
-                        .setChildCompleteEventListener(childCommandCompleteHandler) 
+                        .add(new SimpleCommand())
+                        .add(new SimpleCommand())
+                        .add(new SimpleCommand())
+                        .childComplete(childCommandCompleteHandler) 
                     )
-                .addCommand(new SimpleCommand())
-                .addCommand(new SimpleCommand())
-                .setChildCompleteEventListener(childCommandCompleteHandler)                 
-                .setCompleteEventListener(commandCompleteHandler)
-                .setErrorEventListener(commandErrorHandler)         
-                .execute();         
+                .add(new SimpleCommand())
+                .add(new SimpleCommand())
+                .childComplete(childCommandCompleteHandler)                 
+                .complete(commandCompleteHandler)
+                .error(commandErrorHandler)         
+                .start();         
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{

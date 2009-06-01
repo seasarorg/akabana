@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.command
     
     public class AsyncLogicCommand extends AbstractCommand
     {        
-        protected override  function doRun(...args):void{
+        protected override function run(...args):void{
             
         }
         

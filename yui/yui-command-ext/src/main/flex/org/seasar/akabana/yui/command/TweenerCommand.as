@@ -34,7 +34,7 @@ package org.seasar.akabana.yui.command
             this.parameter = parameter;
         }
 
-        protected override function doRun(...args):void{
+        protected override function run(...args):void{
             if( args.length > 0 ){
                 parameter["time"] = args[0];
             }
@@ -43,7 +43,7 @@ package org.seasar.akabana.yui.command
         }  
         
         private function rotateCompleteHandler():void{
-            complete("value"); 
+            done("value"); 
         }
     }
 }

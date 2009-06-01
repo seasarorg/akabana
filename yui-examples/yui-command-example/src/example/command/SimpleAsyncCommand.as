@@ -1,8 +1,9 @@
 package example.command
 {
-    import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
+    import org.seasar.akabana.yui.command.AsyncCommand;
     
-    public class SimpleCommand extends AbstractCommand
+    
+    public class SimpleAsyncCommand extends AsyncCommand
     {
         protected override function run(...args):void{
             trace("command:",this);

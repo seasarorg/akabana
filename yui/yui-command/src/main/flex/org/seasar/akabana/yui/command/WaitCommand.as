@@ -32,7 +32,7 @@ package org.seasar.akabana.yui.command
             this.sleep = sleep;
         }
         
-        protected override function doRun(...args):void{
+        protected override function run(...args):void{
             timer = createTimer();
             timer.start();
         }
@@ -49,7 +49,7 @@ package org.seasar.akabana.yui.command
                 timer.removeEventListener(TimerEvent.TIMER,timerHandler,false);
                 timer = null;
             }
-            complete();
+            done();
         }
     }
 }

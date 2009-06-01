@@ -42,7 +42,7 @@ package org.seasar.akabana.yui.command
             return urlRequest;
         }
                 
-        protected override function doRun(...args):void{
+        protected override function run(...args):void{
             var request:URLRequest;
             if( args.length > 0 ){
                 request = args[0];
@@ -81,12 +81,12 @@ package org.seasar.akabana.yui.command
             var loader:URLLoader = URLLoader(event.target);
             loader.close();
             removeListeners(loader);
-            complete(loader);
+            done(loader);
         }
 
         private function securityErrorHandler(event:SecurityErrorEvent):void {
             removeListeners(loader);
-            error(event);
+            failed(event);
         }
 
         private function httpStatusHandler(event:HTTPStatusEvent):void {
@@ -94,7 +94,7 @@ package org.seasar.akabana.yui.command
 
         private function ioErrorHandler(event:IOErrorEvent):void {
             removeListeners(loader);
-            error(event);
+            failed(event);
         }
     }
 }

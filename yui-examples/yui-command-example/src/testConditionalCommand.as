@@ -18,8 +18,8 @@ package
         public function testConditionalCommand(){
               
             var s:Command = new SequenceCommand()
-                .addCommand(new WaitCommand(500))
-                .addCommand(
+                .add(new WaitCommand(500))
+                .add(
                     new ConditionalCommand()
                         .setTarget(new StatefullData())
                         .addCaseCommand("1",new TraceCommand("1"))
@@ -27,11 +27,10 @@ package
                         .addCaseCommand("3",new TraceCommand("3"))
                         .setDefaultCommand(new WaitCommand(1000))
                     )
-                .addCommand(new SimpleCommand())
-                                 
-                .setCompleteEventListener(commandCompleteHandler)
-                .setErrorEventListener(commandErrorHandler)         
-                .execute();
+                .add(new SimpleCommand())
+                .complete(commandCompleteHandler)
+                .error(commandErrorHandler)         
+                .start();
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{

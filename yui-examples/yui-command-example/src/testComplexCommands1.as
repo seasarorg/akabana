@@ -19,14 +19,14 @@ package
         public function testComplexCommands1(){
             
             var s:Command = new SequenceCommand()
-                .addCommand(new WaitCommand(250))
-                .addNamedCommand(
-                    "namedcommand",
+                .add(new WaitCommand(250))
+                .add(
                     new StatefulURLLoaderCommand(
                         new URLRequest("http://127.0.0.1/a.txt")
-                        )
+                        ),
+                    "namedcommand"
                     )
-                .addCommand(
+                .add(
                     new ConditionalCommand()
                         .setTargetByName("namedcommand")
                         .addCaseCommand("1",new WaitCommand(100))
@@ -34,32 +34,32 @@ package
                         .addCaseCommand("3",new WaitCommand(400))
                         .addCaseCommand("4",new WaitCommand(800))
                         .setDefaultCommand(new WaitCommand(1000))
-                        .setCompleteEventListener(childCommandCompleteHandler)
+                        .complete(childCommandCompleteHandler)
                     )
-                .addCommand(
+                .add(
                     new ParallelCommand()
-                        .addCommand(
+                        .add(
                             new URLLoaderCommand(
                                 new URLRequest("http://127.0.0.1/a11.txt?"+getTimer())
                                 )
                             )
-                        .addCommand(
+                        .add(
                             new URLLoaderCommand(
                                 new URLRequest("http://127.0.0.1/a2.txt?"+getTimer())
                                 )
                             )
-                        .addCommand(
+                        .add(
                             new URLLoaderCommand(
                                 new URLRequest("http://127.0.0.1/a3.txt?"+getTimer())
                                 )
                             )
-                        .setChildCompleteEventListener(urlLoaderCommandCompleteHandler)
+                        .complete(urlLoaderCommandCompleteHandler)
                     )    
-                .setChildCompleteEventListener(childCommandCompleteHandler)          
-                .setChildErrorEventListener(childCommandErrorHandler)
-                .setCompleteEventListener(commandCompleteHandler)
-                .setErrorEventListener(commandErrorHandler)         
-                .execute();
+                .childComplete(childCommandCompleteHandler)          
+                .childError(childCommandErrorHandler)
+                .complete(commandCompleteHandler)
+                .error(commandErrorHandler)         
+                .start();
 
    
         }

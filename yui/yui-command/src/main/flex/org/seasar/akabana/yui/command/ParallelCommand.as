@@ -35,7 +35,7 @@ package org.seasar.akabana.yui.command
         
         private var currentCommandIndex:int;
         
-        protected override  function doRun(...args):void{
+        protected override function run(...args):void{
          
             commandArguments = args;
             if( commands.length > 0 ){            
@@ -77,9 +77,9 @@ package org.seasar.akabana.yui.command
             finishedCommandCount++;
             if( finishedCommandCount >= commands.length ){
                 if( hasError ){
-                    error(errorCommandEvents);
+                    failed(errorCommandEvents);
                 } else {
-                    complete();
+                    done();
                 }
             }
         }
