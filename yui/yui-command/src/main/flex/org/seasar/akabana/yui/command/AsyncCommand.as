@@ -66,6 +66,7 @@ package org.seasar.akabana.yui.command
         
         protected function dispatchTimerHandler(event:TimerEvent):void{
             dispatchTimer.removeEventListener(TimerEvent.TIMER,dispatchTimerHandler);
+            dispatchTimerStop();
             dispatchEvent(nextStatusEvent);
         }
         
