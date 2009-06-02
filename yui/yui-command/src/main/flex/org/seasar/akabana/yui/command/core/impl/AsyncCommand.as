@@ -13,12 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.command
+package org.seasar.akabana.yui.command.core.impl
 {
     import flash.events.TimerEvent;
     import flash.utils.Timer;
     
-    import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
     
     public class AsyncCommand extends AbstractCommand

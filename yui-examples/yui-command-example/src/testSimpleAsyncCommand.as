@@ -19,6 +19,7 @@ package
                     .error(commandErrorHandler)
                     .start();  
             
+            command1.start();
             
             textfiled = new TextField();
             

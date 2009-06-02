@@ -32,23 +32,21 @@ package org.seasar.akabana.yui.command
         }
         
         protected override function childCommandCompleteEventHandler(event:CommandEvent):void{
-            if( childCompleteEventHandler != null ){
-                childCompleteEventHandler(event);
+            if( childCompleteEventListener.handler != null ){
+                childCompleteEventListener.handler(event);
             }
             currentCommandIndex++;
             if( currentCommandIndex < commands.length ){
                 doStartCommandAt(currentCommandIndex);
             } else {
-                childCompleteEventHandler = null;
                 done();
             }
         }     
 
         protected override function childCommandErrorEventHandler(event:CommandEvent):void{
-            if( childErrorEventHandler != null ){
-                childErrorEventHandler(event);
+            if( childErrorEventListener.handler != null ){
+                childErrorEventListener.handler(event);
             }
-            childErrorEventHandler = null;
             failed(event);
         }
         

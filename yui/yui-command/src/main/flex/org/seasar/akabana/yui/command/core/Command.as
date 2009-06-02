@@ -34,7 +34,7 @@ package org.seasar.akabana.yui.command.core
          * コマンドを停止する
          * 
          */        
-        function stop():void;
+        function stop(...args):void;
         
         /**
          * コマンド完了イベントリスナーを設定する

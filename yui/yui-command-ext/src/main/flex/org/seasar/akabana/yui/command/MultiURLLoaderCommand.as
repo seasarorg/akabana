@@ -67,8 +67,8 @@ package org.seasar.akabana.yui.command
 
         protected function fileloadCompleteEventHandler(event:CommandEvent):void{
             if( configIndex < configList.length ){
-                if( childCompleteEventHandler != null ){
-                    childCompleteEventHandler(event);
+                if( childCompleteEventListener.handler != null ){
+                    childCompleteEventListener.handler(event);
                 }
                 fileloader.start(configList[configIndex++]);
             } else {

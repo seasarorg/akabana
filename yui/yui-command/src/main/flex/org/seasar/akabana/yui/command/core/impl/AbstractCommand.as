@@ -18,6 +18,7 @@ package org.seasar.akabana.yui.command.core.impl
     import flash.events.EventDispatcher;
     
     import org.seasar.akabana.yui.command.core.Command;
+    import org.seasar.akabana.yui.command.core.EventListener;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
     /**
@@ -26,9 +27,9 @@ package org.seasar.akabana.yui.command.core.impl
      */
     public class AbstractCommand extends EventDispatcher implements Command {
 
-        private var _completeEventHandler:Function;
+        private var _completeEventListener:EventListener;
         
-        private var _errorEventHandler:Function;
+        private var _errorEventListener:EventListener;
 
         /**
          * 
@@ -36,6 +37,8 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public function AbstractCommand(){
             super();
+            _completeEventListener = new EventListener();
+            _errorEventListener = new EventListener();
         }
         
         /**
@@ -57,7 +60,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param args
          * 
          */
-        public function stop():void{
+        public function stop(...args):void{
             throw new Error( "no implements" );
         }
         
@@ -69,12 +72,11 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public function complete( handler:Function ):Command{
             if( handler == null ){
-                if( _completeEventHandler != null ){
-                    removeEventListener( CommandEvent.COMPLETE, _completeEventHandler, false );
-                    _completeEventHandler = null;
+                if( _completeEventListener.handler != null ){
+                    removeEventListener( CommandEvent.COMPLETE, _completeEventListener.handler, false );
                 }                
             } else {
-                _completeEventHandler = handler;
+                _completeEventListener.handler = handler;
                 addEventListener( CommandEvent.COMPLETE, handler, false, int.MAX_VALUE, true );
             }
             return this;
@@ -88,12 +90,11 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public function error( handler:Function ):Command{
             if( handler == null ){
-                if( _errorEventHandler != null ){
-                    removeEventListener( CommandEvent.ERROR,_errorEventHandler, false );
-                    _errorEventHandler = null;
+                if( _errorEventListener.handler != null ){
+                    removeEventListener( CommandEvent.ERROR,_errorEventListener.handler, false );
                 }                
             } else {
-                _errorEventHandler = handler;
+                _errorEventListener.handler = handler;
                 addEventListener( CommandEvent.ERROR, handler, false, int.MAX_VALUE, true );
             }
             return this;            
@@ -124,16 +125,6 @@ package org.seasar.akabana.yui.command.core.impl
          */
         protected function run( ...args ):void{
             throw new Error( "no implements" );
-        }
-        
-        internal function addCompleteEventListener( handler:Function ):void{
-            _completeEventHandler = handler;
-            addEventListener( CommandEvent.COMPLETE, handler, false, 0, true );
-        }
-        
-        internal function addErrorEventListener(handler:Function):void{
-            _errorEventHandler = handler;
-            addEventListener( CommandEvent.ERROR, handler, false, 0, true );
-        }        
+        }     
     }
 }

@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.command.core.impl
 {
     import org.seasar.akabana.yui.command.core.Command;
     import org.seasar.akabana.yui.command.core.ComplexCommand;
+    import org.seasar.akabana.yui.command.core.EventListener;
     import org.seasar.akabana.yui.command.core.SubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
     
@@ -25,7 +26,7 @@ package org.seasar.akabana.yui.command.core.impl
      * @author arikawa.eiichi
      * 
      */
-    public class AbstractComplexCommand extends AbstractSubCommand implements ComplexCommand
+    public class AbstractComplexCommand extends AsyncCommand implements ComplexCommand
     {
         /**
          * 
@@ -45,12 +46,12 @@ package org.seasar.akabana.yui.command.core.impl
         /**
          * 
          */
-        protected var childCompleteEventHandler:Function;
+        protected var childCompleteEventListener:EventListener;
         
         /**
          * 
          */
-        protected var childErrorEventHandler:Function;
+        protected var childErrorEventListener:EventListener;
         
         /**
          * 
@@ -60,6 +61,8 @@ package org.seasar.akabana.yui.command.core.impl
             super();
             commands = [];
             commandMap = {};
+            childCompleteEventListener = new EventListener();
+            childErrorEventListener = new EventListener();
         }
         
         /**
@@ -70,7 +73,7 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public function childComplete(handler:Function):ComplexCommand
         {
-            this.childCompleteEventHandler = handler;
+            this.childCompleteEventListener.handler = handler;
             return this;
         }
         
@@ -82,7 +85,7 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public function childError(handler:Function):ComplexCommand
         {
-            this.childErrorEventHandler = handler;
+            this.childErrorEventListener.handler = handler;
             return this;
         }
         
@@ -96,8 +99,6 @@ package org.seasar.akabana.yui.command.core.impl
         {
             if( command is AbstractCommand ){
                 doAddCommand(command as AbstractCommand);
-            } else {
-                doAddExternalCommand(command as AbstractCommand);
             }
             if( name != null ){
                 commandMap[name] = command;
@@ -116,28 +117,6 @@ package org.seasar.akabana.yui.command.core.impl
         {
             var result:Command = commandMap[name];
             return result;
-        } 
-
-        /**
-         * 
-         * @param value
-         * 
-         */
-        public override function done(value:Object=null):void
-        {
-            doRemoveAllChildCommandEventHandler();
-            super.done(value);
-        } 
-        
-        /**
-         * 
-         * @param message
-         * 
-         */
-        public override function failed(message:Object=null):void
-        {
-            doRemoveAllChildCommandEventHandler();
-            super.failed(message);
         }
 
         /**
@@ -172,18 +151,9 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function doAddCommand(command:AbstractCommand):void{
-            command.addCompleteEventListener(childCommandCompleteEventHandler);            
-            command.addErrorEventListener(childCommandErrorEventHandler);
-        }
-        
-        /**
-         * 
-         * @param command
-         * 
-         */
-        protected function doAddExternalCommand(command:Command):void{
-            command.complete(childCommandCompleteEventHandler);            
-            command.error(childCommandErrorEventHandler);
+            command
+            	.complete(childCommandCompleteEventHandler)         
+            	.error(childCommandErrorEventHandler);
         }
         
         /**
@@ -195,15 +165,6 @@ package org.seasar.akabana.yui.command.core.impl
             commands.push(command);
             if( command is SubCommand ){
                 (command as SubCommand).parent = this;
-            }
-        }
-
-        private function doRemoveAllChildCommandEventHandler():void{
-            if( commands != null ){
-                for each( var command:Command in commands ){
-                    command.complete( null );
-                    command.error( null );
-                }
             }
         }
         

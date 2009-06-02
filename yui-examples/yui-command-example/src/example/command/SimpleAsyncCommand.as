@@ -1,6 +1,6 @@
 package example.command
 {
-    import org.seasar.akabana.yui.command.AsyncCommand;
+    import org.seasar.akabana.yui.command.core.impl.AsyncCommand;
     
     
     public class SimpleAsyncCommand extends AsyncCommand

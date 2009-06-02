@@ -22,7 +22,7 @@ package
                 .childComplete(childCommandCompleteHandler)                 
                 .complete(commandCompleteHandler)
                 .error(commandErrorHandler)         
-                .start();         
+                .start();
         }
 
         public function childCommandCompleteHandler(event:CommandEvent):void{

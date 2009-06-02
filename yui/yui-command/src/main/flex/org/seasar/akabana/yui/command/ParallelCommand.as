@@ -52,21 +52,21 @@ package org.seasar.akabana.yui.command
             hasError = false;
             errorCommandEvents = [];
             currentCommandIndex = 0;
-            commandStartTimer = new Timer(24);
+            commandStartTimer = new Timer(1);
             commandStartTimer.addEventListener(TimerEvent.TIMER,commandStartTimerHandler);
             commandStartTimer.start();
         }   
 
         protected override function childCommandCompleteEventHandler(event:CommandEvent):void{
-            if( childCompleteEventHandler != null ){
-                childCompleteEventHandler(event);
+            if( childCompleteEventListener.handler != null ){
+                childCompleteEventListener.handler(event);
             }
             doCheckFinishedCommand();
         }     
 
         protected override function childCommandErrorEventHandler(event:CommandEvent):void{
-            if( childErrorEventHandler != null ){
-                childErrorEventHandler(event);
+            if( childErrorEventListener.handler != null ){
+                childErrorEventListener.handler(event);
             }
             hasError = true;
             errorCommandEvents.push( event );
@@ -85,7 +85,6 @@ package org.seasar.akabana.yui.command
         }
         
         protected function doReset():void{
-            
         }
         
         private function commandStartTimerHandler(event:TimerEvent):void{
