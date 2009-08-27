@@ -5,7 +5,6 @@
     <mx:Script>
         <![CDATA[
             import org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory;
-            import org.seasar.akabana.yui.TestClass;
             import examples.yui.helloworld.view.HelloWorldView;
             import examples.yui.helloworld.action.HelloWorldAction;
             import examples.yui.helloworld.helper.HelloWorldHelper;
@@ -17,7 +16,7 @@
                 //ConfigurationFactory;                
                 LogManager.init();
                 
-                trace( ClassRef.getQualifiedClassName(TestClass));
+                trace( ClassRef.getQualifiedClassName(LoggingExamples));
                 
                 Logger.getLogger(HelloWorldView).debug("debug");
                 Logger.getLogger(HelloWorldAction).debug("debug");
