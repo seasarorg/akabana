@@ -21,6 +21,7 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
+    import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.logging.Logger;
     
     use namespace mx_internal;
@@ -28,7 +29,11 @@ package org.seasar.akabana.yui.framework.customizer {
     public class ValidatorCustomizer extends AbstractEventCustomizer{
         
         private static const logger:Logger = Logger.getLogger(ValidatorCustomizer);
-        
+
+        public function ValidatorCustomizer(namingConvention:NamingConvention){
+            super(namingConvention);
+        }
+                
         public override function customize( viewName:String, view:Container ):void {
             var viewClassName:String = ClassRef.getReflector(view).name;
             var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);

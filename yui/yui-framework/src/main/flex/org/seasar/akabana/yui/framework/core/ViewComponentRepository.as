@@ -22,7 +22,6 @@ package org.seasar.akabana.yui.framework.core {
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
-    import org.seasar.akabana.yui.mx.util.UIComponentUtil;
     import org.seasar.akabana.yui.util.StringUtil;
     
     public class ViewComponentRepository {

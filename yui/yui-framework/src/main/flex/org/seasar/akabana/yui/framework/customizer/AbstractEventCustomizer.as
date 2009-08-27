@@ -22,6 +22,7 @@ package org.seasar.akabana.yui.framework.customizer
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
+    import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.logging.Logger;
     
@@ -37,6 +38,10 @@ package org.seasar.akabana.yui.framework.customizer
         
         protected static const SELF_HANDLER_PREFIX:String = "on";
 
+        public function AbstractEventCustomizer(namingConvention:NamingConvention){
+            super(namingConvention);
+        }
+        
         protected static function getEventName( functionRef:FunctionRef, componentName:String):String{
 			var functionName:String = functionRef.name;
 			var handlerIndex:int = functionName.lastIndexOf(HANDLER_SUFFIX);

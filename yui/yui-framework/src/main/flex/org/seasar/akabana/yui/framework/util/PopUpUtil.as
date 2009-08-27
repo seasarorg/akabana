@@ -1,4 +1,4 @@
-package org.seasar.akabana.yui.mx.util
+package org.seasar.akabana.yui.framework.util
 {
     import flash.display.DisplayObject;
     import flash.events.EventPhase;

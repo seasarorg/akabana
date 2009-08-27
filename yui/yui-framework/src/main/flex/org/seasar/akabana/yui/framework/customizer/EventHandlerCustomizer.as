@@ -30,9 +30,10 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.core.yui_internal;
+    import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.message.Messages;
+    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
-    import org.seasar.akabana.yui.mx.util.UIComponentUtil;
     
     use namespace yui_internal;
     use namespace mx_internal;
@@ -40,6 +41,10 @@ package org.seasar.akabana.yui.framework.customizer {
     public class EventHandlerCustomizer extends AbstractEventCustomizer{
         
         private static const logger:Logger = Logger.getLogger(EventHandlerCustomizer);
+        
+        public function EventHandlerCustomizer(namingConvention:NamingConvention){
+            super(namingConvention);
+        }
         
         public override function customize( viewName:String, view:Container ):void {
             var viewClassName:String = ClassRef.getReflector(view).name;

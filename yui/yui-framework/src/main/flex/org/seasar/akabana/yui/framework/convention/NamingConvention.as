@@ -18,9 +18,11 @@ package org.seasar.akabana.yui.framework.convention
     public class NamingConvention
     {
         private static const DOT:String = ".";
+        
+        private static const VIEW_PATH_REG:RegExp = /^(.+)\.view\.(.+?)View$/;        
 
         protected static function changeViewPackageTo( viewName:String, packageName:String, suffix:String ):String{
-            var classPathArray:Array = viewName.match(/^(.+)\.view\.(.+?)View$/);
+            var classPathArray:Array = viewName.match(VIEW_PATH_REG);
             return classPathArray[1] + DOT + packageName + DOT + classPathArray[2] + suffix;
         }
                 
@@ -34,8 +36,7 @@ package org.seasar.akabana.yui.framework.convention
             _conventions = value;
         }
                 
-        public function NamingConvention()
-        {
+        public function NamingConvention(){
         }
 
         public function getViewPackageName():String{
@@ -131,34 +132,34 @@ package org.seasar.akabana.yui.framework.convention
         }		
 		
         public function isViewClassName( className:String ):Boolean{
-            return isCoustomClassName(className,getViewPackageName(),getViewSuffix());
+            return checkClassFullName(className,getViewPackageName(),getViewSuffix());
         }
 
         public function isHelperClassName( className:String ):Boolean{
-            return isCoustomClassName(className,getHelperPackageName(),getHelperSuffix());
+            return checkClassFullName(className,getHelperPackageName(),getHelperSuffix());
         }
 
         public function isHelperName( varName:String ):Boolean{
-            return isCoustomName(varName,getHelperSuffix());
+            return checkVarName(varName,getHelperSuffix());
         }
 
         public function isActionClassName( className:String ):Boolean{
-            return isCoustomClassName(className,getActionPackageName(),getActionSuffix());
+            return checkClassFullName(className,getActionPackageName(),getActionSuffix());
         }        
 
         public function isServiceClassName( className:String ):Boolean{
-            return isCoustomClassName(className,getServicePackageName(),getServiceSuffix());
+            return checkClassFullName(className,getServicePackageName(),getServiceSuffix());
         }
         
         public function isLogicClassName( className:String ):Boolean{
-            return isCoustomClassName(className,getLogicPackageName(),getLogicSuffix());
+            return checkClassFullName(className,getLogicPackageName(),getLogicSuffix());
         }
 
         public function isValidatorClassName( className:String ):Boolean{
-            return isCoustomClassName(className,getValidatorPackageName(),getValidatorSuffix());
+            return checkClassFullName(className,getValidatorPackageName(),getValidatorSuffix());
         }        
         
-        protected function isCoustomClassName( className:String, packageName:String, suffix:String ):Boolean{
+        protected function checkClassFullName( className:String, packageName:String, suffix:String ):Boolean{
             var isTarget:Boolean = false;
             
             for each( var rootPath:String in _conventions ){
@@ -175,7 +176,7 @@ package org.seasar.akabana.yui.framework.convention
             return isTarget;
         }
 
-        protected function isCoustomName( varName:String, suffix:String ):Boolean{
+        protected function checkVarName( varName:String, suffix:String ):Boolean{
             var isTarget:Boolean = false;
             
             var regexp_:String = "^.+?" + suffix + "$";

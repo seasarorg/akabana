@@ -21,12 +21,12 @@ package org.seasar.akabana.yui.framework.customizer
     
     public interface IComponentCustomizer
     {
+        
+        function get namingConvention():NamingConvention;
+        
         function customize( name:String, view:Container ):void;
         
         function uncustomize( name:String, view:Container ):void;
         
-        function get namingConvention():NamingConvention;
-        
-        function set namingConvention( value:NamingConvention ):void;
     }
 }

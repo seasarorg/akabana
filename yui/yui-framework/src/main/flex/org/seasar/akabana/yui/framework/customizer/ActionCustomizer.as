@@ -22,10 +22,11 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
+    import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.framework.message.Messages;
+    import org.seasar.akabana.yui.framework.util.PopUpUtil;
     import org.seasar.akabana.yui.logging.Logger;
-    import org.seasar.akabana.yui.mx.util.PopUpUtil;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
 
@@ -34,6 +35,10 @@ package org.seasar.akabana.yui.framework.customizer {
         private static const logger:Logger = Logger.getLogger(ActionCustomizer);
         
         private static var viewToHelperMap:Object = new Dictionary(true);
+        
+        public function ActionCustomizer(namingConvention:NamingConvention){
+            super(namingConvention);
+        }
         
         public override function customize( viewName:String, view:Container ):void {
             var viewClassName:String = ClassRef.getReflector(view).name;

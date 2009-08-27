@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.mx.util
+package org.seasar.akabana.yui.framework.util
 {
 
     import mx.core.UIComponent;

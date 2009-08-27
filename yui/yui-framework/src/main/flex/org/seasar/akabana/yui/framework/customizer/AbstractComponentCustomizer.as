@@ -23,14 +23,14 @@ package org.seasar.akabana.yui.framework.customizer
     {
         protected var _namingConvention:NamingConvention;
         
+        public function AbstractComponentCustomizer(namingConvention:NamingConvention){
+            _namingConvention = namingConvention;
+        }
+        
         public function get namingConvention():NamingConvention{
             return _namingConvention;
         }
-        
-        public function set namingConvention( value:NamingConvention ):void{
-            _namingConvention = value;
-        }
-        
+                
         public function customize( name:String, view:Container ):void{
             
         }

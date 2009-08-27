@@ -1,6 +1,6 @@
 package org.seasar.akabana.yui.service.rpc.remoting.util
 {
-    import org.seasar.akabana.yui.mx.util.ApplicationUtil;
+    import org.seasar.akabana.yui.core.Environment;
     import org.seasar.akabana.yui.util.URLUtil;
     
     public class GatewayUtil
@@ -14,7 +14,7 @@ package org.seasar.akabana.yui.service.rpc.remoting.util
         public static function resolveGatewayUrl( destination:String ):String{
             var gatewayUrl:String = null;
             do{ 
-                gatewayUrl = ApplicationUtil.getParameterValue(REMOTING_PREFIX + destination );
+                gatewayUrl = Environment.getParameterValue(REMOTING_PREFIX + destination );
                 if( gatewayUrl != null ){
                     break;
                 }
@@ -24,7 +24,7 @@ package org.seasar.akabana.yui.service.rpc.remoting.util
                     break;
                 }
                 
-                gatewayUrl = ApplicationUtil.getParameterValue( DEFAULT_GATEWAY );
+                gatewayUrl = Environment.getParameterValue( DEFAULT_GATEWAY );
                 if( gatewayUrl != null ){
                     GatewayUtil.defaultGateway = gatewayUrl;
                     break;
@@ -40,7 +40,7 @@ package org.seasar.akabana.yui.service.rpc.remoting.util
 
         private static function resolveGatewayUrlByURL():String{
             var gatewayUrl:String = null;
-            var url:String = ApplicationUtil.loadedUrl;
+            var url:String = Environment.url;
             
             if( URLUtil.isValidHttpUrl(url)){
                 gatewayUrl = url.substring(0, url.lastIndexOf("/")+1 ) + "gateway";
