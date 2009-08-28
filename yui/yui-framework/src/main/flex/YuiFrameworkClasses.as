@@ -43,8 +43,6 @@ package
 
         ViewPopUpUtil;
         
-        YuiFrameworkMixin;
-        
-        LogConfigurationFactory;
+        YuiFrameworkMixin;        
     }
 }
