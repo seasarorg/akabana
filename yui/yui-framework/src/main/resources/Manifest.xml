@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
 <componentPackage>
     <component id="YuiFrameworkMixin" class="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
+    <component id="ConfigurationFactory" class="org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory"/>
 </componentPackage>

@@ -40,5 +40,7 @@ package
         FrameworkEvent;
         
         YuiFrameworkMixin;
+        
+        ConfigurationFactory;
     }
 }
