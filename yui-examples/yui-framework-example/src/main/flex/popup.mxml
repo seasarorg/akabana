@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application
-	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:akabana="http://akabana.seasar.org/yui/mxml"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    xmlns:akabana="http://akabana.seasar.org/yui/mxml"
     xmlns:logging="org.seasar.akabana.yui.logging.config.factory.*"
     layout="absolute"
-	xmlns:view="examples.yui.helloworld.view.*"
-	>
+    xmlns:view="examples.yui.popup.view.*"
+    >
     <mx:Style source="assets/css/applicationStyles.css"/>
-    <mx:Style source="examples/yui/helloworld/helloworldClasses.css"/>
+    <mx:Style source="examples/yui/popup/popupClasses.css"/>
     
     <akabana:YuiFrameworkMixin/>
     
     <logging:ConfigurationFactory/>
     
-    <view:HelloWorldView id="rootView"/>
+    <view:PopupOwnerView id="rootView"/>
 </mx:Application>

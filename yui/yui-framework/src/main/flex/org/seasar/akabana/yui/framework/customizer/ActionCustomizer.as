@@ -26,6 +26,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.framework.message.Messages;
     import org.seasar.akabana.yui.framework.util.PopUpUtil;
+    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
@@ -40,30 +41,40 @@ package org.seasar.akabana.yui.framework.customizer {
             super(namingConvention);
         }
         
-        public override function customize( viewName:String, view:Container ):void {
-            var viewClassName:String = ClassRef.getReflector(view).name;
-            var actionClassName:String = _namingConvention.getActionClassName(viewClassName);
-            var actionClassRef:ClassRef = null;
-            try{
-                if( view.descriptor.properties[ namingConvention.getActionPackageName() ] != null ){
-                    throw new Error("already Customized");
-                }
-                actionClassRef = ClassRef.getReflector(actionClassName);
-                processActionCustomize( viewName, view, actionClassRef );
-            } catch( e:Error ){
-                logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+        public override function customize( view:Container, owner:Container=null):void {
+        	if( owner == null ){
+	            var viewName:String = UIComponentUtil.getName(view);
+	            var viewClassName:String = ClassRef.getReflector(view).name;
+	            var actionClassName:String = _namingConvention.getActionClassName(viewClassName);
+	            var actionClassRef:ClassRef = null;
+	            try{
+	                if( view.descriptor.properties[ namingConvention.getActionPackageName() ] != null ){
+	                    throw new Error("already Customized");
+	                }
+	                actionClassRef = ClassRef.getReflector(actionClassName);
+	                processActionCustomize( viewName, view, actionClassRef );
+	            } catch( e:Error ){
+	                logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+	            }
+            
+            } else {
             }
         }
 
-        public override function uncustomize( viewName:String, view:Container ):void{
-            var viewClassName:String = ClassRef.getReflector(view).name;
-            var actionClassName:String = _namingConvention.getActionClassName(viewClassName);
-            var actionClassRef:ClassRef = null;
-            try{
-                actionClassRef = ClassRef.getReflector(actionClassName);
-                processActionUnCustomize( viewName, view, actionClassRef );
-            } catch( e:Error ){
-                logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+        public override function uncustomize( view:Container, owner:Container=null):void{
+            if( owner == null ){    
+	            var viewName:String = UIComponentUtil.getName(view);
+	            var viewClassName:String = ClassRef.getReflector(view).name;
+	            var actionClassName:String = _namingConvention.getActionClassName(viewClassName);
+	            var actionClassRef:ClassRef = null;
+	            try{
+	                actionClassRef = ClassRef.getReflector(actionClassName);
+	                processActionUnCustomize( viewName, view, actionClassRef );
+	            } catch( e:Error ){
+	                logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+	            }
+            
+            } else {        
             }
         }
             

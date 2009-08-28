@@ -22,6 +22,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
     
     use namespace mx_internal;
@@ -34,32 +35,42 @@ package org.seasar.akabana.yui.framework.customizer {
             super(namingConvention);
         }
                 
-        public override function customize( viewName:String, view:Container ):void {
-            var viewClassName:String = ClassRef.getReflector(view).name;
-            var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);
-            var validatorClassRef:ClassRef = null;
-            try{
-                if( view.descriptor.properties[ namingConvention.getValidatorPackageName() ] != null ){
-                    throw new Error("already Customized");
-                }
-                
-                validatorClassRef = ClassRef.getReflector(validatorClassName);
-                processValidatorCustomize( viewName, view, validatorClassRef );
-            } catch( e:Error ){
-                //logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
-            }            
+        public override function customize( view:Container, owner:Container=null):void {
+            if( owner == null ){  
+	            var viewName:String = UIComponentUtil.getName(view);
+	            var viewClassName:String = ClassRef.getReflector(view).name;
+	            var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);
+	            var validatorClassRef:ClassRef = null;
+	            try{
+	                if( view.descriptor.properties[ namingConvention.getValidatorPackageName() ] != null ){
+	                    throw new Error("already Customized");
+	                }
+	                
+	                validatorClassRef = ClassRef.getReflector(validatorClassName);
+	                processValidatorCustomize( viewName, view, validatorClassRef );
+	            } catch( e:Error ){
+	                //logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
+	            }   
+            
+            } else {        
+            }     
         }
 
-        public override function uncustomize( viewName:String, view:Container ):void{
-            var viewClassName:String = ClassRef.getReflector(view).name;
-            var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);
-            var validatorClassRef:ClassRef = null;
-            try{
-                validatorClassRef = ClassRef.getReflector(validatorClassName);
-                processValidatorUnCustomize( viewName, view, validatorClassRef );
-            } catch( e:Error ){
-                //logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
-            }   
+        public override function uncustomize( view:Container, owner:Container=null):void{
+            if( owner == null ){    	
+	            var viewName:String = UIComponentUtil.getName(view);
+	            var viewClassName:String = ClassRef.getReflector(view).name;
+	            var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);
+	            var validatorClassRef:ClassRef = null;
+	            try{
+	                validatorClassRef = ClassRef.getReflector(validatorClassName);
+	                processValidatorUnCustomize( viewName, view, validatorClassRef );
+	            } catch( e:Error ){
+	                //logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
+	            }   
+            
+            } else {    
+            }
         }
         
         protected function processValidatorCustomize( viewName:String, view:Container, validatorClassRef:ClassRef ):void{

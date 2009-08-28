@@ -24,9 +24,9 @@ package org.seasar.akabana.yui.framework.customizer
         
         function get namingConvention():NamingConvention;
         
-        function customize( name:String, view:Container ):void;
+        function customize( view:Container, owner:Container=null ):void;
         
-        function uncustomize( name:String, view:Container ):void;
+        function uncustomize( view:Container, owner:Container=null ):void;
         
     }
 }

@@ -46,59 +46,61 @@ package org.seasar.akabana.yui.framework.customizer {
             super(namingConvention);
         }
         
-        public override function customize( viewName:String, view:Container ):void {
+        public override function customize( view:Container, owner:Container=null):void {
+            var viewName:String = UIComponentUtil.getName(view);
             var viewClassName:String = ClassRef.getReflector(view).name;
-            var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
-            if( action_ != null){
-                 doCustomize(viewName,view,action_);
+            if( owner == null ){
+	            var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
+	            if( action_ != null){
+	                 doCustomize(viewName,view,action_);
+	            }
+            } else {
+                var ownerName:String = UIComponentUtil.getName(owner);
+                var ownerAction_:Object = owner.descriptor.properties[ namingConvention.getActionPackageName() ];
+	            if( ownerAction_ != null){
+	                var actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
+	                doCustomizingByComponent(
+	                    owner,
+	                    viewName,
+	                    view,
+	                    ownerAction_,
+	                    actionClassRef.functions.filter(
+	                        function(item:*, index:int, array:Array):Boolean{
+	                            return ( FunctionRef(item).name.indexOf(viewName) == 0 );
+	                        }
+	                    )
+	                );
+	            }
             }
         }
 
-        public override function uncustomize( viewName:String, view:Container ):void{
+        public override function uncustomize( view:Container, owner:Container=null):void{
+            var viewName:String = UIComponentUtil.getName(view);
             var viewClassName:String = ClassRef.getReflector(view).name;
-            var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
-            if( action_ != null){
-                 doUnCustomize(viewName,view,action_);
+            if( owner == null ){
+	            var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
+	            if( action_ != null){
+	                 doUnCustomize(viewName,view,action_);
+	            }
+            } else {
+            	var ownerName:String = UIComponentUtil.getName(owner);
+	            var ownerAction_:Object = owner.descriptor.properties[ namingConvention.getActionPackageName() ];
+	            if( ownerAction_ != null){
+	                var actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
+	                doUnCustomizingByComponent(
+	                    owner,
+	                    viewName,
+	                    view,
+	                    ownerAction_,
+	                    actionClassRef.functions.filter(
+	                        function(item:*, index:int, array:Array):Boolean{
+	                            return ( FunctionRef(item).name.indexOf(viewName) == 0 );
+	                        }
+	                    )
+	                );
+	            }
             }
-        }
-        
-        yui_internal function customizeComponent( component:UIComponent, view:Container ):void {
-            var viewClassName:String = ClassRef.getReflector(view).name;
-            var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
-            if( action_ != null){
-            	var actionClassRef:ClassRef = ClassRef.getReflector(action_);
-		        doCustomizingByComponent(
-                    view,
-                    UIComponentUtil.getName(component),
-                    component,
-                    action_,
-                    actionClassRef.functions.filter(
-                        function(item:*, index:int, array:Array):Boolean{
-                            return ( FunctionRef(item).name.indexOf(component.name) == 0 );
-                        }
-                    )
-                );
-            }
-        }
-
-        yui_internal function uncustomizeComponent( component:UIComponent, view:Container ):void {
-            var viewClassName:String = ClassRef.getReflector(view).name;
-            var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
-            if( action_ != null){
-            	var actionClassRef:ClassRef = ClassRef.getReflector(action_);
-		        doUnCustomizingByComponent(
-                    view,
-                    UIComponentUtil.getName(component),
-                    component,
-                    action_,
-                    actionClassRef.functions.filter(
-                        function(item:*, index:int, array:Array):Boolean{
-                            return ( FunctionRef(item).name.indexOf(component.name) == 0 );
-                        }
-                    )
-                );
-            }
-        }        
+        }       
         
         private function doCustomize( viewName:String, view:Container, action:Object ):void{
             var actionClassRef:ClassRef = ClassRef.getReflector(action);
@@ -417,9 +419,9 @@ package org.seasar.akabana.yui.framework.customizer {
 			var enhancedFunction:Function;
 			for each( var functionRef:FunctionRef in functionRefs ){
 			    eventName = getEventName(functionRef,componentName);
+                enhancedEventName = getEnhancedEventName(componentName,eventName);
                 enhancedFunction = getEnhancedEventHandler( view, enhancedEventName);
                 if( enhancedFunction != null ){
-                	enhancedEventName = getEnhancedEventName(componentName,eventName);
                     component.removeEventListener(eventName, enhancedFunction);
 	            	removeEnhancedEventHandler(view, enhancedEventName );  
                 	logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizingRemoveEvent",view.className,componentName == SELF_HANDLER_PREFIX ? view.name : componentName, eventName,functionRef.name));

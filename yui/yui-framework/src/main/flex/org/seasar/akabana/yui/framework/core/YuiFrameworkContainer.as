@@ -42,7 +42,6 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.message.Messages;
     import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
-    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
     
     public class YuiFrameworkContainer
@@ -146,19 +145,17 @@ package org.seasar.akabana.yui.framework.core
             doUnregisterComponent(component);
         }
         
-        public function customizeComponent( container:Container ):void{
-            var viewName:String = UIComponentUtil.getName(container);
+        public function customizeComponent( container:Container, owner:Container=null):void{
             for each( var customizer_:IComponentCustomizer in customizers ){
-                customizer_.customize( viewName, container );                    
+                customizer_.customize( container, owner);                    
             }
         }
         
-        public function uncustomizeComponent( container:Container ):void{
-            var viewName:String = UIComponentUtil.getName(container);
+        public function uncustomizeComponent( container:Container, owner:Container=null):void{
             var numCustomizers:int = customizers.length;
             for( var i:int = numCustomizers-1; i >= 0; i-- ){
                 var customizer_:IComponentCustomizer = customizers[i] as IComponentCustomizer;
-                customizer_.uncustomize( viewName, container);
+                customizer_.uncustomize( container, owner);
             }
         }
                 

@@ -15,6 +15,8 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
+    import flash.errors.IllegalOperationError;
+    
     import mx.core.Container;
     
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
@@ -31,12 +33,12 @@ package org.seasar.akabana.yui.framework.customizer
             return _namingConvention;
         }
                 
-        public function customize( name:String, view:Container ):void{
-            
+        public function customize( view:Container, owner:Container=null):void{
+            throw new IllegalOperationError("can't call");
         }
 
-        public function uncustomize( name:String, view:Container ):void{
-            
+        public function uncustomize( view:Container, owner:Container=null):void{
+            throw new IllegalOperationError("can't call");
         }
 
     }
