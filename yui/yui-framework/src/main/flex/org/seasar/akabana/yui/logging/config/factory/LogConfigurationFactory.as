@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.logging.config.factory
     
     import org.seasar.akabana.yui.logging.config.Configuration;
 
-    public class ConfigurationFactory implements IConfigurationFactory {
+    public class LogConfigurationFactory implements IConfigurationFactory {
 
         [ResourceBundle("log4yui")]
         private static var propertiesConfigFile:ResourceBundle;

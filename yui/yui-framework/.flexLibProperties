@@ -22,7 +22,7 @@
 <classEntry path="org.seasar.akabana.yui.framework.util.SystemManagerUtil"/>
 <classEntry path="org.seasar.akabana.yui.framework.util.UIComponentUtil"/>
 <classEntry path="org.seasar.akabana.yui.framework.util.ViewPopUpUtil"/>
-<classEntry path="org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory"/>
+<classEntry path="org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory"/>
 <classEntry path="org.seasar.akabana.yui.logging.config.factory.PropertiesConfigurationBuilder"/>
 </includeClasses>
 <includeResources>

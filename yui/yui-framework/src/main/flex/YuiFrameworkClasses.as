@@ -25,7 +25,8 @@ package
     import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin;
-    import org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory;
+    import org.seasar.akabana.yui.framework.util.ViewPopUpUtil;
+    import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
     
     public class YuiFrameworkClasses
     {
@@ -39,9 +40,11 @@ package
         RuntimeErrorEvent;
         
         FrameworkEvent;
+
+        ViewPopUpUtil;
         
         YuiFrameworkMixin;
         
-        ConfigurationFactory;
+        LogConfigurationFactory;
     }
 }
