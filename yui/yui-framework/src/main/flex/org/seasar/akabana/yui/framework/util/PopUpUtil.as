@@ -81,14 +81,16 @@ package org.seasar.akabana.yui.framework.util
             if( popUp is UIComponent){
         		var properties_:Object = UIComponentUtil.getDocumentProperties(UIComponent(popUp));
                 if( properties_ != null ){
-                    properties_[POPUP_INFO][POPUP_OWNER] = null;
-                    delete properties_[POPUP_INFO][POPUP_OWNER];
-                    
-                    properties_[POPUP_INFO][RELATED_OWNER] = null;
-                    delete properties_[POPUP_INFO][RELATED_OWNER];
-                    
-                    properties_[POPUP_INFO] = null;
-                    delete properties_[POPUP_INFO];
+                	if( properties_.hasOwnProperty(POPUP_INFO)){
+	                    properties_[POPUP_INFO][POPUP_OWNER] = null;
+	                    delete properties_[POPUP_INFO][POPUP_OWNER];
+	                    
+	                    properties_[POPUP_INFO][RELATED_OWNER] = null;
+	                    delete properties_[POPUP_INFO][RELATED_OWNER];
+	                    
+	                    properties_[POPUP_INFO] = null;
+	                    delete properties_[POPUP_INFO];
+                    }
                 }
             }
             PopUpManager.removePopUp(popUp);

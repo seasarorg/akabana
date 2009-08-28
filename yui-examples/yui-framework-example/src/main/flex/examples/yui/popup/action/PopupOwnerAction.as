@@ -1,6 +1,7 @@
 package examples.yui.popup.action
 {
 	import examples.yui.popup.helper.PopupOwnerHelper;
+	import examples.yui.popup.view.PopupView;
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -15,7 +16,7 @@ package examples.yui.popup.action
 		}
 		
 		public function popupCloseHandler(event:Event):void{
-			trace(event);
+			helper.hide(event.target as PopupView);
 		}
 
 	}

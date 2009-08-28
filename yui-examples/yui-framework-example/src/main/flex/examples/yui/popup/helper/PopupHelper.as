@@ -7,11 +7,6 @@ package examples.yui.popup.helper
 	public class PopupHelper
 	{
 		public var view:PopupView;
-		
-		public function hide():void
-		{
-			ViewPopUpUtil.removePopUp(view);
-		}
 
 	}
 }

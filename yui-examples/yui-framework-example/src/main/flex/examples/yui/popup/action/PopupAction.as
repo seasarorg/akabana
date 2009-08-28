@@ -11,7 +11,6 @@ package examples.yui.popup.action
         public function sayClickHandler(event:MouseEvent):void
         {
             trace(event);
-            helper.hide();
         }
 
 	}

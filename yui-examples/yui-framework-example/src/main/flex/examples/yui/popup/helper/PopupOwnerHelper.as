@@ -16,9 +16,12 @@ package examples.yui.popup.helper
 			     PopupView,
 			     true,
 			     view);
-			     
-			
 		}
+        
+        public function hide(popup:PopupView):void
+        {
+            ViewPopUpUtil.removePopUp(popup);
+        }
 
 	}
 }
