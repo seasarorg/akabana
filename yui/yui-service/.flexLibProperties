@@ -1,28 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
-  <includeClasses>
-    <classEntry path="YuiServiceClasses"/>
-    <classEntry path="org.seasar.akabana.yui.service.Operation"/>
-    <classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
-    <classEntry path="org.seasar.akabana.yui.service.Responder"/>
-    <classEntry path="org.seasar.akabana.yui.service.Service"/>
-    <classEntry path="org.seasar.akabana.yui.service.ServiceRepository"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.AbstractServiceEvent"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.FaultEvent"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.FaultStatus"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.InvokeEvent"/>
-    <classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcOperation"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcService"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.RpcPendingCall"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.RpcResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.RpcService"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingConnection"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingConnectionFactory"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingService"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.remoting.util.GatewayUtil"/>
-  </includeClasses>
-  <includeResources/>
-  <namespaceManifests/>
+<includeClasses>
+<classEntry path="YuiServiceClasses"/>
+<classEntry path="org.seasar.akabana.yui.service.Operation"/>
+<classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
+<classEntry path="org.seasar.akabana.yui.service.Responder"/>
+<classEntry path="org.seasar.akabana.yui.service.Service"/>
+<classEntry path="org.seasar.akabana.yui.service.ServiceRepository"/>
+<classEntry path="org.seasar.akabana.yui.service.event.AbstractServiceEvent"/>
+<classEntry path="org.seasar.akabana.yui.service.event.FaultEvent"/>
+<classEntry path="org.seasar.akabana.yui.service.event.FaultStatus"/>
+<classEntry path="org.seasar.akabana.yui.service.event.InvokeEvent"/>
+<classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcOperation"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcService"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.RpcPendingCall"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.RpcResponder"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.RpcService"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingConnection"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingConnectionFactory"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.RemotingService"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.remoting.util.GatewayUtil"/>
+</includeClasses>
+<includeResources/>
+<namespaceManifests/>
 </flexLibProperties>

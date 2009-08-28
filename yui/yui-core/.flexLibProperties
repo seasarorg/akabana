@@ -1,32 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
-  <includeClasses>
-    <classEntry path="org.seasar.akabana.yui.core.ClassLoader"/>
-    <classEntry path="org.seasar.akabana.yui.core.Environment"/>
-    <classEntry path="org.seasar.akabana.yui.core.error.ClassNotFoundError"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedObjectRef"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedReflector"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.ClassRef"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.Constructor"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.FunctionRef"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.MetadataRef"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.ObjectRef"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.ParameterRef"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.PropertyRef"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.Reflector"/>
-    <classEntry path="org.seasar.akabana.yui.core.yui_internal"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.DateFormatter"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.Formatter"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.StringFormatter"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.TokenInfo"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.error.FormatError"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.naming.DateFormatNaming"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.naming.IDateFormatNaming"/>
-    <classEntry path="org.seasar.akabana.yui.resources.embed.EmbedXmlReader"/>
-    <classEntry path="org.seasar.akabana.yui.util.ArrayUtil"/>
-    <classEntry path="org.seasar.akabana.yui.util.StringUtil"/>
-    <classEntry path="org.seasar.akabana.yui.util.URLUtil"/>
-  </includeClasses>
-  <includeResources/>
-  <namespaceManifests/>
+<includeClasses>
+<classEntry path="org.seasar.akabana.yui.core.ClassLoader"/>
+<classEntry path="org.seasar.akabana.yui.core.Environment"/>
+<classEntry path="org.seasar.akabana.yui.core.error.ClassNotFoundError"/>
+<classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedObjectRef"/>
+<classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedReflector"/>
+<classEntry path="org.seasar.akabana.yui.core.reflection.ClassRef"/>
+<classEntry path="org.seasar.akabana.yui.core.reflection.Constructor"/>
+<classEntry path="org.seasar.akabana.yui.core.reflection.FunctionRef"/>
+<classEntry path="org.seasar.akabana.yui.core.reflection.MetadataRef"/>
+<classEntry path="org.seasar.akabana.yui.core.reflection.ObjectRef"/>
+<classEntry path="org.seasar.akabana.yui.core.reflection.ParameterRef"/>
+<classEntry path="org.seasar.akabana.yui.core.reflection.PropertyRef"/>
+<classEntry path="org.seasar.akabana.yui.core.reflection.Reflector"/>
+<classEntry path="org.seasar.akabana.yui.core.yui_internal"/>
+<classEntry path="org.seasar.akabana.yui.formatter.DateFormatter"/>
+<classEntry path="org.seasar.akabana.yui.formatter.Formatter"/>
+<classEntry path="org.seasar.akabana.yui.formatter.StringFormatter"/>
+<classEntry path="org.seasar.akabana.yui.formatter.TokenInfo"/>
+<classEntry path="org.seasar.akabana.yui.formatter.error.FormatError"/>
+<classEntry path="org.seasar.akabana.yui.formatter.naming.DateFormatNaming"/>
+<classEntry path="org.seasar.akabana.yui.formatter.naming.IDateFormatNaming"/>
+<classEntry path="org.seasar.akabana.yui.resources.embed.EmbedXmlReader"/>
+<classEntry path="org.seasar.akabana.yui.util.ArrayUtil"/>
+<classEntry path="org.seasar.akabana.yui.util.StringUtil"/>
+<classEntry path="org.seasar.akabana.yui.util.URLUtil"/>
+</includeClasses>
+<includeResources/>
+<namespaceManifests/>
 </flexLibProperties>

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
-  <includeClasses>
-    <classEntry path="org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory"/>
-    <classEntry path="org.seasar.akabana.yui.logging.config.factory.PropertiesConfigurationBuilder"/>
-  </includeClasses>
-  <includeResources>
-    <resourceEntry destPath="log4yui.properties" sourcePath="log4yui.properties"/>
-  </includeResources>
-  <namespaceManifests/>
+<includeClasses>
+<classEntry path="org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory"/>
+<classEntry path="org.seasar.akabana.yui.logging.config.factory.PropertiesConfigurationBuilder"/>
+</includeClasses>
+<includeResources>
+<resourceEntry destPath="log4yui.properties" sourcePath="log4yui.properties"/>
+</includeResources>
+<namespaceManifests/>
 </flexLibProperties>
