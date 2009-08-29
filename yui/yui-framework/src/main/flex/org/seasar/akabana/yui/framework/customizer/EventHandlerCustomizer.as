@@ -190,7 +190,11 @@ package org.seasar.akabana.yui.framework.customizer {
             var componentName:String;
             var component:IEventDispatcher;
             if( componentName != null ){
-                component = view[componentName] as IEventDispatcher;
+            	if( view.hasOwnProperty(componentName)){
+                    component = view[componentName] as IEventDispatcher;
+                } else {
+                    component = view.getChildByName(componentName) as IEventDispatcher;
+                }
             } else {
                 componentName = SELF_HANDLER_PREFIX;
                 component = view;
