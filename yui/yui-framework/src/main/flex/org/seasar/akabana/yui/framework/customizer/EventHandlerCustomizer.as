@@ -109,12 +109,14 @@ package org.seasar.akabana.yui.framework.customizer {
             logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizing",viewName,actionClassRef.name));
             
             //for children
+            var componentClassName:String;
             for( var index:int = 0; index < view.numChildren; index++ ){
 
                 component = view.getChildAt(index) as UIComponent;
+                componentClassName = ClassRef.getReflector(component).name;
                 if( component != null &&
                     component is Container &&
-                    !namingConvention.isViewClassName(ClassRef.getReflector(component).name )
+                    !namingConvention.isViewClassName(componentClassName )
                 ){
                     doCustomizeByContainer(
                         view,
@@ -227,12 +229,14 @@ package org.seasar.akabana.yui.framework.customizer {
             if( container.childDescriptors == null ){
                 return;
             }
+            var componentClassName:String;
             for( var index:int =0; index < container.numChildren; index++ ){
                 do {
                     component = container.getChildAt(index) as UIComponent;
+                    componentClassName = ClassRef.getReflector(component).name;
                     if( component != null &&
                         component is Container &&
-                        !( namingConvention.isViewClassName(ClassRef.getReflector(component).name ) )&&
+                        !( namingConvention.isViewClassName( componentClassName )) &&
                         !( component is NavBar )
                     ){
                         doCustomizeByContainer(

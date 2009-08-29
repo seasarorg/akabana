@@ -22,7 +22,7 @@ package org.seasar.akabana.yui.framework.core {
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
-    import org.seasar.akabana.yui.util.StringUtil;
+    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     
     public class ViewComponentRepository {
         
@@ -37,11 +37,7 @@ package org.seasar.akabana.yui.framework.core {
             }
             var componentInstances:Object = componentInstanceMap[ className ];
 
-			var componentId:String = component.id;
-            if( componentId == null ){
-                componentId = component.name;
-                component.id = componentId;
-            }
+			var componentId:String = UIComponentUtil.getName(component);
             if( componentMap[ componentId ] == null ){
                 componentMap[ componentId ] = component;
                 componentInstances[ componentId ] = component;
@@ -52,14 +48,15 @@ package org.seasar.akabana.yui.framework.core {
         
         public static function removeComponent( component:UIComponent ):void{
         	if( componentMap.hasOwnProperty(component.name)){
-                componentMap[ component.name ] = null;
-                delete componentMap[ component.name ];
+        		var componentId:String = UIComponentUtil.getName(component);
+                componentMap[ componentId ] = null;
+                delete componentMap[ componentId ];
 
                 var className:String = ClassRef.getReflector(component).name;
                 
                 var componentInstances:Object = componentInstanceMap[ className ];
-                componentInstances[ component.name ] = null;
-                delete componentInstances[ component.name ];  
+                componentInstances[ componentId ] = null;
+                delete componentInstances[ componentId ];  
         	}        
         }
         

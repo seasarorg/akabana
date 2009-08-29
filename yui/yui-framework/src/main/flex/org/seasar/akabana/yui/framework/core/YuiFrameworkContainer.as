@@ -246,6 +246,7 @@ package org.seasar.akabana.yui.framework.core
                         return;
                     }
                 }
+                
                 ViewComponentRepository.addComponent( container );       
                 _logger.debug(Messages.getMessage("yui_framework","ViewComponentRegistered",container.toString()));
             }
