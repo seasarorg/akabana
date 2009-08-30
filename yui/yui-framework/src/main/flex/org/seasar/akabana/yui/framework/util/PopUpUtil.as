@@ -1,6 +1,7 @@
 package org.seasar.akabana.yui.framework.util
 {
     import flash.display.DisplayObject;
+    import flash.events.Event;
     import flash.events.EventPhase;
     import flash.events.IEventDispatcher;
     import flash.utils.Dictionary;
@@ -48,7 +49,7 @@ package org.seasar.akabana.yui.framework.util
 	                    popUpinfo_[RELATED_OWNER] = relatedOwner; 
 	                    popUpinfo_[CALLBACK] = creationCompleteCallBack; 
 	                    
-	                    descriptor.properties[POPUP_INFO] = popUpinfo_;
+	                    descriptor.properties[POPUP_INFO] = popUpinfo_;             
                  	}
                 },
                 false,
@@ -63,6 +64,15 @@ package org.seasar.akabana.yui.framework.util
                 childList
                 );
                 
+            if( center ){
+                window.addEventListener(
+                    FlexEvent.CREATION_COMPLETE,
+                    onPopupCreationForMoveCenterCompleteHandler,
+                    false,
+                    int.MAX_VALUE,
+                    true
+                );
+            }   
             if( window is IEventDispatcher && 
                 creationCompleteCallBack != null
             ){
@@ -70,14 +80,11 @@ package org.seasar.akabana.yui.framework.util
                     FlexEvent.CREATION_COMPLETE,
                     onPopupCreationCompleteHandler,
                     false,
-                    int.MAX_VALUE,
+                    0,
                     true
                 );
             }
-            
-            if( center ){
-                PopUpManager.centerPopUp(window);
-            }
+                                    
             return window;
         }
 
@@ -136,6 +143,17 @@ package org.seasar.akabana.yui.framework.util
             delete properties_[POPUP_INFO][CALLBACK];
             
             return result;
+        }
+        
+        private static function onPopupCreationForMoveCenterCompleteHandler(event:Event):void{
+        	var window:UIComponent = event.target as UIComponent;
+        	
+            window.removeEventListener(
+                FlexEvent.CREATION_COMPLETE,
+                onPopupCreationForMoveCenterCompleteHandler,
+                false
+            );
+            PopUpManager.centerPopUp(window);
         }
     }
 }
