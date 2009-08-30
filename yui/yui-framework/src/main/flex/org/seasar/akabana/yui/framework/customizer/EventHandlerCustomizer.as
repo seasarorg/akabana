@@ -107,48 +107,33 @@ package org.seasar.akabana.yui.framework.customizer {
             logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizing",viewName,actionClassRef.name));
             
             //for children
-            var componentClassName:String;
             for( var index:int = 0; index < view.numChildren; index++ ){
 
                 component = view.getChildAt(index) as UIComponent;
                 if( component == null ){
                 	continue;
                 }
-                
-                componentClassName = ClassRef.getReflector(component).name;
-//                if( namingConvention.isViewClassName(componentClassName ) ){
-//                    doCustomizeByComponent(
-//                        view,
-//                        component.id,
-//                        action,
-//                        actionClassRef.functions.filter(
-//                            function(item:*, index:int, array:Array):Boolean{
-//                                return ( FunctionRef(item).name.indexOf(component.id) == 0 );
-//                            }
-//                        )
-//                    );
-//                } else {
-	                if( component is Container && !component.isDocument ){
-	                    doCustomizeByContainer(
-	                        view,
-	                        component as Container,
-	                        action
-	                    );
-	                }
 
-                    if( component.id != null ){      
-	                    doCustomizeByComponent(
-	                        view,
-	                        component.id,
-	                        action,
-	                        actionClassRef.functions.filter(
-	                            function(item:*, index:int, array:Array):Boolean{
-	                                return ( FunctionRef(item).name.indexOf(component.id) == 0 );
-	                            }
-	                        )
-	                    );    
-                    }
-//                }
+                if( component is Container && !component.isDocument ){
+                    doCustomizeByContainer(
+                        view,
+                        component as Container,
+                        action
+                    );
+                }
+
+                if( component.id != null ){      
+                    doCustomizeByComponent(
+                        view,
+                        component.id,
+                        action,
+                        actionClassRef.functions.filter(
+                            function(item:*, index:int, array:Array):Boolean{
+                                return ( FunctionRef(item).name.indexOf(component.id) == 0 );
+                            }
+                        )
+                    );    
+                }
             }
 
             if( view is Panel ){
@@ -203,47 +188,34 @@ package org.seasar.akabana.yui.framework.customizer {
             if( container.childDescriptors == null ){
                 return;
             }
-            var componentClassName:String;
+
             for( var index:int =0; index < container.numChildren; index++ ){
                 do {
                     component = container.getChildAt(index) as UIComponent;
                     if( component == null ){
                         continue;
                     }
+                                          
+                    if( component is Container && !component.isDocument){
+                        doCustomizeByContainer(
+                            view,
+                            component as Container,
+                            action
+                        );
+                    }
                     
-//                    componentClassName = ClassRef.getReflector(component).name;
-//                    if( namingConvention.isViewClassName( componentClassName )){
-//                        doCustomizeByComponent(
-//                            view,
-//                            component.id,
-//                            action,
-//                            actionClassRef.functions.filter(
-//                                function(item:*, index:int, array:Array):Boolean{
-//                                    return FunctionRef(item).name.indexOf(component.id) == 0;
-//                                }
-//                            )
-//                        );
-//                    } else {                        
-                        if( component is Container && !component.isDocument){
-                            doCustomizeByContainer(
-                                view,
-                                component as Container,
-                                action
-                            );
-                        }
-                        if( component.id != null ){                     
-                            doCustomizeByComponent(
-                                view,
-                                component.id,
-                                action,
-                                actionClassRef.functions.filter(
-                                    function(item:*, index:int, array:Array):Boolean{
-                                        return FunctionRef(item).name.indexOf(component.id) == 0;
-                                    }
-                                )
-                            );
-                        }
-//                    }
+                    if( component.id != null ){                     
+                        doCustomizeByComponent(
+                            view,
+                            component.id,
+                            action,
+                            actionClassRef.functions.filter(
+                                function(item:*, index:int, array:Array):Boolean{
+                                    return FunctionRef(item).name.indexOf(component.id) == 0;
+                                }
+                            )
+                        );
+                    }
                 } while( false );
             }
 
@@ -314,40 +286,27 @@ package org.seasar.akabana.yui.framework.customizer {
                 if( component == null ){
                     continue;
                 }
-                
-//                if( namingConvention.isViewClassName(ClassRef.getReflector(component).name )){
-//                    doUnCustomizeByComponent(
-//                        view,
-//                        component.id,
-//                        action,
-//                        actionClassRef.functions.filter(
-//                            function(item:*, index:int, array:Array):Boolean{
-//                                return ( FunctionRef(item).name.indexOf(component.id) == 0 );
-//                            }
-//                        )
-//                    ); 
-//                } else {
-	                if( component is Container && !component.isDocument){
-	                    doUnCustomizeByContainer(
-	                        view,
-	                        component as Container,
-	                        action
-	                    );
-	                }
-	
-	                if( component.id != null){
-	                    doUnCustomizeByComponent(
-	                        view,
-	                        component.id,
-	                        action,
-	                        actionClassRef.functions.filter(
-	                            function(item:*, index:int, array:Array):Boolean{
-	                                return ( FunctionRef(item).name.indexOf(component.id) == 0 );
-	                            }
-	                        )
-	                    );        
-	                }
-//                }
+                          
+                if( component is Container && !component.isDocument){
+                    doUnCustomizeByContainer(
+                        view,
+                        component as Container,
+                        action
+                    );
+                }
+
+                if( component.id != null){
+                    doUnCustomizeByComponent(
+                        view,
+                        component.id,
+                        action,
+                        actionClassRef.functions.filter(
+                            function(item:*, index:int, array:Array):Boolean{
+                                return ( FunctionRef(item).name.indexOf(component.id) == 0 );
+                            }
+                        )
+                    );        
+                }
             }
 
             if( view is Panel ){
@@ -409,40 +368,28 @@ package org.seasar.akabana.yui.framework.customizer {
 	                if( component == null ){
 	                    continue;
 	                }
-//	                if( namingConvention.isViewClassName(ClassRef.getReflector(component).name ) ){
-//	                    doUnCustomizeByComponent(
-//	                        view,
-//	                        component.id,
-//	                        action,
-//	                        actionClassRef.functions.filter(
-//	                            function(item:*, index:int, array:Array):Boolean{
-//	                                return FunctionRef(item).name.indexOf(component.id) == 0;
-//	                            }
-//	                        )
-//	                    ); 
-//	                } else {
 	                                    
-	                    if( component is Container && !component.isDocument ){
-	                        doUnCustomizeByContainer(
-	                            view,
-	                            component as Container,
-	                            action
-	                        );
-	                    }
-	                    
-	                    if( component.id != null ){
-	                        doUnCustomizeByComponent(
-	                            view,
-	                            component.id,
-	                            action,
-	                            actionClassRef.functions.filter(
-	                                function(item:*, index:int, array:Array):Boolean{
-	                                    return FunctionRef(item).name.indexOf(component.id) == 0;
-	                                }
-	                            )
-	                        );                  
-	                    }
-//                    }
+                    if( component is Container && !component.isDocument ){
+                        doUnCustomizeByContainer(
+                            view,
+                            component as Container,
+                            action
+                        );
+                    }
+                    
+                    if( component.id != null ){
+                        doUnCustomizeByComponent(
+                            view,
+                            component.id,
+                            action,
+                            actionClassRef.functions.filter(
+                                function(item:*, index:int, array:Array):Boolean{
+                                    return FunctionRef(item).name.indexOf(component.id) == 0;
+                                }
+                            )
+                        );                  
+                    }
+
                 } while( false );
             }
 
