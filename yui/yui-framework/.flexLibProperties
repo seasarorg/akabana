@@ -31,10 +31,8 @@
 <resourceEntry destPath="locale/en_US/conventions.properties" sourcePath="locale/en_US/conventions.properties"/>
 <resourceEntry destPath="locale/ja_JP/log4yui.properties" sourcePath="locale/ja_JP/log4yui.properties"/>
 <resourceEntry destPath="locale/en_US/yui_framework.properties" sourcePath="locale/en_US/yui_framework.properties"/>
-<resourceEntry destPath="log4yui.properties" sourcePath="log4yui.properties"/>
 <resourceEntry destPath="locale/en_US/log4yui.properties" sourcePath="locale/en_US/log4yui.properties"/>
 <resourceEntry destPath="locale/ja_JP/conventions.properties" sourcePath="locale/ja_JP/conventions.properties"/>
-<resourceEntry destPath="conventions.properties" sourcePath="conventions.properties"/>
 </includeResources>
 <namespaceManifests>
 <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://akabana.seasar.org/yui/mxml"/>
