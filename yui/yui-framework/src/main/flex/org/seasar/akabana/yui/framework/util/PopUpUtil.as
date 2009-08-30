@@ -28,6 +28,7 @@ package org.seasar.akabana.yui.framework.util
         									parent:DisplayObject,
                                             className:Class,
                                             modal:Boolean = false,
+                                            center:Boolean = false,
                                             childList:String = null,
                                             creationCompleteCallBack:Function=null,
                                             relatedOwner:UIComponent=null
@@ -40,7 +41,7 @@ package org.seasar.akabana.yui.framework.util
                 function(event:FlexEvent):void{
                 	if( event.eventPhase == EventPhase.AT_TARGET ){
 	                	IEventDispatcher(event.target).removeEventListener(FlexEvent.INITIALIZE,arguments.callee);
-	                    var descriptor:UIComponentDescriptor = UIComponent(event.target).mx_internal::_documentDescriptor;
+	                    var descriptor:UIComponentDescriptor = (event.target as UIComponent).mx_internal::_documentDescriptor;
 	                    
 	                    var popUpinfo_:Dictionary = new Dictionary(true);
 	                    popUpinfo_[POPUP_OWNER] = parent; 
@@ -74,6 +75,9 @@ package org.seasar.akabana.yui.framework.util
                 );
             }
             
+            if( center ){
+                PopUpManager.centerPopUp(window);
+            }
             return window;
         }
 

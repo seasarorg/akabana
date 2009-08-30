@@ -7,17 +7,16 @@ package org.seasar.akabana.yui.framework.util
     import mx.core.IFlexDisplayObject;
     import mx.core.UIComponent;
     import mx.events.FlexEvent;
+    import mx.managers.PopUpManager;
     
-    import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
-    
-    use namespace yui_internal;
     
     public class ViewPopUpUtil
     {
         public static function createPopUp( viewName:String,
                                             className:Class,
                                             modal:Boolean = false,
+                                            center:Boolean = false,
                                             relatedOwner:UIComponent=null
                                            ):IFlexDisplayObject{
 
@@ -27,10 +26,11 @@ package org.seasar.akabana.yui.framework.util
                     Application.application as DisplayObject,
                     className,
                     modal,
+                    center,
                     null,
                     creationCompleteCallBack,
                     relatedOwner
-                    );            
+                    );       
             return window;
         }
         
