@@ -113,8 +113,8 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public function initialize():void{
-            _logger.info("yui-frameworks-"+VERSION);
-            _logger.info("Copyright 2004-2008 the Seasar Foundation and the Others.");
+            trace("yui-frameworks-"+VERSION);
+            trace("Copyright 2004-2008 the Seasar Foundation and the Others.");
 
             _logger.debug(Messages.getMessage("yui_framework","ApplicationConventions",namingConvention.conventions.toString()));            
             if( customizers == null ){
