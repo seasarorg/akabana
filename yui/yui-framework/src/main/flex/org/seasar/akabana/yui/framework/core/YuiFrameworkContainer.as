@@ -46,6 +46,8 @@ package org.seasar.akabana.yui.framework.core
     
     public class YuiFrameworkContainer
     {
+    	include "../Version.as";
+    	
     	private static const ROOT_VIEW:String = "rootView";
     	
         private static const _logger:Logger = Logger.getLogger(YuiFrameworkContainer);
@@ -111,7 +113,8 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public function initialize():void{
-            _logger.debug(Messages.getMessage("yui_framework","ApplicationInit"));
+            _logger.info("yui-frameworks-"+VERSION);
+            _logger.info("Copyright 2004-2008 the Seasar Foundation and the Others.");
 
             _logger.debug(Messages.getMessage("yui_framework","ApplicationConventions",namingConvention.conventions.toString()));            
             if( customizers == null ){
@@ -159,9 +162,7 @@ package org.seasar.akabana.yui.framework.core
             }
         }
                 
-        private function callApplicationStart( event:TimerEvent ):void{
-            _logger.debug(Messages.getMessage("yui_framework","ApplicationStart"));
-            
+        private function callApplicationStart( event:TimerEvent ):void{            
             var rootView:UIComponent = application.getChildByName(ROOT_VIEW) as UIComponent;
             if( rootView == null ){
                 if( application.numChildren > 0 ){
@@ -169,6 +170,7 @@ package org.seasar.akabana.yui.framework.core
                 }
             }
             
+            _logger.info(Messages.getMessage("yui_framework","ApplicationStart"));            
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
             }

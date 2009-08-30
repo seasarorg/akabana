@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.framework.mixin
 {
 	
 	import flash.events.Event;
+	import flash.net.registerClassAlias;
 	
 	import mx.core.IFlexModuleFactory;
 	import mx.core.UIComponent;
@@ -27,6 +28,7 @@ package org.seasar.akabana.yui.framework.mixin
 	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
 	import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
 	import org.seasar.akabana.yui.logging.LogManager;
+	import org.seasar.akabana.yui.logging.config.ConfigurationProvider;
 	import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
 	
 	[Mixin]
@@ -46,6 +48,7 @@ package org.seasar.akabana.yui.framework.mixin
 		
 		{
 			LogConfigurationFactory;
+			registerClassAlias(ConfigurationProvider.FACTORY_CLASS_NAME,LogConfigurationFactory);
 		}
 		
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{
