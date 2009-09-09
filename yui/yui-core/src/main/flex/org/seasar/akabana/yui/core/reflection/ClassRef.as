@@ -30,6 +30,8 @@ package org.seasar.akabana.yui.core.reflection
         
         private static const DOT:String = ".";
         
+        private static const excludeFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|org\.seasar\.)/);
+        
         public static var classLoader:ClassLoader = new ClassLoader();
         
         public static function getQualifiedClassName( object:Object ):String{
@@ -72,7 +74,7 @@ package org.seasar.akabana.yui.core.reflection
             var list:XMLList = rootDescribeTypeXml.@declaredBy;
             if( list.length() != null ){
                 var declaredBy_:String = list.toString();
-                if( declaredBy_.search(/mx\.|flash\.|fl\.|air\./) == 0 ){
+                if( !excludeFilterRegExp.test(declaredBy_)){
                     isTarget = false;
                 }
             }
@@ -83,7 +85,7 @@ package org.seasar.akabana.yui.core.reflection
         private static function isTargetVariable( rootDescribeTypeXml:XML ):Boolean{
             var name_:String = rootDescribeTypeXml.@name.toString();
             
-            return name_.indexOf("_") != 0;
+            return (!excludeFilterRegExp.test(name_)) && (name_.indexOf("_") != 0);
         }
         
         public var concreteClass:Class;
@@ -270,10 +272,9 @@ package org.seasar.akabana.yui.core.reflection
             _returnTypeToFunctionMap = {};
             
             var functionRef:FunctionRef = null;
-            var fucntionFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|org\.seasar\.)/);
             var functionsXMLList:XMLList = rootDescribeTypeXml.method;
             for each( var methodXML:XML in functionsXMLList ){
-                if( !fucntionFilterRegExp.test(methodXML.@declaredBy.toString())){
+                if( !excludeFilterRegExp.test(methodXML.@declaredBy.toString())){
                     functionRef = new FunctionRef(methodXML);
                     
                     _functions.push( functionRef );
