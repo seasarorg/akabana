@@ -19,7 +19,6 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import mx.containers.ControlBar;
     import mx.containers.Panel;
-    import mx.controls.NavBar;
     import mx.core.Container;
     import mx.core.IMXMLObject;
     import mx.core.UIComponent;
@@ -114,12 +113,28 @@ package org.seasar.akabana.yui.framework.customizer {
                 	continue;
                 }
 
-                if( component is Container && !component.isDocument ){
-                    doCustomizeByContainer(
-                        view,
-                        component as Container,
-                        action
-                    );
+                if( component is Container ){
+	                if(component.isDocument ){
+		            
+			            var properties:Object = Container(component).documentDescriptor["properties"];
+			            if (properties != null && properties.childDescriptors != null){
+			            	
+			            } else {
+	                        doCustomizeByContainer(
+	                            view,
+	                            component as Container,
+	                            action
+	                        );
+			            }
+	                	
+	                } else {
+                        doCustomizeByContainer(
+                            view,
+                            component as Container,
+                            action
+                        );
+	                }
+                    continue;
                 }
 
                 if( component.id != null ){      
