@@ -74,7 +74,7 @@ package org.seasar.akabana.yui.core.reflection
             var list:XMLList = rootDescribeTypeXml.@declaredBy;
             if( list.length() != null ){
                 var declaredBy_:String = list.toString();
-                if( !excludeFilterRegExp.test(declaredBy_)){
+                if( excludeFilterRegExp.test(declaredBy_)){
                     isTarget = false;
                 }
             }
