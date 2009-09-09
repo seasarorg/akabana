@@ -270,18 +270,21 @@ package org.seasar.akabana.yui.core.reflection
             _returnTypeToFunctionMap = {};
             
             var functionRef:FunctionRef = null;
+            var fucntionFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|org\.seasar\.)/);
             var functionsXMLList:XMLList = rootDescribeTypeXml.method;
             for each( var methodXML:XML in functionsXMLList ){
-                functionRef = new FunctionRef(methodXML);
-                
-                _functions.push( functionRef );
-                _functionMap[ functionRef.name ] = functionRef;
-
-                var rfunctions_:Array = _returnTypeToFunctionMap[ functionRef.returnType ];
-                if( rfunctions_ == null ){
-                    rfunctions_ = _returnTypeToFunctionMap[ functionRef.returnType ] = [];
+                if( !fucntionFilterRegExp.test(methodXML.@declaredBy.toString())){
+                    functionRef = new FunctionRef(methodXML);
+                    
+                    _functions.push( functionRef );
+                    _functionMap[ functionRef.name ] = functionRef;
+    
+                    var rfunctions_:Array = _returnTypeToFunctionMap[ functionRef.returnType ];
+                    if( rfunctions_ == null ){
+                        rfunctions_ = _returnTypeToFunctionMap[ functionRef.returnType ] = [];
+                    }
+                    rfunctions_.push(functionRef);
                 }
-                rfunctions_.push(functionRef);
             }
         }
         
