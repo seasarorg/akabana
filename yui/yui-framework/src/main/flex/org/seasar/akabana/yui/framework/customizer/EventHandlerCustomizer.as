@@ -211,12 +211,27 @@ package org.seasar.akabana.yui.framework.customizer {
                         continue;
                     }
                                           
-                    if( component is Container && !component.isDocument){
-                        doCustomizeByContainer(
-                            view,
-                            component as Container,
-                            action
-                        );
+                    if( component is Container ){
+	                    if(component.isDocument ){
+	                    
+	                        var properties:Object = Container(component).documentDescriptor["properties"];
+	                        if (properties != null && properties.childDescriptors != null){
+	                        	
+	                        } else {
+	                            doCustomizeByContainer(
+	                                view,
+	                                component as Container,
+	                                action
+	                            );
+	                        }
+                            
+                        } else {
+	                        doCustomizeByContainer(
+	                            view,
+	                            component as Container,
+	                            action
+	                        );
+                        }
                     }
                     
                     if( component.id != null ){                     
@@ -301,13 +316,27 @@ package org.seasar.akabana.yui.framework.customizer {
                 if( component == null ){
                     continue;
                 }
-                          
-                if( component is Container && !component.isDocument){
-                    doUnCustomizeByContainer(
-                        view,
-                        component as Container,
-                        action
-                    );
+
+                if( component is Container ){
+                    if(component.isDocument ){
+                    
+                        var properties:Object = Container(component).documentDescriptor["properties"];
+                        if (properties != null && properties.childDescriptors != null){
+                            
+                        } else { 
+	                        doUnCustomizeByContainer(
+	                            view,
+	                            component as Container,
+	                            action
+	                        );
+                        }   
+                    } else {
+	                    doUnCustomizeByContainer(
+	                        view,
+	                        component as Container,
+	                        action
+	                    );
+                    }
                 }
 
                 if( component.id != null){
@@ -383,15 +412,29 @@ package org.seasar.akabana.yui.framework.customizer {
 	                if( component == null ){
 	                    continue;
 	                }
-	                                    
-                    if( component is Container && !component.isDocument ){
-                        doUnCustomizeByContainer(
-                            view,
-                            component as Container,
-                            action
-                        );
-                    }
-                    
+	                
+	                if( component is Container ){
+	                    if(component.isDocument ){
+	                    
+	                        var properties:Object = Container(component).documentDescriptor["properties"];
+	                        if (properties != null && properties.childDescriptors != null){
+	                            
+	                        } else { 
+	                            doUnCustomizeByContainer(
+	                                view,
+	                                component as Container,
+	                                action
+	                            );
+	                        }   
+	                    } else {
+	                        doUnCustomizeByContainer(
+	                            view,
+	                            component as Container,
+	                            action
+	                        );
+	                    }
+	                }
+                                    
                     if( component.id != null ){
                         doUnCustomizeByComponent(
                             view,
