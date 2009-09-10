@@ -134,7 +134,6 @@ package org.seasar.akabana.yui.framework.customizer {
                             action
                         );
 	                }
-                    continue;
                 }
 
                 if( component.id != null ){      
