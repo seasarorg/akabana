@@ -11,7 +11,7 @@
     
     <akabana:YuiFrameworkMixin/>
     
-    <logging:ConfigurationFactory/>
+    <logging:LogConfigurationFactory/>
     
     <view:PopupOwnerView id="rootView"/>
 </mx:Application>

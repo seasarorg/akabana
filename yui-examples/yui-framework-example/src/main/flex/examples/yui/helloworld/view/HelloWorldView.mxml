@@ -3,6 +3,7 @@
     doubleClickEnabled="true"
     verticalAlign="middle"
     horizontalAlign="center"
+    xmlns:ui="examples.yui.helloworld.ui.*"
     >
     <mx:states>
         <mx:State name="hideButtonState">
@@ -16,7 +17,7 @@
     </mx:transitions>
     <mx:Validator id="inputDataValidator" required="true" source="{inputData}" property="text"/>
 
-    <mx:Panel>
+    <ui:MyPanel>
         <mx:TextInput id="inputText" restrict="0-9"/>
         <mx:TextInput id="inputData" />    
         <mx:Button label="はろーわーるどを表示する" id="showHelloWorld" height="242" width="402"/>
@@ -26,6 +27,6 @@
         <mx:ControlBar>
             <mx:Button id="controlButton"/>
         </mx:ControlBar>        
-    </mx:Panel>
+    </ui:MyPanel>
     
 </mx:VBox>

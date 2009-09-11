@@ -4,7 +4,7 @@
     >
     <mx:Script>
         <![CDATA[
-            import org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory;
+            import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
             import examples.yui.helloworld.view.HelloWorldView;
             import examples.yui.helloworld.action.HelloWorldAction;
             import examples.yui.helloworld.helper.HelloWorldHelper;
