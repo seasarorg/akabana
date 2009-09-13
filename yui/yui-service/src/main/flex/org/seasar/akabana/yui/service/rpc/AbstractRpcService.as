@@ -23,6 +23,7 @@ package org.seasar.akabana.yui.service.rpc {
     
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.error.IllegalDestinationError;
 
     use namespace flash_proxy;
 
@@ -39,13 +40,13 @@ package org.seasar.akabana.yui.service.rpc {
         
         public var operations:Dictionary;
         
-        protected var destination_:String;
+        protected var _destination:String;
         
-        protected var requestTimeout_:int; 
+        protected var _requestTimeout:int; 
 
-        protected var credentialsUsername:String;
+        protected var _credentialsUsername:String;
 
-        protected var credentialsPassword:String;
+        protected var _credentialsPassword:String;
                              
         private var innerEventdispatcher:EventDispatcher;
 
@@ -56,25 +57,25 @@ package org.seasar.akabana.yui.service.rpc {
         }
         
         public function get name():String{
-            return destination_;
+            return _destination;
         }
         
         public function get destination():String{
-            return destination_;
+            return _destination;
         }
         
         [Inspectable(type="String")]
         public function set destination( destination:String ):void{
-            destination_ = destination;
+            _destination = destination;
         }
         
         public function get requestTimeout():int{
-            return requestTimeout_;
+            return _requestTimeout;
         }
         
         [Inspectable(type="number")]
         public function set requestTimeout( requestTimeout:int ):void{
-            requestTimeout_ = requestTimeout;
+            _requestTimeout = requestTimeout;
         }
 
         public function addOperation( operationName:String ):void{
@@ -92,8 +93,8 @@ package org.seasar.akabana.yui.service.rpc {
     	}
     	
     	public function setCredentials(username:String, password:String, charset:String=null):void{
-            credentialsUsername = username;
-            credentialsPassword = password;   	    
+            _credentialsUsername = username;
+            _credentialsPassword = password;   	    
     	}
     	   
 	    public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, weakRef:Boolean = false):void{
@@ -125,14 +126,10 @@ package org.seasar.akabana.yui.service.rpc {
     	}
 	    
 	    flash_proxy override function callProperty(methodName:*, ...args):* {
-	        if( destination_ == null || destination_.length <= 0 ){
-		        throw new Error("接続サービス名が指定されていません。");
+	        if( _destination == null || _destination.length <= 0 ){
+		        throw new IllegalDestinationError(_destination);
 	        }
 	        return invokeOperation( QName(methodName).localName, args );
-    	}
-    	
-    	public function toString():String{
-    	    return destination_;
     	}
     }
 }

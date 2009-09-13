@@ -15,6 +15,7 @@
  */
 package org.seasar.akabana.yui.service.rpc.remoting {
     
+    import flash.errors.IllegalOperationError;
     import flash.events.Event;
     import flash.events.IEventDispatcher;
     import flash.events.IOErrorEvent;
@@ -28,7 +29,6 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     import org.seasar.akabana.yui.service.rpc.AbstractRpcOperation;
     import org.seasar.akabana.yui.service.rpc.AbstractRpcService;
     import org.seasar.akabana.yui.service.rpc.RpcPendingCall;
-    import org.seasar.akabana.yui.service.rpc.RpcResponder;
     
     public class RemotingOperation extends AbstractRpcOperation{
         
@@ -124,13 +124,9 @@ package org.seasar.akabana.yui.service.rpc.remoting {
                 credentialsPassword = null;
             }
         }
-
-        protected override function createRpcOperation( resultHandler:Function, faultHandler:Function ):RpcResponder{
-            return new RpcResponder(resultHandler,faultHandler);
-        }
         
         protected override function doInvoke( operationArgs:Array ):PendingCall{
-            var serviceOperationName:String =service_.destination +"." +name_;
+            var serviceOperationName:String =service_.destination +"." +_name;
             
             var pendingCall:PendingCall = new RpcPendingCall(this);
             var invokeArgs:Array = createServiceInvokeArgs( serviceOperationName, operationArgs, pendingCall );
@@ -146,12 +142,12 @@ package org.seasar.akabana.yui.service.rpc.remoting {
         }
         
         protected function lookupConnection():RemotingConnection{
-            if( name_ == null && name_.length <= 0){
-                throw new Error("接続先サービス名が指定されていません。");
+            if( _name == null && _name.length <= 0){
+                throw new IllegalOperationError(_name);
             }
             
             if( remotingConnection == null ){
-                remotingConnection = RemotingConnectionFactory.createConnection( remotingService.gatewayUrl, name_ );
+                remotingConnection = RemotingConnectionFactory.createConnection( remotingService.gatewayUrl, _name );
                 configureListeners( remotingConnection ); 
             }
             

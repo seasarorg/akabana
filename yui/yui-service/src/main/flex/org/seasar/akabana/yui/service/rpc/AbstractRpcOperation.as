@@ -19,18 +19,19 @@ package org.seasar.akabana.yui.service.rpc {
     
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.error.IllegalOperationError;
     import org.seasar.akabana.yui.service.event.InvokeEvent;
     
     public class AbstractRpcOperation extends EventDispatcher implements Operation{
         
-        protected var name_:String;
+        protected var _name:String;
         
         protected var service_:AbstractRpcService;
         
         public function AbstractRpcOperation( service:AbstractRpcService, name:String ){
             super();
             service_ = service;
-            name_ = name;
+            _name = name;
         }
         
         public function get service():AbstractRpcService{
@@ -38,12 +39,12 @@ package org.seasar.akabana.yui.service.rpc {
         }
         
         public function get name():String{
-            return name_;
+            return _name;
         }
         
         public function invoke( args:Array ):PendingCall{
-            if( name_ == null || name_.length <= 0 ){
-                throw new Error("オペレーション名が指定されていません。");
+            if( _name == null || _name.length <= 0 ){
+                throw new IllegalOperationError(_name);
             }
             
             var pendingCall:PendingCall = doInvoke( args );
@@ -54,10 +55,6 @@ package org.seasar.akabana.yui.service.rpc {
         }
         
         protected function doInvoke( operationArgs:Array ):PendingCall{
-            return null;
-        }
-        
-        protected function createRpcOperation( resultHandler:Function, faultHandler:Function ):RpcResponder{
             return null;
         }
         

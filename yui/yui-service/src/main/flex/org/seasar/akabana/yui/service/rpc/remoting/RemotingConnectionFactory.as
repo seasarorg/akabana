@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     
     import flash.net.ObjectEncoding;
     
+    import org.seasar.akabana.yui.service.error.IllegalGatewayError;
     import org.seasar.akabana.yui.service.rpc.remoting.util.GatewayUtil;
     
     
@@ -29,7 +30,7 @@ package org.seasar.akabana.yui.service.rpc.remoting {
                 gatewayUrl = GatewayUtil.resolveGatewayUrl( destination );            
             }
             if( gatewayUrl == null ){
-                throw new Error("gatewayUrlが設定されていません。");
+                throw new IllegalGatewayError(gatewayUrl);
             }
             var connection:RemotingConnection = gatewayUrlToRc[ gatewayUrl ];
             if( connection == null ){            
@@ -39,7 +40,7 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     			if( gatewayUrl != null ){
                     connection.connect( gatewayUrl );			    
                 } else {
-    			    throw new Error("gatewayUrlが設定されていません。");
+    			    throw new IllegalGatewayError(gatewayUrl);
     			}
     			
     			gatewayUrlToRc[ gatewayUrl ] = connection;

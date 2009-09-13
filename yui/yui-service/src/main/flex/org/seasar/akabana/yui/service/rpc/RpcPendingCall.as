@@ -18,6 +18,7 @@ package org.seasar.akabana.yui.service.rpc {
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
+    import org.seasar.akabana.yui.core.reflection.ParameterRef;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Responder;
     import org.seasar.akabana.yui.service.event.FaultEvent;
@@ -41,12 +42,23 @@ package org.seasar.akabana.yui.service.rpc {
         	const fault:FunctionRef = classRef.getFunctionRef( serviceMethod + FAULT_HANDLER);
        	
         	if( result == null ){
-        	    throw new IllegalOperationError(serviceMethod + "ResultHandler not found.");
+        	    throw new IllegalOperationError(serviceMethod);
         	} else {
+        	    var responderClass:Class;
+        	    if( result.parameters.length <= 0 ){
+    	            responderClass = RpcNoneResponder;
+	            } else {
+	                var parameter:ParameterRef = result.parameters[0];
+	                if( parameter.isEvent ){
+        	            responderClass = RpcEventResponder;
+        	        } else {
+        	            responderClass = RpcObjectResponder;
+        	        }
+        	    }
         	    if( fault == null){
-        		    rpcResponder = new RpcResponder(result.getFunction(responder),null);
+        		    rpcResponder = new responderClass(result.getFunction(responder),null);
         	    } else {
-    		        rpcResponder = new RpcResponder(result.getFunction(responder),fault.getFunction(responder));        	
+    		        rpcResponder = new responderClass(result.getFunction(responder),fault.getFunction(responder));        	
         	    }
         	} 
     		return rpcResponder;
@@ -69,7 +81,7 @@ package org.seasar.akabana.yui.service.rpc {
         }
 
         public function addResponceHandler( resultHandler:Function, faultFunction:Function ):void{
-            _responder = new RpcResponder( resultHandler, faultFunction );   
+            _responder = new RpcEventResponder( resultHandler, faultFunction );   
         }
         
         public function onResult( result:* ):void{

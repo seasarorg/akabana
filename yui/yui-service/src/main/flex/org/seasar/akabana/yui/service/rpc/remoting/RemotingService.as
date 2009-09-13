@@ -22,19 +22,19 @@ package org.seasar.akabana.yui.service.rpc.remoting {
     
     public dynamic class RemotingService extends AbstractRpcService {
         
-        private var gatewayUrl_:String;
+        private var _gatewayUrl:String;
 
         public function RemotingService( destination:String = null){
             super();
-            destination_ = destination;
+            _destination = destination;
         }
         
         public function get gatewayUrl():String{
-            return gatewayUrl_;
+            return _gatewayUrl;
         }
         
         public function set gatewayUrl( gatewayUrl:String):void{
-            gatewayUrl_ = gatewayUrl;
+            _gatewayUrl = gatewayUrl;
         }
 
         protected override function createOperation( operationName:String ):AbstractRpcOperation{
@@ -48,8 +48,8 @@ package org.seasar.akabana.yui.service.rpc.remoting {
             }
             operation = getOperation( operationName );
             if( operation is RemotingOperation ){
-                RemotingOperation(operation).credentialsUsername = credentialsUsername;
-                RemotingOperation(operation).credentialsPassword = credentialsPassword;
+                RemotingOperation(operation).credentialsUsername = _credentialsUsername;
+                RemotingOperation(operation).credentialsPassword = _credentialsPassword;
             }
             
             return operation.invoke( operationArgs );

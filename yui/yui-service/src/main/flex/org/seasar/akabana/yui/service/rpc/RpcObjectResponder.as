@@ -15,11 +15,10 @@
  */
 package org.seasar.akabana.yui.service.rpc {
     
-    import org.seasar.akabana.yui.service.Responder;
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.ResultEvent;
 
-    public class RpcObjectResponder implements Responder {
+    public class RpcObjectResponder implements RpcResponder {
         
         public var resultFunction:Function;
         
@@ -30,14 +29,14 @@ package org.seasar.akabana.yui.service.rpc {
             this.faultFunction = faultFunction;
         }
         
-        public function onResult( result:Object ):void{
-            resultFunction.call( null, result );
+        public function onResult( result:ResultEvent ):void{
+            resultFunction.call( null, result.result );
             resultFunction = null;
         }
         
-        public function onFault( fault:Object ):void{
+        public function onFault( fault:FaultEvent ):void{
             if( faultFunction != null ){
-                faultFunction.call( null, fault );
+                faultFunction.call( null, fault.faultStatus );
                 faultFunction = null;
             }
         }
