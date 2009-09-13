@@ -60,10 +60,6 @@ package org.seasar.akabana.yui.core.reflection
             var argsXMLList:XMLList = rootDescribeTypeXml.arg;
             for each( var argXML:XML in argsXMLList ){
                 var name:String = argXML.@key.toString();
-                if( name == "__go_to_definition_help"){
-                    continue;
-                }
-                
                 var value:Object = argXML.@value.toString();
                 
                 _args.push( name );

@@ -30,8 +30,6 @@ package org.seasar.akabana.yui.core.reflection
         
         private static const DOT:String = ".";
         
-        private static const excludeFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|org\.seasar\.)/);
-        
         public static var classLoader:ClassLoader = new ClassLoader();
         
         public static function getQualifiedClassName( object:Object ):String{
@@ -72,8 +70,8 @@ package org.seasar.akabana.yui.core.reflection
         private static function isTargetAccessor( rootDescribeTypeXml:XML ):Boolean{
             var isTarget:Boolean = true;
             var list:XMLList = rootDescribeTypeXml.@declaredBy;
-            if( list.length() != null ){
-                var declaredBy_:String = list.toString();
+            if( list.length() > 0 ){
+                var declaredBy_:String = list[0].toString();
                 if( excludeFilterRegExp.test(declaredBy_)){
                     isTarget = false;
                 }

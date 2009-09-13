@@ -17,6 +17,8 @@ package org.seasar.akabana.yui.core.reflection
 {
     internal class ObjectRef implements Reflector {
         
+        protected static const excludeFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|org\.seasar\.)/);
+        
         private var _describeTypeXml:XML;
         
         public function get describeType():XML{

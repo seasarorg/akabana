@@ -55,12 +55,33 @@ package org.seasar.akabana.yui.core.reflection
             var metadataRef:MetadataRef = null;
             var metadatasXMLList:XMLList = rootDescribeTypeXml.metadata;
             for each( var metadataXML:XML in metadatasXMLList ){
-                metadataRef = new MetadataRef(metadataXML);
-                
-                _metadatas.push( metadataRef );
-                _metadataMap[ metadataRef.name ] = metadataRef;
+                if( isTargetMetadata(metadataXML)){
+                    metadataRef = new MetadataRef(metadataXML);
+                    
+                    _metadatas.push( metadataRef );
+                    _metadataMap[ metadataRef.name ] = metadataRef;
+                }
             }
         }
-        
+
+        private static function isTargetMetadata( metadataXML:XML ):Boolean{
+            var isTarget:Boolean;
+            do{
+                if( metadataXML.@name.toString() == "__go_to_definition_help"){
+                    isTarget = false;
+                    break;
+                }
+                //
+                var list:XMLList = metadataXML.@declaredBy;
+                if( list.length() > 0 ){
+                    var declaredBy_:String = list[0].toString();
+                    if( excludeFilterRegExp.test(declaredBy_)){
+                        isTarget = false;
+                    }
+                }
+                isTarget = true;
+            }while(false);
+            return isTarget;
+        }
     }
 }
