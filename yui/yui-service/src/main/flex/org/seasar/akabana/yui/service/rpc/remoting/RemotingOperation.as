@@ -36,9 +36,11 @@ package org.seasar.akabana.yui.service.rpc.remoting {
         
         public static const CREDENTIALS_USERNAME:String = "credentialsUsername";
         
-        public static var defaultFaultHandler:Function;
-        
         public static var invokeCallBack:Function;
+        
+        public static var resultCallBack:Function;
+
+        public static var faultCallBack:Function;
         
         private var remotingConnection:RemotingConnection;
         

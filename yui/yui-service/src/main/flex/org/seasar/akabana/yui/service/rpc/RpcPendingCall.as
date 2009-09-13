@@ -44,7 +44,7 @@ package org.seasar.akabana.yui.service.rpc {
         	    throw new IllegalOperationError(serviceMethod + "ResultHandler not found.");
         	} else {
         	    if( fault == null){
-        		    rpcResponder = new RpcResponder(result.getFunction(responder),RemotingOperation.defaultFaultHandler);
+        		    rpcResponder = new RpcResponder(result.getFunction(responder),null);
         	    } else {
     		        rpcResponder = new RpcResponder(result.getFunction(responder),fault.getFunction(responder));        	
         	    }
@@ -80,6 +80,8 @@ package org.seasar.akabana.yui.service.rpc {
             if( _responder != null ){
             	_responder.onResult( resultEvent );
             }
+
+            RemotingOperation.resultCallBack.apply(null,resultEvent);
         }
         
         public function onStatus( status:* ):void{
@@ -94,6 +96,8 @@ package org.seasar.akabana.yui.service.rpc {
             if( _responder != null ){
             	_responder.onFault( faultEvent );
             }
+
+            RemotingOperation.faultCallBack.apply(null,faultEvent);
         }
     }
 }
