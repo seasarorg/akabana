@@ -87,7 +87,7 @@ package org.seasar.akabana.yui.framework.customizer
                    	if( proto != null ){
                    		proto.apply(null,[event]);
                    	} else {
-                   		throw new Error("EnhancedEventHandler doesn't have prote Handler");
+                   		throw new Error("EnhancedEventHandler doesn't have proto Handler");
                    	}
                 } catch(e:Error){
                     logger.debug(e.getStackTrace());
