@@ -14,30 +14,36 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.service.event {
+    import org.seasar.akabana.yui.util.StringUtil;
+    
     public class FaultStatus {
         
-        private var code_:String;
+        private var _code:String;
         
-        private var description_:String;
+        private var _description:String;
         
-        private var details_:String;
+        private var _details:String;
         
         public function FaultStatus(code:String, description:String, details:String = null){
-            code_ = code;
-            description_ = description;
-            details_ = details;
+            _code = code;
+            _description = description;
+            _details = details;
         }
         
         public function get code():String{
-            return code_;
+            return _code;
         }
         
         public function get description():String{
-            return description_;
+            return _description;
         }
         
         public function get details():String{
-            return details_;
+            return _details;
+        }
+        
+        public function toString():String{
+            return StringUtil.substitute("[{0}] {1}\n{2}",_code,_description,_details);
         }
     }
 }

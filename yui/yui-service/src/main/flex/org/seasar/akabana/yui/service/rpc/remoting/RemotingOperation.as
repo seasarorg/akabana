@@ -38,6 +38,8 @@ package org.seasar.akabana.yui.service.rpc.remoting {
         
         public static var defaultFaultHandler:Function;
         
+        public static var invokeCallBack:Function;
+        
         private var remotingConnection:RemotingConnection;
         
         [Inspectable(type="Boolean",defaultValue="true")]
@@ -135,6 +137,8 @@ package org.seasar.akabana.yui.service.rpc.remoting {
             setupCredentials(rc);
             
             rc.call.apply(rc,invokeArgs);
+            
+            invokeCallBack.apply(null,invokeArgs);
             
             return pendingCall;
         }
