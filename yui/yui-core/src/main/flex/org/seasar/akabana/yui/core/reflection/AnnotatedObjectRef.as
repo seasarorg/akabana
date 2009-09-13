@@ -19,6 +19,27 @@ package org.seasar.akabana.yui.core.reflection
     
     internal class AnnotatedObjectRef extends ObjectRef implements AnnotatedReflector{
         
+
+        private static function isTargetMetadata( metadataXML:XML ):Boolean{
+            var isTarget:Boolean;
+            do{
+                if( metadataXML.@name.toString() == "__go_to_definition_help"){
+                    isTarget = false;
+                    break;
+                }
+                //
+                var list:XMLList = metadataXML.@declaredBy;
+                if( list.length() > 0 ){
+                    var declaredBy_:String = list[0].toString();
+                    if( excludeDeclaredByFilterRegExp.test(declaredBy_)){
+                        isTarget = false;
+                    }
+                }
+                isTarget = true;
+            }while(false);
+            return isTarget;
+        }
+        
         [ArrayElementType("my.core.metadata.MetadataRef")]
         private var _metadatas:Array;
         
@@ -62,26 +83,6 @@ package org.seasar.akabana.yui.core.reflection
                     _metadataMap[ metadataRef.name ] = metadataRef;
                 }
             }
-        }
-
-        private static function isTargetMetadata( metadataXML:XML ):Boolean{
-            var isTarget:Boolean;
-            do{
-                if( metadataXML.@name.toString() == "__go_to_definition_help"){
-                    isTarget = false;
-                    break;
-                }
-                //
-                var list:XMLList = metadataXML.@declaredBy;
-                if( list.length() > 0 ){
-                    var declaredBy_:String = list[0].toString();
-                    if( excludeFilterRegExp.test(declaredBy_)){
-                        isTarget = false;
-                    }
-                }
-                isTarget = true;
-            }while(false);
-            return isTarget;
         }
     }
 }

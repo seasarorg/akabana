@@ -17,7 +17,8 @@ package org.seasar.akabana.yui.core.reflection
 {
     internal class ObjectRef implements Reflector {
         
-        protected static const excludeFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|org\.seasar\.)/);
+        protected static const excludeDeclaredByFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|air\.)/);
+        protected static const excludeUriFilterRegExp:RegExp = new RegExp(/^(http:\/\/adobe.com\/AS3\/2006\/builtin)/);
         
         private var _describeTypeXml:XML;
         

@@ -46,19 +46,15 @@ package org.seasar.akabana.yui.core.reflection
         private var _isEvent:Boolean;
         
         public function get isEvent():Boolean{
-            return _isEvent;
+            return ClassRef.getReflector(_type).isEvent;
         }  
 
-        private var _isEventDispatcher:Boolean;
-        
         public function get isEventDispatcher():Boolean{
-            return _isEventDispatcher;
+            return ClassRef.getReflector(_type).isEventDispatcher;
         }  
 
-        private var _isDisplayObject:Boolean;
-        
         public function get isDisplayObject():Boolean{
-            return _isDisplayObject;
+            return ClassRef.getReflector(_type).isDisplayObject;
         }  
         
         public function ParameterRef( describeTypeXml:XML )
@@ -77,12 +73,6 @@ package org.seasar.akabana.yui.core.reflection
             _optional = ( rootDescribeTypeXml.@type.toString() == "true");
             
             _isAnyType = ( _type == "*" );
-            
-            var parameterType:ClassRef = ClassRef.getReflector(_type);
-            _isEvent = parameterType.isEvent;
-            _isEventDispatcher = parameterType.isEventDispatcher;
-            _isDisplayObject = parameterType.isDisplayObject;
-
         }
 
         protected override function getName( rootDescribeTypeXml:XML ):String{

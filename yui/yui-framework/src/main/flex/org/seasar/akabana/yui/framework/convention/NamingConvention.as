@@ -143,6 +143,10 @@ package org.seasar.akabana.yui.framework.convention
             return checkVarName(varName,getHelperSuffix());
         }
 
+        public function isActionName( varName:String ):Boolean{
+            return checkVarName(varName,getActionSuffix());
+        }
+
         public function isActionClassName( className:String ):Boolean{
             return checkClassFullName(className,getActionPackageName(),getActionSuffix());
         }        

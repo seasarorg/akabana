@@ -96,7 +96,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     }
 
                     if( namingConvention.isLogicClassName( propertyRef_.type )){
-                        action[ propertyRef_.name ] = processLogicCustomize(viewName,propertyRef_);
+                        action[ propertyRef_.name ] = processLogicCustomize(viewName,propertyRef_,action);
                         logger.debug(Messages.getMessage("yui_framework","LogicCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
                         continue;
                     }
@@ -196,7 +196,7 @@ package org.seasar.akabana.yui.framework.customizer {
             }
         }
         
-        protected function processLogicCustomize( viewName:String, propertyRef:PropertyRef ):Object{
+        protected function processLogicCustomize( viewName:String, propertyRef:PropertyRef, owner:Object ):Object{
             var logic:Object = null;            
             try{
                 logic = propertyRef.typeClassRef.newInstance();
@@ -207,6 +207,10 @@ package org.seasar.akabana.yui.framework.customizer {
                     ){
                         logic[ propertyRef_.name ] = processServiceCustomize(viewName,propertyRef_);
                         logger.debug(Messages.getMessage("yui_framework","ServiceCustomized",propertyRef.name,propertyRef_.name,propertyRef_.type));
+                        continue;
+                    }
+                    if( propertyRef_.name == "owner"){
+                        logic[ propertyRef_.name ] = owner;
                         continue;
                     }
                 }

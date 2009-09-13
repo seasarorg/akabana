@@ -68,23 +68,34 @@ package org.seasar.akabana.yui.core.reflection
         }
         
         private static function isTargetAccessor( rootDescribeTypeXml:XML ):Boolean{
-            var isTarget:Boolean = true;
-            var list:XMLList = rootDescribeTypeXml.@declaredBy;
-            if( list.length() > 0 ){
-                var declaredBy_:String = list[0].toString();
-                if( excludeFilterRegExp.test(declaredBy_)){
-                    isTarget = false;
-                }
-            }
+            var name_:String = rootDescribeTypeXml.@declaredBy.toString();
+            var uri_:String = rootDescribeTypeXml.@uri.toString();
             
-            return isTarget;
+            return !(
+                excludeDeclaredByFilterRegExp.test(name_) ||
+                excludeUriFilterRegExp.test(uri_)
+            );
         }
         
         private static function isTargetVariable( rootDescribeTypeXml:XML ):Boolean{
-            var name_:String = rootDescribeTypeXml.@name.toString();
+            var name_:String = rootDescribeTypeXml.@declaredBy.toString();
+            var uri_:String = rootDescribeTypeXml.@uri.toString();
             
-            return (!excludeFilterRegExp.test(name_)) && (name_.indexOf("_") != 0);
-        }
+            return (!(
+                excludeDeclaredByFilterRegExp.test(name_) ||
+                excludeUriFilterRegExp.test(uri_)
+            )) && (name_.indexOf("_") != 0);
+        }  
+        
+        private static function isTargetFunction( rootDescribeTypeXml:XML ):Boolean{
+            var name_:String = rootDescribeTypeXml.@declaredBy.toString();
+            var uri_:String = rootDescribeTypeXml.@uri.toString();
+            
+            return !(
+                excludeDeclaredByFilterRegExp.test(name_) ||
+                excludeUriFilterRegExp.test(uri_)
+            );
+        }  
         
         public var concreteClass:Class;
 
@@ -210,11 +221,12 @@ package org.seasar.akabana.yui.core.reflection
             
             do{
                 if( interfaceType is Class ){
-                    isAssignable_ = _interfaceMap[ ClassRef.getQualifiedClassName(interfaceType as Class) ] != null;
+                    var className:String = ClassRef.getQualifiedClassName(interfaceType as Class);
+                    isAssignable_ = _interfaceMap.hasOwnProperty( className );
                     break;
                 }
                 if( interfaceType is String ){
-                    isAssignable_ = _interfaceMap[ interfaceType ] != null;
+                    isAssignable_ = _interfaceMap.hasOwnProperty( interfaceType );
                     break;
                 }                
                 
@@ -278,7 +290,7 @@ package org.seasar.akabana.yui.core.reflection
             var functionRef:FunctionRef = null;
             var functionsXMLList:XMLList = rootDescribeTypeXml.method;
             for each( var methodXML:XML in functionsXMLList ){
-                if( !excludeFilterRegExp.test(methodXML.@declaredBy.toString())){
+                if( isTargetFunction(methodXML)){
                     functionRef = new FunctionRef(methodXML);
                     
                     _functions.push( functionRef );
@@ -297,13 +309,13 @@ package org.seasar.akabana.yui.core.reflection
             _interfaces = [];
             _interfaceMap = {};
             
-            var interfaceRef:ClassRef = null;
+            var interfaceName:String = null;
             var interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
             for each( var interfaceXML:XML in interfacesXMLList ){
-                interfaceRef = getReflector(getTypeString(interfaceXML.@type));
+                interfaceName = getTypeString(interfaceXML.@type);
                 
-                _interfaces.push( interfaceRef );
-                _interfaceMap[ interfaceRef.name ] = interfaceRef;
+                _interfaces.push( interfaceName );
+                _interfaceMap[ interfaceName ] = null;
             }
         }
         
