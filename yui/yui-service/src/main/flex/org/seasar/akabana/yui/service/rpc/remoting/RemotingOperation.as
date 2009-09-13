@@ -140,7 +140,7 @@ package org.seasar.akabana.yui.service.rpc.remoting {
             
             rc.call.apply(rc,invokeArgs);
             
-            invokeCallBack.apply(null,invokeArgs);
+            invokeCallBack.apply(null,[serviceOperationName,operationArgs]);
             
             return pendingCall;
         }

@@ -81,7 +81,7 @@ package org.seasar.akabana.yui.service.rpc {
             	_responder.onResult( resultEvent );
             }
 
-            RemotingOperation.resultCallBack.apply(null,resultEvent);
+            RemotingOperation.resultCallBack.apply(null,[resultEvent]);
         }
         
         public function onStatus( status:* ):void{
@@ -97,7 +97,7 @@ package org.seasar.akabana.yui.service.rpc {
             	_responder.onFault( faultEvent );
             }
 
-            RemotingOperation.faultCallBack.apply(null,faultEvent);
+            RemotingOperation.faultCallBack.apply(null,[faultEvent]);
         }
     }
 }
