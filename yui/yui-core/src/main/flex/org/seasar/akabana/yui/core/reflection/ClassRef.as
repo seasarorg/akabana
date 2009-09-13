@@ -24,7 +24,7 @@ package org.seasar.akabana.yui.core.reflection
     public class ClassRef extends AnnotatedObjectRef
     {
         
-        private static const cache_:Object = {};     
+        private static const CLASS_REF_CACHE:Object = {};     
         
         private static const CLASS_NAME_SEPARATOR:String = "::";
         
@@ -57,10 +57,10 @@ package org.seasar.akabana.yui.core.reflection
             }
             
             if( clazz != null ){
-                var classRef:ClassRef = cache_[ clazz ];
+                var classRef:ClassRef = CLASS_REF_CACHE[ clazz ];
                 if( classRef == null ){
                     classRef = new ClassRef(clazz);                    
-                    cache_[ clazz ] = classRef;
+                    CLASS_REF_CACHE[ clazz ] = classRef;
                 }                
             }
             
@@ -68,21 +68,23 @@ package org.seasar.akabana.yui.core.reflection
         }
         
         private static function isTargetAccessor( rootDescribeTypeXml:XML ):Boolean{
-            var name_:String = rootDescribeTypeXml.@declaredBy.toString();
-            var uri_:String = rootDescribeTypeXml.@uri.toString();
-            
-            return !(
-                excludeDeclaredByFilterRegExp.test(name_) ||
-                excludeUriFilterRegExp.test(uri_)
-            );
-        }
-        
-        private static function isTargetVariable( rootDescribeTypeXml:XML ):Boolean{
-            var name_:String = rootDescribeTypeXml.@declaredBy.toString();
+            var name_:String = rootDescribeTypeXml.@name.toString();
+            var declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
             var uri_:String = rootDescribeTypeXml.@uri.toString();
             
             return (!(
-                excludeDeclaredByFilterRegExp.test(name_) ||
+                excludeDeclaredByFilterRegExp.test(declaredBy_) ||
+                excludeUriFilterRegExp.test(uri_)
+            )) && (name_.indexOf("_") != 0);
+        }
+        
+        private static function isTargetVariable( rootDescribeTypeXml:XML ):Boolean{
+            var name_:String = rootDescribeTypeXml.@name.toString();
+            var declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
+            var uri_:String = rootDescribeTypeXml.@uri.toString();
+            
+            return (!(
+                excludeDeclaredByFilterRegExp.test(declaredBy_) ||
                 excludeUriFilterRegExp.test(uri_)
             )) && (name_.indexOf("_") != 0);
         }  
