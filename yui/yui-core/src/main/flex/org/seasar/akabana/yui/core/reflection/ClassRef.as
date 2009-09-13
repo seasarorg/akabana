@@ -98,6 +98,12 @@ package org.seasar.akabana.yui.core.reflection
         
         public var isInterface:Boolean;
         
+        public var isEvent:Boolean;
+        
+        public var isDisplayObject:Boolean;
+
+        public var isEventDispatcher:Boolean;
+        
         private var _constructor:Constructor;
         
         public function get constructor():Constructor{
@@ -147,8 +153,9 @@ package org.seasar.akabana.yui.core.reflection
             assembleConstructor(describeTypeXml.factory[0]);
             assemblePropertyRef(describeTypeXml.factory[0]);         
             assembleFunctionRef(describeTypeXml.factory[0]);
-            assembleInterfaces(describeTypeXml.factory[0]);
-            assemblePackage( describeTypeXml );            
+            assembleInterfaces(describeTypeXml.factory[0]); 
+            assembleInstance(describeTypeXml.factory[0]); 
+            assemblePackage( describeTypeXml );          
             assembleThis( describeTypeXml );
         }
         
@@ -219,8 +226,7 @@ package org.seasar.akabana.yui.core.reflection
         }
         
         private final function assembleConstructor( rootDescribeTypeXml:XML ):void{
-            _constructor = new Constructor( rootDescribeTypeXml );
-            _constructor.concreteClass = this.concreteClass;
+            _constructor = new Constructor( rootDescribeTypeXml, this.concreteClass);
         }
 
         private final function assemblePropertyRef( rootDescribeTypeXml:XML ):void{
@@ -302,16 +308,46 @@ package org.seasar.akabana.yui.core.reflection
                 _interfaceMap[ interfaceRef.name ] = interfaceRef;
             }
         }
+        
+        private final function assembleInstance( rootDescribeTypeXml:XML ):void{
+            var extendsClassXMLList:XMLList = rootDescribeTypeXml.extendsClass;
+            for each( var extendsClassXML:XML in extendsClassXMLList ){
+                switch( getTypeString(extendsClassXML.@type)){
+                    case "flash.events.Event":
+                        isEvent = true;
+                        break;
+                    case "flash.events.EventDispatcher":
+                        isEventDispatcher = true;
+                        break;
+                    case "flash.display.DisplayObject":
+                        isDisplayObject = true;
+                        break;
+                    default:
+                        break;                    
+                }
+            }
+        }
 
         private final function assemblePackage( rootDescribeTypeXml:XML ):void{
             _package = _name.substring(0,_name.lastIndexOf("."));
         }        
 
+        private final function assembleExtends( rootDescribeTypeXml:XML ):void{
+            var interfaceRef:ClassRef = null;
+            var interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
+            for each( var interfaceXML:XML in interfacesXMLList ){
+                interfaceRef = getReflector(getTypeString(interfaceXML.@type));
+                
+                _interfaces.push( interfaceRef );
+                _interfaceMap[ interfaceRef.name ] = interfaceRef;
+            }
+        }
+
         private final function assembleThis( rootDescribeTypeXml:XML ):void{
             
             isDynamic = rootDescribeTypeXml.@isDynamic.toString() == "true";
-            isFinal = rootDescribeTypeXml.@isDynamic.toString() == "true";
-            isStatic = rootDescribeTypeXml.@isDynamic.toString() == "true";
+            isFinal = rootDescribeTypeXml.@isFinal.toString() == "true";
+            isStatic = rootDescribeTypeXml.@isStatic.toString() == "true";
 
             try{
                 new concreteClass();

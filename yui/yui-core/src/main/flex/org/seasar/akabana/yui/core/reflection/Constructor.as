@@ -15,9 +15,13 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {    
-    public class Constructor extends ObjectRef
+    public final class Constructor extends ObjectRef
     {
-        public var concreteClass:Class;
+        private var _concreteClass:Class;
+
+        public function get concreteClass():Class{
+            return _concreteClass;
+        }
 
         private var _parameters:Array;
 
@@ -26,10 +30,14 @@ package org.seasar.akabana.yui.core.reflection
         }
         
         private var _parameterMap:Object;
-        
-        public function Constructor( describeTypeXml:XML ){
+
+        public function get parameterMap():Object{
+            return _parameterMap;
+        }
+                
+        public function Constructor( describeTypeXml:XML, concreteClass:Class ){
             super( describeTypeXml );
-            
+            _concreteClass = concreteClass;
             if( describeTypeXml.constructor.length > 0 ){
                 assembleParameter( describeTypeXml.constructor[0] );
             }
