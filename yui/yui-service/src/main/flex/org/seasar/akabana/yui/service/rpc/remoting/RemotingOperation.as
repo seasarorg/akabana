@@ -36,6 +36,8 @@ package org.seasar.akabana.yui.service.rpc.remoting {
         
         public static const CREDENTIALS_USERNAME:String = "credentialsUsername";
         
+        public static var defaultFaultHandler:Function;
+        
         private var remotingConnection:RemotingConnection;
         
         [Inspectable(type="Boolean",defaultValue="true")]

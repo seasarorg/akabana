@@ -14,6 +14,8 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.service.rpc {
+    import flash.errors.IllegalOperationError;
+    
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.service.PendingCall;
@@ -38,9 +40,15 @@ package org.seasar.akabana.yui.service.rpc {
         	const result:FunctionRef = classRef.getFunctionRef( serviceMethod + RESULT_HANDLER);
         	const fault:FunctionRef = classRef.getFunctionRef( serviceMethod + FAULT_HANDLER);
        	
-        	if( result != null && fault != null){
-        		rpcResponder = new RpcResponder(result.getFunction(responder),fault.getFunction(responder));
-        	}
+        	if( result == null ){
+        	    throw new IllegalOperationError(serviceMethod + "ResultHandler not found.");
+        	} else {
+        	    if( fault == null){
+        		    rpcResponder = new RpcResponder(result.getFunction(responder),RemotingOperation.defaultFaultHandler);
+        	    } else {
+    		        rpcResponder = new RpcResponder(result.getFunction(responder),fault.getFunction(responder));        	
+        	    }
+        	} 
     		return rpcResponder;
         }
         
