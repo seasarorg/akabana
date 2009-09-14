@@ -32,13 +32,15 @@ package org.seasar.akabana.yui.service.rpc {
         public function onResult( result:ResultEvent ):void{
             resultFunction.call( null, result.result );
             resultFunction = null;
+            faultFunction = null;
         }
         
         public function onFault( fault:FaultEvent ):void{
             if( faultFunction != null ){
                 faultFunction.call( null, fault.faultStatus );
-                faultFunction = null;
             }
+            resultFunction = null;
+            faultFunction = null;
         }
     }
 }

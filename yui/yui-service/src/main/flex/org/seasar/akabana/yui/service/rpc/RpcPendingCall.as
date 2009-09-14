@@ -36,10 +36,10 @@ package org.seasar.akabana.yui.service.rpc {
         private static function createResponder( operation:RemotingOperation, responder:Object ):Responder{
         	var rpcResponder:RpcResponder = null;
         	
-        	const classRef:ClassRef = ClassRef.getReflector(responder);
-        	const serviceMethod:String = StringUtil.toLowerCamel( operation.service.name ) + StringUtil.toUpperCamel( operation.name );
-        	const result:FunctionRef = classRef.getFunctionRef( serviceMethod + RESULT_HANDLER);
-        	const fault:FunctionRef = classRef.getFunctionRef( serviceMethod + FAULT_HANDLER);
+        	var classRef:ClassRef = ClassRef.getReflector(responder);
+        	var serviceMethod:String = StringUtil.toLowerCamel( operation.service.name ) + StringUtil.toUpperCamel( operation.name );
+        	var result:FunctionRef = classRef.getFunctionRef( serviceMethod + RESULT_HANDLER);
+        	var fault:FunctionRef = classRef.getFunctionRef( serviceMethod + FAULT_HANDLER);
        	
         	if( result == null ){
         	    throw new IllegalOperationError(serviceMethod);
@@ -93,7 +93,10 @@ package org.seasar.akabana.yui.service.rpc {
             	_responder.onResult( resultEvent );
             }
 
-            RemotingOperation.resultCallBack.apply(null,[resultEvent]);
+            if( RemotingOperation.resultCallBack != null ){
+                RemotingOperation.resultCallBack.apply(null,[resultEvent]);
+            }
+            _responder = null;
         }
         
         public function onStatus( status:* ):void{
@@ -109,7 +112,10 @@ package org.seasar.akabana.yui.service.rpc {
             	_responder.onFault( faultEvent );
             }
 
-            RemotingOperation.faultCallBack.apply(null,[faultEvent]);
+            if( RemotingOperation.faultCallBack != null ){
+                RemotingOperation.faultCallBack.apply(null,[faultEvent]);
+            }
+            _responder = null;
         }
     }
 }
