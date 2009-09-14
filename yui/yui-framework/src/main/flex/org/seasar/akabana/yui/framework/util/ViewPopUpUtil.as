@@ -13,7 +13,7 @@ package org.seasar.akabana.yui.framework.util
     public class ViewPopUpUtil
     {
         public static function createPopUp( viewName:String,
-                                            className:Class,
+                                            popupClass:Class,
                                             modal:Boolean = false,
                                             center:Boolean = false,
                                             relatedOwner:UIComponent=null,
@@ -24,7 +24,7 @@ package org.seasar.akabana.yui.framework.util
                 PopUpUtil.createPopUp(
                     viewName,
                     Application.application as DisplayObject,
-                    className,
+                    popupClass,
                     modal,
                     center,
                     null,
