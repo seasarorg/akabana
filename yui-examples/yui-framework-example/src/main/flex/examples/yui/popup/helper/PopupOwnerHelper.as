@@ -15,7 +15,10 @@ package examples.yui.popup.helper
 			     "popup",
 			     PopupView,
 			     true,
-			     view);
+			     true,
+			     view,
+			     null
+			     );
 		}
         
         public function hide(popup:PopupView):void
