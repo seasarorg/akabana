@@ -107,5 +107,34 @@ package org.seasar.akabana.yui.framework.customizer
             
             return func_ as Function;
         }
+        
+        protected function createEnhancedEventNoneHandler( owner:IEventDispatcher, handler:Function ):Function{
+            var func_:Object = function( event:Event ):void{
+                var callee:Object = arguments.callee; 
+                try{
+                   	var proto:Function = callee.properties["proto"] as Function;
+                   	if( proto != null ){
+                   		proto.apply(null);
+                   	} else {
+                   		throw new Error("EnhancedEventHandler doesn't have proto Handler");
+                   	}
+                } catch(e:Error){
+                    logger.debug(e.getStackTrace());
+                   	var owner:Object = callee.properties["owner"];
+                   	if( owner is IEventDispatcher ){
+                        IEventDispatcher(owner).dispatchEvent(RuntimeErrorEvent.createEvent(e));
+                    } else {
+                        throw e;
+                    }
+                }
+            };
+
+            var properties:Dictionary = new Dictionary(true);
+            properties["owner"] = owner;
+            properties["proto"] = handler;
+			func_.properties = properties;
+            
+            return func_ as Function;
+        }
     }
 }
