@@ -18,31 +18,38 @@ package
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
+    import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
+    import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
+    import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
     import org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
-    import org.seasar.akabana.yui.framework.event.FrameworkEvent;
-    import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.framework.event.Command;
+    import org.seasar.akabana.yui.framework.event.Notification;
     import org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin;
-    import org.seasar.akabana.yui.framework.util.ViewPopUpUtil;
-    import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
+    import org.seasar.akabana.yui.framework.util.PopUpUtil;
+    import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
+    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     
     public class YuiFrameworkClasses
     {
         NamingConvention;
         ViewComponentRepository;
-        YuiFrameworkContainer;
         IComponentCustomizer;
         ActionCustomizer;
         EventHandlerCustomizer;
         ComponentDuplicatedRegistrationError;
-        RuntimeErrorEvent;
-        
         FrameworkEvent;
-
-        ViewPopUpUtil;
-        
+        RuntimeErrorEvent;
+        SystemManagerUtil;
+        UIComponentUtil;
+        YuiFrameworkSettings;
         YuiFrameworkMixin;        
+        YuiFrameworkContainer;
+        PopUpUtil;
+
+        Notification;
+        Command;
     }
 }

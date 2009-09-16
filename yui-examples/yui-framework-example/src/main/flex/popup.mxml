@@ -9,9 +9,6 @@
     <mx:Style source="assets/css/applicationStyles.css"/>
     <mx:Style source="examples/yui/popup/popupClasses.css"/>
     
-    <akabana:YuiFrameworkMixin/>
-    
-    <logging:LogConfigurationFactory/>
-    
+    <akabana:YuiFrameworkSettings/>
     <view:PopupOwnerView id="rootView"/>
 </mx:Application>

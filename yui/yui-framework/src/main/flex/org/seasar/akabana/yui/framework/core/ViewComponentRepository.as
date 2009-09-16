@@ -42,7 +42,7 @@ package org.seasar.akabana.yui.framework.core {
                 componentMap[ componentId ] = component;
                 componentInstances[ componentId ] = component;
             } else {
-                throw new ComponentDuplicatedRegistrationError("UIコンポーネント登録重複エラー:"+componentId);
+                throw new ComponentDuplicatedRegistrationError(componentId);
             }
         }
         

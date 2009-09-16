@@ -42,14 +42,14 @@ package org.seasar.akabana.yui.framework.mixin
 	 */
 	public class YuiFrameworkMixin
 	{
-		private static var _this:YuiFrameworkMixin;
-		
-		private static var _container:YuiFrameworkContainer;
-		
 		{
 			LogConfigurationFactory;
 			registerClassAlias(ConfigurationProvider.FACTORY_CLASS_NAME,LogConfigurationFactory);
 		}
+		
+		private static var _this:YuiFrameworkMixin;
+		
+		private static var _container:YuiFrameworkContainer;
 		
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{
         	

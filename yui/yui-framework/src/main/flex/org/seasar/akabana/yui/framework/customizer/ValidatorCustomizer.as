@@ -49,7 +49,9 @@ package org.seasar.akabana.yui.framework.customizer {
 	                validatorClassRef = ClassRef.getReflector(validatorClassName);
 	                processValidatorCustomize( viewName, view, validatorClassRef );
 	            } catch( e:Error ){
-	                //logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
+CONFIG::DEBUG{
+	                logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
+}
 	            }   
             
             } else {        
@@ -64,9 +66,11 @@ package org.seasar.akabana.yui.framework.customizer {
 	            var validatorClassRef:ClassRef = null;
 	            try{
 	                validatorClassRef = ClassRef.getReflector(validatorClassName);
-	                processValidatorUnCustomize( viewName, view, validatorClassRef );
+	                processValidatorUncustomize( viewName, view, validatorClassRef );
 	            } catch( e:Error ){
-	                //logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
+CONFIG::DEBUG{
+	                logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
+}
 	            }   
             
             } else {    
@@ -84,14 +88,16 @@ package org.seasar.akabana.yui.framework.customizer {
                 for each( var propertyRef_:PropertyRef in validatorClassRef.properties ){
                     var childValidator:Validator = validator[ propertyRef_.name ] as Validator;
                     if( childValidator != null ){
+CONFIG::DEBUG{
                         logger.debug(propertyRef_.name + "," + propertyRef_.type);
+}
                         childValidator.source = view[ propertyRef_.name ];
                     }
                 }
             }
         }
         
-        protected function processValidatorUnCustomize( viewName:String, view:Container, validatorClassRef:ClassRef ):void{
+        protected function processValidatorUncustomize( viewName:String, view:Container, validatorClassRef:ClassRef ):void{
             var validator:Object = view.descriptor.properties[ namingConvention.getValidatorPackageName() ]; 
             if( validator != null ){
                 for each( var propertyRef_:PropertyRef in validatorClassRef.properties ){

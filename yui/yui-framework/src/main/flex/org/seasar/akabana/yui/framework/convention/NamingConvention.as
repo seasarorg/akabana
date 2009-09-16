@@ -17,10 +17,38 @@ package org.seasar.akabana.yui.framework.convention
 {
     public class NamingConvention
     {
-        private static const DOT:String = ".";
+        public static const VIEW:String = "view";
+        public static const HELPER:String = "helper";
+        public static const ACTION:String = "action";
+        public static const SERVICE:String = "service";
+        public static const LOGIC:String = "logic";
+        public static const VALIDATOR:String = "validator";
         
-        private static const VIEW_PATH_REG:RegExp = /^(.+)\.view\.(.+?)View$/;        
+        public static const VIEW_SUFFIX:String = "View";
+        public static const HELPER_SUFFIX:String = "Helper";
+        public static const ACTION_SUFFIX:String = "Action";
+        public static const SERVICE_SUFFIX:String = "Service";
+        public static const LOGIC_SUFFIX:String = "Logic";
+        public static const VALIDATOR_SUFFIX:String = "Validator";
+        
+        public static const VIEW_PATH_REG:RegExp = /^(.+)\.view\.(.+?)View$/;     
+        public static const HELPER_PATH_REG:RegExp = /^(.+)\.(.+)\.(.+?)Helper$/;   
+        public static const ACTION_PATH_REG:RegExp = /^(.+)\.action\.(.+?)Action$/;      
+        
+        public static const VIEW_NAME_REG:RegExp = /^(.+?)View$/;        
+        public static const HELPER_NAME_REG:RegExp = /^(.+?)Helper$/;        
+        public static const ACTION_NAME_REG:RegExp = /^(.+?)Action$/;         
 
+        public static const HANDLER_SUFFIX:String = "Handler";
+        public static const OWN_HANDLER_PREFIX:String = "on";
+
+        private static const DOT:String = ".";
+        private static const PATH_REG_PREFIX:String = "^\\.";
+        private static const PATH_REG_MIDDLE:String = "\\..+?";
+        private static const PATH_REG_SUFFIX:String = "$";
+        private static const VAR_NAME_REG_PREFIX:String = "^.+?";
+        private static const VAR_NAME_REG_SUFFIX:String = "$";
+        
         protected static function changeViewPackageTo( viewName:String, packageName:String, suffix:String ):String{
             var classPathArray:Array = viewName.match(VIEW_PATH_REG);
             return classPathArray[1] + DOT + packageName + DOT + classPathArray[2] + suffix;
@@ -40,59 +68,59 @@ package org.seasar.akabana.yui.framework.convention
         }
 
         public function getViewPackageName():String{
-            return "view";
+            return VIEW;
         }
 
         public function getHelperPackageName():String{
-            return "helper";
+            return HELPER;
         }
 
         public function getActionPackageName():String{
-            return "action";
+            return ACTION;
         }
 
         public function getServicePackageName():String{
-            return "service";
+            return SERVICE;
         }
         
         public function getLogicPackageName():String{
-            return "logic";
+            return LOGIC;
         }
         
         public function getValidatorPackageName():String{
-            return "validator";
+            return VALIDATOR;
         }
         
         public function getViewSuffix():String{
-            return "View";
+            return VIEW_SUFFIX;
         }
 
         public function getHelperSuffix():String{
-            return "Helper";
+            return HELPER_SUFFIX;
         }
 
         public function getActionSuffix():String{
-            return "Action";
+            return ACTION_SUFFIX;
         }
 
         public function getServiceSuffix():String{
-            return "Service";
+            return SERVICE_SUFFIX;
         }
         
         public function getLogicSuffix():String{
-            return "Logic";
+            return LOGIC_SUFFIX;
         }
         
         public function getValidatorSuffix():String{
-            return "Validator";
+            return VALIDATOR_SUFFIX;
         }
 
         public function getViewName( varName:String ):String{
             var viewName:String = null;
             
-            var classPathArray:Array = varName.match(/^(.+?)Helper$/);
+            var classPathArray:Array = varName.match(HELPER_NAME_REG);
             if( classPathArray.length <= 1 ){
-                classPathArray = varName.match(/^(.+?)Action$/);
+                classPathArray = varName.match(ACTION_NAME_REG);
             }
             if( classPathArray.length > 1 ){
                 viewName = classPathArray[1] + getViewSuffix();                
@@ -103,9 +131,9 @@ package org.seasar.akabana.yui.framework.convention
         public function getViewClassName( fullClassName:String ):String{
             var viewName:String = null;
             
-            var classPathArray:Array = fullClassName.match(/^(.+)\.(.+)\.(.+?)Helper$/);
+            var classPathArray:Array = fullClassName.match(HELPER_PATH_REG);
             if( classPathArray.length <= 1 ){
-                classPathArray = fullClassName.match(/^(.+)\.action\.(.+?)Action$/);
+                classPathArray = fullClassName.match(ACTION_PATH_REG);
             }
             if( classPathArray.length > 1 ){
                 viewName = classPathArray[1] + DOT + getViewPackageName() + DOT + classPathArray[classPathArray.length-1] + getViewSuffix();                
@@ -130,7 +158,15 @@ package org.seasar.akabana.yui.framework.convention
         {
             return changeViewPackageTo( viewClassName, getValidatorPackageName(), getValidatorSuffix() ); 
         }		
-		
+        
+        public function getHandlerSuffix():String{
+            return HANDLER_SUFFIX;
+        }
+
+        public function getOwnHandlerPrefix():String{
+            return OWN_HANDLER_PREFIX;
+        }
+        		
         public function isViewClassName( className:String ):Boolean{
             return checkClassFullName(className,getViewPackageName(),getViewSuffix());
         }
@@ -169,7 +205,7 @@ package org.seasar.akabana.yui.framework.convention
             for each( var rootPath:String in _conventions ){
                 if( className.indexOf(rootPath) == 0 ){
                     var subPath:String = className.substring(rootPath.length);
-                    var regexp_:String = "^\\." + packageName + "\\..+?" + suffix + "$";
+                    var regexp_:String = PATH_REG_PREFIX + packageName + PATH_REG_MIDDLE + suffix + PATH_REG_SUFFIX;
                     if( subPath.search(new RegExp(regexp_)) == 0 ){
                         isTarget = true;
                         break;
@@ -183,7 +219,7 @@ package org.seasar.akabana.yui.framework.convention
         protected function checkVarName( varName:String, suffix:String ):Boolean{
             var isTarget:Boolean = false;
             
-            var regexp_:String = "^.+?" + suffix + "$";
+            var regexp_:String = VAR_NAME_REG_PREFIX + suffix + VAR_NAME_REG_SUFFIX;
             if( varName.search(new RegExp(regexp_)) == 0 ){
                 isTarget = true;
             }

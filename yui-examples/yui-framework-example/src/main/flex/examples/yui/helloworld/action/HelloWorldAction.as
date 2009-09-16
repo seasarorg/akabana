@@ -11,8 +11,8 @@ package examples.yui.helloworld.action
     import mx.events.ValidationResultEvent;
     import mx.validators.Validator;
     
-    import org.seasar.akabana.yui.framework.event.FrameworkEvent;
-    import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
+    import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
     
     public class HelloWorldAction {
         

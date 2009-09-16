@@ -23,33 +23,29 @@ package org.seasar.akabana.yui.framework.customizer
     
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
-    import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.logging.Logger;
     
     internal class AbstractEventCustomizer extends AbstractComponentCustomizer
     {
-    	private static const logger:Logger = Logger.getLogger(AbstractEventCustomizer);
+    	private static const _logger:Logger = Logger.getLogger(AbstractEventCustomizer);
     	
         protected static const ENHANCED_SEPARETOR:String = "$";
         
         protected static const ENHANCED_PREFIX:String = ENHANCED_SEPARETOR + "enhanced" + ENHANCED_SEPARETOR;
-        
-        protected static const HANDLER_SUFFIX:String = "Handler";
-        
-        protected static const SELF_HANDLER_PREFIX:String = "on";
 
         public function AbstractEventCustomizer(namingConvention:NamingConvention){
             super(namingConvention);
         }
         
-        protected static function getEventName( functionRef:FunctionRef, componentName:String):String{
+        protected function getEventName( functionRef:FunctionRef, componentName:String):String{
 			var functionName:String = functionRef.name;
-			var handlerIndex:int = functionName.lastIndexOf(HANDLER_SUFFIX);
+			var handlerIndex:int = functionName.lastIndexOf(_namingConvention.getHandlerSuffix());
             
 			return functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);			
         }
                 
-        protected static function getEnhancedEventName( viewName:String, eventName:String ):String{
+        protected function getEnhancedEventName( viewName:String, eventName:String ):String{
             return viewName + ENHANCED_PREFIX + eventName;
         }        
         
@@ -90,7 +86,7 @@ package org.seasar.akabana.yui.framework.customizer
                    		throw new Error("EnhancedEventHandler doesn't have proto Handler");
                    	}
                 } catch(e:Error){
-                    logger.debug(e.getStackTrace());
+                    _logger.debug(e.getStackTrace());
                    	var owner:Object = callee.properties["owner"];
                    	if( owner is IEventDispatcher ){
                         IEventDispatcher(owner).dispatchEvent(RuntimeErrorEvent.createEvent(e));
@@ -119,7 +115,7 @@ package org.seasar.akabana.yui.framework.customizer
                    		throw new Error("EnhancedEventHandler doesn't have proto Handler");
                    	}
                 } catch(e:Error){
-                    logger.debug(e.getStackTrace());
+                    _logger.debug(e.getStackTrace());
                    	var owner:Object = callee.properties["owner"];
                    	if( owner is IEventDispatcher ){
                         IEventDispatcher(owner).dispatchEvent(RuntimeErrorEvent.createEvent(e));

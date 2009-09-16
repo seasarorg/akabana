@@ -6,6 +6,7 @@ package org.seasar.akabana.yui.framework.util
     import flash.events.IEventDispatcher;
     import flash.utils.Dictionary;
     
+    import mx.core.Application;
     import mx.core.Container;
     import mx.core.IFlexDisplayObject;
     import mx.core.IUIComponent;
@@ -14,6 +15,8 @@ package org.seasar.akabana.yui.framework.util
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.managers.PopUpManager;
+    
+    import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     
     public class PopUpUtil
     {
@@ -88,6 +91,41 @@ package org.seasar.akabana.yui.framework.util
             return window;
         }
 
+        public static function createPopUpView( viewName:String,
+                                                popupClass:Class,
+                                                modal:Boolean = false,
+                                                center:Boolean = false,
+                                                relatedOwner:UIComponent=null,
+                                                data:Object=null
+                                               ):IFlexDisplayObject{
+
+            var window:Container = 
+                PopUpUtil.createPopUp(
+                    viewName,
+                    Application.application as Application,
+                    popupClass,
+                    modal,
+                    center,
+                    null,
+                    creationCompleteCallBack,
+                    relatedOwner
+                    ) as Container;       
+            window.data = data;
+            return window;
+        }
+        
+        public static function removePopUpView(popUp:IFlexDisplayObject):void{
+            if( popUp is Container ){
+                var popUpContainer:Container = popUp as Container;
+            	YuiFrameworkContainer
+            	    .yuicontainer.uncustomizeComponent(
+            	        popUpContainer,
+            	        PopUpUtil.lookupRelatedOwner(popUpContainer)
+            	        );
+            	PopUpUtil.removePopUp(popUp);
+            }
+        }
+
         public static function removePopUp(popUp:IFlexDisplayObject):void{
             if( popUp is UIComponent){
         		var properties_:Object = UIComponentUtil.getDocumentProperties(UIComponent(popUp));
@@ -154,6 +192,11 @@ package org.seasar.akabana.yui.framework.util
                 false
             );
             PopUpManager.centerPopUp(window);
+        }
+        
+        private static function creationCompleteCallBack(event:FlexEvent):void{
+            var popup:Container = event.target as Container;
+            YuiFrameworkContainer.yuicontainer.customizeComponent(popup as Container,PopUpUtil.lookupRelatedOwner(popup));
         }
     }
 }

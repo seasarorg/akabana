@@ -3,15 +3,15 @@ package examples.yui.popup.helper
 	import examples.yui.popup.view.PopupOwnerView;
 	import examples.yui.popup.view.PopupView;
 	
-	import org.seasar.akabana.yui.framework.util.ViewPopUpUtil;
+	import org.seasar.akabana.yui.framework.util.PopUpUtil;
 	
 	public class PopupOwnerHelper
 	{
 		public var view:PopupOwnerView;
 		
 		public function popup():void{
-			ViewPopUpUtil
-			 .createPopUp(
+			PopUpUtil
+			 .createPopUpView(
 			     "popup",
 			     PopupView,
 			     true,
@@ -23,7 +23,7 @@ package examples.yui.popup.helper
         
         public function hide(popup:PopupView):void
         {
-            ViewPopUpUtil.removePopUp(popup);
+            PopUpUtil.removePopUp(popup);
         }
 
 	}

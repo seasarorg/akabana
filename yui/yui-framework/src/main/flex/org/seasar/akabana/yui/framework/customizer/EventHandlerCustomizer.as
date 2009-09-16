@@ -39,21 +39,21 @@ package org.seasar.akabana.yui.framework.customizer {
         
         private static const logger:Logger = Logger.getLogger(EventHandlerCustomizer);
         
-        public function EventHandlerCustomizer(namingConvention:NamingConvention){
-            super(namingConvention);
+        public function EventHandlerCustomizer(_namingConvention:NamingConvention){
+            super(_namingConvention);
         }
         
         public override function customize( view:Container, owner:Container=null):void {
             var viewName:String = UIComponentUtil.getName(view);
             var viewClassName:String = ClassRef.getReflector(view).name;
             if( owner == null ){
-                var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
+                var action_:Object = view.descriptor.properties[ _namingConvention.getActionPackageName() ];
                 if( action_ != null){
                      doCustomize(viewName,view,action_);
                 }
             } else {
                 var ownerName:String = UIComponentUtil.getName(owner);
-                var ownerAction_:Object = owner.descriptor.properties[ namingConvention.getActionPackageName() ];
+                var ownerAction_:Object = owner.descriptor.properties[ _namingConvention.getActionPackageName() ];
                 if( ownerAction_ != null){
                     var actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
                     doCustomizingByComponent(
@@ -75,13 +75,13 @@ package org.seasar.akabana.yui.framework.customizer {
             var viewName:String = UIComponentUtil.getName(view);
             var viewClassName:String = ClassRef.getReflector(view).name;
             if( owner == null ){
-                var action_:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
+                var action_:Object = view.descriptor.properties[ _namingConvention.getActionPackageName() ];
                 if( action_ != null){
-                     doUnCustomize(viewName,view,action_);
+                     doUncustomize(viewName,view,action_);
                 }
             } else {
                 var ownerName:String = UIComponentUtil.getName(owner);
-                var ownerAction_:Object = owner.descriptor.properties[ namingConvention.getActionPackageName() ];
+                var ownerAction_:Object = owner.descriptor.properties[ _namingConvention.getActionPackageName() ];
                 if( ownerAction_ != null){
                     var actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
                     doUnCustomizingByComponent(
@@ -103,8 +103,10 @@ package org.seasar.akabana.yui.framework.customizer {
             var actionClassRef:ClassRef = ClassRef.getReflector(action);
             var component:UIComponent;
 
+CONFIG::DEBUG{
             logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizing",viewName,actionClassRef.name));
-            
+}
+
             //for children
             for( var index:int = 0; index < view.numChildren; index++ ){
 
@@ -189,8 +191,8 @@ package org.seasar.akabana.yui.framework.customizer {
                 action,
                 actionClassRef.functions.filter(
                     function(item:*, index:int, array:Array):Boolean{
-                        return ( FunctionRef(item).name.indexOf(SELF_HANDLER_PREFIX) == 0 ) &&
-                               ( FunctionRef(item).name.indexOf(HANDLER_SUFFIX) > 3 ) ;
+                        return ( FunctionRef(item).name.indexOf(_namingConvention.getOwnHandlerPrefix()) == 0 ) &&
+                               ( FunctionRef(item).name.indexOf(_namingConvention.getHandlerSuffix()) > 3 ) ;
                     }
                 )
             );  
@@ -272,7 +274,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     component = view.getChildByName(componentName) as IEventDispatcher;
                 }
             } else {
-                componentName = SELF_HANDLER_PREFIX;
+                componentName = _namingConvention.getOwnHandlerPrefix();
                 component = view;
             }
             doCustomizingByComponent(view,componentName,component,action,functionRefs);
@@ -302,15 +304,19 @@ package org.seasar.akabana.yui.framework.customizer {
                 
                 addEventListener( component, eventName, enhancedFunction);          
                 storeEnhancedEventHandler(view, enhancedEventName,enhancedFunction);                
-                logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName == SELF_HANDLER_PREFIX ? view.name : componentName, eventName,functionRef.name));
+CONFIG::DEBUG{
+                logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName == _namingConvention.getOwnHandlerPrefix() ? view.name : componentName, eventName,functionRef.name));
+}
             }
         }
 
-        private function doUnCustomize( viewName:String, view:Container, action:Object ):void{
+        private function doUncustomize( viewName:String, view:Container, action:Object ):void{
             var actionClassRef:ClassRef = ClassRef.getReflector(action);
             var component:UIComponent;
 
+CONFIG::DEBUG{
             logger.debug(Messages.getMessage("yui_framework","ViewEventUnCustomizing",viewName,actionClassRef.name));
+}
             
             //for children
             for( var index:int = 0; index < view.numChildren; index++ ){
@@ -327,14 +333,14 @@ package org.seasar.akabana.yui.framework.customizer {
                         if (properties != null && properties.childDescriptors != null){
                             
                         } else { 
-	                        doUnCustomizeByContainer(
+	                        doUncustomizeByContainer(
 	                            view,
 	                            component as Container,
 	                            action
 	                        );
                         }   
                     } else {
-	                    doUnCustomizeByContainer(
+	                    doUncustomizeByContainer(
 	                        view,
 	                        component as Container,
 	                        action
@@ -343,7 +349,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 }
 
                 if( component.id != null){
-                    doUnCustomizeByComponent(
+                    doUncustomizeByComponent(
                         view,
                         component.id,
                         action,
@@ -359,7 +365,7 @@ package org.seasar.akabana.yui.framework.customizer {
             if( view is Panel ){
                 var controlBar:ControlBar = Panel(view).mx_internal::getControlBar() as ControlBar;
                 if( controlBar != null){
-                    doUnCustomizeByContainer(
+                    doUncustomizeByContainer(
                         view,
                         controlBar,
                         action
@@ -375,7 +381,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     child is IEventDispatcher &&
                     ( child is IMXMLObject || child is IEffect )
                 ){
-                    doUnCustomizeByComponent(
+                    doUncustomizeByComponent(
                         view,
                         prop.name,
                         action,
@@ -389,20 +395,20 @@ package org.seasar.akabana.yui.framework.customizer {
             }
             
             //for self
-            doUnCustomizeByComponent(
+            doUncustomizeByComponent(
                 view,
                 null,
                 action,
                 actionClassRef.functions.filter(
                     function(item:*, index:int, array:Array):Boolean{
-                        return ( FunctionRef(item).name.indexOf(SELF_HANDLER_PREFIX) == 0 ) &&
-                               ( FunctionRef(item).name.indexOf(HANDLER_SUFFIX) > 3 ) ;
+                        return ( FunctionRef(item).name.indexOf(_namingConvention.getOwnHandlerPrefix()) == 0 ) &&
+                               ( FunctionRef(item).name.indexOf(_namingConvention.getHandlerSuffix()) > 3 ) ;
                     }
                 )
             );  
         }
         
-        private function doUnCustomizeByContainer( view:Container, container:Container, action:Object):void {
+        private function doUncustomizeByContainer( view:Container, container:Container, action:Object):void {
             var actionClassRef:ClassRef = ClassRef.getReflector(action);
             var componentName:String;
             var component:UIComponent;
@@ -423,14 +429,14 @@ package org.seasar.akabana.yui.framework.customizer {
 	                        if (properties != null && properties.childDescriptors != null){
 	                            
 	                        } else { 
-	                            doUnCustomizeByContainer(
+	                            doUncustomizeByContainer(
 	                                view,
 	                                component as Container,
 	                                action
 	                            );
 	                        }   
 	                    } else {
-	                        doUnCustomizeByContainer(
+	                        doUncustomizeByContainer(
 	                            view,
 	                            component as Container,
 	                            action
@@ -439,7 +445,7 @@ package org.seasar.akabana.yui.framework.customizer {
 	                }
                                     
                     if( component.id != null ){
-                        doUnCustomizeByComponent(
+                        doUncustomizeByComponent(
                             view,
                             component.id,
                             action,
@@ -457,7 +463,7 @@ package org.seasar.akabana.yui.framework.customizer {
             if( container is Panel ){
                 var controlBar:ControlBar = Panel(container).mx_internal::getControlBar() as ControlBar;
                 if( controlBar != null){
-                    doUnCustomizeByContainer(
+                    doUncustomizeByContainer(
                         view,
                         controlBar,
                         action
@@ -466,7 +472,7 @@ package org.seasar.akabana.yui.framework.customizer {
             }
         }
 
-        private function doUnCustomizeByComponent( view:Container, componentName:String, action:Object, functionRefs:Array):void {
+        private function doUncustomizeByComponent( view:Container, componentName:String, action:Object, functionRefs:Array):void {
 
             var componentName:String;
             var component:IEventDispatcher;
@@ -477,7 +483,7 @@ package org.seasar.akabana.yui.framework.customizer {
                     component = view.getChildByName(componentName) as IEventDispatcher;
                 }
             } else {
-                componentName = SELF_HANDLER_PREFIX;
+                componentName = _namingConvention.getOwnHandlerPrefix();
                 component = view;
             }
             doUnCustomizingByComponent(view,componentName,component,action,functionRefs);
@@ -495,7 +501,9 @@ package org.seasar.akabana.yui.framework.customizer {
                 if( enhancedFunction != null ){
                     component.removeEventListener(eventName, enhancedFunction);
                     removeEnhancedEventHandler(view, enhancedEventName );  
-                    logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizingRemoveEvent",view.className,componentName == SELF_HANDLER_PREFIX ? view.name : componentName, eventName,functionRef.name));
+CONFIG::DEBUG{
+                    logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizingRemoveEvent",view.className,componentName == _namingConvention.getOwnHandlerPrefix() ? view.name : componentName, eventName,functionRef.name));
+}
                 }
             }
         }        

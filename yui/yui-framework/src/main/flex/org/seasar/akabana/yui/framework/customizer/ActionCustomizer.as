@@ -33,7 +33,9 @@ package org.seasar.akabana.yui.framework.customizer {
 
     public class ActionCustomizer extends AbstractComponentCustomizer {
         
-        private static const logger:Logger = Logger.getLogger(ActionCustomizer);
+        private static const _logger:Logger = Logger.getLogger(ActionCustomizer);
+        
+        private static const LOGIC_OWNER:String = "owner";
         
         private static var viewToHelperMap:Object = new Dictionary(true);
         
@@ -54,7 +56,9 @@ package org.seasar.akabana.yui.framework.customizer {
 	                actionClassRef = ClassRef.getReflector(actionClassName);
 	                processActionCustomize( viewName, view, actionClassRef );
 	            } catch( e:Error ){
-	                logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+CONFIG::DEBUG{	                
+	                _logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+}
 	            }
             
             } else {
@@ -69,12 +73,13 @@ package org.seasar.akabana.yui.framework.customizer {
 	            var actionClassRef:ClassRef = null;
 	            try{
 	                actionClassRef = ClassRef.getReflector(actionClassName);
-	                processActionUnCustomize( viewName, view, actionClassRef );
+	                processActionUncustomize( viewName, view, actionClassRef );
 	            } catch( e:Error ){
-	                logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+CONFIG::DEBUG{
+	                _logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+}
 	            }
-            
-            } else {        
+            } else {
             }
         }
             
@@ -86,18 +91,24 @@ package org.seasar.akabana.yui.framework.customizer {
                         actionClassRef.newInstance();
             }
             if( action != null ){
-                logger.debug(Messages.getMessage("yui_framework","ActionCustomizing",viewName,actionClassRef.name));
+CONFIG::DEBUG{
+                _logger.debug(Messages.getMessage("yui_framework","ActionCustomizing",viewName,actionClassRef.name));
+}
                 
                 for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
                     if( namingConvention.isHelperClassName( propertyRef_.type )){
                         action[ propertyRef_.name ] = processHelperCustomize(view,propertyRef_);
-                        logger.debug(Messages.getMessage("yui_framework","HelperCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+CONFIG::DEBUG{
+                        _logger.debug(Messages.getMessage("yui_framework","HelperCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+}
                         continue;
                     }
 
                     if( namingConvention.isLogicClassName( propertyRef_.type )){
                         action[ propertyRef_.name ] = processLogicCustomize(viewName,propertyRef_,action);
-                        logger.debug(Messages.getMessage("yui_framework","LogicCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+CONFIG::DEBUG{
+                        _logger.debug(Messages.getMessage("yui_framework","LogicCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+}
                         continue;
                     }
 
@@ -106,14 +117,18 @@ package org.seasar.akabana.yui.framework.customizer {
                         propertyRef_.typeClassRef.isAssignableFrom( Service )
                     ){
                         action[ propertyRef_.name ] = processServiceCustomize(viewName,propertyRef_);
-                        logger.debug(Messages.getMessage("yui_framework","ServiceCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+CONFIG::DEBUG{
+                        _logger.debug(Messages.getMessage("yui_framework","ServiceCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+}
                         continue;
                     }
                     
                     if( namingConvention.isValidatorClassName( propertyRef_.type ) ){
                         if( view.descriptor.properties.hasOwnProperty( namingConvention.getValidatorPackageName() )){
                             action[ propertyRef_.name ] = view.descriptor.properties[ namingConvention.getValidatorPackageName() ];
-                            logger.debug(Messages.getMessage("yui_framework","ValidatorCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+CONFIG::DEBUG{
+                            _logger.debug(Messages.getMessage("yui_framework","ValidatorCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+}
                         }
                         continue;
                     }                    
@@ -121,18 +136,22 @@ package org.seasar.akabana.yui.framework.customizer {
             }
         }
             
-        protected function processActionUnCustomize( viewName:String, view:Container, actionClassRef:ClassRef ):void{
+        protected function processActionUncustomize( viewName:String, view:Container, actionClassRef:ClassRef ):void{
             var action:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
             if( action != null ){
-                logger.debug(Messages.getMessage("yui_framework","ActionUnCustomizing",viewName,actionClassRef.name));
+CONFIG::DEBUG{
+                _logger.debug(Messages.getMessage("yui_framework","ActionUnCustomizing",viewName,actionClassRef.name));
+}
                 
                 for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
                     if( namingConvention.isHelperClassName( propertyRef_.type )){
 						action[ propertyRef_.name ] = null;
                         delete action[ propertyRef_.name ];
 
-                        processHelperUnCustomize(view,propertyRef_);
-                        logger.debug(Messages.getMessage("yui_framework","HelperUnCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+                        processHelperUncustomize(view,propertyRef_);
+CONFIG::DEBUG{
+                        _logger.debug(Messages.getMessage("yui_framework","HelperUncustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+}
                         continue;
                     }                 
                 }
@@ -152,7 +171,7 @@ package org.seasar.akabana.yui.framework.customizer {
                 
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
             		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
-            		var helperView:UIComponent = getHelperView(view,helperPropertyRef_);
+            		var helperView:UIComponent = getHelperOfView(view,helperPropertyRef_);
 
                     helper = viewToHelperMap[ helperView.toString() ];
                     if( helper == null ){
@@ -172,13 +191,15 @@ package org.seasar.akabana.yui.framework.customizer {
                 }
                 
             } catch( e:Error ){
-                logger.debug(Messages.getMessage("yui_framework","CustomizeError",propertyRef.type,e.getStackTrace()));
+CONFIG::DEBUG{
+                _logger.debug(Messages.getMessage("yui_framework","CustomizeError",propertyRef.type,e.getStackTrace()));
+}
             }
             
             return helper;
         }
 
-        protected function processHelperUnCustomize( view:Container, propertyRef:PropertyRef ):void{
+        protected function processHelperUncustomize( view:Container, propertyRef:PropertyRef ):void{
             try{
                 var helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
                 var viewClassName:String = namingConvention.getViewClassName( helperClassRef.name );
@@ -186,13 +207,15 @@ package org.seasar.akabana.yui.framework.customizer {
                 
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
             		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
-            		var helperView:UIComponent = getHelperView(view,helperPropertyRef_);
+            		var helperView:UIComponent = getHelperOfView(view,helperPropertyRef_);
                     viewToHelperMap[ helperView.toString() ] = null;
                     delete viewToHelperMap[ helperView.toString() ];
                 }
                 
             } catch( e:Error ){
-                logger.debug(Messages.getMessage("yui_framework","UnCustomizeError",propertyRef.type,e.getStackTrace()));
+CONFIG::DEBUG{
+                _logger.debug(Messages.getMessage("yui_framework","UncustomizeError",propertyRef.type,e.getStackTrace()));
+}
             }
         }
         
@@ -206,16 +229,20 @@ package org.seasar.akabana.yui.framework.customizer {
                         propertyRef_.typeClassRef.isAssignableFrom( Service )
                     ){
                         logic[ propertyRef_.name ] = processServiceCustomize(viewName,propertyRef_);
-                        logger.debug(Messages.getMessage("yui_framework","ServiceCustomized",propertyRef.name,propertyRef_.name,propertyRef_.type));
+CONFIG::DEBUG{
+                        _logger.debug(Messages.getMessage("yui_framework","ServiceCustomized",propertyRef.name,propertyRef_.name,propertyRef_.type));
+}
                         continue;
                     }
-                    if( propertyRef_.name == "owner"){
+                    if( propertyRef_.name == LOGIC_OWNER){
                         logic[ propertyRef_.name ] = owner;
                         continue;
                     }
                 }
             } catch( e:Error ){
-                logger.debug(Messages.getMessage("yui_framework","CustomizeError",propertyRef.type,e.getStackTrace()));
+CONFIG::DEBUG{
+                _logger.debug(Messages.getMessage("yui_framework","CustomizeError",propertyRef.type,e.getStackTrace()));
+}
             }
 
             return logic;
@@ -231,7 +258,7 @@ package org.seasar.akabana.yui.framework.customizer {
             return rpcservice;
         }
 
-        private function getHelperView( view:Container, propertyRef:PropertyRef ):UIComponent{
+        private function getHelperOfView( view:Container, propertyRef:PropertyRef ):UIComponent{
             var helperView:UIComponent;
             const baseViewClassRef:ClassRef = ClassRef.getReflector(view);
             
@@ -259,6 +286,5 @@ package org.seasar.akabana.yui.framework.customizer {
         	
             return helperView;
         }
-
     }
 }

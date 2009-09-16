@@ -131,8 +131,6 @@ package org.seasar.akabana.yui.logging
                 logger_.appender = category.appender;
                 
                 CACHE[ fullClassName ] = logger_;
-                
-                logger_.info("using default logging settings.");
             }
                         
             return logger_;

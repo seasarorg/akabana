@@ -9,7 +9,7 @@
     <mx:Style source="assets/css/applicationStyles.css"/>
     <mx:Style source="examples/yui/helloworld/helloworldClasses.css"/>
     
-    <akabana:YuiFrameworkMixin/>
+    <akabana:YuiFrameworkSettings/>
     
     <logging:LogConfigurationFactory/>
     

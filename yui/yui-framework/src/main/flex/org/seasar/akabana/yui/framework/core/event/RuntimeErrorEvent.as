@@ -1,4 +1,4 @@
-package org.seasar.akabana.yui.framework.event
+package org.seasar.akabana.yui.framework.core.event
 {
 	import flash.events.ErrorEvent;
 	
