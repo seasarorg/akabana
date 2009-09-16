@@ -43,7 +43,7 @@
                     	
         	<external-library-path dir="${FLEX_FRAMEWORK}" append="true">
                 <include name="libs" />
-            </external-library-path>           
+            </external-library-path>
         </compc>
     </target>
 	
