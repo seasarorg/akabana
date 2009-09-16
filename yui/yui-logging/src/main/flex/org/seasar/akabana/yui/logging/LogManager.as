@@ -37,22 +37,21 @@ package org.seasar.akabana.yui.logging
         
         private static var VALUE:String = "value";
         
-        private static const logManager:LogManager = new LogManager();
+        private static const _logManager:LogManager = new LogManager();
         
         public static function init():void{
             YuiLoggingClasses;
-            logManager.init(ConfigurationProvider.createConfiguration());
+            _logManager.init(ConfigurationProvider.createConfiguration());
         }
         
         public static function getLogger( targetClass:Class ):Logger{
-            return logManager.getLogger( targetClass );
+            return _logManager.getLogger( targetClass );
         }
         
-        private final function init(configuration:Configuration):void{    
-            configure( configuration );
+        public function LogManager(){
         }
         
-        private final function configure( configuration:Configuration ):void{
+        private final function init(configuration:Configuration):void{
             configureAppenders( configuration.appenderMap );
             configureRootLogger( configuration.root );
             configureCategories(configuration.categoryMap);
@@ -132,6 +131,8 @@ package org.seasar.akabana.yui.logging
                 logger_.appender = category.appender;
                 
                 CACHE[ fullClassName ] = logger_;
+                
+                logger_.info("using default logging settings.");
             }
                         
             return logger_;
