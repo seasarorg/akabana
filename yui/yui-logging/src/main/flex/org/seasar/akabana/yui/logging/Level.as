@@ -70,7 +70,7 @@ package org.seasar.akabana.yui.logging
         }
 
         public function isGreaterOrEqual(level:Level):Boolean{
-          return value >= level.value;
+            return value >= level.value;
         }
     }
 }
