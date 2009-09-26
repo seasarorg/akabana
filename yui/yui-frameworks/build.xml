@@ -25,10 +25,11 @@
             output="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}"
             include-classes="${LIB_CLASSES}"
         	compute-digest="true"
-            >
-        	
-        	<define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}"/>
-        	
+        	incremental="false"
+        	optimize="true"
+        	debug="false"
+    	>
+    		<define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}"/>
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
         	<source-path path-element="${LIB_ROOT}/../yui-core${FLEX_SRC}"/>
         	<source-path path-element="${LIB_ROOT}/../yui-framework${FLEX_SRC}"/>
