@@ -24,6 +24,7 @@ package
     import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
     import org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
+    import org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer;
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
     import org.seasar.akabana.yui.framework.event.Command;
     import org.seasar.akabana.yui.framework.event.Notification;
@@ -39,19 +40,25 @@ package
             NamingConvention;
             ViewComponentRepository;
             IComponentCustomizer;
+            
             ActionCustomizer;
             EventHandlerCustomizer;
+            ValidatorCustomizer;
+            
             ComponentDuplicatedRegistrationError;
+            
             FrameworkEvent;
             RuntimeErrorEvent;
-            SystemManagerUtil;
-            UIComponentUtil;
+            
             YuiFrameworkSettings;
             YuiFrameworkMixin;        
             YuiFrameworkContainer;
+            
             MessageManager;
             
             PopUpUtil;
+            SystemManagerUtil;
+            UIComponentUtil;
             
             Notification;
             Command;

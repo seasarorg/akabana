@@ -1,8 +1,7 @@
 
 .customizers{
-    classNames:c1,c2,c3;
+    classNames:c1,c2;
         
-    c1:ClassReference("org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer");  
-    c2:ClassReference("org.seasar.akabana.yui.framework.customizer.ActionCustomizer");  
-    c3:ClassReference("org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer");       
+    c1:ClassReference("org.seasar.akabana.yui.framework.customizer.ActionCustomizer");  
+    c2:ClassReference("org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer");       
 }

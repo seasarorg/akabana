@@ -37,44 +37,46 @@ package org.seasar.akabana.yui.framework.customizer {
         }
                 
         public override function customize( view:Container, owner:Container=null):void {
-            if( owner == null ){  
-	            var viewName:String = UIComponentUtil.getName(view);
-	            var viewClassName:String = ClassRef.getReflector(view).name;
-	            var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);
-	            var validatorClassRef:ClassRef = null;
+            if( owner == null ){
 	            try{
+    	            var viewName:String = UIComponentUtil.getName(view);
+    	            var viewClassName:String = ClassRef.getReflector(view).name;
+    	            var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);
+    	            var validatorClassRef:ClassRef = null;
 	                if( view.descriptor.properties[ namingConvention.getValidatorPackageName() ] != null ){
 	                    throw new Error("already Customized");
 	                }
-	                
+CONFIG::DEBUG{
+                    _logger.debug(getMessage("ViewEventCustomizing",viewName,validatorClassName));
+}	                
 	                validatorClassRef = ClassRef.getReflector(validatorClassName);
 	                processValidatorCustomize( viewName, view, validatorClassRef );
-	            } catch( e:Error ){
 CONFIG::DEBUG{
-	                _logger.debug(getMessage("CustomizeError",viewName,e.getStackTrace()));
-}
-	            }   
-            
-            } else {        
-            }     
+                    _logger.debug(getMessage("ViewEventCustomized",viewName,validatorClassName));
+}   
+	            } catch( e:Error ){
+	            }
+            }  
         }
 
         public override function uncustomize( view:Container, owner:Container=null):void{
             if( owner == null ){    	
-	            var viewName:String = UIComponentUtil.getName(view);
-	            var viewClassName:String = ClassRef.getReflector(view).name;
-	            var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);
-	            var validatorClassRef:ClassRef = null;
-	            try{
+               
+                try{
+    	            var viewName:String = UIComponentUtil.getName(view);
+    	            var viewClassName:String = ClassRef.getReflector(view).name;
+    	            var validatorClassName:String = namingConvention.getValidatorClassName(viewClassName);
+    	            var validatorClassRef:ClassRef = null;
+CONFIG::DEBUG{
+            _logger.debug(getMessage("ValidatorUncustomizing",viewName,validatorClassName));
+}    
 	                validatorClassRef = ClassRef.getReflector(validatorClassName);
 	                processValidatorUncustomize( viewName, view, validatorClassRef );
-	            } catch( e:Error ){
 CONFIG::DEBUG{
-	                _logger.debug(getMessage("CustomizeError",viewName,e.getStackTrace()));
-}
-	            }   
-            
-            } else {    
+                    _logger.debug(getMessage("ValidatorUncustomized",viewName,validatorClassName));
+}  	            
+	            } catch( e:Error ){
+	            }
             }
         }
         

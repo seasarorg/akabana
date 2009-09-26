@@ -37,7 +37,7 @@ package org.seasar.akabana.yui.framework.customizer {
     
     public class EventHandlerCustomizer extends AbstractEventCustomizer{
         
-        private static const logger:Logger = Logger.getLogger(EventHandlerCustomizer);
+        private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);
         
         public function EventHandlerCustomizer(_namingConvention:NamingConvention){
             super(_namingConvention);
@@ -104,7 +104,7 @@ package org.seasar.akabana.yui.framework.customizer {
             var component:UIComponent;
 
 CONFIG::DEBUG{
-            logger.debug(getMessage("ViewEventCustomizing",viewName,actionClassRef.name));
+            _logger.debug(getMessage("ViewEventCustomizing",viewName,actionClassRef.name));
 }
 
             //for children
@@ -305,7 +305,7 @@ CONFIG::DEBUG{
                 addEventListener( component, eventName, enhancedFunction);          
                 storeEnhancedEventHandler(view, enhancedEventName,enhancedFunction);                
 CONFIG::DEBUG{
-                logger.debug(getMessage("ViewEventCustomizingAddEvent",view.className,componentName == _namingConvention.getOwnHandlerPrefix() ? view.name : componentName, eventName,functionRef.name));
+                _logger.debug(getMessage("ViewEventCustomizingAddEvent",view.className,componentName == _namingConvention.getOwnHandlerPrefix() ? view.name : componentName, eventName,functionRef.name));
 }
             }
         }
@@ -315,7 +315,7 @@ CONFIG::DEBUG{
             var component:UIComponent;
 
 CONFIG::DEBUG{
-            logger.debug(getMessage("ViewEventUnCustomizing",viewName,actionClassRef.name));
+            _logger.debug(getMessage("ViewEventUncustomizing",viewName,actionClassRef.name));
 }
             
             //for children
@@ -502,7 +502,7 @@ CONFIG::DEBUG{
                     component.removeEventListener(eventName, enhancedFunction);
                     removeEnhancedEventHandler(view, enhancedEventName );  
 CONFIG::DEBUG{
-                    logger.debug(getMessage("ViewEventCustomizingRemoveEvent",view.className,componentName == _namingConvention.getOwnHandlerPrefix() ? view.name : componentName, eventName,functionRef.name));
+                    _logger.debug(getMessage("ViewEventCustomizingRemoveEvent",view.className,componentName == _namingConvention.getOwnHandlerPrefix() ? view.name : componentName, eventName,functionRef.name));
 }
                 }
             }

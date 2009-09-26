@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application
     xmlns:mx="http://www.adobe.com/2006/mxml" 
-    xmlns:akabana="http://akabana.seasar.org/yui/mxml"
-    xmlns:logging="org.seasar.akabana.yui.logging.config.factory.*"
+    xmlns:akabana="http://akabana.seasar.org/yui/mxml/1.0"
     layout="absolute"
     xmlns:view="examples.yui.popup.view.*"
     >
