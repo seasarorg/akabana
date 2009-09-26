@@ -20,6 +20,7 @@ package org.seasar.akabana.yui.framework.customizer
     import mx.core.Container;
     
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import org.seasar.akabana.yui.framework.message.MessageManager;
     
     internal class AbstractComponentCustomizer implements IComponentCustomizer
     {
@@ -39,6 +40,10 @@ package org.seasar.akabana.yui.framework.customizer
 
         public function uncustomize( view:Container, owner:Container=null):void{
             throw new IllegalOperationError("can't call");
+        }
+        
+        public function getMessage(resourceName:String,...parameters):String{
+            return MessageManager.yuiframework.getMessage.apply(null,[resourceName].concat(parameters)); 
         }
 
     }

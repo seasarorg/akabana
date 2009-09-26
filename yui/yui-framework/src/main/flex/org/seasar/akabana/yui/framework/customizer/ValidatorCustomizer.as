@@ -22,6 +22,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
     
@@ -29,7 +30,7 @@ package org.seasar.akabana.yui.framework.customizer {
     
     public class ValidatorCustomizer extends AbstractEventCustomizer{
         
-        private static const logger:Logger = Logger.getLogger(ValidatorCustomizer);
+        private static const _logger:Logger = Logger.getLogger(ValidatorCustomizer);
 
         public function ValidatorCustomizer(namingConvention:NamingConvention){
             super(namingConvention);
@@ -50,7 +51,7 @@ package org.seasar.akabana.yui.framework.customizer {
 	                processValidatorCustomize( viewName, view, validatorClassRef );
 	            } catch( e:Error ){
 CONFIG::DEBUG{
-	                logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
+	                _logger.debug(getMessage("CustomizeError",viewName,e.getStackTrace()));
 }
 	            }   
             
@@ -69,7 +70,7 @@ CONFIG::DEBUG{
 	                processValidatorUncustomize( viewName, view, validatorClassRef );
 	            } catch( e:Error ){
 CONFIG::DEBUG{
-	                logger.debugMessage("yui_framework","CustomizeError",viewName,e.getStackTrace());
+	                _logger.debug(getMessage("CustomizeError",viewName,e.getStackTrace()));
 }
 	            }   
             
@@ -89,7 +90,7 @@ CONFIG::DEBUG{
                     var childValidator:Validator = validator[ propertyRef_.name ] as Validator;
                     if( childValidator != null ){
 CONFIG::DEBUG{
-                        logger.debug(propertyRef_.name + "," + propertyRef_.type);
+                        _logger.debug(propertyRef_.name + "," + propertyRef_.type);
 }
                         childValidator.source = view[ propertyRef_.name ];
                     }

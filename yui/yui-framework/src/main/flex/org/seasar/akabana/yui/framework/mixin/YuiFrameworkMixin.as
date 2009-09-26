@@ -32,7 +32,6 @@ package org.seasar.akabana.yui.framework.mixin
 	import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
 	
 	[Mixin]
-	[ResourceBundle("yui_framework")]
 	[ResourceBundle("conventions")]
 	/**
 	 * YuiFramework初期設定用Mixinクラス

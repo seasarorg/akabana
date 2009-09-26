@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
-    import org.seasar.akabana.yui.framework.message.Messages;
+    import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
 
@@ -104,7 +104,7 @@ package org.seasar.akabana.yui.framework.customizer {
             var component:UIComponent;
 
 CONFIG::DEBUG{
-            logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizing",viewName,actionClassRef.name));
+            logger.debug(getMessage("ViewEventCustomizing",viewName,actionClassRef.name));
 }
 
             //for children
@@ -305,7 +305,7 @@ CONFIG::DEBUG{
                 addEventListener( component, eventName, enhancedFunction);          
                 storeEnhancedEventHandler(view, enhancedEventName,enhancedFunction);                
 CONFIG::DEBUG{
-                logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizingAddEvent",view.className,componentName == _namingConvention.getOwnHandlerPrefix() ? view.name : componentName, eventName,functionRef.name));
+                logger.debug(getMessage("ViewEventCustomizingAddEvent",view.className,componentName == _namingConvention.getOwnHandlerPrefix() ? view.name : componentName, eventName,functionRef.name));
 }
             }
         }
@@ -315,7 +315,7 @@ CONFIG::DEBUG{
             var component:UIComponent;
 
 CONFIG::DEBUG{
-            logger.debug(Messages.getMessage("yui_framework","ViewEventUnCustomizing",viewName,actionClassRef.name));
+            logger.debug(getMessage("ViewEventUnCustomizing",viewName,actionClassRef.name));
 }
             
             //for children
@@ -502,7 +502,7 @@ CONFIG::DEBUG{
                     component.removeEventListener(eventName, enhancedFunction);
                     removeEnhancedEventHandler(view, enhancedEventName );  
 CONFIG::DEBUG{
-                    logger.debug(Messages.getMessage("yui_framework","ViewEventCustomizingRemoveEvent",view.className,componentName == _namingConvention.getOwnHandlerPrefix() ? view.name : componentName, eventName,functionRef.name));
+                    logger.debug(getMessage("ViewEventCustomizingRemoveEvent",view.className,componentName == _namingConvention.getOwnHandlerPrefix() ? view.name : componentName, eventName,functionRef.name));
 }
                 }
             }

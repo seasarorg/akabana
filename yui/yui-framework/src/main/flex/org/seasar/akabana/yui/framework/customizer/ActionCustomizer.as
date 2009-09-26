@@ -24,7 +24,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
-    import org.seasar.akabana.yui.framework.message.Messages;
+    import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.PopUpUtil;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
@@ -57,7 +57,7 @@ package org.seasar.akabana.yui.framework.customizer {
 	                processActionCustomize( viewName, view, actionClassRef );
 	            } catch( e:Error ){
 CONFIG::DEBUG{	                
-	                _logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+	                _logger.debug(getMessage("CustomizeError",viewName,e.getStackTrace()));
 }
 	            }
             
@@ -76,7 +76,7 @@ CONFIG::DEBUG{
 	                processActionUncustomize( viewName, view, actionClassRef );
 	            } catch( e:Error ){
 CONFIG::DEBUG{
-	                _logger.debug(Messages.getMessage("yui_framework","CustomizeError",viewName,e.getStackTrace()));
+	                _logger.debug(getMessage("CustomizeError",viewName,e.getStackTrace()));
 }
 	            }
             } else {
@@ -92,14 +92,14 @@ CONFIG::DEBUG{
             }
             if( action != null ){
 CONFIG::DEBUG{
-                _logger.debug(Messages.getMessage("yui_framework","ActionCustomizing",viewName,actionClassRef.name));
+                _logger.debug(getMessage("ActionCustomizing",viewName,actionClassRef.name));
 }
                 
                 for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
                     if( namingConvention.isHelperClassName( propertyRef_.type )){
                         action[ propertyRef_.name ] = processHelperCustomize(view,propertyRef_);
 CONFIG::DEBUG{
-                        _logger.debug(Messages.getMessage("yui_framework","HelperCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+                        _logger.debug(getMessage("HelperCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
                         continue;
                     }
@@ -107,7 +107,7 @@ CONFIG::DEBUG{
                     if( namingConvention.isLogicClassName( propertyRef_.type )){
                         action[ propertyRef_.name ] = processLogicCustomize(viewName,propertyRef_,action);
 CONFIG::DEBUG{
-                        _logger.debug(Messages.getMessage("yui_framework","LogicCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+                        _logger.debug(getMessage("LogicCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
                         continue;
                     }
@@ -118,7 +118,7 @@ CONFIG::DEBUG{
                     ){
                         action[ propertyRef_.name ] = processServiceCustomize(viewName,propertyRef_);
 CONFIG::DEBUG{
-                        _logger.debug(Messages.getMessage("yui_framework","ServiceCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+                        _logger.debug(getMessage("ServiceCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
                         continue;
                     }
@@ -127,7 +127,7 @@ CONFIG::DEBUG{
                         if( view.descriptor.properties.hasOwnProperty( namingConvention.getValidatorPackageName() )){
                             action[ propertyRef_.name ] = view.descriptor.properties[ namingConvention.getValidatorPackageName() ];
 CONFIG::DEBUG{
-                            _logger.debug(Messages.getMessage("yui_framework","ValidatorCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+                            _logger.debug(getMessage("ValidatorCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
                         }
                         continue;
@@ -140,7 +140,7 @@ CONFIG::DEBUG{
             var action:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
             if( action != null ){
 CONFIG::DEBUG{
-                _logger.debug(Messages.getMessage("yui_framework","ActionUnCustomizing",viewName,actionClassRef.name));
+                _logger.debug(getMessage("ActionUnCustomizing",viewName,actionClassRef.name));
 }
                 
                 for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
@@ -150,7 +150,7 @@ CONFIG::DEBUG{
 
                         processHelperUncustomize(view,propertyRef_);
 CONFIG::DEBUG{
-                        _logger.debug(Messages.getMessage("yui_framework","HelperUncustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+                        _logger.debug(getMessage("HelperUncustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
                         continue;
                     }                 
@@ -192,7 +192,7 @@ CONFIG::DEBUG{
                 
             } catch( e:Error ){
 CONFIG::DEBUG{
-                _logger.debug(Messages.getMessage("yui_framework","CustomizeError",propertyRef.type,e.getStackTrace()));
+                _logger.debug(getMessage("CustomizeError",propertyRef.type,e.getStackTrace()));
 }
             }
             
@@ -214,7 +214,7 @@ CONFIG::DEBUG{
                 
             } catch( e:Error ){
 CONFIG::DEBUG{
-                _logger.debug(Messages.getMessage("yui_framework","UncustomizeError",propertyRef.type,e.getStackTrace()));
+                _logger.debug(getMessage("UncustomizeError",propertyRef.type,e.getStackTrace()));
 }
             }
         }
@@ -230,7 +230,7 @@ CONFIG::DEBUG{
                     ){
                         logic[ propertyRef_.name ] = processServiceCustomize(viewName,propertyRef_);
 CONFIG::DEBUG{
-                        _logger.debug(Messages.getMessage("yui_framework","ServiceCustomized",propertyRef.name,propertyRef_.name,propertyRef_.type));
+                        _logger.debug(getMessage("ServiceCustomized",propertyRef.name,propertyRef_.name,propertyRef_.type));
 }
                         continue;
                     }
@@ -241,7 +241,7 @@ CONFIG::DEBUG{
                 }
             } catch( e:Error ){
 CONFIG::DEBUG{
-                _logger.debug(Messages.getMessage("yui_framework","CustomizeError",propertyRef.type,e.getStackTrace()));
+                _logger.debug(getMessage("CustomizeError",propertyRef.type,e.getStackTrace()));
 }
             }
 

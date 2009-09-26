@@ -27,6 +27,7 @@ package
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
     import org.seasar.akabana.yui.framework.event.Command;
     import org.seasar.akabana.yui.framework.event.Notification;
+    import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin;
     import org.seasar.akabana.yui.framework.util.PopUpUtil;
     import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
@@ -34,22 +35,26 @@ package
     
     public class YuiFrameworkClasses
     {
-        NamingConvention;
-        ViewComponentRepository;
-        IComponentCustomizer;
-        ActionCustomizer;
-        EventHandlerCustomizer;
-        ComponentDuplicatedRegistrationError;
-        FrameworkEvent;
-        RuntimeErrorEvent;
-        SystemManagerUtil;
-        UIComponentUtil;
-        YuiFrameworkSettings;
-        YuiFrameworkMixin;        
-        YuiFrameworkContainer;
-        PopUpUtil;
-
-        Notification;
-        Command;
+        {
+            NamingConvention;
+            ViewComponentRepository;
+            IComponentCustomizer;
+            ActionCustomizer;
+            EventHandlerCustomizer;
+            ComponentDuplicatedRegistrationError;
+            FrameworkEvent;
+            RuntimeErrorEvent;
+            SystemManagerUtil;
+            UIComponentUtil;
+            YuiFrameworkSettings;
+            YuiFrameworkMixin;        
+            YuiFrameworkContainer;
+            MessageManager;
+            
+            PopUpUtil;
+            
+            Notification;
+            Command;
+        }
     }
 }

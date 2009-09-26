@@ -16,18 +16,13 @@
 package org.seasar.akabana.yui.framework.core
 {
     import flash.events.Event;
-    import flash.events.TimerEvent;
-    import flash.utils.Timer;
     
     import mx.core.Application;
     import mx.core.Container;
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
     import mx.events.FlexEvent;
-    import mx.managers.CursorManager;
-    import mx.managers.DragManager;
     import mx.managers.ISystemManager;
-    import mx.managers.PopUpManager;
     import mx.resources.ResourceManager;
     
     import org.seasar.akabana.yui.core.Environment;
@@ -35,38 +30,24 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
-    import org.seasar.akabana.yui.framework.customizer.ActionCustomizer;
-    import org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
-    import org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
-    import org.seasar.akabana.yui.framework.message.Messages;
     import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
-    import org.seasar.akabana.yui.logging.Logger;
     
-    public class YuiFrameworkContainer
-    {
-    	include "../Version.as";
-    	
-        {            
-            CursorManager;
-            PopUpManager;
-            DragManager;
-        }
+    public class YuiFrameworkContainer extends YuiFrameworkContainerBase
+    {       
         
-    	private static const ROOT_VIEW:String = "rootView";
-    	
-        private static const _logger:Logger = Logger.getLogger(YuiFrameworkContainer);
-        
-        private static var _container:YuiFrameworkContainer;
+        protected static var _container:YuiFrameworkContainer;
                 
         public static function get yuicontainer():YuiFrameworkContainer{
-        	return _container;
+            return _container;
         }
-
-        public var customizers:Array;
         
-        protected var _callTimer:Timer = new Timer(100,1);
+        protected var _customizers:Array;
+        
+        public function get customizers():Array{
+            return _customizers;
+        }
         
         protected var _isApplicationStarted:Boolean = true;
         
@@ -106,11 +87,12 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public function YuiFrameworkContainer(){
-        	if( _container == null ){
-        		_container = this;
-        	} else {
-        		throw new YuiFrameworkContainerError("container is already created.");
-        	}
+            super();
+            if( _container == null ){
+                _container = this;
+            } else {
+                throw new YuiFrameworkContainerError("container is already created.");
+            }
         }
         
         public function initialize():void{
@@ -118,36 +100,34 @@ package org.seasar.akabana.yui.framework.core
 
 CONFIG::DEBUG{
             trace("yui-frameworks-"+VERSION);
-            _logger.debug(Messages.getMessage("yui_framework","ApplicationConventions",namingConvention.conventions.toString()));            
+            _logger.debug(getMessage("ApplicationConventions",namingConvention.conventions.toString()));            
 }
             if( customizers == null ){
-                customizers = getDefaultCustomizers();
+                _customizers = getDefaultCustomizers();
             }
 CONFIG::DEBUG{
-            _logger.debug(Messages.getMessage("yui_framework","ViewComponentAssembleStart")); 
+            _logger.debug(getMessage("ViewComponentAssembleStart")); 
 }
             
             var viewMap:Object = ViewComponentRepository.componentMap;
             for ( var key:String in viewMap ){
 CONFIG::DEBUG{
-                _logger.debug(Messages.getMessage("yui_framework","ViewComponentAssembleing",key));
+                _logger.debug(getMessage("ViewComponentAssembleing",key));
 } 
                 var view:Container = ViewComponentRepository.getComponent(key) as Container;
                 if( view.initialized ){
                     processAssembleView(key,view);
                 }
 CONFIG::DEBUG{
-                _logger.debug(Messages.getMessage("yui_framework","ViewComponentAssembled",key)); 
+                _logger.debug(getMessage("ViewComponentAssembled",key)); 
 }
             }
             
-            application.visible = true;
 CONFIG::DEBUG{
-            _logger.debug(Messages.getMessage("yui_framework","ViewComponentAssembleEnd")); 
+            _logger.debug(getMessage("ViewComponentAssembleEnd")); 
 }
             _isApplicationStarted = true;
-            _callTimer.addEventListener(TimerEvent.TIMER,callApplicationStart,false,0,true);
-            _callTimer.start();
+            callLater( callApplicationStart );
         }
         
         public function registerComponent( component:UIComponent ):void{
@@ -172,18 +152,25 @@ CONFIG::DEBUG{
             }
         }
                 
-        private function callApplicationStart( event:TimerEvent ):void{            
+        private function callApplicationStart():void{            
             var rootView:UIComponent = application.getChildByName(ROOT_VIEW) as UIComponent;
             if( rootView == null ){
                 if( application.numChildren > 0 ){
                     rootView = application.getChildAt(0) as UIComponent ;       
+                    rootView.setVisible(false,true);
                 }
+            } else {
+                rootView.setVisible(false,true);
             }
+                    
 CONFIG::DEBUG{
-            _logger.info(Messages.getMessage("yui_framework","ApplicationStart"));            
+            _logger.info(getMessage("ApplicationStart"));            
 }
+            
+            application.visible = true;
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+                rootView.visible = true;
             }
         }
         
@@ -226,9 +213,9 @@ CONFIG::DEBUG{
             do{                 
                 if( component is Application ){
                     application = component as Application;
-                    application.visible = false;
+                    application.setVisible(false,true);
 CONFIG::DEBUG{                    
-                    _logger.debug(Messages.getMessage("yui_framework","ApplicationRegistered",component.toString()));
+                    _logger.debug(getMessage("ApplicationRegistered",component.toString()));
 }
                     break;
                 }
@@ -264,7 +251,7 @@ CONFIG::DEBUG{
                 
                 ViewComponentRepository.addComponent( container );     
 CONFIG::DEBUG{ 
-                _logger.debug(Messages.getMessage("yui_framework","ViewComponentRegistered",container.toString()));
+                _logger.debug(getMessage("ViewComponentRegistered",container.toString()));
 }
             }
         }
@@ -274,7 +261,7 @@ CONFIG::DEBUG{
                 if( ViewComponentRepository.hasComponent( container.name )){
                     ViewComponentRepository.removeComponent( container );
 CONFIG::DEBUG{                    
-                    _logger.debug(Messages.getMessage("yui_framework","ViewComponentUnRegistered",container.toString()));
+                    _logger.debug(getMessage("ViewComponentUnRegistered",container.toString()));
 }
                 }
             }
@@ -343,11 +330,12 @@ CONFIG::DEBUG{
         } 
         
         protected function getDefaultCustomizers():Array{
-            return [
-                new ValidatorCustomizer(_namingConvention),
-                new ActionCustomizer(_namingConvention),
-                new EventHandlerCustomizer(_namingConvention)
-            ];
+            var classes:Array = getDefaultCustomizerClasses();
+            var result:Array = [];
+            for each( var customizerClass:Class in classes ){
+                result.push(new customizerClass(_namingConvention));
+            }
+            return result;
         }     
     }
 }
