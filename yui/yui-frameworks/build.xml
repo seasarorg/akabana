@@ -26,8 +26,8 @@
             include-classes="${LIB_CLASSES}"
         	compute-digest="true"
         	incremental="false"
-        	optimize="true"
-        	debug="false"
+            debug="${LIB_DEBUG_MODE}"
+        	optimize="${LIB_OPTIMIZE}"
     	>
     		<define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}"/>
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
