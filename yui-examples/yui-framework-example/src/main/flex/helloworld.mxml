@@ -5,6 +5,8 @@
     xmlns:logging="org.seasar.akabana.yui.logging.config.factory.*"
     layout="absolute"
 	xmlns:view="examples.yui.helloworld.view.*"
+	show="trace('onShow',event)"
+    hide="trace('onHide',event)"
 	>
     <mx:Style source="assets/css/applicationStyles.css"/>
     <mx:Style source="examples/yui/helloworld/helloworldClasses.css"/>

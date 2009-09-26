@@ -3,14 +3,18 @@ package examples.yui.helloworld.helper
     import examples.yui.helloworld.view.HelloWorldView;
     
     import mx.controls.Alert;
-    import mx.events.EffectEvent;
+    
+    import org.seasar.akabana.yui.framework.message.MessageManager;
     
     public class HelloWorldHelper
     {
         public var view:HelloWorldView;
                 
         public function showAlert( message:String ):void{
-            Alert.show(message,"message");
+            Alert.show(
+                message,
+                MessageManager.application.alert
+                );
             view.currentState = "hideButtonState";
         }
 

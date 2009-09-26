@@ -13,6 +13,7 @@ package examples.yui.helloworld.action
     
     import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.framework.message.MessageManager;
     
     public class HelloWorldAction {
         
@@ -39,7 +40,7 @@ package examples.yui.helloworld.action
             if( re.length == 0 ){
                 if( isFirst ){
                     isFirst = false;
-                    helloWorldHelper.showAlert("showHelloWorldクリックされました。");
+                    helloWorldHelper.showAlert(MessageManager.messages.E1001);
                     helloWorldHelper.disableButton();    
                 }
             }

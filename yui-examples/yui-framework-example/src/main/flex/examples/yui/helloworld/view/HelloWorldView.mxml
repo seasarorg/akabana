@@ -4,6 +4,8 @@
     verticalAlign="middle"
     horizontalAlign="center"
     xmlns:ui="examples.yui.helloworld.ui.*"
+    show="trace('rootView.onShow',event)"
+    hide="trace('rootView.onHide',event)"    
     >
     <mx:states>
         <mx:State name="hideButtonState">
