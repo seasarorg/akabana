@@ -1,22 +1,43 @@
 package org.seasar.akabana.yui.framework.message
 {
+    import flash.utils.Proxy;
+    import flash.utils.flash_proxy;
+    
     import mx.resources.ResourceManager;
     
     import org.seasar.akabana.yui.util.StringUtil;
     
-    public class Messages {
+    use namespace flash_proxy;
+    
+    [Bindable]
+    public dynamic class Messages extends Proxy
+    {   
+        private var _bundleName:String;
         
-        private static const RESOURCE_BUNDLE_MAP:Object = {};
+        public function Messages(bundleName:String):void{
+            _bundleName = bundleName;            
+        }
         
-        public static function getMessage( bundleName:String, resourceName:String,...parameters ):String{
+        flash_proxy override function getProperty(name:*):* {
+            return ResourceManager.getInstance().getString(_bundleName,name.toString());
+        }
+        
+        flash_proxy override function setProperty(name:*, value:*):void {
+        }        
+        
+        flash_proxy override function hasProperty(name:*):Boolean {
+            return true;
+        }     
+        
+        public function getMessage( resourceName:String,...parameters ):String{
             return substitute(
-                        ResourceManager.getInstance().getString(bundleName,resourceName),
+                        ResourceManager.getInstance().getString(_bundleName,resourceName),
                         parameters
                     )
         }
         
-        protected static function substitute(str:String, ... args):String{
+        protected function substitute(str:String, ... args):String{
             return StringUtil.substitute.apply( null, [str].concat( args ));
-        }
+        }           
     }
 }
