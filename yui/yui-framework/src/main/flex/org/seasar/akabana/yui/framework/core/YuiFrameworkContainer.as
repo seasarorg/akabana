@@ -164,7 +164,7 @@ CONFIG::DEBUG{
             }
                     
 CONFIG::DEBUG{
-            _logger.info(getMessage("ApplicationStart"));            
+            _logger.info(getMessage("ApplicationStart",this));            
 }
             
             application.visible = true;
