@@ -9,32 +9,32 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.service.rpc {
-    
+package org.seasar.akabana.yui.service.rpc.responder {
+
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.ResultEvent;
 
     public class RpcObjectResponder implements RpcResponder {
-        
+
         public var resultFunction:Function;
-        
+
         public var faultFunction:Function;
-        
+
         public function RpcObjectResponder( resultFunction:Function, faultFunction:Function = null){
             this.resultFunction = resultFunction;
             this.faultFunction = faultFunction;
         }
-        
+
         public function onResult( result:ResultEvent ):void{
             resultFunction.call( null, result.result );
             resultFunction = null;
             faultFunction = null;
         }
-        
+
         public function onFault( fault:FaultEvent ):void{
             if( faultFunction != null ){
                 faultFunction.call( null, fault.faultStatus );

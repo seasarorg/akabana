@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -17,12 +17,6 @@ package org.seasar.akabana.yui.service
 {
     public interface PendingCall
     {
-        function addResponder( responder:Object ):void;
-        
-        function addResponceHandler( resultHandler:Function, faultFunction:Function ):void;
-
-        function onResult( result:* ):void;
-        
-        function onStatus( status:* ):void;
+        function setResponder( responder:Object ):void;
     }
 }
