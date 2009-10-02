@@ -49,6 +49,7 @@ package org.seasar.akabana.yui.service.ds {
     import mx.rpc.remoting.mxml.RemoteObject;
 
     import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.ServiceRepository;
     import org.seasar.akabana.yui.service.rpc.remoting.util.GatewayUtil;
 
 
@@ -90,9 +91,8 @@ package org.seasar.akabana.yui.service.ds {
 
         public override function set destination(value:String):void{
             super.destination = value;
-            if( value != null ){
+            if( mx_internal::id == null && value != null ){
                 mx_internal::id = value;
-                initEndpoint();
             }
         }
 
@@ -112,12 +112,13 @@ package org.seasar.akabana.yui.service.ds {
                 parentApplication = Container(document).parentApplication as Application;
             }
             parentApplication.addEventListener(FlexEvent.CREATION_COMPLETE,preinitializeHandler,false,int.MAX_VALUE,true);
+            ServiceRepository.addService( this );
         }
 
         private function preinitializeHandler( event:FlexEvent ):void{
             parentApplication.removeEventListener( FlexEvent.CREATION_COMPLETE, preinitializeHandler, false );
             if( destination == null || destination.length == 0){
-                mx_internal::asyncRequest.destination = mx_internal::id;
+                destination = mx_internal::id;
             }
             initEndpoint();
         }

@@ -9,31 +9,31 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.util {
-    
+
     public class URLUtil {
         private static const SERVER_URL_PATTERN:RegExp = /^http[s]?:\/\/.+?\//;
-        
+
         private static const SWF_DIR_URL_PATTERN:RegExp = /^http[s]?:\/\/.+\//;
-        
+
         private static const HTTP:String = "http";
-        
+
         private static const SLASH:String = "/";
-        
+
         public static function isValidHttpUrl( url:String ):Boolean{
-            return isHttpURL(url) || isHttpsURL(url);
+            return url != null && ( isHttpURL(url) || isHttpsURL(url));
         }
-        
+
         public static function isHttpURL( url:String ):Boolean{
-            return url.indexOf("http://") == 0;
+            return url != null && ( url.indexOf("http://") == 0 );
         }
 
         public static function isHttpsURL( url:String ):Boolean{
-            return url.indexOf("https://") == 0;
+            return url != null && ( url.indexOf("https://") == 0 );
         }
     }
 }
