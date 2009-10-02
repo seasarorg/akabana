@@ -9,14 +9,15 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.service.ds {
-    
+
     import flash.net.registerClassAlias;
-    
+    import flash.utils.flash_proxy;
+
     import mx.core.Application;
     import mx.core.Container;
     import mx.core.mx_internal;
@@ -44,16 +45,21 @@ package org.seasar.akabana.yui.service.ds {
     import mx.messaging.messages.ErrorMessage;
     import mx.messaging.messages.MessagePerformanceInfo;
     import mx.messaging.messages.RemotingMessage;
+    import mx.rpc.AsyncToken;
     import mx.rpc.remoting.mxml.RemoteObject;
-    
+
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.rpc.remoting.util.GatewayUtil;
-    
+
+
+    use namespace flash_proxy;
+    use namespace mx_internal;
+
     public dynamic class RemotingService extends RemoteObject implements Service {
 
-        private static function registerClassesAlias():void{
+        {
             registerClassAlias( "flex.messaging.config.ConfigMap", ConfigMap);
-            
+
             registerClassAlias( "flex.management.jmx.Attribute", Attribute);
             registerClassAlias( "flex.management.jmx.MBeanAttributeInfo", MBeanAttributeInfo);
             registerClassAlias( "flex.management.jmx.MBeanConstructorInfo", MBeanConstructorInfo);
@@ -61,10 +67,10 @@ package org.seasar.akabana.yui.service.ds {
             registerClassAlias( "flex.management.jmx.MBeanInfo", MBeanInfo);
             registerClassAlias( "flex.management.jmx.MBeanOperationInfo", MBeanOperationInfo);
             registerClassAlias( "flex.management.jmx.MBeanParameterInfo", MBeanParameterInfo);
-            
+
             registerClassAlias( "flex.management.jmx.ObjectInstance", ObjectInstance);
             registerClassAlias( "flex.management.jmx.ObjectName", ObjectName);
-            
+
             registerClassAlias( "flex.messaging.messages.AcknowledgeMessage", AcknowledgeMessage);
             registerClassAlias( "DSK", AcknowledgeMessageExt);
             registerClassAlias( "flex.messaging.messages.AsyncMessage", AsyncMessage);
@@ -81,25 +87,25 @@ package org.seasar.akabana.yui.service.ds {
         public function get name():String{
             return destination;
         }
-        
+
         public override function set destination(value:String):void{
             super.destination = value;
-            if( mx_internal::id != null ){
+            if( value != null ){
+                mx_internal::id = value;
                 initEndpoint();
             }
         }
-        
+
         public function RemotingService( id:String = null ){
             if( id != null ){
                 mx_internal::id = destination;
             }
-            registerClassesAlias();            
         }
-        
+
         public override function initialized(document:Object, id:String):void
         {
-            super.initialized(document,id);       
-            
+            super.initialized(document,id);
+
             if( document is Application ){
                 parentApplication = document as Application;
             } else {
@@ -107,15 +113,15 @@ package org.seasar.akabana.yui.service.ds {
             }
             parentApplication.addEventListener(FlexEvent.CREATION_COMPLETE,preinitializeHandler,false,int.MAX_VALUE,true);
         }
-        
+
         private function preinitializeHandler( event:FlexEvent ):void{
-        	parentApplication.removeEventListener( FlexEvent.CREATION_COMPLETE, preinitializeHandler, false ); 
+            parentApplication.removeEventListener( FlexEvent.CREATION_COMPLETE, preinitializeHandler, false );
             if( destination == null || destination.length == 0){
                 mx_internal::asyncRequest.destination = mx_internal::id;
             }
             initEndpoint();
         }
-        
+
         protected function initEndpoint():void{
             endpoint = GatewayUtil.resolveGatewayUrl( destination );
             if (endpoint != null)
@@ -130,6 +136,14 @@ package org.seasar.akabana.yui.service.ds {
                 channelSet = new ChannelSet();
                 channelSet.addChannel(chan);
             }
+        }
+
+        override flash_proxy function callProperty(name:*, ... args:Array):*{
+            var asyncToken:AsyncToken = super.callProperty.apply(null, [name].concat(args));
+            asyncToken.message.destination = destination;
+            var result:RpcPendingCall = new RpcPendingCall(asyncToken.message);
+            result.setInternalAsyncToken(asyncToken);
+            return result;
         }
     }
 }
