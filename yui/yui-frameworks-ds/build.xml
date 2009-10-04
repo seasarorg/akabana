@@ -40,8 +40,7 @@
 
             <include-namespaces uri="http://akabana.seasar.org/yui/mxml/1.0" />
 
-            <namespace uri="http://akabana.seasar.org/yui/mxml/1.0" manifest="${LIB_ROOT}/../yui-ds${FLEX_RESOURCES}/Manifest.xml" />
-            <namespace uri="http://akabana.seasar.org/yui/mxml/1.0" manifest="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/Manifest.xml" />
+            <namespace uri="http://akabana.seasar.org/yui/mxml/1.0" manifest="Manifest.xml" />
 
             <include-file name="locale/ja_JP/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/yui_framework.properties" />
             <include-file name="locale/ja_JP/conventions.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/conventions.properties" />

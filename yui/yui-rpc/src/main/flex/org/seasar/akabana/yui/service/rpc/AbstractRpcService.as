@@ -23,11 +23,12 @@ package org.seasar.akabana.yui.service.rpc {
     
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.error.IllegalDestinationError;
 
     use namespace flash_proxy;
 
-    public dynamic class AbstractRpcService extends Proxy implements RpcService {
+    public dynamic class AbstractRpcService extends Proxy implements Service {
         
         protected static const OBJECT_FUNCTION_MAP:Object = {
             hasOwnProperty:true,
