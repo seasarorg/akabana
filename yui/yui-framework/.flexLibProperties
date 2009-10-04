@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
 <includeClasses>
+<classEntry path="YuiFrameworkClasses"/>
 <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
+<classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainerBase"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkSettings"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.event.FrameworkEvent"/>
 <classEntry path="org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent"/>

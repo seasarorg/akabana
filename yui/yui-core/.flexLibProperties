@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
 <includeClasses>
+<classEntry path="YuiCoreClasses"/>
 <classEntry path="org.seasar.akabana.yui.core.ClassLoader"/>
 <classEntry path="org.seasar.akabana.yui.core.Environment"/>
 <classEntry path="org.seasar.akabana.yui.core.error.ClassNotFoundError"/>

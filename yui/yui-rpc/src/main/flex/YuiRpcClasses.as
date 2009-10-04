@@ -15,34 +15,15 @@
  */
 package
 {
-    import org.seasar.akabana.yui.service.Operation;
-    import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.Responder;
-    import org.seasar.akabana.yui.service.Service;
-    import org.seasar.akabana.yui.service.ServiceRepository;
-    import org.seasar.akabana.yui.service.event.FaultEvent;
-    import org.seasar.akabana.yui.service.event.FaultStatus;
-    import org.seasar.akabana.yui.service.event.ResultEvent;
-    import org.seasar.akabana.yui.service.rpc.RpcService;
-    import org.seasar.akabana.yui.service.rpc.remoting.RemotingConnection;
-    import org.seasar.akabana.yui.service.rpc.remoting.RemotingConnectionFactory;
-    import org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation;
-    import org.seasar.akabana.yui.service.rpc.remoting.RemotingService;
-    import org.seasar.akabana.yui.service.util.GatewayUtil;
+
+    import org.seasar.akabana.yui.service.rpc.RemotingConnection;
+    import org.seasar.akabana.yui.service.rpc.RemotingConnectionFactory;
+    import org.seasar.akabana.yui.service.rpc.RemotingOperation;
+    import org.seasar.akabana.yui.service.rpc.RemotingService;
+    import org.seasar.akabana.yui.service.rpc.RpcPendingCall;
     
     public class YuiRpcClasses
     {
-
-        Service;
-        Operation;
-        PendingCall;
-        Responder;
-        ServiceRepository;
-        FaultEvent;
-        ResultEvent;
-        FaultStatus;
-        
-        RpcService;
         
         RemotingService;
         
@@ -50,7 +31,7 @@ package
         RemotingOperation;
         RemotingConnectionFactory;
         
-        GatewayUtil;
+        RpcPendingCall;
 
     }
 }
