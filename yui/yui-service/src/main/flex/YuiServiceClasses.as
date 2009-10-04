@@ -28,7 +28,7 @@ package
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingConnectionFactory;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingOperation;
     import org.seasar.akabana.yui.service.rpc.remoting.RemotingService;
-    import org.seasar.akabana.yui.service.rpc.remoting.util.GatewayUtil;
+    import org.seasar.akabana.yui.service.util.GatewayUtil;
     
     public class YuiServiceClasses
     {
