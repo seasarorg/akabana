@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.service.ds {
 
     import flash.net.registerClassAlias;
     import flash.utils.flash_proxy;
-
+    
     import mx.core.Application;
     import mx.core.Container;
     import mx.core.mx_internal;
@@ -47,17 +47,22 @@ package org.seasar.akabana.yui.service.ds {
     import mx.messaging.messages.RemotingMessage;
     import mx.rpc.AsyncToken;
     import mx.rpc.remoting.mxml.RemoteObject;
-
+    
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
-    import org.seasar.akabana.yui.service.rpc.remoting.util.GatewayUtil;
+    import org.seasar.akabana.yui.service.util.GatewayUtil;
+    import org.seasar.akabana.yui.util.URLUtil;
 
 
     use namespace flash_proxy;
     use namespace mx_internal;
 
     public dynamic class RemotingService extends RemoteObject implements Service {
-
+            
+        public static const HTTP_AMF_ENDPOINT_NAME:String = "http-amf";
+        
+        public static const HTTPS_AMF_ENDPOINT_NAME:String = "https-amf";
+        
         {
             registerClassAlias( "flex.messaging.config.ConfigMap", ConfigMap);
 
@@ -83,22 +88,21 @@ package org.seasar.akabana.yui.service.ds {
             registerClassAlias( "flex.messaging.messages.RemotingMessage", RemotingMessage);
         }
 
-        private var parentApplication:Application;
+        private var _parentApplication:Application;
+        
+        private var _isInitialzed:Boolean;
 
         public function get name():String{
             return destination;
         }
 
-        public override function set destination(value:String):void{
-            super.destination = value;
-            if( mx_internal::id == null && value != null ){
-                mx_internal::id = value;
-            }
-        }
-
         public function RemotingService( id:String = null ){
             if( id != null ){
-                mx_internal::id = destination;
+                destination = id;
+                initEndpoint();
+                _isInitialzed = true;
+            } else {
+                _isInitialzed = false;
             }
         }
 
@@ -107,39 +111,41 @@ package org.seasar.akabana.yui.service.ds {
             super.initialized(document,id);
 
             if( document is Application ){
-                parentApplication = document as Application;
+                _parentApplication = document as Application;
             } else {
-                parentApplication = Container(document).parentApplication as Application;
+                _parentApplication = Container(document).parentApplication as Application;
             }
-            parentApplication.addEventListener(FlexEvent.CREATION_COMPLETE,preinitializeHandler,false,int.MAX_VALUE,true);
+            _parentApplication.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompleteHandler,false,0,true);
             ServiceRepository.addService( this );
         }
 
-        private function preinitializeHandler( event:FlexEvent ):void{
-            parentApplication.removeEventListener( FlexEvent.CREATION_COMPLETE, preinitializeHandler, false );
+        private function creationCompleteHandler( event:FlexEvent ):void{
+            _parentApplication.removeEventListener( FlexEvent.CREATION_COMPLETE, creationCompleteHandler, false );
+            _parentApplication = null;
             if( destination == null || destination.length == 0){
                 destination = mx_internal::id;
             }
-            initEndpoint();
         }
 
         protected function initEndpoint():void{
             endpoint = GatewayUtil.resolveGatewayUrl( destination );
-            if (endpoint != null)
-            {
-                var chan:Channel;
-                if (endpoint.indexOf("https") == 0)
-                {
-                    chan = new SecureAMFChannel("https-amf", endpoint);
+            if (endpoint != null){
+                var channel:Channel;
+                if (URLUtil.isHttpsURL(endpoint)){
+                    channel = new SecureAMFChannel(HTTPS_AMF_ENDPOINT_NAME, endpoint);
                 } else {
-                    chan = new AMFChannel("http-amf", endpoint);
+                    channel = new AMFChannel(HTTP_AMF_ENDPOINT_NAME, endpoint);
                 }
                 channelSet = new ChannelSet();
-                channelSet.addChannel(chan);
+                channelSet.addChannel(channel);
             }
         }
 
-        override flash_proxy function callProperty(name:*, ... args:Array):*{
+        flash_proxy override function callProperty(name:*, ... args:Array):*{
+            if( !_isInitialzed ){
+                _isInitialzed = true;
+                initEndpoint();                
+            }
             var asyncToken:AsyncToken = super.callProperty.apply(null, [name].concat(args));
             asyncToken.message.destination = destination;
             var result:RpcPendingCall = new RpcPendingCall(asyncToken.message);

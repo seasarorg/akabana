@@ -33,8 +33,6 @@ package org.seasar.akabana.yui.framework.core
 
         protected static const ROOT_VIEW:String = "rootView";
 
-        protected static const _logger:Logger = Logger.getLogger(YuiFrameworkContainerBase);
-
         {
             CursorManager;
             PopUpManager;

@@ -16,7 +16,7 @@
 package org.seasar.akabana.yui.framework.core
 {
     import flash.events.Event;
-
+    
     import mx.core.Application;
     import mx.core.Container;
     import mx.core.UIComponent;
@@ -24,7 +24,7 @@ package org.seasar.akabana.yui.framework.core
     import mx.events.FlexEvent;
     import mx.managers.ISystemManager;
     import mx.resources.ResourceManager;
-
+    
     import org.seasar.akabana.yui.core.Environment;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.yui_internal;
@@ -33,10 +33,13 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
     import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
+    import org.seasar.akabana.yui.logging.Logger;
 
     public class YuiFrameworkContainer extends YuiFrameworkContainerBase
     {
 
+        private static const _logger:Logger = Logger.getLogger(YuiFrameworkContainer);
+        
         protected static var _container:YuiFrameworkContainer;
 
         public static function get yuicontainer():YuiFrameworkContainer{
