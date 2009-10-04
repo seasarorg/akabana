@@ -28,6 +28,7 @@
         	incremental="false"
             debug="${LIB_DEBUG_MODE}"
         	optimize="${LIB_OPTIMIZE}"
+        	target-player="10"
     	>
     		<define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}"/>
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
