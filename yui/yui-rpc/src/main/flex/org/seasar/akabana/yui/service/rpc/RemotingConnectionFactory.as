@@ -33,7 +33,7 @@ package org.seasar.akabana.yui.service.rpc {
                 gatewayUrl = GatewayUtil.resolveGatewayUrl( destination );            
             }
 CONFIG::DEBUG{
-            _logger.debug( "service gateway is " + gatewayUrl);
+            _logger.debug( destination + " service gateway is " + gatewayUrl);
 }
             if( gatewayUrl == null ){
                 throw new IllegalGatewayError(gatewayUrl);
