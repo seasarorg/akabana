@@ -48,7 +48,7 @@ package org.seasar.akabana.yui.service.rpc {
         public var showBusyCursor:Boolean;
 
         public function get remotingService():RemotingService{
-            return service_ as RemotingService;
+            return _service as RemotingService;
         }
 
         internal var credentialsUsername:String;
@@ -91,7 +91,7 @@ package org.seasar.akabana.yui.service.rpc {
                     ioErrorEvent.toString()
                     );
             }
-            service_.dispatchEvent(faultEvent);
+            _service.dispatchEvent(faultEvent);
         }
 
         private function createServiceInvokeArgs( serviceOperationName:String, operationArgs:Array, pendingCall:PendingCall ):Array{
@@ -127,7 +127,7 @@ package org.seasar.akabana.yui.service.rpc {
         }
 
         protected override function doInvoke( operationArgs:Array ):PendingCall{
-            var serviceOperationName:String =service_.destination +"." +_name;
+            var serviceOperationName:String = _service.destination + "." +_name;
 
             var pendingCall:PendingCall = new RpcPendingCall(this);
             var invokeArgs:Array = createServiceInvokeArgs( serviceOperationName, operationArgs, pendingCall );
@@ -148,7 +148,7 @@ package org.seasar.akabana.yui.service.rpc {
             }
 
             if( remotingConnection == null ){
-                remotingConnection = RemotingConnectionFactory.createConnection( remotingService.gatewayUrl, _name );
+                remotingConnection = RemotingConnectionFactory.createConnection( remotingService.gatewayUrl, _service.name );
                 configureListeners( remotingConnection );
             }
 

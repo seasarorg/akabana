@@ -39,7 +39,7 @@ CONFIG::DEBUG{
                 throw new IllegalGatewayError(gatewayUrl);
             }
             var connection:RemotingConnection = gatewayUrlToRc[ gatewayUrl ];
-            if( connection == null ){            
+            if( connection == null ){
                 connection = new RemotingConnection();
     			connection.objectEncoding = ObjectEncoding.AMF3;
     			

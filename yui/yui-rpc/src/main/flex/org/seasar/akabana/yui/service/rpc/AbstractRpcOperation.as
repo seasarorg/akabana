@@ -26,16 +26,16 @@ package org.seasar.akabana.yui.service.rpc {
 
         protected var _name:String;
 
-        protected var service_:AbstractRpcService;
+        protected var _service:AbstractRpcService;
 
         public function AbstractRpcOperation( service:AbstractRpcService, name:String ){
             super();
-            service_ = service;
+            _service = service;
             _name = name;
         }
 
         public function get service():AbstractRpcService{
-            return service_;
+            return _service;
         }
 
         public function get name():String{
@@ -61,9 +61,9 @@ package org.seasar.akabana.yui.service.rpc {
         protected function dispatchInvokeEvent( pendingCall:PendingCall ):void{
             var event:InvokeEvent = new InvokeEvent();
             event.pendigCall = pendingCall;
-            event.service = service_;
+            event.service = _service;
             event.operation = this;
-            service_.dispatchEvent( event );
+            _service.dispatchEvent( event );
         }
     }
 }
