@@ -16,6 +16,7 @@
 package org.seasar.akabana.yui.framework.core
 {
     import flash.events.Event;
+    import flash.system.Capabilities;
     
     import mx.core.Application;
     import mx.core.Container;
@@ -102,6 +103,7 @@ package org.seasar.akabana.yui.framework.core
             trace("Copyright 2004-2009 the Seasar Foundation and the Others.");
 
 CONFIG::DEBUG{
+            trace("FlashPlayer " + Capabilities.version);
             trace("yui-frameworks-"+VERSION);
             _logger.debug(getMessage("ApplicationConventions",namingConvention.conventions.toString()));
 }
