@@ -14,12 +14,12 @@
     </mx:states>
     <mx:transitions>
         <mx:Transition>
-            <mx:Fade id="fadeOut" target="{showHelloWorld}" alphaFrom="1" alphaTo="0"/>
+            <mx:Fade id="fadeOut" target="{showHelloWorld}" alphaFrom="1" alphaTo="0" duration="1000"/>
         </mx:Transition>
     </mx:transitions>
     <mx:Validator id="inputDataValidator" required="true" source="{inputData}" property="text"/>
 
-    <ui:MyPanel>
+    <ui:MyPanel id="panel">
         <mx:TextInput id="inputText" restrict="0-9"/>
         <mx:TextInput id="inputData" />    
         <mx:Button label="はろーわーるどを表示する" id="showHelloWorld" height="242" width="402"/>
@@ -30,5 +30,6 @@
             <mx:Button id="controlButton"/>
         </mx:ControlBar>        
     </ui:MyPanel>
+    <mx:Button id="remove" label="削除"/>
     
 </mx:VBox>

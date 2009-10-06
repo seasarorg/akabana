@@ -31,11 +31,11 @@ package examples.yui.helloworld.action
         	trace(">",event.stackTrace);
         }        
         
-        public function radiogroup1ChangeHandler( event:Event ):void{
+        public function radiogroup1ChangeHandler():void{
         	throw new IllegalOperationError("aaaa");
         }
         
-        public function showHelloWorldClickHandler( event:MouseEvent ):void{
+        public function showHelloWorldClickHandler():void{
             var re:Array = Validator.validateAll(validator.source);
             if( re.length == 0 ){
                 if( isFirst ){
@@ -65,6 +65,10 @@ package examples.yui.helloworld.action
         
         public function controlButtonClickHandler( event:MouseEvent ):void{
             trace(event);
+        }
+        
+        public function removeClickHandler():void{
+            helloWorldHelper.removePanel();
         }
     }
 }

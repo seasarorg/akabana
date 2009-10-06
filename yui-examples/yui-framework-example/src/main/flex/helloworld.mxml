@@ -2,7 +2,7 @@
 <mx:Application
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:akabana="http://akabana.seasar.org/yui/mxml/1.0"
-    layout="absolute"
+    layout="vertical"
 	xmlns:view="examples.yui.helloworld.view.*"
 	show="trace('onShow',event)"
     hide="trace('onHide',event)"
@@ -21,4 +21,5 @@
     <akabana:YuiFrameworkSettings/>
     
     <view:HelloWorldView id="rootView"/>
+    <mx:Button label="rootView削除" click="this.removeChild(rootView)"/>
 </mx:Application>

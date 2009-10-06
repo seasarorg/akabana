@@ -22,5 +22,9 @@ package examples.yui.helloworld.helper
             view.showHelloWorld.enabled = false;
             view.showHelloWorld.label = "";
         }
+        
+        public function removePanel():void{
+            view.removeChild(view.panel);
+        }
     }
 }
