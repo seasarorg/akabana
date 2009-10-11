@@ -17,15 +17,15 @@ package org.seasar.akabana.yui.framework.core
 {
     import flash.events.TimerEvent;
     import flash.utils.Timer;
-
+    
     import mx.managers.CursorManager;
     import mx.managers.DragManager;
     import mx.managers.PopUpManager;
     import mx.styles.CSSStyleDeclaration;
     import mx.styles.StyleManager;
-
+    
+    import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.message.MessageManager;
-    import org.seasar.akabana.yui.logging.Logger;
 
     internal class YuiFrameworkContainerBase
     {
@@ -56,7 +56,7 @@ package org.seasar.akabana.yui.framework.core
         }
 
         public function getMessage(resourceName:String,...parameters):String{
-            return MessageManager.yuiframework.getMessage.apply(null,[resourceName].concat(parameters));
+            return MessageManager.yui_internal::yuiframework.getMessage.apply(null,[resourceName].concat(parameters));
         }
 
 

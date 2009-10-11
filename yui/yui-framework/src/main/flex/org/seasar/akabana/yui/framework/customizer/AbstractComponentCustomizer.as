@@ -19,6 +19,7 @@ package org.seasar.akabana.yui.framework.customizer
     
     import mx.core.Container;
     
+    import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.message.MessageManager;
     
@@ -43,7 +44,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         public function getMessage(resourceName:String,...parameters):String{
-            return MessageManager.yuiframework.getMessage.apply(null,[resourceName].concat(parameters)); 
+            return MessageManager.yui_internal::yuiframework.getMessage.apply(null,[resourceName].concat(parameters)); 
         }
 
     }
