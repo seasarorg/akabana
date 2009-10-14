@@ -137,7 +137,9 @@ package org.seasar.akabana.yui.service.rpc {
 
             rc.call.apply(rc,invokeArgs);
 
-            invokeCallBack.apply(null,[serviceOperationName,operationArgs]);
+            if( invokeCallBack != null ){
+                invokeCallBack.apply(null,[serviceOperationName,operationArgs]);
+            }
 
             return pendingCall;
         }
