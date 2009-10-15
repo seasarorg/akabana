@@ -100,11 +100,11 @@ package org.seasar.akabana.yui.framework.core
         }
 
         public function initialize():void{
+            trace("yui-frameworks-"+VERSION);
             trace("Copyright 2004-2009 the Seasar Foundation and the Others.");
 
 CONFIG::DEBUG{
-            trace("FlashPlayer " + Capabilities.version);
-            trace("yui-frameworks-"+VERSION);
+            trace("using FlashPlayer " + Capabilities.version);
             _logger.debug(getMessage("ApplicationConventions",namingConvention.conventions.toString()));
 }
             if( customizers == null ){
