@@ -279,6 +279,9 @@ CONFIG::DEBUG{
         }
 
         protected function processAssembleView( viewName:String, container:Container ):void{
+CONFIG::DEBUG{
+            _logger.debug(container + " as " + viewName);
+}
             if( container.descriptor == null ){
                 container.descriptor = new UIComponentDescriptor({});
             }

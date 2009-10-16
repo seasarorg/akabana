@@ -132,26 +132,15 @@ package org.seasar.akabana.yui.framework.mixin
 		                    false
 		                ); 
                 }                
-                systemManager_
-	                .removeEventListener(
-	                    Event.ADDED_TO_STAGE,
-	                    _this.addedToStageHandler,
-	                    true
-	                );
-                systemManager_
-	                .addEventListener(
-	                    Event.ADDED,
-	                    _this.addedHandler,
-	                    true,
-	                    int.MAX_VALUE
-	                );
+
                 systemManager_
 	                .addEventListener(
 	                    Event.REMOVED_FROM_STAGE,
 	                    _this.removedHandler,
 	                    true,
 	                    int.MAX_VALUE
-	                );                  
+	                );
+
                 if( !initialized ){
                     initialized = true;
                     _container.initialize();
