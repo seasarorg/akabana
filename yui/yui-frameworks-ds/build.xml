@@ -47,12 +47,16 @@
             <include-file name="locale/ja_JP/log4yui.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/log4yui.properties" />
             <include-file name="locale/ja_JP/application.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/application.properties" />
             <include-file name="locale/ja_JP/messages.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/messages.properties" />
+            <include-file name="locale/ja_JP/errors.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/errors.properties" />
+
             <include-file name="locale/en_US/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/yui_framework.properties" />
             <include-file name="locale/en_US/conventions.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/conventions.properties" />
             <include-file name="locale/en_US/log4yui.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/log4yui.properties" />
             <include-file name="locale/en_US/application.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/log4yui.properties" />
             <include-file name="locale/en_US/messages.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/log4yui.properties" />
-            <include-file name="defaults.css" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/defaults.css" />
+            <include-file name="locale/en_US/errors.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/errors.properties" />
+
+        	<include-file name="defaults.css" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/defaults.css" /> 
 
             <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
                 <include name="libs" />
