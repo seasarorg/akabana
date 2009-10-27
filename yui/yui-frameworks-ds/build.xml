@@ -94,10 +94,11 @@
                 <exclude name="**/build.properties"/>
                 <exclude name="**/flex3.properties"/>
             </zipfileset>
-            <zipfileset prefix="${LIB_NAME}" dir="../mx-wrappers/">
+        	
+            <zipfileset prefix="${LIB_NAME}" dir="../yui-core/">
                 <include name="**/*.as" />
             </zipfileset>
-            <zipfileset prefix="${LIB_NAME}" dir="../yui-core/">
+            <zipfileset prefix="${LIB_NAME}" dir="../yui-framework/">
                 <include name="**/*.as" />
             </zipfileset>
             <zipfileset prefix="${LIB_NAME}" dir="../yui-logging/">
@@ -107,6 +108,10 @@
                 <include name="**/*.as" />
             </zipfileset>
             <zipfileset prefix="${LIB_NAME}" dir="../yui-framework/">
+                <include name="**/*.as" />
+                <include name="**/*.properties" />
+            </zipfileset>
+            <zipfileset prefix="${LIB_NAME}" dir="../yui-ds/">
                 <include name="**/*.as" />
             </zipfileset>
             <zipfileset prefix="${LIB_NAME}/target/swc" dir="target/swc">
