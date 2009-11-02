@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.seasar.akabana.eclipse.feature_0.0.3.1.jar" id="org.seasar.akabana.eclipse.feature" version="0.0.3.1">
+      <category name="marguerite"/>
+   </feature>
+   <category-def name="marguerite" label="marguerite plugin">
+      <description>
+         Flash Flex AS project Creator
+      </description>
+   </category-def>
+</site>

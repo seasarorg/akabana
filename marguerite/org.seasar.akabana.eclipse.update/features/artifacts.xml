@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository class='org.eclipse.equinox.internal.p2.artifact.repository.simple.SimpleArtifactRepository' version='1.0.0'?>
+<repository name='file:/C:/dev/workspace/org.seasar.akabana.eclipse.update/ - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1.0.0'>
+  <properties size='2'>
+    <property name='p2.compressed' value='false'/>
+    <property name='p2.timestamp' value='1252630713531'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='9'>
+    <artifact classifier='osgi.bundle' id='org.seasar.akabana.eclipse.fleclipse.projects' version='0.0.3'>
+      <properties size='3'>
+        <property name='artifact.size' value='9811956'/>
+        <property name='download.size' value='9811956'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.seasar.akabana.eclipse.fleclipse.projects' version='0.0.2'>
+      <properties size='3'>
+        <property name='artifact.size' value='9805407'/>
+        <property name='download.size' value='9805407'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.seasar.akabana.eclipse.feature' version='0.0.3.1'>
+      <properties size='2'>
+        <property name='artifact.size' value='2185'/>
+        <property name='download.size' value='2185'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.seasar.akabana.eclipse.fleclipse.projects' version='0.0.2'>
+      <properties size='3'>
+        <property name='artifact.size' value='9806275'/>
+        <property name='download.size' value='9806275'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.seasar.akabana.eclipse.fleclipse.projects' version='0.0.2'>
+      <properties size='3'>
+        <property name='artifact.size' value='9806276'/>
+        <property name='download.size' value='9806276'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.seasar.akabana.eclipse.fleclipse.projects' version='0.0.2'>
+      <properties size='3'>
+        <property name='artifact.size' value='9805408'/>
+        <property name='download.size' value='9805408'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.seasar.akabana.eclipse.feature' version='0.0.3'>
+      <properties size='2'>
+        <property name='artifact.size' value='2184'/>
+        <property name='download.size' value='2184'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.seasar.akabana.eclipse.fleclipse.projects' version='0.0.2'>
+      <properties size='3'>
+        <property name='artifact.size' value='9772230'/>
+        <property name='download.size' value='9772230'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.seasar.akabana.eclipse.fleclipse.projects' version='0.0.2'>
+      <properties size='3'>
+        <property name='artifact.size' value='9806277'/>
+        <property name='download.size' value='9806277'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>
