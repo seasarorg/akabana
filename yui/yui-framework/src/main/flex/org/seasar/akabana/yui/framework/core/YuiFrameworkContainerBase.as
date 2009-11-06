@@ -106,7 +106,7 @@ CONFIG::DEBUG{
                 result.push( customizersDef.getStyle(className));
             }
 CONFIG::DEBUG{
-            _logger.info("default customizers is "+result);
+            _logger.debug("default customizers is "+result);
 }            
             return result;
         }
