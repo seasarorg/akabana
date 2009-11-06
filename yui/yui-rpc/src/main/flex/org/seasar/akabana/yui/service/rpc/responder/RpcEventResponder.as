@@ -18,29 +18,18 @@ package org.seasar.akabana.yui.service.rpc.responder {
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.ResultEvent;
 
-    public class RpcEventResponder implements RpcResponder {
+    public class RpcEventResponder extends AbstractRpcEventResponder {
 
-        public var resultFunction:Function;
-
-        public var faultFunction:Function;
-
-        public function RpcEventResponder( resultFunction:Function, faultFunction:Function = null){
-            this.resultFunction = resultFunction;
-            this.faultFunction = faultFunction;
+        public function RpcEventResponder( resultFunction:Function, faultFunction:Function = null){         
+            super(resultFunction,faultFunction);
         }
 
-        public function onResult( result:ResultEvent ):void{
-            resultFunction.call( null, result );
-            resultFunction = null;
-            faultFunction = null;
+        public override function onResult( result:ResultEvent ):void{
+            callResultFunction(result);
         }
 
-        public function onFault( fault:FaultEvent ):void{
-            if( faultFunction != null ){
-                faultFunction.call( null, fault );
-            }
-            resultFunction = null;
-            faultFunction = null;
+        public override function onFault( fault:FaultEvent ):void{
+            callFaultFunction(fault);
         }
     }
 }

@@ -15,6 +15,7 @@
  */
 package
 {
+    import org.seasar.akabana.yui.service.AbstractResponder;
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Responder;
@@ -36,6 +37,7 @@ package
         FaultEvent;
         ResultEvent;
         FaultStatus;
+        AbstractResponder;
         
         GatewayUtil;
 
