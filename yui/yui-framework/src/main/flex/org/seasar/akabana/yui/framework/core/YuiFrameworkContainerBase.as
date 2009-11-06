@@ -93,7 +93,7 @@ CONFIG::DEBUG{
         
         protected function addSystemManager(systemManager:ISystemManager):void{
 CONFIG::DEBUG{
-            _logger.info("add systemManager"+systemManager);
+            _logger.debug("add systemManager"+systemManager);
 }              
             _systemManagers.push(systemManager);
         }

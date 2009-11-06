@@ -71,7 +71,7 @@ package org.seasar.akabana.yui.framework.core
         
         public override function addExternalSystemManager(systemManager:ISystemManager ):void{
 CONFIG::DEBUG{
-            _logger.info("add external systemManager"+systemManager);
+            _logger.debug("add external systemManager"+systemManager);
 }            
             systemManager
                 .addEventListener(
@@ -93,12 +93,18 @@ CONFIG::DEBUG{
         }
         
         public override function customizeComponent( container:Container, owner:Container=null):void{
+CONFIG::DEBUG{
+            _logger.debug("customizeComponent:"+container+",owner:"+owner);
+} 
             for each( var customizer_:IComponentCustomizer in customizers ){
                 customizer_.customize( container, owner);
             }
         }
 
         public override function uncustomizeComponent( container:Container, owner:Container=null):void{
+CONFIG::DEBUG{
+            _logger.debug("uncustomizeComponent:"+container+",owner:"+owner);
+} 
             var numCustomizers:int = customizers.length;
             for( var i:int = numCustomizers-1; i >= 0; i-- ){
                 var customizer_:IComponentCustomizer = customizers[i] as IComponentCustomizer;
@@ -107,6 +113,9 @@ CONFIG::DEBUG{
         }
         
         private function applicationCompleteHandler( event:FlexEvent ):void{
+CONFIG::DEBUG{
+            _logger.debug("applicationCompleteHandler:"+event+","+event.target);
+} 
             var systemManager_:ISystemManager = event.currentTarget as ISystemManager;
 
             systemManager_
