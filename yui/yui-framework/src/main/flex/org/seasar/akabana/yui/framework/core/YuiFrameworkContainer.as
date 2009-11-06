@@ -198,7 +198,11 @@ CONFIG::DEBUG{
             trace("Copyright 2004-2009 the Seasar Foundation and the Others.");
 
 CONFIG::DEBUG{
-            trace("using FlashPlayer " + Capabilities.version);
+            if( Capabilities.isDebugger ){
+                trace("using Flash Debug Player " + Capabilities.version);
+            } else {
+                trace("using Flash Player " + Capabilities.version);
+            }
             _logger.debug(getMessage("ApplicationConventions",namingConvention.conventions.toString()));
 }
             if( customizers == null ){
