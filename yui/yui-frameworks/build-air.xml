@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="yui-frameworks" basedir="." default="rsl">
+<project name="yui-frameworks-air" basedir="." default="rsl">
 	<property file="build.properties"/>
     <property file="flex3.properties"/>
 	
@@ -20,8 +20,21 @@
     <target name="setup" depends="clean">
         <mkdir dir="${LIB_PUBLISH_DIR}"/>
     </target>
+	
+    <target name="manifest">
+		<concat destfile = "${LIB_PUBLISH_DIR}/Manifest.xml" fixlastline = "yes" >
+			<filelist dir = ".">
+				<file name="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/Manifest.xml"/>
+				<file name="${LIB_ROOT}/../yui-air${FLEX_RESOURCES}/Manifest.xml"/>
+			</filelist>
+		</concat>
+    	<replaceregexp file="${LIB_PUBLISH_DIR}/Manifest.xml" replace="" flags="gs" byline="false">
+    		<regexp pattern="${line.separator}&lt;/componentPackage&gt;.*?&lt;componentPackage&gt;"/>
+    	</replaceregexp>
+    	<echo message="Create New Manifest is ${LIB_PUBLISH_DIR}/Manifest.xml "/>
+    </target>
             
-    <target name="compile" depends="setup">
+    <target name="compile" depends="setup,manifest">
         <compc 
             output="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}"
             include-classes="${LIB_CLASSES}"
@@ -39,10 +52,15 @@
     		<source-path path-element="${LIB_ROOT}/../yui-logging${FLEX_SRC}"/>
         	<source-path path-element="${LIB_ROOT}/../yui-service${FLEX_SRC}"/>
             <source-path path-element="${LIB_ROOT}/../yui-rpc${FLEX_SRC}"/>
+            <source-path path-element="${LIB_ROOT}/../yui-air${FLEX_SRC}"/>
 
             <include-namespaces uri="http://akabana.seasar.org/yui/mxml/1.0" /> 
             
-        	<namespace uri="http://akabana.seasar.org/yui/mxml/1.0" manifest="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/Manifest.xml" /> 
+            <library-path dir="${FLEX_FRAMEWORK}/libs" append="true">
+				<include name="air"/>   
+            </library-path>
+            
+        	<namespace uri="http://akabana.seasar.org/yui/mxml/1.0" manifest="${LIB_PUBLISH_DIR}/Manifest.xml" /> 
             
         	<include-file name="locale/ja_JP/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/yui_framework.properties" /> 
             <include-file name="locale/ja_JP/conventions.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/conventions.properties" /> 
@@ -62,6 +80,9 @@
                     	
         	<external-library-path dir="${FLEX_FRAMEWORK}" append="true">
                 <include name="libs" />
+            </external-library-path>
+            <external-library-path dir="${FLEX_FRAMEWORK}/libs" append="true">
+				<include name="air"/>   
             </external-library-path>
         </compc>
     </target>
