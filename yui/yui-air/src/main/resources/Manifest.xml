@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<componentPackage>
+    <component id="Window" class="org.seasar.akabana.yui.air.core.Window"/>
+</componentPackage>

@@ -1,4 +1,4 @@
-package org.seasar.akabana.yui.air
+package org.seasar.akabana.yui.air.core
 {
     import flash.events.Event;
     
