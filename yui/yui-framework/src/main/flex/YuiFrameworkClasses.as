@@ -51,7 +51,7 @@ package
             RuntimeErrorEvent;
             
             YuiFrameworkSettings;
-            YuiFrameworkMixin;        
+            YuiFrameworkMixin;      
             YuiFrameworkContainer;
             
             MessageManager;

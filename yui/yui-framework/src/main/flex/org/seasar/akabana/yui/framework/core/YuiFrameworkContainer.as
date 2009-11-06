@@ -33,60 +33,29 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
-    import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
-    import org.seasar.akabana.yui.logging.Logger;
 
-    public class YuiFrameworkContainer extends YuiFrameworkContainerBase
+    public final class YuiFrameworkContainer extends YuiFrameworkContainerBase
     {
 
-        private static const _logger:Logger = Logger.getLogger(YuiFrameworkContainer);
-        
-        protected static var _container:YuiFrameworkContainer;
+        protected static var _container:IYuiFrameworkContainer;
 
-        public static function get yuicontainer():YuiFrameworkContainer{
+        public static function get yuicontainer():IYuiFrameworkContainer{
             return _container;
         }
-
-        protected var _customizers:Array;
 
         public function get customizers():Array{
             return _customizers;
         }
 
-        protected var _isApplicationStarted:Boolean = true;
-
-        protected var _systemManager:ISystemManager;
-
-        public function get systemManager():ISystemManager{
-            return _systemManager;
-        }
-
-        public function set systemManager( value:ISystemManager ):void{
-            _systemManager = value;
-        }
-
-        protected var _application:Application;
-
         public function get application():Application{
             return _application;
         }
-
-        public function set application( value:Application ):void{
-            _application = value;
-            Environment.yui_internal::root = _application;
-            Environment.yui_internal::parameters = _application.parameters;
-            applicationMonitoringStart();
-
-            initNamingConvention();
-        }
-
-        private var _namingConvention:NamingConvention;
 
         public function get namingConvention():NamingConvention{
             return _namingConvention;
         }
 
-        public function set namingConvention( value:NamingConvention ):void{
+        yui_internal function set namingConvention( value:NamingConvention ):void{
             _namingConvention = value;
         }
 
@@ -94,12 +63,128 @@ package org.seasar.akabana.yui.framework.core
             super();
             if( _container == null ){
                 _container = this;
+                _systemManagers = [];
             } else {
                 throw new YuiFrameworkContainerError("container is already created.");
             }
         }
+        
+        public override function addExternalSystemManager(systemManager:ISystemManager ):void{
+CONFIG::DEBUG{
+            _logger.info("add external systemManager"+systemManager);
+}            
+            systemManager
+                .addEventListener(
+                    FlexEvent.CREATION_COMPLETE,
+                    creationCompleteHandler,
+                    true,
+                    int.MAX_VALUE
+                    );
 
-        public function initialize():void{
+            systemManager
+                .addEventListener(
+                    FlexEvent.REMOVE,
+                    removeCompleteHandler,
+                    true,
+                    int.MAX_VALUE
+                );
+                
+            addSystemManager(systemManager);
+        }
+        
+        public override function customizeComponent( container:Container, owner:Container=null):void{
+            for each( var customizer_:IComponentCustomizer in customizers ){
+                customizer_.customize( container, owner);
+            }
+        }
+
+        public override function uncustomizeComponent( container:Container, owner:Container=null):void{
+            var numCustomizers:int = customizers.length;
+            for( var i:int = numCustomizers-1; i >= 0; i-- ){
+                var customizer_:IComponentCustomizer = customizers[i] as IComponentCustomizer;
+                customizer_.uncustomize( container, owner);
+            }
+        }
+        
+        private function applicationCompleteHandler( event:FlexEvent ):void{
+            var systemManager_:ISystemManager = event.currentTarget as ISystemManager;
+
+            systemManager_
+            	.removeEventListener(
+                    FlexEvent.APPLICATION_COMPLETE,
+                    applicationCompleteHandler,
+                    false
+                ); 
+           
+            systemManager_
+                .addEventListener(
+                    Event.REMOVED_FROM_STAGE,
+                    removedHandler,
+                    true,
+                    int.MAX_VALUE
+                );
+
+            initialize();
+        }
+        
+        private function addedToStageHandler( event:Event ):void{
+CONFIG::DEBUG_EVENT{
+            _logger.info("addedToStageHandler"+event+","+event.target);
+}            
+            if( event.target is UIComponent ){
+                doRegisterComponent(event.target as UIComponent);
+            }
+        }
+
+        private function addedHandler( event:Event ):void{
+CONFIG::DEBUG_EVENT{
+            _logger.info("addedToStageHandler"+event+","+event.target);
+} 
+            if( event.target is UIComponent ){
+                doRegisterComponent(event.target as UIComponent);
+            }
+        }
+
+        private function removedHandler( event:Event ):void{
+CONFIG::DEBUG_EVENT{
+            _logger.info("removedHandler"+event+","+event.target);
+} 
+            if( event.target is UIComponent ){
+                doUnregisterComponent(event.target as UIComponent);
+            }
+        }
+
+        private function creationCompleteHandler(event:Event):void{
+            doAssembleComponent(event.target as UIComponent);
+        }
+
+        private function removeCompleteHandler(event:Event):void{
+            doUnregisterComponent(event.target as UIComponent);
+        }
+
+        yui_internal function monitoringSystemManager( systemManager:ISystemManager ):void{
+CONFIG::DEBUG{
+            _logger.info("monitoring..."+systemManager);
+}  
+            systemManager
+                .addEventListener(
+                    Event.ADDED_TO_STAGE,
+                    addedToStageHandler,
+                    true,
+                    int.MAX_VALUE
+                );
+            systemManager
+                .addEventListener(
+                    FlexEvent.APPLICATION_COMPLETE,
+                    applicationCompleteHandler,
+                    false,
+                    int.MAX_VALUE
+                );    
+                
+            addSystemManager(systemManager);
+        }
+
+        protected function initialize():void{
             trace("yui-frameworks-"+VERSION);
             trace("Copyright 2004-2009 the Seasar Foundation and the Others.");
 
@@ -134,30 +219,8 @@ CONFIG::DEBUG{
             _isApplicationStarted = true;
             callLater( callApplicationStart );
         }
-
-        public function registerComponent( component:UIComponent ):void{
-            doRegisterComponent(component);
-        }
-
-        public function unregisterComponent( component:UIComponent ):void{
-            doUnregisterComponent(component);
-        }
-
-        public function customizeComponent( container:Container, owner:Container=null):void{
-            for each( var customizer_:IComponentCustomizer in customizers ){
-                customizer_.customize( container, owner);
-            }
-        }
-
-        public function uncustomizeComponent( container:Container, owner:Container=null):void{
-            var numCustomizers:int = customizers.length;
-            for( var i:int = numCustomizers-1; i >= 0; i-- ){
-                var customizer_:IComponentCustomizer = customizers[i] as IComponentCustomizer;
-                customizer_.uncustomize( container, owner);
-            }
-        }
-
-        private function callApplicationStart():void{
+        
+        protected function callApplicationStart():void{
             var rootView:UIComponent = application.getChildByName(ROOT_VIEW) as UIComponent;
             if( rootView == null ){
                 if( application.numChildren > 0 ){
@@ -178,15 +241,7 @@ CONFIG::DEBUG{
                 rootView.visible = true;
             }
         }
-
-        private function creationCompleteHandler(event:Event):void{
-            doAssembleComponent(event.target as UIComponent);
-        }
-
-        private function removeCompleteHandler(event:Event):void{
-            doUnregisterComponent(event.target as UIComponent);
-        }
-
+        
         protected function isViewComponent( component:Object ):Boolean{
             if( component == null){
                 return false;
@@ -214,22 +269,6 @@ CONFIG::DEBUG{
             }
         }
 
-        protected function processRegisterComponent(component:Container):void{
-            do{
-                if( component is Application ){
-                    application = component as Application;
-                    application.setVisible(false,true);
-CONFIG::DEBUG{
-                    _logger.debug(getMessage("ApplicationRegistered",component.toString()));
-}
-                    break;
-                }
-
-                processRegisterView( component );
-
-            } while( false );
-        }
-
         protected function doUnregisterComponent(component:Object):void{
 
             if( isViewComponent(component)){
@@ -243,6 +282,26 @@ CONFIG::DEBUG{
 
                 } while( false );
             }
+        }
+
+        protected function processRegisterComponent(component:Container):void{
+            do{
+                if( component is Application ){     
+                    _application = component as Application;
+CONFIG::DEBUG{
+                    _logger.debug(getMessage("ApplicationRegistered",component.toString()));
+}
+                    _application.setVisible(false,true);          
+                    Environment.yui_internal::root = _application;
+                    Environment.yui_internal::parameters = _application.parameters;
+                    initNamingConvention();
+                    applicationMonitoringStart();
+                    break;
+                }
+
+                processRegisterView( component );
+
+            } while( false );
         }
 
         protected function processRegisterView( container:Container ):void{
@@ -296,8 +355,8 @@ CONFIG::DEBUG{
         }
 
         protected function applicationMonitoringStart():void{
-            var systemManager_:ISystemManager = SystemManagerUtil.getRootSystemManager( _systemManager );
-            if( application != null ){
+            var systemManager_:ISystemManager = _application.systemManager as ISystemManager;
+            if( _application != null ){
                 systemManager_
                     .removeEventListener(
                         FlexEvent.CREATION_COMPLETE,
@@ -331,10 +390,10 @@ CONFIG::DEBUG{
         }
 
         protected function initNamingConvention():void{
-            if( namingConvention == null ){
-                namingConvention = new NamingConvention();
-                namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");
-             }
+            if( _namingConvention == null ){
+                _namingConvention = new NamingConvention();
+                _namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");
+            }
         }
 
         protected function getDefaultCustomizers():Array{
