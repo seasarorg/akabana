@@ -31,6 +31,7 @@
             target-player="10"
         >
             <define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}"/>
+    		<define name="CONFIG::DEBUG_EVENT" value="false"/>
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
             <source-path path-element="${LIB_ROOT}/../yui-core${FLEX_SRC}"/>
             <source-path path-element="${LIB_ROOT}/../yui-framework${FLEX_SRC}"/>
