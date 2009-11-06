@@ -100,6 +100,7 @@
 			</zipfileset>
 			<zipfileset prefix="${LIB_NAME}" dir="../yui-framework/">
 				<include name="**/*.as" />
+				<include name="**/*.properties" />
 			</zipfileset>
 			<zipfileset prefix="${LIB_NAME}" dir="../yui-logging/">
 				<include name="**/*.as" />
