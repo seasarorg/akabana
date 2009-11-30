@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="yui-frameworks" basedir="." default="rsl">
+<project name="yui-frameworks-ds" basedir="." default="rsl">
     <property file="build.properties"/>
     <property file="flex3.properties"/>
 
     <property name="LIB_ROOT" value="${basedir}"/>
+	<property name="LIB_NAME" value="${ant.project.name}"/>
     <property name="LIB_MAIN" value="${LIB_NAME}${FLEX_MXML_SUFFIX}"/>
     <property name="LIB_PUBLISH_DIR" value="${LIB_ROOT}${FLEX_SWC_OUTPUT}"/>
     <property name="LIB_PUBLISH_SWC_FILE" value="${LIB_NAME}-${LIB_VERSION}${FLEX_SWC_SUFFIX}"/>
