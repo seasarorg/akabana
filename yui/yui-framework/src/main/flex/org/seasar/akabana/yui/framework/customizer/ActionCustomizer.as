@@ -38,6 +38,7 @@ package org.seasar.akabana.yui.framework.customizer {
         private static const LOGIC_OWNER:String = "owner";
         
         private static var viewToHelperMap:Object = new Dictionary(true);
+        private static var viewToActionMap:Object = new Dictionary(true);
         
         public function ActionCustomizer(namingConvention:NamingConvention){
             super(namingConvention);
@@ -86,9 +87,12 @@ CONFIG::DEBUG{
         protected function processActionCustomize( viewName:String, view:Container, actionClassRef:ClassRef ):void{
             var action:Object = null;
             if( actionClassRef != null ){
-                action = 
-                    view.descriptor.properties[ namingConvention.getActionPackageName() ] = 
-                        actionClassRef.newInstance();
+                action = viewToActionMap[view];
+                if( action == null ){
+                    action = actionClassRef.newInstance();
+                    viewToActionMap[view] = action;
+                }
+                view.descriptor.properties[ namingConvention.getActionPackageName() ] = action;
             }
             if( action != null ){
 CONFIG::DEBUG{
