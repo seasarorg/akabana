@@ -47,9 +47,9 @@ package org.seasar.akabana.yui.framework.customizer {
         
         public override function customize( view:Container, owner:Container=null):void {
         	if( owner == null ){
-	            var viewName:String = UIComponentUtil.getName(view);
-	            var viewClassName:String = ClassRef.getReflector(view).name;
-	            var actionClassName:String = _namingConvention.getActionClassName(viewClassName);
+	            const viewName:String = UIComponentUtil.getName(view);
+	            const viewClassName:String = ClassRef.getReflector(view).name;
+	            const actionClassName:String = _namingConvention.getActionClassName(viewClassName);
 	            var actionClassRef:ClassRef = null;
 	            try{
 	                if( view.descriptor.properties[ namingConvention.getActionPackageName() ] != null ){
@@ -69,9 +69,9 @@ CONFIG::DEBUG{
 
         public override function uncustomize( view:Container, owner:Container=null):void{
             if( owner == null ){    
-	            var viewName:String = UIComponentUtil.getName(view);
-	            var viewClassName:String = ClassRef.getReflector(view).name;
-	            var actionClassName:String = _namingConvention.getActionClassName(viewClassName);
+	            const viewName:String = UIComponentUtil.getName(view);
+	            const viewClassName:String = ClassRef.getReflector(view).name;
+	            const actionClassName:String = _namingConvention.getActionClassName(viewClassName);
 	            var actionClassRef:ClassRef = null;
 	            try{
 	                actionClassRef = ClassRef.getReflector(actionClassName);
@@ -175,9 +175,9 @@ CONFIG::DEBUG{
 
             try{
             	const baseViewClassRef:ClassRef = ClassRef.getReflector(view);
-                var helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
-                var viewClassName:String = namingConvention.getViewClassName( helperClassRef.name );
-                var helperPropertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
+                const helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
+                const viewClassName:String = namingConvention.getViewClassName( helperClassRef.name );
+                const helperPropertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
                 
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
             		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
@@ -201,9 +201,9 @@ CONFIG::DEBUG{
 
         protected function processHelperUncustomize( view:Container, propertyRef:PropertyRef ):void{
             try{
-                var helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
-                var viewClassName:String = namingConvention.getViewClassName( helperClassRef.name );
-                var helperPropertyRefs:Array = helperClassRef.getPropertyRefByType( viewClassName );
+                const helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
+                const viewClassName:String = namingConvention.getViewClassName( helperClassRef.name );
+                const helperPropertyRefs:Array = helperClassRef.getPropertyRefByType( viewClassName );
                 
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
             		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];

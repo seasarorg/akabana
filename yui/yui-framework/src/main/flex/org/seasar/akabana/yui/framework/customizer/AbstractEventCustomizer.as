@@ -39,8 +39,8 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         protected function getEventName( functionRef:FunctionRef, componentName:String):String{
-			var functionName:String = functionRef.name;
-			var handlerIndex:int = functionName.lastIndexOf(_namingConvention.getHandlerSuffix());
+			const functionName:String = functionRef.name;
+			const handlerIndex:int = functionName.lastIndexOf(_namingConvention.getHandlerSuffix());
             
 			return functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);			
         }
@@ -76,7 +76,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         protected function createEnhancedEventHandler( owner:IEventDispatcher, handler:Function ):Function{
-            var func_:Object = function( event:Event ):void{
+            const func_:Object = function( event:Event ):void{
                 var callee:Object = arguments.callee; 
                 try{
                    	var proto:Function = callee.properties["proto"] as Function;
@@ -96,7 +96,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             };
 
-            var properties:Dictionary = new Dictionary(true);
+            const properties:Dictionary = new Dictionary(true);
             properties["owner"] = owner;
             properties["proto"] = handler;
 			func_.properties = properties;
@@ -105,7 +105,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         protected function createEnhancedEventNoneHandler( owner:IEventDispatcher, handler:Function ):Function{
-            var func_:Object = function( event:Event ):void{
+            const func_:Object = function( event:Event ):void{
                 var callee:Object = arguments.callee; 
                 try{
                    	var proto:Function = callee.properties["proto"] as Function;
@@ -125,7 +125,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             };
 
-            var properties:Dictionary = new Dictionary(true);
+            const properties:Dictionary = new Dictionary(true);
             properties["owner"] = owner;
             properties["proto"] = handler;
 			func_.properties = properties;

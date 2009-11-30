@@ -44,18 +44,18 @@ package org.seasar.akabana.yui.framework.customizer {
         }
         
         public override function customize( view:Container, owner:Container=null):void {
-            var viewName:String = UIComponentUtil.getName(view);
-            var viewClassName:String = ClassRef.getReflector(view).name;
+            const viewName:String = UIComponentUtil.getName(view);
+            const viewClassName:String = ClassRef.getReflector(view).name;
             if( owner == null ){
-                var action_:Object = view.descriptor.properties[ _namingConvention.getActionPackageName() ];
+                const action_:Object = view.descriptor.properties[ _namingConvention.getActionPackageName() ];
                 if( action_ != null){
                      doCustomize(viewName,view,action_);
                 }
             } else {
-                var ownerName:String = UIComponentUtil.getName(owner);
-                var ownerAction_:Object = owner.descriptor.properties[ _namingConvention.getActionPackageName() ];
+                const ownerName:String = UIComponentUtil.getName(owner);
+                const ownerAction_:Object = owner.descriptor.properties[ _namingConvention.getActionPackageName() ];
                 if( ownerAction_ != null){
-                    var actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
+                    const actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
                     doCustomizingByComponent(
                         owner,
                         viewName,
@@ -72,18 +72,18 @@ package org.seasar.akabana.yui.framework.customizer {
         }
 
         public override function uncustomize( view:Container, owner:Container=null):void{
-            var viewName:String = UIComponentUtil.getName(view);
-            var viewClassName:String = ClassRef.getReflector(view).name;
+            const viewName:String = UIComponentUtil.getName(view);
+            const viewClassName:String = ClassRef.getReflector(view).name;
             if( owner == null ){
-                var action_:Object = view.descriptor.properties[ _namingConvention.getActionPackageName() ];
+                const action_:Object = view.descriptor.properties[ _namingConvention.getActionPackageName() ];
                 if( action_ != null){
                      doUncustomize(viewName,view,action_);
                 }
             } else {
-                var ownerName:String = UIComponentUtil.getName(owner);
-                var ownerAction_:Object = owner.descriptor.properties[ _namingConvention.getActionPackageName() ];
+                const ownerName:String = UIComponentUtil.getName(owner);
+                const ownerAction_:Object = owner.descriptor.properties[ _namingConvention.getActionPackageName() ];
                 if( ownerAction_ != null){
-                    var actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
+                    const actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
                     doUnCustomizingByComponent(
                         owner,
                         viewName,
@@ -100,7 +100,7 @@ package org.seasar.akabana.yui.framework.customizer {
         }       
         
         private function doCustomize( viewName:String, view:Container, action:Object ):void{
-            var actionClassRef:ClassRef = ClassRef.getReflector(action);
+            const actionClassRef:ClassRef = ClassRef.getReflector(action);
             var component:UIComponent;
 
 CONFIG::DEBUG{
@@ -118,7 +118,7 @@ CONFIG::DEBUG{
                 if( component is Container ){
 	                if(component.isDocument ){
 		            
-			            var properties:Object = Container(component).documentDescriptor["properties"];
+			            const properties:Object = Container(component).documentDescriptor["properties"];
 			            if (properties != null && properties.childDescriptors != null){
 			            	
 			            } else {
@@ -166,7 +166,7 @@ CONFIG::DEBUG{
             //for children
             var props:Array = ClassRef.getReflector(ClassRef.getQualifiedClassName(view)).properties;
             for each( var prop:PropertyRef in props ){
-                var child:Object = view[ prop.name ];
+                const child:Object = view[ prop.name ];
                 if( child != null &&
                     child is IEventDispatcher &&
                     ( child is IMXMLObject || child is IEffect )
@@ -251,7 +251,7 @@ CONFIG::DEBUG{
             }
 
             if( container is Panel ){
-                var controlBar:ControlBar = Panel(container).mx_internal::getControlBar() as ControlBar;
+                const controlBar:ControlBar = Panel(container).mx_internal::getControlBar() as ControlBar;
                 if( controlBar != null){
                     doCustomizeByContainer(
                         view,
@@ -311,7 +311,7 @@ CONFIG::DEBUG{
         }
 
         private function doUncustomize( viewName:String, view:Container, action:Object ):void{
-            var actionClassRef:ClassRef = ClassRef.getReflector(action);
+            const actionClassRef:ClassRef = ClassRef.getReflector(action);
             var component:UIComponent;
 
 CONFIG::DEBUG{
@@ -329,7 +329,7 @@ CONFIG::DEBUG{
                 if( component is Container ){
                     if(component.isDocument ){
                     
-                        var properties:Object = Container(component).documentDescriptor["properties"];
+                        const properties:Object = Container(component).documentDescriptor["properties"];
                         if (properties != null && properties.childDescriptors != null){
                             
                         } else { 
@@ -363,7 +363,7 @@ CONFIG::DEBUG{
             }
 
             if( view is Panel ){
-                var controlBar:ControlBar = Panel(view).mx_internal::getControlBar() as ControlBar;
+                const controlBar:ControlBar = Panel(view).mx_internal::getControlBar() as ControlBar;
                 if( controlBar != null){
                     doUncustomizeByContainer(
                         view,
@@ -374,9 +374,9 @@ CONFIG::DEBUG{
             }
             
             //for children
-            var props:Array = ClassRef.getReflector(ClassRef.getQualifiedClassName(view)).properties;
+            const props:Array = ClassRef.getReflector(ClassRef.getQualifiedClassName(view)).properties;
             for each( var prop:PropertyRef in props ){
-                var child:Object = view[ prop.name ];
+                const child:Object = view[ prop.name ];
                 if( child != null &&
                     child is IEventDispatcher &&
                     ( child is IMXMLObject || child is IEffect )
@@ -409,7 +409,7 @@ CONFIG::DEBUG{
         }
         
         private function doUncustomizeByContainer( view:Container, container:Container, action:Object):void {
-            var actionClassRef:ClassRef = ClassRef.getReflector(action);
+            const actionClassRef:ClassRef = ClassRef.getReflector(action);
             var componentName:String;
             var component:UIComponent;
             if( container.childDescriptors == null ){
@@ -425,7 +425,7 @@ CONFIG::DEBUG{
 	                if( component is Container ){
 	                    if(component.isDocument ){
 	                    
-	                        var properties:Object = Container(component).documentDescriptor["properties"];
+	                        const properties:Object = Container(component).documentDescriptor["properties"];
 	                        if (properties != null && properties.childDescriptors != null){
 	                            
 	                        } else { 
@@ -461,7 +461,7 @@ CONFIG::DEBUG{
             }
 
             if( container is Panel ){
-                var controlBar:ControlBar = Panel(container).mx_internal::getControlBar() as ControlBar;
+                const controlBar:ControlBar = Panel(container).mx_internal::getControlBar() as ControlBar;
                 if( controlBar != null){
                     doUncustomizeByContainer(
                         view,
