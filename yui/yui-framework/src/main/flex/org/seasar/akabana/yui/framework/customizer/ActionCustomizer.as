@@ -19,12 +19,12 @@ package org.seasar.akabana.yui.framework.customizer {
     
     import mx.core.Container;
     import mx.core.UIComponent;
+    import mx.core.UIComponentDescriptor;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
-    import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.PopUpUtil;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
@@ -38,6 +38,7 @@ package org.seasar.akabana.yui.framework.customizer {
         private static const LOGIC_OWNER:String = "owner";
         
         private static var viewToHelperMap:Object = new Dictionary(true);
+        
         private static var viewToActionMap:Object = new Dictionary(true);
         
         public function ActionCustomizer(namingConvention:NamingConvention){
@@ -141,7 +142,12 @@ CONFIG::DEBUG{
         }
             
         protected function processActionUncustomize( viewName:String, view:Container, actionClassRef:ClassRef ):void{
-            var action:Object = view.descriptor.properties[ namingConvention.getActionPackageName() ];
+            var viewDescriptor:UIComponentDescriptor = view.descriptor;
+            if( view.isPopUp ){
+                viewToActionMap[ view ] = null;
+                delete viewToActionMap[ view ];
+            }
+            var action:Object = viewDescriptor.properties[ namingConvention.getActionPackageName() ];
             if( action != null ){
 CONFIG::DEBUG{
                 _logger.debug(getMessage("ActionUnCustomizing",viewName,actionClassRef.name));
@@ -160,8 +166,8 @@ CONFIG::DEBUG{
                     }                 
                 }
             }
-            view.descriptor.properties[ namingConvention.getActionPackageName() ] = null;
-            delete view.descriptor.properties[ namingConvention.getActionPackageName() ];
+            viewDescriptor.properties[ namingConvention.getActionPackageName() ] = null;
+            delete viewDescriptor.properties[ namingConvention.getActionPackageName() ];
         }
 
         protected function processHelperCustomize( view:Container, propertyRef:PropertyRef ):Object{
@@ -175,23 +181,13 @@ CONFIG::DEBUG{
                 
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
             		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
-            		var helperView:UIComponent = getHelperOfView(view,helperPropertyRef_);
 
-                    helper = viewToHelperMap[ helperView.toString() ];
+                    helper = viewToHelperMap[ view ];
                     if( helper == null ){
                         helper = helperClassRef.newInstance();
-                        viewToHelperMap[ helperView.toString() ] = helper;
+                        viewToHelperMap[ view ] = helper;
                     } 
-                    helper[ helperPropertyRef_.name ] = helperView;
-
-                    //for vilidator
-                    var validatorClassName:String = namingConvention.getValidatorClassName( viewClassName );
-                    helperPropertyRefs = helperClassRef.getPropertyRefByType(validatorClassName);
-
-                    if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
-                        helperPropertyRef_ = helperPropertyRefs[0];
-                        helper[ helperPropertyRef_.name ] = helperView.descriptor.properties[ namingConvention.getValidatorPackageName() ];
-                    }
+                    helper[ helperPropertyRef_.name ] = view;
                 }
                 
             } catch( e:Error ){
@@ -211,9 +207,8 @@ CONFIG::DEBUG{
                 
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
             		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
-            		var helperView:UIComponent = getHelperOfView(view,helperPropertyRef_);
-                    viewToHelperMap[ helperView.toString() ] = null;
-                    delete viewToHelperMap[ helperView.toString() ];
+                    viewToHelperMap[ view ] = null;
+                    delete viewToHelperMap[ view ];
                 }
                 
             } catch( e:Error ){
@@ -260,35 +255,6 @@ CONFIG::DEBUG{
                 ServiceRepository.addService( rpcservice );
             }
             return rpcservice;
-        }
-
-        private function getHelperOfView( view:Container, propertyRef:PropertyRef ):UIComponent{
-            var helperView:UIComponent;
-            const baseViewClassRef:ClassRef = ClassRef.getReflector(view);
-            
-            if( propertyRef.typeClassRef == baseViewClassRef){
-                helperView = view;
-            } else {
-                if( namingConvention.isHelperName( propertyRef.name )){
-                    if( view.isPopUp ){
-                        var popupOwner:Container = PopUpUtil.lookupPopupOwner(view);
-                        if( ClassRef.getReflector(popupOwner).concreteClass == 
-                            propertyRef.typeClassRef.concreteClass
-                        ){
-                            helperView = popupOwner;
-                        } else {
-                            throw new Error("Helpers other than parents are registered in PopupView.");
-                        }
-                    } else {
-                        helperView = ViewComponentRepository.getComponentByParent(
-                                        propertyRef.typeClassRef.concreteClass,
-                                        view
-                                        );                                
-                    }
-                }
-            }
-        	
-            return helperView;
         }
     }
 }
