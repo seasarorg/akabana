@@ -4,10 +4,17 @@
     xmlns:akabana="http://akabana.seasar.org/yui/mxml/1.0"
     layout="absolute"
     xmlns:view="examples.yui.popup.view.*"
+    width="100%"
+    height="100%"
     >
     <mx:Style source="assets/css/applicationStyles.css"/>
     <mx:Style source="examples/yui/popup/popupClasses.css"/>
     
     <akabana:YuiFrameworkSettings/>
-    <view:PopupOwnerView id="rootView"/>
+    <view:PopupOwnerView id="rootView"
+        height="100%"
+        width="100%"
+        minHeight="600"
+        minWidth="800"
+        />
 </mx:Application>

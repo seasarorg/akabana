@@ -4,10 +4,10 @@ package examples.yui.helloworld.action
     import examples.yui.helloworld.validator.HelloWorldValidator;
     
     import flash.errors.IllegalOperationError;
-    import flash.events.Event;
     import flash.events.MouseEvent;
     
     import mx.events.EffectEvent;
+    import mx.events.FlexEvent;
     import mx.events.ValidationResultEvent;
     import mx.validators.Validator;
     
@@ -23,10 +23,14 @@ package examples.yui.helloworld.action
         
         private var isFirst:Boolean = true;
         
-        public function onApplicationStartHandler( event:FrameworkEvent ):void{
+        public function onAssembleCompleteHandler(event:FrameworkEvent):void{
+            trace(event);
+        }
+        
+        public function onShowHandler( event:FlexEvent ):void{
             trace( event );
         }
-
+                
         public function onRuntimeErrorHandler( event:RuntimeErrorEvent ):void{
         	trace(">",event.stackTrace);
         }        

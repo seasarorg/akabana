@@ -23,7 +23,7 @@ package examples.yui.popup.helper
         
         public function hide(popup:PopupView):void
         {
-            PopUpUtil.removePopUp(popup);
+            PopUpUtil.removePopUpView(popup);
         }
 
 	}
