@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" preinitialize="preinitHandler()">
+	<mx:Script>
+		<![CDATA[
+        	import org.swizframework.Swiz;
+			
+			private function preinitHandler():void {
+				Swiz.setStrict(true).loadBeans( [Beans] );
+        	}
+
+		]]>
+	</mx:Script>
+
+</mx:Application>
