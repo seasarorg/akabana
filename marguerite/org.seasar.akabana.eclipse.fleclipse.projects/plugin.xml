@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension-point id="resourceLoader" name="resourceLoader" schema="schema/resourceLoader.exsd"/>
+	<extension-point id="resourceHandler" name="resourceHandler" schema="schema/resourceHandler.exsd"/>
+	<extension-point id="newProject" name="newProject" schema="schema/newProject.exsd"/>
+	<extension-point id="projectType" name="projectType" schema="schema/projectType.exsd"/>
+
+   <extension
+         point="org.seasar.akabana.eclipse.fleclipse.projects.resourceLoader">
+	      <resourceLoader
+            class="org.seasar.akabana.eclipse.fleclipse.projects.ResourceLoader"
+            name="compositeResouceLoader">
+      </resourceLoader>
+   </extension>
+   <extension
+         point="org.seasar.akabana.eclipse.fleclipse.projects.resourceHandler">
+    <resourceHandler
+        class="org.seasar.dolteng.projects.handler.impl.DefaultHandler"
+        name="default"/>         
+	  <resourceHandler
+        class="org.seasar.akabana.eclipse.fleclipse.projects.handler.impl.FlexBuilderHandler"
+        name="flexbuilder"/>
+      <resourceHandler
+            class="org.seasar.akabana.eclipse.fleclipse.projects.handler.impl.FlashProjectHandler"
+            name="flashProject">
+      </resourceHandler>
+   </extension>
+   <extension
+         point="org.seasar.akabana.eclipse.fleclipse.projects.newProject">
+   <fpfacet id="flexbuilder3" name="Flex Builder3"
+   		root="template/flexbuilder3" >   
+      <handler type="flexbuilder" resourceLoader="compositeResouceLoader">
+        <entry kind="file" path=".actionScriptProperties" />
+        <entry kind="file" path=".flexProperties" />
+        <entry kind="file" path="html-template/AC_OETags.js" />
+        <entry kind="file" path="html-template/history.js" />
+        <entry kind="file" path="html-template/history.css" />        
+        <entry kind="file" path="html-template/historyFrame.html" />
+        <entry kind="file" path="html-template/index.template.html" />
+        <entry kind="file" path="html-template/playerProductInstall.swf" />
+      </handler>
+    </fpfacet>
+     
+      <fpfacet
+            id="org.seasar.view.yui"
+            name="Yui Frameworks"
+            extends="flexbuilder3"
+            description="%facetDesc.yui"
+            displayOrder="FW20"
+            root="template/yui">
+			<contextProperty name="libPath" value="libs" />
+            <contextProperty name="webAppRoot" value="src/main/webapp" />
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+          	<handler type="flexbuilder" resourceLoader="compositeResouceLoader">
+    	        <entry kind="file" path=".actionScriptProperties" />
+        		<entry kind="file" path=".flexProperties" />
+        		<entry kind="file" path="src/main/flex/log4yui.properties" />
+		        <entry kind="file" path="src/main/flex/Main.mxml" />
+                <entry path="src/main/flex/${packagePath}/action" />
+                <entry path="src/main/flex/${packagePath}/helper" />
+                <entry path="src/main/flex/${packagePath}/validator" />
+				<entry path="src/main/flex/${packagePath}/view" />
+                <entry kind="file" path="src/main/flex/${packagePath}/action/HelloWorldAction.as" />
+                <entry kind="file" path="src/main/flex/${packagePath}/helper/HelloWorldHelper.as" />
+                <entry kind="file" path="src/main/flex/${packagePath}/validator/HelloWorldValidator.mxml" />
+				<entry kind="file" path="src/main/flex/${packagePath}/view/HelloWorldView.mxml" />                
+		        <entry kind="file" path="src/main/flex/assets/css/applicationStyles.css" />
+		        <entry kind="file" path="src/main/flex/${packagePath}/applicationClasses.css" />
+		        <entry kind="file" path="libs/yui-frameworks-1.0.0-beta-2-rc1.swc" />
+		        <entry kind="file" path="${libPath}/yui-frameworks-1.0.0-beta-2-rc1.swf" />
+		      </handler>
+      </fpfacet>
+      <fpfacet
+            description="%facetDesc.progression"
+            displayOrder="FW21"
+            id="jp.progression"
+            name="Progression"
+            root="template/progression">
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+			<contextProperty name="libPath" value="src/libs/" />
+	    	<handler type="flashProject" resourceLoader="compositeResouceLoader">
+    	        <entry kind="file" path=".actionScriptProperties" />
+		        <entry kind="file" path="deploy/index.html" />
+		        <entry kind="file" path="deploy/index.swf" />
+		        <entry kind="file" path="deploy/preloader.swf" />
+		        <entry kind="file" path="deploy/crossdomain.xml" />
+		        <entry kind="file" path="deploy/contents/images/get_adobe_flash_player.png" />
+		        <entry kind="file" path="deploy/contents/scripts/progression.js" />
+		        <!--
+		        <entry kind="path" path="deploy" />
+		        -->
+		        <entry kind="file" path="deploy/contents/scripts/swfaddress/swfaddress.js" />
+		        <entry kind="file" path="deploy/contents/scripts/swfaddress/swfaddress-optimizer.js" />
+		        <entry kind="file" path="deploy/contents/scripts/swfaddress/CHANGES.txt" />
+		        <entry kind="file" path="deploy/contents/scripts/swfaddress/LICENSE.txt" />
+		        <entry kind="file" path="deploy/contents/scripts/swfaddress/README.txt" />
+		        <entry kind="file" path="deploy/contents/scripts/swfforcesize/swfforcesize.js" />
+		        <entry kind="file" path="deploy/contents/scripts/swfobject/swfobject.js" />
+		        <entry kind="file" path="deploy/contents/scripts/swfobject/expressinstall.swf" />
+		        <entry kind="file" path="deploy/contents/styles/progression.css" />
+				<entry kind="file" path="src/index.fla" />				
+				<entry kind="file" path="src/preloader.fla" />				
+				<entry kind="file" path="src/classes/${packagePath}/Index.as" />
+				<entry kind="file" path="src/classes/${packagePath}/IndexScene.as" />
+				<entry kind="file" path="src/classes/${packagePath}/Preloader.as" />
+				<entry kind="file" path="${libPath}/Progression3.swc" />														        			        
+		        <entry kind="file" path="templates/MyCastButton.as" />
+		        <entry kind="file" path="templates/MyCastMovieClip.as" />
+		        <entry kind="file" path="templates/MyCastSprite.as" />
+		        <entry kind="file" path="templates/MyCommand.as" />
+		        <entry kind="file" path="templates/MyIndex.as" />
+		        <entry kind="file" path="templates/MyPreloader.as" />
+		        <entry kind="file" path="templates/MySceneObject.as" />
+		        <entry kind="file" path="templates/prml.xml" />
+		        <entry kind="file" path="src/classes/Main.as" />
+		        <entry kind="file" path="project.ppinfo" />
+		    </handler>
+      </fpfacet>
+      <fpfacet
+            id="libs.betweenas3"
+            name="Between AS3"
+            description="%facetDesc.betweenas3"
+            displayOrder="MN01"
+            root="template/betweenas3">
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+          	<handler type="default" resourceLoader="compositeResouceLoader">
+		        <entry kind="file" path="${libPath}/BetweenAS3.swc" />
+		      </handler>
+      </fpfacet>
+      <fpfacet
+            id="libs.tweener"
+            name="Tweener"
+            description="%facetDesc.tweener"
+            displayOrder="MN02"
+            root="template/tweener">
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+          	<handler type="default" resourceLoader="compositeResouceLoader">
+		        <entry kind="file" path="${libPath}/tweener_1_31_74.swc" />
+		      </handler>
+      </fpfacet>
+      <fpfacet
+            id="libs.thread"
+            name="Thread Librasy(Somen)"
+            description="%facetDesc.thread"
+            displayOrder="AC01"
+            root="template/thread">
+            <contextProperty name="webAppRoot" value="src/main/webapp" />
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+          	<handler type="default" resourceLoader="compositeResouceLoader">
+		        <entry kind="file" path="${libPath}/Thread-1.0.swc" />
+		      </handler>
+      </fpfacet>
+      <fpfacet
+            id="libs.papervision3d"
+            name="PaperVision 3D"
+            description="%facetDesc.papervision3d"
+            displayOrder="TD01"
+            root="template/papervision3d">
+            <contextProperty name="webAppRoot" value="src/main/webapp" />
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+          	<handler type="default" resourceLoader="compositeResouceLoader">
+		        <entry kind="file" path="${libPath}/Papervision3D_2.0.883.swc" />
+		      </handler>
+      </fpfacet>
+      <fpfacet
+            id="libs.box2d"
+            name="Box2D FlashAS3"
+            description="%facetDesc.box2d"
+            displayOrder="PS01"
+            root="template/papervision3d">
+            <contextProperty name="webAppRoot" value="src/main/webapp" />
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+          	<handler type="default" resourceLoader="compositeResouceLoader">
+		        <entry kind="file" path="${libPath}/Papervision3D_2.0.883.swc" />
+		      </handler>
+      </fpfacet>
+      <fpfacet
+            id="libs.swizframework"
+            name="Swiz Framework"
+            extends="flexbuilder3"
+            description="%facetDesc.swiz"
+            displayOrder="FW22"
+            root="template/swizframework">
+            <contextProperty name="webAppRoot" value="src/main/webapp" />
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+			<contextProperty name="libPath" value="libs/" />
+          	<handler type="flashProject" resourceLoader="compositeResouceLoader">
+		        <entry kind="file" path="${libPath}/swiz-0.0.5-010609.swc" />
+		        <entry path="src/main/flex/${packagePath}/model" />
+		        <entry path="src/main/flex/${packagePath}/views" />
+		        <entry path="src/main/flex/${packagePath}/controllers" />
+		        <entry path="src/main/flex/${packagePath}/controls" />
+		        <entry path="src/main/flex/${packagePath}/events" />
+		        <entry kind="file" path="src/main/flex/Beans.mxml" />
+		        <entry kind="file" path="src/main/flex/Main.mxml" />
+		      </handler>
+      </fpfacet>
+      <fpfacet
+            id="libs.puremvc"
+            name="PureMVC for AS3"
+            extends="flexbuilder3"
+            description="%facetDesc.pureMVC"
+            displayOrder="FW23"
+            root="template/puremvc">
+            <contextProperty name="webAppRoot" value="src/main/webapp" />
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+			<contextProperty name="libPath" value="libs/" />
+          	<handler type="flashProject" resourceLoader="compositeResouceLoader">
+		        <entry kind="file" path="${libPath}/PureMVC_AS3_2_0_4.swc" />
+		        <entry path="src/main/flex/${packagePath}/model" />
+		        <entry path="src/main/flex/${packagePath}/view/components" />
+		        <entry path="src/main/flex/${packagePath}/controller" />
+		        <entry path="src/main/flex/${packagePath}/events" />
+		        <entry kind="file" path="src/main/flex/Main.mxml" />
+		        <entry kind="file" path="src/main/flex/${packagePath}/ApplicationFacade.as" />
+	        	<entry kind="file" path="src/main/flex/${packagePath}/controller/StartupCommand.as" />
+		    </handler>
+      </fpfacet>
+   <fpfacet id="asproject" name="ActionScript3 Project"
+       description="%facetDesc.actionscript"
+        displayOrder="_01"
+   		root="template/asproject" >
+	  <contextProperty name="libPath" value="libs/" />
+      <handler type="flashProject" resourceLoader="compositeResouceLoader">
+        <entry kind="file" path=".actionScriptProperties" />
+        <entry kind="file" path=".settings/org.eclipse.core.resources.prefs" />
+        <entry kind="path" path="bin-debug" />
+        <entry kind="path" path="libs" />
+        <entry kind="file" path="src/Main.as" />        
+      </handler>
+    </fpfacet>         
+    <fpfacet
+            id="libs.frocessing"
+            name="Froccesing"
+            description="%facetDesc.frocessing"
+            displayOrder="_02"
+            root="template/frocessing">
+            <contextProperty name="webAppRoot" value="src/main/webapp" />
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+          	<handler type="default" resourceLoader="compositeResouceLoader">
+		        <entry kind="file" path="${libPath}/frocessing-0.5.6.swc" />
+		    </handler>
+      </fpfacet>     
+      <fpfacet
+            id="libs.qrcodereader"
+            name="QR CodeReader"
+            description="%facetDesc.qrcodeReader"
+            displayOrder="_03"
+            root="template/qrcodeReader">
+            <contextProperty name="webAppRoot" value="src/main/webapp" />
+			<contextProperty name="flexSDK" value="Flex 3.3" />
+          	<handler type="default" resourceLoader="compositeResouceLoader">
+		        <entry kind="file" path="${libPath}/QRCodeReader.swc" />
+		    </handler>
+      </fpfacet>
+   </extension>
+   <extension point="org.seasar.akabana.eclipse.fleclipse.projects.projectType">
+	<viewtype id="org.seasar.view.actionscript3-project"
+			name="actionscript3-project" />
+    <fpcategory
+        id="org.seasar.akabana.category.FrameWork"
+        key="FW"
+        name="Framework"/>
+    <fpcategory	
+        id="org.seasar.akabana.category.async"
+        key="AC"
+        name="AsyncLib"/>
+    <fpcategory
+        id="org.seasar.akabana.category.motion"
+        key="MN"
+        name="MotionLib"/>    
+    <fpcategory
+        id="org.seasar.akabana.category.3d"
+        key="TD"
+        name="3D Engine"/>    
+    <fpcategory
+        id="org.seasar.akabana.category.phisics"
+        key="PS"
+        name="Physics Engine"/> 
+                      
+   <fpapplicationtype
+        id="org.seasar.akabana.app.flexapp"
+        name="Flex Project"
+        packaging="jar">
+      <default facet="org.seasar.view.yui"/>
+      <disable facet="jp.progression"/>
+      <!-- <disable facet="asproject"/> -->	
+      <disable category="org.seasar.category.presentation"/>
+      <disable category="org.seasar.category.persistence"/>
+      <disable category="org.seasar.category.servermanagement"/>
+    </fpapplicationtype>
+    
+	<fpapplicationtype
+        id="org.seasar.akabana.app.asapp"
+        name="AS Project"
+        packaging="jar">
+     　<default facet="asproject"/>
+      <disable category="org.seasar.akabana.category.FrameWork"/>
+      <disable category="org.seasar.category.presentation"/>
+      <disable category="org.seasar.category.persistence"/>
+      <disable category="org.seasar.category.servermanagement"/>
+    </fpapplicationtype>
+
+	<fpapplicationtype
+        id="org.seasar.akabana.app.progressionapp"
+        name="Progression Project"
+        packaging="jar">
+      <default facet="jp.progression,libs.thread,libs.tweener,libs.frocessing,"/>
+      <disable facet="org.seasar.view.yui" />
+      <disable facet="libs.swizframework"/>
+      <disable facet="libs.puremvc"/>
+      <!--<disable facet="asproject"/>-->     
+      <disable category="org.seasar.category.presentation"/>
+      <disable category="org.seasar.category.persistence"/>
+      <disable category="org.seasar.category.servermanagement"/>
+    </fpapplicationtype>
+            
+   </extension>   
+  <extension
+      point="org.eclipse.ui.newWizards">
+   <category
+    id="org.seasar.akabana.eclipse.marguerite"
+    name="FPProject"/>
+    <wizard
+        canFinishEarly="false"
+        category="org.seasar.akabana.eclipse.marguerite"
+        class="org.seasar.akabana.eclipse.fleclipse.wizard.FlashPlatformProjectWizard"
+        hasPages="true"
+        icon="icons/icon_fp_016.png"
+        id="FlashPlatFormProjectWizard"
+        name="FPProject"
+        project="true"/>
+   </extension>
+</plugin>
