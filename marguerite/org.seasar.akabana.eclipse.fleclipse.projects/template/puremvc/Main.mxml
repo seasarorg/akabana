@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:view="${packageName}.view.components.*"
+	layout="absolute"
+     width="760" height="440"
+     verticalGap="0"
+     horizontalGap="0"
+     creationComplete="facade.sendNotification(ApplicationFacade.STARTUP, this);">
+	<mx:Script>
+		<![CDATA[
+			import ${packageName}.ApplicationFacade;
+
+			private var facade:ApplicationFacade = ApplicationFacade.getInstance();
+		]]>
+	</mx:Script>
+</mx:Application>
