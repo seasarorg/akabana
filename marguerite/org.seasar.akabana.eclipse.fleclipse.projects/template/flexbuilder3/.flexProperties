@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- ${flexSDK} -->
+<flexProperties flexServerType="0" serverRoot="${workspacelocation}/${projectName}" serverRootURL="http://localhost:8080/${projectName}" toolCompile="true" useServerFlexSDK="false" version="1"/>

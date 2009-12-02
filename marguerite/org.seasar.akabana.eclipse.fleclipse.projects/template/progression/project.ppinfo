@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ppinfo name="${projectName}" version="3.1.0">
+  <generator name="Progression" version="3.1.62" language="ja"/>
+  <publish platform="Flash 10" player="FlashPlayer 10" type="class" language="ja"/>
+  <profile width="640" height="480" backgroundColor="#FFFFFF">
+    <flash packagePath="${packageName}" indexClassName="Index" loaderClassName="Preloader" frameRate="30" windowMode="window" allowScriptAccess="samedomain" useFlashDevelopProject="false" useSWCLibraries="true" useSWFWheel="true"/>
+    <html adjustHorizontal="false" adjustVertical="false" centering="true" useSWFForceSize="false"/>
+    <analytics type="none"/>
+  </profile>
+  <pppack version="3.1.62">
+    <source master="deploy/index_ja.html" extraction="deploy/index.html" priority="0" replace="none" open="false">
+      <event type="create">
+        <action cls="HTMLCreator"/>
+      </event>
+      <event type="update">
+        <action cls="HTMLUpdater"/>
+      </event>
+    </source>
+    <source master="deploy/index_ja.swf" extraction="deploy/index.swf" priority="0" replace="none" open="false"/>
+    <source master="deploy/preloader_ja.swf" extraction="deploy/preloader.swf" priority="0" replace="none" open="false"/>
+    <source master="deploy/crossdomain.xml" extraction="deploy/crossdomain.xml" priority="0" replace="none" open="false">
+      <event type="update">
+        <action cls="CrossDomainUpdater"/>
+      </event>
+    </source>
+    <source master="deploy/contents/images/get_adobe_flash_player.png" extraction="deploy/contents/images/get_adobe_flash_player.png" priority="0" replace="always" open="false"/>
+    <source master="deploy/contents/scripts/progression.js" extraction="deploy/contents/scripts/progression.js" priority="0" replace="always" open="false"/>
+    <source master="deploy/contents/scripts/swfaddress/swfaddress.js" extraction="deploy/contents/scripts/swfaddress/swfaddress.js" priority="0" replace="always" open="false"/>
+    <source master="deploy/contents/scripts/swfaddress/swfaddress-optimizer.js" extraction="deploy/contents/scripts/swfaddress/swfaddress-optimizer.js" priority="0" replace="always" open="false"/>
+    <source master="deploy/contents/scripts/swfaddress/CHANGES.txt" extraction="deploy/contents/scripts/swfaddress/CHANGES.txt" priority="0" replace="always" open="false"/>
+    <source master="deploy/contents/scripts/swfaddress/LICENSE.txt" extraction="deploy/contents/scripts/swfaddress/LICENSE.txt" priority="0" replace="always" open="false"/>
+    <source master="deploy/contents/scripts/swfaddress/README.txt" extraction="deploy/contents/scripts/swfaddress/README.txt" priority="0" replace="always" open="false"/>
+    <source master="deploy/contents/scripts/swfforcesize/swfforcesize.js" extraction="deploy/contents/scripts/swfforcesize/swfforcesize.js" priority="0" replace="always" open="false"/>
+    <source master="deploy/contents/scripts/swfobject/swfobject.js" extraction="deploy/contents/scripts/swfobject/swfobject.js" priority="0" replace="always" open="false"/>
+    <source master="deploy/contents/scripts/swfobject/expressinstall.swf" extraction="deploy/contents/scripts/swfobject/expressinstall.swf" priority="0" replace="always" open="false"/>
+    <source master="deploy/contents/styles/progression.css" extraction="deploy/contents/styles/progression.css" priority="0" replace="always" open="false"/>
+    <source master="src/index_Flash10_FlashPlayer10_class.fla" extraction="src/index.fla" priority="0" replace="none" open="true">
+      <event type="create">
+        <action cls="FlaCreator">
+          <param name="docClass" value="myproject.Index"/>
+        </action>
+      </event>
+      <event type="update">
+        <action cls="FlaUpdater">
+          <param name="docClass" value="myproject.Index"/>
+        </action>
+      </event>
+    </source>
+    <source master="src/preloader_Flash10_FlashPlayer10_class.fla" extraction="src/preloader.fla" priority="0" replace="none" open="false">
+      <event type="create">
+        <action cls="FlaCreator">
+          <param name="docClass" value="myproject.Preloader"/>
+        </action>
+      </event>
+      <event type="update">
+        <action cls="FlaUpdater">
+          <param name="docClass" value="myproject.Preloader"/>
+        </action>
+      </event>
+    </source>
+    <source master="src/classes/Index_ja.as" extraction="src/classes/myproject/Index.as" priority="0" replace="none" open="true">
+      <event type="create">
+        <action cls="ClassCreator"/>
+      </event>
+    </source>
+    <source master="src/classes/IndexScene_ja.as" extraction="src/classes/myproject/IndexScene.as" priority="0" replace="none" open="false">
+      <event type="create">
+        <action cls="ClassCreator"/>
+      </event>
+    </source>
+    <source master="src/classes/Preloader_ja.as" extraction="src/classes/myproject/Preloader.as" priority="0" replace="none" open="false">
+      <event type="create">
+        <action cls="ClassCreator"/>
+      </event>
+    </source>
+    <source master="src/libs_as/org/libspark/ui/SWFWheel.as" extraction="src/libs/org/libspark/ui/SWFWheel.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/scenes/SceneObject.as" extraction="src/libs/jp/progression/scenes/SceneObject.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/scenes/SceneId.as" extraction="src/libs/jp/progression/scenes/SceneId.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/scenes/ResumingScene.as" extraction="src/libs/jp/progression/scenes/ResumingScene.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/scenes/getScenesByRegExp.as" extraction="src/libs/jp/progression/scenes/getScenesByRegExp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/scenes/getScenesByGroup.as" extraction="src/libs/jp/progression/scenes/getScenesByGroup.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/scenes/getSceneBySceneId.as" extraction="src/libs/jp/progression/scenes/getSceneBySceneId.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/scenes/getSceneById.as" extraction="src/libs/jp/progression/scenes/getSceneById.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/scenes/EasyCastingScene.as" extraction="src/libs/jp/progression/scenes/EasyCastingScene.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/loader/PRMLLoader.as" extraction="src/libs/jp/progression/loader/PRMLLoader.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/loader/EasyCastingLoader.as" extraction="src/libs/jp/progression/loader/EasyCastingLoader.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/events/SceneEvent.as" extraction="src/libs/jp/progression/events/SceneEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/events/ProcessEvent.as" extraction="src/libs/jp/progression/events/ProcessEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/events/CommandEvent.as" extraction="src/libs/jp/progression/events/CommandEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/events/CastMouseEvent.as" extraction="src/libs/jp/progression/events/CastMouseEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/events/CastEvent.as" extraction="src/libs/jp/progression/events/CastEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/utils/SceneIdUtil.as" extraction="src/libs/jp/progression/core/utils/SceneIdUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/ui/ToolTip.as" extraction="src/libs/jp/progression/core/ui/ToolTip.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/ui/ICastContextMenu.as" extraction="src/libs/jp/progression/core/ui/ICastContextMenu.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/ui/CastObjectContextMenu.as" extraction="src/libs/jp/progression/core/ui/CastObjectContextMenu.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/ui/CastButtonContextMenu.as" extraction="src/libs/jp/progression/core/ui/CastButtonContextMenu.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/scenes/SceneInfo.as" extraction="src/libs/jp/progression/core/scenes/SceneInfo.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/parser/PRMLParser.as" extraction="src/libs/jp/progression/core/parser/PRMLParser.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/parser/EasyCastingParser.as" extraction="src/libs/jp/progression/core/parser/EasyCastingParser.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/namespaces/progression_internal.as" extraction="src/libs/jp/progression/core/namespaces/progression_internal.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/managers/SyncManager.as" extraction="src/libs/jp/progression/core/managers/SyncManager.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/managers/SceneManager.as" extraction="src/libs/jp/progression/core/managers/SceneManager.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/managers/KeyboardManager.as" extraction="src/libs/jp/progression/core/managers/KeyboardManager.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/managers/HistoryManagerType.as" extraction="src/libs/jp/progression/core/managers/HistoryManagerType.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/managers/HistoryManager.as" extraction="src/libs/jp/progression/core/managers/HistoryManager.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/events/ComponentEvent.as" extraction="src/libs/jp/progression/core/events/ComponentEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/events/CollectionEvent.as" extraction="src/libs/jp/progression/core/events/CollectionEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/errors/CommandTimeOutError.as" extraction="src/libs/jp/progression/core/errors/CommandTimeOutError.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/errors/CommandExecuteError.as" extraction="src/libs/jp/progression/core/errors/CommandExecuteError.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/debug/VerboseType.as" extraction="src/libs/jp/progression/core/debug/VerboseType.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/debug/VerboseMessageConstants.as" extraction="src/libs/jp/progression/core/debug/VerboseMessageConstants.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/debug/Verbose.as" extraction="src/libs/jp/progression/core/debug/Verbose.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/loader/PRMLLoaderComp.as" extraction="src/libs/jp/progression/core/components/loader/PRMLLoaderComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/loader/PreloaderComp.as" extraction="src/libs/jp/progression/core/components/loader/PreloaderComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/loader/LoaderLivePreview.as" extraction="src/libs/jp/progression/core/components/loader/LoaderLivePreview.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/loader/LoaderComp.as" extraction="src/libs/jp/progression/core/components/loader/LoaderComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/loader/EasyCastingLoaderComp.as" extraction="src/libs/jp/progression/core/components/loader/EasyCastingLoaderComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/ZoomEffectComp.as" extraction="src/libs/jp/progression/core/components/effects/ZoomEffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/WipeEffectComp.as" extraction="src/libs/jp/progression/core/components/effects/WipeEffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/SqueezeEffectComp.as" extraction="src/libs/jp/progression/core/components/effects/SqueezeEffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/RotateEffectComp.as" extraction="src/libs/jp/progression/core/components/effects/RotateEffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/PixelDissolveEffectComp.as" extraction="src/libs/jp/progression/core/components/effects/PixelDissolveEffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/PhotoEffectComp.as" extraction="src/libs/jp/progression/core/components/effects/PhotoEffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/IrisEffectComp.as" extraction="src/libs/jp/progression/core/components/effects/IrisEffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/FlyEffectComp.as" extraction="src/libs/jp/progression/core/components/effects/FlyEffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/FadeEffectComp.as" extraction="src/libs/jp/progression/core/components/effects/FadeEffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/EffectLivePreview.as" extraction="src/libs/jp/progression/core/components/effects/EffectLivePreview.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/EffectComp.as" extraction="src/libs/jp/progression/core/components/effects/EffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/effects/BlindsEffectComp.as" extraction="src/libs/jp/progression/core/components/effects/BlindsEffectComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/commands/PositionCommandComp.as" extraction="src/libs/jp/progression/core/components/commands/PositionCommandComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/commands/GotoCommandComp.as" extraction="src/libs/jp/progression/core/components/commands/GotoCommandComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/commands/CommandLivePreview.as" extraction="src/libs/jp/progression/core/components/commands/CommandLivePreview.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/commands/CommandComp.as" extraction="src/libs/jp/progression/core/components/commands/CommandComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/buttons/RootButtonComp.as" extraction="src/libs/jp/progression/core/components/buttons/RootButtonComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/buttons/RollOverButtonComp.as" extraction="src/libs/jp/progression/core/components/buttons/RollOverButtonComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/buttons/PreviousButtonComp.as" extraction="src/libs/jp/progression/core/components/buttons/PreviousButtonComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/buttons/ParentButtonComp.as" extraction="src/libs/jp/progression/core/components/buttons/ParentButtonComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/buttons/NextButtonComp.as" extraction="src/libs/jp/progression/core/components/buttons/NextButtonComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/buttons/ButtonLivePreview.as" extraction="src/libs/jp/progression/core/components/buttons/ButtonLivePreview.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/buttons/ButtonComp.as" extraction="src/libs/jp/progression/core/components/buttons/ButtonComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/buttons/AnchorButtonComp.as" extraction="src/libs/jp/progression/core/components/buttons/AnchorButtonComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/animation/InOutMovieComp.as" extraction="src/libs/jp/progression/core/components/animation/InOutMovieComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/animation/AnimationLivePreview.as" extraction="src/libs/jp/progression/core/components/animation/AnimationLivePreview.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/animation/AnimationComp.as" extraction="src/libs/jp/progression/core/components/animation/AnimationComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/CoreLivePreview.as" extraction="src/libs/jp/progression/core/components/CoreLivePreview.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/components/CoreComp.as" extraction="src/libs/jp/progression/core/components/CoreComp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/commands/ICommandExecutable.as" extraction="src/libs/jp/progression/core/commands/ICommandExecutable.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/commands/CommandList.as" extraction="src/libs/jp/progression/core/commands/CommandList.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/commands/CommandExecutor.as" extraction="src/libs/jp/progression/core/commands/CommandExecutor.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/commands/Command.as" extraction="src/libs/jp/progression/core/commands/Command.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/collections/SceneCollection.as" extraction="src/libs/jp/progression/core/collections/SceneCollection.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/collections/ProgressionCollection.as" extraction="src/libs/jp/progression/core/collections/ProgressionCollection.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/collections/CommandCollection.as" extraction="src/libs/jp/progression/core/collections/CommandCollection.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/casts/effects/EffectBase.as" extraction="src/libs/jp/progression/core/casts/effects/EffectBase.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/casts/buttons/ButtonBase.as" extraction="src/libs/jp/progression/core/casts/buttons/ButtonBase.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/casts/animation/AnimationBase.as" extraction="src/libs/jp/progression/core/casts/animation/AnimationBase.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/casts/Container.as" extraction="src/libs/jp/progression/core/casts/Container.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/core/casts/Background.as" extraction="src/libs/jp/progression/core/casts/Background.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/display/UnloadObject.as" extraction="src/libs/jp/progression/commands/display/UnloadObject.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/display/LoadObject.as" extraction="src/libs/jp/progression/commands/display/LoadObject.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/display/DoTweenFrame.as" extraction="src/libs/jp/progression/commands/display/DoTweenFrame.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/Wait.as" extraction="src/libs/jp/progression/commands/Wait.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/UnloadChild.as" extraction="src/libs/jp/progression/commands/UnloadChild.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/Trace.as" extraction="src/libs/jp/progression/commands/Trace.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/SerialList.as" extraction="src/libs/jp/progression/commands/SerialList.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/RemoveChild.as" extraction="src/libs/jp/progression/commands/RemoveChild.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/RemoveAllChildren.as" extraction="src/libs/jp/progression/commands/RemoveAllChildren.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/Prop.as" extraction="src/libs/jp/progression/commands/Prop.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/ParallelList.as" extraction="src/libs/jp/progression/commands/ParallelList.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/LoadURL.as" extraction="src/libs/jp/progression/commands/LoadURL.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/LoadChildAtAbove.as" extraction="src/libs/jp/progression/commands/LoadChildAtAbove.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/LoadChildAt.as" extraction="src/libs/jp/progression/commands/LoadChildAt.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/LoadChild.as" extraction="src/libs/jp/progression/commands/LoadChild.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/Listen.as" extraction="src/libs/jp/progression/commands/Listen.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/Goto.as" extraction="src/libs/jp/progression/commands/Goto.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/getCommandsByRegExp.as" extraction="src/libs/jp/progression/commands/getCommandsByRegExp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/getCommandsByGroup.as" extraction="src/libs/jp/progression/commands/getCommandsByGroup.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/getCommandById.as" extraction="src/libs/jp/progression/commands/getCommandById.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/Func.as" extraction="src/libs/jp/progression/commands/Func.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/DoTweener.as" extraction="src/libs/jp/progression/commands/DoTweener.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/DoTween.as" extraction="src/libs/jp/progression/commands/DoTween.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/DoTransition.as" extraction="src/libs/jp/progression/commands/DoTransition.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/DoSound.as" extraction="src/libs/jp/progression/commands/DoSound.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/Break.as" extraction="src/libs/jp/progression/commands/Break.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/AddChildAtAbove.as" extraction="src/libs/jp/progression/commands/AddChildAtAbove.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/AddChildAt.as" extraction="src/libs/jp/progression/commands/AddChildAt.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/commands/AddChild.as" extraction="src/libs/jp/progression/commands/AddChild.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/ZoomEffect.as" extraction="src/libs/jp/progression/casts/effects/ZoomEffect.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/WipeEffect.as" extraction="src/libs/jp/progression/casts/effects/WipeEffect.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/SqueezeEffect.as" extraction="src/libs/jp/progression/casts/effects/SqueezeEffect.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/RotateEffect.as" extraction="src/libs/jp/progression/casts/effects/RotateEffect.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/PixelDissolveEffect.as" extraction="src/libs/jp/progression/casts/effects/PixelDissolveEffect.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/PhotoEffect.as" extraction="src/libs/jp/progression/casts/effects/PhotoEffect.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/IrisEffect.as" extraction="src/libs/jp/progression/casts/effects/IrisEffect.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/FlyEffect.as" extraction="src/libs/jp/progression/casts/effects/FlyEffect.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/FadeEffect.as" extraction="src/libs/jp/progression/casts/effects/FadeEffect.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/EffectStartPointType.as" extraction="src/libs/jp/progression/casts/effects/EffectStartPointType.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/EffectDirectionType.as" extraction="src/libs/jp/progression/casts/effects/EffectDirectionType.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/EffectDimensionType.as" extraction="src/libs/jp/progression/casts/effects/EffectDimensionType.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/effects/BlindsEffect.as" extraction="src/libs/jp/progression/casts/effects/BlindsEffect.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/buttons/RootButton.as" extraction="src/libs/jp/progression/casts/buttons/RootButton.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/buttons/RollOverButton.as" extraction="src/libs/jp/progression/casts/buttons/RollOverButton.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/buttons/PreviousButton.as" extraction="src/libs/jp/progression/casts/buttons/PreviousButton.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/buttons/ParentButton.as" extraction="src/libs/jp/progression/casts/buttons/ParentButton.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/buttons/NextButton.as" extraction="src/libs/jp/progression/casts/buttons/NextButton.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/buttons/AnchorButton.as" extraction="src/libs/jp/progression/casts/buttons/AnchorButton.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/animation/InOutMovie.as" extraction="src/libs/jp/progression/casts/animation/InOutMovie.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/ICastObject.as" extraction="src/libs/jp/progression/casts/ICastObject.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/getInstancesByRegExp.as" extraction="src/libs/jp/progression/casts/getInstancesByRegExp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/getInstancesByGroup.as" extraction="src/libs/jp/progression/casts/getInstancesByGroup.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/getInstanceById.as" extraction="src/libs/jp/progression/casts/getInstanceById.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastTextField.as" extraction="src/libs/jp/progression/casts/CastTextField.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastSprite.as" extraction="src/libs/jp/progression/casts/CastSprite.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastPreloader.as" extraction="src/libs/jp/progression/casts/CastPreloader.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastObject.as" extraction="src/libs/jp/progression/casts/CastObject.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastMovieClip.as" extraction="src/libs/jp/progression/casts/CastMovieClip.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastLoader.as" extraction="src/libs/jp/progression/casts/CastLoader.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastImageLoaderAlign.as" extraction="src/libs/jp/progression/casts/CastImageLoaderAlign.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastImageLoader.as" extraction="src/libs/jp/progression/casts/CastImageLoader.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastDocument.as" extraction="src/libs/jp/progression/casts/CastDocument.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastButton.as" extraction="src/libs/jp/progression/casts/CastButton.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/casts/CastBitmap.as" extraction="src/libs/jp/progression/casts/CastBitmap.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/Progression.as" extraction="src/libs/jp/progression/Progression.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/getProgressionsByRegExp.as" extraction="src/libs/jp/progression/getProgressionsByRegExp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/getProgressionsByGroup.as" extraction="src/libs/jp/progression/getProgressionsByGroup.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/getProgressionBySceneId.as" extraction="src/libs/jp/progression/getProgressionBySceneId.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/progression/getProgressionById.as" extraction="src/libs/jp/progression/getProgressionById.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/version/Version.as" extraction="src/libs/jp/nium/version/Version.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/utils/XMLUtil.as" extraction="src/libs/jp/nium/utils/XMLUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/utils/StringUtil.as" extraction="src/libs/jp/nium/utils/StringUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/utils/StageUtil.as" extraction="src/libs/jp/nium/utils/StageUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/utils/ObjectUtil.as" extraction="src/libs/jp/nium/utils/ObjectUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/utils/NumberUtil.as" extraction="src/libs/jp/nium/utils/NumberUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/utils/MovieClipUtil.as" extraction="src/libs/jp/nium/utils/MovieClipUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/utils/MathUtil.as" extraction="src/libs/jp/nium/utils/MathUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/utils/DateUtil.as" extraction="src/libs/jp/nium/utils/DateUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/utils/ClassUtil.as" extraction="src/libs/jp/nium/utils/ClassUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/utils/ArrayUtil.as" extraction="src/libs/jp/nium/utils/ArrayUtil.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/text/ExTextField.as" extraction="src/libs/jp/nium/text/ExTextField.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/net/URLObject.as" extraction="src/libs/jp/nium/net/URLObject.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/net/Query.as" extraction="src/libs/jp/nium/net/Query.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/net/ExURLLoader.as" extraction="src/libs/jp/nium/net/ExURLLoader.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/lang/Locale.as" extraction="src/libs/jp/nium/lang/Locale.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/external/JSFLInterface.as" extraction="src/libs/jp/nium/external/JSFLInterface.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/external/BrowserInterface.as" extraction="src/libs/jp/nium/external/BrowserInterface.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/events/IEventIntegrator.as" extraction="src/libs/jp/nium/events/IEventIntegrator.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/events/EventIntegrator.as" extraction="src/libs/jp/nium/events/EventIntegrator.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/events/EventAggregater.as" extraction="src/libs/jp/nium/events/EventAggregater.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/events/DocumentEvent.as" extraction="src/libs/jp/nium/events/DocumentEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/getInstancesByRegExp.as" extraction="src/libs/jp/nium/display/getInstancesByRegExp.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/getInstancesByGroup.as" extraction="src/libs/jp/nium/display/getInstancesByGroup.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/getInstanceById.as" extraction="src/libs/jp/nium/display/getInstanceById.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/ExSprite.as" extraction="src/libs/jp/nium/display/ExSprite.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/ExMovieClip.as" extraction="src/libs/jp/nium/display/ExMovieClip.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/ExLoader.as" extraction="src/libs/jp/nium/display/ExLoader.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/ExImageLoaderAlign.as" extraction="src/libs/jp/nium/display/ExImageLoaderAlign.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/ExImageLoader.as" extraction="src/libs/jp/nium/display/ExImageLoader.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/ExDocument.as" extraction="src/libs/jp/nium/display/ExDocument.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/ExBitmap.as" extraction="src/libs/jp/nium/display/ExBitmap.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/ChildIterator.as" extraction="src/libs/jp/nium/display/ChildIterator.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/display/ChildIndexer.as" extraction="src/libs/jp/nium/display/ChildIndexer.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/core/namespaces/nium_internal.as" extraction="src/libs/jp/nium/core/namespaces/nium_internal.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/core/errors/FormatError.as" extraction="src/libs/jp/nium/core/errors/FormatError.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/core/errors/ErrorMessageConstants.as" extraction="src/libs/jp/nium/core/errors/ErrorMessageConstants.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/core/display/IExDisplayObjectContainer.as" extraction="src/libs/jp/nium/core/display/IExDisplayObjectContainer.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/core/display/IExDisplayObject.as" extraction="src/libs/jp/nium/core/display/IExDisplayObject.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/core/display/IDisplayObject.as" extraction="src/libs/jp/nium/core/display/IDisplayObject.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/core/display/ExDisplayObjectContainer.as" extraction="src/libs/jp/nium/core/display/ExDisplayObjectContainer.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/core/display/ExDisplayObject.as" extraction="src/libs/jp/nium/core/display/ExDisplayObject.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/core/collections/ExDisplayCollection.as" extraction="src/libs/jp/nium/core/collections/ExDisplayCollection.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/api/tweener/TweenerHelper.as" extraction="src/libs/jp/nium/api/tweener/TweenerHelper.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/api/tweener/TweenerEvent.as" extraction="src/libs/jp/nium/api/tweener/TweenerEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/api/transition/TransitionHelper.as" extraction="src/libs/jp/nium/api/transition/TransitionHelper.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/jp/nium/api/transition/TransitionEvent.as" extraction="src/libs/jp/nium/api/transition/TransitionEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/com/asual/swfaddress/SWFAddressEvent.as" extraction="src/libs/com/asual/swfaddress/SWFAddressEvent.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/com/asual/swfaddress/SWFAddress.as" extraction="src/libs/com/asual/swfaddress/SWFAddress.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/properties/TextShortcuts.as" extraction="src/libs/caurina/transitions/properties/TextShortcuts.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/properties/SoundShortcuts.as" extraction="src/libs/caurina/transitions/properties/SoundShortcuts.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/properties/FilterShortcuts.as" extraction="src/libs/caurina/transitions/properties/FilterShortcuts.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/properties/DisplayShortcuts.as" extraction="src/libs/caurina/transitions/properties/DisplayShortcuts.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/properties/CurveModifiers.as" extraction="src/libs/caurina/transitions/properties/CurveModifiers.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/properties/ColorShortcuts.as" extraction="src/libs/caurina/transitions/properties/ColorShortcuts.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/TweenListObj.as" extraction="src/libs/caurina/transitions/TweenListObj.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/Tweener.as" extraction="src/libs/caurina/transitions/Tweener.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/SpecialPropertySplitter.as" extraction="src/libs/caurina/transitions/SpecialPropertySplitter.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/SpecialPropertyModifier.as" extraction="src/libs/caurina/transitions/SpecialPropertyModifier.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/SpecialProperty.as" extraction="src/libs/caurina/transitions/SpecialProperty.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/PropertyInfoObj.as" extraction="src/libs/caurina/transitions/PropertyInfoObj.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/Equations.as" extraction="src/libs/caurina/transitions/Equations.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_as/caurina/transitions/AuxFunctions.as" extraction="src/libs/caurina/transitions/AuxFunctions.as" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="false"/>
+    </source>
+    <source master="src/libs_swc/Progression3.swc" extraction="src/libs/Progression3.swc" priority="0" replace="always" open="false">
+      <require prop="profile.flash.useSWCLibraries" value="true"/>
+    </source>
+    <source master="templates/MyCastButton_ja.as" extraction="templates/MyCastButton.as" priority="0" replace="always" open="false"/>
+    <source master="templates/MyCastMovieClip_ja.as" extraction="templates/MyCastMovieClip.as" priority="0" replace="always" open="false"/>
+    <source master="templates/MyCastSprite_ja.as" extraction="templates/MyCastSprite.as" priority="0" replace="always" open="false"/>
+    <source master="templates/MyCommand_ja.as" extraction="templates/MyCommand.as" priority="0" replace="always" open="false"/>
+    <source master="templates/MyIndex_ja.as" extraction="templates/MyIndex.as" priority="0" replace="always" open="false"/>
+    <source master="templates/MyPreloader_ja.as" extraction="templates/MyPreloader.as" priority="0" replace="always" open="false"/>
+    <source master="templates/MySceneObject_ja.as" extraction="templates/MySceneObject.as" priority="0" replace="always" open="false"/>
+    <source master="templates/easycasting.xml" extraction="templates/easycasting.xml" priority="0" replace="always" open="false"/>
+    <source master="templates/prml.xml" extraction="templates/prml.xml" priority="0" replace="always" open="false"/>
+    <source master="Project_Flash10_FlashPlayer10.as3proj" extraction="MyProject2.as3proj" priority="0" replace="none" open="false">
+      <require prop="profile.flash.useFlashDevelopProject" value="true"/>
+    </source>
+  </pppack>
+  <report createDate="Fri May 22 2009 00:48:43 GMT+0900" lastModifiedDate="Fri May 22 2009 00:48:45 GMT+0900">
+  </report>
+</ppinfo>
