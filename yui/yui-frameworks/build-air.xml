@@ -113,6 +113,7 @@
 				<exclude name="**/target/swc/*/catalog.xml"/>
 				<exclude name="**/lib/**"/>
 				<exclude name="**/build.xml"/>
+				<exclude name="**/build-air.xml"/>
 				<exclude name="**/pom.xml"/>
 				<exclude name="**/build.properties"/>
 				<exclude name="**/flex3.properties"/>
