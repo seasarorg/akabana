@@ -6,7 +6,7 @@
  *	Class: 		MessagePanelView
  *	Source: 	D:\profile\yui-frameworks\workspace1\yui-frameworks-examples\src\main\flex\examples\yui\helloworld\view\MessagePanelView.mxml
  *	Template: 	flex2/compiler/mxml/gen/ClassDef.vm
- *	Time: 		2009.12.04 21:59:09 JST
+ *	Time: 		2009.12.04 22:45:26 JST
  */
 
 package examples.yui.helloworld.view

@@ -73,7 +73,7 @@ public class _popup_mx_managers_SystemManager
             layout: "absolute",
             mainClassName: "popup",
             mixins: [ "_popup_FlexInit", "_richTextEditorTextAreaStyleStyle", "_ControlBarStyle", "_alertButtonStyleStyle", "_textAreaVScrollBarStyleStyle", "_headerDateTextStyle", "_YuiFrameworkSettingsStyle", "_TitleWindowStyle", "_globalStyle", "_todayStyleStyle", "_windowStylesStyle", "_ApplicationStyle", "_ToolTipStyle", "_CursorManagerStyle", "_opaquePanelStyle", "_errorTipStyle", "_dateFieldPopupStyle", "_customizersStyle", "_dataGridStylesStyle", "_popUpMenuStyle", "_headerDragProxyStyleStyle", "_activeTabStyleStyle", "_PanelStyle", "_DragManagerStyle", "_ContainerStyle", "_windowStatusStyle", "_ScrollBarStyle", "_swatchPanelTextFieldStyle", "_textAreaHScrollBarStyleStyle", "_plainStyle", "_activeButtonStyleStyle", "_comboDropdownStyle", "_ButtonStyle", "_weekDayStyleStyle", "_linkButtonStyleStyle", "org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin" ],
-            rsls: [{url: "yui-core.swf", size: -1}, {url: "yui-logging.swf", size: -1}, {url: "yui-service.swf", size: -1}, {url: "yui-framework.swf", size: -1}, {url: "yui_framework_bridge_flex3.swf", size: -1}]
+            rsls: [{url: "yui-core.swf", size: -1}, {url: "yui-logging.swf", size: -1}, {url: "yui-service.swf", size: -1}, {url: "yui-framework.swf", size: -1}, {url: "yui-framework-bridge-flex3.swf", size: -1}]
 
         }
     }

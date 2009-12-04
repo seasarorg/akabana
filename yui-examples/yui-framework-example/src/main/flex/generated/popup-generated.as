@@ -6,7 +6,7 @@
  *	Class: 		popup
  *	Source: 	D:\profile\yui-frameworks\workspace1\yui-frameworks-examples\src\main\flex\popup.mxml
  *	Template: 	flex2/compiler/mxml/gen/ClassDef.vm
- *	Time: 		2009.12.04 21:59:07 JST
+ *	Time: 		2009.12.04 22:45:24 JST
  */
 
 package 

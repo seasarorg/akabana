@@ -6,7 +6,7 @@
  *	Class: 		helloworld
  *	Source: 	D:\profile\yui-frameworks\workspace1\yui-frameworks-examples\src\main\flex\helloworld.mxml
  *	Template: 	flex2/compiler/mxml/gen/ClassDef.vm
- *	Time: 		2009.12.04 21:59:09 JST
+ *	Time: 		2009.12.04 22:45:26 JST
  */
 
 package 
