@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
   <includeClasses>
-    <classEntry path="org.seasar.akabana.yui.framework.bridge.Flex3FrameworkBridgePlugin"/>
+    <classEntry path="YuiFrameworkFlex3Classes"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
