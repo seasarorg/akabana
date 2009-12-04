@@ -35,7 +35,13 @@
     </target>
             
     <target name="compile" depends="setup,manifest">
-        <compc 
+		<concat destfile = "${LIB_PUBLISH_DIR}/defaults.css" fixlastline = "yes" >
+			<filelist dir = ".">
+				<file name="${LIB_ROOT}/../yui-framework${FLEX_SRC}/defaults.css"/>
+				<file name="${LIB_ROOT}/../yui-framework-bridge-flex3${FLEX_SRC}/defaults.css"/>
+			</filelist>
+		</concat>
+    	<compc 
             output="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}"
             include-classes="${LIB_CLASSES}"
         	compute-digest="true"
@@ -48,10 +54,11 @@
     		<define name="CONFIG::DEBUG_EVENT" value="false"/>
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
         	<source-path path-element="${LIB_ROOT}/../yui-core${FLEX_SRC}"/>
-        	<source-path path-element="${LIB_ROOT}/../yui-framework${FLEX_SRC}"/>
     		<source-path path-element="${LIB_ROOT}/../yui-logging${FLEX_SRC}"/>
         	<source-path path-element="${LIB_ROOT}/../yui-service${FLEX_SRC}"/>
             <source-path path-element="${LIB_ROOT}/../yui-rpc${FLEX_SRC}"/>
+        	<source-path path-element="${LIB_ROOT}/../yui-framework${FLEX_SRC}"/>
+        	<source-path path-element="${LIB_ROOT}/../yui-framework-bridge-flex3${FLEX_SRC}"/>
             <source-path path-element="${LIB_ROOT}/../yui-air${FLEX_SRC}"/>
 
             <include-namespaces uri="http://akabana.seasar.org/yui/mxml/1.0" /> 
@@ -76,7 +83,7 @@
             <include-file name="locale/en_US/messages.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/log4yui.properties" /> 
             <include-file name="locale/en_US/errors.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/errors.properties" /> 
 
-        	<include-file name="defaults.css" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/defaults.css" /> 
+        	<include-file name="defaults.css" path="${LIB_PUBLISH_DIR}/defaults.css" />
                     	
         	<external-library-path dir="${FLEX_FRAMEWORK}" append="true">
                 <include name="libs" />
