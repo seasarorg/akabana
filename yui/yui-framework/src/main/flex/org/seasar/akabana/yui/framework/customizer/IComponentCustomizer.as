@@ -16,17 +16,16 @@
 package org.seasar.akabana.yui.framework.customizer
 {
     import mx.core.Container;
+    import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     
     public interface IComponentCustomizer
     {
         
-        function get namingConvention():NamingConvention;
+        function customize( view:UIComponent, owner:UIComponent=null ):void;
         
-        function customize( view:Container, owner:Container=null ):void;
-        
-        function uncustomize( view:Container, owner:Container=null ):void;
+        function uncustomize( view:UIComponent, owner:UIComponent=null ):void;
         
     }
 }

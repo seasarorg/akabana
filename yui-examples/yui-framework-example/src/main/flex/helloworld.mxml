@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:akabana="http://akabana.seasar.org/yui/mxml/1.0"
+	xmlns:yui="http://akabana.seasar.org/yui-frameworks/1.0"
     layout="vertical"
 	xmlns:view="examples.yui.helloworld.view.*"
 	show="trace('onShow',event)"
@@ -18,7 +18,7 @@
         c3:ClassReference("org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer");       
     }        
     </mx:Style>
-    <akabana:YuiFrameworkSettings/>
+    <yui:YuiFrameworkSettings/>
     
     <view:HelloWorldView id="rootView"/>
     <mx:Button label="rootView削除" click="this.removeChild(rootView)"/>

@@ -21,6 +21,7 @@ package org.seasar.akabana.yui.framework.core {
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     
@@ -31,7 +32,7 @@ package org.seasar.akabana.yui.framework.core {
         public static var componentInstanceMap:Dictionary = new Dictionary(true);
         
         public static function addComponent( component:UIComponent ):void{
-            var className:String = ClassRef.getReflector(component).name;
+            var className:String = YuiFrameworkGlobals.namingConvention.getClassName(component);
             if( componentInstanceMap[ className ] == null ){
                 componentInstanceMap[ className ] = new Dictionary(true);
             }
@@ -52,7 +53,7 @@ package org.seasar.akabana.yui.framework.core {
                 componentMap[ componentId ] = null;
                 delete componentMap[ componentId ];
 
-                var className:String = ClassRef.getReflector(component).name;
+                var className:String = YuiFrameworkGlobals.namingConvention.getClassName(component);
                 
                 var componentInstances:Object = componentInstanceMap[ className ];
                 componentInstances[ componentId ] = null;
@@ -65,7 +66,7 @@ package org.seasar.akabana.yui.framework.core {
             var componentInstances:Object;
             do{
                 if( key is Class ){
-                    var className:String = ClassRef.getReflector(key as Class).name;
+                    var className:String = YuiFrameworkGlobals.namingConvention.getClassName(component);
                     componentInstances = componentInstanceMap[ className ];
                     if( componentId != null){
                         component = componentInstances[ componentId ] as UIComponent;

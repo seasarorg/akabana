@@ -1,15 +1,16 @@
 package org.seasar.akabana.yui.logging.config.factory
 {
-    import org.seasar.akabana.yui.logging.config.Configuration;
-    import mx.resources.ResourceBundle;
-    import org.seasar.akabana.yui.logging.config.AppenderConfig;
+    import mx.resources.IResourceBundle;
+    
     import org.seasar.akabana.yui.core.reflection.ClassRef;
-    import org.seasar.akabana.yui.logging.config.LayoutConfig;
-    import org.seasar.akabana.yui.logging.config.CategoryConfig;
     import org.seasar.akabana.yui.logging.category.SimpleCategory;
-    import org.seasar.akabana.yui.util.StringUtil;
+    import org.seasar.akabana.yui.logging.config.AppenderConfig;
+    import org.seasar.akabana.yui.logging.config.CategoryConfig;
+    import org.seasar.akabana.yui.logging.config.Configuration;
+    import org.seasar.akabana.yui.logging.config.LayoutConfig;
     import org.seasar.akabana.yui.logging.config.LevelConfig;
     import org.seasar.akabana.yui.logging.config.ParamConfig;
+    import org.seasar.akabana.yui.util.StringUtil;
     
     internal class PropertiesConfigurationBuilder{
         
@@ -33,7 +34,7 @@ package org.seasar.akabana.yui.logging.config.factory
         
         private static var currentConfiguration:Configuration;
             
-        public static function create(propertiesFile:ResourceBundle):Configuration{
+        public static function create(propertiesFile:IResourceBundle):Configuration{
             currentConfiguration = new Configuration();
             build( parseProperties( propertiesFile.content ) );
             return currentConfiguration;

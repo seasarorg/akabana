@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
   <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.framework.YuiFrameworkGlobals"/>
+    <classEntry path="org.seasar.akabana.yui.framework.bridge.FrameworkBridge"/>
+    <classEntry path="org.seasar.akabana.yui.framework.bridge.IFrameworkBridgePlugin"/>
     <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.IYuiFrameworkContainer"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainerBase"/>
@@ -35,14 +39,14 @@
     <resourceEntry destPath="locale/en_US/yui_framework.properties" sourcePath="locale/en_US/yui_framework.properties"/>
     <resourceEntry destPath="locale/ja_JP/application.properties" sourcePath="locale/ja_JP/application.properties"/>
     <resourceEntry destPath="locale/en_US/errors.properties" sourcePath="locale/en_US/errors.properties"/>
-    <resourceEntry destPath="locale/en_US/conventions.properties" sourcePath="locale/en_US/conventions.properties"/>
     <resourceEntry destPath="locale/ja_JP/log4yui.properties" sourcePath="locale/ja_JP/log4yui.properties"/>
+    <resourceEntry destPath="locale/en_US/conventions.properties" sourcePath="locale/en_US/conventions.properties"/>
     <resourceEntry destPath="locale/ja_JP/errors.properties" sourcePath="locale/ja_JP/errors.properties"/>
     <resourceEntry destPath="locale/ja_JP/yui_framework.properties" sourcePath="locale/ja_JP/yui_framework.properties"/>
     <resourceEntry destPath="locale/en_US/application.properties" sourcePath="locale/en_US/application.properties"/>
     <resourceEntry destPath="locale/ja_JP/messages.properties" sourcePath="locale/ja_JP/messages.properties"/>
   </includeResources>
   <namespaceManifests>
-    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://akabana.seasar.org/yui/mxml/1.0"/>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://akabana.seasar.org/yui-frameworks/1.0"/>
   </namespaceManifests>
 </flexLibProperties>

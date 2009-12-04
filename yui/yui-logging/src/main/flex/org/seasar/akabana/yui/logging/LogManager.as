@@ -109,7 +109,7 @@ package org.seasar.akabana.yui.logging
         
         private final function getLogger( targetClass:Class ):Logger{
             
-            var fullClassName:String = ClassRef.getQualifiedClassName(targetClass);
+            var fullClassName:String = ClassRef.getClassName(targetClass);
             var logger_:Logger = CACHE[ fullClassName ];
             
             if( logger_ == null ){

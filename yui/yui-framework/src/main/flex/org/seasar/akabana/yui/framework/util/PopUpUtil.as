@@ -6,7 +6,6 @@ package org.seasar.akabana.yui.framework.util
     import flash.events.IEventDispatcher;
     import flash.utils.Dictionary;
     
-    import mx.core.Application;
     import mx.core.Container;
     import mx.core.IFlexDisplayObject;
     import mx.core.IUIComponent;
@@ -16,6 +15,7 @@ package org.seasar.akabana.yui.framework.util
     import mx.events.FlexEvent;
     import mx.managers.PopUpManager;
     
+    import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     
     public class PopUpUtil
@@ -39,7 +39,7 @@ package org.seasar.akabana.yui.framework.util
             var window:Container = 
                 PopUpUtil.createPopUp(
                     viewName,
-                    Application.application as Application,
+                    YuiFrameworkGlobals.frameworkBridge.application as UIComponent,
                     popupClass,
                     modal,
                     center,

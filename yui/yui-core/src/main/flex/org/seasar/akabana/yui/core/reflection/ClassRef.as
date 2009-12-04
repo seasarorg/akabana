@@ -24,18 +24,18 @@ package org.seasar.akabana.yui.core.reflection
     public class ClassRef extends AnnotatedObjectRef
     {
 
-        private static const CLASS_REF_CACHE:Object = {};
+        public static const CLASS_REF_CACHE:Object = {};
 
-        private static const CLASS_NAME_SEPARATOR:String = "::";
+		public static const CLASS_NAME_SEPARATOR:String = "::";
 
-        private static const DOT:String = ".";
+		public static const DOT:String = ".";
 
         public static var classLoader:ClassLoader = new ClassLoader();
-
-        public static function getQualifiedClassName( object:Object ):String{
-            return flash.utils.getQualifiedClassName(object).replace(CLASS_NAME_SEPARATOR,DOT);
-        }
-
+		
+		public static function getClassName( object:Object ):String{
+			return flash.utils.getQualifiedClassName(object).replace(CLASS_NAME_SEPARATOR,DOT);
+		}
+		
         public static function getReflector( target:Object ):ClassRef{
 
             var clazz:Class = null;
@@ -223,7 +223,7 @@ package org.seasar.akabana.yui.core.reflection
 
             do{
                 if( interfaceType is Class ){
-                    var className:String = ClassRef.getQualifiedClassName(interfaceType as Class);
+                    var className:String = ClassRef.getClassName(interfaceType as Class);
                     isAssignable_ = _interfaceMap.hasOwnProperty( className );
                     break;
                 }

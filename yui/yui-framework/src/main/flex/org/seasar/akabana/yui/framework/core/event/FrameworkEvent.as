@@ -20,6 +20,8 @@ package org.seasar.akabana.yui.framework.core.event
 
     public class FrameworkEvent extends Event
     {
+        public static const APPLICATION_MONITOR_START:String = "applicationMonitorStart";
+        
         public static const ASSEMBLE_COMPELETE:String = "assembleComplete";
         
         public static const APPLICATION_START:String = "applicationStart";

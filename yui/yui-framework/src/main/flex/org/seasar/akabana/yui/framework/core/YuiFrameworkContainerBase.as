@@ -18,8 +18,7 @@ package org.seasar.akabana.yui.framework.core
     import flash.events.TimerEvent;
     import flash.utils.Timer;
     
-    import mx.core.Application;
-    import mx.core.Container;
+    import mx.core.UIComponent;
     import mx.managers.CursorManager;
     import mx.managers.DragManager;
     import mx.managers.ISystemManager;
@@ -51,8 +50,6 @@ package org.seasar.akabana.yui.framework.core
         protected var _customizers:Array;
 
         protected var _isApplicationStarted:Boolean = true;
-
-        protected var _application:Application;
         
         protected var _namingConvention:NamingConvention;
         
@@ -68,10 +65,10 @@ package org.seasar.akabana.yui.framework.core
         public function addExternalSystemManager(systemManager:ISystemManager ):void{
         }
 
-        public function customizeComponent( container:Container, owner:Container=null):void{
+        public function customizeComponent( container:UIComponent, owner:UIComponent=null):void{
         }
         
-        public function uncustomizeComponent( container:Container, owner:Container=null):void{
+        public function uncustomizeComponent( container:UIComponent, owner:UIComponent=null):void{
         }        
         
         public function callLater(callBack:Function):void{

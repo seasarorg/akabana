@@ -22,7 +22,7 @@ package org.seasar.akabana.yui.framework.customizer
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
-    import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.logging.Logger;
     
@@ -34,13 +34,10 @@ package org.seasar.akabana.yui.framework.customizer
         
         protected static const ENHANCED_PREFIX:String = ENHANCED_SEPARETOR + "enhanced" + ENHANCED_SEPARETOR;
 
-        public function AbstractEventCustomizer(namingConvention:NamingConvention){
-            super(namingConvention);
-        }
         
         protected function getEventName( functionRef:FunctionRef, componentName:String):String{
 			const functionName:String = functionRef.name;
-			const handlerIndex:int = functionName.lastIndexOf(_namingConvention.getHandlerSuffix());
+			const handlerIndex:int = functionName.lastIndexOf(YuiFrameworkGlobals.namingConvention.getHandlerSuffix());
             
 			return functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);			
         }

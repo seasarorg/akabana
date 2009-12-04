@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.framework.customizer
 {
     import flash.errors.IllegalOperationError;
     
-    import mx.core.Container;
+    import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
@@ -25,21 +25,11 @@ package org.seasar.akabana.yui.framework.customizer
     
     internal class AbstractComponentCustomizer implements IComponentCustomizer
     {
-        protected var _namingConvention:NamingConvention;
-        
-        public function AbstractComponentCustomizer(namingConvention:NamingConvention){
-            _namingConvention = namingConvention;
-        }
-        
-        public function get namingConvention():NamingConvention{
-            return _namingConvention;
-        }
-                
-        public function customize( view:Container, owner:Container=null):void{
+        public function customize( view:UIComponent, owner:UIComponent=null):void{
             throw new IllegalOperationError("can't call");
         }
 
-        public function uncustomize( view:Container, owner:Container=null):void{
+        public function uncustomize( view:UIComponent, owner:UIComponent=null):void{
             throw new IllegalOperationError("can't call");
         }
         

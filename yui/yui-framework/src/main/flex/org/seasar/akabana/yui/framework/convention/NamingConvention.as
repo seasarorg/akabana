@@ -15,6 +15,9 @@
  */
 package org.seasar.akabana.yui.framework.convention
 {
+	import org.seasar.akabana.yui.core.reflection.ClassRef;
+	
+
     public class NamingConvention
     {
         public static const VIEW:String = "view";
@@ -48,13 +51,8 @@ package org.seasar.akabana.yui.framework.convention
         private static const PATH_REG_SUFFIX:String = "$";
         private static const VAR_NAME_REG_PREFIX:String = "^.+?";
         private static const VAR_NAME_REG_SUFFIX:String = "$";
-        
-        protected static function changeViewPackageTo( viewName:String, packageName:String, suffix:String ):String{
-            var classPathArray:Array = viewName.match(VIEW_PATH_REG);
-            return classPathArray[1] + DOT + packageName + DOT + classPathArray[2] + suffix;
-        }
                 
-        private var _conventions:Array;
+        protected var _conventions:Array;
 
         public function get conventions():Array{
             return _conventions;
@@ -166,6 +164,10 @@ package org.seasar.akabana.yui.framework.convention
         public function getOwnHandlerPrefix():String{
             return OWN_HANDLER_PREFIX;
         }
+		
+		public function getClassName(object:Object):String{
+			return ClassRef.getClassName(object);
+		}
         		
         public function isViewClassName( className:String ):Boolean{
             return checkClassFullName(className,getViewPackageName(),getViewSuffix());
@@ -226,5 +228,10 @@ package org.seasar.akabana.yui.framework.convention
             
             return isTarget;
         }
+		
+		protected function changeViewPackageTo( viewName:String, packageName:String, suffix:String ):String{
+			var classPathArray:Array = viewName.match(VIEW_PATH_REG);
+			return classPathArray[1] + DOT + packageName + DOT + classPathArray[2] + suffix;
+		}
     }
 }

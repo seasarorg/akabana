@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application
     xmlns:mx="http://www.adobe.com/2006/mxml" 
-    xmlns:akabana="http://akabana.seasar.org/yui/mxml/1.0"
+    xmlns:yui="http://akabana.seasar.org/yui-frameworks/1.0"
     layout="absolute"
     xmlns:view="examples.yui.popup.view.*"
     width="100%"
@@ -10,7 +10,7 @@
     <mx:Style source="assets/css/applicationStyles.css"/>
     <mx:Style source="examples/yui/popup/popupClasses.css"/>
     
-    <akabana:YuiFrameworkSettings/>
+    <yui:YuiFrameworkSettings/>
     <view:PopupOwnerView id="rootView"
         height="100%"
         width="100%"

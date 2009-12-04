@@ -15,6 +15,9 @@
  */
 package
 {
+    import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
+    import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
+    import org.seasar.akabana.yui.framework.bridge.IFrameworkBridgePlugin;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.core.ViewComponentRepository;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
@@ -37,6 +40,11 @@ package
     public class YuiFrameworkClasses
     {
         {
+            YuiFrameworkGlobals;
+            
+            FrameworkBridge;
+            IFrameworkBridgePlugin;
+            
             NamingConvention;
             ViewComponentRepository;
             IComponentCustomizer;
