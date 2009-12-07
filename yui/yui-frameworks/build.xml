@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="rsl">
-	<property file="build.properties"/>
+    <property file="build.properties"/>
     <property file="flex.properties"/>
 	
 	<property name="FLEX_TASKS_JAR" value="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 	<property name="FLEX_FRAMEWORK" value="${FLEX_HOME}/frameworks"/>    
-	
-	<property name="LIB_ROOT" value="${basedir}"/>
+
+    <property name="LIB_ROOT" value="${basedir}"/>
 	<property name="LIB_NAME" value="${ant.project.name}"/>
     <property name="LIB_MAIN" value="${LIB_NAME}${FLEX_MXML_SUFFIX}"/>
     <property name="LIB_PUBLISH_DIR" value="${LIB_ROOT}${FLEX_SWC_OUTPUT}"/>
     <property name="LIB_PUBLISH_SWC_FILE" value="${LIB_NAME}-${LIB_VERSION}${FLEX_SWC_SUFFIX}"/>
     <property name="LIB_PUBLISH_SWF_FILE" value="${LIB_NAME}-${LIB_VERSION}${FLEX_SWF_SUFFIX}"/>
     <property name="LIB_PUBLISH_FILE" value="${LIB_NAME}_${LIB_VERSION}"/>
-	
-	<taskdef resource="flexTasks.tasks" classpath="${FLEX_TASKS_JAR}"/>
+
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_TASKS_JAR}"/>
 
     <target name="clean">
         <delete dir="${LIB_PUBLISH_DIR}"/>
     </target>
-    
+
     <target name="setup" depends="clean">
         <mkdir dir="${LIB_PUBLISH_DIR}"/>
     </target>
@@ -35,7 +35,7 @@
     	</replaceregexp>
     	<echo message="Create New Manifest is ${LIB_PUBLISH_DIR}/Manifest.xml "/>
     </target>
-	
+
     <target name="css">
 		<concat destfile = "${LIB_PUBLISH_DIR}/defaults.css" fixlastline = "yes" >
 			<filelist dir = ".">
@@ -45,26 +45,26 @@
 		</concat>
     	<echo message="Create ${LIB_PUBLISH_DIR}/defaults.css "/>
     </target>
-            
+
     <target name="compile" depends="setup,manifest,css">
-        <compc 
+        <compc
             output="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}"
             include-classes="${LIB_CLASSES}"
-        	compute-digest="true"
-        	incremental="false"
+            compute-digest="true"
+            incremental="false"
             debug="${LIB_DEBUG_MODE}"
-        	optimize="${LIB_OPTIMIZE}"
-        	target-player="10"
+            optimize="${LIB_OPTIMIZE}"
+            target-player="10"
         	locale="${LIB_LOCALE}"
-    	>
-    		<define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}"/>
+        >
+            <define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}"/>
     		<define name="CONFIG::DEBUG_EVENT" value="false"/>
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-        	<source-path path-element="${LIB_ROOT}/../yui-core${FLEX_SRC}"/>
-    		<source-path path-element="${LIB_ROOT}/../yui-logging${FLEX_SRC}"/>
-        	<source-path path-element="${LIB_ROOT}/../yui-service${FLEX_SRC}"/>
+            <source-path path-element="${LIB_ROOT}/../yui-core${FLEX_SRC}"/>
+            <source-path path-element="${LIB_ROOT}/../yui-logging${FLEX_SRC}"/>
+            <source-path path-element="${LIB_ROOT}/../yui-service${FLEX_SRC}"/>
             <source-path path-element="${LIB_ROOT}/../yui-rpc${FLEX_SRC}"/>
-        	<source-path path-element="${LIB_ROOT}/../yui-framework${FLEX_SRC}"/>
+            <source-path path-element="${LIB_ROOT}/../yui-framework${FLEX_SRC}"/>
         	<source-path path-element="${LIB_ROOT}/../yui-framework-bridge-flex3${FLEX_SRC}"/>
 
             <include-namespaces uri="${LIB_NAMESPACE}" />
@@ -75,16 +75,16 @@
 				<include name="air"/>   
             </library-path>
 
-        	<include-file name="locale/${LIB_LOCALE}/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/yui_framework.properties" /> 
+            <include-file name="locale/${LIB_LOCALE}/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/yui_framework.properties" /> 
             <include-file name="locale/${LIB_LOCALE}/conventions.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/conventions.properties" /> 
             <include-file name="locale/${LIB_LOCALE}/log4yui.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/log4yui.properties" /> 
             <include-file name="locale/${LIB_LOCALE}/application.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/application.properties" /> 
             <include-file name="locale/${LIB_LOCALE}/messages.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/messages.properties" /> 
             <include-file name="locale/${LIB_LOCALE}/errors.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/errors.properties" /> 
 
-        	<include-file name="defaults.css" path="${LIB_PUBLISH_DIR}/defaults.css" />
-                    	
-        	<external-library-path dir="${FLEX_FRAMEWORK}" append="true">
+            <include-file name="defaults.css" path="${LIB_PUBLISH_DIR}/defaults.css" />
+
+            <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
                 <include name="libs" />
             </external-library-path>
         </compc>
