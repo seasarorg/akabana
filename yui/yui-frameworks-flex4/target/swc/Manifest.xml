@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<componentPackage>
+    <component id="YuiFrameworkSettings" class="org.seasar.akabana.yui.framework.core.YuiFrameworkSettings"/>
+</componentPackage>
