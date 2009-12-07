@@ -48,8 +48,7 @@
     </target>
             
     <target name="compile" depends="setup,manifest,css">
-
-    	<compc 
+        <compc 
             output="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}"
             include-classes="${LIB_CLASSES}"
         	compute-digest="true"
@@ -57,6 +56,7 @@
             debug="${LIB_DEBUG_MODE}"
         	optimize="${LIB_OPTIMIZE}"
         	target-player="10"
+        	locale="${LIB_LOCALE}"
     	>
     		<define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}"/>
     		<define name="CONFIG::DEBUG_EVENT" value="false"/>
@@ -76,7 +76,7 @@
             <library-path dir="${FLEX_FRAMEWORK}/libs" append="true">
 				<include name="air"/>   
             </library-path>
-            
+
         	<include-file name="locale/${LIB_LOCALE}/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/yui_framework.properties" /> 
             <include-file name="locale/${LIB_LOCALE}/conventions.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/conventions.properties" /> 
             <include-file name="locale/${LIB_LOCALE}/log4yui.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/log4yui.properties" /> 
