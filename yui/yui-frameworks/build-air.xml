@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks-air" basedir="." default="rsl">
 	<property file="build.properties"/>
-    <property file="flex3.properties"/>
+    <property file="flex.properties"/>
+	
+	<property name="FLEX_TASKS_JAR" value="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+	<property name="FLEX_FRAMEWORK" value="${FLEX_HOME}/frameworks"/>    
 	
 	<property name="LIB_ROOT" value="${basedir}"/>
 	<property name="LIB_NAME" value="${ant.project.name}"/>
@@ -33,14 +36,19 @@
     	</replaceregexp>
     	<echo message="Create New Manifest is ${LIB_PUBLISH_DIR}/Manifest.xml "/>
     </target>
-            
-    <target name="compile" depends="setup,manifest">
+	
+    <target name="css">
 		<concat destfile = "${LIB_PUBLISH_DIR}/defaults.css" fixlastline = "yes" >
 			<filelist dir = ".">
 				<file name="${LIB_ROOT}/../yui-framework${FLEX_SRC}/defaults.css"/>
 				<file name="${LIB_ROOT}/../yui-framework-bridge-flex3${FLEX_SRC}/defaults.css"/>
 			</filelist>
 		</concat>
+    	<echo message="Create ${LIB_PUBLISH_DIR}/defaults.css "/>
+    </target>
+            
+    <target name="compile" depends="setup,manifest,css">
+
     	<compc 
             output="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}"
             include-classes="${LIB_CLASSES}"
@@ -61,27 +69,20 @@
         	<source-path path-element="${LIB_ROOT}/../yui-framework-bridge-flex3${FLEX_SRC}"/>
             <source-path path-element="${LIB_ROOT}/../yui-air${FLEX_SRC}"/>
 
-            <include-namespaces uri="http://akabana.seasar.org/yui/mxml/1.0" /> 
-            
+            <include-namespaces uri="${LIB_NAMESPACE}" />
+
+            <namespace uri="${LIB_NAMESPACE}" manifest="${LIB_PUBLISH_DIR}/Manifest.xml" />
+    		
             <library-path dir="${FLEX_FRAMEWORK}/libs" append="true">
 				<include name="air"/>   
             </library-path>
             
-        	<namespace uri="http://akabana.seasar.org/yui/mxml/1.0" manifest="${LIB_PUBLISH_DIR}/Manifest.xml" /> 
-            
-        	<include-file name="locale/ja_JP/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/yui_framework.properties" /> 
-            <include-file name="locale/ja_JP/conventions.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/conventions.properties" /> 
-            <include-file name="locale/ja_JP/log4yui.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/log4yui.properties" /> 
-            <include-file name="locale/ja_JP/application.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/application.properties" /> 
-            <include-file name="locale/ja_JP/messages.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/messages.properties" /> 
-            <include-file name="locale/ja_JP/errors.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/ja_JP/errors.properties" /> 
-
-        	<include-file name="locale/en_US/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/yui_framework.properties" /> 
-            <include-file name="locale/en_US/conventions.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/conventions.properties" /> 
-            <include-file name="locale/en_US/log4yui.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/log4yui.properties" /> 
-            <include-file name="locale/en_US/application.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/log4yui.properties" /> 
-            <include-file name="locale/en_US/messages.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/log4yui.properties" /> 
-            <include-file name="locale/en_US/errors.properties" path="${LIB_ROOT}/../yui-framework${FLEX_SRC}/locale/en_US/errors.properties" /> 
+        	<include-file name="locale/${LIB_LOCALE}/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/yui_framework.properties" /> 
+            <include-file name="locale/${LIB_LOCALE}/conventions.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/conventions.properties" /> 
+            <include-file name="locale/${LIB_LOCALE}/log4yui.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/log4yui.properties" /> 
+            <include-file name="locale/${LIB_LOCALE}/application.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/application.properties" /> 
+            <include-file name="locale/${LIB_LOCALE}/messages.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/messages.properties" /> 
+            <include-file name="locale/${LIB_LOCALE}/errors.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/errors.properties" /> 
 
         	<include-file name="defaults.css" path="${LIB_PUBLISH_DIR}/defaults.css" />
                     	
