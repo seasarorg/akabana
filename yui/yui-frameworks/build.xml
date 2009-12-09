@@ -70,11 +70,6 @@
             <include-namespaces uri="${LIB_NAMESPACE}" />
 
             <namespace uri="${LIB_NAMESPACE}" manifest="${LIB_PUBLISH_DIR}/Manifest.xml" />
-    		
-            <library-path dir="${FLEX_FRAMEWORK}/libs" append="true">
-				<include name="air"/>   
-            </library-path>
-
             <include-file name="locale/${LIB_LOCALE}/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/yui_framework.properties" /> 
             <include-file name="locale/${LIB_LOCALE}/conventions.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/conventions.properties" /> 
             <include-file name="locale/${LIB_LOCALE}/log4yui.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/log4yui.properties" /> 
