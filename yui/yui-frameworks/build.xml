@@ -2,9 +2,9 @@
 <project name="yui-frameworks" basedir="." default="rsl">
     <property file="build.properties"/>
     <property file="flex.properties"/>
-	
+
 	<property name="FLEX_TASKS_JAR" value="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
-	<property name="FLEX_FRAMEWORK" value="${FLEX_HOME}/frameworks"/>    
+	<property name="FLEX_FRAMEWORK" value="${FLEX_HOME}/frameworks"/>
 
     <property name="LIB_ROOT" value="${basedir}"/>
 	<property name="LIB_NAME" value="${ant.project.name}"/>
@@ -23,7 +23,7 @@
     <target name="setup" depends="clean">
         <mkdir dir="${LIB_PUBLISH_DIR}"/>
     </target>
-	
+
     <target name="manifest">
 		<concat destfile = "${LIB_PUBLISH_DIR}/Manifest.xml" fixlastline = "yes" >
 			<filelist dir = ".">
@@ -70,12 +70,11 @@
             <include-namespaces uri="${LIB_NAMESPACE}" />
 
             <namespace uri="${LIB_NAMESPACE}" manifest="${LIB_PUBLISH_DIR}/Manifest.xml" />
-            <include-file name="locale/${LIB_LOCALE}/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/yui_framework.properties" /> 
-            <include-file name="locale/${LIB_LOCALE}/conventions.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/conventions.properties" /> 
-            <include-file name="locale/${LIB_LOCALE}/log4yui.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/log4yui.properties" /> 
-            <include-file name="locale/${LIB_LOCALE}/application.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/application.properties" /> 
-            <include-file name="locale/${LIB_LOCALE}/messages.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/messages.properties" /> 
-            <include-file name="locale/${LIB_LOCALE}/errors.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/errors.properties" /> 
+            <include-file name="locale/${LIB_LOCALE}/yui_framework.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/yui_framework.properties" />
+            <include-file name="locale/${LIB_LOCALE}/log4yui.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/log4yui.properties" />
+            <include-file name="locale/${LIB_LOCALE}/application.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/application.properties" />
+            <include-file name="locale/${LIB_LOCALE}/messages.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/messages.properties" />
+            <include-file name="locale/${LIB_LOCALE}/errors.properties" path="${LIB_ROOT}/../yui-framework${FLEX_RESOURCES}/locale/${LIB_LOCALE}/errors.properties" />
 
             <include-file name="defaults.css" path="${LIB_PUBLISH_DIR}/defaults.css" />
 
@@ -84,24 +83,24 @@
             </external-library-path>
         </compc>
     </target>
-	
+
 	<target name="rsl" depends="compile">
         <unzip
             src="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}"
-            dest="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_FILE}" 
+            dest="${LIB_PUBLISH_DIR}/${LIB_PUBLISH_FILE}"
             />
 		<java jar="${FLEX_HOME}/lib/optimizer.jar" fork="true" failonerror="true">
-			  <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib='${FLEX_HOME}/frameworks' -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" /> 
-			  <arg line="'${LIB_PUBLISH_DIR}/${LIB_PUBLISH_FILE}/library.swf' --output '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWF_FILE}' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient,RemoteClass' " /> 
+			  <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib='${FLEX_HOME}/frameworks' -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" />
+			  <arg line="'${LIB_PUBLISH_DIR}/${LIB_PUBLISH_FILE}/library.swf' --output '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWF_FILE}' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient,RemoteClass' " />
 		</java>
-        <java jar="${FLEX_HOME}/lib/digest.jar" fork="true" failonerror="true"> 
-               <jvmarg line="-ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/> 
-               <arg line="--digest.rsl-file '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWF_FILE}' --digest.swc-path '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}'"/> 
-        </java> 		
+        <java jar="${FLEX_HOME}/lib/digest.jar" fork="true" failonerror="true">
+               <jvmarg line="-ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
+               <arg line="--digest.rsl-file '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWF_FILE}' --digest.swc-path '${LIB_PUBLISH_DIR}/${LIB_PUBLISH_SWC_FILE}'"/>
+        </java>
     </target>
-    <!-- ================================= 
-          target: dist              
-         ================================= -->		
+    <!-- =================================
+          target: dist
+         ================================= -->
 	<target name="dist" description="dist the project..">
 		<zip zipfile="target/${LIB_NAME}-${LIB_VERSION}.zip">
 			<zipfileset prefix="${LIB_NAME}" dir=".">
@@ -135,7 +134,7 @@
 			<zipfileset prefix="${LIB_NAME}/target/swc" dir="target/swc">
 				<include name="*.swc"/>
 				<include name="*.swf"/>
-			</zipfileset>			
+			</zipfileset>
 		</zip>
-	</target>	
+	</target>
 </project>
