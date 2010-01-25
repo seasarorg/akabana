@@ -9,30 +9,36 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.service.rpc {
-    
+
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.rpc.AbstractRpcOperation;
     import org.seasar.akabana.yui.service.rpc.AbstractRpcService;
-    
+
     public dynamic class RemotingService extends AbstractRpcService {
-        
+
+        public static var invokeCallBack:Function;
+
+        public static var resultCallBack:Function;
+
+        public static var faultCallBack:Function;
+
         private var _gatewayUrl:String;
 
         public function RemotingService( destination:String = null){
             super();
             _destination = destination;
         }
-        
+
         public function get gatewayUrl():String{
             return _gatewayUrl;
         }
-        
+
         public function set gatewayUrl( gatewayUrl:String):void{
             _gatewayUrl = gatewayUrl;
         }
@@ -40,7 +46,7 @@ package org.seasar.akabana.yui.service.rpc {
         protected override function createOperation( operationName:String ):AbstractRpcOperation{
             return new RemotingOperation( this, operationName)
         }
-        
+
     	protected override function invokeOperation( operationName:String, operationArgs:Array ):PendingCall{
 			var operation:Operation;
 			if( !hasOperation( operationName )){
@@ -51,7 +57,7 @@ package org.seasar.akabana.yui.service.rpc {
                 RemotingOperation(operation).credentialsUsername = _credentialsUsername;
                 RemotingOperation(operation).credentialsPassword = _credentialsPassword;
             }
-            
+
             return operation.invoke( operationArgs );
     	}
     }

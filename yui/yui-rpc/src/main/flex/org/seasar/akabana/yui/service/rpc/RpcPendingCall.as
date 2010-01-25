@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.service.rpc {
     import flash.errors.IllegalOperationError;
-    
+
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
@@ -92,8 +92,8 @@ package org.seasar.akabana.yui.service.rpc {
                 _responder.onResult( resultEvent );
             }
 
-            if( RemotingOperation.resultCallBack != null ){
-                RemotingOperation.resultCallBack.apply(null,[resultEvent]);
+            if( RemotingService.resultCallBack != null ){
+                RemotingService.resultCallBack.apply(null,[resultEvent]);
             }
             _responder = null;
         }
@@ -111,8 +111,8 @@ package org.seasar.akabana.yui.service.rpc {
                 _responder.onFault( faultEvent );
             }
 
-            if( RemotingOperation.faultCallBack != null ){
-                RemotingOperation.faultCallBack.apply(null,[faultEvent]);
+            if( RemotingService.faultCallBack != null ){
+                RemotingService.faultCallBack.apply(null,[faultEvent]);
             }
             _responder = null;
         }

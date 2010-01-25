@@ -36,12 +36,6 @@ package org.seasar.akabana.yui.service.rpc {
 
         public static const CREDENTIALS_USERNAME:String = "credentialsUsername";
 
-        public static var invokeCallBack:Function;
-
-        public static var resultCallBack:Function;
-
-        public static var faultCallBack:Function;
-
         private var remotingConnection:RemotingConnection;
 
         [Inspectable(type="Boolean",defaultValue="true")]
@@ -137,8 +131,8 @@ package org.seasar.akabana.yui.service.rpc {
 
             rc.call.apply(rc,invokeArgs);
 
-            if( invokeCallBack != null ){
-                invokeCallBack.apply(null,[serviceOperationName,operationArgs]);
+            if( RemotingService.invokeCallBack != null ){
+                RemotingService.invokeCallBack.apply(null,[serviceOperationName,operationArgs]);
             }
 
             return pendingCall;
