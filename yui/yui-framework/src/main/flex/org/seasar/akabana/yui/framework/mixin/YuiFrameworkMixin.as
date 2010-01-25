@@ -9,16 +9,17 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.framework.mixin
 {
-	
+
 	import flash.events.Event;
 	import flash.net.registerClassAlias;
-	
+	import flash.system.ApplicationDomain;
+
 	import mx.core.ClassFactory;
 	import mx.core.IFactory;
 	import mx.core.IFlexModuleFactory;
@@ -26,7 +27,7 @@ package org.seasar.akabana.yui.framework.mixin
 	import mx.resources.ResourceManager;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.StyleManager;
-	
+
 	import org.seasar.akabana.yui.core.yui_internal;
 	import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
 	import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
@@ -36,12 +37,12 @@ package org.seasar.akabana.yui.framework.mixin
 	import org.seasar.akabana.yui.logging.LogManager;
 	import org.seasar.akabana.yui.logging.config.ConfigurationProvider;
 	import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
-	
+
 	[Mixin]
 	[ResourceBundle("conventions")]
 	/**
 	 * YuiFramework初期設定用Mixinクラス
-	 * 
+	 *
 	 * @author $Author$
 	 * @version $Revision$
 	 */
@@ -51,45 +52,51 @@ package org.seasar.akabana.yui.framework.mixin
 			LogConfigurationFactory;
 			registerClassAlias(ConfigurationProvider.FACTORY_CLASS_NAME,LogConfigurationFactory);
 		}
-			    
+
 		private static var _this:YuiFrameworkMixin;
-		
+
 		private static var _container:YuiFrameworkContainer;
-		
+
 		private static var _namingConventionClassFactory:IFactory;
-		
+
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{
             LogManager.init();
-            
+
             _this = new YuiFrameworkMixin();
             _container = new YuiFrameworkContainer();
-            YuiFrameworkGlobals.yui_internal::frameworkBridge = FrameworkBridge.initialize();  
-                
+            YuiFrameworkGlobals.yui_internal::frameworkBridge = FrameworkBridge.initialize();
+
             if( flexModuleFactory is ISystemManager ){
             	var systemManager_:ISystemManager = flexModuleFactory as ISystemManager;
-                
+
                 systemManager_
                     .addEventListener(
                         FrameworkEvent.APPLICATION_MONITOR_START,
                         applicationMonitorStartHandler,
                         false,
                         int.MAX_VALUE
-                    ); 
+                    );
                 _container.yui_internal::monitoringSystemManager(systemManager_);
             }
         }
-        
-        protected static function applicationMonitorStartHandler(event:Event):void{         			
+
+        protected static function applicationMonitorStartHandler(event:Event):void{
+            var appDomain:ApplicationDomain = ApplicationDomain.currentDomain;
+            if(appDomain.hasDefinition("ja_JP$log4yui_properties"))
+            {
+                trace("a");
+            }
+
 			initNamingConventionClassFactory();
 			initNamingConvention();
         }
-		
+
 		protected static function initNamingConvention():void{
 			var namingConvention:NamingConvention = _namingConventionClassFactory.newInstance() as NamingConvention;
 			namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");
 			YuiFrameworkGlobals.yui_internal::namingConvention = namingConvention;
 		}
-		
+
 		protected static function initNamingConventionClassFactory():void{
 			var namingConventionClassFactoryDef:CSSStyleDeclaration = StyleManager.getStyleDeclaration("org.seasar.akabana.yui.framework.core.YuiFrameworkSettings");
 			if( namingConventionClassFactoryDef == null ){
