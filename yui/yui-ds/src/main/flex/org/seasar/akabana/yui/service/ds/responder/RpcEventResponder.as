@@ -15,40 +15,27 @@
  */
 package org.seasar.akabana.yui.service.ds.responder {
 
-    import mx.rpc.IResponder;
     import mx.rpc.events.FaultEvent;
     import mx.rpc.events.ResultEvent;
 
-    public class RpcEventResponder implements IResponder {
+    public class RpcEventResponder extends AbstractRpcEventResponder {
 
-        public var resultFunction:Function;
-
-        public var faultFunction:Function;
-
-        public function RpcEventResponder( resultFunction:Function, faultFunction:Function = null){
+        public function RpcEventResponder( resultFunction:Function, faultFunction:Function){
             this.resultFunction = resultFunction;
             this.faultFunction = faultFunction;
         }
 
-        public function result(data:Object):void
+        public override function result(data:Object):void
         {
-            onResult(data as ResultEvent );
-        }
-
-        public function fault(info:Object):void
-        {
-            onFault(info as FaultEvent);
-        }
-
-        public function onResult( result:ResultEvent ):void{
-            resultFunction.call( null, result );
+            resultFunction.call( null, data as ResultEvent );
             resultFunction = null;
             faultFunction = null;
         }
 
-        public function onFault( fault:FaultEvent ):void{
+        public override function fault(info:Object):void
+        {
             if( faultFunction != null ){
-                faultFunction.call( null, fault );
+                faultFunction.call( null, info as FaultEvent);
             }
             resultFunction = null;
             faultFunction = null;

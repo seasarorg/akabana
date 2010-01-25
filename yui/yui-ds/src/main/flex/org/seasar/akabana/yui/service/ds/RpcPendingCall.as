@@ -14,14 +14,16 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.service.ds {
-    import flash.errors.IllegalOperationError;
-
     import mx.core.mx_internal;
     import mx.messaging.messages.IMessage;
     import mx.messaging.messages.RemotingMessage;
     import mx.rpc.AsyncToken;
     import mx.rpc.IResponder;
+    import mx.rpc.Responder;
+    import mx.rpc.events.FaultEvent;
+    import mx.rpc.events.ResultEvent;
 
+    import org.seasar.akabana.yui.core.error.NotFoundError;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
@@ -48,7 +50,7 @@ package org.seasar.akabana.yui.service.ds {
             var fault:FunctionRef = classRef.getFunctionRef( serviceMethod + FAULT_HANDLER);
 
             if( result == null ){
-                throw new IllegalOperationError(serviceMethod);
+                throw new NotFoundError( responder, serviceMethod + RESULT_HANDLER);
             } else {
                 var responderClass:Class;
                 if( result.parameters.length <= 0 ){
@@ -72,6 +74,8 @@ package org.seasar.akabana.yui.service.ds {
 
         protected var _internalAsyncToken:AsyncToken;
 
+        protected var _responder:IResponder;
+
         public function RpcPendingCall(message:IMessage=null)
         {
             super(message);
@@ -79,18 +83,43 @@ package org.seasar.akabana.yui.service.ds {
 
         public function setInternalAsyncToken( asyncToken:AsyncToken ):void{
             _internalAsyncToken = asyncToken;
+            _internalAsyncToken.addResponder( new Responder(onResult,onStatus));
         }
 
         public function setResponder( responder:Object ):void{
-            if( responder is IResponder ){
-                _internalAsyncToken.addResponder(responder as IResponder);
+             if( responder is IResponder ){
+                _responder = responder as IResponder;
              } else {
-                _internalAsyncToken.addResponder(createResponder( message as RemotingMessage, responder ));
+                _responder = createResponder( message as RemotingMessage, responder );
              }
         }
 
         mx_internal override function setResult(newResult:Object):void
         {
+        }
+
+        public function onResult( resultEvent:ResultEvent ):void{
+            if( RemotingService.resultCallBack != null ){
+                RemotingService.resultCallBack.apply(null,[resultEvent]);
+            }
+
+            if( _responder != null ){
+                _responder.result( resultEvent );
+            }
+
+            _responder = null;
+        }
+
+        public function onStatus( faultEvent:FaultEvent ):void{
+            if( RemotingService.faultCallBack != null ){
+                RemotingService.faultCallBack.apply(null,[faultEvent]);
+            }
+
+            if( _responder != null ){
+                _responder.fault( faultEvent );
+            }
+
+            _responder = null;
         }
     }
 }

@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.service.ds {
 
     import flash.net.registerClassAlias;
     import flash.utils.flash_proxy;
-    
+
     import mx.core.Application;
     import mx.core.Container;
     import mx.core.mx_internal;
@@ -46,8 +46,9 @@ package org.seasar.akabana.yui.service.ds {
     import mx.messaging.messages.MessagePerformanceInfo;
     import mx.messaging.messages.RemotingMessage;
     import mx.rpc.AsyncToken;
+    import mx.rpc.events.FaultEvent;
     import mx.rpc.remoting.mxml.RemoteObject;
-    
+
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
     import org.seasar.akabana.yui.service.util.GatewayUtil;
@@ -58,11 +59,17 @@ package org.seasar.akabana.yui.service.ds {
     use namespace mx_internal;
 
     public dynamic class RemotingService extends RemoteObject implements Service {
-            
+
         public static const HTTP_AMF_ENDPOINT_NAME:String = "http-amf";
-        
+
         public static const HTTPS_AMF_ENDPOINT_NAME:String = "https-amf";
-        
+
+        public static var invokeCallBack:Function;
+
+        public static var resultCallBack:Function;
+
+        public static var faultCallBack:Function;
+
         {
             registerClassAlias( "flex.messaging.config.ConfigMap", ConfigMap);
 
@@ -89,7 +96,7 @@ package org.seasar.akabana.yui.service.ds {
         }
 
         private var _parentApplication:Application;
-        
+
         private var _isInitialzed:Boolean;
 
         public function get name():String{
@@ -104,6 +111,7 @@ package org.seasar.akabana.yui.service.ds {
             } else {
                 _isInitialzed = false;
             }
+            addEventListener(FaultEvent.FAULT,function(e:FaultEvent):void{});
         }
 
         public override function initialized(document:Object, id:String):void
@@ -144,12 +152,17 @@ package org.seasar.akabana.yui.service.ds {
         flash_proxy override function callProperty(name:*, ... args:Array):*{
             if( !_isInitialzed ){
                 _isInitialzed = true;
-                initEndpoint();                
+                initEndpoint();
             }
             var asyncToken:AsyncToken = super.callProperty.apply(null, [name].concat(args));
             asyncToken.message.destination = destination;
             var result:RpcPendingCall = new RpcPendingCall(asyncToken.message);
             result.setInternalAsyncToken(asyncToken);
+
+            if( RemotingService.invokeCallBack != null ){
+                RemotingService.invokeCallBack.apply(null,[destination+"."+(name as QName).localName,args]);
+            }
+
             return result;
         }
     }
