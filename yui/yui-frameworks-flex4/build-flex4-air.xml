@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="yui-frameworks-flex3-air" basedir="." default="rsl">
+<project name="yui-frameworks-flex4-air" basedir="." default="rsl">
 	<property file="build.properties"/>
-	<property file="build-flex3-air.properties"/>
+	<property file="build-flex4-air.properties"/>
     <property file="flex.properties"/>
 
 	<property name="FLEX_TASKS_JAR" value="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
@@ -42,7 +42,7 @@
 		<concat destfile = "${LIB_PUBLISH_DIR}/defaults.css" fixlastline = "yes" >
 			<filelist dir = ".">
 				<file name="${LIB_ROOT}/../yui-framework${FLEX_SRC}/defaults.css"/>
-				<file name="${LIB_ROOT}/../yui-framework-bridge-flex3${FLEX_SRC}/defaults.css"/>
+				<file name="${LIB_ROOT}/../yui-framework-bridge-flex4${FLEX_SRC}/defaults.css"/>
 			</filelist>
 		</concat>
     	<echo message="Create ${LIB_PUBLISH_DIR}/defaults.css "/>
@@ -67,7 +67,7 @@
         	<source-path path-element="${LIB_ROOT}/../yui-service${FLEX_SRC}"/>
             <source-path path-element="${LIB_ROOT}/../yui-rpc${FLEX_SRC}"/>
         	<source-path path-element="${LIB_ROOT}/../yui-framework${FLEX_SRC}"/>
-        	<source-path path-element="${LIB_ROOT}/../yui-framework-bridge-flex3${FLEX_SRC}"/>
+        	<source-path path-element="${LIB_ROOT}/../yui-framework-bridge-flex4${FLEX_SRC}"/>
             <source-path path-element="${LIB_ROOT}/../yui-air${FLEX_SRC}"/>
 
             <include-namespaces uri="${LIB_NAMESPACE}" />
@@ -124,7 +124,7 @@
 				<exclude name="**/build-air.xml"/>
 				<exclude name="**/pom.xml"/>
 				<exclude name="**/build.properties"/>
-				<exclude name="**/flex3.properties"/>
+				<exclude name="**/flex4.properties"/>
 			</zipfileset>
 			<zipfileset prefix="${LIB_NAME}" dir="../yui-core/">
 				<include name="**/*.as" />
