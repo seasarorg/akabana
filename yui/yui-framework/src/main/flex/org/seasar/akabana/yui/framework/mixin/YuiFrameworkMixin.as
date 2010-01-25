@@ -18,7 +18,6 @@ package org.seasar.akabana.yui.framework.mixin
 
 	import flash.events.Event;
 	import flash.net.registerClassAlias;
-	import flash.system.ApplicationDomain;
 
 	import mx.core.ClassFactory;
 	import mx.core.IFactory;
@@ -26,7 +25,7 @@ package org.seasar.akabana.yui.framework.mixin
 	import mx.managers.ISystemManager;
 	import mx.resources.ResourceManager;
 	import mx.styles.CSSStyleDeclaration;
-	import mx.styles.StyleManager;
+	import mx.styles.IStyleManager2;
 
 	import org.seasar.akabana.yui.core.yui_internal;
 	import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
@@ -34,6 +33,7 @@ package org.seasar.akabana.yui.framework.mixin
 	import org.seasar.akabana.yui.framework.convention.NamingConvention;
 	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
 	import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
+	import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
 	import org.seasar.akabana.yui.logging.LogManager;
 	import org.seasar.akabana.yui.logging.config.ConfigurationProvider;
 	import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
@@ -81,12 +81,6 @@ package org.seasar.akabana.yui.framework.mixin
         }
 
         protected static function applicationMonitorStartHandler(event:Event):void{
-            var appDomain:ApplicationDomain = ApplicationDomain.currentDomain;
-            if(appDomain.hasDefinition("ja_JP$log4yui_properties"))
-            {
-                trace("a");
-            }
-
 			initNamingConventionClassFactory();
 			initNamingConvention();
         }
@@ -98,7 +92,8 @@ package org.seasar.akabana.yui.framework.mixin
 		}
 
 		protected static function initNamingConventionClassFactory():void{
-			var namingConventionClassFactoryDef:CSSStyleDeclaration = StyleManager.getStyleDeclaration("org.seasar.akabana.yui.framework.core.YuiFrameworkSettings");
+		    var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
+			var namingConventionClassFactoryDef:CSSStyleDeclaration = styleManager.getStyleDeclaration("org.seasar.akabana.yui.framework.core.YuiFrameworkSettings");
 			if( namingConventionClassFactoryDef == null ){
 				_namingConventionClassFactory = new ClassFactory(NamingConvention);
 			} else {

@@ -17,18 +17,19 @@ package org.seasar.akabana.yui.framework.core
 {
     import flash.events.TimerEvent;
     import flash.utils.Timer;
-    
+
     import mx.core.UIComponent;
     import mx.managers.CursorManager;
     import mx.managers.DragManager;
     import mx.managers.ISystemManager;
     import mx.managers.PopUpManager;
     import mx.styles.CSSStyleDeclaration;
-    import mx.styles.StyleManager;
-    
+    import mx.styles.IStyleManager2;
+
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.message.MessageManager;
+    import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
     import org.seasar.akabana.yui.logging.Logger;
 
     internal class YuiFrameworkContainerBase implements IYuiFrameworkContainer
@@ -36,7 +37,7 @@ package org.seasar.akabana.yui.framework.core
         include "../Version.as";
 
         protected static const _logger:Logger = Logger.getLogger(IYuiFrameworkContainer);
-        
+
         protected static const ROOT_VIEW:String = "rootView";
 
         {
@@ -50,9 +51,9 @@ package org.seasar.akabana.yui.framework.core
         protected var _customizers:Array;
 
         protected var _isApplicationStarted:Boolean = true;
-        
+
         protected var _namingConvention:NamingConvention;
-        
+
         protected var _systemManagers:Array;
 
         public function get systemManagers():Array{
@@ -67,10 +68,10 @@ package org.seasar.akabana.yui.framework.core
 
         public function customizeComponent( container:UIComponent, owner:UIComponent=null):void{
         }
-        
+
         public function uncustomizeComponent( container:UIComponent, owner:UIComponent=null):void{
-        }        
-        
+        }
+
         public function callLater(callBack:Function):void{
             _callTimer.addEventListener(TimerEvent.TIMER,
             function timerHandler(event:TimerEvent):void{
@@ -86,17 +87,18 @@ CONFIG::DEBUG{
         protected function getMessage(resourceName:String,...parameters):String{
             return MessageManager.yui_internal::yuiframework.getMessage.apply(null,[resourceName].concat(parameters));
         }
-}  
-        
+}
+
         protected function addSystemManager(systemManager:ISystemManager):void{
 CONFIG::DEBUG{
             _logger.debug("add systemManager"+systemManager);
-}              
+}
             _systemManagers.push(systemManager);
         }
 
         protected function getDefaultCustomizerClasses():Array{
-            var customizersDef:CSSStyleDeclaration = StyleManager.getStyleDeclaration(".customizers");
+		    var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
+            var customizersDef:CSSStyleDeclaration = styleManager.getStyleDeclaration(".customizers");
             var classNames:Array = customizersDef.getStyle("classNames") as Array;
             var result:Array = [];
             for each( var className:String in classNames ){
@@ -104,7 +106,7 @@ CONFIG::DEBUG{
             }
 CONFIG::DEBUG{
             _logger.debug("default customizers is "+result);
-}            
+}
             return result;
         }
     }

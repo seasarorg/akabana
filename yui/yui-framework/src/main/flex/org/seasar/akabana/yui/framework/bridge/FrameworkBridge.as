@@ -9,62 +9,64 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.framework.bridge
 {
     import flash.errors.IllegalOperationError;
-    
+
     import mx.core.UIComponent;
     import mx.managers.ISystemManager;
     import mx.styles.CSSStyleDeclaration;
-    import mx.styles.StyleManager;
-    
+    import mx.styles.IStyleManager2;
+
     import org.seasar.akabana.yui.core.yui_internal;
-    
+    import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
+
     public class FrameworkBridge
     {
         public static function initialize():FrameworkBridge{
+		    var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
             var result:FrameworkBridge = new FrameworkBridge();
-            var frameworkBridgeCss:CSSStyleDeclaration = StyleManager.getStyleDeclaration("org.seasar.akabana.yui.framework.core.YuiFrameworkSettings");
+            var frameworkBridgeCss:CSSStyleDeclaration = styleManager.getStyleDeclaration("org.seasar.akabana.yui.framework.core.YuiFrameworkSettings");
 			if( frameworkBridgeCss == null ){
-				frameworkBridgeCss = StyleManager.getStyleDeclaration("YuiFrameworkSettings");
+				frameworkBridgeCss = styleManager.getStyleDeclaration("YuiFrameworkSettings");
 			    if( frameworkBridgeCss == null ){
 			        throw new IllegalOperationError("No Framework BridgePlugin");
 			    }
 			}
-			var pluginClass:Class = frameworkBridgeCss.getStyle("frameworkBridgePlugin");            
-            result.frameworkBridgePlugin = new pluginClass();     
+			var pluginClass:Class = frameworkBridgeCss.getStyle("frameworkBridgePlugin");
+            result.frameworkBridgePlugin = new pluginClass();
             return result;
         }
-        
-        protected var frameworkBridgePlugin:IFrameworkBridgePlugin;        
-        
+
+        protected var frameworkBridgePlugin:IFrameworkBridgePlugin;
+
         public function get application():UIComponent{
             return frameworkBridgePlugin.application;
         }
-        
+
         public function get parameters():Object{
             return frameworkBridgePlugin.parameters;
         }
-        
+
         yui_internal function set application(value:UIComponent):void{
             frameworkBridgePlugin.application = value;
         }
-        
+
         public function get systemManager():ISystemManager{
             return frameworkBridgePlugin.systemManager;
         }
-        
+
         public function isApplication(application:Object):Boolean{
             return frameworkBridgePlugin.isApplication(application);
         }
-        
+
         public function isContainer(component:Object):Boolean{
             return frameworkBridgePlugin.isContainer(component);
-        }      
-        
+        }
+
     }
 }
