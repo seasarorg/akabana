@@ -11,8 +11,8 @@
 	<property name="LIB_NAME" value="${ant.project.name}"/>
     <property name="LIB_MAIN" value="${LIB_NAME}${FLEX_MXML_SUFFIX}"/>
     <property name="LIB_PUBLISH_DIR" value="${LIB_ROOT}${FLEX_SWC_OUTPUT}${file.separator}${LIB_FLASHPLAYER}${file.separator}${ant.project.name}"/>
-    <property name="LIB_PUBLISH_SWC_FILE" value="${LIB_NAME}-${LIB_VERSION}-${LIB_FLASHPLAYER}${FLEX_SWC_SUFFIX}"/>
-    <property name="LIB_PUBLISH_SWF_FILE" value="${LIB_NAME}-${LIB_VERSION}-${LIB_FLASHPLAYER}${FLEX_SWF_SUFFIX}"/>
+    <property name="LIB_PUBLISH_SWC_FILE" value="${LIB_NAME}-${LIB_VERSION}-fp${LIB_FLASHPLAYER}${FLEX_SWC_SUFFIX}"/>
+    <property name="LIB_PUBLISH_SWF_FILE" value="${LIB_NAME}-${LIB_VERSION}-fp${LIB_FLASHPLAYER}${FLEX_SWF_SUFFIX}"/>
     <property name="LIB_PUBLISH_FILE" value="${LIB_NAME}_${LIB_VERSION}-${LIB_FLASHPLAYER}"/>
 
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_TASKS_JAR}"/>
