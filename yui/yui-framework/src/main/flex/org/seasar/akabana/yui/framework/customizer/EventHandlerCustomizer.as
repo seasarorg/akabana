@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.framework.customizer {
 
     import flash.events.IEventDispatcher;
 
+    import mx.core.Container;
     import mx.core.IMXMLObject;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
@@ -100,7 +101,8 @@ CONFIG::DEBUG{
 }
 
             //for children
-            for( var index:int = 0; index < view.numChildren; index++ ){
+            var numChildren:int = view.numChildren;
+            for( var index:int = 0; index < numChildren; index++ ){
 
                 component = view.getChildAt(index) as UIComponent;
                 if( component == null ){
@@ -182,12 +184,9 @@ CONFIG::DEBUG{
         private function doCustomizeByContainer( view:UIComponent, container:UIComponent, action:Object):void {
             var actionClassRef:ClassRef = ClassRef.getReflector(action);
             var component:UIComponent;
-//TODO
-//            if( container.childDescriptors == null ){
-//                return;
-//            }
 
-            for( var index:int =0; index < container.numChildren; index++ ){
+            var numChildren:int = container.numChildren;
+            for( var index:int =0; index < numChildren; index++ ){
                 do {
                     component = container.getChildAt(index) as UIComponent;
                     if( component == null ){
@@ -288,8 +287,8 @@ CONFIG::DEBUG{
             _logger.debug(getMessage("ViewEventUncustomizing",viewName,actionClassRef.name));
 }
 
-            //for children
-            for( var index:int = 0; index < view.numChildren; index++ ){
+            var numChildren:int = view.numChildren;
+            for( var index:int = 0; index < numChildren; index++ ){
 
                 component = view.getChildAt(index) as UIComponent;
                 if( component == null ){
@@ -371,11 +370,9 @@ CONFIG::DEBUG{
             const actionClassRef:ClassRef = ClassRef.getReflector(action);
             var componentName:String;
             var component:UIComponent;
-//TODO
-//            if( container.childDescriptors == null ){
-//                return;
-//            }
-            for( var index:int =0; index < container.numChildren; index++ ){
+
+            var numChildren:int = container.numChildren;
+            for( var index:int =0; index < numChildren; index++ ){
                 do {
                     component = container.getChildAt(index) as UIComponent;
 	                if( component == null ){
