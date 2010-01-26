@@ -11,6 +11,7 @@
 		<ant antfile="build-flex4.xml"/>
         <ant antfile="build-flex4-ds.xml"/>
         <ant antfile="build-flex4-air.xml"/>
+        <ant antfile="build-flex4-catalyst.xml"/>
     </target>
 
 	<target name="clean">
