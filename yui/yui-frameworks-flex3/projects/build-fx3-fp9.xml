@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="yui-frameworks-fx3-fp9" basedir="." default="all">
+
+	<target name="all">
+		<property name="projectdir" value="${PROJECT_WORKSPACE}${file.separator}${ant.project.name}"/>
+		<projectInit projectname="${ant.project.name}" projectdir="${projectdir}"/>
+		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-core"/>
+		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-logging"/>
+		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-service"/>
+		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-rpc"/>
+		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework"/>
+		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework-bridge-flex3"/>
+
+		<projectCompilePrepare projectdir="${projectdir}"/>
+		<projectCompileWithFlexLibrary projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="9"/>
+		<projectRsl projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="9"/>
+	</target>
+</project>

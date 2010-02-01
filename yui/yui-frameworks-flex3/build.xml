@@ -1,28 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="all">
 
-    <target name="all">
-    	<antcall target="all-for-flashplayer10"/>
-    	<antcall target="all-for-flashplayer9"/>
-    </target>
+	<property file="build.properties" />
 
-    <target name="all-for-flashplayer10">
-    	<property name="LIB_FLASHPLAYER" value="10"/>
-    	<antcall target="clean"/>
-		<ant antfile="build-flex3.xml"/>
-        <ant antfile="build-flex3-ds.xml"/>
-        <ant antfile="build-flex3-air.xml"/>
-    </target>
-
-    <target name="all-for-flashplayer9">
-    	<property name="LIB_FLASHPLAYER" value="9"/>
-    	<antcall target="clean"/>
-		<ant antfile="build-flex3.xml"/>
-        <ant antfile="build-flex3-ds.xml"/>
-    </target>
-
-	<target name="clean">
-		<delete dir="${basedir}${file.separator}target${file.separator}swc${file.separator}${LIB_FLASHPLAYER}"/>
-		<mkdir dir="${basedir}${file.separator}target${file.separator}swc${file.separator}${LIB_FLASHPLAYER}"/>
+	<!-- -->
+	<target name="all">
+		<ant antfile="build-fx3.xml" target="run"/>
+		<ant antfile="build-fx4.xml" target="run"/>
 	</target>
 </project>
