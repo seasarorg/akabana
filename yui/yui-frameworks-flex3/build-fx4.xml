@@ -185,12 +185,14 @@
 				<namespace uri="${LIB_NAMESPACE}" manifest="@{projectdir}${FLEX_MANIFEST_PATH}" />
 
 				<include-file name="locale/ja_JP/yui_framework.properties" path="${project-locale-ja-dir}yui_framework.properties" />
+				<include-file name="locale/ja_JP/yui_core.properties" path="${project-locale-ja-dir}yui_core.properties" />
 				<include-file name="locale/ja_JP/log4yui.properties" path="${project-locale-ja-dir}log4yui.properties" />
 				<include-file name="locale/ja_JP/application.properties" path="${project-locale-ja-dir}application.properties" />
 				<include-file name="locale/ja_JP/messages.properties" path="${project-locale-ja-dir}messages.properties" />
 				<include-file name="locale/ja_JP/errors.properties" path="${project-locale-ja-dir}errors.properties" />
 
 				<include-file name="locale/en_US/yui_framework.properties" path="${project-locale-en-dir}yui_framework.properties" />
+				<include-file name="locale/en_US/yui_core.properties" path="${project-locale-en-dir}yui_core.properties" />
 				<include-file name="locale/en_US/log4yui.properties" path="${project-locale-en-dir}log4yui.properties" />
 				<include-file name="locale/en_US/application.properties" path="${project-locale-en-dir}application.properties" />
 				<include-file name="locale/en_US/messages.properties" path="${project-locale-en-dir}messages.properties" />
@@ -226,12 +228,14 @@
 				<namespace uri="${LIB_NAMESPACE}" manifest="@{projectdir}${FLEX_MANIFEST_PATH}" />
 
 				<include-file name="locale/ja_JP/yui_framework.properties" path="${project-locale-ja-dir}yui_framework.properties" />
+				<include-file name="locale/ja_JP/yui_core.properties" path="${project-locale-ja-dir}yui_core.properties" />
 				<include-file name="locale/ja_JP/log4yui.properties" path="${project-locale-ja-dir}log4yui.properties" />
 				<include-file name="locale/ja_JP/application.properties" path="${project-locale-ja-dir}application.properties" />
 				<include-file name="locale/ja_JP/messages.properties" path="${project-locale-ja-dir}messages.properties" />
 				<include-file name="locale/ja_JP/errors.properties" path="${project-locale-ja-dir}errors.properties" />
 
 				<include-file name="locale/en_US/yui_framework.properties" path="${project-locale-en-dir}yui_framework.properties" />
+				<include-file name="locale/en_US/yui_core.properties" path="${project-locale-en-dir}yui_core.properties" />
 				<include-file name="locale/en_US/log4yui.properties" path="${project-locale-en-dir}log4yui.properties" />
 				<include-file name="locale/en_US/application.properties" path="${project-locale-en-dir}application.properties" />
 				<include-file name="locale/en_US/messages.properties" path="${project-locale-en-dir}messages.properties" />

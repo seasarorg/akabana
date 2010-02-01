@@ -3,8 +3,6 @@
 <includeClasses>
 <classEntry path="org.seasar.akabana.yui.framework.bridge.Flex3FrameworkBridgePlugin"/>
 </includeClasses>
-<includeResources>
-<resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
-</includeResources>
+<includeResources/>
 <namespaceManifests/>
 </flexLibProperties>
