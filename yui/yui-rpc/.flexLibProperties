@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
 <includeClasses>
-<classEntry path="YuiRpcClasses"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcOperation"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcService"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.RemotingConnection"/>
@@ -9,6 +8,7 @@
 <classEntry path="org.seasar.akabana.yui.service.rpc.RemotingOperation"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.RemotingService"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.RpcPendingCall"/>
+<classEntry path="org.seasar.akabana.yui.service.rpc.responder.AbstractRpcEventResponder"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcEventResponder"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcNoneResponder"/>
 <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcObjectResponder"/>
