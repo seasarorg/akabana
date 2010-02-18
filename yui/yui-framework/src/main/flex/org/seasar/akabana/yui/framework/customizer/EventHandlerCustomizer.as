@@ -68,14 +68,23 @@ package org.seasar.akabana.yui.framework.customizer {
             const viewName:String = UIComponentUtil.getName(view);
             const viewClassName:String = ClassRef.getReflector(view).name;
             if( owner == null ){
-                const action_:Object = view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
-                if( action_ != null){
-                     doUncustomize(viewName,view,action_);
+
+                var action:Object = null;
+    			if ( view.descriptor != null && view.descriptor.properties != null ){
+                    action = view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
+                }
+                if( action == null ){
+                } else {
+                     doUncustomize(viewName,view,action);
                 }
             } else {
                 const ownerName:String = UIComponentUtil.getName(owner);
-                const ownerAction_:Object = owner.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
-                if( ownerAction_ != null){
+                var ownerAction_:Object = null;
+    			if ( owner.descriptor != null && owner.descriptor.properties != null ){
+                    ownerAction_ = owner.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
+                }
+                if( ownerAction_ == null ){
+                } else {
                     const actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
                     doUnCustomizingByComponent(
                         owner,
@@ -280,13 +289,11 @@ CONFIG::DEBUG{
         }
 
         private function doUncustomize( viewName:String, view:UIComponent, action:Object ):void{
+CONFIG::DEBUG{
+            _logger.debug(getMessage("ViewEventUncustomizing",viewName,view));
+}
             const actionClassRef:ClassRef = ClassRef.getReflector(action);
             var component:UIComponent;
-
-CONFIG::DEBUG{
-            _logger.debug(getMessage("ViewEventUncustomizing",viewName,actionClassRef.name));
-}
-
             var numChildren:int = view.numChildren;
             for( var index:int = 0; index < numChildren; index++ ){
 

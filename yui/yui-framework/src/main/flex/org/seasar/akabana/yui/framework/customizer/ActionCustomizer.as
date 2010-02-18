@@ -9,17 +9,17 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.framework.customizer {
 
     import flash.utils.Dictionary;
-    
+
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
-    
+
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
@@ -29,15 +29,15 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.service.ServiceRepository;
 
     public class ActionCustomizer extends AbstractComponentCustomizer {
-        
+
         private static const _logger:Logger = Logger.getLogger(ActionCustomizer);
-        
+
         private static const LOGIC_OWNER:String = "owner";
-        
+
         private static var viewToHelperMap:Object = new Dictionary(true);
-        
+
         private static var viewToActionMap:Object = new Dictionary(true);
-        
+
         public override function customize( view:UIComponent, owner:UIComponent=null):void {
         	if( owner == null ){
 	            const viewName:String = UIComponentUtil.getName(view);
@@ -51,17 +51,17 @@ package org.seasar.akabana.yui.framework.customizer {
 	                actionClassRef = ClassRef.getReflector(actionClassName);
 	                processActionCustomize( viewName, view, actionClassRef );
 	            } catch( e:Error ){
-CONFIG::DEBUG{	                
+CONFIG::DEBUG{
 	                _logger.debug(getMessage("CustomizeError",viewName,e.getStackTrace()));
 }
 	            }
-            
+
             } else {
             }
         }
 
         public override function uncustomize( view:UIComponent, owner:UIComponent=null):void{
-            if( owner == null ){    
+            if( owner == null ){
 	            const viewName:String = UIComponentUtil.getName(view);
 	            const viewClassName:String = YuiFrameworkGlobals.namingConvention.getClassName(view);
 	            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
@@ -77,7 +77,7 @@ CONFIG::DEBUG{
             } else {
             }
         }
-            
+
         protected function processActionCustomize( viewName:String, view:UIComponent, actionClassRef:ClassRef ):void{
             var action:Object = null;
             if( actionClassRef != null ){
@@ -92,7 +92,7 @@ CONFIG::DEBUG{
 CONFIG::DEBUG{
                 _logger.debug(getMessage("ActionCustomizing",viewName,actionClassRef.name));
 }
-                
+
                 for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
                     if( YuiFrameworkGlobals.namingConvention.isHelperClassName( propertyRef_.type )){
                         action[ propertyRef_.name ] = processHelperCustomize(view,propertyRef_);
@@ -120,7 +120,7 @@ CONFIG::DEBUG{
 }
                         continue;
                     }
-                    
+
                     if( YuiFrameworkGlobals.namingConvention.isValidatorClassName( propertyRef_.type ) ){
                         if( view.descriptor.properties.hasOwnProperty( YuiFrameworkGlobals.namingConvention.getValidatorPackageName() )){
                             action[ propertyRef_.name ] = view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ];
@@ -129,23 +129,28 @@ CONFIG::DEBUG{
 }
                         }
                         continue;
-                    }                    
+                    }
                 }
             }
         }
-            
+
         protected function processActionUncustomize( viewName:String, view:UIComponent, actionClassRef:ClassRef ):void{
             var viewDescriptor:UIComponentDescriptor = view.descriptor;
             if( view.isPopUp ){
                 viewToActionMap[ view ] = null;
                 delete viewToActionMap[ view ];
             }
-            var action:Object = viewDescriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
-            if( action != null ){
+
+            var action:Object = null;
+			if ( view.descriptor != null && view.descriptor.properties != null ){
+                action = viewDescriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
+            }
+
+            if( action == null ){
+            } else {
 CONFIG::DEBUG{
                 _logger.debug(getMessage("ActionUnCustomizing",viewName,actionClassRef.name));
 }
-                
                 for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
                     if( YuiFrameworkGlobals.namingConvention.isHelperClassName( propertyRef_.type )){
 						action[ propertyRef_.name ] = null;
@@ -156,11 +161,11 @@ CONFIG::DEBUG{
                         _logger.debug(getMessage("HelperUncustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
                         continue;
-                    }                 
+                    }
                 }
+                viewDescriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ] = null;
+                delete viewDescriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
             }
-            viewDescriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ] = null;
-            delete viewDescriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
         }
 
         protected function processHelperCustomize( view:UIComponent, propertyRef:PropertyRef ):Object{
@@ -170,7 +175,7 @@ CONFIG::DEBUG{
                 const helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
                 const viewClassName:String = ClassRef.getClassName( view );
                 const helperPropertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
-                
+
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
             		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
 
@@ -178,16 +183,16 @@ CONFIG::DEBUG{
                     if( helper == null ){
                         helper = helperClassRef.newInstance();
                         viewToHelperMap[ view ] = helper;
-                    } 
+                    }
                     helper[ helperPropertyRef_.name ] = view;
                 }
-                
+
             } catch( e:Error ){
 CONFIG::DEBUG{
                 _logger.debug(getMessage("CustomizeError",propertyRef.type,e.getStackTrace()));
 }
             }
-            
+
             return helper;
         }
 
@@ -196,22 +201,22 @@ CONFIG::DEBUG{
                 const helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
                 const viewClassName:String = YuiFrameworkGlobals.namingConvention.getViewClassName( helperClassRef.name );
                 const helperPropertyRefs:Array = helperClassRef.getPropertyRefByType( viewClassName );
-                
+
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
             		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
                     viewToHelperMap[ view ] = null;
                     delete viewToHelperMap[ view ];
                 }
-                
+
             } catch( e:Error ){
 CONFIG::DEBUG{
                 _logger.debug(getMessage("UncustomizeError",propertyRef.type,e.getStackTrace()));
 }
             }
         }
-        
+
         protected function processLogicCustomize( viewName:String, propertyRef:PropertyRef, owner:Object ):Object{
-            var logic:Object = null;            
+            var logic:Object = null;
             try{
                 logic = propertyRef.typeClassRef.newInstance();
                 for each( var propertyRef_:PropertyRef in propertyRef.typeClassRef.properties ){
