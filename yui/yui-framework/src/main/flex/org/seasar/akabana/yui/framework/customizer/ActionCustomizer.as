@@ -16,10 +16,10 @@
 package org.seasar.akabana.yui.framework.customizer {
 
     import flash.utils.Dictionary;
-
+    
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
-
+    
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
@@ -159,6 +159,19 @@ CONFIG::DEBUG{
                         processHelperUncustomize(view,propertyRef_);
 CONFIG::DEBUG{
                         _logger.debug(getMessage("HelperUncustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+}
+                        continue;
+                    }
+
+                    if(
+                        propertyRef_.typeClassRef.concreteClass == Service ||
+                        propertyRef_.typeClassRef.isAssignableFrom( Service )
+                    ){
+                        var service:Service = action[ propertyRef_.name ] as Service;
+                        service.deletePendingCallOf(action);
+                        action[ propertyRef_.name ] = null;
+CONFIG::DEBUG{
+                        _logger.debug(getMessage("ServiceUncustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
                         continue;
                     }

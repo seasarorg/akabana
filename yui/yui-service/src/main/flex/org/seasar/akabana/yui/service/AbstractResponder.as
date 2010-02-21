@@ -17,7 +17,6 @@ package org.seasar.akabana.yui.service {
 
     import flash.utils.Dictionary;
     
-    import org.seasar.akabana.yui.service.error.IllegalOperationError;
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.ResultEvent;
 
@@ -27,11 +26,13 @@ package org.seasar.akabana.yui.service {
 
         public var faultFunctionDef:Dictionary;
 
-        public function AbstractResponder( resultFunction:Function, faultFunction:Function = null){         
-            resultFunctionDef = new Dictionary(true);
-            resultFunctionDef[ resultFunction ] = true;
-            faultFunctionDef = new Dictionary(true);
-            faultFunctionDef[ faultFunction ] = true;
+        public function AbstractResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){         
+            resultFunctionDef = new Dictionary(weakReference);
+            resultFunctionDef[ resultFunction ] = weakReference;           
+            faultFunctionDef = new Dictionary(weakReference);
+            if( faultFunction != null ){
+                faultFunctionDef[ faultFunction ] = weakReference;
+            }
         }
 
         public function onResult( result:ResultEvent ):void{

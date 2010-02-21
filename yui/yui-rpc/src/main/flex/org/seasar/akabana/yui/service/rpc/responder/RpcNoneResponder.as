@@ -20,8 +20,8 @@ package org.seasar.akabana.yui.service.rpc.responder {
 
     public class RpcNoneResponder extends AbstractRpcEventResponder {
 
-        public function RpcNoneResponder( resultFunction:Function, faultFunction:Function = null){         
-            super(resultFunction,faultFunction);
+        public function RpcNoneResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){         
+            super(resultFunction,faultFunction,weakReference);
         }
 
         public override function onResult( result:ResultEvent ):void{

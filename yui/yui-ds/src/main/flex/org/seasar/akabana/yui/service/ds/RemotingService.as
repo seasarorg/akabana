@@ -113,6 +113,9 @@ package org.seasar.akabana.yui.service.ds {
             }
             addEventListener(FaultEvent.FAULT,function(e:FaultEvent):void{});
         }
+        
+        public function deletePendingCallOf(responder:Object):void{
+        }
 
         public override function initialized(document:Object, id:String):void
         {

@@ -18,5 +18,7 @@ package org.seasar.akabana.yui.service
     public interface PendingCall
     {
         function setResponder( responder:Object ):void;
+        
+        function getResponder():Object;
     }
 }

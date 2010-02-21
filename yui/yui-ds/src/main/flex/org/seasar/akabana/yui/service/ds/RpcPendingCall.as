@@ -22,7 +22,7 @@ package org.seasar.akabana.yui.service.ds {
     import mx.rpc.Responder;
     import mx.rpc.events.FaultEvent;
     import mx.rpc.events.ResultEvent;
-
+    
     import org.seasar.akabana.yui.core.error.NotFoundError;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
@@ -75,6 +75,8 @@ package org.seasar.akabana.yui.service.ds {
         protected var _internalAsyncToken:AsyncToken;
 
         protected var _responder:IResponder;
+        
+        private var _responderOwner:Object;
 
         public function RpcPendingCall(message:IMessage=null)
         {
@@ -88,10 +90,20 @@ package org.seasar.akabana.yui.service.ds {
 
         public function setResponder( responder:Object ):void{
              if( responder is IResponder ){
+                _responderOwner = null;
                 _responder = responder as IResponder;
              } else {
+                _responderOwner = responder;
                 _responder = createResponder( message as RemotingMessage, responder );
              }
+        }
+
+        public function getResponder():Object{
+            if( _responderOwner == null ){
+                return _responder;
+            } else {
+                return _responderOwner;
+            }
         }
 
         mx_internal override function setResult(newResult:Object):void

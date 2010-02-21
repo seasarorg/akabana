@@ -15,15 +15,11 @@
  */
 package org.seasar.akabana.yui.service.rpc.responder {
 
-    import flash.utils.Dictionary;
-    
     import org.seasar.akabana.yui.service.AbstractResponder;
-    import org.seasar.akabana.yui.service.event.FaultEvent;
-    import org.seasar.akabana.yui.service.event.ResultEvent;
 
-    internal class AbstractRpcEventResponder extends AbstractResponder implements RpcResponder {
+    public class AbstractRpcEventResponder extends AbstractResponder implements RpcResponder {
 
-        public function AbstractRpcEventResponder( resultFunction:Function, faultFunction:Function = null){         
+        public function AbstractRpcEventResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){         
             super(resultFunction,faultFunction);
         }
     }

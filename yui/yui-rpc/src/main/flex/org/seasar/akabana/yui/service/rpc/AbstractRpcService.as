@@ -118,6 +118,10 @@ package org.seasar.akabana.yui.service.rpc {
 	        return innerEventdispatcher.willTrigger(type);
 	    }
 	    
+	    public function deletePendingCallOf(responder:Object):void{
+	        
+	    }
+	    
 	    protected function createOperation( operationName:String ):AbstractRpcOperation{
 	        return null;
 	    }

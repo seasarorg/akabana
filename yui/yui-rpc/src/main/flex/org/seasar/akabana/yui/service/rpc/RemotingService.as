@@ -15,10 +15,11 @@
  */
 package org.seasar.akabana.yui.service.rpc {
 
+    import flash.utils.Dictionary;
+    import flash.utils.getTimer;
+    
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.rpc.AbstractRpcOperation;
-    import org.seasar.akabana.yui.service.rpc.AbstractRpcService;
 
     public dynamic class RemotingService extends AbstractRpcService {
 
@@ -27,13 +28,10 @@ package org.seasar.akabana.yui.service.rpc {
         public static var resultCallBack:Function;
 
         public static var faultCallBack:Function;
+        
+        private var _pendingCallMap:Dictionary;
 
         private var _gatewayUrl:String;
-
-        public function RemotingService( destination:String = null){
-            super();
-            _destination = destination;
-        }
 
         public function get gatewayUrl():String{
             return _gatewayUrl;
@@ -41,6 +39,28 @@ package org.seasar.akabana.yui.service.rpc {
 
         public function set gatewayUrl( gatewayUrl:String):void{
             _gatewayUrl = gatewayUrl;
+        }
+
+        public function RemotingService( destination:String = null){
+            super();
+            _destination = destination;
+            _pendingCallMap = new Dictionary();
+        }
+        
+        public function deleteCallHistory(pc:PendingCall):void{
+            if( pc != null ){
+                _pendingCallMap[ pc ] = null;
+                delete _pendingCallMap[ pc ];
+            }
+        }
+        
+        public override function deletePendingCallOf(responder:Object):void{
+            for( var item:* in _pendingCallMap ){
+                var pc:RpcPendingCall = item as RpcPendingCall;
+                if( pc != null && pc.getResponder() === responder){
+                    pc.clear();
+                }
+            }
         }
 
         protected override function createOperation( operationName:String ):AbstractRpcOperation{
@@ -58,7 +78,11 @@ package org.seasar.akabana.yui.service.rpc {
                 RemotingOperation(operation).credentialsPassword = _credentialsPassword;
             }
 
-            return operation.invoke( operationArgs );
+            var result:PendingCall = operation.invoke( operationArgs );
+            if( result != null ){
+                _pendingCallMap[ result ] = getTimer();
+            }
+            return result;
     	}
     }
 }

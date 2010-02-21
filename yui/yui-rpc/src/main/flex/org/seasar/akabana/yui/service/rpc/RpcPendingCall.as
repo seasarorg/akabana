@@ -23,10 +23,10 @@ package org.seasar.akabana.yui.service.rpc {
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.FaultStatus;
     import org.seasar.akabana.yui.service.event.ResultEvent;
+    import org.seasar.akabana.yui.service.rpc.responder.AbstractRpcEventResponder;
     import org.seasar.akabana.yui.service.rpc.responder.RpcEventResponder;
     import org.seasar.akabana.yui.service.rpc.responder.RpcNoneResponder;
     import org.seasar.akabana.yui.service.rpc.responder.RpcObjectResponder;
-    import org.seasar.akabana.yui.service.rpc.responder.RpcResponder;
     import org.seasar.akabana.yui.util.StringUtil;
 
     public class RpcPendingCall implements PendingCall {
@@ -36,53 +36,77 @@ package org.seasar.akabana.yui.service.rpc {
         private static const FAULT_HANDLER:String = "FaultHandler";
 
         private static function createResponder( operation:RemotingOperation, responder:Object ):Responder{
-            var rpcResponder:RpcResponder = null;
+            const classRef:ClassRef = ClassRef.getReflector(responder);
+            const serviceMethod:String = StringUtil.toLowerCamel( operation.service.name ) + StringUtil.toUpperCamel( operation.name );
+            const serviceResultMethod:String = serviceMethod + RESULT_HANDLER;
+            const serviceFaultMethod:String = serviceMethod + FAULT_HANDLER;
+            const resultFuncDef:FunctionRef = classRef.getFunctionRef( serviceResultMethod );
+            const faultFuncDef:FunctionRef = classRef.getFunctionRef( serviceFaultMethod );
 
-            var classRef:ClassRef = ClassRef.getReflector(responder);
-            var serviceMethod:String = StringUtil.toLowerCamel( operation.service.name ) + StringUtil.toUpperCamel( operation.name );
-            var result:FunctionRef = classRef.getFunctionRef( serviceMethod + RESULT_HANDLER);
-            var fault:FunctionRef = classRef.getFunctionRef( serviceMethod + FAULT_HANDLER);
-
-            if( result == null ){
+            var rpcResponder:AbstractRpcEventResponder = null;
+            if( resultFuncDef == null ){
                 throw new NotFoundError( responder, serviceMethod + RESULT_HANDLER);
             } else {
                 var responderClass:Class;
-                if( result.parameters.length <= 0 ){
+                if( resultFuncDef.parameters.length <= 0 ){
                     responderClass = RpcNoneResponder;
                 } else {
-                    var parameter:ParameterRef = result.parameters[0];
+                    var parameter:ParameterRef = resultFuncDef.parameters[0];
                     if( parameter.isEvent ){
                         responderClass = RpcEventResponder;
                     } else {
                         responderClass = RpcObjectResponder;
                     }
                 }
-                if( fault == null){
-                    rpcResponder = new responderClass(result.getFunction(responder),null);
+                if( faultFuncDef == null){
+                    rpcResponder = new responderClass(resultFuncDef.getFunction(responder),null,true);
                 } else {
-                    rpcResponder = new responderClass(result.getFunction(responder),fault.getFunction(responder));
+                    rpcResponder = new responderClass(resultFuncDef.getFunction(responder),faultFuncDef.getFunction(responder),true);
                 }
+                
             }
-            return rpcResponder;
+            return rpcResponder as Responder;
         }
 
         private var _responder:Responder;
+        
+        private var _responderOwner:Object;
 
         private var _operation:RemotingOperation;
-
+        
+        public function get remotingService():RemotingService{
+            return _operation.service as RemotingService;
+        }
+        
         public function RpcPendingCall(opration:RemotingOperation){
             this._operation = opration as RemotingOperation;
         }
 
+        public function clear():void{
+            _responder = null;
+        }
+
         public function setResponder( responder:Object ):void{
             if( responder is Responder ){
+                _responderOwner = null;
                 _responder = responder as Responder;
-             } else {
-                 _responder = createResponder( _operation, responder );
-             }
+            } else {
+                _responderOwner = responder;
+                _responder = createResponder( _operation, responder );
+            }
+        }
+
+        public function getResponder():Object{
+            if( _responderOwner == null ){
+                return _responder;
+            } else {
+                return _responderOwner;
+            }
         }
 
         public function onResult( result:* ):void{
+            remotingService.deleteCallHistory(this);
+            
             var resultEvent:ResultEvent = new ResultEvent();
             resultEvent.pendigCall = this;
             resultEvent.result = result;
@@ -94,13 +118,17 @@ package org.seasar.akabana.yui.service.rpc {
             if( RemotingService.resultCallBack != null ){
                 RemotingService.resultCallBack.apply(null,[resultEvent]);
             }
+            
             _responder = null;
+            _operation = null;
         }
 
         public function onStatus( status:* ):void{
+            remotingService.deleteCallHistory(this);
+            
             var faultEvent:FaultEvent = new FaultEvent();
             faultEvent.pendigCall = this;
-
+            
             if( status != null ){
                 var faultStatus:FaultStatus = new FaultStatus( status.code, status.description, status.details);
                 faultEvent.faultStatus = faultStatus;
@@ -113,7 +141,9 @@ package org.seasar.akabana.yui.service.rpc {
             if( RemotingService.faultCallBack != null ){
                 RemotingService.faultCallBack.apply(null,[faultEvent]);
             }
+            
             _responder = null;
+            _operation = null;
         }
     }
 }
