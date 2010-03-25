@@ -9,54 +9,74 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.core.reflection
-{    
+{
     public class PropertyRef extends AnnotatedObjectRef
     {
-        
+
         private var _isReadable:Boolean;
 
         public function get isReadable():Boolean{
             return _isReadable;
         }
-        
+
         private var _isWriteable:Boolean;
 
         public function get isWriteable():Boolean{
             return _isWriteable;
         }
-        
+
         private var _type:String;
 
         public function get type():String{
             return _type;
         }
-        
+
         public function get typeClassRef():ClassRef{
             return ClassRef.getReflector(type);
         }
-        
+
         private var _declaredBy:String;
 
         public function get declaredBy():String{
             return _declaredBy;
         }
-        
+
         public function PropertyRef( describeTypeXml:XML )
         {
             super( describeTypeXml );
             assembleMetadataRef( describeTypeXml );
             assembleThis( describeTypeXml );
         }
-        
+
+        public function getValue( object:Object ):Object{
+            var result:Object = null;
+            if( _uri == null || _uri.length == 0 ){
+                result = object[ _name ];
+            } else {
+                var ns:Namespace = new Namespace(_uri);
+                result = object.ns::[ _name ];
+            }
+            return result;
+        }
+
+        public function setValue( object:Object, value:Object ):void{
+            if( _uri == null || _uri.length == 0 ){
+                object[ _name ] = value;
+            } else {
+                var ns:Namespace = new Namespace(_uri);
+                object.ns::[ _name ] = value;
+            }
+        }
+
         public function toString():String{
             return name + "{type=" + _type + ", declaredBy=" + _declaredBy + ", isReadable=" + _isReadable + ", isWriteable=" + _isWriteable + "}";
         }
-        
+
         private function assembleThis( rootDescribeTypeXml:XML ):void{
             var access:String = rootDescribeTypeXml.@access.toString();
             _isReadable = ( access == "readonly" || access == "readwrite" );

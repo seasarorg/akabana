@@ -24,6 +24,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.framework.ns.listener;
     import org.seasar.akabana.yui.logging.Logger;
 
     internal class AbstractEventCustomizer extends AbstractComponentCustomizer
@@ -40,9 +41,15 @@ package org.seasar.akabana.yui.framework.customizer
 
         protected function getEventName( functionRef:FunctionRef, componentName:String):String{
 			const functionName:String = functionRef.name;
-			const handlerIndex:int = functionName.lastIndexOf(YuiFrameworkGlobals.namingConvention.getHandlerSuffix());
-
-			return functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);
+            var eventName:String = null;
+            var ns:Namespace = listener;
+            if( functionRef.uri == ns.uri){
+                eventName = functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1);
+            } else {
+			    const handlerIndex:int = functionName.lastIndexOf(YuiFrameworkGlobals.namingConvention.getHandlerSuffix());
+			    eventName = functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);
+            }
+            return eventName;
         }
 
         protected function getEnhancedEventName( viewName:String, eventName:String ):String{

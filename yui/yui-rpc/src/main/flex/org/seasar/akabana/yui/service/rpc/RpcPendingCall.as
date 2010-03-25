@@ -23,6 +23,8 @@ package org.seasar.akabana.yui.service.rpc {
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.FaultStatus;
     import org.seasar.akabana.yui.service.event.ResultEvent;
+    import org.seasar.akabana.yui.service.ns.result;
+    import org.seasar.akabana.yui.service.ns.fault;
     import org.seasar.akabana.yui.service.rpc.responder.AbstractRpcEventResponder;
     import org.seasar.akabana.yui.service.rpc.responder.RpcEventResponder;
     import org.seasar.akabana.yui.service.rpc.responder.RpcNoneResponder;
@@ -35,49 +37,16 @@ package org.seasar.akabana.yui.service.rpc {
 
         private static const FAULT_HANDLER:String = "FaultHandler";
 
-        private static function createResponder( operation:RemotingOperation, responder:Object ):Responder{
-            const classRef:ClassRef = ClassRef.getReflector(responder);
-            const serviceMethod:String = StringUtil.toLowerCamel( operation.service.name ) + StringUtil.toUpperCamel( operation.name );
-            const serviceResultMethod:String = serviceMethod + RESULT_HANDLER;
-            const serviceFaultMethod:String = serviceMethod + FAULT_HANDLER;
-            const resultFuncDef:FunctionRef = classRef.getFunctionRef( serviceResultMethod );
-            const faultFuncDef:FunctionRef = classRef.getFunctionRef( serviceFaultMethod );
-
-            var rpcResponder:AbstractRpcEventResponder = null;
-            if( resultFuncDef == null ){
-                throw new NotFoundError( responder, serviceMethod + RESULT_HANDLER);
-            } else {
-                var responderClass:Class;
-                if( resultFuncDef.parameters.length <= 0 ){
-                    responderClass = RpcNoneResponder;
-                } else {
-                    var parameter:ParameterRef = resultFuncDef.parameters[0];
-                    if( parameter.isEvent ){
-                        responderClass = RpcEventResponder;
-                    } else {
-                        responderClass = RpcObjectResponder;
-                    }
-                }
-                if( faultFuncDef == null){
-                    rpcResponder = new responderClass(resultFuncDef.getFunction(responder),null,true);
-                } else {
-                    rpcResponder = new responderClass(resultFuncDef.getFunction(responder),faultFuncDef.getFunction(responder),true);
-                }
-                
-            }
-            return rpcResponder as Responder;
-        }
-
         private var _responder:Responder;
-        
+
         private var _responderOwner:Object;
 
         private var _operation:RemotingOperation;
-        
+
         public function get remotingService():RemotingService{
             return _operation.service as RemotingService;
         }
-        
+
         public function RpcPendingCall(opration:RemotingOperation){
             this._operation = opration as RemotingOperation;
         }
@@ -106,7 +75,7 @@ package org.seasar.akabana.yui.service.rpc {
 
         public function onResult( result:* ):void{
             remotingService.deleteCallHistory(this);
-            
+
             var resultEvent:ResultEvent = new ResultEvent();
             resultEvent.pendigCall = this;
             resultEvent.result = result;
@@ -118,17 +87,17 @@ package org.seasar.akabana.yui.service.rpc {
             if( RemotingService.resultCallBack != null ){
                 RemotingService.resultCallBack.apply(null,[resultEvent]);
             }
-            
+
             _responder = null;
             _operation = null;
         }
 
         public function onStatus( status:* ):void{
             remotingService.deleteCallHistory(this);
-            
+
             var faultEvent:FaultEvent = new FaultEvent();
             faultEvent.pendigCall = this;
-            
+
             if( status != null ){
                 var faultStatus:FaultStatus = new FaultStatus( status.code, status.description, status.details);
                 faultEvent.faultStatus = faultStatus;
@@ -141,9 +110,58 @@ package org.seasar.akabana.yui.service.rpc {
             if( RemotingService.faultCallBack != null ){
                 RemotingService.faultCallBack.apply(null,[faultEvent]);
             }
-            
+
             _responder = null;
             _operation = null;
+        }
+
+        private function createResponder( operation:RemotingOperation, responder:Object ):Responder{
+            const classRef:ClassRef = ClassRef.getReflector(responder);
+            const serviceMethod:String = StringUtil.toLowerCamel( operation.service.name ) + StringUtil.toUpperCamel( operation.name );
+            const resultFuncDef:FunctionRef = findResultFunctionRef( classRef, serviceMethod );
+            const faultFuncDef:FunctionRef = findFaultFunctionRef( classRef, serviceMethod );
+
+            var rpcResponder:AbstractRpcEventResponder = null;
+            var responderClass:Class;
+            if( resultFuncDef.parameters.length <= 0 ){
+                responderClass = RpcNoneResponder;
+            } else {
+                var parameter:ParameterRef = resultFuncDef.parameters[0];
+                if( parameter.isEvent ){
+                    responderClass = RpcEventResponder;
+                } else {
+                    responderClass = RpcObjectResponder;
+                }
+            }
+            if( faultFuncDef == null){
+                rpcResponder = new responderClass(resultFuncDef.getFunction(responder),null,true);
+            } else {
+                rpcResponder = new responderClass(resultFuncDef.getFunction(responder),faultFuncDef.getFunction(responder),true);
+            }
+            return rpcResponder as Responder;
+        }
+
+        protected function findResultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
+            const serviceResultMethod:String = serviceMethod + RESULT_HANDLER;
+            var functionRef:FunctionRef = classRef.getFunctionRef( serviceResultMethod );
+            if( functionRef == null ){
+                var ns:Namespace = result;
+                functionRef = classRef.getFunctionRef(serviceMethod,ns);
+            }
+            if( functionRef == null ){
+                throw new NotFoundError( _responder, serviceMethod + RESULT_HANDLER);
+            }
+            return functionRef;
+        }
+
+        protected function findFaultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
+            const serviceFaultMethod:String = serviceMethod + FAULT_HANDLER;
+            var functionRef:FunctionRef = classRef.getFunctionRef( serviceFaultMethod );
+            if( functionRef == null ){
+                var ns:Namespace = fault;
+                functionRef = classRef.getFunctionRef(serviceMethod,ns);
+            }
+            return functionRef;
         }
     }
 }

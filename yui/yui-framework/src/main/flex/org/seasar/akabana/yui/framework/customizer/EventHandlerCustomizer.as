@@ -183,8 +183,7 @@ CONFIG::DEBUG{
                 action,
                 actionClassRef.functions.filter(
                     function(item:*, index:int, array:Array):Boolean{
-                        return ( FunctionRef(item).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0 ) &&
-                               ( FunctionRef(item).name.indexOf(YuiFrameworkGlobals.namingConvention.getHandlerSuffix()) > 3 ) ;
+                        return ( FunctionRef(item).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0 );
                     }
                 )
             );
@@ -275,9 +274,9 @@ CONFIG::DEBUG{
                     component.removeEventListener(eventName, enhancedFunction);
                 }
                 if( functionRef.parameters.length > 0 ){
-                    enhancedFunction = createEnhancedEventHandler( view,action[functionRef.name]);
+                    enhancedFunction = createEnhancedEventHandler( view,functionRef.getFunction(action));
                 } else {
-                    enhancedFunction = createEnhancedEventNoneHandler( view,action[functionRef.name]);
+                    enhancedFunction = createEnhancedEventNoneHandler( view,functionRef.getFunction(action));
                 }
 
                 addEventListener( component, eventName, enhancedFunction);
@@ -366,8 +365,7 @@ CONFIG::DEBUG{
                 action,
                 actionClassRef.functions.filter(
                     function(item:*, index:int, array:Array):Boolean{
-                        return ( FunctionRef(item).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0 ) &&
-                               ( FunctionRef(item).name.indexOf(YuiFrameworkGlobals.namingConvention.getHandlerSuffix()) > 3 ) ;
+                        return ( FunctionRef(item).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0 );
                     }
                 )
             );

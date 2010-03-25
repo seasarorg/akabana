@@ -16,10 +16,10 @@
 package org.seasar.akabana.yui.framework.customizer {
 
     import flash.utils.Dictionary;
-    
+
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
-    
+
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
@@ -55,7 +55,6 @@ CONFIG::DEBUG{
 	                _logger.debug(getMessage("CustomizeError",viewName,e.getStackTrace()));
 }
 	            }
-
             } else {
             }
         }
@@ -95,7 +94,8 @@ CONFIG::DEBUG{
 
                 for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
                     if( YuiFrameworkGlobals.namingConvention.isHelperClassName( propertyRef_.type )){
-                        action[ propertyRef_.name ] = processHelperCustomize(view,propertyRef_);
+                        var helper:Object = processHelperCustomize(view,propertyRef_);
+                        propertyRef_.setValue(action,helper);
 CONFIG::DEBUG{
                         _logger.debug(getMessage("HelperCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
@@ -103,7 +103,8 @@ CONFIG::DEBUG{
                     }
 
                     if( YuiFrameworkGlobals.namingConvention.isLogicClassName( propertyRef_.type )){
-                        action[ propertyRef_.name ] = processLogicCustomize(viewName,propertyRef_,action);
+                        var logic:Object = processLogicCustomize(viewName,propertyRef_,action);
+                        propertyRef_.setValue(action,logic);
 CONFIG::DEBUG{
                         _logger.debug(getMessage("LogicCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
@@ -114,7 +115,8 @@ CONFIG::DEBUG{
                         propertyRef_.typeClassRef.concreteClass == Service ||
                         propertyRef_.typeClassRef.isAssignableFrom( Service )
                     ){
-                        action[ propertyRef_.name ] = processServiceCustomize(viewName,propertyRef_);
+                        var service:Object = processServiceCustomize(viewName,propertyRef_);
+                        propertyRef_.setValue(action,service);
 CONFIG::DEBUG{
                         _logger.debug(getMessage("ServiceCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
@@ -123,12 +125,13 @@ CONFIG::DEBUG{
 
                     if( YuiFrameworkGlobals.namingConvention.isValidatorClassName( propertyRef_.type ) ){
                         if( view.descriptor.properties.hasOwnProperty( YuiFrameworkGlobals.namingConvention.getValidatorPackageName() )){
-                            action[ propertyRef_.name ] = view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ];
+                            var validator:Object = view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ];
+                            propertyRef_.setValue(action,validator);
 CONFIG::DEBUG{
-                            _logger.debug(getMessage("ValidatorCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+                        _logger.debug(getMessage("ValidatorCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
+                            continue;
                         }
-                        continue;
                     }
                 }
             }
@@ -153,12 +156,19 @@ CONFIG::DEBUG{
 }
                 for each( var propertyRef_:PropertyRef in actionClassRef.properties ){
                     if( YuiFrameworkGlobals.namingConvention.isHelperClassName( propertyRef_.type )){
-						action[ propertyRef_.name ] = null;
-                        delete action[ propertyRef_.name ];
-
                         processHelperUncustomize(view,propertyRef_);
+                        propertyRef_.setValue(action,null);
 CONFIG::DEBUG{
                         _logger.debug(getMessage("HelperUncustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+}
+                        continue;
+                    }
+
+                    if( YuiFrameworkGlobals.namingConvention.isLogicClassName( propertyRef_.type )){
+                        processLogicUncustomize(action,propertyRef_);
+                        propertyRef_.setValue(action,null);
+CONFIG::DEBUG{
+                        _logger.debug(getMessage("LogicUncustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
                         continue;
                     }
@@ -167,11 +177,19 @@ CONFIG::DEBUG{
                         propertyRef_.typeClassRef.concreteClass == Service ||
                         propertyRef_.typeClassRef.isAssignableFrom( Service )
                     ){
-                        var service:Service = action[ propertyRef_.name ] as Service;
+                        var service:Service = propertyRef_.getValue(action) as Service;
                         service.deletePendingCallOf(action);
-                        action[ propertyRef_.name ] = null;
+                        propertyRef_.setValue(action,null);
 CONFIG::DEBUG{
                         _logger.debug(getMessage("ServiceUncustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
+}
+                        continue;
+                    }
+
+                    if( YuiFrameworkGlobals.namingConvention.isValidatorClassName( propertyRef_.type ) ){
+                        propertyRef_.setValue(action,null);
+CONFIG::DEBUG{
+                        _logger.debug(getMessage("ValidatorUncustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
 }
                         continue;
                     }
@@ -257,6 +275,35 @@ CONFIG::DEBUG{
             return logic;
         }
 
+        protected function processLogicUncustomize( action:Object, propertyRef:PropertyRef ):void{
+            try{
+                var logic:Object = propertyRef.getValue(action);
+                if( logic == null ){
+                    return;
+                }
+                for each( var propertyRef_:PropertyRef in propertyRef.typeClassRef.properties ){
+                    if(
+                        propertyRef_.typeClassRef.concreteClass == Service ||
+                        propertyRef_.typeClassRef.isAssignableFrom( Service )
+                    ){
+                        processServiceUncustomize(logic,propertyRef_);
+CONFIG::DEBUG{
+                        _logger.debug(getMessage("ServiceUncustomized",propertyRef.name,propertyRef_.name,propertyRef_.type));
+}
+                        continue;
+                    }
+                    if( propertyRef_.name == LOGIC_OWNER){
+                        propertyRef.setValue(logic,null);
+                        continue;
+                    }
+                }
+            } catch( e:Error ){
+CONFIG::DEBUG{
+                _logger.debug(getMessage("UncustomizeError",propertyRef.type,e.getStackTrace()));
+}
+            }
+        }
+
         protected function processServiceCustomize( viewName:String, propertyRef:PropertyRef ):Service{
             var rpcservice:Service = ServiceRepository.getService( propertyRef.name );
             if( rpcservice == null && !propertyRef.typeClassRef.isInterface){
@@ -265,6 +312,12 @@ CONFIG::DEBUG{
                 ServiceRepository.addService( rpcservice );
             }
             return rpcservice;
+        }
+
+        protected function processServiceUncustomize( owner:Object, propertyRef:PropertyRef ):void{
+            var service:Service = propertyRef.getValue(owner) as Service;
+            service.deletePendingCallOf(owner);
+            propertyRef.setValue(owner,null);
         }
     }
 }

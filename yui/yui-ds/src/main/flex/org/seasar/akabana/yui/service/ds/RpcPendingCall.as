@@ -22,11 +22,13 @@ package org.seasar.akabana.yui.service.ds {
     import mx.rpc.Responder;
     import mx.rpc.events.FaultEvent;
     import mx.rpc.events.ResultEvent;
-    
+
     import org.seasar.akabana.yui.core.error.NotFoundError;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
+    import org.seasar.akabana.yui.service.ns.fault;
+    import org.seasar.akabana.yui.service.ns.result;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.ds.responder.RpcEventResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcNoneResponder;
@@ -41,41 +43,10 @@ package org.seasar.akabana.yui.service.ds {
 
         private static const FAULT_HANDLER:String = "FaultHandler";
 
-        private static function createResponder( message:RemotingMessage, responder:Object ):IResponder{
-            var rpcResponder:IResponder = null;
-
-            var classRef:ClassRef = ClassRef.getReflector(responder);
-            var serviceMethod:String = StringUtil.toLowerCamel( message.destination ) + StringUtil.toUpperCamel( message.operation );
-            var result:FunctionRef = classRef.getFunctionRef( serviceMethod + RESULT_HANDLER);
-            var fault:FunctionRef = classRef.getFunctionRef( serviceMethod + FAULT_HANDLER);
-
-            if( result == null ){
-                throw new NotFoundError( responder, serviceMethod + RESULT_HANDLER);
-            } else {
-                var responderClass:Class;
-                if( result.parameters.length <= 0 ){
-                    responderClass = RpcNoneResponder;
-                } else {
-                    var parameter:ParameterRef = result.parameters[0];
-                    if( parameter.isEvent ){
-                        responderClass = RpcEventResponder;
-                    } else {
-                        responderClass = RpcObjectResponder;
-                    }
-                }
-                if( fault == null){
-                    rpcResponder = new responderClass(result.getFunction(responder),null);
-                } else {
-                    rpcResponder = new responderClass(result.getFunction(responder),fault.getFunction(responder));
-                }
-            }
-            return rpcResponder;
-        }
-
         protected var _internalAsyncToken:AsyncToken;
 
         protected var _responder:IResponder;
-        
+
         private var _responderOwner:Object;
 
         public function RpcPendingCall(message:IMessage=null)
@@ -133,5 +104,55 @@ package org.seasar.akabana.yui.service.ds {
 
             _responder = null;
         }
+
+        private function createResponder( message:RemotingMessage, responder:Object ):IResponder{
+            const classRef:ClassRef = ClassRef.getReflector(responder);
+            const serviceMethod:String = StringUtil.toLowerCamel( message.destination ) + StringUtil.toUpperCamel( message.operation );
+            const resultFuncDef:FunctionRef = findResultFunctionRef( classRef, serviceMethod );
+            const faultFuncDef:FunctionRef = findFaultFunctionRef( classRef, serviceMethod );
+
+            var rpcResponder:IResponder = null;
+            var responderClass:Class;
+            if( resultFuncDef.parameters.length <= 0 ){
+                responderClass = RpcNoneResponder;
+            } else {
+                var parameter:ParameterRef = resultFuncDef.parameters[0];
+                if( parameter.isEvent ){
+                    responderClass = RpcEventResponder;
+                } else {
+                    responderClass = RpcObjectResponder;
+                }
+            }
+            if( faultFuncDef == null){
+                rpcResponder = new responderClass(resultFuncDef.getFunction(responder),null);
+            } else {
+                rpcResponder = new responderClass(resultFuncDef.getFunction(responder),faultFuncDef.getFunction(responder));
+            }
+            return rpcResponder;
+        }
+
+        protected function findResultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
+            const serviceResultMethod:String = serviceMethod + RESULT_HANDLER;
+            var functionRef:FunctionRef = classRef.getFunctionRef( serviceResultMethod );
+            if( functionRef == null ){
+                var ns:Namespace = org.seasar.akabana.yui.service.ns.result;
+                functionRef = classRef.getFunctionRef(serviceMethod,ns);
+            }
+            if( functionRef == null ){
+                throw new NotFoundError( _responder, serviceMethod + RESULT_HANDLER);
+            }
+            return functionRef;
+        }
+
+        protected function findFaultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
+            const serviceFaultMethod:String = serviceMethod + FAULT_HANDLER;
+            var functionRef:FunctionRef = classRef.getFunctionRef( serviceFaultMethod );
+            if( functionRef == null ){
+                var ns:Namespace = org.seasar.akabana.yui.service.ns.fault;
+                functionRef = classRef.getFunctionRef(serviceMethod,ns);
+            }
+            return functionRef;
+        }
+
     }
 }

@@ -31,11 +31,11 @@ package org.seasar.akabana.yui.core.reflection
 		public static const DOT:String = ".";
 
         public static var classLoader:ClassLoader = new ClassLoader();
-		
+
 		public static function getClassName( object:Object ):String{
 			return flash.utils.getQualifiedClassName(object).replace(CLASS_NAME_SEPARATOR,DOT);
 		}
-		
+
         public static function getReflector( target:Object ):ClassRef{
 
             var clazz:Class = null;
@@ -198,8 +198,14 @@ package org.seasar.akabana.yui.core.reflection
             return instance_;
         }
 
-        public function getFunctionRef( functionName:String ):FunctionRef{
-            return _functionMap[ functionName ] as FunctionRef;
+        public function getFunctionRef( functionName:String, ns:Namespace = null):FunctionRef{
+            var result:FunctionRef = _functionMap[ functionName ] as FunctionRef;
+            if( result != null ){
+                if( ns != null && result.uri != ns.uri){
+                    result = null;
+                }
+            }
+            return result;
         }
 
         public function getFunctionRefsByReturnType( returnType:String ):Array{
