@@ -14,4 +14,4 @@
  * governing permissions and limitations under the License.
  */
 
-public static const VERSION:String = "1.0.0.1024-rc3";
+public static const VERSION:String = "1.0.0.1025-rc4-snapshot";
