@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.service.ds.responder {
 
     import mx.rpc.IResponder;
 
+    [ExcludeClass]
     internal class AbstractRpcEventResponder implements IResponder {
 
         public var resultFunction:Function;

@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.service.rpc {
     import flash.utils.Dictionary;
     import flash.utils.Proxy;
     import flash.utils.flash_proxy;
-    
+
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
@@ -28,8 +28,9 @@ package org.seasar.akabana.yui.service.rpc {
 
     use namespace flash_proxy;
 
+    [ExcludeClass]
     public dynamic class AbstractRpcService extends Proxy implements Service {
-        
+
         protected static const OBJECT_FUNCTION_MAP:Object = {
             hasOwnProperty:true,
             isPrototypeOf:true,
@@ -38,17 +39,17 @@ package org.seasar.akabana.yui.service.rpc {
             toString:true,
             valueOf:true
         };
-        
+
         public var operations:Dictionary;
-        
+
         protected var _destination:String;
-        
-        protected var _requestTimeout:int; 
+
+        protected var _requestTimeout:int;
 
         protected var _credentialsUsername:String;
 
         protected var _credentialsPassword:String;
-                             
+
         private var innerEventdispatcher:EventDispatcher;
 
         public function AbstractRpcService(){
@@ -56,24 +57,24 @@ package org.seasar.akabana.yui.service.rpc {
             operations = new Dictionary();
             innerEventdispatcher = new EventDispatcher();
         }
-        
+
         public function get name():String{
             return _destination;
         }
-        
+
         public function get destination():String{
             return _destination;
         }
-        
+
         [Inspectable(type="String")]
         public function set destination( destination:String ):void{
             _destination = destination;
         }
-        
+
         public function get requestTimeout():int{
             return _requestTimeout;
         }
-        
+
         [Inspectable(type="number")]
         public function set requestTimeout( requestTimeout:int ):void{
             _requestTimeout = requestTimeout;
@@ -84,52 +85,52 @@ package org.seasar.akabana.yui.service.rpc {
                 operations[ operationName ] = createOperation( operationName );
             }
         }
-    	
+
     	public function getOperation( name:String ):Operation{
     	    return operations[ name ];
     	}
-    	
+
     	public function hasOperation( name:String ):Boolean{
     	    return operations.hasOwnProperty( name );
     	}
-    	
+
     	public function setCredentials(username:String, password:String, charset:String=null):void{
             _credentialsUsername = username;
-            _credentialsPassword = password;   	    
+            _credentialsPassword = password;
     	}
-    	   
+
 	    public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, weakRef:Boolean = false):void{
 	        innerEventdispatcher.addEventListener(type, listener, useCapture, priority, weakRef);
 	    }
-	           
+
 	    public function dispatchEvent(evt:Event):Boolean{
 	        return innerEventdispatcher.dispatchEvent(evt);
 	    }
-	    
+
 	    public function hasEventListener (type:String):Boolean{
 	        return innerEventdispatcher.hasEventListener(type);
 	    }
-	    
+
 	    public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void{
 	        innerEventdispatcher.removeEventListener(type, listener, useCapture);
 	    }
-	                   
+
 	    public function willTrigger(type:String):Boolean {
 	        return innerEventdispatcher.willTrigger(type);
 	    }
-	    
+
 	    public function deletePendingCallOf(responder:Object):void{
-	        
+
 	    }
-	    
+
 	    protected function createOperation( operationName:String ):AbstractRpcOperation{
 	        return null;
 	    }
-	    
+
     	protected function invokeOperation( operationName:String, operationArgs:Array ):PendingCall{
             return null;
     	}
-	    
+
 	    flash_proxy override function callProperty(methodName:*, ...args):* {
 	        if( _destination == null || _destination.length <= 0 ){
 		        throw new IllegalDestinationError(_destination);

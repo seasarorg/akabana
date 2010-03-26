@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -18,12 +18,13 @@ package org.seasar.akabana.yui.service.rpc {
     import flash.net.NetConnection;
     import flash.net.Responder;
 
+    [ExcludeClass]
     public dynamic class RemotingConnection extends NetConnection{
 
         private var originalUrl_:String;
 
         private var append_:String=null;
-        
+
         public function RemotingConnection(){
             super();
             client = new CallBackProxy( this );
@@ -36,19 +37,19 @@ package org.seasar.akabana.yui.service.rpc {
             }
             super.call.apply( this, [command, responder].concat( parameters ));
         }
-        
+
         public override function connect( url:String, ...rest):void{
             originalUrl_ = url;
             super.connect( url, rest);
         }
-        
+
         protected function reconnect( newUri:String ):void{
             if( this.uri != null ){
                 this.close();
             }
-            this.connect( newUri );            
+            this.connect( newUri );
         }
-        
+
         public function ReplaceGatewayUrl(url:String):void{
             reconnect(url);
         }
@@ -64,8 +65,8 @@ package org.seasar.akabana.yui.service.rpc {
             }
             return url;
         }
-        
-        public function appendToGatewayUrl(append:String):void{ 
+
+        public function appendToGatewayUrl(append:String):void{
             append_ = append;
         }
     }
@@ -75,20 +76,20 @@ import flash.utils.flash_proxy;
 import org.seasar.akabana.yui.service.rpc.RemotingConnection;
 
 dynamic class CallBackProxy extends Proxy {
-    
+
     public var rc:RemotingConnection;
-    
+
     function CallBackProxy( rc:RemotingConnection ){
         this.rc = rc;
     }
-    
+
     override flash_proxy function hasProperty(name:*):Boolean{
         if( name == "AppendToGatewayUrl" ){
             return true;
         }
         return false;
     }
-    
+
     override flash_proxy function getProperty(name:*):* {
         if( QName(name).localName == "AppendToGatewayUrl" ){
             return rc.appendToGatewayUrl as Function;

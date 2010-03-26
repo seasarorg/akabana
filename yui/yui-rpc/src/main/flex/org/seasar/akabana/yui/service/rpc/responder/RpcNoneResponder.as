@@ -18,9 +18,10 @@ package org.seasar.akabana.yui.service.rpc.responder {
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.ResultEvent;
 
+    [ExcludeClass]
     public class RpcNoneResponder extends AbstractRpcEventResponder {
 
-        public function RpcNoneResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){         
+        public function RpcNoneResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){
             super(resultFunction,faultFunction,weakReference);
         }
 

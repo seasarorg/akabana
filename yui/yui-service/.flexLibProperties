@@ -14,8 +14,8 @@
 <classEntry path="org.seasar.akabana.yui.service.event.FaultStatus"/>
 <classEntry path="org.seasar.akabana.yui.service.event.InvokeEvent"/>
 <classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.ns.fault"/>
-<classEntry path="org.seasar.akabana.yui.service.ns.result"/>
+<classEntry path="org.seasar.akabana.yui.service.ns.rpc_fault"/>
+<classEntry path="org.seasar.akabana.yui.service.ns.rpc_result"/>
 <classEntry path="org.seasar.akabana.yui.service.resonder.AbstractResponder"/>
 <classEntry path="org.seasar.akabana.yui.service.resonder.Responder"/>
 <classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>

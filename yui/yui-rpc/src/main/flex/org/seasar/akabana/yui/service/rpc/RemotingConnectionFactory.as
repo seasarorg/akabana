@@ -9,28 +9,28 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.service.rpc {
-    
+
     import flash.net.ObjectEncoding;
-    
+
     import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.service.error.IllegalGatewayError;
     import org.seasar.akabana.yui.service.util.GatewayUtil;
-    
-    
+
+    [ExcludeClass]
     public class RemotingConnectionFactory {
-        
+
         private static const _logger:Logger = Logger.getLogger(RemotingConnectionFactory);
-        
+
         private static const gatewayUrlToRc:Object = {};
-        
+
         public static function createConnection( gatewayUrl:String, destination:String ):RemotingConnection{
             if( gatewayUrl == null ){
-                gatewayUrl = GatewayUtil.resolveGatewayUrl( destination );            
+                gatewayUrl = GatewayUtil.resolveGatewayUrl( destination );
             }
 CONFIG::DEBUG{
             _logger.debug( destination + " service gateway is " + gatewayUrl);
@@ -42,13 +42,13 @@ CONFIG::DEBUG{
             if( connection == null ){
                 connection = new RemotingConnection();
     			connection.objectEncoding = ObjectEncoding.AMF3;
-    			
+
     			if( gatewayUrl != null ){
-                    connection.connect( gatewayUrl );			    
+                    connection.connect( gatewayUrl );
                 } else {
     			    throw new IllegalGatewayError(gatewayUrl);
     			}
-    			
+
     			gatewayUrlToRc[ gatewayUrl ] = connection;
             }
 			return connection;

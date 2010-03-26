@@ -23,20 +23,20 @@ package org.seasar.akabana.yui.service.ds {
     import mx.rpc.events.FaultEvent;
     import mx.rpc.events.ResultEvent;
 
-    import org.seasar.akabana.yui.core.error.NotFoundError;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
-    import org.seasar.akabana.yui.service.ns.fault;
-    import org.seasar.akabana.yui.service.ns.result;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.ds.responder.RpcEventResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcNoneResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcObjectResponder;
+    import org.seasar.akabana.yui.service.ds.responder.RpcResponderFactory;
+    import org.seasar.akabana.yui.service.resonder.ResponderFactory;
     import org.seasar.akabana.yui.util.StringUtil;
 
     use namespace mx_internal;
 
+    [ExcludeClass]
     public class RpcPendingCall extends AsyncToken implements PendingCall {
 
         private static const RESULT_HANDLER:String = "ResultHandler";
@@ -49,9 +49,12 @@ package org.seasar.akabana.yui.service.ds {
 
         private var _responderOwner:Object;
 
+        private var _responderFactory:ResponderFactory;
+
         public function RpcPendingCall(message:IMessage=null)
         {
             super(message);
+            _responderFactory = new RpcResponderFactory();
         }
 
         public function setInternalAsyncToken( asyncToken:AsyncToken ):void{
@@ -108,8 +111,8 @@ package org.seasar.akabana.yui.service.ds {
         private function createResponder( message:RemotingMessage, responder:Object ):IResponder{
             const classRef:ClassRef = ClassRef.getReflector(responder);
             const serviceMethod:String = StringUtil.toLowerCamel( message.destination ) + StringUtil.toUpperCamel( message.operation );
-            const resultFuncDef:FunctionRef = findResultFunctionRef( classRef, serviceMethod );
-            const faultFuncDef:FunctionRef = findFaultFunctionRef( classRef, serviceMethod );
+            const resultFuncDef:FunctionRef = _responderFactory.findResultFunctionRef( classRef, serviceMethod );
+            const faultFuncDef:FunctionRef = _responderFactory.findFaultFunctionRef( classRef, serviceMethod );
 
             var rpcResponder:IResponder = null;
             var responderClass:Class;
@@ -129,29 +132,6 @@ package org.seasar.akabana.yui.service.ds {
                 rpcResponder = new responderClass(resultFuncDef.getFunction(responder),faultFuncDef.getFunction(responder));
             }
             return rpcResponder;
-        }
-
-        protected function findResultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
-            const serviceResultMethod:String = serviceMethod + RESULT_HANDLER;
-            var functionRef:FunctionRef = classRef.getFunctionRef( serviceResultMethod );
-            if( functionRef == null ){
-                var ns:Namespace = org.seasar.akabana.yui.service.ns.result;
-                functionRef = classRef.getFunctionRef(serviceMethod,ns);
-            }
-            if( functionRef == null ){
-                throw new NotFoundError( _responder, serviceMethod + RESULT_HANDLER);
-            }
-            return functionRef;
-        }
-
-        protected function findFaultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
-            const serviceFaultMethod:String = serviceMethod + FAULT_HANDLER;
-            var functionRef:FunctionRef = classRef.getFunctionRef( serviceFaultMethod );
-            if( functionRef == null ){
-                var ns:Namespace = org.seasar.akabana.yui.service.ns.fault;
-                functionRef = classRef.getFunctionRef(serviceMethod,ns);
-            }
-            return functionRef;
         }
 
     }

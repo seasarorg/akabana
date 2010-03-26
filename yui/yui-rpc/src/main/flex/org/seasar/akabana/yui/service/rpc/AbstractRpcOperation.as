@@ -22,6 +22,7 @@ package org.seasar.akabana.yui.service.rpc {
     import org.seasar.akabana.yui.service.error.IllegalOperationError;
     import org.seasar.akabana.yui.service.event.InvokeEvent;
 
+    [ExcludeClass]
     public class AbstractRpcOperation extends EventDispatcher implements Operation{
 
         protected var _name:String;

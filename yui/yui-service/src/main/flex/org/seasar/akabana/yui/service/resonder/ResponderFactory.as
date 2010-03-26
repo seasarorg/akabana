@@ -5,8 +5,8 @@ package org.seasar.akabana.yui.service.resonder
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
     import org.seasar.akabana.yui.service.Operation;
-    import org.seasar.akabana.yui.service.ns.fault;
-    import org.seasar.akabana.yui.service.ns.result;
+    import org.seasar.akabana.yui.service.ns.rpc_fault;
+    import org.seasar.akabana.yui.service.ns.rpc_result;
     import org.seasar.akabana.yui.util.StringUtil;
 
     public class ResponderFactory
@@ -55,21 +55,21 @@ package org.seasar.akabana.yui.service.resonder
             return rpcResponder as Responder;
         }
 
-        protected function findResultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
+        public function findResultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
             const serviceResultMethod:String = serviceMethod + RESULT_HANDLER;
             var functionRef:FunctionRef = classRef.getFunctionRef( serviceResultMethod );
             if( functionRef == null ){
-                var ns:Namespace = org.seasar.akabana.yui.service.ns.result;
+                var ns:Namespace = org.seasar.akabana.yui.service.ns.rpc_result;
                 functionRef = classRef.getFunctionRef(serviceMethod,ns);
             }
             return functionRef;
         }
 
-        protected function findFaultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
+        public function findFaultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
             const serviceFaultMethod:String = serviceMethod + FAULT_HANDLER;
             var functionRef:FunctionRef = classRef.getFunctionRef( serviceFaultMethod );
             if( functionRef == null ){
-                var ns:Namespace = org.seasar.akabana.yui.service.ns.fault;
+                var ns:Namespace = org.seasar.akabana.yui.service.ns.rpc_fault;
                 functionRef = classRef.getFunctionRef(serviceMethod,ns);
             }
             return functionRef;
