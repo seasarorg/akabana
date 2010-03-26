@@ -9,20 +9,20 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.framework.customizer
 {
     import flash.errors.IllegalOperationError;
-    
+
     import mx.core.UIComponent;
-    
+
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.message.MessageManager;
-    
+
     internal class AbstractComponentCustomizer implements IComponentCustomizer
     {
         public function customize( view:UIComponent, owner:UIComponent=null):void{
@@ -32,9 +32,9 @@ package org.seasar.akabana.yui.framework.customizer
         public function uncustomize( view:UIComponent, owner:UIComponent=null):void{
             throw new IllegalOperationError("can't call");
         }
-        
+
         public function getMessage(resourceName:String,...parameters):String{
-            return MessageManager.yui_internal::yuiframework.getMessage.apply(null,[resourceName].concat(parameters)); 
+            return MessageManager.yui_internal::yuiframework.getMessage.apply(null,[resourceName].concat(parameters));
         }
 
     }

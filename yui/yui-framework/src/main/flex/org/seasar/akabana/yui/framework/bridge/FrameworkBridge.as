@@ -25,6 +25,7 @@ package org.seasar.akabana.yui.framework.bridge
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
 
+    [ExcludeClass]
     public class FrameworkBridge
     {
         public static function initialize():FrameworkBridge{

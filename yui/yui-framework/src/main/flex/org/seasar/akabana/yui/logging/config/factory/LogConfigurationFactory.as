@@ -26,6 +26,7 @@ package org.seasar.akabana.yui.logging.config.factory
 
     import org.seasar.akabana.yui.logging.config.Configuration;
 
+    [ExcludeClass]
     [ResourceBundle("log4yui")]
     public class LogConfigurationFactory implements IConfigurationFactory {
 

@@ -9,24 +9,25 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.framework.core
 {
     import mx.core.IMXMLObject;
-    
+
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin;
 
+    [ExcludeClass]
     public class YuiFrameworkSettings implements IMXMLObject
     {
         {
             YuiFrameworkMixin;
             MessageManager;
         }
-        
+
         public function YuiFrameworkSettings()
         {
         }
@@ -34,6 +35,6 @@ package org.seasar.akabana.yui.framework.core
         public function initialized(document:Object, id:String):void
         {
         }
-        
+
     }
 }

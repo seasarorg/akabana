@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -18,17 +18,18 @@ package org.seasar.akabana.yui.framework.bridge
 	import mx.core.UIComponent;
 	import mx.managers.ISystemManager;
 
+    [ExcludeClass]
 	public interface IFrameworkBridgePlugin {
 		function get application():UIComponent;
-		
+
 		function set application(value:UIComponent):void;
-		
+
 		function get parameters():Object;
-		
+
 		function get systemManager():ISystemManager;
-		
+
 		function isApplication(application:Object):Boolean;
-		
+
 		function isContainer(component:Object):Boolean;
 	}
 }

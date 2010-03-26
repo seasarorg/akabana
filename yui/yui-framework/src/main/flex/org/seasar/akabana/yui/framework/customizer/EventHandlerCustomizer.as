@@ -32,6 +32,7 @@ package org.seasar.akabana.yui.framework.customizer {
 
     use namespace mx_internal;
 
+    [ExcludeClass]
     public class EventHandlerCustomizer extends AbstractEventCustomizer{
 
         private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);

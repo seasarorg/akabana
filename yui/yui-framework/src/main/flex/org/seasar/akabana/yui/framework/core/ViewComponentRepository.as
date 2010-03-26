@@ -9,28 +9,29 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.framework.core {
-    
+
     import flash.utils.Dictionary;
-    
+
     import mx.core.Container;
     import mx.core.UIComponent;
-    
+
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-    
+
+    [ExcludeClass]
     public class ViewComponentRepository {
-        
+
         public static var componentMap:Dictionary = new Dictionary(true);
 
         public static var componentInstanceMap:Dictionary = new Dictionary(true);
-        
+
         public static function addComponent( component:UIComponent ):void{
             var className:String = YuiFrameworkGlobals.namingConvention.getClassName(component);
             if( componentInstanceMap[ className ] == null ){
@@ -46,7 +47,7 @@ package org.seasar.akabana.yui.framework.core {
                 throw new ComponentDuplicatedRegistrationError(componentId);
             }
         }
-        
+
         public static function removeComponent( component:UIComponent ):void{
         	if( componentMap.hasOwnProperty(component.name)){
         		var componentId:String = UIComponentUtil.getName(component);
@@ -54,13 +55,13 @@ package org.seasar.akabana.yui.framework.core {
                 delete componentMap[ componentId ];
 
                 var className:String = YuiFrameworkGlobals.namingConvention.getClassName(component);
-                
+
                 var componentInstances:Object = componentInstanceMap[ className ];
                 componentInstances[ componentId ] = null;
-                delete componentInstances[ componentId ];  
-        	}        
+                delete componentInstances[ componentId ];
+        	}
         }
-        
+
         public static function getComponent( key:Object, componentId:String = null):UIComponent{
             var component:UIComponent = null;
             var componentInstances:Object;
@@ -79,7 +80,7 @@ package org.seasar.akabana.yui.framework.core {
                         }
                     }
                     break;
-                }   
+                }
                 if( key is String ){
                     if( componentId != null ){
 						componentInstances = componentInstanceMap[ key ];
@@ -90,13 +91,13 @@ package org.seasar.akabana.yui.framework.core {
                     break;
                 }
             } while( false );
-            
+
             return component;
         }
 
         public static function getComponentByParent( key:Class, parent:Container):UIComponent{
             var component:UIComponent = null;
-            
+
             var className:String = ClassRef.getReflector(key).name;
             var componentInstances:Object = componentInstanceMap[ className ];
 
@@ -106,10 +107,10 @@ package org.seasar.akabana.yui.framework.core {
                     break;
                 }
             }
-            
+
             return component;
         }
-        
+
         public static function hasComponent( name:String ):Boolean{
             return componentMap.hasOwnProperty( name );
         }

@@ -17,12 +17,12 @@ package org.seasar.akabana.yui.framework.core
 {
     import flash.events.Event;
     import flash.system.Capabilities;
-    
+
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
     import mx.events.FlexEvent;
     import mx.managers.ISystemManager;
-    
+
     import org.seasar.akabana.yui.core.Environment;
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
@@ -30,6 +30,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
 
+    [ExcludeClass]
     public final class YuiFrameworkContainer extends YuiFrameworkContainerBase
     {
 
@@ -56,11 +57,11 @@ package org.seasar.akabana.yui.framework.core
                 throw new YuiFrameworkContainerError("container is already created.");
             }
         }
-        
+
         public override function addExternalSystemManager(systemManager:ISystemManager ):void{
 CONFIG::DEBUG{
             _logger.debug("add external systemManager"+systemManager);
-}            
+}
             systemManager
                 .addEventListener(
                     FlexEvent.CREATION_COMPLETE,
@@ -76,14 +77,14 @@ CONFIG::DEBUG{
                     true,
                     int.MAX_VALUE
                 );
-                
+
             addSystemManager(systemManager);
         }
-        
+
         public override function customizeComponent( container:UIComponent, owner:UIComponent=null):void{
 CONFIG::DEBUG{
             _logger.debug("customizeComponent:"+container+",owner:"+owner);
-} 
+}
             for each( var customizer_:IComponentCustomizer in customizers ){
                 customizer_.customize( container, owner);
             }
@@ -92,18 +93,18 @@ CONFIG::DEBUG{
         public override function uncustomizeComponent( container:UIComponent, owner:UIComponent=null):void{
 CONFIG::DEBUG{
             _logger.debug("uncustomizeComponent:"+container+",owner:"+owner);
-} 
+}
             var numCustomizers:int = customizers.length;
             for( var i:int = numCustomizers-1; i >= 0; i-- ){
                 var customizer_:IComponentCustomizer = customizers[i] as IComponentCustomizer;
                 customizer_.uncustomize( container, owner);
             }
         }
-        
+
         private function applicationCompleteHandler( event:FlexEvent ):void{
 CONFIG::DEBUG{
             _logger.debug("applicationCompleteHandler:"+event+","+event.target);
-} 
+}
             var systemManager_:ISystemManager = event.currentTarget as ISystemManager;
 
             systemManager_
@@ -111,8 +112,8 @@ CONFIG::DEBUG{
                     FlexEvent.APPLICATION_COMPLETE,
                     applicationCompleteHandler,
                     false
-                ); 
-           
+                );
+
             systemManager_
                 .addEventListener(
                     Event.REMOVED_FROM_STAGE,
@@ -123,11 +124,11 @@ CONFIG::DEBUG{
 
             initialize();
         }
-        
+
         private function addedToStageHandler( event:Event ):void{
 CONFIG::DEBUG_EVENT{
             _logger.info("addedToStageHandler"+event+","+event.target);
-}            
+}
             if( event.target is UIComponent ){
                 doRegisterComponent(event.target as UIComponent);
             }
@@ -136,7 +137,7 @@ CONFIG::DEBUG_EVENT{
         private function addedHandler( event:Event ):void{
 CONFIG::DEBUG_EVENT{
             _logger.info("addedToStageHandler"+event+","+event.target);
-} 
+}
             if( event.target is UIComponent ){
                 doRegisterComponent(event.target as UIComponent);
             }
@@ -145,7 +146,7 @@ CONFIG::DEBUG_EVENT{
         private function removedHandler( event:Event ):void{
 CONFIG::DEBUG_EVENT{
             _logger.info("removedHandler"+event+","+event.target);
-} 
+}
             if( event.target is UIComponent ){
                 doUnregisterComponent(event.target as UIComponent);
             }
@@ -162,7 +163,7 @@ CONFIG::DEBUG_EVENT{
         yui_internal function monitoringSystemManager( systemManager:ISystemManager ):void{
 CONFIG::DEBUG{
             _logger.info("monitoring..."+systemManager);
-}  
+}
             systemManager
                 .addEventListener(
                     Event.ADDED_TO_STAGE,
@@ -176,8 +177,8 @@ CONFIG::DEBUG{
                     applicationCompleteHandler,
                     false,
                     int.MAX_VALUE
-                );    
-                
+                );
+
             addSystemManager(systemManager);
         }
 
@@ -220,7 +221,7 @@ CONFIG::DEBUG{
             _isApplicationStarted = true;
             callLater( callApplicationStart );
         }
-        
+
         protected function callApplicationStart():void{
             var rootView:UIComponent = application.getChildByName(ROOT_VIEW) as UIComponent;
             if( rootView == null ){
@@ -242,7 +243,7 @@ CONFIG::DEBUG{
                 rootView.visible = true;
             }
         }
-        
+
         protected function isViewComponent( component:Object ):Boolean{
             if( component == null || !(component is UIComponent)){
                 return false;
@@ -288,14 +289,14 @@ CONFIG::DEBUG{
 
         protected function processRegisterComponent(component:UIComponent):void{
             do{
-                if( YuiFrameworkGlobals.frameworkBridge.isApplication(component) ){     
+                if( YuiFrameworkGlobals.frameworkBridge.isApplication(component) ){
 CONFIG::DEBUG{
                     _logger.debug(getMessage("ApplicationRegistered",component.toString()));
 }
                     YuiFrameworkGlobals.frameworkBridge.yui_internal::application = component;
 					Environment.yui_internal::root = component;
 					Environment.yui_internal::parameters = YuiFrameworkGlobals.frameworkBridge.parameters;
-                    component.setVisible(false,true);          
+                    component.setVisible(false,true);
                     applicationMonitoringStart();
                     break;
                 }
@@ -389,7 +390,7 @@ CONFIG::DEBUG{
                     true,
                     int.MAX_VALUE
                 );
-            
+
             systemManager_.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
         }
 

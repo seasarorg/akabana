@@ -32,6 +32,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
     import org.seasar.akabana.yui.logging.Logger;
 
+    [ExcludeClass]
     internal class YuiFrameworkContainerBase implements IYuiFrameworkContainer
     {
         include "../Version.as";

@@ -18,6 +18,7 @@ package org.seasar.akabana.yui.framework.util
     import mx.core.Singleton;
     import mx.styles.IStyleManager2;
 
+    [ExcludeClass]
 	public class StyleManagerUtil
 	{
 		public static function getStyleManager():IStyleManager2

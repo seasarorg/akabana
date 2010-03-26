@@ -28,6 +28,7 @@ package org.seasar.akabana.yui.framework.customizer {
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceRepository;
 
+    [ExcludeClass]
     public class ActionCustomizer extends AbstractComponentCustomizer {
 
         private static const _logger:Logger = Logger.getLogger(ActionCustomizer);
