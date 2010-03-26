@@ -3,7 +3,7 @@
 <compiler>
 <define>
 <name>CONFIG::DEBUG</name>
-<value>false</value>
+<value>true</value>
 </define>
 <define>
 <name>CONFIG::DEBUG_EVENT</name>

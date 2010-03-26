@@ -31,6 +31,8 @@ package org.seasar.akabana.yui.framework.customizer
     {
     	private static const _logger:Logger = Logger.getLogger(AbstractEventCustomizer);
 
+        protected static const EVENT_SEPARETOR:String = "_";
+
         protected static const ENHANCED_SEPARETOR:String = "$";
 
         protected static const ENHANCED_PREFIX:String = ENHANCED_SEPARETOR + "enhanced" + ENHANCED_SEPARETOR;
@@ -41,15 +43,25 @@ package org.seasar.akabana.yui.framework.customizer
 
         protected function getEventName( functionRef:FunctionRef, componentName:String):String{
 			const functionName:String = functionRef.name;
-            var eventName:String = null;
-            var ns:Namespace = handler;
-            if( functionRef.uri == ns.uri){
-                eventName = functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1);
+            const ns:Namespace = handler;
+            const eventWord:String = functionName.substr(componentName.length);
+            const handlerIndex:int = eventWord.lastIndexOf(YuiFrameworkGlobals.namingConvention.getHandlerSuffix());
+
+            var result:String = null;
+            if( eventWord.charAt(0) == EVENT_SEPARETOR ){
+                if( functionRef.uri == ns.uri){
+                    result = eventWord.substring(1);
+                } else {
+    			    result = eventWord.substring(1,handlerIndex);
+                }
             } else {
-			    const handlerIndex:int = functionName.lastIndexOf(YuiFrameworkGlobals.namingConvention.getHandlerSuffix());
-			    eventName = functionName.substr(componentName.length,1).toLocaleLowerCase() + functionName.substring(componentName.length+1,handlerIndex);
+                if( functionRef.uri == ns.uri){
+                    result = eventWord.substr(0,1).toLocaleLowerCase() + eventWord.substring(1);
+                } else {
+    			    result = eventWord.substr(0,1).toLocaleLowerCase() + eventWord.substring(1,handlerIndex);
+                }
             }
-            return eventName;
+            return result;
         }
 
         protected function getEnhancedEventName( viewName:String, eventName:String ):String{
