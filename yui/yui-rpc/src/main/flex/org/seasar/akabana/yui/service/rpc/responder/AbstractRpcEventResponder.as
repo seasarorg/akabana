@@ -15,11 +15,11 @@
  */
 package org.seasar.akabana.yui.service.rpc.responder {
 
-    import org.seasar.akabana.yui.service.AbstractResponder;
+    import org.seasar.akabana.yui.service.resonder.AbstractResponder;
 
     public class AbstractRpcEventResponder extends AbstractResponder implements RpcResponder {
 
-        public function AbstractRpcEventResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){         
+        public function AbstractRpcEventResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){
             super(resultFunction,faultFunction);
         }
     }

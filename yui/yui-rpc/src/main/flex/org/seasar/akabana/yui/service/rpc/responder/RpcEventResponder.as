@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.service.rpc.responder {
 
     public class RpcEventResponder extends AbstractRpcEventResponder {
 
-        public function RpcEventResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){         
+        public function RpcEventResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){
             super(resultFunction,faultFunction, weakReference);
         }
 

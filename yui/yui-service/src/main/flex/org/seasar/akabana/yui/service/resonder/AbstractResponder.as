@@ -13,10 +13,10 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.service {
+package org.seasar.akabana.yui.service.resonder {
 
     import flash.utils.Dictionary;
-    
+
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.ResultEvent;
 
@@ -26,9 +26,9 @@ package org.seasar.akabana.yui.service {
 
         public var faultFunctionDef:Dictionary;
 
-        public function AbstractResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){         
+        public function AbstractResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){
             resultFunctionDef = new Dictionary(weakReference);
-            resultFunctionDef[ resultFunction ] = weakReference;           
+            resultFunctionDef[ resultFunction ] = weakReference;
             faultFunctionDef = new Dictionary(weakReference);
             if( faultFunction != null ){
                 faultFunctionDef[ faultFunction ] = weakReference;
@@ -40,7 +40,7 @@ package org.seasar.akabana.yui.service {
 
         public function onFault( fault:FaultEvent ):void{
         }
-        
+
         protected function callResultFunction(...args):void{
             var result:* = null;
             for( result in resultFunctionDef ){
@@ -56,7 +56,7 @@ package org.seasar.akabana.yui.service {
             }
             clearHandlers();
         }
-                
+
         protected function clearHandlers():void{
             resultFunctionDef = null;
             faultFunctionDef = null;

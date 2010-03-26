@@ -42,6 +42,10 @@ package org.seasar.akabana.yui.service.rpc {
             return _name;
         }
 
+        public function get serviceName():String{
+            return _service.name;
+        }
+
         public function invoke( args:Array ):PendingCall{
             if( _name == null || _name.length <= 0 ){
                 throw new IllegalOperationError(_name);

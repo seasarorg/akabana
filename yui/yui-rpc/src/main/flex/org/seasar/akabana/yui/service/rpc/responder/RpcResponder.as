@@ -14,7 +14,7 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.service.rpc.responder {
-    import org.seasar.akabana.yui.service.Responder;
+    import org.seasar.akabana.yui.service.resonder.Responder;
 
 
     public interface RpcResponder extends Responder{

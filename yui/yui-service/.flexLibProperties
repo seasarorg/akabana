@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
 <includeClasses>
-<classEntry path="org.seasar.akabana.yui.service.AbstractResponder"/>
 <classEntry path="org.seasar.akabana.yui.service.Operation"/>
 <classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
-<classEntry path="org.seasar.akabana.yui.service.Responder"/>
 <classEntry path="org.seasar.akabana.yui.service.Service"/>
 <classEntry path="org.seasar.akabana.yui.service.ServiceRepository"/>
 <classEntry path="org.seasar.akabana.yui.service.error.ErrorCode"/>
@@ -18,6 +16,9 @@
 <classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
 <classEntry path="org.seasar.akabana.yui.service.ns.fault"/>
 <classEntry path="org.seasar.akabana.yui.service.ns.result"/>
+<classEntry path="org.seasar.akabana.yui.service.resonder.AbstractResponder"/>
+<classEntry path="org.seasar.akabana.yui.service.resonder.Responder"/>
+<classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>
 <classEntry path="org.seasar.akabana.yui.service.util.GatewayUtil"/>
 </includeClasses>
 <includeResources/>
