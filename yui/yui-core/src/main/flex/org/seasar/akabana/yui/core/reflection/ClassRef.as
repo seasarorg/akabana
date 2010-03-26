@@ -68,9 +68,9 @@ package org.seasar.akabana.yui.core.reflection
         }
 
         private static function isTargetAccessor( rootDescribeTypeXml:XML ):Boolean{
-            var name_:String = rootDescribeTypeXml.@name.toString();
-            var declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
-            var uri_:String = rootDescribeTypeXml.@uri.toString();
+            const name_:String = rootDescribeTypeXml.@name.toString();
+            const declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
+            const uri_:String = rootDescribeTypeXml.@uri.toString();
 
             return (!(
                 excludeDeclaredByFilterRegExp.test(declaredBy_) ||
@@ -79,9 +79,9 @@ package org.seasar.akabana.yui.core.reflection
         }
 
         private static function isTargetVariable( rootDescribeTypeXml:XML ):Boolean{
-            var name_:String = rootDescribeTypeXml.@name.toString();
-            var declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
-            var uri_:String = rootDescribeTypeXml.@uri.toString();
+            const name_:String = rootDescribeTypeXml.@name.toString();
+            const declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
+            const uri_:String = rootDescribeTypeXml.@uri.toString();
 
             return (!(
                 excludeDeclaredByFilterRegExp.test(declaredBy_) ||
@@ -90,8 +90,8 @@ package org.seasar.akabana.yui.core.reflection
         }
 
         private static function isTargetFunction( rootDescribeTypeXml:XML ):Boolean{
-            var name_:String = rootDescribeTypeXml.@declaredBy.toString();
-            var uri_:String = rootDescribeTypeXml.@uri.toString();
+            const name_:String = rootDescribeTypeXml.@declaredBy.toString();
+            const uri_:String = rootDescribeTypeXml.@uri.toString();
 
             return !(
                 excludeDeclaredByFilterRegExp.test(name_) ||
@@ -199,10 +199,22 @@ package org.seasar.akabana.yui.core.reflection
         }
 
         public function getFunctionRef( functionName:String, ns:Namespace = null):FunctionRef{
-            var result:FunctionRef = _functionMap[ functionName ] as FunctionRef;
-            if( result != null ){
-                if( ns != null && result.uri != ns.uri){
-                    result = null;
+            if( !_functionMap.hasOwnProperty( functionName )){
+                return null;
+            }
+            var targetNs:Namespace = ns;
+            if( targetNs == null ){
+                targetNs = new Namespace();
+            }
+
+            const functions:Array = _functionMap[ functionName ] as Array;
+            var result:FunctionRef;
+            if( functions.length > 0 ){
+                for each( var func_:FunctionRef in functions ){
+                    if(func_.uri == targetNs.uri){
+                        result = func_;
+                        break;
+                    }
                 }
             }
             return result;
@@ -253,8 +265,9 @@ package org.seasar.akabana.yui.core.reflection
             _typeToPropertyMap = {};
 
             const typeName:String = describeType.@type.toString();
-            var propertyRef:PropertyRef = null;
+
             var propertysXMLList:XMLList = rootDescribeTypeXml.accessor;
+            var propertyRef:PropertyRef = null;
             for each( var accessorXML:XML in propertysXMLList ){
                 if( isTargetAccessor(accessorXML) ){
                     propertyRef = new PropertyRef(accessorXML);
@@ -279,7 +292,6 @@ package org.seasar.akabana.yui.core.reflection
                     assembleTypeOfPropertyRef(propertyRef);
                 }
             }
-
         }
 
         private final function assembleTypeOfPropertyRef( propertyRef:PropertyRef ):void{
@@ -295,20 +307,29 @@ package org.seasar.akabana.yui.core.reflection
             _functionMap = {};
             _returnTypeToFunctionMap = {};
 
+            const functionsXMLList:XMLList = rootDescribeTypeXml.method;
+
             var functionRef:FunctionRef = null;
-            var functionsXMLList:XMLList = rootDescribeTypeXml.method;
+            var rfunctions_:Array;
             for each( var methodXML:XML in functionsXMLList ){
                 if( isTargetFunction(methodXML)){
                     functionRef = new FunctionRef(methodXML);
-
                     _functions.push( functionRef );
-                    _functionMap[ functionRef.name ] = functionRef;
 
-                    var rfunctions_:Array = _returnTypeToFunctionMap[ functionRef.returnType ];
-                    if( rfunctions_ == null ){
-                        rfunctions_ = _returnTypeToFunctionMap[ functionRef.returnType ] = [];
+                    {
+                        if( !_functionMap.hasOwnProperty( functionRef.name )){
+                            _functionMap[ functionRef.name ] = [];
+                        }
+                        rfunctions_ = _functionMap[ functionRef.name ];
+                        rfunctions_.push( functionRef );
                     }
-                    rfunctions_.push(functionRef);
+                    {
+                        rfunctions_ = _returnTypeToFunctionMap[ functionRef.returnType ];
+                        if( rfunctions_ == null ){
+                            rfunctions_ = _returnTypeToFunctionMap[ functionRef.returnType ] = [];
+                        }
+                        rfunctions_.push(functionRef);
+                    }
                 }
             }
         }
@@ -317,8 +338,9 @@ package org.seasar.akabana.yui.core.reflection
             _interfaces = [];
             _interfaceMap = {};
 
+            const interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
+
             var interfaceName:String = null;
-            var interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
             for each( var interfaceXML:XML in interfacesXMLList ){
                 interfaceName = getTypeString(interfaceXML.@type);
 
@@ -351,8 +373,9 @@ package org.seasar.akabana.yui.core.reflection
         }
 
         private final function assembleExtends( rootDescribeTypeXml:XML ):void{
+            const interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
+
             var interfaceRef:ClassRef = null;
-            var interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
             for each( var interfaceXML:XML in interfacesXMLList ){
                 interfaceRef = getReflector(getTypeString(interfaceXML.@type));
 

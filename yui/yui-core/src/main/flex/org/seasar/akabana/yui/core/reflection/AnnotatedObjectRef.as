@@ -9,16 +9,15 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.core.reflection
 {
     import flash.utils.describeType;
-    
+
     internal class AnnotatedObjectRef extends ObjectRef implements AnnotatedReflector{
-        
 
         private static function isTargetMetadata( metadataXML:XML ):Boolean{
             var isTarget:Boolean;
@@ -39,16 +38,16 @@ package org.seasar.akabana.yui.core.reflection
             }while(false);
             return isTarget;
         }
-        
+
         [ArrayElementType("my.core.metadata.MetadataRef")]
         private var _metadatas:Array;
-        
+
         public function get metadatas():Array{
             return _metadatas;
         }
-        
+
         private var _metadataMap:Object;
-        
+
         public function AnnotatedObjectRef( describeTypeXml:XML ){
             super( describeTypeXml );
         }
@@ -56,29 +55,29 @@ package org.seasar.akabana.yui.core.reflection
         public function hasMetadata( metadataName:String ):Boolean{
             return _metadataMap[ metadataName ] != null;
         }
-        
+
         public function getMetadata( metadataName:String ):MetadataRef{
             return _metadataMap[metadataName];
         }
-        
+
         public function getMetadatas():Array{
             return _metadatas;
         }
-        
+
         public function getDeclaredMetadatas():Array{
             return _metadatas;
         }
-        
+
         protected final function assembleMetadataRef( rootDescribeTypeXml:XML ):void{
             _metadatas = [];
             _metadataMap = {};
-            
+
             var metadataRef:MetadataRef = null;
             var metadatasXMLList:XMLList = rootDescribeTypeXml.metadata;
             for each( var metadataXML:XML in metadatasXMLList ){
                 if( isTargetMetadata(metadataXML)){
                     metadataRef = new MetadataRef(metadataXML);
-                    
+
                     _metadatas.push( metadataRef );
                     _metadataMap[ metadataRef.name ] = metadataRef;
                 }
