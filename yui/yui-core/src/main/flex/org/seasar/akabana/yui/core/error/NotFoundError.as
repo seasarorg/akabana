@@ -10,14 +10,21 @@ package org.seasar.akabana.yui.core.error
     {
         public function NotFoundError(owner:Object,target:String)
         {
+            var ownerName:String;
+            if( owner is String ){
+                ownerName = owner as String;
+            } else {
+                ownerName = ClassRef.getClassName(owner);
+            }
             super(
                 StringUtil
                     .substitute(
                         ResourceManager.getInstance().getString("yui_core","NOT_FOUND_ERROR"),
-                        ClassRef.getClassName(owner),
+                        ownerName,
                         target
                     )
             );
+
         }
 
     }

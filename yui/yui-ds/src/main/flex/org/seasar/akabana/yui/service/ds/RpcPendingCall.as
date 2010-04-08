@@ -110,9 +110,8 @@ package org.seasar.akabana.yui.service.ds {
 
         private function createResponder( message:RemotingMessage, responder:Object ):IResponder{
             const classRef:ClassRef = ClassRef.getReflector(responder);
-            const serviceMethod:String = StringUtil.toLowerCamel( message.destination ) + StringUtil.toUpperCamel( message.operation );
-            const resultFuncDef:FunctionRef = _responderFactory.findResultFunctionRef( classRef, serviceMethod );
-            const faultFuncDef:FunctionRef = _responderFactory.findFaultFunctionRef( classRef, serviceMethod );
+            const resultFuncDef:FunctionRef = _responderFactory.findResultFunctionRef( classRef, message.destination , message.operation );
+            const faultFuncDef:FunctionRef = _responderFactory.findFaultFunctionRef( classRef, message.destination , message.operation );
 
             var rpcResponder:IResponder = null;
             var responderClass:Class;

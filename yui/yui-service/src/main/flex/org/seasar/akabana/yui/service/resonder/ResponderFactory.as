@@ -11,6 +11,7 @@ package org.seasar.akabana.yui.service.resonder
 
     public class ResponderFactory
     {
+        private static const EVENT_SEPARETOR:String = "_";
 
         private static const RESULT_HANDLER:String = "ResultHandler";
 
@@ -28,12 +29,8 @@ package org.seasar.akabana.yui.service.resonder
 
         public function createResponder( operation:Operation, responder:Object ):Responder{
             const classRef:ClassRef = ClassRef.getReflector(responder);
-            const serviceMethod:String = StringUtil.toLowerCamel( operation.serviceName ) + StringUtil.toUpperCamel( operation.name );
-            const resultFuncDef:FunctionRef = findResultFunctionRef( classRef, serviceMethod );
-            if( resultFuncDef == null ){
-                throw new NotFoundError( responder, "public function " + serviceMethod + RESULT_HANDLER + " or result function " + serviceMethod);
-            }
-            const faultFuncDef:FunctionRef = findFaultFunctionRef( classRef, serviceMethod );
+            const resultFuncDef:FunctionRef = findResultFunctionRef( classRef, operation.serviceName, operation.name );
+            const faultFuncDef:FunctionRef = findFaultFunctionRef( classRef, operation.serviceName, operation.name  );
 
             var rpcResponder:Responder = null;
             var responderClassRef:ClassRef;
@@ -55,23 +52,46 @@ package org.seasar.akabana.yui.service.resonder
             return rpcResponder as Responder;
         }
 
-        public function findResultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
-            const serviceResultMethod:String = serviceMethod + RESULT_HANDLER;
+        public function findResultFunctionRef( classRef:ClassRef, serviceName:String, serviceMethodName:String ):FunctionRef{
+            var serviceMethod:String = StringUtil.toLowerCamel( serviceName ) + StringUtil.toUpperCamel( serviceMethodName );
+            var serviceResultMethod:String = serviceMethod + RESULT_HANDLER;
             var functionRef:FunctionRef = classRef.getFunctionRef( serviceResultMethod );
-            if( functionRef == null ){
+            do{
                 var ns:Namespace = org.seasar.akabana.yui.service.ns.rpc_result;
-                functionRef = classRef.getFunctionRef(serviceMethod,ns);
+                if( functionRef == null ){
+                    serviceMethod = StringUtil.toLowerCamel( serviceName ) + EVENT_SEPARETOR + serviceMethodName;
+                    functionRef = classRef.getFunctionRef(serviceMethod,ns);
+                    break;
+                }
+                if( functionRef == null ){
+                    functionRef = classRef.getFunctionRef(serviceMethod,ns);
+                    break;
+                }
+            }while(false);
+            if( functionRef == null ){
+                throw new NotFoundError( classRef.name, "public function " + serviceMethod + RESULT_HANDLER + " or rpc_result function " + serviceMethod);
             }
             return functionRef;
         }
 
-        public function findFaultFunctionRef( classRef:ClassRef, serviceMethod:String ):FunctionRef{
-            const serviceFaultMethod:String = serviceMethod + FAULT_HANDLER;
+        public function findFaultFunctionRef( classRef:ClassRef, serviceName:String, serviceMethodName:String ):FunctionRef{
+            var serviceMethod:String = StringUtil.toLowerCamel( serviceName ) + StringUtil.toUpperCamel( serviceMethodName );
+            var serviceFaultMethod:String = serviceMethod + FAULT_HANDLER;
             var functionRef:FunctionRef = classRef.getFunctionRef( serviceFaultMethod );
-            if( functionRef == null ){
+
+            do{
                 var ns:Namespace = org.seasar.akabana.yui.service.ns.rpc_fault;
-                functionRef = classRef.getFunctionRef(serviceMethod,ns);
-            }
+                if( functionRef == null ){
+                    serviceMethod = StringUtil.toLowerCamel( serviceName ) + EVENT_SEPARETOR + serviceMethodName;
+                    functionRef = classRef.getFunctionRef(serviceMethod,ns);
+                    break;
+                }
+                if( functionRef == null ){
+                    functionRef = classRef.getFunctionRef(serviceMethod,ns);
+                    break;
+                }
+            }while(false);
+
             return functionRef;
         }
 
