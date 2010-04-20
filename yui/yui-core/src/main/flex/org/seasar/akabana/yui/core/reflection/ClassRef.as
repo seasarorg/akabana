@@ -115,6 +115,12 @@ package org.seasar.akabana.yui.core.reflection
 
         public var isEventDispatcher:Boolean;
 
+        private var _className:String;
+
+        public function get className():String{
+            return _className;
+        }
+
         private var _constructor:Constructor;
 
         public function get constructor():Constructor{
@@ -159,6 +165,7 @@ package org.seasar.akabana.yui.core.reflection
             var describeTypeXml:XML = flash.utils.describeType(clazz);
             concreteClass = clazz;
             super( describeTypeXml );
+            _className = getClassName();
 
             assembleMetadataRef(describeTypeXml.factory[0]);
             assembleConstructor(describeTypeXml.factory[0]);
@@ -253,6 +260,17 @@ package org.seasar.akabana.yui.core.reflection
             }while(false);
 
             return isAssignable_;
+        }
+
+        private final function getClassName():String{
+            var result:String;
+            var dotIndex:int = _name.lastIndexOf(DOT);
+            if( dotIndex > 0 ) {
+                result = _name.substring(dotIndex+1);
+            } else {
+                result = _name;
+            }
+            return result;
         }
 
         private final function assembleConstructor( rootDescribeTypeXml:XML ):void{

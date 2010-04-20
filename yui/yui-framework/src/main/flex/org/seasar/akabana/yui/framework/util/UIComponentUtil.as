@@ -35,7 +35,11 @@ package org.seasar.akabana.yui.framework.util
         }
 
         public static function getDocumentDescriptor( component:UIComponent ):UIComponentDescriptor{
-        	return component.mx_internal::_documentDescriptor;
+        	var result:UIComponentDescriptor = component.mx_internal::_documentDescriptor;
+        	if( result == null){
+        	    result = component.mx_internal::_documentDescriptor = new UIComponentDescriptor({});
+        	}
+        	return result;
         }
 
         public static function getDocumentProperties( component:UIComponent ):Object{
