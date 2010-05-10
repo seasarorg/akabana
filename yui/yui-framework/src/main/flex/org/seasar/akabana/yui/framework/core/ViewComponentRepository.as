@@ -98,7 +98,7 @@ package org.seasar.akabana.yui.framework.core {
         public static function getComponentByParent( key:Class, parent:Container):UIComponent{
             var component:UIComponent = null;
 
-            var className:String = ClassRef.getReflector(key).name;
+            var className:String = getClassRef(key).name;
             var componentInstances:Object = componentInstanceMap[ className ];
 
             for each( var component_:UIComponent in componentInstances ){

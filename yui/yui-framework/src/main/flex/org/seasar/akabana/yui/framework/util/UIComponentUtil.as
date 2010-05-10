@@ -34,16 +34,16 @@ package org.seasar.akabana.yui.framework.util
             return componentName;
         }
 
-        public static function getDocumentDescriptor( component:UIComponent ):UIComponentDescriptor{
-        	var result:UIComponentDescriptor = component.mx_internal::_documentDescriptor;
-        	if( result == null){
-        	    result = component.mx_internal::_documentDescriptor = new UIComponentDescriptor({});
-        	}
+        public static function getDescriptor( component:UIComponent ):UIComponentDescriptor{
+        	var result:UIComponentDescriptor = component.descriptor;
+            if( result == null ){
+                result = component.descriptor = new UIComponentDescriptor({});
+            }
         	return result;
         }
 
-        public static function getDocumentProperties( component:UIComponent ):Object{
-        	return getDocumentDescriptor(component).properties;
+        public static function getProperties( component:UIComponent ):Object{
+        	return getDescriptor(component).properties;
         }
     }
 }

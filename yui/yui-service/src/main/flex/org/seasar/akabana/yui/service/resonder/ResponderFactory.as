@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.service.resonder
         }
 
         public function createResponder( operation:Operation, responder:Object ):Responder{
-            const classRef:ClassRef = ClassRef.getReflector(responder);
+            const classRef:ClassRef = getClassRef(responder);
             const resultFuncDef:FunctionRef = findResultFunctionRef( classRef, operation.serviceName, operation.name );
             const faultFuncDef:FunctionRef = findFaultFunctionRef( classRef, operation.serviceName, operation.name  );
 

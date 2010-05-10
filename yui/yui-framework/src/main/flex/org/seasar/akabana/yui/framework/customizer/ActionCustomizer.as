@@ -44,12 +44,13 @@ package org.seasar.akabana.yui.framework.customizer {
 	            const viewName:String = UIComponentUtil.getName(view);
 	            const viewClassName:String = YuiFrameworkGlobals.namingConvention.getClassName(view);
 	            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
+	            const properties:Object = UIComponentUtil.getProperties(view);
 	            var actionClassRef:ClassRef = null;
 	            try{
-	                if( view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ] != null ){
+	                if( properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ] != null ){
 	                    throw new Error("already Customized");
 	                }
-	                actionClassRef = ClassRef.getReflector(actionClassName);
+	                actionClassRef = getClassRef(actionClassName);
 	                processActionCustomize( viewName, view, actionClassRef );
 	            } catch( e:Error ){
 CONFIG::DEBUG{
@@ -67,7 +68,7 @@ CONFIG::DEBUG{
 	            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 	            var actionClassRef:ClassRef = null;
 	            try{
-	                actionClassRef = ClassRef.getReflector(actionClassName);
+	                actionClassRef = getClassRef(actionClassName);
 	                processActionUncustomize( viewName, view, actionClassRef );
 	            } catch( e:Error ){
 CONFIG::DEBUG{
@@ -79,6 +80,7 @@ CONFIG::DEBUG{
         }
 
         protected function processActionCustomize( viewName:String, view:UIComponent, actionClassRef:ClassRef ):void{
+            const properties:Object = UIComponentUtil.getProperties(view);
             var action:Object = null;
             if( actionClassRef != null ){
                 action = viewToActionMap[view];
@@ -86,7 +88,7 @@ CONFIG::DEBUG{
                     action = actionClassRef.newInstance();
                     viewToActionMap[view] = action;
                 }
-                view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ] = action;
+                properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ] = action;
             }
             if( action != null ){
 CONFIG::DEBUG{
@@ -125,8 +127,8 @@ CONFIG::DEBUG{
                     }
 
                     if( YuiFrameworkGlobals.namingConvention.isValidatorClassName( propertyRef_.type ) ){
-                        if( view.descriptor.properties.hasOwnProperty( YuiFrameworkGlobals.namingConvention.getValidatorPackageName() )){
-                            var validator:Object = view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ];
+                        if( properties.hasOwnProperty( YuiFrameworkGlobals.namingConvention.getValidatorPackageName() )){
+                            var validator:Object = properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ];
                             propertyRef_.setValue(action,validator);
 CONFIG::DEBUG{
                         _logger.debug(getMessage("ValidatorCustomized",actionClassRef.name,propertyRef_.name,propertyRef_.type));
@@ -139,16 +141,13 @@ CONFIG::DEBUG{
         }
 
         protected function processActionUncustomize( viewName:String, view:UIComponent, actionClassRef:ClassRef ):void{
-            var viewDescriptor:UIComponentDescriptor = view.descriptor;
+            const properties:Object = UIComponentUtil.getProperties(view);
             if( view.isPopUp ){
                 viewToActionMap[ view ] = null;
                 delete viewToActionMap[ view ];
             }
 
-            var action:Object = null;
-			if ( view.descriptor != null && view.descriptor.properties != null ){
-                action = viewDescriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
-            }
+            var action:Object = properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
 
             if( action == null ){
             } else {
@@ -195,8 +194,8 @@ CONFIG::DEBUG{
                         continue;
                     }
                 }
-                viewDescriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ] = null;
-                delete viewDescriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
+                properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ] = null;
+                delete properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
             }
         }
 
@@ -204,7 +203,7 @@ CONFIG::DEBUG{
             var helper:Object = null;
 
             try{
-                const helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
+                const helperClassRef:ClassRef = getClassRef( propertyRef.type );
                 const viewClassName:String = ClassRef.getClassName( view );
                 const helperPropertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
 
@@ -230,7 +229,7 @@ CONFIG::DEBUG{
 
         protected function processHelperUncustomize( view:UIComponent, propertyRef:PropertyRef ):void{
             try{
-                const helperClassRef:ClassRef = ClassRef.getReflector( propertyRef.type );
+                const helperClassRef:ClassRef = getClassRef( propertyRef.type );
                 const viewClassName:String = YuiFrameworkGlobals.namingConvention.getViewClassName( helperClassRef.name );
                 const helperPropertyRefs:Array = helperClassRef.getPropertyRefByType( viewClassName );
 

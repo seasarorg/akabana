@@ -343,9 +343,6 @@ CONFIG::DEBUG{
 CONFIG::DEBUG{
             _logger.debug(container + " as " + viewName);
 }
-            if( container.descriptor == null ){
-                container.descriptor = new UIComponentDescriptor({});
-            }
             customizeComponent(container);
             container.dispatchEvent( new FrameworkEvent(FrameworkEvent.ASSEMBLE_COMPELETE));
         }

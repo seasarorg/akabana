@@ -9,9 +9,9 @@ package org.seasar.akabana.yui.service.rpc.responder
         public function RpcResponderFactory()
         {
             super();
-            eventResoponderClassRef = ClassRef.getReflector(RpcEventResponder);
-            objectResponderClassRef = ClassRef.getReflector(RpcObjectResponder);
-            noneResponderClassRef = ClassRef.getReflector(RpcNoneResponder);
+            eventResoponderClassRef = getClassRef(RpcEventResponder);
+            objectResponderClassRef = getClassRef(RpcObjectResponder);
+            noneResponderClassRef = getClassRef(RpcNoneResponder);
         }
     }
 }

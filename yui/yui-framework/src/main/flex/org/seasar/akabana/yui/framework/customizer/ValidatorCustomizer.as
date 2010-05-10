@@ -36,16 +36,13 @@ package org.seasar.akabana.yui.framework.customizer {
             if( owner == null ){
 	            try{
     	            var viewName:String = UIComponentUtil.getName(view);
-    	            var viewClassName:String = ClassRef.getReflector(view).name;
+    	            var viewClassName:String = getClassRef(view).name;
     	            var validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
     	            var validatorClassRef:ClassRef = null;
-	                if( view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ] != null ){
-	                    throw new Error("already Customized");
-	                }
 CONFIG::DEBUG{
                     _logger.debug(getMessage("ViewEventCustomizing",viewName,validatorClassName));
 }
-	                validatorClassRef = ClassRef.getReflector(validatorClassName);
+	                validatorClassRef = getClassRef(validatorClassName);
 	                processValidatorCustomize( viewName, view, validatorClassRef );
 CONFIG::DEBUG{
                     _logger.debug(getMessage("ViewEventCustomized",viewName,validatorClassName));
@@ -60,13 +57,13 @@ CONFIG::DEBUG{
 
                 try{
     	            var viewName:String = UIComponentUtil.getName(view);
-    	            var viewClassName:String = ClassRef.getReflector(view).name;
+    	            var viewClassName:String = getClassRef(view).name;
     	            var validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
     	            var validatorClassRef:ClassRef = null;
 CONFIG::DEBUG{
             _logger.debug(getMessage("ValidatorUncustomizing",viewName,validatorClassName));
 }
-	                validatorClassRef = ClassRef.getReflector(validatorClassName);
+	                validatorClassRef = getClassRef(validatorClassName);
 	                processValidatorUncustomize( viewName, view, validatorClassRef );
 CONFIG::DEBUG{
                     _logger.debug(getMessage("ValidatorUncustomized",viewName,validatorClassName));
@@ -77,10 +74,11 @@ CONFIG::DEBUG{
         }
 
         protected function processValidatorCustomize( viewName:String, view:UIComponent, validatorClassRef:ClassRef ):void{
+            const properties:Object = UIComponentUtil.getProperties(view);
             var validator:Object = null;
             if( validatorClassRef != null ){
                 validator =
-                    view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ] =
+                    properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ] =
                         validatorClassRef.newInstance();
             }
             if( validator != null ){
@@ -97,7 +95,8 @@ CONFIG::DEBUG{
         }
 
         protected function processValidatorUncustomize( viewName:String, view:UIComponent, validatorClassRef:ClassRef ):void{
-            var validator:Object = view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ];
+            const properties:Object = UIComponentUtil.getProperties(view);
+            var validator:Object = properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ];
             if( validator != null ){
                 for each( var propertyRef_:PropertyRef in validatorClassRef.properties ){
                     var childValidator:Validator = validator[ propertyRef_.name ] as Validator;
@@ -106,8 +105,8 @@ CONFIG::DEBUG{
                     }
                 }
             }
-            view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ] = null;
-            delete view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ];
+            properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ] = null;
+            delete properties[ YuiFrameworkGlobals.namingConvention.getValidatorPackageName() ];
         }
 
     }

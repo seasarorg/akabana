@@ -73,7 +73,7 @@ package org.seasar.akabana.yui.logging
         }
 
         private final function configureLayout( layoutConfig:LayoutConfig ):Layout{
-            var layout:Layout = ClassRef.getReflector(layoutConfig.clazz).newInstance() as Layout;
+            var layout:Layout = getClassRef(layoutConfig.clazz).newInstance() as Layout;
 
             for each( var param:ParamConfig in layoutConfig.paramMap ){
                 if( Object(layout).hasOwnProperty( param.name )){
@@ -89,7 +89,7 @@ package org.seasar.akabana.yui.logging
         }
 
         private final function configureCategory( categoryConfig:CategoryConfig ):Category{
-            var category:Category = ClassRef.getReflector(categoryConfig.clazz).newInstance() as Category;
+            var category:Category = getClassRef(categoryConfig.clazz).newInstance() as Category;
             category.level = Level.getLevel(categoryConfig.level.value);
 
             category.appender = APPENDER_CACHE[categoryConfig.appenderRef] as Appender;

@@ -17,7 +17,6 @@ package org.seasar.akabana.yui.framework.customizer {
 
     import flash.events.IEventDispatcher;
 
-    import mx.core.Container;
     import mx.core.IMXMLObject;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
@@ -41,15 +40,17 @@ package org.seasar.akabana.yui.framework.customizer {
             const viewName:String = UIComponentUtil.getName(view);
             const viewClassName:String = YuiFrameworkGlobals.namingConvention.getClassName(view);
             if( owner == null ){
-                const action_:Object = view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
+                const properties:Object = UIComponentUtil.getProperties(view);
+                const action_:Object = properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
                 if( action_ != null){
                      doCustomize(viewName,view,action_);
                 }
             } else {
                 const ownerName:String = UIComponentUtil.getName(owner);
-                const ownerAction_:Object = owner.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
+                const ownerProperties:Object = UIComponentUtil.getProperties(owner);
+                const ownerAction_:Object = ownerProperties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
                 if( ownerAction_ != null){
-                    const actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
+                    const actionClassRef:ClassRef = getClassRef(ownerAction_);
                     doCustomizingByComponent(
                         owner,
                         viewName,
@@ -66,27 +67,22 @@ package org.seasar.akabana.yui.framework.customizer {
         }
 
         public override function uncustomize( view:UIComponent, owner:UIComponent=null):void{
+            const properties:Object = UIComponentUtil.getProperties(view);
             const viewName:String = UIComponentUtil.getName(view);
-            const viewClassName:String = ClassRef.getReflector(view).name;
+            const viewClassName:String = getClassRef(view).name;
             if( owner == null ){
-
-                var action:Object = null;
-    			if ( view.descriptor != null && view.descriptor.properties != null ){
-                    action = view.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
-                }
+                var action:Object = properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
                 if( action == null ){
                 } else {
                      doUncustomize(viewName,view,action);
                 }
             } else {
                 const ownerName:String = UIComponentUtil.getName(owner);
-                var ownerAction_:Object = null;
-    			if ( owner.descriptor != null && owner.descriptor.properties != null ){
-                    ownerAction_ = owner.descriptor.properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
-                }
+                const ownerProperties:Object = UIComponentUtil.getProperties(owner);
+                const ownerAction_:Object = ownerProperties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
                 if( ownerAction_ == null ){
                 } else {
-                    const actionClassRef:ClassRef = ClassRef.getReflector(ownerAction_);
+                    const actionClassRef:ClassRef = getClassRef(ownerAction_);
                     doUnCustomizingByComponent(
                         owner,
                         viewName,
@@ -103,7 +99,7 @@ package org.seasar.akabana.yui.framework.customizer {
         }
 
         private function doCustomize( viewName:String, view:UIComponent, action:Object ):void{
-            const actionClassRef:ClassRef = ClassRef.getReflector(action);
+            const actionClassRef:ClassRef = getClassRef(action);
             var component:UIComponent;
 
 CONFIG::DEBUG{
@@ -157,7 +153,7 @@ CONFIG::DEBUG{
             }
 
             //for children
-            var props:Array = ClassRef.getReflector(YuiFrameworkGlobals.namingConvention.getClassName(view)).properties;
+            var props:Array = getClassRef(YuiFrameworkGlobals.namingConvention.getClassName(view)).properties;
             for each( var prop:PropertyRef in props ){
                 const child:Object = view[ prop.name ];
                 if( child != null &&
@@ -191,7 +187,7 @@ CONFIG::DEBUG{
         }
 
         private function doCustomizeByContainer( view:UIComponent, container:UIComponent, action:Object):void {
-            var actionClassRef:ClassRef = ClassRef.getReflector(action);
+            var actionClassRef:ClassRef = getClassRef(action);
             var component:UIComponent;
 
             var numChildren:int = container.numChildren;
@@ -292,7 +288,7 @@ CONFIG::DEBUG{
 CONFIG::DEBUG{
             _logger.debug(getMessage("ViewEventUncustomizing",viewName,view));
 }
-            const actionClassRef:ClassRef = ClassRef.getReflector(action);
+            const actionClassRef:ClassRef = getClassRef(action);
             var component:UIComponent;
             var numChildren:int = view.numChildren;
             for( var index:int = 0; index < numChildren; index++ ){
@@ -339,7 +335,7 @@ CONFIG::DEBUG{
             }
 
             //for children
-            const props:Array = ClassRef.getReflector(YuiFrameworkGlobals.namingConvention.getClassName(view)).properties;
+            const props:Array = getClassRef(YuiFrameworkGlobals.namingConvention.getClassName(view)).properties;
             for each( var prop:PropertyRef in props ){
                 const child:Object = view[ prop.name ];
                 if( child != null &&
@@ -373,7 +369,7 @@ CONFIG::DEBUG{
         }
 
         private function doUncustomizeByContainer( view:UIComponent, container:UIComponent, action:Object):void {
-            const actionClassRef:ClassRef = ClassRef.getReflector(action);
+            const actionClassRef:ClassRef = getClassRef(action);
             var componentName:String;
             var component:UIComponent;
 
