@@ -13,5 +13,6 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+public static const REVISION:String = function():String{ var rev:String = "$Revision$"; return rev.substring(11,rev.length-2);}();
 
-public static const VERSION:String = "1.1.0.$Revision$-beta1-snapshot";
+public static const VERSION:String = "1.1.0."+REVISION+"-beta1-snapshot";
