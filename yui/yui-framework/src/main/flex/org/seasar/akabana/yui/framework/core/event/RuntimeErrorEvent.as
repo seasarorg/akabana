@@ -26,7 +26,7 @@ package org.seasar.akabana.yui.framework.core.event
 		public static function createEvent( e:Error ):RuntimeErrorEvent{
 			var runtimeErrorEvent:RuntimeErrorEvent = new RuntimeErrorEvent(RUNTIME_ERROR);
             runtimeErrorEvent.text = e.message;
-            runtimeErrorEvent.errorType = getClassRef(e).name;
+            runtimeErrorEvent.errorType = getCanonicalName(e);
             runtimeErrorEvent.stackTrace = e.getStackTrace();
 			return runtimeErrorEvent;
 		}

@@ -36,7 +36,7 @@ package org.seasar.akabana.yui.framework.customizer {
             if( owner == null ){
 	            try{
     	            var viewName:String = UIComponentUtil.getName(view);
-    	            var viewClassName:String = getClassRef(view).name;
+    	            var viewClassName:String = getCanonicalName(view);
     	            var validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
     	            var validatorClassRef:ClassRef = null;
 CONFIG::DEBUG{
@@ -57,7 +57,7 @@ CONFIG::DEBUG{
 
                 try{
     	            var viewName:String = UIComponentUtil.getName(view);
-    	            var viewClassName:String = getClassRef(view).name;
+    	            var viewClassName:String = getCanonicalName(view);
     	            var validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
     	            var validatorClassRef:ClassRef = null;
 CONFIG::DEBUG{

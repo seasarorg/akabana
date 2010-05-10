@@ -69,7 +69,7 @@ package org.seasar.akabana.yui.framework.customizer {
         public override function uncustomize( view:UIComponent, owner:UIComponent=null):void{
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewName:String = UIComponentUtil.getName(view);
-            const viewClassName:String = getClassRef(view).name;
+            const viewClassName:String = getCanonicalName(view);
             if( owner == null ){
                 var action:Object = properties[ YuiFrameworkGlobals.namingConvention.getActionPackageName() ];
                 if( action == null ){

@@ -13,7 +13,7 @@ package org.seasar.akabana.yui.core.error
             if( owner is String ){
                 ownerName = owner as String;
             } else {
-                ownerName = getClassRef(owner).className;
+                ownerName = getCanonicalName(owner);
             }
             super(
                 StringUtil
