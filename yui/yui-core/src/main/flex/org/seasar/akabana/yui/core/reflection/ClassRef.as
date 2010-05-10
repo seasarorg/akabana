@@ -32,10 +32,6 @@ package org.seasar.akabana.yui.core.reflection
 
         public static var classLoader:ClassLoader = new ClassLoader();
 
-		public static function getClassName( object:Object ):String{
-			return flash.utils.getQualifiedClassName(object).replace(CLASS_NAME_SEPARATOR,DOT);
-		}
-
         public static function getReflector( target:Object ):ClassRef{
 
             var clazz:Class = null;
@@ -66,6 +62,10 @@ package org.seasar.akabana.yui.core.reflection
 
             return classRef;
         }
+
+		private static function getClassFullName( object:Object ):String{
+			return flash.utils.getQualifiedClassName(object).replace(CLASS_NAME_SEPARATOR,DOT);
+		}
 
         private static function isTargetAccessor( rootDescribeTypeXml:XML ):Boolean{
             const name_:String = rootDescribeTypeXml.@name.toString();
@@ -248,8 +248,8 @@ package org.seasar.akabana.yui.core.reflection
 
             do{
                 if( interfaceType is Class ){
-                    var className:String = ClassRef.getClassName(interfaceType as Class);
-                    isAssignable_ = _interfaceMap.hasOwnProperty( className );
+                    var classFullName:String = ClassRef.getClassFullName(interfaceType as Class);
+                    isAssignable_ = _interfaceMap.hasOwnProperty( classFullName );
                     break;
                 }
                 if( interfaceType is String ){

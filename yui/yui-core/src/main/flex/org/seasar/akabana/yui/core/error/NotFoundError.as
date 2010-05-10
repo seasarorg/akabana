@@ -2,7 +2,6 @@ package org.seasar.akabana.yui.core.error
 {
     import mx.resources.ResourceManager;
 
-    import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ResourceBundle("yui_core")]
@@ -14,7 +13,7 @@ package org.seasar.akabana.yui.core.error
             if( owner is String ){
                 ownerName = owner as String;
             } else {
-                ownerName = ClassRef.getClassName(owner);
+                ownerName = getClassRef(owner).className;
             }
             super(
                 StringUtil
