@@ -74,13 +74,15 @@ package org.seasar.akabana.yui.framework.core
         }
 
         public function callLater(callBack:Function):void{
-            _callTimer.addEventListener(TimerEvent.TIMER,
-            function timerHandler(event:TimerEvent):void{
-                _callTimer.removeEventListener(TimerEvent.TIMER,arguments.callee);
-                callBack.call();
-            }
-            ,false,0,true
-            );
+            _callTimer
+                .addEventListener(
+                    TimerEvent.TIMER,
+                    function timerHandler(event:TimerEvent):void{
+                        _callTimer.stop();
+                        _callTimer.removeEventListener(TimerEvent.TIMER,arguments.callee);
+                        callBack.call();
+                    }
+                );
             _callTimer.start();
         }
 
