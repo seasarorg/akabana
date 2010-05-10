@@ -63,7 +63,7 @@ package org.seasar.akabana.yui.core.reflection
             return classRef;
         }
 
-		private static function getClassFullName( object:Object ):String{
+		public static function getCanonicalName( object:Object ):String{
 			return flash.utils.getQualifiedClassName(object).replace(CLASS_NAME_SEPARATOR,DOT);
 		}
 
@@ -248,7 +248,7 @@ package org.seasar.akabana.yui.core.reflection
 
             do{
                 if( interfaceType is Class ){
-                    var classFullName:String = ClassRef.getClassFullName(interfaceType as Class);
+                    var classFullName:String = getCanonicalName(interfaceType as Class);
                     isAssignable_ = _interfaceMap.hasOwnProperty( classFullName );
                     break;
                 }
