@@ -15,7 +15,6 @@
  */
 package org.seasar.akabana.yui.logging
 {
-    import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.logging.config.AppenderConfig;
     import org.seasar.akabana.yui.logging.config.CategoryConfig;
     import org.seasar.akabana.yui.logging.config.Configuration;
@@ -108,7 +107,7 @@ package org.seasar.akabana.yui.logging
 
         private final function getLogger( targetClass:Class ):Logger{
 
-            var fullClassName:String = ClassRef.getClassName(targetClass);
+            var fullClassName:String = getClassRef(targetClass).name;
             var logger_:Logger = CACHE[ fullClassName ];
 
             if( logger_ == null ){

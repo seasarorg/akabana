@@ -204,7 +204,7 @@ CONFIG::DEBUG{
 
             try{
                 const helperClassRef:ClassRef = getClassRef( propertyRef.type );
-                const viewClassName:String = ClassRef.getClassName( view );
+                const viewClassName:String = getClassRef( view ).name;
                 const helperPropertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
 
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){

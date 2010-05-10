@@ -9,36 +9,36 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.framework.core.event
 {
 	import flash.events.ErrorEvent;
-	
+
 	import org.seasar.akabana.yui.core.reflection.ClassRef;
-	
+
 	public class RuntimeErrorEvent extends ErrorEvent
 	{
 		public static const RUNTIME_ERROR:String = "runtimeError";
-		
+
 		public static function createEvent( e:Error ):RuntimeErrorEvent{
 			var runtimeErrorEvent:RuntimeErrorEvent = new RuntimeErrorEvent(RUNTIME_ERROR);
             runtimeErrorEvent.text = e.message;
-            runtimeErrorEvent.errorType = ClassRef.getClassName(e);
+            runtimeErrorEvent.errorType = getClassRef(e).name;
             runtimeErrorEvent.stackTrace = e.getStackTrace();
 			return runtimeErrorEvent;
 		}
-		
+
 		public var stackTrace:String;
-		
+
 		public var errorType:String;
-		
+
 		public function RuntimeErrorEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = ""){
 			super(type,bubbles,cancelable,text);
 		}
-		
+
 		public override function toString():String{
 			return stackTrace;
 		}

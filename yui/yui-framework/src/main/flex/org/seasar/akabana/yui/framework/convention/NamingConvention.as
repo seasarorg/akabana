@@ -166,7 +166,7 @@ package org.seasar.akabana.yui.framework.convention
         }
 
 		public function getClassName(object:Object):String{
-			return ClassRef.getClassName(object);
+			return getClassRef(object).name;
 		}
 
         public function isViewClassName( className:String ):Boolean{
