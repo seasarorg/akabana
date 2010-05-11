@@ -15,7 +15,9 @@
  */
 package org.seasar.akabana.yui.framework.convention
 {
-	import org.seasar.akabana.yui.core.reflection.ClassRef;
+CONFIG::FP10{
+	import __AS3__.vec.Vector;
+}
 
     [ExcludeClass]
     public class NamingConvention
@@ -52,6 +54,7 @@ package org.seasar.akabana.yui.framework.convention
         private static const VAR_NAME_REG_PREFIX:String = "^.+?";
         private static const VAR_NAME_REG_SUFFIX:String = "$";
 
+CONFIG::FP9{
         protected var _conventions:Array;
 
         public function get conventions():Array{
@@ -61,6 +64,18 @@ package org.seasar.akabana.yui.framework.convention
         public function set conventions( value:Array ):void{
             _conventions = value;
         }
+}
+CONFIG::FP10{
+        protected var _conventions:Vector.<String>;
+
+        public function get conventions():Vector.<String>{
+            return _conventions;
+        }
+
+        public function set conventions( value:Vector.<String> ):void{
+            _conventions = value;
+        }
+}
 
         public function NamingConvention(){
         }
@@ -164,10 +179,6 @@ package org.seasar.akabana.yui.framework.convention
         public function getOwnHandlerPrefix():String{
             return OWN_HANDLER_PREFIX;
         }
-
-		public function getClassName(object:Object):String{
-			return getCanonicalName(object);
-		}
 
         public function isViewClassName( className:String ):Boolean{
             return checkClassFullName(className,getViewPackageName(),getViewSuffix());

@@ -15,7 +15,9 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
-    import flash.utils.describeType;
+CONFIG::FP10{
+    import __AS3__.vec.Vector;
+}
 
     internal class AnnotatedObjectRef extends ObjectRef implements AnnotatedReflector{
 
@@ -41,11 +43,20 @@ package org.seasar.akabana.yui.core.reflection
             return isTarget;
         }
 
+CONFIG::FP9{
         private var _metadatas:Array;
 
         public function get metadatas():Array{
             return _metadatas;
         }
+}
+CONFIG::FP10{
+        private var _metadatas:Vector.<MetadataRef>;
+
+        public function get metadatas():Vector.<MetadataRef>{
+            return _metadatas;
+        }
+}
 
         private var _metadataMap:Object;
 
@@ -61,16 +72,13 @@ package org.seasar.akabana.yui.core.reflection
             return _metadataMap[metadataName];
         }
 
-        public function getMetadatas():Array{
-            return _metadatas;
-        }
-
-        public function getDeclaredMetadatas():Array{
-            return _metadatas;
-        }
-
         protected final function assembleMetadataRef( rootDescribeTypeXml:XML ):void{
+CONFIG::FP9{
             _metadatas = [];
+}
+CONFIG::FP10{
+            _metadatas = new Vector.<MetadataRef>();
+}
             _metadataMap = {};
 
             var metadataRef:MetadataRef = null;

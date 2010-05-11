@@ -33,7 +33,7 @@ package org.seasar.akabana.yui.framework.core {
         public static var componentInstanceMap:Dictionary = new Dictionary(true);
 
         public static function addComponent( component:UIComponent ):void{
-            var className:String = YuiFrameworkGlobals.namingConvention.getClassName(component);
+            var className:String = getCanonicalName(component);
             if( componentInstanceMap[ className ] == null ){
                 componentInstanceMap[ className ] = new Dictionary(true);
             }
@@ -54,7 +54,7 @@ package org.seasar.akabana.yui.framework.core {
                 componentMap[ componentId ] = null;
                 delete componentMap[ componentId ];
 
-                var className:String = YuiFrameworkGlobals.namingConvention.getClassName(component);
+                var className:String = getCanonicalName(component);
 
                 var componentInstances:Object = componentInstanceMap[ className ];
                 componentInstances[ componentId ] = null;
@@ -67,7 +67,7 @@ package org.seasar.akabana.yui.framework.core {
             var componentInstances:Object;
             do{
                 if( key is Class ){
-                    var className:String = YuiFrameworkGlobals.namingConvention.getClassName(component);
+                    var className:String = getCanonicalName(component);
                     componentInstances = componentInstanceMap[ className ];
                     if( componentId != null){
                         component = componentInstances[ componentId ] as UIComponent;

@@ -15,6 +15,10 @@
  */
 package org.seasar.akabana.yui.framework.core
 {
+CONFIG::FP10{
+    import __AS3__.vec.Vector;
+}
+
     import flash.events.TimerEvent;
     import flash.utils.Timer;
 
@@ -28,6 +32,7 @@ package org.seasar.akabana.yui.framework.core
 
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
     import org.seasar.akabana.yui.logging.Logger;
@@ -49,17 +54,30 @@ package org.seasar.akabana.yui.framework.core
 
         protected var _callTimer:Timer = new Timer(100,1);
 
+CONFIG::FP9{
         protected var _customizers:Array;
-
+}
+CONFIG::FP10{
+        protected var _customizers:Vector.<IComponentCustomizer>;
+}
         protected var _isApplicationStarted:Boolean = true;
 
         protected var _namingConvention:NamingConvention;
 
+CONFIG::FP9{
         protected var _systemManagers:Array;
 
         public function get systemManagers():Array{
             return _systemManagers;
         }
+}
+CONFIG::FP10{
+        protected var _systemManagers:Vector.<ISystemManager>;
+
+        public function get systemManagers():Vector.<ISystemManager>{
+            return _systemManagers;
+        }
+}
 
         public function YuiFrameworkContainerBase(){
         }

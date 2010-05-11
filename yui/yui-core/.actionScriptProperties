@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actionScriptProperties mainApplicationPath="yui-core.as" version="3">
-<compiler additionalCompilerArguments="-target-player=10 -locale=" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersion="9.0.124" htmlPlayerVersionCheck="true" outputFolderPath="bin" sourceFolderPath="src/main/flex" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
+<compiler additionalCompilerArguments="-target-player=10 -locale= -load-config+=define-config.xml" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersion="9.0.124" htmlPlayerVersionCheck="true" outputFolderPath="bin" sourceFolderPath="src/main/flex" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
 <compilerSourcePath>
 <compilerSourcePathEntry kind="1" linkType="1" path="src/main/resources"/>
 </compilerSourcePath>

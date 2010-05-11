@@ -15,7 +15,9 @@
  */
 package org.seasar.akabana.yui.framework.mixin
 {
-
+CONFIG::FP10{
+	import __AS3__.vec.Vector;
+}
 	import flash.events.Event;
 	import flash.net.registerClassAlias;
 
@@ -88,7 +90,12 @@ package org.seasar.akabana.yui.framework.mixin
 
 		protected static function initNamingConvention():void{
 			var namingConvention:NamingConvention = _namingConventionClassFactory.newInstance() as NamingConvention;
+CONFIG::FP9{
 			namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");
+}
+CONFIG::FP10{
+            namingConvention.conventions = Vector.<String>(ResourceManager.getInstance().getStringArray("conventions","package"));
+}
 			YuiFrameworkGlobals.yui_internal::namingConvention = namingConvention;
 		}
 

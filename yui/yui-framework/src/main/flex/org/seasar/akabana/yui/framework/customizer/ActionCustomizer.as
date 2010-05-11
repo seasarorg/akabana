@@ -13,12 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.customizer {
-
+package org.seasar.akabana.yui.framework.customizer
+{
+CONFIG::FP10{
+    import __AS3__.vec.Vector;
+}
     import flash.utils.Dictionary;
 
     import mx.core.UIComponent;
-    import mx.core.UIComponentDescriptor;
 
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
@@ -42,7 +44,7 @@ package org.seasar.akabana.yui.framework.customizer {
         public override function customize( view:UIComponent, owner:UIComponent=null):void {
         	if( owner == null ){
 	            const viewName:String = UIComponentUtil.getName(view);
-	            const viewClassName:String = YuiFrameworkGlobals.namingConvention.getClassName(view);
+	            const viewClassName:String = getCanonicalName(view);
 	            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 	            const properties:Object = UIComponentUtil.getProperties(view);
 	            var actionClassRef:ClassRef = null;
@@ -64,7 +66,7 @@ CONFIG::DEBUG{
         public override function uncustomize( view:UIComponent, owner:UIComponent=null):void{
             if( owner == null ){
 	            const viewName:String = UIComponentUtil.getName(view);
-	            const viewClassName:String = YuiFrameworkGlobals.namingConvention.getClassName(view);
+	            const viewClassName:String = getCanonicalName(view);
 	            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 	            var actionClassRef:ClassRef = null;
 	            try{
@@ -199,8 +201,12 @@ CONFIG::DEBUG{
             try{
                 const helperClassRef:ClassRef = getClassRef( propertyRef.type );
                 const viewClassName:String = getCanonicalName( view );
+CONFIG::FP9{
                 const helperPropertyRefs:Array = helperClassRef.getPropertyRefByType(viewClassName);
-
+}
+CONFIG::FP10{
+                const helperPropertyRefs:Vector.<PropertyRef> = helperClassRef.getPropertyRefByType(viewClassName);
+}
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
             		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
 
@@ -225,8 +231,12 @@ CONFIG::DEBUG{
             try{
                 const helperClassRef:ClassRef = getClassRef( propertyRef.type );
                 const viewClassName:String = YuiFrameworkGlobals.namingConvention.getViewClassName( helperClassRef.name );
+CONFIG::FP9{
                 const helperPropertyRefs:Array = helperClassRef.getPropertyRefByType( viewClassName );
-
+}
+CONFIG::FP10{
+                const helperPropertyRefs:Vector.<PropertyRef> = helperClassRef.getPropertyRefByType( viewClassName );
+}
                 if( helperPropertyRefs != null && helperPropertyRefs.length > 0 ){
             		var helperPropertyRef_:PropertyRef = helperPropertyRefs[0];
                     viewToHelperMap[ view ] = null;

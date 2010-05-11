@@ -15,11 +15,16 @@
  */
 package org.seasar.akabana.yui.framework.core
 {
+CONFIG::FP10{
+    import __AS3__.vec.Vector;
+}
+
+    import __AS3__.vec.Vector;
+
     import flash.events.Event;
     import flash.system.Capabilities;
 
     import mx.core.UIComponent;
-    import mx.core.UIComponentDescriptor;
     import mx.events.FlexEvent;
     import mx.managers.ISystemManager;
 
@@ -40,9 +45,16 @@ package org.seasar.akabana.yui.framework.core
             return _container;
         }
 
+CONFIG::FP9{
         public function get customizers():Array{
             return _customizers;
         }
+}
+CONFIG::FP10{
+        public function get customizers():Vector.<IComponentCustomizer>{
+            return _customizers;
+        }
+}
 
         public function get application():UIComponent{
             return YuiFrameworkGlobals.frameworkBridge.application;
@@ -52,7 +64,12 @@ package org.seasar.akabana.yui.framework.core
             super();
             if( _container == null ){
                 _container = this;
+CONFIG::FP9{
                 _systemManagers = [];
+}
+CONFIG::FP10{
+                _systemManagers = new Vector.<ISystemManager>;
+}
             } else {
                 throw new YuiFrameworkContainerError("container is already created.");
             }
@@ -249,7 +266,7 @@ CONFIG::DEBUG{
                 return false;
             }
 			if( YuiFrameworkGlobals.frameworkBridge.isContainer(component)){
-				return YuiFrameworkGlobals.namingConvention.isViewClassName( YuiFrameworkGlobals.namingConvention.getClassName(component) );
+				return YuiFrameworkGlobals.namingConvention.isViewClassName( getCanonicalName(component) );
 			} else {
 				return false;
 			}
@@ -391,6 +408,7 @@ CONFIG::DEBUG{
             systemManager_.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
         }
 
+CONFIG::FP9{
         protected function getDefaultCustomizers():Array{
             var classes:Array = getDefaultCustomizerClasses();
             var result:Array = [];
@@ -399,5 +417,17 @@ CONFIG::DEBUG{
             }
             return result;
         }
+}
+CONFIG::FP10{
+        protected function getDefaultCustomizers():Vector.<IComponentCustomizer>{
+            var classes:Array = getDefaultCustomizerClasses();
+            var result:Vector.<IComponentCustomizer> = new Vector.<IComponentCustomizer>();
+            for each( var customizerClass:Class in classes ){
+                result.push(new customizerClass());
+            }
+            return result;
+        }
+}
+
     }
 }

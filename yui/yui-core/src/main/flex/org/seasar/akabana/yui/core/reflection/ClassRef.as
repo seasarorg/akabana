@@ -15,6 +15,10 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
+CONFIG::FP10{
+    import __AS3__.vec.Vector;
+}
+
     import flash.utils.describeType;
     import flash.utils.getQualifiedClassName;
 
@@ -123,39 +127,75 @@ package org.seasar.akabana.yui.core.reflection
             return _constructor;
         }
 
+CONFIG::FP9{
         private var _properties:Array;
 
         public function get properties():Array{
             return _properties;
         }
+}
+CONFIG::FP10{
+        private var _properties:Vector.<PropertyRef>;
+
+        public function get properties():Vector.<PropertyRef>{
+            return _properties;
+        }
+}
 
         private var _propertyMap:Object;
 
         private var _typeToPropertyMap:Object;
 
+CONFIG::FP9{
         private var _functions:Array;
 
         public function get functions():Array{
             return _functions;
         }
+}
+CONFIG::FP10{
+        private var _functions:Vector.<FunctionRef>;
+
+        public function get functions():Vector.<FunctionRef>{
+            return _functions;
+        }
+}
 
         private var _functionMap:Object;
 
         private var _returnTypeToFunctionMap:Object;
 
+CONFIG::FP9{
         private var _superClasses:Array;
 
         public function get superClasses():Array{
             return _superClasses;
         }
+}
+CONFIG::FP10{
+        private var _superClasses:Vector.<String>;
+
+        public function get superClasses():Vector.<String>{
+            return _superClasses;
+        }
+}
 
         private var _superClassMap:Object;
 
+CONFIG::FP9{
         private var _interfaces:Array;
 
         public function get interfaces():Array{
             return _interfaces;
         }
+}
+CONFIG::FP10{
+        private var _interfaces:Vector.<String>;
+
+        public function get interfaces():Vector.<String>{
+            return _interfaces;
+        }
+}
 
         private var _interfaceMap:Object;
 
@@ -243,9 +283,16 @@ package org.seasar.akabana.yui.core.reflection
             return _propertyMap[ propertyName ] as PropertyRef;
         }
 
+CONFIG::FP9{
         public function getPropertyRefByType( propertyType:String ):Array{
             return _typeToPropertyMap[ propertyType ];
         }
+}
+CONFIG::FP10{
+        public function getPropertyRefByType( propertyType:String ):Vector.<PropertyRef>{
+            return _typeToPropertyMap[ propertyType ];
+        }
+}
 
         public function isAssignableFrom(type:Object):Boolean{
             var result:Boolean = false;
@@ -276,7 +323,12 @@ package org.seasar.akabana.yui.core.reflection
         }
 
         private final function assemblePropertyRef( rootDescribeTypeXml:XML ):void{
+CONFIG::FP9{
             _properties = [];
+}
+CONFIG::FP10{
+            _properties = new Vector.<PropertyRef>();
+}
             _propertyMap = {};
             _typeToPropertyMap = {};
 
@@ -311,15 +363,28 @@ package org.seasar.akabana.yui.core.reflection
         }
 
         private final function assembleTypeOfPropertyRef( propertyRef:PropertyRef ):void{
+CONFIG::FP9{
             var rproperties_:Array = _typeToPropertyMap[ propertyRef.type ];
             if( rproperties_ == null ){
                 rproperties_ = _typeToPropertyMap[ propertyRef.type ] = [];
             }
+}
+CONFIG::FP10{
+            var rproperties_:Vector.<PropertyRef> = _typeToPropertyMap[ propertyRef.type ];
+            if( rproperties_ == null ){
+                rproperties_ = _typeToPropertyMap[ propertyRef.type ] = new Vector.<PropertyRef>();
+            }
+}
             rproperties_.push(propertyRef);
         }
 
         private final function assembleFunctionRef( rootDescribeTypeXml:XML ):void{
+CONFIG::FP9{
             _functions = [];
+}
+CONFIG::FP10{
+            _functions = new Vector.<FunctionRef>();
+}
             _functionMap = {};
             _returnTypeToFunctionMap = {};
 
@@ -351,7 +416,12 @@ package org.seasar.akabana.yui.core.reflection
         }
 
         private final function assembleInterfaces( rootDescribeTypeXml:XML ):void{
+CONFIG::FP9{
             _interfaces = [];
+}
+CONFIG::FP10{
+            _interfaces = new Vector.<String>();
+}
             _interfaceMap = {};
 
             const interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
@@ -366,7 +436,12 @@ package org.seasar.akabana.yui.core.reflection
         }
 
         private final function assembleClassInheritance( rootDescribeTypeXml:XML ):void{
+CONFIG::FP9{
             _superClasses = [];
+}
+CONFIG::FP10{
+            _superClasses = new Vector.<String>();
+}
             _superClassMap = {};
 
             var extendsClassXMLList:XMLList = rootDescribeTypeXml.extendsClass;
