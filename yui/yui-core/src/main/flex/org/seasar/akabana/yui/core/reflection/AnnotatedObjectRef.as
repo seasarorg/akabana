@@ -39,7 +39,7 @@ package org.seasar.akabana.yui.core.reflection
             return isTarget;
         }
 
-        [ArrayElementType("my.core.metadata.MetadataRef")]
+        [ArrayElementType("org.seasar.akabana.yui.core.metadata.MetadataRef")]
         private var _metadatas:Array;
 
         public function get metadatas():Array{

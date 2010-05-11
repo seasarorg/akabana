@@ -165,6 +165,7 @@ package org.seasar.akabana.yui.core.reflection
             var describeTypeXml:XML = flash.utils.describeType(clazz);
             concreteClass = clazz;
             super( describeTypeXml );
+            _name = getCanonicalName(clazz);
             _className = getClassName();
 
             assembleMetadataRef(describeTypeXml.factory[0]);
