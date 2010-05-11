@@ -176,6 +176,8 @@
 			<compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="@{flashplayer}" locale="">
 				<define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}" />
 				<define name="CONFIG::DEBUG_EVENT" value="false" />
+				<define name="CONFIG::FP9" value="false" />
+				<define name="CONFIG::FP10" value="true" />
 				<load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}flex-config.xml" />
 				<load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
 				<source-path path-element="${projectdir}${FLEX_SRC}" />
@@ -219,6 +221,8 @@
 			<compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="@{flashplayer}" locale="">
 				<define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}" />
 				<define name="CONFIG::DEBUG_EVENT" value="false" />
+				<define name="CONFIG::FP9" value="false" />
+				<define name="CONFIG::FP10" value="true" />
 				<load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}air-config.xml" />
 				<load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
 				<source-path path-element="${projectdir}${FLEX_SRC}" />

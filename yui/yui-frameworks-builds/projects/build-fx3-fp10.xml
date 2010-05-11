@@ -12,7 +12,7 @@
 		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework-bridge-flex3"/>
 
 		<projectCompilePrepare projectdir="${projectdir}"/>
-		<projectCompileWithFlexLibrary projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10"/>
+		<projectCompileWithFlexLibrary10 projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10"/>
 		<projectRsl projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10"/>
 	</target>
 </project>
