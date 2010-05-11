@@ -17,8 +17,34 @@ package org.seasar.akabana.yui.core.reflection
 {
     internal class ObjectRef implements Reflector {
 
+		protected static const CLASS_NAME_SEPARATOR:String = "::";
+
+		protected static const DOT:String = ".";
+
+		protected static const TYPE_ANY:String = "*";
+
         protected static const excludeDeclaredByFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|(air\.)|(org.seasar\.))/);
+
         protected static const excludeUriFilterRegExp:RegExp = new RegExp(/^(http:\/\/adobe.com\/AS3\/2006\/builtin)/);
+
+        protected static function getTypeString( type:String ):String{
+            if( type != TYPE_ANY){
+                return type.replace(CLASS_NAME_SEPARATOR,DOT);
+            } else {
+                return type;
+            }
+        }
+
+        protected static function getTypeName( type:String ):String{
+            var result:String;
+            var dotIndex:int = type.lastIndexOf(DOT);
+            if( dotIndex > 0 ) {
+                result = type.substring(dotIndex+1);
+            } else {
+                result = type;
+            }
+            return result;
+        }
 
         private var _describeTypeXml:XML;
 
@@ -51,14 +77,6 @@ package org.seasar.akabana.yui.core.reflection
 
         protected function getUri( rootDescribeTypeXml:XML ):String{
             return rootDescribeTypeXml.@uri.toString();
-        }
-
-        protected static function getTypeString( type:String ):String{
-            if( type != "*"){
-                return type.replace("::",".");
-            } else {
-                return type;
-            }
         }
     }
 }

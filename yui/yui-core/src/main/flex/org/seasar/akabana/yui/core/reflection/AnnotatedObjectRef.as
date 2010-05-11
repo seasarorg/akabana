@@ -19,10 +19,12 @@ package org.seasar.akabana.yui.core.reflection
 
     internal class AnnotatedObjectRef extends ObjectRef implements AnnotatedReflector{
 
+        private static const HELP_METADATA:String = "__go_to_definition_help";
+
         private static function isTargetMetadata( metadataXML:XML ):Boolean{
             var isTarget:Boolean;
             do{
-                if( metadataXML.@name.toString() == "__go_to_definition_help"){
+                if( metadataXML.@name.toString() == HELP_METADATA){
                     isTarget = false;
                     break;
                 }
@@ -39,7 +41,6 @@ package org.seasar.akabana.yui.core.reflection
             return isTarget;
         }
 
-        [ArrayElementType("org.seasar.akabana.yui.core.metadata.MetadataRef")]
         private var _metadatas:Array;
 
         public function get metadatas():Array{

@@ -114,10 +114,7 @@ CONFIG::DEBUG{
                         continue;
                     }
 
-                    if(
-                        propertyRef_.typeClassRef.concreteClass == Service ||
-                        propertyRef_.typeClassRef.isAssignableFrom( Service )
-                    ){
+                    if( propertyRef_.typeClassRef.isAssignableFrom( Service )){
                         var service:Object = processServiceCustomize(viewName,propertyRef_);
                         propertyRef_.setValue(action,service);
 CONFIG::DEBUG{
@@ -173,10 +170,7 @@ CONFIG::DEBUG{
                         continue;
                     }
 
-                    if(
-                        propertyRef_.typeClassRef.concreteClass == Service ||
-                        propertyRef_.typeClassRef.isAssignableFrom( Service )
-                    ){
+                    if( propertyRef_.typeClassRef.isAssignableFrom( Service )){
                         var service:Service = propertyRef_.getValue(action) as Service;
                         service.deletePendingCallOf(action);
                         propertyRef_.setValue(action,null);
@@ -251,10 +245,7 @@ CONFIG::DEBUG{
             try{
                 logic = propertyRef.typeClassRef.newInstance();
                 for each( var propertyRef_:PropertyRef in propertyRef.typeClassRef.properties ){
-                    if(
-                        propertyRef_.typeClassRef.concreteClass == Service ||
-                        propertyRef_.typeClassRef.isAssignableFrom( Service )
-                    ){
+                    if( propertyRef_.typeClassRef.isAssignableFrom( Service )){
                         logic[ propertyRef_.name ] = processServiceCustomize(viewName,propertyRef_);
 CONFIG::DEBUG{
                         _logger.debug(getMessage("ServiceCustomized",propertyRef.name,propertyRef_.name,propertyRef_.type));
@@ -282,10 +273,7 @@ CONFIG::DEBUG{
                     return;
                 }
                 for each( var propertyRef_:PropertyRef in propertyRef.typeClassRef.properties ){
-                    if(
-                        propertyRef_.typeClassRef.concreteClass == Service ||
-                        propertyRef_.typeClassRef.isAssignableFrom( Service )
-                    ){
+                    if( propertyRef_.typeClassRef.isAssignableFrom( Service )){
                         processServiceUncustomize(logic,propertyRef_);
 CONFIG::DEBUG{
                         _logger.debug(getMessage("ServiceUncustomized",propertyRef.name,propertyRef_.name,propertyRef_.type));

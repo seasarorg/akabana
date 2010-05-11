@@ -26,10 +26,6 @@ package org.seasar.akabana.yui.core.reflection
 
         public static const CLASS_REF_CACHE:Object = {};
 
-		public static const CLASS_NAME_SEPARATOR:String = "::";
-
-		public static const DOT:String = ".";
-
         public static var classLoader:ClassLoader = new ClassLoader();
 
         public static function getReflector( target:Object ):ClassRef{
@@ -64,7 +60,7 @@ package org.seasar.akabana.yui.core.reflection
         }
 
 		public static function getCanonicalName( object:Object ):String{
-			return flash.utils.getQualifiedClassName(object).replace(CLASS_NAME_SEPARATOR,DOT);
+			return getTypeString(flash.utils.getQualifiedClassName(object));
 		}
 
         private static function isTargetAccessor( rootDescribeTypeXml:XML ):Boolean{
@@ -147,6 +143,14 @@ package org.seasar.akabana.yui.core.reflection
 
         private var _returnTypeToFunctionMap:Object;
 
+        private var _superClasses:Array;
+
+        public function get superClasses():Array{
+            return _superClasses;
+        }
+
+        private var _superClassMap:Object;
+
         private var _interfaces:Array;
 
         public function get interfaces():Array{
@@ -162,18 +166,17 @@ package org.seasar.akabana.yui.core.reflection
         }
 
         public function ClassRef( clazz:Class ){
-            var describeTypeXml:XML = flash.utils.describeType(clazz);
+            const describeTypeXml:XML = flash.utils.describeType(clazz);
             concreteClass = clazz;
             super( describeTypeXml );
-            _name = getCanonicalName(clazz);
-            _className = getClassName();
+            _className = getTypeName(_name);
 
             assembleMetadataRef(describeTypeXml.factory[0]);
-            assembleConstructor(describeTypeXml.factory[0]);
+            //assembleConstructor(describeTypeXml.factory[0]);
             assemblePropertyRef(describeTypeXml.factory[0]);
             assembleFunctionRef(describeTypeXml.factory[0]);
             assembleInterfaces(describeTypeXml.factory[0]);
-            assembleInstance(describeTypeXml.factory[0]);
+            assembleClassInheritance(describeTypeXml.factory[0]);
             assemblePackage( describeTypeXml );
             assembleThis( describeTypeXml );
         }
@@ -244,33 +247,27 @@ package org.seasar.akabana.yui.core.reflection
             return _typeToPropertyMap[ propertyType ];
         }
 
-        public function isAssignableFrom(interfaceType:Object):Boolean{
-            var isAssignable_:Boolean = false;
+        public function isAssignableFrom(type:Object):Boolean{
+            var result:Boolean = false;
+            var className:String = null;
 
             do{
-                if( interfaceType is Class ){
-                    var classFullName:String = getCanonicalName(interfaceType as Class);
-                    isAssignable_ = _interfaceMap.hasOwnProperty( classFullName );
+                if( type is Class ){
+                    className = getCanonicalName(type as Class);
                     break;
                 }
-                if( interfaceType is String ){
-                    isAssignable_ = _interfaceMap.hasOwnProperty( interfaceType );
+                if( type is String ){
+                    className = type as String;
                     break;
                 }
 
             }while(false);
 
-            return isAssignable_;
-        }
-
-        private final function getClassName():String{
-            var result:String;
-            var dotIndex:int = _name.lastIndexOf(DOT);
-            if( dotIndex > 0 ) {
-                result = _name.substring(dotIndex+1);
-            } else {
-                result = _name;
+            result = _interfaceMap.hasOwnProperty( className );
+            if( !result ){
+                result = _superClassMap.hasOwnProperty( className );
             }
+
             return result;
         }
 
@@ -368,10 +365,17 @@ package org.seasar.akabana.yui.core.reflection
             }
         }
 
-        private final function assembleInstance( rootDescribeTypeXml:XML ):void{
+        private final function assembleClassInheritance( rootDescribeTypeXml:XML ):void{
+            _superClasses = [];
+            _superClassMap = {};
+
             var extendsClassXMLList:XMLList = rootDescribeTypeXml.extendsClass;
+            var className:String;
             for each( var extendsClassXML:XML in extendsClassXMLList ){
-                switch( getTypeString(extendsClassXML.@type)){
+                className = getTypeString(extendsClassXML.@type);
+                _superClasses.push(className);
+                _superClassMap[ className ] = null;
+                switch( className ){
                     case "flash.events.Event":
                         isEvent = true;
                         break;

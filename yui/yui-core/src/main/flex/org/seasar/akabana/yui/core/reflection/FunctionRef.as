@@ -73,7 +73,7 @@ package org.seasar.akabana.yui.core.reflection
             _returnType = getTypeString(rootDescribeTypeXml.@returnType.toString());
             _declaredBy = getTypeString(rootDescribeTypeXml.@declaredBy.toString());
 
-            _isReturnAnyType = ( _returnType == "*" );
+            _isReturnAnyType = ( _returnType == TYPE_ANY );
         }
 
         private function assembleParameter( rootDescribeTypeXml:XML ):void{
