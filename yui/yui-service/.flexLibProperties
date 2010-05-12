@@ -4,7 +4,7 @@
 <classEntry path="org.seasar.akabana.yui.service.Operation"/>
 <classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
 <classEntry path="org.seasar.akabana.yui.service.Service"/>
-<classEntry path="org.seasar.akabana.yui.service.ServiceRepository"/>
+<classEntry path="org.seasar.akabana.yui.service.ServiceManager"/>
 <classEntry path="org.seasar.akabana.yui.service.error.ErrorCode"/>
 <classEntry path="org.seasar.akabana.yui.service.error.IllegalDestinationError"/>
 <classEntry path="org.seasar.akabana.yui.service.error.IllegalGatewayError"/>

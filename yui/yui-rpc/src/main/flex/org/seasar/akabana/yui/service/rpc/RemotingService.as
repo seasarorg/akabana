@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.service.rpc {
 
     import flash.utils.Dictionary;
     import flash.utils.getTimer;
-    
+
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
 
@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.service.rpc {
         public static var resultCallBack:Function;
 
         public static var faultCallBack:Function;
-        
+
         private var _pendingCallMap:Dictionary;
 
         private var _gatewayUrl:String;
@@ -46,14 +46,14 @@ package org.seasar.akabana.yui.service.rpc {
             _destination = destination;
             _pendingCallMap = new Dictionary();
         }
-        
+
         public function deleteCallHistory(pc:PendingCall):void{
             if( pc != null ){
                 _pendingCallMap[ pc ] = null;
                 delete _pendingCallMap[ pc ];
             }
         }
-        
+
         public override function deletePendingCallOf(responder:Object):void{
             for( var item:* in _pendingCallMap ){
                 var pc:RpcPendingCall = item as RpcPendingCall;

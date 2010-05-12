@@ -25,13 +25,13 @@ package org.seasar.akabana.yui.service.rpc {
     [ExcludeClass]
     public class RpcPendingCall implements PendingCall {
 
+        private static const _responderFactory:ResponderFactory = new RpcResponderFactory();
+
         private var _responder:Responder;
 
         private var _responderOwner:Object;
 
         private var _operation:RemotingOperation;
-
-        private var _responderFactory:ResponderFactory;
 
         public function get remotingService():RemotingService{
             return _operation.service as RemotingService;
@@ -39,7 +39,6 @@ package org.seasar.akabana.yui.service.rpc {
 
         public function RpcPendingCall(opration:RemotingOperation){
             _operation = opration as RemotingOperation;
-            _responderFactory = new RpcResponderFactory();
         }
 
         public function clear():void{
@@ -80,6 +79,7 @@ package org.seasar.akabana.yui.service.rpc {
             }
 
             _responder = null;
+            _responderOwner = null;
             _operation = null;
         }
 
@@ -103,6 +103,7 @@ package org.seasar.akabana.yui.service.rpc {
             }
 
             _responder = null;
+            _responderOwner = null;
             _operation = null;
         }
     }

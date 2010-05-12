@@ -9,18 +9,28 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.service {
-    
+
     import flash.utils.Dictionary;
-    
-    public class ServiceRepository {
-        
+
+    public class ServiceManager {
+
         private static var serviceMap:Dictionary = new Dictionary(true);
-        
+
+        public static function createService( serviceClass:Class, destination:String = null ):Service{
+            var result:Service = getService( destination);
+            if( result == null ){
+                result = new serviceClass() as Service;
+                result.destination = destination;
+                addService( result );
+            }
+            return result;
+        }
+
         public static function addService( service:Service ):void{
             serviceMap[ service.destination ] = service;
         }
@@ -29,11 +39,11 @@ package org.seasar.akabana.yui.service {
             serviceMap[ service.destination ] = null;
             delete serviceMap[ service.destination ];
         }
-        
+
         public static function getService( name:String ):Service{
             return serviceMap[ name ] as Service;
         }
-        
+
         public static function hasService( name:String ):Boolean{
             return serviceMap.hasOwnProperty(name);
         }

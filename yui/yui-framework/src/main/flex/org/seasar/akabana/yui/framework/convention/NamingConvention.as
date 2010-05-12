@@ -35,6 +35,7 @@ CONFIG::FP10{
         public static const SERVICE_SUFFIX:String = "Service";
         public static const LOGIC_SUFFIX:String = "Logic";
         public static const VALIDATOR_SUFFIX:String = "Validator";
+        public static const BEHAVIOR_SUFFIX:String = "Behavior";
 
         public static const VIEW_PATH_REG:RegExp = /^(.+)\.view\.(.+?)View$/;
         public static const HELPER_PATH_REG:RegExp = /^(.+)\.(.+)\.(.+?)Helper$/;

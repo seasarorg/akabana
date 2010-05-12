@@ -27,9 +27,9 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.logging.Logger;
 
     [ExcludeClass]
-    public class ActionCustomizer extends AbstractComponentCustomizer {
+    public class HelperCustomizer extends AbstractComponentCustomizer {
 
-        private static const _logger:Logger = Logger.getLogger(ActionCustomizer);
+        private static const _logger:Logger = Logger.getLogger(HelperCustomizer);
 
         public override function customize(view:UIComponent,owner:UIComponent = null):void {
             if( owner != null ){
@@ -37,19 +37,26 @@ package org.seasar.akabana.yui.framework.customizer
             }
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
-            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
+            const helperClassName:String = YuiFrameworkGlobals.namingConvention.getHelperClassName(viewClassName);
 
             try {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
+                    _logger.debug(getMessage("Customizing",viewClassName,helperClassName));
                 }
                 //
-                const actionClassRef:ClassRef = getClassRef(actionClassName);
-                const action:Object = actionClassRef.newInstance();
-                properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = action;
+                const helperClassRef:ClassRef = getClassRef(helperClassName);
+                const helper:Object = helperClassRef.newInstance();
+                properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = helper;
                 //
+                setPropertiesValue(helper,viewClassName,view);
+                //
+                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+
+                if(action != null) {
+                    setPropertiesValue(action,helperClassName,helper);
+                }
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customized",viewClassName,actionClassName));
+                    _logger.debug(getMessage("Customized",viewClassName,helperClassName));
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
@@ -64,19 +71,26 @@ package org.seasar.akabana.yui.framework.customizer
             }
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
-            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
+            const helperClassName:String = YuiFrameworkGlobals.namingConvention.getHelperClassName(viewClassName);
 
             try {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
+                    _logger.debug(getMessage("Uncustomizing",viewClassName,helperClassName));
                 }
                 //
+                const helper:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+                //
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-                properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = null;
-                delete properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                if(action != null) {
+                    setPropertiesValue(action,helperClassName,null);
+                }
+                //
+                setPropertiesValue(helper,viewClassName,null);
+                properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = null;
+                delete properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
                 //
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomized",viewClassName,actionClassName));
+                    _logger.debug(getMessage("Uncustomized",viewClassName,helperClassName));
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {

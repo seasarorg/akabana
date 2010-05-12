@@ -15,16 +15,41 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
+    CONFIG::FP10 {
+        import __AS3__.vec.Vector;
+    }
+
     import flash.errors.IllegalOperationError;
 
     import mx.core.UIComponent;
 
+    import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.core.yui_internal;
-    import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.message.MessageManager;
 
     internal class AbstractComponentCustomizer implements IComponentCustomizer
     {
+        protected static function setPropertiesValue(target:Object,varClassName:String,value:Object):void {
+            const targetClassRef:ClassRef = getClassRef(target);
+            CONFIG::FP9 {
+                const propertyRefs:Array = targetClassRef.getPropertyRefByType(varClassName);
+            }
+            CONFIG::FP10 {
+                const propertyRefs:Vector.<PropertyRef> = targetClassRef.getPropertyRefByType(varClassName);
+            }
+
+            if(propertyRefs != null) {
+                for each(var propertyRef:PropertyRef in propertyRefs) {
+                    propertyRef.setValue(target,value);
+                }
+            }
+        }
+
+        public function isTarget( view:UIComponent ):Boolean{
+            return false;
+        }
+
         public function customize( view:UIComponent, owner:UIComponent=null):void{
             throw new IllegalOperationError("can't call");
         }

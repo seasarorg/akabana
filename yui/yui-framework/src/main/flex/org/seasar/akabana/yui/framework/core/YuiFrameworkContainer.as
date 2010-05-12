@@ -100,7 +100,7 @@ CONFIG::DEBUG{
 CONFIG::DEBUG{
             _logger.debug("customizeComponent:"+container+",owner:"+owner);
 }
-            for each( var customizer_:IComponentCustomizer in customizers ){
+            for each( var customizer_:IComponentCustomizer in _customizers ){
                 customizer_.customize( container, owner);
             }
         }
@@ -130,11 +130,10 @@ CONFIG::DEBUG{
                 );
 
             systemManager_
-                .addEventListener(
-                    Event.REMOVED_FROM_STAGE,
-                    removedHandler,
-                    true,
-                    int.MAX_VALUE
+                .removeEventListener(
+                    Event.ADDED_TO_STAGE,
+                    addedToStageHandler,
+                    true
                 );
 
             initialize();
@@ -209,7 +208,7 @@ CONFIG::DEBUG{
             }
             _logger.debug(getMessage("ApplicationConventions",YuiFrameworkGlobals.namingConvention.conventions.toString()));
 }
-            if( customizers == null ){
+            if( _customizers == null ){
                 _customizers = getDefaultCustomizers();
             }
 CONFIG::DEBUG{

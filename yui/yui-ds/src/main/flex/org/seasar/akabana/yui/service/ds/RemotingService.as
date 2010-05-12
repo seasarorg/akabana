@@ -16,7 +16,9 @@
 package org.seasar.akabana.yui.service.ds {
 
     import flash.net.registerClassAlias;
+    import flash.utils.Dictionary;
     import flash.utils.flash_proxy;
+    import flash.utils.getTimer;
 
     import mx.core.Application;
     import mx.core.Container;
@@ -49,8 +51,9 @@ package org.seasar.akabana.yui.service.ds {
     import mx.rpc.events.FaultEvent;
     import mx.rpc.remoting.mxml.RemoteObject;
 
+    import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
-    import org.seasar.akabana.yui.service.ServiceRepository;
+    import org.seasar.akabana.yui.service.ServiceManager;
     import org.seasar.akabana.yui.service.util.GatewayUtil;
     import org.seasar.akabana.yui.util.URLUtil;
 
@@ -99,6 +102,8 @@ package org.seasar.akabana.yui.service.ds {
 
         private var _isInitialzed:Boolean;
 
+        private var _pendingCallMap:Dictionary;
+
         public function get name():String{
             return destination;
         }
@@ -112,9 +117,23 @@ package org.seasar.akabana.yui.service.ds {
                 _isInitialzed = false;
             }
             addEventListener(FaultEvent.FAULT,function(e:FaultEvent):void{});
+            _pendingCallMap = new Dictionary();
         }
-        
+
         public function deletePendingCallOf(responder:Object):void{
+            for( var item:* in _pendingCallMap ){
+                var pc:RpcPendingCall = item as RpcPendingCall;
+                if( pc != null && pc.getResponder() === responder){
+                    pc.clear();
+                }
+            }
+        }
+
+        public function deleteCallHistory(pc:PendingCall):void{
+            if( pc != null ){
+                _pendingCallMap[ pc ] = null;
+                delete _pendingCallMap[ pc ];
+            }
         }
 
         public override function initialized(document:Object, id:String):void
@@ -127,7 +146,7 @@ package org.seasar.akabana.yui.service.ds {
                 _parentApplication = Container(document).parentApplication as Application;
             }
             _parentApplication.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompleteHandler,false,0,true);
-            ServiceRepository.addService( this );
+            ServiceManager.addService( this );
         }
 
         private function creationCompleteHandler( event:FlexEvent ):void{
@@ -160,12 +179,14 @@ package org.seasar.akabana.yui.service.ds {
             var asyncToken:AsyncToken = super.callProperty.apply(null, [name].concat(args));
             asyncToken.message.destination = destination;
             var result:RpcPendingCall = new RpcPendingCall(asyncToken.message);
-            result.setInternalAsyncToken(asyncToken);
+            result.setInternalAsyncToken(asyncToken,getOperation(name));
 
             if( RemotingService.invokeCallBack != null ){
                 RemotingService.invokeCallBack.apply(null,[destination+"."+(name as QName).localName,args]);
             }
-
+            if( result != null ){
+                _pendingCallMap[ result ] = getTimer();
+            }
             return result;
         }
     }

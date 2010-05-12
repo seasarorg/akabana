@@ -15,14 +15,12 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
-    import mx.core.Container;
     import mx.core.UIComponent;
-
-    import org.seasar.akabana.yui.framework.convention.NamingConvention;
 
     [ExcludeClass]
     public interface IComponentCustomizer
     {
+        function isTarget( view:UIComponent ):Boolean;
 
         function customize( view:UIComponent, owner:UIComponent=null ):void;
 

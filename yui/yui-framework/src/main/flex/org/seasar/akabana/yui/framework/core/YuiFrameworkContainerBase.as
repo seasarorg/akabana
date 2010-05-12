@@ -120,7 +120,10 @@ CONFIG::DEBUG{
         protected function getDefaultCustomizerClasses():Array{
 		    var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
             var customizersDef:CSSStyleDeclaration = styleManager.getStyleDeclaration(".customizers");
-            var classNames:Array = customizersDef.getStyle("classNames") as Array;
+            var classNames:Object = customizersDef.getStyle("classNames");
+            if( classNames is String ){
+                classNames = [ classNames ];
+            }
             var result:Array = [];
             for each( var className:String in classNames ){
                 result.push( customizersDef.getStyle(className));

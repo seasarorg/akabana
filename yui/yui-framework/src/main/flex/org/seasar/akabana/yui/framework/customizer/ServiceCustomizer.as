@@ -18,18 +18,18 @@ package org.seasar.akabana.yui.framework.customizer
     CONFIG::FP10 {
         import __AS3__.vec.Vector;
     }
-    import flash.utils.Dictionary;
     import mx.core.UIComponent;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
+    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.ServiceManager;
 
     [ExcludeClass]
-    public class ActionCustomizer extends AbstractComponentCustomizer {
-
-        private static const _logger:Logger = Logger.getLogger(ActionCustomizer);
+    public class ServiceCustomizer extends AbstractComponentCustomizer {
+        private static const _logger:Logger = Logger.getLogger(ServiceCustomizer);
 
         public override function customize(view:UIComponent,owner:UIComponent = null):void {
             if( owner != null ){
@@ -37,19 +37,12 @@ package org.seasar.akabana.yui.framework.customizer
             }
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
-            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 
             try {
-                CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
-                }
-                //
-                const actionClassRef:ClassRef = getClassRef(actionClassName);
-                const action:Object = actionClassRef.newInstance();
-                properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = action;
-                //
-                CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customized",viewClassName,actionClassName));
+                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+
+                if(action != null) {
+                    processCustomize(action);
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
@@ -64,23 +57,51 @@ package org.seasar.akabana.yui.framework.customizer
             }
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
-            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 
             try {
-                CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
-                }
-                //
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-                properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = null;
-                delete properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-                //
-                CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomized",viewClassName,actionClassName));
+
+                if(action != null) {
+                    processUncustomize(action);
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
+                }
+            }
+        }
+
+        protected function processCustomize(action:Object):void {
+            const actionClassRef:ClassRef = getClassRef(action);
+
+            for each(var propertyRef:PropertyRef in actionClassRef.properties) {
+                if(propertyRef.typeClassRef.isAssignableFrom(Service)) {
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Customizing",actionClassRef.name,propertyRef.name));
+                    }
+                    var service:Service = ServiceManager.createService(propertyRef.typeClassRef.concreteClass,propertyRef.name);
+                    propertyRef.setValue(action,service);
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Customized",actionClassRef.name,propertyRef.name));
+                    }
+                }
+            }
+        }
+
+        protected function processUncustomize(action:Object):void {
+            const actionClassRef:ClassRef = getClassRef(action);
+
+            for each(var propertyRef:PropertyRef in actionClassRef.properties) {
+                if(propertyRef.typeClassRef.isAssignableFrom(Service)) {
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Uncustomizing",actionClassRef.name,propertyRef.name));
+                    }
+                    var service:Service = propertyRef.getValue(action) as Service;
+                    service.deletePendingCallOf(action);
+                    propertyRef.setValue(action,null);
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Uncustomized",actionClassRef.name,propertyRef.name));
+                    }
                 }
             }
         }

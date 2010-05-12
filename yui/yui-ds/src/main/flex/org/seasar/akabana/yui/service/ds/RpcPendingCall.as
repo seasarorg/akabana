@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.service.ds {
     import mx.core.mx_internal;
     import mx.messaging.messages.IMessage;
     import mx.messaging.messages.RemotingMessage;
+    import mx.rpc.AbstractOperation;
     import mx.rpc.AsyncToken;
     import mx.rpc.IResponder;
     import mx.rpc.Responder;
@@ -32,7 +33,6 @@ package org.seasar.akabana.yui.service.ds {
     import org.seasar.akabana.yui.service.ds.responder.RpcObjectResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcResponderFactory;
     import org.seasar.akabana.yui.service.resonder.ResponderFactory;
-    import org.seasar.akabana.yui.util.StringUtil;
 
     use namespace mx_internal;
 
@@ -43,23 +43,54 @@ package org.seasar.akabana.yui.service.ds {
 
         private static const FAULT_HANDLER:String = "FaultHandler";
 
+        private static const _responderFactory:ResponderFactory = new RpcResponderFactory();
+
+        private static function createResponder( message:RemotingMessage, responder:Object ):IResponder{
+            const classRef:ClassRef = getClassRef(responder);
+            const resultFuncDef:FunctionRef = _responderFactory.findResultFunctionRef( classRef, message.destination , message.operation );
+            const faultFuncDef:FunctionRef = _responderFactory.findFaultFunctionRef( classRef, message.destination , message.operation );
+
+            var result:IResponder = null;
+            var responderClass:Class;
+            if( resultFuncDef.parameters.length <= 0 ){
+                responderClass = RpcNoneResponder;
+            } else {
+                var parameter:ParameterRef = resultFuncDef.parameters[0];
+                if( parameter.isEvent ){
+                    responderClass = RpcEventResponder;
+                } else {
+                    responderClass = RpcObjectResponder;
+                }
+            }
+            if( faultFuncDef == null){
+                result = new responderClass(resultFuncDef.getFunction(responder),null);
+            } else {
+                result = new responderClass(resultFuncDef.getFunction(responder),faultFuncDef.getFunction(responder));
+            }
+            return result;
+        }
+
         protected var _internalAsyncToken:AsyncToken;
 
         protected var _responder:IResponder;
 
         private var _responderOwner:Object;
 
-        private var _responderFactory:ResponderFactory;
+        private var _operation:AbstractOperation;
 
         public function RpcPendingCall(message:IMessage=null)
         {
             super(message);
-            _responderFactory = new RpcResponderFactory();
         }
 
-        public function setInternalAsyncToken( asyncToken:AsyncToken ):void{
+        public function clear():void{
+            _responder = null;
+        }
+
+        public function setInternalAsyncToken( asyncToken:AsyncToken, operation:AbstractOperation ):void{
             _internalAsyncToken = asyncToken;
             _internalAsyncToken.addResponder( new Responder(onResult,onStatus));
+            _operation = operation;
         }
 
         public function setResponder( responder:Object ):void{
@@ -80,11 +111,17 @@ package org.seasar.akabana.yui.service.ds {
             }
         }
 
+        public function get remotingService():RemotingService{
+            return _operation.service as RemotingService;
+        }
+
         mx_internal override function setResult(newResult:Object):void
         {
         }
 
         public function onResult( resultEvent:ResultEvent ):void{
+            remotingService.deleteCallHistory(this);
+
             if( RemotingService.resultCallBack != null ){
                 RemotingService.resultCallBack.apply(null,[resultEvent]);
             }
@@ -94,9 +131,14 @@ package org.seasar.akabana.yui.service.ds {
             }
 
             _responder = null;
+            _responderOwner = null;
+            _operation = null;
+            _internalAsyncToken = null;
         }
 
         public function onStatus( faultEvent:FaultEvent ):void{
+            remotingService.deleteCallHistory(this);
+
             if( RemotingService.faultCallBack != null ){
                 RemotingService.faultCallBack.apply(null,[faultEvent]);
             }
@@ -106,31 +148,9 @@ package org.seasar.akabana.yui.service.ds {
             }
 
             _responder = null;
-        }
-
-        private function createResponder( message:RemotingMessage, responder:Object ):IResponder{
-            const classRef:ClassRef = getClassRef(responder);
-            const resultFuncDef:FunctionRef = _responderFactory.findResultFunctionRef( classRef, message.destination , message.operation );
-            const faultFuncDef:FunctionRef = _responderFactory.findFaultFunctionRef( classRef, message.destination , message.operation );
-
-            var rpcResponder:IResponder = null;
-            var responderClass:Class;
-            if( resultFuncDef.parameters.length <= 0 ){
-                responderClass = RpcNoneResponder;
-            } else {
-                var parameter:ParameterRef = resultFuncDef.parameters[0];
-                if( parameter.isEvent ){
-                    responderClass = RpcEventResponder;
-                } else {
-                    responderClass = RpcObjectResponder;
-                }
-            }
-            if( faultFuncDef == null){
-                rpcResponder = new responderClass(resultFuncDef.getFunction(responder),null);
-            } else {
-                rpcResponder = new responderClass(resultFuncDef.getFunction(responder),faultFuncDef.getFunction(responder));
-            }
-            return rpcResponder;
+            _responderOwner = null;
+            _operation = null;
+            _internalAsyncToken = null;
         }
 
     }
