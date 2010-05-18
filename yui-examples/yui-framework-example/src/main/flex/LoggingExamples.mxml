@@ -16,7 +16,7 @@
                 //ConfigurationFactory;                
                 LogManager.init();
                 
-                trace( ClassRef.getClassName(LoggingExamples));
+                trace( getClassRef(LoggingExamples).name );
                 
                 Logger.getLogger(HelloWorldView).debug("debug");
                 Logger.getLogger(HelloWorldAction).debug("debug");
