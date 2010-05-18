@@ -28,10 +28,10 @@ package org.seasar.akabana.yui.framework.bridge
         }
         
         public function get rootView():UIComponent{
-            var rootView:UIComponent = _application.getChildByName(ROOT_VIEW) as UIComponent;
+            var rootView:UIComponent = _application[ ROOT_VIEW ] as UIComponent;
             if( rootView == null ){
                 if( application.numChildren > 0 ){
-                    rootView = application.getChildAt(0) as UIComponent ;
+                    rootView = application.getChildAt(0) as UIComponent;
                 }
             }
             return rootView;      	
