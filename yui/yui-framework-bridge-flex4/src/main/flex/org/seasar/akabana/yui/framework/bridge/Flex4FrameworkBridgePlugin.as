@@ -31,10 +31,13 @@ package org.seasar.akabana.yui.framework.bridge
             return _application.systemManager;
         }
 		
-		public function get rootView():UIComponent{
-			var rootView:UIComponent = _application[ ROOT_VIEW ] as UIComponent;
-			return rootView;      	
-		}
+        public function get rootView():UIComponent{
+            var result:UIComponent = null;
+            if( _application.hasOwnProperty(ROOT_VIEW)){
+             	result = _application[ ROOT_VIEW ] as UIComponent;
+            }
+            return result;      	
+        }
 		
         public function isApplication(component:Object):Boolean{
             return component is Application;

@@ -28,13 +28,16 @@ package org.seasar.akabana.yui.framework.bridge
         }
         
         public function get rootView():UIComponent{
-            var rootView:UIComponent = _application[ ROOT_VIEW ] as UIComponent;
-            if( rootView == null ){
+            var result:UIComponent = null;
+            if( _application.hasOwnProperty(ROOT_VIEW)){
+             	result = _application[ ROOT_VIEW ] as UIComponent;
+            }
+            if( result == null ){
                 if( application.numChildren > 0 ){
-                    rootView = application.getChildAt(0) as UIComponent;
+                    result = application.getChildAt(0) as UIComponent;
                 }
             }
-            return rootView;      	
+            return result;      	
         }
         
         public function isApplication(component:Object):Boolean{
