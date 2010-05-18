@@ -44,8 +44,6 @@ CONFIG::FP10{
 
         protected static const _logger:Logger = Logger.getLogger(IYuiFrameworkContainer);
 
-        protected static const ROOT_VIEW:String = "rootView";
-
         {
             CursorManager;
             PopUpManager;

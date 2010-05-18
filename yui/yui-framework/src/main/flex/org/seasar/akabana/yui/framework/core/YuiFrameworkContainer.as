@@ -21,11 +21,11 @@ CONFIG::FP10{
 
     import flash.events.Event;
     import flash.system.Capabilities;
-
+    
     import mx.core.UIComponent;
     import mx.events.FlexEvent;
     import mx.managers.ISystemManager;
-
+    
     import org.seasar.akabana.yui.core.Environment;
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
@@ -237,20 +237,13 @@ CONFIG::DEBUG{
         }
 
         protected function callApplicationStart():void{
-            var rootView:UIComponent = application.getChildByName(ROOT_VIEW) as UIComponent;
-            if( rootView == null ){
-                if( application.numChildren > 0 ){
-                    rootView = application.getChildAt(0) as UIComponent ;
-                    rootView.setVisible(false,true);
-                }
-            } else {
-                rootView.setVisible(false,true);
-            }
-
+        	var rootView:UIComponent = YuiFrameworkGlobals.frameworkBridge.rootView;
+        	if( rootView != null ){
+            	rootView.setVisible(false,true);
+         	}
 CONFIG::DEBUG{
             _logger.info(getMessage("ApplicationStart"));
 }
-
             application.visible = true;
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));

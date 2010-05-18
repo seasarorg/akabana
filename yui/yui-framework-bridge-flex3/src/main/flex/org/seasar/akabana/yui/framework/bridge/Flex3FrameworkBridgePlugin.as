@@ -1,7 +1,5 @@
 package org.seasar.akabana.yui.framework.bridge
 {
-    import flash.net.registerClassAlias;
-    
     import mx.core.Application;
     import mx.core.Container;
     import mx.core.UIComponent;
@@ -9,6 +7,8 @@ package org.seasar.akabana.yui.framework.bridge
     
     public class Flex3FrameworkBridgePlugin implements IFrameworkBridgePlugin
     {
+        private static const ROOT_VIEW:String = "rootView";
+        
         protected var _application:Application;
         
         public function get application():UIComponent{
@@ -25,6 +25,16 @@ package org.seasar.akabana.yui.framework.bridge
         
         public function get systemManager():ISystemManager{
             return _application.systemManager;
+        }
+        
+        public function get rootView():UIComponent{
+            var rootView:UIComponent = _application.getChildByName(ROOT_VIEW) as UIComponent;
+            if( rootView == null ){
+                if( application.numChildren > 0 ){
+                    rootView = application.getChildAt(0) as UIComponent ;
+                }
+            }
+            return rootView;      	
         }
         
         public function isApplication(component:Object):Boolean{

@@ -27,6 +27,8 @@ package org.seasar.akabana.yui.framework.bridge
 		function get parameters():Object;
 
 		function get systemManager():ISystemManager;
+		
+		function get rootView():UIComponent;
 
 		function isApplication(application:Object):Boolean;
 

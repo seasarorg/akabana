@@ -11,6 +11,8 @@ package org.seasar.akabana.yui.framework.bridge
     
     public class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin
     {
+		private static const ROOT_VIEW:String = "rootView";
+		
         protected var _application:Application;
         
         public function get application():UIComponent{
@@ -28,7 +30,12 @@ package org.seasar.akabana.yui.framework.bridge
         public function get systemManager():ISystemManager{
             return _application.systemManager;
         }
-        
+		
+		public function get rootView():UIComponent{
+			var rootView:UIComponent = _application[ ROOT_VIEW ] as UIComponent;
+			return rootView;      	
+		}
+		
         public function isApplication(component:Object):Boolean{
             return component is Application;
         }

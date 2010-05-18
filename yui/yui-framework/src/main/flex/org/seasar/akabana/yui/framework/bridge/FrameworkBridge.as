@@ -16,12 +16,12 @@
 package org.seasar.akabana.yui.framework.bridge
 {
     import flash.errors.IllegalOperationError;
-
+    
     import mx.core.UIComponent;
     import mx.managers.ISystemManager;
     import mx.styles.CSSStyleDeclaration;
     import mx.styles.IStyleManager2;
-
+    
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
 
@@ -55,6 +55,10 @@ package org.seasar.akabana.yui.framework.bridge
 
         yui_internal function set application(value:UIComponent):void{
             frameworkBridgePlugin.application = value;
+        }
+        
+        public function get rootView():UIComponent{
+        	return frameworkBridgePlugin.rootView;
         }
 
         public function get systemManager():ISystemManager{
