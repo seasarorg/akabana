@@ -37,6 +37,7 @@ package
     import org.seasar.akabana.yui.framework.util.SystemManagerUtil;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     
+    [ExcludeClass]
     public class YuiFrameworkClasses
     {
         {
