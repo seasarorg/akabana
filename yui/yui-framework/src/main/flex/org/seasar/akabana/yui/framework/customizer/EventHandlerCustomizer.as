@@ -159,6 +159,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             for(var index:int = 0;index < numChildren;index++) {
                 component = view.getChildAt(index) as UIComponent;
+                componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
 
                 if(component == null) {
                     continue;
@@ -185,7 +186,6 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                 }
 
-                componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
                 if(componentName != null) {
                     CONFIG::FP9 {
                         doCustomizeByComponent(
@@ -296,6 +296,7 @@ package org.seasar.akabana.yui.framework.customizer
             for(var index:int = 0;index < numChildren;index++) {
                 do {
                     component = container.getChildAt(index) as UIComponent;
+                    componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
 
                     if(component == null) {
                         continue;
@@ -323,7 +324,6 @@ package org.seasar.akabana.yui.framework.customizer
                         }
                     }
 
-                    componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
                     if(componentName != null) {
                         CONFIG::FP9 {
                             doCustomizeByComponent(
@@ -459,6 +459,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             for(var index:int = 0;index < numChildren;index++) {
                 component = view.getChildAt(index) as UIComponent;
+                componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
 
                 if(component == null) {
                     continue;
@@ -485,7 +486,6 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                 }
 
-                componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
                 if(componentName != null) {
                     CONFIG::FP9 {
                         doUncustomizeByComponent(
@@ -580,6 +580,7 @@ package org.seasar.akabana.yui.framework.customizer
             for(var index:int = 0;index < numChildren;index++) {
                 do {
                     component = container.getChildAt(index) as UIComponent;
+                    componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
 
                     if(component == null) {
                         continue;
@@ -606,7 +607,6 @@ package org.seasar.akabana.yui.framework.customizer
                         }
                     }
 
-                    componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
                     if(componentName != null) {
                         CONFIG::FP9 {
                             doUncustomizeByComponent(
