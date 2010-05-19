@@ -20,7 +20,6 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin;
 
-    [ExcludeClass]
     public class YuiFrameworkSettings implements IMXMLObject
     {
         {
@@ -35,6 +34,5 @@ package org.seasar.akabana.yui.framework.core
         public function initialized(document:Object, id:String):void
         {
         }
-
     }
 }
