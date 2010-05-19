@@ -21,11 +21,11 @@ CONFIG::FP10{
 
     import flash.events.Event;
     import flash.system.Capabilities;
-    
+
     import mx.core.UIComponent;
     import mx.events.FlexEvent;
     import mx.managers.ISystemManager;
-    
+
     import org.seasar.akabana.yui.core.Environment;
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;

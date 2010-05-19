@@ -15,6 +15,8 @@
  */
 package org.seasar.akabana.yui.framework.convention
 {
+    import mx.core.UIComponent;
+
 CONFIG::FP10{
 	import __AS3__.vec.Vector;
 }
@@ -179,6 +181,17 @@ CONFIG::FP10{
 
         public function getOwnHandlerPrefix():String{
             return OWN_HANDLER_PREFIX;
+        }
+
+        public function getComponentName(component:UIComponent):String{
+            var componentName:String = null;
+            if( component != null ){
+                componentName = component.id;
+                if( componentName == null ){
+                    componentName = component.name;
+                }
+            }
+            return componentName;
         }
 
         public function isViewClassName( className:String ):Boolean{

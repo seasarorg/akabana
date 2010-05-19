@@ -23,21 +23,24 @@ package org.seasar.akabana.yui.framework.util
     [ExcludeClass]
     public final class UIComponentUtil {
 
-        public static function getName( component:UIComponent ):String{
-            var componentName:String = null;
-            if( component != null ){
-                componentName = component.id;
-                if( componentName == null ){
-                    componentName = component.name;
-                }
-            }
-            return componentName;
-        }
-
         public static function getDescriptor( component:UIComponent ):UIComponentDescriptor{
         	var result:UIComponentDescriptor = component.descriptor;
             if( result == null ){
                 result = component.descriptor = new UIComponentDescriptor({});
+            }
+            if( result.events == null ){
+                result.events = {};
+            }
+        	return result;
+        }
+
+        public static function getDocumentDescriptor( component:UIComponent ):UIComponentDescriptor{
+        	var result:UIComponentDescriptor = component.mx_internal::documentDescriptor;
+            if( result == null ){
+                result = component.mx_internal::documentDescriptor = new UIComponentDescriptor({});
+            }
+            if( result.events == null ){
+                result.events = {};
             }
         	return result;
         }

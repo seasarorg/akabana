@@ -39,7 +39,7 @@ package org.seasar.akabana.yui.framework.core {
             }
             var componentInstances:Object = componentInstanceMap[ className ];
 
-			var componentId:String = UIComponentUtil.getName(component);
+			var componentId:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
             if( componentMap[ componentId ] == null ){
                 componentMap[ componentId ] = component;
                 componentInstances[ componentId ] = component;
@@ -50,7 +50,7 @@ package org.seasar.akabana.yui.framework.core {
 
         public static function removeComponent( component:UIComponent ):void{
         	if( componentMap.hasOwnProperty(component.name)){
-        		var componentId:String = UIComponentUtil.getName(component);
+        		var componentId:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
                 componentMap[ componentId ] = null;
                 delete componentMap[ componentId ];
 

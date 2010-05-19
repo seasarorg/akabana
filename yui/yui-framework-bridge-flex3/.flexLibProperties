@@ -2,6 +2,7 @@
 <flexLibProperties version="1">
 <includeClasses>
 <classEntry path="org.seasar.akabana.yui.framework.bridge.Flex3FrameworkBridgePlugin"/>
+<classEntry path="org.seasar.akabana.yui.framework.convention.Flex3NamingConvention"/>
 </includeClasses>
 <includeResources/>
 <namespaceManifests/>

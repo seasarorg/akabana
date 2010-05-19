@@ -20,11 +20,13 @@ package org.seasar.akabana.yui.framework.customizer
     import flash.utils.Dictionary;
 
     import mx.core.UIComponent;
+    import mx.core.UIComponentDescriptor;
 
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.framework.ns.handler;
+    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
 
     internal class AbstractEventCustomizer extends AbstractComponentCustomizer
@@ -73,8 +75,8 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         protected function storeEnhancedEventHandler( component:UIComponent, eventName:String, handler:Function ):void{
-            checkDescriptor(component);
-            component.descriptor.events[eventName] = handler;
+            var descriptor:UIComponentDescriptor = UIComponentUtil.getDescriptor(component);
+            descriptor.events[eventName] = handler;
         }
 
         protected function removeEnhancedEventHandler( component:UIComponent, eventName:String ):void{
@@ -84,14 +86,9 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        protected function checkDescriptor(component:UIComponent):void{
-            if( component.descriptor.events == null ){
-                component.descriptor.events = new Dictionary(true);
-            }
-        }
-
         protected function getEnhancedEventHandler( component:UIComponent, eventName:String ):Function{
-            return component.descriptor.events[eventName];
+            var descriptor:UIComponentDescriptor = UIComponentUtil.getDescriptor(component);
+            return descriptor.events[eventName];
         }
 
         protected function createEnhancedEventHandler( owner:IEventDispatcher, handler:Function ):Function{
