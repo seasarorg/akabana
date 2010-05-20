@@ -18,16 +18,20 @@ package org.seasar.akabana.yui.framework.customizer
     CONFIG::FP10 {
         import __AS3__.vec.Vector;
     }
-    import flash.utils.Dictionary;
+
+    import flash.events.IEventDispatcher;
+
     import mx.core.UIComponent;
+
     import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
 
     [ExcludeClass]
-    public class ActionCustomizer extends AbstractComponentCustomizer {
+    public class ActionCustomizer extends AbstractEventCustomizer {
 
         private static const _logger:Logger = Logger.getLogger(ActionCustomizer);
 
@@ -37,6 +41,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
+            const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 
             try {
@@ -46,6 +51,7 @@ package org.seasar.akabana.yui.framework.customizer
                 //
                 const actionClassRef:ClassRef = getClassRef(actionClassName);
                 const action:Object = actionClassRef.newInstance();
+                doEventCustomize(viewName,view,action);
                 properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = action;
                 //
                 CONFIG::DEBUG {
@@ -72,6 +78,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 //
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                doEventUncustomize(view,action);
                 properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = null;
                 delete properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 //
@@ -81,6 +88,92 @@ package org.seasar.akabana.yui.framework.customizer
             } catch(e:Error) {
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
+                }
+            }
+        }
+
+        private function doEventCustomize(viewName:String,view:UIComponent,action:Object):void {
+            const actionClassRef:ClassRef = getClassRef(action);
+            CONFIG::FP9 {
+                var props:Array = actionClassRef.properties;
+            }
+            CONFIG::FP10 {
+                var props:Vector.<PropertyRef> = actionClassRef.properties;
+            }
+
+            for each(var prop:PropertyRef in props) {
+                const child:Object = prop.getValue(action);
+
+                if(child != null && child is IEventDispatcher) {
+                    CONFIG::FP9 {
+                        doCustomizingByComponent(
+                                        view,
+                                        prop.name,
+                                        child as IEventDispatcher,
+                                        action,
+                                        actionClassRef.functions.filter(
+                                        function(item:*,index:int,array:Array):Boolean {
+                                            return (FunctionRef(item).name.indexOf(prop.name) == 0);
+                                        }
+                                        )
+                                        );
+                    }
+                    CONFIG::FP10 {
+                        doCustomizingByComponent(
+                                        view,
+                                        prop.name,
+                                        child as IEventDispatcher,
+                                        action,
+                                        actionClassRef.functions.filter(
+                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                            return (FunctionRef(item).name.indexOf(prop.name) == 0);
+                                        }
+                                        )
+                                        );
+                    }
+                }
+            }
+        }
+
+        private function doEventUncustomize(view:UIComponent,action:Object):void {
+            const actionClassRef:ClassRef = getClassRef(action);
+            CONFIG::FP9 {
+                var props:Array = actionClassRef.properties;
+            }
+            CONFIG::FP10 {
+                var props:Vector.<PropertyRef> = actionClassRef.properties;
+            }
+
+            for each(var prop:PropertyRef in props) {
+                const child:Object = prop.getValue(action);
+
+                if(child != null && child is IEventDispatcher) {
+                    CONFIG::FP9 {
+                        doUncustomizingByComponent(
+                                        view,
+                                        prop.name,
+                                        child as IEventDispatcher,
+                                        action,
+                                        actionClassRef.functions.filter(
+                                        function(item:*,index:int,array:Array):Boolean {
+                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
+                                        }
+                                        )
+                                        );
+                    }
+                    CONFIG::FP10 {
+                        doUnCustomizingByComponent(
+                                        view,
+                                        prop.name,
+                                        child as IEventDispatcher,
+                                        action,
+                                        actionClassRef.functions.filter(
+                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
+                                        }
+                                        )
+                                        );
+                    }
                 }
             }
         }

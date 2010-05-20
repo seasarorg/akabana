@@ -18,10 +18,8 @@ package org.seasar.akabana.yui.framework.customizer
     import flash.events.Event;
     import flash.events.IEventDispatcher;
     import flash.utils.Dictionary;
-
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
-
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
@@ -29,9 +27,8 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
 
-    internal class AbstractEventCustomizer extends AbstractComponentCustomizer
-    {
-    	private static const _logger:Logger = Logger.getLogger(AbstractEventCustomizer);
+    internal class AbstractEventCustomizer extends AbstractComponentCustomizer {
+        private static const _logger:Logger = Logger.getLogger(AbstractEventCustomizer);
 
         protected static const EVENT_SEPARETOR:String = "_";
 
@@ -43,110 +40,205 @@ package org.seasar.akabana.yui.framework.customizer
 
         protected static const FUNCTION_PROTO:String = "$proto";
 
-        protected function getEventName( functionRef:FunctionRef, componentName:String):String{
-			const functionName:String = functionRef.name;
+        protected function getEventName(functionRef:FunctionRef,componentName:String):String {
+            const functionName:String = functionRef.name;
             const ns:Namespace = handler;
             const eventWord:String = functionName.substr(componentName.length);
             const handlerIndex:int = eventWord.lastIndexOf(YuiFrameworkGlobals.namingConvention.getHandlerSuffix());
-
             var result:String = null;
-            if( eventWord.charAt(0) == EVENT_SEPARETOR ){
-                if( functionRef.uri == ns.uri){
+
+            if(eventWord.charAt(0) == EVENT_SEPARETOR) {
+                if(functionRef.uri == ns.uri) {
                     result = eventWord.substring(1);
                 } else {
-    			    result = eventWord.substring(1,handlerIndex);
+                    result = eventWord.substring(1,handlerIndex);
                 }
             } else {
-                if( functionRef.uri == ns.uri){
+                if(functionRef.uri == ns.uri) {
                     result = eventWord.substr(0,1).toLocaleLowerCase() + eventWord.substring(1);
                 } else {
-    			    result = eventWord.substr(0,1).toLocaleLowerCase() + eventWord.substring(1,handlerIndex);
+                    result = eventWord.substr(0,1).toLocaleLowerCase() + eventWord.substring(1,handlerIndex);
                 }
             }
             return result;
         }
 
-        protected function getEnhancedEventName( viewName:String, eventName:String ):String{
+        protected function getEnhancedEventName(viewName:String,eventName:String):String {
             return viewName + ENHANCED_PREFIX + eventName;
         }
 
-        protected function addEventListener( component:IEventDispatcher, eventName:String, handler:Function ):void{
-            component.addEventListener( eventName, handler, false, 0, true );
+        protected function addEventListener(component:IEventDispatcher,eventName:String,handler:Function):void {
+            component.addEventListener(eventName,handler,false,0,true);
         }
 
-        protected function storeEnhancedEventHandler( component:UIComponent, eventName:String, handler:Function ):void{
+        protected function storeEnhancedEventHandler(component:UIComponent,eventName:String,handler:Function):void {
             var descriptor:UIComponentDescriptor = UIComponentUtil.getDescriptor(component);
             descriptor.events[eventName] = handler;
         }
 
-        protected function removeEnhancedEventHandler( component:UIComponent, eventName:String ):void{
-            if( component.descriptor.events != null ){
-            	component.descriptor.events[eventName] = null;
-            	delete component.descriptor.events[eventName];
+        protected function removeEnhancedEventHandler(component:UIComponent,eventName:String):void {
+            if(component.descriptor.events != null) {
+                component.descriptor.events[eventName] = null;
+                delete component.descriptor.events[eventName];
             }
         }
 
-        protected function getEnhancedEventHandler( component:UIComponent, eventName:String ):Function{
+        protected function getEnhancedEventHandler(component:UIComponent,eventName:String):Function {
             var descriptor:UIComponentDescriptor = UIComponentUtil.getDescriptor(component);
             return descriptor.events[eventName];
         }
 
-        protected function createEnhancedEventHandler( owner:IEventDispatcher, handler:Function ):Function{
-            const func_:Object = function( event:Event ):void{
-                var callee:Object = arguments.callee;
-                try{
-                   	var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
-                   	if( proto != null ){
-                   		proto.apply(null,[event]);
-                   	} else {
-                   		throw new Error("EnhancedEventHandler doesn't have proto Handler");
-                   	}
-                } catch(e:Error){
-                    _logger.debug(e.getStackTrace());
-                   	var owner:Object = callee.properties[FUNCTION_OWNER];
-                   	if( owner is IEventDispatcher ){
-                        IEventDispatcher(owner).dispatchEvent(RuntimeErrorEvent.createEvent(e));
-                    } else {
-                        throw e;
-                    }
-                }
-            };
-
+        protected function createEnhancedEventHandler(owner:IEventDispatcher,handler:Function):Function {
+            const func_:Object = function(event:Event):void {
+                                var callee:Object = arguments.callee;
+                                try {
+                                    var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
+                                    if(proto != null) {
+                                        proto.apply(null,[event]);
+                                    } else {
+                                        throw new Error("EnhancedEventHandler doesn't have proto Handler");
+                                    }
+                                } catch(e:Error) {
+                                    _logger.debug(e.getStackTrace());
+                                    var owner:Object = callee.properties[FUNCTION_OWNER];
+                                    if(owner is IEventDispatcher) {
+                                        IEventDispatcher(owner).dispatchEvent(RuntimeErrorEvent.createEvent(e));
+                                    } else {
+                                        throw e;
+                                    }
+                                }
+                            };
             const properties:Dictionary = new Dictionary(true);
             properties[FUNCTION_OWNER] = owner;
             properties[FUNCTION_PROTO] = handler;
-			func_.properties = properties;
-
+            func_.properties = properties;
             return func_ as Function;
         }
 
-        protected function createEnhancedEventNoneHandler( owner:IEventDispatcher, handler:Function ):Function{
-            const func_:Object = function( event:Event ):void{
-                var callee:Object = arguments.callee;
-                try{
-                   	var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
-                   	if( proto != null ){
-                   		proto.apply(null);
-                   	} else {
-                   		throw new Error("EnhancedEventHandler doesn't have proto Handler");
-                   	}
-                } catch(e:Error){
-                    _logger.debug(e.getStackTrace());
-                   	var owner:Object = callee.properties[FUNCTION_OWNER];
-                   	if( owner is IEventDispatcher ){
-                        IEventDispatcher(owner).dispatchEvent(RuntimeErrorEvent.createEvent(e));
-                    } else {
-                        throw e;
-                    }
-                }
-            };
-
+        protected function createEnhancedEventNoneHandler(owner:IEventDispatcher,handler:Function):Function {
+            const func_:Object = function(event:Event):void {
+                                var callee:Object = arguments.callee;
+                                try {
+                                    var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
+                                    if(proto != null) {
+                                        proto.apply(null);
+                                    } else {
+                                        throw new Error("EnhancedEventHandler doesn't have proto Handler");
+                                    }
+                                } catch(e:Error) {
+                                    _logger.debug(e.getStackTrace());
+                                    var owner:Object = callee.properties[FUNCTION_OWNER];
+                                    if(owner is IEventDispatcher) {
+                                        IEventDispatcher(owner).dispatchEvent(RuntimeErrorEvent.createEvent(e));
+                                    } else {
+                                        throw e;
+                                    }
+                                }
+                            };
             const properties:Dictionary = new Dictionary(true);
             properties[FUNCTION_OWNER] = owner;
             properties[FUNCTION_PROTO] = handler;
-			func_.properties = properties;
-
+            func_.properties = properties;
             return func_ as Function;
+        }
+
+        CONFIG::FP9 {
+            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
+                var eventName:String;
+                var enhancedEventName:String;
+                var enhancedFunction:Function;
+
+                for each(var functionRef:FunctionRef in functionRefs) {
+                    eventName = getEventName(functionRef,componentName);
+                    enhancedEventName = getEnhancedEventName(componentName,eventName);
+                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
+
+                    if(enhancedFunction != null) {
+                        component.removeEventListener(eventName,enhancedFunction);
+                    }
+
+                    if(functionRef.parameters.length > 0) {
+                        enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(action));
+                    } else {
+                        enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(action));
+                    }
+                    addEventListener(component,eventName,enhancedFunction);
+                    storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("EventAddEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
+                    }
+                }
+            }
+        }
+        CONFIG::FP10 {
+            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
+                var eventName:String;
+                var enhancedEventName:String;
+                var enhancedFunction:Function;
+
+                for each(var functionRef:FunctionRef in functionRefs) {
+                    eventName = getEventName(functionRef,componentName);
+                    enhancedEventName = getEnhancedEventName(componentName,eventName);
+                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
+
+                    if(enhancedFunction != null) {
+                        component.removeEventListener(eventName,enhancedFunction);
+                    }
+
+                    if(functionRef.parameters.length > 0) {
+                        enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(action));
+                    } else {
+                        enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(action));
+                    }
+                    addEventListener(component,eventName,enhancedFunction);
+                    storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("EventAddEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
+                    }
+                }
+            }
+        }
+        CONFIG::FP9 {
+            protected function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
+                var eventName:String;
+                var enhancedEventName:String;
+                var enhancedFunction:Function;
+
+                for each(var functionRef:FunctionRef in functionRefs) {
+                    eventName = getEventName(functionRef,componentName);
+                    enhancedEventName = getEnhancedEventName(componentName,eventName);
+                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
+
+                    if(enhancedFunction != null) {
+                        component.removeEventListener(eventName,enhancedFunction);
+                        removeEnhancedEventHandler(view,enhancedEventName);
+                        CONFIG::DEBUG {
+                            _logger.debug(getMessage("EventRemoveEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,functionRef.name));
+                        }
+                    }
+                }
+            }
+        }
+        CONFIG::FP10 {
+            protected function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
+                var eventName:String;
+                var enhancedEventName:String;
+                var enhancedFunction:Function;
+
+                for each(var functionRef:FunctionRef in functionRefs) {
+                    eventName = getEventName(functionRef,componentName);
+                    enhancedEventName = getEnhancedEventName(componentName,eventName);
+                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
+
+                    if(enhancedFunction != null) {
+                        component.removeEventListener(eventName,enhancedFunction);
+                        removeEnhancedEventHandler(view,enhancedEventName);
+                        CONFIG::DEBUG {
+                            _logger.debug(getMessage("EventRemoveEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,functionRef.name));
+                        }
+                    }
+                }
+            }
         }
     }
 }

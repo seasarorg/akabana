@@ -391,62 +391,6 @@ package org.seasar.akabana.yui.framework.customizer
                 doCustomizingByComponent(view,componentName,component,action,functionRefs);
             }
         }
-        CONFIG::FP9 {
-            private function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
-                var eventName:String;
-                var enhancedEventName:String;
-                var enhancedFunction:Function;
-
-                for each(var functionRef:FunctionRef in functionRefs) {
-                    eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName);
-                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
-
-                    if(enhancedFunction != null) {
-                        component.removeEventListener(eventName,enhancedFunction);
-                    }
-
-                    if(functionRef.parameters.length > 0) {
-                        enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(action));
-                    } else {
-                        enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(action));
-                    }
-                    addEventListener(component,eventName,enhancedFunction);
-                    storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
-                    CONFIG::DEBUG {
-                        _logger.debug(getMessage("EventAddEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
-                    }
-                }
-            }
-        }
-        CONFIG::FP10 {
-            private function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
-                var eventName:String;
-                var enhancedEventName:String;
-                var enhancedFunction:Function;
-
-                for each(var functionRef:FunctionRef in functionRefs) {
-                    eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName);
-                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
-
-                    if(enhancedFunction != null) {
-                        component.removeEventListener(eventName,enhancedFunction);
-                    }
-
-                    if(functionRef.parameters.length > 0) {
-                        enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(action));
-                    } else {
-                        enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(action));
-                    }
-                    addEventListener(component,eventName,enhancedFunction);
-                    storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
-                    CONFIG::DEBUG {
-                        _logger.debug(getMessage("EventAddEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
-                    }
-                }
-            }
-        }
 
         private function doUncustomize(viewName:String,view:UIComponent,action:Object):void {
             CONFIG::DEBUG {
@@ -529,17 +473,32 @@ package org.seasar.akabana.yui.framework.customizer
                 if(child != null &&
                                 child is IEventDispatcher &&
                                 (child is IMXMLObject || child is IEffect)) {
-                    doUncustomizeByComponent(
-                                    view,
-                                    prop.name,
-                                    child as IEventDispatcher,
-                                    action,
-                                    actionClassRef.functions.filter(
-                                    function(item:*,index:int,array:Array):Boolean {
-                                        return (FunctionRef(item).name.indexOf(prop.name) == 0);
-                                    }
-                                    )
-                                    );
+                    CONFIG::FP9 {
+                        doUncustomizeByComponent(
+                                        view,
+                                        prop.name,
+                                        child as IEventDispatcher,
+                                        action,
+                                        actionClassRef.functions.filter(
+                                        function(item:*,index:int,array:Array):Boolean {
+                                            return (FunctionRef(item).name.indexOf(prop.name) == 0);
+                                        }
+                                        )
+                                        );
+                    }
+                    CONFIG::FP10 {
+                        doUncustomizeByComponent(
+                                        view,
+                                        prop.name,
+                                        child as IEventDispatcher,
+                                        action,
+                                        actionClassRef.functions.filter(
+                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                            return (FunctionRef(item).name.indexOf(prop.name) == 0);
+                                        }
+                                        )
+                                        );
+                    }
                 }
             }
             //for self
@@ -675,48 +634,6 @@ package org.seasar.akabana.yui.framework.customizer
                     component = view;
                 }
                 doUnCustomizingByComponent(view,componentName,component,action,functionRefs);
-            }
-        }
-        CONFIG::FP9 {
-            private function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
-                var eventName:String;
-                var enhancedEventName:String;
-                var enhancedFunction:Function;
-
-                for each(var functionRef:FunctionRef in functionRefs) {
-                    eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName);
-                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
-
-                    if(enhancedFunction != null) {
-                        component.removeEventListener(eventName,enhancedFunction);
-                        removeEnhancedEventHandler(view,enhancedEventName);
-                        CONFIG::DEBUG {
-                            _logger.debug(getMessage("EventRemoveEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
-                        }
-                    }
-                }
-            }
-        }
-        CONFIG::FP10 {
-            private function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
-                var eventName:String;
-                var enhancedEventName:String;
-                var enhancedFunction:Function;
-
-                for each(var functionRef:FunctionRef in functionRefs) {
-                    eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName);
-                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
-
-                    if(enhancedFunction != null) {
-                        component.removeEventListener(eventName,enhancedFunction);
-                        removeEnhancedEventHandler(view,enhancedEventName);
-                        CONFIG::DEBUG {
-                            _logger.debug(getMessage("EventRemoveEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
-                        }
-                    }
-                }
             }
         }
     }
