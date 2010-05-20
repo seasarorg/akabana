@@ -18,8 +18,8 @@ package org.seasar.akabana.yui.framework.customizer
     CONFIG::FP10 {
         import __AS3__.vec.Vector;
     }
-    import flash.utils.Dictionary;
     import mx.core.UIComponent;
+
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
@@ -49,6 +49,13 @@ package org.seasar.akabana.yui.framework.customizer
                 properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = helper;
                 //
                 setPropertiesValue(helper,viewClassName,view);
+                var viewPropertyRef:PropertyRef = helperClassRef.getPropertyRef("view");
+				if( viewPropertyRef != null && viewPropertyRef.isWriteable ){
+				    var value:Object = viewPropertyRef.getValue(helper);
+				    if( value == null ){
+				        viewPropertyRef.setValue(helper,view);
+				    }
+				}
                 //
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
 
