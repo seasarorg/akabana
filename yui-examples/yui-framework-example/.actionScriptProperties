@@ -1,43 +1,35 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <actionScriptProperties mainApplicationPath="popup.mxml" version="3">
-  <compiler additionalCompilerArguments="-locale ja_JP -target-player=10" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="false" htmlGenerate="true" htmlHistoryManagement="false" htmlPlayerVersion="9.0.45" htmlPlayerVersionCheck="false" outputFolderPath="target/bin" sourceFolderPath="src/main/flex" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
-    <compilerSourcePath/>
-    <libraryPath defaultLinkType="3">
-      <libraryPathEntry kind="4" path="">
-        <modifiedEntries>
-          <libraryPathEntry kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="true">
-            <crossDomainRsls>
-              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="framework_3.2.0.3958.swz"/>
-              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="framework_3.2.0.3958.swf"/>
-            </crossDomainRsls>
-          </libraryPathEntry>
-        </modifiedEntries>
-        <excludedEntries>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/datavisualization.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_flashflexkit.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
-        </excludedEntries>
-      </libraryPathEntry>
-      <libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/yui-core/bin/yui-core.swc" rslUrl="yui-core.swf" useDefaultLinkType="true"/>
-      <libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/yui-logging/bin/yui-logging.swc" rslUrl="yui-logging.swf" useDefaultLinkType="true"/>
-      <libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/yui-service/bin/yui-service.swc" rslUrl="yui-service.swf" useDefaultLinkType="true"/>
-      <libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/yui-framework/bin/yui-framework.swc" rslUrl="yui-framework.swf" useDefaultLinkType="true"/>
-      <libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/yui-framework-bridge-flex3/target/yui-framework-bridge-flex3.swc" rslUrl="yui-framework-bridge-flex3.swf" useDefaultLinkType="true"/>
-      <libraryPathEntry kind="1" linkType="1" path="libs"/>
-    </libraryPath>
-    <sourceAttachmentPath/>
-  </compiler>
-  <applications>
-    <application path="popup.mxml"/>
-    <application path="LoggingExamples.mxml"/>
-    <application path="helloworld.mxml"/>
-    <application path="EmbedXmlReaderSample.mxml"/>
-  </applications>
-  <modules/>
-  <buildCSSFiles/>
+<compiler additionalCompilerArguments="-locale ja_JP -target-player=10 -keep" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="false" htmlGenerate="true" htmlHistoryManagement="false" htmlPlayerVersion="9.0.45" htmlPlayerVersionCheck="false" outputFolderPath="target/bin" sourceFolderPath="src/main/flex" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
+<compilerSourcePath/>
+<libraryPath defaultLinkType="3">
+<libraryPathEntry kind="4" path="">
+<modifiedEntries>
+<libraryPathEntry autoExtract="true" kind="3" linkType="3" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" rslUrl="framework.swf" useDefaultLinkType="true"/>
+</modifiedEntries>
+<excludedEntries>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_flashflexkit.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/datavisualization.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
+</excludedEntries>
+</libraryPathEntry>
+<libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/yui-core/bin/yui-core.swc" rslUrl="yui-core.swf" useDefaultLinkType="true"/>
+<libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/yui-logging/bin/yui-logging.swc" rslUrl="yui-logging.swf" useDefaultLinkType="true"/>
+<libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/yui-service/bin/yui-service.swc" rslUrl="yui-service.swf" useDefaultLinkType="true"/>
+<libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/yui-framework/bin/yui-framework.swc" rslUrl="yui-framework.swf" useDefaultLinkType="true"/>
+<libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/yui-framework-bridge-flex3/target/yui-framework-bridge-flex3.swc" rslUrl="yui-framework-bridge-flex3.swf" useDefaultLinkType="true"/>
+</libraryPath>
+<sourceAttachmentPath/>
+</compiler>
+<applications>
+<application path="popup.mxml"/>
+<application path="helloworld.mxml"/>
+</applications>
+<modules/>
+<buildCSSFiles/>
 </actionScriptProperties>
