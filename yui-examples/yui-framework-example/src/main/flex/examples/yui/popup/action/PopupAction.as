@@ -19,7 +19,6 @@ package examples.yui.popup.action
 
 		public function onShowHandler(event:Event):void{
 		    trace(event);
-		    timer.start();
 		}
 
         public function timerTimerHandler(event:TimerEvent):void{
@@ -30,6 +29,7 @@ package examples.yui.popup.action
         public function sayClickHandler(event:MouseEvent):void
         {
             trace(event);
+		    timer.start();
         }
 
 	}
