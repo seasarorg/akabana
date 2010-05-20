@@ -5,10 +5,16 @@ package examples.yui.popup.action
 
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 
 	public class PopupOwnerAction
 	{
 		public var helper:PopupOwnerHelper;
+
+		public function timerTimerHandler(event:TimerEvent):void{
+		    trace(event);
+		}
 
 		public function onShowHandler(event:Event):void{
 		    trace(event);
