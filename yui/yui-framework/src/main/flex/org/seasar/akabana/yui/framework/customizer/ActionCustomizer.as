@@ -149,7 +149,7 @@ package org.seasar.akabana.yui.framework.customizer
 
                 if(child != null && child is IEventDispatcher) {
                     CONFIG::FP9 {
-                        doUncustomizingByComponent(
+                        doUnCustomizingByComponent(
                                         view,
                                         prop.name,
                                         child as IEventDispatcher,
