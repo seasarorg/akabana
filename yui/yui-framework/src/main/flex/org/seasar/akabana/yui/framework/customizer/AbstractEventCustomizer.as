@@ -102,7 +102,7 @@ package org.seasar.akabana.yui.framework.customizer
                                     _logger.debug(e.getStackTrace());
                                     var owner:Object = callee.properties[FUNCTION_OWNER];
                                     if(owner is IEventDispatcher) {
-                                        IEventDispatcher(owner).dispatchEvent(RuntimeErrorEvent.createEvent(e));
+                                        (owner as IEventDispatcher).dispatchEvent(RuntimeErrorEvent.createEvent(e));
                                     } else {
                                         throw e;
                                     }
@@ -129,7 +129,7 @@ package org.seasar.akabana.yui.framework.customizer
                                     _logger.debug(e.getStackTrace());
                                     var owner:Object = callee.properties[FUNCTION_OWNER];
                                     if(owner is IEventDispatcher) {
-                                        IEventDispatcher(owner).dispatchEvent(RuntimeErrorEvent.createEvent(e));
+                                        (owner as IEventDispatcher).dispatchEvent(RuntimeErrorEvent.createEvent(e));
                                     } else {
                                         throw e;
                                     }

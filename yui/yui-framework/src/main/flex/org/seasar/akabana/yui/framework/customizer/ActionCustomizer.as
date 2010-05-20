@@ -113,7 +113,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         action,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Array):Boolean {
-                                            return (FunctionRef(item).name.indexOf(prop.name) == 0);
+                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
                                         }
                                         )
                                         );
@@ -126,7 +126,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         action,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return (FunctionRef(item).name.indexOf(prop.name) == 0);
+                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
                                         }
                                         )
                                         );

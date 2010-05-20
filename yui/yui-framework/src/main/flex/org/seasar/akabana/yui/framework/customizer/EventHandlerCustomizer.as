@@ -68,7 +68,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         ownerAction_,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Array):Boolean {
-                                            return (FunctionRef(item).name.indexOf(viewName) == 0);
+                                            return ((item as FunctionRef).name.indexOf(viewName) == 0);
                                         }
                                         )
                                         );
@@ -81,7 +81,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         ownerAction_,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return (FunctionRef(item).name.indexOf(viewName) == 0);
+                                            return ((item as FunctionRef).name.indexOf(viewName) == 0);
                                         }
                                         )
                                         );
@@ -125,7 +125,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         ownerAction_,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Array):Boolean {
-                                            return (FunctionRef(item).name.indexOf(viewName) == 0);
+                                            return ((item as FunctionRef).name.indexOf(viewName) == 0);
                                         }
                                         )
                                         );
@@ -138,7 +138,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         ownerAction_,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return (FunctionRef(item).name.indexOf(viewName) == 0);
+                                            return ((item as FunctionRef).name.indexOf(viewName) == 0);
                                         }
                                         )
                                         );
@@ -195,7 +195,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         action,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Array):Boolean {
-                                            return (FunctionRef(item).name.indexOf(componentName) == 0);
+                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                         }
                                         )
                                         );
@@ -208,7 +208,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         action,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return (FunctionRef(item).name.indexOf(componentName) == 0);
+                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                         }
                                         )
                                         );
@@ -237,7 +237,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         action,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Array):Boolean {
-                                            return (FunctionRef(item).name.indexOf(prop.name) == 0);
+                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
                                         }
                                         )
                                         );
@@ -250,7 +250,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         action,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return (FunctionRef(item).name.indexOf(prop.name) == 0);
+                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
                                         }
                                         )
                                         );
@@ -266,7 +266,7 @@ package org.seasar.akabana.yui.framework.customizer
                                 action,
                                 actionClassRef.functions.filter(
                                 function(item:*,index:int,array:Array):Boolean {
-                                    return (FunctionRef(item).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
+                                    return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
                                 }
                                 )
                                 );
@@ -279,7 +279,7 @@ package org.seasar.akabana.yui.framework.customizer
                                 action,
                                 actionClassRef.functions.filter(
                                 function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                    return (FunctionRef(item).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
+                                    return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
                                 }
                                 )
                                 );
@@ -333,7 +333,7 @@ package org.seasar.akabana.yui.framework.customizer
                                             action,
                                             actionClassRef.functions.filter(
                                             function(item:*,index:int,array:Array):Boolean {
-                                                return FunctionRef(item).name.indexOf(componentName) == 0;
+                                                return (item as FunctionRef).name.indexOf(componentName) == 0;
                                             }
                                             )
                                             );
@@ -346,7 +346,7 @@ package org.seasar.akabana.yui.framework.customizer
                                             action,
                                             actionClassRef.functions.filter(
                                             function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                                return FunctionRef(item).name.indexOf(componentName) == 0;
+                                                return (item as FunctionRef).name.indexOf(componentName) == 0;
                                             }
                                             )
                                             );
@@ -439,7 +439,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         action,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Array):Boolean {
-                                            return (FunctionRef(item).name.indexOf(componentName) == 0);
+                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                         }
                                         )
                                         );
@@ -452,7 +452,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         action,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return (FunctionRef(item).name.indexOf(componentName) == 0);
+                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                         }
                                         )
                                         );
@@ -481,7 +481,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         action,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Array):Boolean {
-                                            return (FunctionRef(item).name.indexOf(prop.name) == 0);
+                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
                                         }
                                         )
                                         );
@@ -494,7 +494,7 @@ package org.seasar.akabana.yui.framework.customizer
                                         action,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return (FunctionRef(item).name.indexOf(prop.name) == 0);
+                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
                                         }
                                         )
                                         );
@@ -510,7 +510,7 @@ package org.seasar.akabana.yui.framework.customizer
                                 action,
                                 actionClassRef.functions.filter(
                                 function(item:*,index:int,array:Array):Boolean {
-                                    return (FunctionRef(item).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
+                                    return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
                                 }
                                 )
                                 );
@@ -523,7 +523,7 @@ package org.seasar.akabana.yui.framework.customizer
                                 action,
                                 actionClassRef.functions.filter(
                                 function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                    return (FunctionRef(item).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
+                                    return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
                                 }
                                 )
                                 );
@@ -575,7 +575,7 @@ package org.seasar.akabana.yui.framework.customizer
                                             action,
                                             actionClassRef.functions.filter(
                                             function(item:*,index:int,array:Array):Boolean {
-                                                return FunctionRef(item).name.indexOf(componentName) == 0;
+                                                return (item as FunctionRef).name.indexOf(componentName) == 0;
                                             }
                                             )
                                             );
@@ -588,7 +588,7 @@ package org.seasar.akabana.yui.framework.customizer
                                             action,
                                             actionClassRef.functions.filter(
                                             function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                                return FunctionRef(item).name.indexOf(componentName) == 0;
+                                                return (item as FunctionRef).name.indexOf(componentName) == 0;
                                             }
                                             )
                                             );
