@@ -133,6 +133,7 @@ package org.seasar.akabana.yui.framework.util
 
             var window:IUIComponent = new className();
 			window.name = name;
+			window.setVisible(false,true);
             window.addEventListener(
                 FlexEvent.INITIALIZE,
                 function(event:FlexEvent):void{
@@ -235,7 +236,7 @@ package org.seasar.akabana.yui.framework.util
         private static function creationCompleteCallBack(event:FlexEvent):void{
             var popup:Container = event.target as Container;
             YuiFrameworkContainer.yuicontainer.customizeComponent(popup as Container,PopUpUtil.lookupRelatedOwner(popup));
-            popup.setVisible(true,true);
+            popup.setVisible(true,false);
         }
     }
 }
