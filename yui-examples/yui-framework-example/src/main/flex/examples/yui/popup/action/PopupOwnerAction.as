@@ -12,10 +12,6 @@ package examples.yui.popup.action
 	{
 		public var helper:PopupOwnerHelper;
 
-		public function timerTimerHandler(event:TimerEvent):void{
-		    trace(event);
-		}
-
 		public function onShowHandler(event:Event):void{
 		    trace(event);
 		}
