@@ -24,8 +24,6 @@ package org.seasar.akabana.yui.framework.convention
 		public override function getComponentName( component:UIComponent ):String{
 			var componentName:String = null;
 			if( component != null ){
-				componentName = component.id;
-				
 				if( componentName == null ){
 					var skinClass:String = getCanonicalName(component.getStyle("skinClass"));
 					skinClass = StringUtil.toLowerCamel(skinClass.replace(/components\./,""));
@@ -33,7 +31,9 @@ package org.seasar.akabana.yui.framework.convention
 						componentName = component.name = skinClass;
 					}
 				}
-				
+				if( componentName == null ){
+					componentName = component.id;				
+				}
 				if( componentName == null ){
 					componentName = component.name;
 				}
