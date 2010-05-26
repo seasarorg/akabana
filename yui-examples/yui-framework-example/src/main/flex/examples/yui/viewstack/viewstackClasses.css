@@ -1,0 +1,11 @@
+ViewStackTestView{
+    action:ClassReference("examples.yui.viewstack.action.ViewStackTestAction");
+}
+
+ViewStackTestMainView{
+    action:ClassReference("examples.yui.viewstack.action.ViewStackTestMainAction");
+}
+
+ViewStackTestSubView{
+    action:ClassReference("examples.yui.viewstack.action.ViewStackTestSubAction");
+}
