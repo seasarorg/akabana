@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="all">
 	<!-- -->
-	<property file="build.properties" />
 	<target name="all">
 		<ant antfile="build-fx3.xml"/>
 		<ant antfile="build-fx4.xml"/>
 	</target>
 	<target name="distAll">
+	<property file="build.properties" />
 		<dist libname="yui-frameworks-fx3-air-fp10" libver="${LIB_VERSION}" />
 		<dist libname="yui-frameworks-fx3-air-fp9" libver="${LIB_VERSION}" />
 		<dist libname="yui-frameworks-fx3-airds-fp10" libver="${LIB_VERSION}"  />
