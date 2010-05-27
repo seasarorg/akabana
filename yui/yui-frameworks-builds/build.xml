@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="all">
 	<!-- -->
+	<property file="build.properties" />
 	<target name="all">
 		<ant antfile="build-fx3.xml"/>
 		<ant antfile="build-fx4.xml"/>
@@ -17,9 +18,10 @@
 		<dist libname="yui-frameworks-fx4-air-fp10.0" libver="${LIB_VERSION}"  />
 		<dist libname="yui-frameworks-fx4-airds-fp10.0" libver="${LIB_VERSION}"  />
 		<dist libname="yui-frameworks-fx4-catalyst-fp10.0" libver="${LIB_VERSION}"  />
-		<dist libname="fx4-catalyst-ds-fp10" libver="${LIB_VERSION}"   />
-		<dist libname="fx4-catalyst-air-fp10"  libver="${LIB_VERSION}"  />
-		<dist libname="fx4-catalyst-airds-fp10"  libver="${LIB_VERSION}"  />
+		<dist libname="yui-frameworks-fx4-catalyst-air-fp10.0" libver="${LIB_VERSION}"   />
+		<dist libname="yui-frameworks-fx4-catalyst-airds-fp10.0"  libver="${LIB_VERSION}"  />
+		<dist libname="yui-frameworks-fx4-catalyst-ds-fp10.0"  libver="${LIB_VERSION}"  />
+		<dist libname="yui-frameworks-fx4-catalyst-fp10.0"  libver="${LIB_VERSION}"  />
 		<dist libname="yui-frameworks-fx4-ds-fp10.0" libver="${LIB_VERSION}"  />
 		<dist libname="yui-frameworks-fx4-fp10.0" libver="${LIB_VERSION}"  />
 	</target>
