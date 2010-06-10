@@ -171,7 +171,7 @@ package org.seasar.akabana.yui.service.ds {
             }
         }
 
-        flash_proxy override function callProperty(name:*, ... args:Array):*{
+        protected function internalInvoke(name:String,args:Array):RpcPendingCall{
             if( !_isInitialzed ){
                 _isInitialzed = true;
                 initEndpoint();
@@ -188,6 +188,10 @@ package org.seasar.akabana.yui.service.ds {
                 _pendingCallMap[ result ] = getTimer();
             }
             return result;
+        }
+
+        flash_proxy override function callProperty(name:*, ... args:Array):*{
+            return internalInvoke(name,args);
         }
     }
 }
