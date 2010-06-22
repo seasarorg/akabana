@@ -15,9 +15,24 @@
  */
 package org.seasar.akabana.yui.framework
 {
+CONFIG::FP10{
+    import __AS3__.vec.Vector;
+}
+
+    import mx.core.IFactory;
+    import mx.resources.ResourceManager;
+	import mx.core.ClassFactory;
+	import mx.core.IFactory;
+	import mx.core.IFlexModuleFactory;
+	import mx.managers.ISystemManager;
+	import mx.resources.ResourceManager;
+	import mx.styles.CSSStyleDeclaration;
+	import mx.styles.IStyleManager2;
+
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
 
     [ExcludeClass]
     public class YuiFrameworkGlobals
@@ -40,6 +55,32 @@ package org.seasar.akabana.yui.framework
 
 		yui_internal static function set namingConvention( value:NamingConvention ):void{
 			_namingConvention = value;
+		}
+
+		private static var _namingConventionClassFactory:IFactory;
+
+		protected static function initNamingConventionClassFactory():void{
+		    var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
+			var namingConventionClassFactoryDef:CSSStyleDeclaration = styleManager.getStyleDeclaration("org.seasar.akabana.yui.framework.core.YuiFrameworkSettings");
+			if( namingConventionClassFactoryDef == null ){
+				_namingConventionClassFactory = new ClassFactory(NamingConvention);
+			} else {
+				var classFactory:Class = namingConventionClassFactoryDef.getStyle("namingConventionClass") as Class;
+				_namingConventionClassFactory = new ClassFactory(classFactory);
+			}
+		}
+
+		yui_internal static function initNamingConvention():void{
+		    initNamingConventionClassFactory();
+
+			var namingConvention:NamingConvention = _namingConventionClassFactory.newInstance() as NamingConvention;
+CONFIG::FP9{
+			namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");
+}
+CONFIG::FP10{
+            namingConvention.conventions = Vector.<String>(ResourceManager.getInstance().getStringArray("conventions","package"));
+}
+			YuiFrameworkGlobals.yui_internal::namingConvention = namingConvention;
 		}
     }
 }

@@ -18,24 +18,15 @@ package org.seasar.akabana.yui.framework.mixin
 CONFIG::FP10{
 	import __AS3__.vec.Vector;
 }
-	import flash.events.Event;
 	import flash.net.registerClassAlias;
 
-	import mx.core.ClassFactory;
-	import mx.core.IFactory;
 	import mx.core.IFlexModuleFactory;
 	import mx.managers.ISystemManager;
-	import mx.resources.ResourceManager;
-	import mx.styles.CSSStyleDeclaration;
-	import mx.styles.IStyleManager2;
 
 	import org.seasar.akabana.yui.core.yui_internal;
 	import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
 	import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
-	import org.seasar.akabana.yui.framework.convention.NamingConvention;
 	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
-	import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
-	import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
 	import org.seasar.akabana.yui.logging.LogManager;
 	import org.seasar.akabana.yui.logging.config.ConfigurationProvider;
 	import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
@@ -60,8 +51,6 @@ CONFIG::FP10{
 
 		private static var _container:YuiFrameworkContainer;
 
-		private static var _namingConventionClassFactory:IFactory;
-
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{
             LogManager.init();
 
@@ -71,43 +60,8 @@ CONFIG::FP10{
 
             if( flexModuleFactory is ISystemManager ){
             	var systemManager_:ISystemManager = flexModuleFactory as ISystemManager;
-
-                systemManager_
-                    .addEventListener(
-                        FrameworkEvent.APPLICATION_MONITOR_START,
-                        applicationMonitorStartHandler,
-                        false,
-                        int.MAX_VALUE
-                    );
                 _container.yui_internal::monitoringSystemManager(systemManager_);
             }
         }
-
-        protected static function applicationMonitorStartHandler(event:Event):void{
-			initNamingConventionClassFactory();
-			initNamingConvention();
-        }
-
-		protected static function initNamingConvention():void{
-			var namingConvention:NamingConvention = _namingConventionClassFactory.newInstance() as NamingConvention;
-CONFIG::FP9{
-			namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");
-}
-CONFIG::FP10{
-            namingConvention.conventions = Vector.<String>(ResourceManager.getInstance().getStringArray("conventions","package"));
-}
-			YuiFrameworkGlobals.yui_internal::namingConvention = namingConvention;
-		}
-
-		protected static function initNamingConventionClassFactory():void{
-		    var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
-			var namingConventionClassFactoryDef:CSSStyleDeclaration = styleManager.getStyleDeclaration("org.seasar.akabana.yui.framework.core.YuiFrameworkSettings");
-			if( namingConventionClassFactoryDef == null ){
-				_namingConventionClassFactory = new ClassFactory(NamingConvention);
-			} else {
-				var classFactory:Class = namingConventionClassFactoryDef.getStyle("namingConventionClass") as Class;
-				_namingConventionClassFactory = new ClassFactory(classFactory);
-			}
-		}
 	}
 }

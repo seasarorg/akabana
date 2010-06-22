@@ -116,6 +116,19 @@ CONFIG::DEBUG{
             }
         }
 
+        private function applicationInitCompleteHandler( event:Event ):void{
+CONFIG::DEBUG{
+            _logger.debug("applicationInitCompleteHandler:"+event+","+event.target);
+}
+        }
+
+        private function applicationPreloaderDoneHandler( event:Event ):void{
+CONFIG::DEBUG{
+            _logger.debug("applicationPreloaderDoneHandler:"+event+","+event.target);
+}
+            YuiFrameworkGlobals.yui_internal::initNamingConvention();
+        }
+
         private function applicationCompleteHandler( event:FlexEvent ):void{
 CONFIG::DEBUG{
             _logger.debug("applicationCompleteHandler:"+event+","+event.target);
@@ -131,6 +144,20 @@ CONFIG::DEBUG{
 
             systemManager_
                 .removeEventListener(
+                    FlexEvent.INIT_COMPLETE,
+                    applicationInitCompleteHandler,
+                    true
+                );
+
+            systemManager_
+                .removeEventListener(
+                    FlexEvent.PRELOADER_DONE,
+                    applicationPreloaderDoneHandler,
+                    true
+                );
+
+            systemManager_
+                .removeEventListener(
                     Event.ADDED_TO_STAGE,
                     addedToStageHandler,
                     true
@@ -140,15 +167,6 @@ CONFIG::DEBUG{
         }
 
         private function addedToStageHandler( event:Event ):void{
-CONFIG::DEBUG_EVENT{
-            _logger.info("addedToStageHandler"+event+","+event.target);
-}
-            if( event.target is UIComponent ){
-                doRegisterComponent(event.target as UIComponent);
-            }
-        }
-
-        private function addedHandler( event:Event ):void{
 CONFIG::DEBUG_EVENT{
             _logger.info("addedToStageHandler"+event+","+event.target);
 }
@@ -185,6 +203,23 @@ CONFIG::DEBUG{
                     true,
                     int.MAX_VALUE
                 );
+
+            systemManager
+                .addEventListener(
+                    FlexEvent.INIT_COMPLETE,
+                    applicationInitCompleteHandler,
+                    true,
+                    int.MAX_VALUE
+                );
+
+            systemManager
+                .addEventListener(
+                    FlexEvent.PRELOADER_DONE,
+                    applicationPreloaderDoneHandler,
+                    true,
+                    int.MAX_VALUE
+                );
+
             systemManager
                 .addEventListener(
                     FlexEvent.APPLICATION_COMPLETE,
@@ -263,12 +298,27 @@ CONFIG::DEBUG{
         }
 
         protected function doRegisterComponent( component:UIComponent ):void{
-            if( component != null && YuiFrameworkGlobals.frameworkBridge.isContainer(component)){
-                processRegisterComponent(component as UIComponent);
-                if( _isApplicationStarted && component.initialized ){
-                    doAssembleComponent(component);
+            do{
+                if( YuiFrameworkGlobals.frameworkBridge.isApplication(component) ){
+CONFIG::DEBUG{
+                        _logger.debug(getMessage("ApplicationRegistered",component.toString()));
+}
+                        YuiFrameworkGlobals.frameworkBridge.yui_internal::application = component;
+    					Environment.yui_internal::root = component;
+    					Environment.yui_internal::parameters = YuiFrameworkGlobals.frameworkBridge.parameters;
+                        component.setVisible(false,true);
+                        applicationMonitoringStart();
+                        break;
                 }
-            }
+
+                if( isViewComponent(component)){
+                    processRegisterView(component as UIComponent);
+                    if( _isApplicationStarted && component.initialized ){
+                        doAssembleComponent(component);
+                    }
+                    break;
+                }
+            }while(false);
         }
 
         protected function doAssembleComponent( component:UIComponent ):void{
@@ -282,35 +332,9 @@ CONFIG::DEBUG{
         protected function doUnregisterComponent(component:Object):void{
 
             if( isViewComponent(component)){
-                do{
-                    if( YuiFrameworkGlobals.frameworkBridge.isContainer(component) ){
-                        processDisassembleView( component as UIComponent );
-                        processUnregisterView( component as UIComponent );
-
-                        break;
-                    }
-
-                } while( false );
+                processDisassembleView( component as UIComponent );
+                processUnregisterView( component as UIComponent );
             }
-        }
-
-        protected function processRegisterComponent(component:UIComponent):void{
-            do{
-                if( YuiFrameworkGlobals.frameworkBridge.isApplication(component) ){
-CONFIG::DEBUG{
-                    _logger.debug(getMessage("ApplicationRegistered",component.toString()));
-}
-                    YuiFrameworkGlobals.frameworkBridge.yui_internal::application = component;
-					Environment.yui_internal::root = component;
-					Environment.yui_internal::parameters = YuiFrameworkGlobals.frameworkBridge.parameters;
-                    component.setVisible(false,true);
-                    applicationMonitoringStart();
-                    break;
-                }
-
-                processRegisterView( component );
-
-            } while( false );
         }
 
         protected function processRegisterView( container:UIComponent ):void{
