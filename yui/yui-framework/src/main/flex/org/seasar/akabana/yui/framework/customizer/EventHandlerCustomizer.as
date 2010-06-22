@@ -39,36 +39,45 @@ package org.seasar.akabana.yui.framework.customizer
         private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);
 
         public override function customize(view:UIComponent,owner:UIComponent = null):void {
-            const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
-            const viewClassName:String = getCanonicalName(view);
-            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
-            CONFIG::DEBUG {
-                _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
-            }
-
             if(owner == null) {
+                const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
+                const viewClassName:String = getCanonicalName(view);
+                const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
+                CONFIG::DEBUG {
+                    _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
+                }
+
                 const properties:Object = UIComponentUtil.getProperties(view);
                 const action_:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
 
                 if(action_ != null) {
                     doCustomize(viewName,view,action_);
                 }
+
+                CONFIG::DEBUG {
+                    _logger.debug(getMessage("Customized",viewClassName,actionClassName));
+                }
             } else {
+                const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
                 const ownerName:String = YuiFrameworkGlobals.namingConvention.getComponentName(owner);
                 const ownerProperties:Object = UIComponentUtil.getProperties(owner);
                 const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
 
                 if(ownerAction_ != null) {
                     const actionClassRef:ClassRef = getClassRef(ownerAction_);
+
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Customizing",ownerName,actionClassRef.name));
+                    }
                     CONFIG::FP9 {
                         doCustomizingByComponent(
                                         owner,
-                                        viewName,
+                                        componentName,
                                         view,
                                         ownerAction_,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Array):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(viewName) == 0);
+                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                         }
                                         )
                                         );
@@ -76,20 +85,20 @@ package org.seasar.akabana.yui.framework.customizer
                     CONFIG::FP10 {
                         doCustomizingByComponent(
                                         owner,
-                                        viewName,
+                                        componentName,
                                         view,
                                         ownerAction_,
                                         actionClassRef.functions.filter(
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(viewName) == 0);
+                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                         }
                                         )
                                         );
                     }
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Customized",ownerName,actionClassRef.name));
+                    }
                 }
-            }
-            CONFIG::DEBUG {
-                _logger.debug(getMessage("Customized",viewClassName,actionClassName));
             }
         }
 
