@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
-<includeClasses>
-<classEntry path="org.seasar.akabana.yui.framework.bridge.Flex3FrameworkBridgePlugin"/>
-<classEntry path="org.seasar.akabana.yui.framework.convention.Flex3NamingConvention"/>
-</includeClasses>
-<includeResources/>
-<namespaceManifests/>
+  <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.framework.YuiApplication"/>
+    <classEntry path="org.seasar.akabana.yui.framework.bridge.Flex3FrameworkBridgePlugin"/>
+    <classEntry path="org.seasar.akabana.yui.framework.convention.Flex3NamingConvention"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akabana.seasar.org/1.0"/>
+  </namespaceManifests>
 </flexLibProperties>

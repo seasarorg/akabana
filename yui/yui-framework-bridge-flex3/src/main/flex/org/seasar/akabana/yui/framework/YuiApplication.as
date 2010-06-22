@@ -8,8 +8,8 @@ package org.seasar.akabana.yui.framework
 
     [Style(name="rootViewClass", type="Class")]
 
-    public class YuiApplication extends Application
-    {
+    public class YuiApplication extends Application{
+
         private var _setting:YuiFrameworkSettings;
 
         public function get setting():YuiFrameworkSettings{
