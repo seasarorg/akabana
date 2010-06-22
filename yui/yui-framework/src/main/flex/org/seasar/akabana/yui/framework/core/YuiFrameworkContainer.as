@@ -323,14 +323,11 @@ CONFIG::DEBUG{
 
         protected function doAssembleComponent( component:UIComponent ):void{
             if( isViewComponent(component)){
-                if( component != null && component is UIComponent){
-                    processAssembleComponent(component as UIComponent);
-                }
+                processAssembleComponent(component as UIComponent);
             }
         }
 
         protected function doUnregisterComponent(component:Object):void{
-
             if( isViewComponent(component)){
                 processDisassembleView( component as UIComponent );
                 processUnregisterView( component as UIComponent );
