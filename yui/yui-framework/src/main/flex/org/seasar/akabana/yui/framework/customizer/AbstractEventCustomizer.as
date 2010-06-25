@@ -18,8 +18,11 @@ package org.seasar.akabana.yui.framework.customizer
     import flash.events.Event;
     import flash.events.IEventDispatcher;
     import flash.utils.Dictionary;
+
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
+
+    import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
@@ -63,23 +66,24 @@ package org.seasar.akabana.yui.framework.customizer
             return result;
         }
 
-        protected function getEnhancedEventName(viewName:String,eventName:String):String {
-            return viewName + ENHANCED_PREFIX + eventName;
+        protected function getEnhancedEventName(viewName:String,eventName:String,listener:Object):String {
+            var listenerClassName:String = ClassRef.getCanonicalName(listener);
+            return viewName + ENHANCED_PREFIX + listenerClassName + ENHANCED_SEPARETOR + eventName;
         }
 
         protected function addEventListener(component:IEventDispatcher,eventName:String,handler:Function):void {
             component.addEventListener(eventName,handler,false,0,true);
         }
 
-        protected function storeEnhancedEventHandler(component:UIComponent,eventName:String,handler:Function):void {
+        protected function storeEnhancedEventHandler(component:UIComponent,enhancedEventName:String,handler:Function):void {
             var descriptor:UIComponentDescriptor = UIComponentUtil.getDescriptor(component);
-            descriptor.events[eventName] = handler;
+            descriptor.events[enhancedEventName] = handler;
         }
 
-        protected function removeEnhancedEventHandler(component:UIComponent,eventName:String):void {
+        protected function removeEnhancedEventHandler(component:UIComponent,enhancedEventName:String):void {
             if(component.descriptor.events != null) {
-                component.descriptor.events[eventName] = null;
-                delete component.descriptor.events[eventName];
+                component.descriptor.events[enhancedEventName] = null;
+                delete component.descriptor.events[enhancedEventName];
             }
         }
 
@@ -143,14 +147,14 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         CONFIG::FP9 {
-            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
+            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Array):void {
                 var eventName:String;
                 var enhancedEventName:String;
                 var enhancedFunction:Function;
 
                 for each(var functionRef:FunctionRef in functionRefs) {
                     eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName);
+                    enhancedEventName = getEnhancedEventName(componentName,eventName,listener);
                     enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
 
                     if(enhancedFunction != null) {
@@ -158,9 +162,9 @@ package org.seasar.akabana.yui.framework.customizer
                     }
 
                     if(functionRef.parameters.length > 0) {
-                        enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(action));
+                        enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(listener));
                     } else {
-                        enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(action));
+                        enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(listener));
                     }
                     addEventListener(component,eventName,enhancedFunction);
                     storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
@@ -171,14 +175,14 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         CONFIG::FP10 {
-            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
+            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Vector.<FunctionRef>):void {
                 var eventName:String;
                 var enhancedEventName:String;
                 var enhancedFunction:Function;
 
                 for each(var functionRef:FunctionRef in functionRefs) {
                     eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName);
+                    enhancedEventName = getEnhancedEventName(componentName,eventName,listener);
                     enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
 
                     if(enhancedFunction != null) {
@@ -186,9 +190,9 @@ package org.seasar.akabana.yui.framework.customizer
                     }
 
                     if(functionRef.parameters.length > 0) {
-                        enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(action));
+                        enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(listener));
                     } else {
-                        enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(action));
+                        enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(listener));
                     }
                     addEventListener(component,eventName,enhancedFunction);
                     storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
@@ -199,14 +203,14 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         CONFIG::FP9 {
-            protected function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
+            protected function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Array):void {
                 var eventName:String;
                 var enhancedEventName:String;
                 var enhancedFunction:Function;
 
                 for each(var functionRef:FunctionRef in functionRefs) {
                     eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName);
+                    enhancedEventName = getEnhancedEventName(componentName,eventName,listener);
                     enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
 
                     if(enhancedFunction != null) {
@@ -220,14 +224,14 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         CONFIG::FP10 {
-            protected function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
+            protected function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Vector.<FunctionRef>):void {
                 var eventName:String;
                 var enhancedEventName:String;
                 var enhancedFunction:Function;
 
                 for each(var functionRef:FunctionRef in functionRefs) {
                     eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName);
+                    enhancedEventName = getEnhancedEventName(componentName,eventName,listener);
                     enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
 
                     if(enhancedFunction != null) {

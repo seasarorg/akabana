@@ -43,20 +43,33 @@ package org.seasar.akabana.yui.framework.customizer
                 const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
                 const viewClassName:String = getCanonicalName(view);
                 const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
-                CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
-                }
-
                 const properties:Object = UIComponentUtil.getProperties(view);
+                //
                 const action_:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-
                 if(action_ != null) {
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
+                    }
                     doCustomize(viewName,view,action_);
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Customized",viewClassName,actionClassName));
+                    }
                 }
-
-                CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customized",viewClassName,actionClassName));
+                //
+                const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                if(behaviors_ != null) {
+                    for each( var behavior_:Object in behaviors_){
+                        const behaviorClassName:String = getCanonicalName(behavior_);
+                        CONFIG::DEBUG {
+                            _logger.debug(getMessage("Customizing",viewClassName,behaviorClassName));
+                        }
+                        doCustomize(viewName,view,behavior_);
+                        CONFIG::DEBUG {
+                            _logger.debug(getMessage("Customized",viewClassName,behaviorClassName));
+                        }
+                    }
                 }
+                //
             } else {
                 const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
                 const ownerName:String = YuiFrameworkGlobals.namingConvention.getComponentName(owner);
@@ -99,6 +112,46 @@ package org.seasar.akabana.yui.framework.customizer
                         _logger.debug(getMessage("Customized",ownerName,actionClassRef.name));
                     }
                 }
+                //
+                const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                if(ownerBehaviors_ != null) {
+                    for each( var ownerBehavior_:Object in ownerBehaviors_){
+                        const behaviorClassRef:ClassRef = getClassRef(ownerBehavior_);
+                        CONFIG::DEBUG {
+                            _logger.debug(getMessage("Customizing",viewClassName,behaviorClassRef.name));
+                        }
+                        CONFIG::FP9 {
+                            doCustomizingByComponent(
+                                            owner,
+                                            componentName,
+                                            view,
+                                            ownerBehavior_,
+                                            behaviorClassRef.functions.filter(
+                                            function(item:*,index:int,array:Array):Boolean {
+                                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                                            }
+                                            )
+                                            );
+                        }
+                        CONFIG::FP10 {
+                            doCustomizingByComponent(
+                                            owner,
+                                            componentName,
+                                            view,
+                                            ownerBehavior_,
+                                            behaviorClassRef.functions.filter(
+                                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                                            }
+                                            )
+                                            );
+                        }
+                        CONFIG::DEBUG {
+                            _logger.debug(getMessage("Customized",viewClassName,behaviorClassRef.name));
+                        }
+                    }
+                }
+
             }
         }
 
@@ -107,25 +160,42 @@ package org.seasar.akabana.yui.framework.customizer
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             const viewClassName:String = getCanonicalName(view);
             const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
-            CONFIG::DEBUG {
-                _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
-            }
 
             if(owner == null) {
-                var action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-
-                if(action == null) {
-                } else {
+                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                if(action != null) {
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
+                    }
                     doUncustomize(viewName,view,action);
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Uncustomized",viewClassName,actionClassName));
+                    }
+                }
+                //
+                const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                if(behaviors_ != null) {
+                    for each( var behavior_:Object in behaviors_){
+                        const behaviorClassName:String = getCanonicalName(behavior_);
+                        CONFIG::DEBUG {
+                            _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
+                        }
+                        doUncustomize(viewName,view,behavior_);
+                        CONFIG::DEBUG {
+                            _logger.debug(getMessage("Uncustomized",viewClassName,behaviorClassName));
+                        }
+                    }
                 }
             } else {
                 const ownerName:String = YuiFrameworkGlobals.namingConvention.getComponentName(owner);
                 const ownerProperties:Object = UIComponentUtil.getProperties(owner);
                 const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
 
-                if(ownerAction_ == null) {
-                } else {
+                if(ownerAction_ != null) {
                     const actionClassRef:ClassRef = getClassRef(ownerAction_);
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassRef.name));
+                    }
                     CONFIG::FP9 {
                         doUnCustomizingByComponent(
                                         owner,
@@ -152,10 +222,49 @@ package org.seasar.akabana.yui.framework.customizer
                                         )
                                         );
                     }
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Uncustomized",viewClassName,actionClassRef.name));
+                    }
                 }
-            }
-            CONFIG::DEBUG {
-                _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
+                //
+                const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                if(ownerBehaviors_ != null) {
+                    for each( var ownerBehavior_:Object in ownerBehaviors_){
+                        const behaviorClassRef:ClassRef = getClassRef(ownerBehavior_);
+                        CONFIG::DEBUG {
+                            _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassRef.name));
+                        }
+                        CONFIG::FP9 {
+                            doUnCustomizingByComponent(
+                                            owner,
+                                            viewName,
+                                            view,
+                                            ownerBehavior_,
+                                            behaviorClassRef.functions.filter(
+                                            function(item:*,index:int,array:Array):Boolean {
+                                                return ((item as FunctionRef).name.indexOf(viewName) == 0);
+                                            }
+                                            )
+                                            );
+                        }
+                        CONFIG::FP10 {
+                            doUnCustomizingByComponent(
+                                            owner,
+                                            viewName,
+                                            view,
+                                            ownerBehavior_,
+                                            behaviorClassRef.functions.filter(
+                                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                                return ((item as FunctionRef).name.indexOf(viewName) == 0);
+                                            }
+                                            )
+                                            );
+                        }
+                        CONFIG::DEBUG {
+                            _logger.debug(getMessage("Uncustomized",viewClassName,behaviorClassRef.name));
+                        }
+                    }
+                }
             }
         }
 

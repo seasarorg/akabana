@@ -30,6 +30,7 @@ CONFIG::FP10{
         public static const SERVICE:String = "service";
         public static const LOGIC:String = "logic";
         public static const VALIDATOR:String = "validator";
+        public static const BEHAVIOR:String = "behavior";
 
         public static const VIEW_SUFFIX:String = "View";
         public static const HELPER_SUFFIX:String = "Helper";
@@ -107,6 +108,10 @@ CONFIG::FP10{
             return VALIDATOR;
         }
 
+        public function getBehaviorPackageName():String{
+            return BEHAVIOR;
+        }
+
         public function getViewSuffix():String{
             return VIEW_SUFFIX;
         }
@@ -129,6 +134,10 @@ CONFIG::FP10{
 
         public function getValidatorSuffix():String{
             return VALIDATOR_SUFFIX;
+        }
+
+        public function getBehaviorSuffix():String{
+            return BEHAVIOR_SUFFIX;
         }
 
         public function getViewName( varName:String ):String{
@@ -224,6 +233,10 @@ CONFIG::FP10{
 
         public function isValidatorClassName( className:String ):Boolean{
             return checkClassFullName(className,getValidatorPackageName(),getValidatorSuffix());
+        }
+
+        public function isBehaviorClassName( className:String ):Boolean{
+            return checkClassFullName(className,getBehaviorPackageName(),getBehaviorSuffix());
         }
 
         protected function checkClassFullName( className:String, packageName:String, suffix:String ):Boolean{

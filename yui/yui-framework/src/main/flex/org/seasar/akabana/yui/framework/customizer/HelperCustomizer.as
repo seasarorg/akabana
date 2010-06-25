@@ -62,6 +62,15 @@ package org.seasar.akabana.yui.framework.customizer
                 if(action != null) {
                     setPropertiesValue(action,helperClassName,helper);
                 }
+                //
+                const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+
+                if(behaviors != null) {
+                    for each( var behavior:Object in behaviors){
+                        setPropertiesValue(behavior,helperClassName,helper);
+                    }
+                }
+
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("Customized",viewClassName,helperClassName));
                 }

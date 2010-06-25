@@ -92,7 +92,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        private function doEventCustomize(viewName:String,view:UIComponent,action:Object):void {
+        protected function doEventCustomize(viewName:String,view:UIComponent,action:Object):void {
             const actionClassRef:ClassRef = getClassRef(action);
             CONFIG::FP9 {
                 var props:Array = actionClassRef.properties;
@@ -135,7 +135,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        private function doEventUncustomize(view:UIComponent,action:Object):void {
+        protected function doEventUncustomize(view:UIComponent,action:Object):void {
             const actionClassRef:ClassRef = getClassRef(action);
             CONFIG::FP9 {
                 var props:Array = actionClassRef.properties;
