@@ -19,13 +19,11 @@ package org.seasar.akabana.yui.framework.customizer
         import __AS3__.vec.Vector;
     }
     import flash.events.IEventDispatcher;
-
     import mx.core.IMXMLObject;
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
     import mx.core.mx_internal;
     import mx.effects.IEffect;
-
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
@@ -46,30 +44,32 @@ package org.seasar.akabana.yui.framework.customizer
                 const properties:Object = UIComponentUtil.getProperties(view);
                 //
                 const action_:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+
                 if(action_ != null) {
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
                     }
-                    doCustomize(viewName,view,action_);
+                    doCustomize(viewName,view,action_,int.MAX_VALUE>>1);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Customized",viewClassName,actionClassName));
                     }
                 }
                 //
                 const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+
                 if(behaviors_ != null) {
-                    for each( var behavior_:Object in behaviors_){
+                    for each(var behavior_:Object in behaviors_) {
                         const behaviorClassName:String = getCanonicalName(behavior_);
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Customizing",viewClassName,behaviorClassName));
                         }
-                        doCustomize(viewName,view,behavior_);
+                        doCustomize(viewName,view,behavior_,int.MAX_VALUE>>1);
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Customized",viewClassName,behaviorClassName));
                         }
                     }
                 }
-                //
+                    //
             } else {
                 const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
                 const ownerName:String = YuiFrameworkGlobals.namingConvention.getComponentName(owner);
@@ -78,7 +78,6 @@ package org.seasar.akabana.yui.framework.customizer
 
                 if(ownerAction_ != null) {
                     const actionClassRef:ClassRef = getClassRef(ownerAction_);
-
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Customizing",ownerName,actionClassRef.name));
                     }
@@ -92,7 +91,8 @@ package org.seasar.akabana.yui.framework.customizer
                                         function(item:*,index:int,array:Array):Boolean {
                                             return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                         }
-                                        )
+                                        ),
+                                        int.MAX_VALUE>>1
                                         );
                     }
                     CONFIG::FP10 {
@@ -105,7 +105,8 @@ package org.seasar.akabana.yui.framework.customizer
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
                                             return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                         }
-                                        )
+                                        ),
+                                        int.MAX_VALUE>>1
                                         );
                     }
                     CONFIG::DEBUG {
@@ -114,8 +115,9 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 //
                 const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+
                 if(ownerBehaviors_ != null) {
-                    for each( var ownerBehavior_:Object in ownerBehaviors_){
+                    for each(var ownerBehavior_:Object in ownerBehaviors_) {
                         const behaviorClassRef:ClassRef = getClassRef(ownerBehavior_);
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Customizing",viewClassName,behaviorClassRef.name));
@@ -130,7 +132,8 @@ package org.seasar.akabana.yui.framework.customizer
                                             function(item:*,index:int,array:Array):Boolean {
                                                 return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                             }
-                                            )
+                                            ),
+                                            0
                                             );
                         }
                         CONFIG::FP10 {
@@ -143,7 +146,8 @@ package org.seasar.akabana.yui.framework.customizer
                                             function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
                                                 return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                             }
-                                            )
+                                            ),
+                                            0
                                             );
                         }
                         CONFIG::DEBUG {
@@ -151,7 +155,6 @@ package org.seasar.akabana.yui.framework.customizer
                         }
                     }
                 }
-
             }
         }
 
@@ -163,6 +166,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             if(owner == null) {
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+
                 if(action != null) {
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
@@ -174,8 +178,9 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 //
                 const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+
                 if(behaviors_ != null) {
-                    for each( var behavior_:Object in behaviors_){
+                    for each(var behavior_:Object in behaviors_) {
                         const behaviorClassName:String = getCanonicalName(behavior_);
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
@@ -228,8 +233,9 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 //
                 const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+
                 if(ownerBehaviors_ != null) {
-                    for each( var ownerBehavior_:Object in ownerBehaviors_){
+                    for each(var ownerBehavior_:Object in ownerBehaviors_) {
                         const behaviorClassRef:ClassRef = getClassRef(ownerBehavior_);
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassRef.name));
@@ -268,7 +274,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        private function doCustomize(viewName:String,view:UIComponent,action:Object):void {
+        private function doCustomize(viewName:String,view:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {
             const actionClassRef:ClassRef = getClassRef(action);
             var component:UIComponent;
             var componentName:String;
@@ -292,14 +298,16 @@ package org.seasar.akabana.yui.framework.customizer
                             doCustomizeByContainer(
                                             view,
                                             component,
-                                            action
+                                            action,
+                                            priority
                                             );
                         }
                     } else {
                         doCustomizeByContainer(
                                         view,
                                         component,
-                                        action
+                                        action,
+                                        priority
                                         );
                     }
                 }
@@ -315,7 +323,8 @@ package org.seasar.akabana.yui.framework.customizer
                                         function(item:*,index:int,array:Array):Boolean {
                                             return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                         }
-                                        )
+                                        ),
+                                        priority
                                         );
                     }
                     CONFIG::FP10 {
@@ -328,7 +337,8 @@ package org.seasar.akabana.yui.framework.customizer
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
                                             return ((item as FunctionRef).name.indexOf(componentName) == 0);
                                         }
-                                        )
+                                        ),
+                                        priority
                                         );
                     }
                 }
@@ -357,7 +367,8 @@ package org.seasar.akabana.yui.framework.customizer
                                         function(item:*,index:int,array:Array):Boolean {
                                             return ((item as FunctionRef).name.indexOf(prop.name) == 0);
                                         }
-                                        )
+                                        ),
+                                        priority
                                         );
                     }
                     CONFIG::FP10 {
@@ -370,7 +381,8 @@ package org.seasar.akabana.yui.framework.customizer
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
                                             return ((item as FunctionRef).name.indexOf(prop.name) == 0);
                                         }
-                                        )
+                                        ),
+                                        priority
                                         );
                     }
                 }
@@ -386,7 +398,8 @@ package org.seasar.akabana.yui.framework.customizer
                                 function(item:*,index:int,array:Array):Boolean {
                                     return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
                                 }
-                                )
+                                ),
+                                priority
                                 );
             }
             CONFIG::FP10 {
@@ -399,16 +412,16 @@ package org.seasar.akabana.yui.framework.customizer
                                 function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
                                     return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
                                 }
-                                )
+                                ),
+                                priority
                                 );
             }
         }
 
-        private function doCustomizeByContainer(view:UIComponent,container:UIComponent,action:Object):void {
+        private function doCustomizeByContainer(view:UIComponent,container:UIComponent,action:Object,priority:int):void {
             var actionClassRef:ClassRef = getClassRef(action);
             var component:UIComponent;
             var componentName:String;
-
             var numChildren:int = container.numChildren;
 
             for(var index:int = 0;index < numChildren;index++) {
@@ -422,7 +435,7 @@ package org.seasar.akabana.yui.framework.customizer
 
                     if(YuiFrameworkGlobals.frameworkBridge.isContainer(component)) {
                         if(component.isDocument) {
-                            var documentDescriptor:UIComponentDescriptor = UIComponentUtil.getDocumentDescriptor( component );
+                            var documentDescriptor:UIComponentDescriptor = UIComponentUtil.getDocumentDescriptor(component);
                             var properties:Object = documentDescriptor.properties;
 
                             if(properties != null && properties.childDescriptors != null) {
@@ -430,14 +443,16 @@ package org.seasar.akabana.yui.framework.customizer
                                 doCustomizeByContainer(
                                                 view,
                                                 component,
-                                                action
+                                                action,
+                                                priority
                                                 );
                             }
                         } else {
                             doCustomizeByContainer(
                                             view,
                                             component,
-                                            action
+                                            action,
+                                            priority
                                             );
                         }
                     }
@@ -453,7 +468,8 @@ package org.seasar.akabana.yui.framework.customizer
                                             function(item:*,index:int,array:Array):Boolean {
                                                 return (item as FunctionRef).name.indexOf(componentName) == 0;
                                             }
-                                            )
+                                            ),
+                                            priority
                                             );
                         }
                         CONFIG::FP10 {
@@ -466,7 +482,8 @@ package org.seasar.akabana.yui.framework.customizer
                                             function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
                                                 return (item as FunctionRef).name.indexOf(componentName) == 0;
                                             }
-                                            )
+                                            ),
+                                            priority
                                             );
                         }
                     }
@@ -474,10 +491,11 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         CONFIG::FP9 {
-            private function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
+            private function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array,priority:int):void {
                 var componentName:String;
+
                 if(componentName != null) {
-                    if( component == null ){
+                    if(component == null) {
                         if(view.hasOwnProperty(componentName)) {
                             component = view[componentName] as IEventDispatcher;
                         } else {
@@ -492,10 +510,11 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         CONFIG::FP10 {
-            private function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
+            private function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>,priority:int):void {
                 var componentName:String;
+
                 if(componentName != null) {
-                    if( component == null ){
+                    if(component == null) {
                         if(view.hasOwnProperty(componentName)) {
                             component = view[componentName] as IEventDispatcher;
                         } else {
@@ -506,7 +525,7 @@ package org.seasar.akabana.yui.framework.customizer
                     componentName = YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix();
                     component = view;
                 }
-                doCustomizingByComponent(view,componentName,component,action,functionRefs);
+                doCustomizingByComponent(view,componentName,component,action,functionRefs,priority);
             }
         }
 
@@ -720,7 +739,7 @@ package org.seasar.akabana.yui.framework.customizer
                 var componentName:String;
 
                 if(componentName != null) {
-                    if( component == null ){
+                    if(component == null) {
                         if(view.hasOwnProperty(componentName)) {
                             component = view[componentName] as IEventDispatcher;
                         } else {
@@ -740,7 +759,7 @@ package org.seasar.akabana.yui.framework.customizer
                 var component:IEventDispatcher;
 
                 if(componentName != null) {
-                    if( component == null ){
+                    if(component == null) {
                         if(view.hasOwnProperty(componentName)) {
                             component = view[componentName] as IEventDispatcher;
                         } else {

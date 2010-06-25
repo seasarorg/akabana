@@ -71,8 +71,8 @@ package org.seasar.akabana.yui.framework.customizer
             return viewName + ENHANCED_PREFIX + listenerClassName + ENHANCED_SEPARETOR + eventName;
         }
 
-        protected function addEventListener(component:IEventDispatcher,eventName:String,handler:Function):void {
-            component.addEventListener(eventName,handler,false,0,true);
+        protected function addEventListener(component:IEventDispatcher,eventName:String,handler:Function,priority:int):void {
+            component.addEventListener(eventName,handler,false,priority,true);
         }
 
         protected function storeEnhancedEventHandler(component:UIComponent,enhancedEventName:String,handler:Function):void {
@@ -147,7 +147,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         CONFIG::FP9 {
-            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Array):void {
+            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Array,priority:int):void {
                 var eventName:String;
                 var enhancedEventName:String;
                 var enhancedFunction:Function;
@@ -166,7 +166,7 @@ package org.seasar.akabana.yui.framework.customizer
                     } else {
                         enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(listener));
                     }
-                    addEventListener(component,eventName,enhancedFunction);
+                    addEventListener(component,eventName,enhancedFunction,priority);
                     storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("EventAddEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
@@ -175,7 +175,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         CONFIG::FP10 {
-            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Vector.<FunctionRef>):void {
+            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Vector.<FunctionRef>,priority:int):void {
                 var eventName:String;
                 var enhancedEventName:String;
                 var enhancedFunction:Function;
@@ -194,7 +194,7 @@ package org.seasar.akabana.yui.framework.customizer
                     } else {
                         enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(listener));
                     }
-                    addEventListener(component,eventName,enhancedFunction);
+                    addEventListener(component,eventName,enhancedFunction,priority);
                     storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("EventAddEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));

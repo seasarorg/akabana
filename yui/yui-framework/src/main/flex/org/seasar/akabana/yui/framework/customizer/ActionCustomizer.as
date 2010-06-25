@@ -115,7 +115,8 @@ package org.seasar.akabana.yui.framework.customizer
                                         function(item:*,index:int,array:Array):Boolean {
                                             return ((item as FunctionRef).name.indexOf(prop.name) == 0);
                                         }
-                                        )
+                                        ),
+                                        int.MAX_VALUE>>2
                                         );
                     }
                     CONFIG::FP10 {
@@ -128,7 +129,8 @@ package org.seasar.akabana.yui.framework.customizer
                                         function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
                                             return ((item as FunctionRef).name.indexOf(prop.name) == 0);
                                         }
-                                        )
+                                        ),
+                                        int.MAX_VALUE>>2
                                         );
                     }
                 }
