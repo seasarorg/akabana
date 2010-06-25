@@ -506,7 +506,7 @@ package org.seasar.akabana.yui.framework.customizer
                     componentName = YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix();
                     component = view;
                 }
-                doCustomizingByComponent(view,componentName,component,action,functionRefs);
+                doCustomizingByComponent(view,componentName,component,action,functionRefs,priority);
             }
         }
         CONFIG::FP10 {
