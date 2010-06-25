@@ -1,9 +1,10 @@
 
 .customizers{
-    classNames:c1,c2,c3,c4;
+    classNames:c1,c2,c3,c4,c5;
 
     c1:ClassReference("org.seasar.akabana.yui.framework.customizer.ActionCustomizer");
-    c2:ClassReference("org.seasar.akabana.yui.framework.customizer.HelperCustomizer");
-    c3:ClassReference("org.seasar.akabana.yui.framework.customizer.ServiceCustomizer");
-    c4:ClassReference("org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer");
+    c2:ClassReference("org.seasar.akabana.yui.framework.customizer.BehaviorCustomizer");
+    c3:ClassReference("org.seasar.akabana.yui.framework.customizer.HelperCustomizer");
+    c4:ClassReference("org.seasar.akabana.yui.framework.customizer.ServiceCustomizer");
+    c5:ClassReference("org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer");
 }
