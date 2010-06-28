@@ -6,7 +6,7 @@
 		<ant antfile="build-fx4.xml"/>
 	</target>
 	<target name="distAll">
-	<property file="build.properties" />
+		<property file="build.properties" />
 		<dist libname="yui-frameworks-fx3-air-fp10" libver="${LIB_VERSION}" />
 		<dist libname="yui-frameworks-fx3-air-fp9" libver="${LIB_VERSION}" />
 		<dist libname="yui-frameworks-fx3-airds-fp10" libver="${LIB_VERSION}"  />
@@ -35,42 +35,16 @@
 			<echo>libname:@{libname}</echo>
 			<echo>target/@{libname}-@{libver}.zip</echo>
 			<echo>target/${basedir}</echo>
-		<zip zipfile="target/@{libname}-@{libver}.zip">
-			<zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${file.separator}" >
-				<exclude name="**target/**.zip"/>
-				<exclude name="**target/swc/**"/>
-				<exclude name="**target/swc/*/library.swf"/>
-				<exclude name="**target/swc/*/catalog.xml"/>
-				<exclude name="**lib/**"/>
-				<exclude name="**build.xml"/>
-				<exclude name="**build-air.xml"/>
-				<exclude name="**pom.xml"/>
-				<exclude name="**build.properties"/>
-				<exclude name="**flex4.properties"/>
-			</zipfileset>
-			<zipfileset prefix="@{libname}" dir="../yui-core/">
-				<include name="**/*.as" />
-			</zipfileset>
-			<zipfileset prefix="@{libname}" dir="../yui-framework/">
-				<include name="**/*.as" />
-				<include name="**/*.properties" />
-			</zipfileset>
-			<zipfileset prefix="@{libname}" dir="../yui-logging/">
-				<include name="**/*.as" />
-			</zipfileset>
-		 	<zipfileset prefix="@{libname}" dir="../yui-service/">
-				<include name="**/*.as" />
-			</zipfileset>
-			<zipfileset prefix="@{libname}" dir="../yui-rpc/">
-				<include name="**/*.as" />
-			</zipfileset>
-			<!--
-			<zipfileset prefix="@{libname}/target/swc" dir="target/@{libname}/target/">
-				<include name="yui*.swc"/>
-				<include name="yui*.swf"/>
-			</zipfileset>
-			-->
-		</zip>
+			<zip zipfile="target/@{libname}-@{libver}-sources.zip">
+				<zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_SRC}"/>
+				<zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_RESOURCES}"/>
+			</zip>
+			<zip zipfile="target/@{libname}-@{libver}-swc.zip">
+				<zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_OUTPUT}">
+					<include name="*.swc"/>
+					<include name="*.swf"/>
+				</zipfileset>
+			</zip>
 		</sequential>
 	</macrodef>
 </project>
