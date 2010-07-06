@@ -30,6 +30,7 @@ package org.seasar.akabana.yui.service.rpc {
     import org.seasar.akabana.yui.service.rpc.AbstractRpcService;
     import org.seasar.akabana.yui.service.rpc.RpcPendingCall;
 
+    [ExcludeClass]
     public class RemotingOperation extends AbstractRpcOperation{
 
         public static const CREDENTIALS_PASSWORD:String = "credentialsPassword";

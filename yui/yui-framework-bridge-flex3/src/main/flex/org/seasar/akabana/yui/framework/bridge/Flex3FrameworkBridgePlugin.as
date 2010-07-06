@@ -20,6 +20,7 @@ package org.seasar.akabana.yui.framework.bridge
     import mx.core.UIComponent;
     import mx.managers.ISystemManager;
 
+    [ExcludeClass]
     public final class Flex3FrameworkBridgePlugin implements IFrameworkBridgePlugin
     {
         private static const ROOT_VIEW:String = "rootView";

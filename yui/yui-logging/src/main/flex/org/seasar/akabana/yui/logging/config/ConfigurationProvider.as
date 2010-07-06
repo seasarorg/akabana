@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -19,23 +19,24 @@ package org.seasar.akabana.yui.logging.config
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.logging.config.factory.DefaultConfigurationFactory;
     import org.seasar.akabana.yui.logging.config.factory.IConfigurationFactory;
-    
+
+    [ExcludeClass]
     public class ConfigurationProvider{
 
         public static const FACTORY_CLASS_NAME:String = "org.seasar.akabana.yui.logging.config.factory.ConfigurationFactory";
 
         public static function createConfiguration():Configuration{
             var configuration:Configuration = loadConfiguration();
-            
+
             return configuration;
-            
+
         }
-                
+
         private static function loadConfiguration():Configuration{
             var configuration:Configuration;
             var factory:IConfigurationFactory;
             var factoryClass:Class = null;
-            
+
             try{
                 factoryClass = ClassRef.classLoader.findClass(FACTORY_CLASS_NAME);
                 if( factoryClass != null ){
@@ -51,7 +52,7 @@ package org.seasar.akabana.yui.logging.config
 	                configuration = factory.create();
 	            }
             }
-            
+
             return configuration;
         }
     }

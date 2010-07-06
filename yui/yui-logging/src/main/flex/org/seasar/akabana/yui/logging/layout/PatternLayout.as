@@ -9,37 +9,38 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.logging.layout
 {
     import flash.utils.getTimer;
-    
+
     import org.seasar.akabana.yui.formatter.DateFormatter;
     import org.seasar.akabana.yui.logging.LoggingData;
-    
+
+    [ExcludeClass]
     /**
      * %c category name
      * %d {date-format}
      * %t trace
-     * %l level 
+     * %l level
      * %m message
      * %n 改行
-     */ 
+     */
     public class PatternLayout extends LayoutBase
     {
         private static const dateFormatter:DateFormatter = new DateFormatter();
-        
+
         private static const DATE_FORMAT:String = "YYYY/MM/DD JJ:NN:SS";
-        
+
         public var pattern:String;
 
         public override function format( data:LoggingData ):String{
             return parse(data);
         }
-        
+
         protected function parse( data:LoggingData ):String{
             if( this.pattern == null ){
                 this.pattern = "%m";
@@ -85,7 +86,7 @@ package org.seasar.akabana.yui.logging.layout
                                 result_ += '\n';
                                 break;
                             default:
-                                                
+
                         }
                     }
                 } else {

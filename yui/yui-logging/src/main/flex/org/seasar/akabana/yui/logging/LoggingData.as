@@ -9,26 +9,27 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.logging
 {
+    [ExcludeClass]
     public class LoggingData{
-        
+
         public static const startTime:Number = new Date().time;
-        
+
         public var categoryName:String;
-        
+
         public var level:Level;
-        
+
         public var message:String;
-        
+
         public var timeStamp:Number;
-        
+
         public var error:Error;
-        
+
         public function LoggingData( message:String, level:Level=null, logger:Category=null, error:Error=null){
             this.timeStamp = new Date().time;
             this.categoryName = logger.name;

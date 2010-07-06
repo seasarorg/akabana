@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.service {
 
     import flash.utils.Dictionary;
 
+    [ExcludeClass]
     public class ServiceManager {
 
         private static var serviceMap:Dictionary = new Dictionary(true);

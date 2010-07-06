@@ -17,6 +17,7 @@ package org.seasar.akabana.yui.framework.convention
 {
     import mx.core.UIComponent;
 
+    [ExcludeClass]
 	public final class Flex3NamingConvention extends NamingConvention
 	{
         public override function getComponentName( component:UIComponent ):String{

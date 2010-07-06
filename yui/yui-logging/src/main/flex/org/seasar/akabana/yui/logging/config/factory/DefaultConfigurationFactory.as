@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -25,6 +25,7 @@ package org.seasar.akabana.yui.logging.config.factory
     import org.seasar.akabana.yui.logging.config.ParamConfig;
     import org.seasar.akabana.yui.logging.layout.PatternLayout;
 
+    [ExcludeClass]
     public class DefaultConfigurationFactory implements IConfigurationFactory{
 
         public function create():Configuration {
@@ -33,7 +34,7 @@ package org.seasar.akabana.yui.logging.config.factory
             infoLevel.value = "INFO";
 
             var debugLevel:LevelConfig = new LevelConfig();
-            debugLevel.value = "DEBUG";            
+            debugLevel.value = "DEBUG";
 
             var param:ParamConfig = new ParamConfig();
             param.name = "pattern";
@@ -41,7 +42,7 @@ package org.seasar.akabana.yui.logging.config.factory
 
             var detailParam:ParamConfig = new ParamConfig();
             param.name = "pattern";
-            param.value = "%d(%t)[%c] %l - %m%t";            
+            param.value = "%d(%t)[%c] %l - %m%t";
 
             var layout:LayoutConfig = new LayoutConfig();
             layout.clazz = PatternLayout;
@@ -56,13 +57,13 @@ package org.seasar.akabana.yui.logging.config.factory
             detailAppender.name = "TRACE2";
             detailAppender.clazz = SimpleAppender;
             detailAppender.layout = layout;
-            
+
             var category:CategoryConfig = new CategoryConfig();
             category.name = "org.seasar.akabana.yui";
             category.clazz = SimpleCategory;
             category.level = debugLevel;
             category.appenderRef = "TRACE2";
-            
+
             var root:CategoryConfig = new CategoryConfig();
             root.clazz = SimpleCategory;
             root.level = infoLevel;
@@ -73,9 +74,9 @@ package org.seasar.akabana.yui.logging.config.factory
             configuration.appenderMap[ detailAppender.name ] = detailAppender;
             configuration.categoryMap[ category.name ] = category;
             configuration.root = root;
-            
+
             return configuration;
         }
-        
+
     }
 }

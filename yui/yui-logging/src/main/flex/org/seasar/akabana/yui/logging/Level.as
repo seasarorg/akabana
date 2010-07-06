@@ -15,6 +15,7 @@
  */
 package org.seasar.akabana.yui.logging
 {
+    [ExcludeClass]
     public class Level {
 
         public static const OFF_INT:int   = int.MAX_VALUE;

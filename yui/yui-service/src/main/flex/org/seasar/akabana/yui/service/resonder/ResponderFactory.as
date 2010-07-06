@@ -9,6 +9,7 @@ package org.seasar.akabana.yui.service.resonder
     import org.seasar.akabana.yui.service.ns.rpc_result;
     import org.seasar.akabana.yui.util.StringUtil;
 
+    [ExcludeClass]
     public class ResponderFactory
     {
         private static const EVENT_SEPARETOR:String = "_";

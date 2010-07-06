@@ -16,11 +16,12 @@
 package org.seasar.akabana.yui.framework.convention
 {
 	import mx.core.UIComponent;
-	
+
 	import org.seasar.akabana.yui.util.StringUtil;
 
+    [ExcludeClass]
 	public final class CatalystNamingConvention extends NamingConvention
-	{   
+	{
 		public override function getComponentName( component:UIComponent ):String{
 			var componentName:String = null;
 			if( component != null ){
@@ -32,7 +33,7 @@ package org.seasar.akabana.yui.framework.convention
 					}
 				}
 				if( componentName == null ){
-					componentName = component.id;				
+					componentName = component.id;
 				}
 				if( componentName == null ){
 					componentName = component.name;
@@ -40,7 +41,7 @@ package org.seasar.akabana.yui.framework.convention
 			}
 			return componentName;
 		}
-		
+
 		protected override function checkClassFullName( className:String, packageName:String, suffix:String ):Boolean{
 			if( className.indexOf("components") == 0 ){
 				return super.checkClassFullName(className.replace(/components/,_conventions[0]+"."+VIEW),packageName,suffix);
@@ -48,7 +49,7 @@ package org.seasar.akabana.yui.framework.convention
 				return super.checkClassFullName(className,packageName,suffix);
 			}
 		}
-		
+
 		protected override function checkVarName( varName:String, suffix:String ):Boolean{
 			if( varName.indexOf("components") == 0 ){
 				return super.checkVarName(varName,suffix);
@@ -56,7 +57,7 @@ package org.seasar.akabana.yui.framework.convention
 				return super.checkVarName(varName,suffix);
 			}
 		}
-		
+
 		protected override function changeViewPackageTo( className:String, packageName:String, suffix:String ):String{
 			if( className.indexOf("components") == 0 ){
 				return super.changeViewPackageTo(className.replace(/components/,_conventions[0]+"."+VIEW),packageName,suffix);

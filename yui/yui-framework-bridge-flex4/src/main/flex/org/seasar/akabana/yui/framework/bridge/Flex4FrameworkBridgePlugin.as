@@ -25,6 +25,7 @@ package org.seasar.akabana.yui.framework.bridge
     import spark.components.SkinnableContainer;
     import spark.components.supportClasses.Skin;
 
+    [ExcludeClass]
     public final class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin
     {
 		private static const ROOT_VIEW:String = "rootView";

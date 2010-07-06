@@ -3,6 +3,7 @@ package org.seasar.akabana.yui.service.util
     import org.seasar.akabana.yui.core.Environment;
     import org.seasar.akabana.yui.util.URLUtil;
 
+    [ExcludeClass]
     public class GatewayUtil
     {
         public static var defaultGateway:String;

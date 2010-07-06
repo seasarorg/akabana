@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -17,10 +17,11 @@ package org.seasar.akabana.yui.logging.layout
 {
     import org.seasar.akabana.yui.logging.LoggingData;
 
+    [ExcludeClass]
     public class SimpleLayout extends LayoutBase{
 
         public override function format( data:LoggingData ):String{
-            
+
             return data.level.name + " - " + data.message;
         }
     }
