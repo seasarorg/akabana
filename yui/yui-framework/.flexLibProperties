@@ -27,7 +27,13 @@
     <classEntry path="org.seasar.akabana.yui.framework.message.MessageManager"/>
     <classEntry path="org.seasar.akabana.yui.framework.message.Messages"/>
     <classEntry path="org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.action"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.behavior"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.handler"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.helper"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.logic"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.service"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.view"/>
     <classEntry path="org.seasar.akabana.yui.framework.util.PopUpUtil"/>
     <classEntry path="org.seasar.akabana.yui.framework.util.StyleManagerUtil"/>
     <classEntry path="org.seasar.akabana.yui.framework.util.SystemManagerUtil"/>
