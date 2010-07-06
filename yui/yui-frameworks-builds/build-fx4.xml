@@ -11,10 +11,10 @@
 		<antcall target="fx4-ds-fp10" />
 		<antcall target="fx4-air-fp10" />
 		<antcall target="fx4-airds-fp10" />
-		<antcall target="fx4-catalyst-fp10" />
-		<antcall target="fx4-catalyst-ds-fp10" />
-		<antcall target="fx4-catalyst-air-fp10" />
-		<antcall target="fx4-catalyst-airds-fp10" />
+		<antcall target="fx4-fc-fp10" />
+		<antcall target="fx4-fc-ds-fp10" />
+		<antcall target="fx4-fc-air-fp10" />
+		<antcall target="fx4-fc-airds-fp10" />
 	</target>
 
 	<target name="fx4-fp10">
@@ -29,17 +29,17 @@
 	<target name="fx4-airds-fp10">
 		<ant antfile="projects${file.separator}build-fx4-airds-fp10.xml" />
 	</target>
-	<target name="fx4-catalyst-fp10">
-		<ant antfile="projects${file.separator}build-fx4-catalyst-fp10.xml" />
+	<target name="fx4-fc-fp10">
+		<ant antfile="projects${file.separator}build-fx4-fc-fp10.xml" />
 	</target>
-	<target name="fx4-catalyst-ds-fp10">
-		<ant antfile="projects${file.separator}build-fx4-catalyst-ds-fp10.xml" />
+	<target name="fx4-fc-ds-fp10">
+		<ant antfile="projects${file.separator}build-fx4-fc-ds-fp10.xml" />
 	</target>
-	<target name="fx4-catalyst-air-fp10">
-		<ant antfile="projects${file.separator}build-fx4-catalyst-air-fp10.xml" />
+	<target name="fx4-fc-air-fp10">
+		<ant antfile="projects${file.separator}build-fx4-fc-air-fp10.xml" />
 	</target>
-	<target name="fx4-catalyst-airds-fp10">
-		<ant antfile="projects${file.separator}build-fx4-catalyst-airds-fp10.xml" />
+	<target name="fx4-fc-airds-fp10">
+		<ant antfile="projects${file.separator}build-fx4-fc-airds-fp10.xml" />
 	</target>
 
 	<!-- -->
