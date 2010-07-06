@@ -12,7 +12,7 @@
 		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework-bridge-flex4" defaultsCss="defaults-catalyst.css"/>
 
 		<projectCompilePrepare projectdir="${projectdir}"/>
-		<projectCompileWithFlexLibrary projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10.0"/>
-		<projectRsl projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10.0"/>
+		<projectCompileWithFlexLibrary projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10.1"/>
+		<projectRsl projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10.1"/>
 	</target>
 </project>
