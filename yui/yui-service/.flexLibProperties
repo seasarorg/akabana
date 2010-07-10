@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<flexLibProperties version="1">
-<includeClasses>
-<classEntry path="org.seasar.akabana.yui.service.Operation"/>
-<classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
-<classEntry path="org.seasar.akabana.yui.service.Service"/>
-<classEntry path="org.seasar.akabana.yui.service.ServiceManager"/>
-<classEntry path="org.seasar.akabana.yui.service.error.ErrorCode"/>
-<classEntry path="org.seasar.akabana.yui.service.error.IllegalDestinationError"/>
-<classEntry path="org.seasar.akabana.yui.service.error.IllegalGatewayError"/>
-<classEntry path="org.seasar.akabana.yui.service.error.IllegalOperationError"/>
-<classEntry path="org.seasar.akabana.yui.service.event.AbstractServiceEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.event.FaultEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.event.FaultStatus"/>
-<classEntry path="org.seasar.akabana.yui.service.event.InvokeEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
-<classEntry path="org.seasar.akabana.yui.service.ns.rpc_fault"/>
-<classEntry path="org.seasar.akabana.yui.service.ns.rpc_result"/>
-<classEntry path="org.seasar.akabana.yui.service.resonder.AbstractResponder"/>
-<classEntry path="org.seasar.akabana.yui.service.resonder.Responder"/>
-<classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>
-<classEntry path="org.seasar.akabana.yui.service.util.GatewayUtil"/>
-</includeClasses>
-<includeResources/>
-<namespaceManifests/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" version="1">
+  <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.service.Operation"/>
+    <classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
+    <classEntry path="org.seasar.akabana.yui.service.Service"/>
+    <classEntry path="org.seasar.akabana.yui.service.ServiceManager"/>
+    <classEntry path="org.seasar.akabana.yui.service.error.ErrorCode"/>
+    <classEntry path="org.seasar.akabana.yui.service.error.IllegalDestinationError"/>
+    <classEntry path="org.seasar.akabana.yui.service.error.IllegalGatewayError"/>
+    <classEntry path="org.seasar.akabana.yui.service.error.IllegalOperationError"/>
+    <classEntry path="org.seasar.akabana.yui.service.event.AbstractServiceEvent"/>
+    <classEntry path="org.seasar.akabana.yui.service.event.FaultEvent"/>
+    <classEntry path="org.seasar.akabana.yui.service.event.FaultStatus"/>
+    <classEntry path="org.seasar.akabana.yui.service.event.InvokeEvent"/>
+    <classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
+    <classEntry path="org.seasar.akabana.yui.service.ns.rpc_fault"/>
+    <classEntry path="org.seasar.akabana.yui.service.ns.rpc_result"/>
+    <classEntry path="org.seasar.akabana.yui.service.resonder.AbstractResponder"/>
+    <classEntry path="org.seasar.akabana.yui.service.resonder.Responder"/>
+    <classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>
+    <classEntry path="org.seasar.akabana.yui.service.util.GatewayUtil"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
 </flexLibProperties>

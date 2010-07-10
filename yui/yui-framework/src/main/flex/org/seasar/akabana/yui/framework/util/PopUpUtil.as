@@ -20,16 +20,15 @@ package org.seasar.akabana.yui.framework.util
     import flash.events.EventPhase;
     import flash.events.IEventDispatcher;
     import flash.utils.Dictionary;
-
-    import mx.core.Container;
+    
+    import mx.core.IDataRenderer;
     import mx.core.IFlexDisplayObject;
     import mx.core.IUIComponent;
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
     import mx.events.FlexEvent;
     import mx.managers.PopUpManager;
-
-    import org.seasar.akabana.yui.core.reflection.ClassRef;
+    
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     import org.seasar.akabana.yui.util.StringUtil;
@@ -46,11 +45,11 @@ package org.seasar.akabana.yui.framework.util
 
         public static function openPopUpView( popupClass:Class,
                                               data:Object,
-                                              relatedOwner:Container
+                                              relatedOwner:UIComponent
                                              ):IFlexDisplayObject{
             var popupClassName:String = getClassRef(popupClass).className;
             var viewName:String = StringUtil.toLowerCamel(popupClassName);
-            var window:Container =
+            var window:UIComponent =
                 PopUpUtil.createPopUpView(
                     viewName,
                     popupClass,
@@ -58,7 +57,7 @@ package org.seasar.akabana.yui.framework.util
                     true,
                     relatedOwner,
                     data
-                    ) as Container;
+                    ) as UIComponent;
             return window;
         }
 
@@ -75,7 +74,7 @@ package org.seasar.akabana.yui.framework.util
             } else {
                 parent = relatedOwner.parentApplication as UIComponent;
             }
-            var window:Container =
+            var window:UIComponent =
                 PopUpUtil.createPopUp(
                     viewName,
                     parent,
@@ -85,24 +84,25 @@ package org.seasar.akabana.yui.framework.util
                     null,
                     relatedOwner,
                     data
-                    ) as Container;
+                    ) as UIComponent;
             return window;
         }
 
         public static function removePopUpView(popUp:IFlexDisplayObject):void{
-            if( popUp is Container ){
-                var popUpContainer:Container = popUp as Container;
-            	YuiFrameworkContainer
-            	    .yuicontainer.uncustomizeComponent(
-            	        popUpContainer,
-            	        PopUpUtil.lookupRelatedOwner(popUpContainer)
-            	        );
+            if( popUp is UIComponent ){
+                var popUpUIComponent:UIComponent = popUp as UIComponent;
+				YuiFrameworkContainer
+            	    .yuicontainer
+					.uncustomizeComponent(
+        	        	popUpUIComponent,
+        	        	PopUpUtil.lookupRelatedOwner(popUpUIComponent)
+        	        );
             	PopUpUtil.removePopUp(popUp);
             }
         }
 
-        public static function lookupPopupOwner( popUp:Container ):Container{
-            var result:Container = null;
+        public static function lookupPopupOwner( popUp:UIComponent ):UIComponent{
+            var result:UIComponent = null;
         	var properties_:Object = UIComponentUtil.getProperties(UIComponent(popUp));
             if( properties_.hasOwnProperty(POPUP_INFO)){
             	result = properties_[POPUP_INFO][POPUP_OWNER];
@@ -111,8 +111,8 @@ package org.seasar.akabana.yui.framework.util
             return result;
         }
 
-        public static function lookupRelatedOwner( popUp:Container ):Container{
-        	var result:Container = null;
+        public static function lookupRelatedOwner( popUp:UIComponent ):UIComponent{
+        	var result:UIComponent = null;
         	var properties_:Object = UIComponentUtil.getProperties(UIComponent(popUp));
             if( properties_.hasOwnProperty(POPUP_INFO)){
             	result = properties_[POPUP_INFO][RELATED_OWNER];
@@ -170,8 +170,8 @@ package org.seasar.akabana.yui.framework.util
                     true
                 );
             }
-            if( window is Container ){
-                ( window as Container)
+            if( window is UIComponent ){
+                ( window as UIComponent)
                     .addEventListener(
                             FlexEvent.CREATION_COMPLETE,
                             onPopupCreationCompleteHandler,
@@ -179,7 +179,9 @@ package org.seasar.akabana.yui.framework.util
                             0,
                             true
                         );
-                ( window as Container).data = data;
+				if( window is IDataRenderer){
+                	( window as IDataRenderer).data = data;
+				}
             }
 
             return window;
@@ -207,11 +209,11 @@ package org.seasar.akabana.yui.framework.util
         private static function onPopupCreationCompleteHandler(event:FlexEvent):void{
         	if( event.eventPhase == EventPhase.AT_TARGET ){
         		IEventDispatcher(event.target).removeEventListener(FlexEvent.CREATION_COMPLETE,arguments.callee);
-            	lookupCallBack(event.target as Container).apply(null,[event]);
+            	lookupCallBack(event.target as UIComponent).apply(null,[event]);
          	}
         }
 
-        private static function lookupCallBack( popUp:Container ):Function{
+        private static function lookupCallBack( popUp:UIComponent ):Function{
         	var result:Function = null;
         	var properties_:Object = UIComponentUtil.getProperties(UIComponent(popUp));
             if( properties_.hasOwnProperty(POPUP_INFO)){
@@ -234,8 +236,8 @@ package org.seasar.akabana.yui.framework.util
         }
 
         private static function creationCompleteCallBack(event:FlexEvent):void{
-            var popup:Container = event.target as Container;
-            YuiFrameworkContainer.yuicontainer.customizeComponent(popup as Container,PopUpUtil.lookupRelatedOwner(popup));
+            var popup:UIComponent = event.target as UIComponent;
+			YuiFrameworkContainer.yuicontainer.customizeComponent(popup as UIComponent,PopUpUtil.lookupRelatedOwner(popup));
             popup.setVisible(true,false);
         }
     }

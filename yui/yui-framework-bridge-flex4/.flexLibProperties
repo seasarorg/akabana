@@ -5,6 +5,10 @@
     <classEntry path="org.seasar.akabana.yui.framework.bridge.Flex4FrameworkBridgePlugin"/>
     <classEntry path="org.seasar.akabana.yui.framework.convention.CatalystNamingConvention"/>
   </includeClasses>
-  <includeResources/>
-  <namespaceManifests/>
+  <includeResources>
+    <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
+  </includeResources>
+  <namespaceManifests>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akabana.seasar.org/1.0"/>
+  </namespaceManifests>
 </flexLibProperties>
