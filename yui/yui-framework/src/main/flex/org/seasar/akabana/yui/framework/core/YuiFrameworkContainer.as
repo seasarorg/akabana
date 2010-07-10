@@ -117,12 +117,18 @@ CONFIG::DEBUG{
         }
 
         private function applicationInitCompleteHandler( event:Event ):void{
+CONFIG::DEBUG_EVENT{
+			_logger.info("[EVENT] applicationInitCompleteHandler"+event+","+event.target);
+}
 CONFIG::DEBUG{
             _logger.debug("applicationInitCompleteHandler:"+event+","+event.target);
 }
         }
 
         private function applicationPreloaderDoneHandler( event:Event ):void{
+CONFIG::DEBUG_EVENT{
+			_logger.info("[EVENT] applicationPreloaderDoneHandler"+event+","+event.target);
+}
 CONFIG::DEBUG{
             _logger.debug("applicationPreloaderDoneHandler:"+event+","+event.target);
 }
@@ -130,6 +136,9 @@ CONFIG::DEBUG{
         }
 
         private function applicationCompleteHandler( event:FlexEvent ):void{
+CONFIG::DEBUG_EVENT{
+			_logger.info("[EVENT] applicationCompleteHandler"+event+","+event.target);
+}
 CONFIG::DEBUG{
             _logger.debug("applicationCompleteHandler:"+event+","+event.target);
 }
@@ -168,7 +177,7 @@ CONFIG::DEBUG{
 
         private function addedToStageHandler( event:Event ):void{
 CONFIG::DEBUG_EVENT{
-            _logger.info("addedToStageHandler"+event+","+event.target);
+            _logger.info("[EVENT] addedToStageHandler"+event+","+event.target);
 }
             if( event.target is UIComponent ){
                 doRegisterComponent(event.target as UIComponent);
@@ -177,7 +186,7 @@ CONFIG::DEBUG_EVENT{
 
         private function removedHandler( event:Event ):void{
 CONFIG::DEBUG_EVENT{
-            _logger.info("removedHandler"+event+","+event.target);
+            _logger.info("[EVENT] removedHandler"+event+","+event.target);
 }
             if( event.target is UIComponent ){
                 doUnregisterComponent(event.target as UIComponent);
@@ -185,10 +194,16 @@ CONFIG::DEBUG_EVENT{
         }
 
         private function creationCompleteHandler(event:Event):void{
+CONFIG::DEBUG_EVENT{
+			_logger.info("[EVENT] creationCompleteHandler"+event+","+event.target);
+}			
             doAssembleComponent(event.target as UIComponent);
         }
 
         private function removeCompleteHandler(event:Event):void{
+CONFIG::DEBUG_EVENT{
+			_logger.info("[EVENT] removeCompleteHandler"+event+","+event.target);
+}		
             doUnregisterComponent(event.target as UIComponent);
         }
 
