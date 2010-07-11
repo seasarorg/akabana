@@ -15,6 +15,9 @@
  */
 package org.seasar.akabana.yui.framework.bridge
 {
+CONFIG::FP10{
+	import __AS3__.vec.Vector;
+}
     import flash.errors.IllegalOperationError;
     
     import mx.core.UIComponent;
@@ -72,6 +75,16 @@ package org.seasar.akabana.yui.framework.bridge
         public function isContainer(component:Object):Boolean{
             return frameworkBridgePlugin.isContainer(component);
         }
-
+		
+CONFIG::FP9{
+		public function getChildren(component:UIComponent):Array{
+			return frameworkBridgePlugin.getChildren(component);
+		}
+}
+CONFIG::FP10{
+		public function getChildren(component:UIComponent):Vector.<UIComponent>{
+			return frameworkBridgePlugin.getChildren(component);
+		}
+}
     }
 }

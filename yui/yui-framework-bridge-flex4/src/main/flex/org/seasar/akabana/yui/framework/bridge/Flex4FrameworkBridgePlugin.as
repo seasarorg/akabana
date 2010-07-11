@@ -15,7 +15,9 @@
 */
 package org.seasar.akabana.yui.framework.bridge
 {
-    import flash.utils.describeType;
+CONFIG::FP10{
+	import __AS3__.vec.Vector;
+}
 
     import mx.core.UIComponent;
     import mx.managers.ISystemManager;
@@ -24,6 +26,8 @@ package org.seasar.akabana.yui.framework.bridge
     import spark.components.Group;
     import spark.components.SkinnableContainer;
     import spark.components.supportClasses.Skin;
+    import spark.components.supportClasses.SkinnableComponent;
+    import mx.core.IVisualElementContainer;
 
     [ExcludeClass]
     public final class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin
@@ -63,5 +67,43 @@ package org.seasar.akabana.yui.framework.bridge
         public function isContainer(component:Object):Boolean{
             return !( component is Skin ) && ( component is SkinnableContainer || component is Group );
         }
+CONFIG::FP9{
+		public function getChildren(component:UIComponent):Array{
+			var result:Array = [];
+			if( component is IVisualElementContainer ){
+				var container:IVisualElementContainer = component as IVisualElementContainer;
+				numChildren = container.numElements;				
+				for( var j:int = 0; j < numChildren; j++ ){
+					result.push(container.getElementAt(j));
+				}
+			}
+			if( result.length == 0 ){
+				var numChildren:int = component.numChildren;				
+				for( var i:int = 0; i < numChildren; i++ ){
+					result.push(component.getChildAt(i));
+				}
+			}
+			return result;
+		}
+}
+CONFIG::FP10{
+		public function getChildren(component:UIComponent):Vector.<UIComponent>{
+			var result:Vector.<UIComponent> = new Vector.<UIComponent>();
+			if( component is IVisualElementContainer ){
+				var container:IVisualElementContainer = component as IVisualElementContainer;
+				numChildren = container.numElements;
+				for( var j:int = 0; j < numChildren; j++ ){
+					result.push(container.getElementAt(j));
+				}
+			}
+			if( result.length == 0 ){
+				var numChildren:int = component.numChildren;
+				for( var i:int = 0; i < numChildren; i++ ){
+					result.push(component.getChildAt(i));
+				}
+			}
+			return result;
+		}
+}		
     }
 }

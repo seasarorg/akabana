@@ -15,6 +15,9 @@
  */
 package org.seasar.akabana.yui.framework.bridge
 {
+CONFIG::FP10{
+	import __AS3__.vec.Vector;
+}
     import mx.core.Application;
     import mx.core.Container;
     import mx.core.UIComponent;
@@ -63,5 +66,29 @@ package org.seasar.akabana.yui.framework.bridge
         public function isContainer(component:Object):Boolean{
             return component is Container;
         }
+CONFIG::FP9{
+		public function getChildren(component:UIComponent):Array{
+			var result:Array = [];
+			var numChildren:int = component.numChildren;
+			
+			for( var i:int = 0; i < numChildren; i++ ){
+				result.push(component.getChildAt(i));
+			}
+			
+			return result;
+		}
+}
+CONFIG::FP10{
+		public function getChildren(component:UIComponent):Vector.<UIComponent>{
+			var result:Vector.<UIComponent> = new Vector.<UIComponent>();
+			var numChildren:int = component.numChildren;
+			
+			for( var i:int = 0; i < numChildren; i++ ){
+				result.push(component.getChildAt(i));
+			}
+			
+			return result;
+		}
+}		
     }
 }

@@ -15,6 +15,9 @@
  */
 package org.seasar.akabana.yui.framework.bridge
 {
+CONFIG::FP10{
+	import __AS3__.vec.Vector;
+}
 	import mx.core.UIComponent;
 	import mx.managers.ISystemManager;
 
@@ -33,5 +36,13 @@ package org.seasar.akabana.yui.framework.bridge
 		function isApplication(application:Object):Boolean;
 
 		function isContainer(component:Object):Boolean;
+		
+CONFIG::FP9{
+		function getChildren(component:UIComponent):Array;
+}
+
+CONFIG::FP10{
+		function getChildren(component:UIComponent):Vector.<UIComponent>;
+}
 	}
 }

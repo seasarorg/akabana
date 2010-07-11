@@ -49,7 +49,7 @@ package org.seasar.akabana.yui.framework.customizer
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
                     }
-                    doCustomize(viewName,view,action_,int.MAX_VALUE>>1);
+                    doCustomize(view,action_,int.MAX_VALUE>>1);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Customized",viewClassName,actionClassName));
                     }
@@ -63,7 +63,7 @@ package org.seasar.akabana.yui.framework.customizer
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Customizing",viewClassName,behaviorClassName));
                         }
-                        doCustomize(viewName,view,behavior_,int.MAX_VALUE>>1);
+                        doCustomize(view,behavior_,int.MAX_VALUE>>1);
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Customized",viewClassName,behaviorClassName));
                         }
@@ -171,7 +171,7 @@ package org.seasar.akabana.yui.framework.customizer
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
                     }
-                    doUncustomize(viewName,view,action);
+                    doUncustomize(view,action);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomized",viewClassName,actionClassName));
                     }
@@ -185,7 +185,7 @@ package org.seasar.akabana.yui.framework.customizer
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
                         }
-                        doUncustomize(viewName,view,behavior_);
+                        doUncustomize(view,behavior_);
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Uncustomized",viewClassName,behaviorClassName));
                         }
@@ -274,15 +274,16 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        private function doCustomize(viewName:String,view:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {
+        private function doCustomize(container:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {
             const actionClassRef:ClassRef = getClassRef(action);
-            var component:UIComponent;
-            var componentName:String;
-            //for children
-            var numChildren:int = view.numChildren;
-
-            for(var index:int = 0;index < numChildren;index++) {
-                component = view.getChildAt(index) as UIComponent;
+CONFIG::FP9 {
+			const childrenList:Array = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
+}			
+CONFIG::FP10 {
+			const childrenList:Vector.<UIComponent> = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
+}
+			var componentName:String;
+			for each(var component:UIComponent in childrenList) {
                 componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
 
                 if(component == null) {
@@ -291,12 +292,12 @@ package org.seasar.akabana.yui.framework.customizer
 
                 if(YuiFrameworkGlobals.frameworkBridge.isContainer(component)) {
                     if(component.isDocument) {
-                        const properties:Object = component.documentDescriptor["properties"];
+                        const properties:Object = UIComponentUtil.getDocumentDescriptor(component);
 
                         if(properties != null && properties.childDescriptors != null) {
                         } else {
                             doCustomizeByContainer(
-                                            view,
+											container,
                                             component,
                                             action,
                                             priority
@@ -304,7 +305,7 @@ package org.seasar.akabana.yui.framework.customizer
                         }
                     } else {
                         doCustomizeByContainer(
-                                        view,
+										container,
                                         component,
                                         action,
                                         priority
@@ -315,7 +316,7 @@ package org.seasar.akabana.yui.framework.customizer
                 if(componentName != null) {
                     CONFIG::FP9 {
                         doCustomizeByComponent(
-                                        view,
+										container,
                                         componentName,
                                         component,
                                         action,
@@ -329,7 +330,7 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                     CONFIG::FP10 {
                         doCustomizeByComponent(
-                                        view,
+										container,
                                         componentName,
                                         component,
                                         action,
@@ -345,21 +346,21 @@ package org.seasar.akabana.yui.framework.customizer
             }
             //for children
             CONFIG::FP9 {
-                var props:Array = getClassRef(getCanonicalName(view)).properties;
+                var props:Array = getClassRef(getCanonicalName(container)).properties;
             }
             CONFIG::FP10 {
-                var props:Vector.<PropertyRef> = getClassRef(getCanonicalName(view)).properties;
+                var props:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
             }
 
             for each(var prop:PropertyRef in props) {
-                const child:Object = view[prop.name];
+                const child:Object = container[prop.name];
 
                 if(child != null &&
                                 child is IEventDispatcher &&
                                 (child is IMXMLObject || child is IEffect)) {
                     CONFIG::FP9 {
                         doCustomizeByComponent(
-                                        view,
+										container,
                                         prop.name,
                                         child as IEventDispatcher,
                                         action,
@@ -373,7 +374,7 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                     CONFIG::FP10 {
                         doCustomizeByComponent(
-                                        view,
+										container,
                                         prop.name,
                                         child as IEventDispatcher,
                                         action,
@@ -390,7 +391,7 @@ package org.seasar.akabana.yui.framework.customizer
             //for self
             CONFIG::FP9 {
                 doCustomizeByComponent(
-                                view,
+								container,
                                 null,
                                 null,
                                 action,
@@ -404,7 +405,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
             CONFIG::FP10 {
                 doCustomizeByComponent(
-                                view,
+								container,
                                 null,
                                 null,
                                 action,
@@ -419,14 +420,18 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         private function doCustomizeByContainer(view:UIComponent,container:UIComponent,action:Object,priority:int):void {
-            var actionClassRef:ClassRef = getClassRef(action);
-            var component:UIComponent;
-            var componentName:String;
-            var numChildren:int = container.numChildren;
+			const actionClassRef:ClassRef = getClassRef(action);
 
-            for(var index:int = 0;index < numChildren;index++) {
+CONFIG::FP9 {
+			const childrenList:Array = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
+}			
+CONFIG::FP10 {
+			const childrenList:Vector.<UIComponent> = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
+}
+
+			var componentName:String;
+            for each(var component:UIComponent in childrenList) {
                 do {
-                    component = container.getChildAt(index) as UIComponent;
                     componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
 
                     if(component == null) {
@@ -529,17 +534,19 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        private function doUncustomize(viewName:String,view:UIComponent,action:Object):void {
-            CONFIG::DEBUG {
-                _logger.debug(getMessage("Uncustomizing",viewName,view));
-            }
+        private function doUncustomize(container:UIComponent,action:Object):void {
+CONFIG::DEBUG {
+            _logger.debug(getMessage("Uncustomizing",container));
+}
             const actionClassRef:ClassRef = getClassRef(action);
-            var component:UIComponent;
-            var componentName:String;
-            var numChildren:int = view.numChildren;
-
-            for(var index:int = 0;index < numChildren;index++) {
-                component = view.getChildAt(index) as UIComponent;
+CONFIG::FP9 {
+			const childrenList:Array = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
+}			
+CONFIG::FP10 {
+			const childrenList:Vector.<UIComponent> = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
+}			
+			var componentName:String;
+			for each(var component:UIComponent in childrenList) {
                 componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
 
                 if(component == null) {
@@ -553,14 +560,14 @@ package org.seasar.akabana.yui.framework.customizer
                         if(properties != null && properties.childDescriptors != null) {
                         } else {
                             doUncustomizeByContainer(
-                                            view,
+											container,
                                             component,
                                             action
                                             );
                         }
                     } else {
                         doUncustomizeByContainer(
-                                        view,
+										container,
                                         component,
                                         action
                                         );
@@ -570,7 +577,7 @@ package org.seasar.akabana.yui.framework.customizer
                 if(componentName != null) {
                     CONFIG::FP9 {
                         doUncustomizeByComponent(
-                                        view,
+										container,
                                         componentName,
                                         component,
                                         action,
@@ -583,7 +590,7 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                     CONFIG::FP10 {
                         doUncustomizeByComponent(
-                                        view,
+										container,
                                         componentName,
                                         component,
                                         action,
@@ -598,21 +605,21 @@ package org.seasar.akabana.yui.framework.customizer
             }
             //for children
             CONFIG::FP9 {
-                const props:Array = getClassRef(getCanonicalName(view)).properties;
+                const props:Array = getClassRef(getCanonicalName(container)).properties;
             }
             CONFIG::FP10 {
-                const props:Vector.<PropertyRef> = getClassRef(getCanonicalName(view)).properties;
+                const props:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
             }
 
             for each(var prop:PropertyRef in props) {
-                const child:Object = view[prop.name];
+                const child:Object = container[prop.name];
 
                 if(child != null &&
                                 child is IEventDispatcher &&
                                 (child is IMXMLObject || child is IEffect)) {
                     CONFIG::FP9 {
                         doUncustomizeByComponent(
-                                        view,
+										container,
                                         prop.name,
                                         child as IEventDispatcher,
                                         action,
@@ -625,7 +632,7 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                     CONFIG::FP10 {
                         doUncustomizeByComponent(
-                                        view,
+										container,
                                         prop.name,
                                         child as IEventDispatcher,
                                         action,
@@ -641,7 +648,7 @@ package org.seasar.akabana.yui.framework.customizer
             //for self
             CONFIG::FP9 {
                 doUncustomizeByComponent(
-                                view,
+								container,
                                 null,
                                 null,
                                 action,
@@ -654,7 +661,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
             CONFIG::FP10 {
                 doUncustomizeByComponent(
-                                view,
+								container,
                                 null,
                                 null,
                                 action,
@@ -669,13 +676,15 @@ package org.seasar.akabana.yui.framework.customizer
 
         private function doUncustomizeByContainer(view:UIComponent,container:UIComponent,action:Object):void {
             const actionClassRef:ClassRef = getClassRef(action);
-            var component:UIComponent;
-            var componentName:String;
-            var numChildren:int = container.numChildren;
-
-            for(var index:int = 0;index < numChildren;index++) {
+CONFIG::FP9 {
+			const childrenList:Array = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
+}			
+CONFIG::FP10 {
+			const childrenList:Vector.<UIComponent> = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
+}			
+			var componentName:String;
+			for each(var component:UIComponent in childrenList) {
                 do {
-                    component = container.getChildAt(index) as UIComponent;
                     componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
 
                     if(component == null) {
@@ -706,7 +715,7 @@ package org.seasar.akabana.yui.framework.customizer
                     if(componentName != null) {
                         CONFIG::FP9 {
                             doUncustomizeByComponent(
-                                            view,
+											container,
                                             componentName,
                                             component,
                                             action,
@@ -719,7 +728,7 @@ package org.seasar.akabana.yui.framework.customizer
                         }
                         CONFIG::FP10 {
                             doUncustomizeByComponent(
-                                            view,
+											container,
                                             componentName,
                                             component,
                                             action,
