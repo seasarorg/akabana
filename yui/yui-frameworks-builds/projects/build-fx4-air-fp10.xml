@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="yui-frameworks-fx4-air-fp10.0" basedir="." default="all">
+<project name="yui-frameworks-fx4-air-fp10" basedir="." default="all">
 
 	<target name="all">
 		<property name="projectdir" value="${PROJECT_WORKSPACE}${file.separator}${ant.project.name}"/>
