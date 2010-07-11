@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.framework.bridge
 {
     import mx.core.Container;
     import mx.core.IVisualElementContainer;
-	import mx.core.UIComponent;
+    import mx.core.UIComponent;
     import mx.managers.ISystemManager;
     
     import spark.components.Application;
@@ -68,15 +68,9 @@ package org.seasar.akabana.yui.framework.bridge
 			var result:Vector.<UIComponent> = new Vector.<UIComponent>();
 			if( component is IVisualElementContainer ){
 				var container:IVisualElementContainer = component as IVisualElementContainer;
-				numChildren = container.numElements;
+				var numChildren:int = container.numElements;
 				for( var j:int = 0; j < numChildren; j++ ){
 					result.push(container.getElementAt(j));
-				}
-			}
-			if( result.length == 0 ){
-				var numChildren:int = component.numChildren;
-				for( var i:int = 0; i < numChildren; i++ ){
-					result.push(component.getChildAt(i));
 				}
 			}
 			return result;
