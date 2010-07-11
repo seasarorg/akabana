@@ -19,15 +19,15 @@ CONFIG::FP10{
 	import __AS3__.vec.Vector;
 }
 
-    import mx.core.UIComponent;
+    import mx.core.Container;
+    import mx.core.IVisualElementContainer;
+	import mx.core.UIComponent;
     import mx.managers.ISystemManager;
-
+    
     import spark.components.Application;
     import spark.components.Group;
     import spark.components.SkinnableContainer;
     import spark.components.supportClasses.Skin;
-    import spark.components.supportClasses.SkinnableComponent;
-    import mx.core.IVisualElementContainer;
 
     [ExcludeClass]
     public final class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin
@@ -65,7 +65,7 @@ CONFIG::FP10{
         }
 
         public function isContainer(component:Object):Boolean{
-            return !( component is Skin ) && ( component is SkinnableContainer || component is Group );
+            return !( component is Skin ) && ( component is SkinnableContainer || component is Group || component is Container );
         }
 CONFIG::FP9{
 		public function getChildren(component:UIComponent):Array{
