@@ -8,6 +8,8 @@
       <libraryPathEntry kind="4" path="">
         <modifiedEntries>
           <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="1" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="2" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/spark.swc" useDefaultLinkType="false"/>
         </modifiedEntries>
         <excludedEntries>
           <libraryPathEntry kind="1" linkType="1" path="${PROJECT_FRAMEWORKS}/locale/{locale}"/>
@@ -40,11 +42,11 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
-      <libraryPathEntry kind="3" linkType="4" path="/yui-framework/bin/yui-framework.swc" useDefaultLinkType="true"/>
-      <libraryPathEntry kind="3" linkType="4" path="/yui-core/bin/yui-core.swc" useDefaultLinkType="true"/>
-      <libraryPathEntry kind="3" linkType="4" path="/yui-rpc/bin/yui-rpc.swc" useDefaultLinkType="true"/>
-      <libraryPathEntry kind="3" linkType="4" path="/yui-logging/bin/yui-logging.swc" useDefaultLinkType="true"/>
-      <libraryPathEntry kind="3" linkType="4" path="/yui-service/bin/yui-service.swc" useDefaultLinkType="true"/>
+      <libraryPathEntry kind="3" linkType="2" path="/yui-framework/bin/yui-framework.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/yui-core/bin/yui-core.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/yui-rpc/bin/yui-rpc.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/yui-logging/bin/yui-logging.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/yui-service/bin/yui-service.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
