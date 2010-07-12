@@ -26,6 +26,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
+    import org.seasar.akabana.yui.framework.core.ILifeCyclable;
 
     [ExcludeClass]
     public class BehaviorCustomizer extends ActionCustomizer {
@@ -64,6 +65,9 @@ package org.seasar.akabana.yui.framework.customizer
 
                         super.doEventCustomize(viewName,view,behavior);
 
+						if( behavior is ILifeCyclable ){
+							(behavior as ILifeCyclable).start();
+						}
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Customized",viewClassName,prop.typeClassRef.name));
                         }
@@ -102,7 +106,10 @@ package org.seasar.akabana.yui.framework.customizer
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
                     }
-
+					
+					if( behavior is ILifeCyclable ){
+						(behavior as ILifeCyclable).stop();
+					}
                     super.doEventUncustomize(view,behavior);
 
                     CONFIG::DEBUG {

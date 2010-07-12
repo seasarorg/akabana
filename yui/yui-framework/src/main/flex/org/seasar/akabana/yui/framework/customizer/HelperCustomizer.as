@@ -25,6 +25,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
+    import org.seasar.akabana.yui.framework.core.ILifeCyclable;
 
     [ExcludeClass]
     public class HelperCustomizer extends AbstractComponentCustomizer {
@@ -70,7 +71,10 @@ package org.seasar.akabana.yui.framework.customizer
                         setPropertiesValue(behavior,helperClassName,helper);
                     }
                 }
-
+				
+				if( helper is ILifeCyclable ){
+					(helper as ILifeCyclable).start();
+				}
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("Customized",viewClassName,helperClassName));
                 }
@@ -95,6 +99,9 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 //
                 const helper:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+				if( helper is ILifeCyclable ){
+					(helper as ILifeCyclable).stop();
+				}
                 //
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 if(action != null) {
