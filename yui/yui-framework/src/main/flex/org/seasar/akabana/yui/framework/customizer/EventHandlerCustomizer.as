@@ -276,10 +276,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        private function doCustomize(container:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {
-			CONFIG::DEBUG {
-				_logger.debug(getMessage("Uncustomizing",container));
-			}			
+        private function doCustomize(container:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {	
             const actionClassRef:ClassRef = getClassRef(action);
             //for children
             CONFIG::FP9 {
