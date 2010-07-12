@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.framework.core
 	{
 		function start():void;
 		
-		function pause():void;
+		//function pause():void;
 		
 		function stop():void;
 	}
