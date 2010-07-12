@@ -30,6 +30,8 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
+    import mx.core.IUIComponent;
+
     use namespace mx_internal;
 
     [ExcludeClass]
@@ -275,75 +277,10 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         private function doCustomize(container:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {
+			CONFIG::DEBUG {
+				_logger.debug(getMessage("Uncustomizing",container));
+			}			
             const actionClassRef:ClassRef = getClassRef(action);
-CONFIG::FP9 {
-			const childrenList:Array = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
-}			
-CONFIG::FP10 {
-			const childrenList:Vector.<UIComponent> = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
-}
-			var componentName:String;
-			for each(var component:UIComponent in childrenList) {
-                componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
-
-                if(component == null) {
-                    continue;
-                }
-
-                if(YuiFrameworkGlobals.frameworkBridge.isContainer(component)) {
-                    if(component.isDocument) {
-                        const properties:Object = UIComponentUtil.getDocumentDescriptor(component);
-
-                        if(properties != null && properties.childDescriptors != null) {
-                        } else {
-                            doCustomizeByContainer(
-											container,
-                                            component,
-                                            action,
-                                            priority
-                                            );
-                        }
-                    } else {
-                        doCustomizeByContainer(
-										container,
-                                        component,
-                                        action,
-                                        priority
-                                        );
-                    }
-                }
-
-                if(componentName != null) {
-                    CONFIG::FP9 {
-                        doCustomizeByComponent(
-										container,
-                                        componentName,
-                                        component,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Array):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                        }
-                                        ),
-                                        priority
-                                        );
-                    }
-                    CONFIG::FP10 {
-                        doCustomizeByComponent(
-										container,
-                                        componentName,
-                                        component,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                        }
-                                        ),
-                                        priority
-                                        );
-                    }
-                }
-            }
             //for children
             CONFIG::FP9 {
                 var props:Array = getClassRef(getCanonicalName(container)).properties;
@@ -357,7 +294,7 @@ CONFIG::FP10 {
 
                 if(child != null &&
                                 child is IEventDispatcher &&
-                                (child is IMXMLObject || child is IEffect)) {
+                                (child is IUIComponent || child is IMXMLObject || child is IEffect)) {
                     CONFIG::FP9 {
                         doCustomizeByComponent(
 										container,
@@ -419,82 +356,6 @@ CONFIG::FP10 {
             }
         }
 
-        private function doCustomizeByContainer(view:UIComponent,container:UIComponent,action:Object,priority:int):void {
-			const actionClassRef:ClassRef = getClassRef(action);
-
-CONFIG::FP9 {
-			const childrenList:Array = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
-}			
-CONFIG::FP10 {
-			const childrenList:Vector.<UIComponent> = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
-}
-
-			var componentName:String;
-            for each(var component:UIComponent in childrenList) {
-                do {
-                    componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
-
-                    if(component == null) {
-                        continue;
-                    }
-
-                    if(YuiFrameworkGlobals.frameworkBridge.isContainer(component)) {
-                        if(component.isDocument) {
-                            var documentDescriptor:UIComponentDescriptor = UIComponentUtil.getDocumentDescriptor(component);
-                            var properties:Object = documentDescriptor.properties;
-
-                            if(properties != null && properties.childDescriptors != null) {
-                            } else {
-                                doCustomizeByContainer(
-                                                view,
-                                                component,
-                                                action,
-                                                priority
-                                                );
-                            }
-                        } else {
-                            doCustomizeByContainer(
-                                            view,
-                                            component,
-                                            action,
-                                            priority
-                                            );
-                        }
-                    }
-
-                    if(componentName != null) {
-                        CONFIG::FP9 {
-                            doCustomizeByComponent(
-                                            view,
-                                            componentName,
-                                            component,
-                                            action,
-                                            actionClassRef.functions.filter(
-                                            function(item:*,index:int,array:Array):Boolean {
-                                                return (item as FunctionRef).name.indexOf(componentName) == 0;
-                                            }
-                                            ),
-                                            priority
-                                            );
-                        }
-                        CONFIG::FP10 {
-                            doCustomizeByComponent(
-                                            view,
-                                            componentName,
-                                            component,
-                                            action,
-                                            actionClassRef.functions.filter(
-                                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                                return (item as FunctionRef).name.indexOf(componentName) == 0;
-                                            }
-                                            ),
-                                            priority
-                                            );
-                        }
-                    }
-                } while(false);
-            }
-        }
         CONFIG::FP9 {
             private function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array,priority:int):void {
                 var componentName:String;
@@ -535,74 +396,7 @@ CONFIG::FP10 {
         }
 
         private function doUncustomize(container:UIComponent,action:Object):void {
-CONFIG::DEBUG {
-            _logger.debug(getMessage("Uncustomizing",container));
-}
             const actionClassRef:ClassRef = getClassRef(action);
-CONFIG::FP9 {
-			const childrenList:Array = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
-}			
-CONFIG::FP10 {
-			const childrenList:Vector.<UIComponent> = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
-}			
-			var componentName:String;
-			for each(var component:UIComponent in childrenList) {
-                componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
-
-                if(component == null) {
-                    continue;
-                }
-
-                if(YuiFrameworkGlobals.frameworkBridge.isContainer(component)) {
-                    if(component.isDocument) {
-                        const properties:Object = UIComponentUtil.getProperties(component);
-
-                        if(properties != null && properties.childDescriptors != null) {
-                        } else {
-                            doUncustomizeByContainer(
-											container,
-                                            component,
-                                            action
-                                            );
-                        }
-                    } else {
-                        doUncustomizeByContainer(
-										container,
-                                        component,
-                                        action
-                                        );
-                    }
-                }
-
-                if(componentName != null) {
-                    CONFIG::FP9 {
-                        doUncustomizeByComponent(
-										container,
-                                        componentName,
-                                        component,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Array):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                        }
-                                        )
-                                        );
-                    }
-                    CONFIG::FP10 {
-                        doUncustomizeByComponent(
-										container,
-                                        componentName,
-                                        component,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                        }
-                                        )
-                                        );
-                    }
-                }
-            }
             //for children
             CONFIG::FP9 {
                 const props:Array = getClassRef(getCanonicalName(container)).properties;
@@ -674,75 +468,6 @@ CONFIG::FP10 {
             }
         }
 
-        private function doUncustomizeByContainer(view:UIComponent,container:UIComponent,action:Object):void {
-            const actionClassRef:ClassRef = getClassRef(action);
-CONFIG::FP9 {
-			const childrenList:Array = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
-}			
-CONFIG::FP10 {
-			const childrenList:Vector.<UIComponent> = YuiFrameworkGlobals.frameworkBridge.getChildren(container);
-}			
-			var componentName:String;
-			for each(var component:UIComponent in childrenList) {
-                do {
-                    componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
-
-                    if(component == null) {
-                        continue;
-                    }
-
-                    if(YuiFrameworkGlobals.frameworkBridge.isContainer(component)) {
-                        if(component.isDocument) {
-                            const properties:Object = UIComponentUtil.getProperties(component);
-
-                            if(properties != null && properties.childDescriptors != null) {
-                            } else {
-                                doUncustomizeByContainer(
-                                                view,
-                                                component,
-                                                action
-                                                );
-                            }
-                        } else {
-                            doUncustomizeByContainer(
-                                            view,
-                                            component,
-                                            action
-                                            );
-                        }
-                    }
-
-                    if(componentName != null) {
-                        CONFIG::FP9 {
-                            doUncustomizeByComponent(
-											container,
-                                            componentName,
-                                            component,
-                                            action,
-                                            actionClassRef.functions.filter(
-                                            function(item:*,index:int,array:Array):Boolean {
-                                                return (item as FunctionRef).name.indexOf(componentName) == 0;
-                                            }
-                                            )
-                                            );
-                        }
-                        CONFIG::FP10 {
-                            doUncustomizeByComponent(
-											container,
-                                            componentName,
-                                            component,
-                                            action,
-                                            actionClassRef.functions.filter(
-                                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                                return (item as FunctionRef).name.indexOf(componentName) == 0;
-                                            }
-                                            )
-                                            );
-                        }
-                    }
-                } while(false);
-            }
-        }
         CONFIG::FP9 {
             private function doUncustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
                 var componentName:String;
