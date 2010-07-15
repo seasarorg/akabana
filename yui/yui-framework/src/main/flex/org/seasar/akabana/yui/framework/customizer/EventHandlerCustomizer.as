@@ -405,9 +405,9 @@ package org.seasar.akabana.yui.framework.customizer
             for each(var prop:PropertyRef in props) {
                 const child:Object = container[prop.name];
 
-                if(child != null &&
-                                child is IEventDispatcher &&
-                                (child is IMXMLObject || child is IEffect)) {
+				if(child != null &&
+						child is IEventDispatcher &&
+						(child is IUIComponent || child is IMXMLObject || child is IEffect)) {
                     CONFIG::FP9 {
                         doUncustomizeByComponent(
 										container,
