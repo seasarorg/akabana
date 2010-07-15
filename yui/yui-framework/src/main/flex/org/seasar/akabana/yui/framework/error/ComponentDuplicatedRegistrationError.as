@@ -15,7 +15,6 @@
  */
 package org.seasar.akabana.yui.framework.error
 {
-    [ExcludeClass]
     public class ComponentDuplicatedRegistrationError extends Error
     {
         public function ComponentDuplicatedRegistrationError(message:String="", id:int=0)
