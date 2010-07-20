@@ -36,7 +36,7 @@ package org.seasar.akabana.yui.framework
         }
 
         protected function createRootView():void{
-            var viewClass:Class = getStyle("rootViewClass") as Class;
+            var viewClass:Class = getStyle("rootView") as Class;
 
             if( viewClass == null ){
                 throw new YuiFrameworkContainerError("rootViewClass style is needed.");

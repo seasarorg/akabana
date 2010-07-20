@@ -25,19 +25,31 @@ package org.seasar.akabana.yui.framework.convention
 		public override function getComponentName( component:UIComponent ):String{
 			var componentName:String = null;
 			if( component != null ){
-				if( componentName == null ){
-					var skinClass:String = getCanonicalName(component.getStyle("skinClass"));
-					skinClass = StringUtil.toLowerCamel(skinClass.replace(/components\./,""));
-					if( skinClass != null ){
-						componentName = component.name = skinClass;
+				do{
+					if( componentName == null ){
+						var accName:String = component.accessibilityName;
+						if( accName != null ){
+							componentName = component.name = accName;
+						}
+						break;
 					}
-				}
-				if( componentName == null ){
-					componentName = component.id;
-				}
-				if( componentName == null ){
-					componentName = component.name;
-				}
+					if( componentName == null ){
+						var skinClass:String = getCanonicalName(component.getStyle("skinClass"));
+						skinClass = StringUtil.toLowerCamel(skinClass.replace(/components\./,""));
+						if( skinClass != null ){
+							componentName = component.name = skinClass;
+						}
+						break;
+					}
+					if( componentName == null ){
+						componentName = component.id;
+						break;
+					}
+					if( componentName == null ){
+						componentName = component.name;
+						break;
+					}
+				}while(false);
 			}
 			return componentName;
 		}
