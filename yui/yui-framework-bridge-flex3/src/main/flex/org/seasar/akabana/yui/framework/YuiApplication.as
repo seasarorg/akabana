@@ -6,7 +6,7 @@ package org.seasar.akabana.yui.framework
     import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
 
-    [Style(name="rootViewClass", type="Class")]
+    [Style(name="rootView", type="Class")]
 
     public class YuiApplication extends Application{
 

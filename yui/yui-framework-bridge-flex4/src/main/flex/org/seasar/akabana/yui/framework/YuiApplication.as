@@ -7,7 +7,7 @@ package org.seasar.akabana.yui.framework
 
     import spark.components.Application;
 
-    [Style(name="rootViewClass", type="Class")]
+    [Style(name="rootView", type="Class")]
 
     public class YuiApplication extends Application
     {
