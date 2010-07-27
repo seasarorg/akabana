@@ -43,6 +43,7 @@ package org.seasar.akabana.yui.framework
             } else {
                 _rootView = new viewClass();
                 _rootView.name = "rootView";
+				_rootView.setVisible(false,true);
                 addElement(_rootView);
             }
         }
