@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties mainApplicationPath="yui-framework.as" projectUUID="05bc8dd8-3a7a-4268-88c9-14badf2ab28a" version="6">
+<actionScriptProperties analytics="false" mainApplicationPath="yui-framework.as" projectUUID="05bc8dd8-3a7a-4268-88c9-14badf2ab28a" version="6">
   <compiler additionalCompilerArguments="-target-player=10 -locale= -include-file defaults.css ..\resources\defaults.css -load-config+=define-config.xml" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src/main/flex" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="src/main/resources"/>
     </compilerSourcePath>
-    <libraryPath defaultLinkType="0">
+    <libraryPath defaultLinkType="1">
       <libraryPathEntry kind="4" path="">
         <modifiedEntries>
           <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>

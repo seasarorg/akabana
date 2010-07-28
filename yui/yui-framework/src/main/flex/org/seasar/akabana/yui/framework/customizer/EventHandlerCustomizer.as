@@ -35,7 +35,7 @@ package org.seasar.akabana.yui.framework.customizer
     use namespace mx_internal;
 
     [ExcludeClass]
-    public class EventHandlerCustomizer extends AbstractEventCustomizer {
+    public class EventHandlerCustomizer extends AbstractComponentEventCustomizer {
         private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);
 
         public override function customize(view:UIComponent,owner:UIComponent = null):void {

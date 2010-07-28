@@ -13,7 +13,7 @@
     <classEntry path="org.seasar.akabana.yui.framework.core.event.FrameworkEvent"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractEventCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentEventCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.BehaviorCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer"/>

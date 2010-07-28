@@ -58,7 +58,7 @@ package org.seasar.akabana.yui.framework.customizer
             throw new IllegalOperationError("can't call");
         }
 
-        public function getMessage(resourceName:String,...parameters):String{
+        protected function getMessage(resourceName:String,...parameters):String{
             return MessageManager.yui_internal::yuiframework.getMessage.apply(null,[resourceName].concat(parameters));
         }
 

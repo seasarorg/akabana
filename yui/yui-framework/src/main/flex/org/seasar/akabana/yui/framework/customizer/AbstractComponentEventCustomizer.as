@@ -30,8 +30,8 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
 
-    internal class AbstractEventCustomizer extends AbstractComponentCustomizer {
-        private static const _logger:Logger = Logger.getLogger(AbstractEventCustomizer);
+    internal class AbstractComponentEventCustomizer extends AbstractComponentCustomizer {
+        private static const _logger:Logger = Logger.getLogger(AbstractComponentEventCustomizer);
 
         protected static const EVENT_SEPARETOR:String = "_";
 

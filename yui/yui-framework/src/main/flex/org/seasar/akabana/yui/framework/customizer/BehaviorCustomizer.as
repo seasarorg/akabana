@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
 
     [ExcludeClass]
-    public class BehaviorCustomizer extends ActionCustomizer {
+    public class BehaviorCustomizer extends AbstractEventListenerCustomizer {
 
         private static const _logger:Logger = Logger.getLogger(BehaviorCustomizer);
 

@@ -32,7 +32,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
 
     [ExcludeClass]
-    public class ActionCustomizer extends AbstractEventCustomizer {
+    public class ActionCustomizer extends AbstractEventListenerCustomizer {
 
         private static const _logger:Logger = Logger.getLogger(ActionCustomizer);
 
@@ -96,94 +96,6 @@ package org.seasar.akabana.yui.framework.customizer
             } catch(e:Error) {
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
-                }
-            }
-        }
-
-        protected function doEventCustomize(viewName:String,view:UIComponent,action:Object):void {
-            const actionClassRef:ClassRef = getClassRef(action);
-            CONFIG::FP9 {
-                var props:Array = actionClassRef.properties;
-            }
-            CONFIG::FP10 {
-                var props:Vector.<PropertyRef> = actionClassRef.properties;
-            }
-
-            for each(var prop:PropertyRef in props) {
-                const child:Object = prop.getValue(action);
-
-                if(child != null && child is IEventDispatcher) {
-                    CONFIG::FP9 {
-                        doCustomizingByComponent(
-                                        view,
-                                        prop.name,
-                                        child as IEventDispatcher,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Array):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                        }
-                                        ),
-                                        int.MAX_VALUE>>2
-                                        );
-                    }
-                    CONFIG::FP10 {
-                        doCustomizingByComponent(
-                                        view,
-                                        prop.name,
-                                        child as IEventDispatcher,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                        }
-                                        ),
-                                        int.MAX_VALUE>>2
-                                        );
-                    }
-                }
-            }
-        }
-
-        protected function doEventUncustomize(view:UIComponent,action:Object):void {
-            const actionClassRef:ClassRef = getClassRef(action);
-            CONFIG::FP9 {
-                var props:Array = actionClassRef.properties;
-            }
-            CONFIG::FP10 {
-                var props:Vector.<PropertyRef> = actionClassRef.properties;
-            }
-
-            for each(var prop:PropertyRef in props) {
-                const child:Object = prop.getValue(action);
-
-                if(child != null && child is IEventDispatcher) {
-                    CONFIG::FP9 {
-                        doUnCustomizingByComponent(
-                                        view,
-                                        prop.name,
-                                        child as IEventDispatcher,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Array):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                        }
-                                        )
-                                        );
-                    }
-                    CONFIG::FP10 {
-                        doUnCustomizingByComponent(
-                                        view,
-                                        prop.name,
-                                        child as IEventDispatcher,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                        }
-                                        )
-                                        );
-                    }
                 }
             }
         }
