@@ -43,9 +43,7 @@ CONFIG::FP10{
 	public class YuiFrameworkMixin
 	{
 		{
-			CONFIG::DEBUG {
-				LogConfigurationFactory;
-			}
+			LogConfigurationFactory;
 			registerClassAlias(ConfigurationProvider.FACTORY_CLASS_NAME,LogConfigurationFactory);
 		}
 
@@ -54,9 +52,7 @@ CONFIG::FP10{
 		private static var _container:YuiFrameworkContainer;
 
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{
-			CONFIG::DEBUG {
-            	LogManager.init();
-			}
+        	LogManager.init();
 			
             _this = new YuiFrameworkMixin();
             _container = new YuiFrameworkContainer();
