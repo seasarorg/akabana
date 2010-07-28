@@ -29,9 +29,11 @@ package org.seasar.akabana.yui.framework.customizer {
 
     [ExcludeClass]
     public class ValidatorCustomizer extends AbstractComponentEventCustomizer{
-
-        private static const _logger:Logger = Logger.getLogger(ValidatorCustomizer);
-
+		
+		CONFIG::DEBUG {
+        	private static const _logger:Logger = Logger.getLogger(ValidatorCustomizer);
+		}
+		
         public override function customize( view:UIComponent, owner:UIComponent=null):void {
             if( owner == null ){
 	            try{

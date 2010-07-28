@@ -29,9 +29,11 @@ package org.seasar.akabana.yui.framework.customizer
 
     [ExcludeClass]
     public class HelperCustomizer extends AbstractComponentCustomizer {
-
-        private static const _logger:Logger = Logger.getLogger(HelperCustomizer);
-
+		
+		CONFIG::DEBUG {
+        	private static const _logger:Logger = Logger.getLogger(HelperCustomizer);
+		}
+		
         public override function customize(view:UIComponent,owner:UIComponent = null):void {
             if( owner != null ){
                 return;

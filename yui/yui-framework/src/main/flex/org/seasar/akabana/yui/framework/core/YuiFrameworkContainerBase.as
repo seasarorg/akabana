@@ -41,9 +41,10 @@ CONFIG::FP10{
     internal class YuiFrameworkContainerBase implements IYuiFrameworkContainer
     {
         include "../Version.as";
-
+		
+CONFIG::DEBUG {
         protected static const _logger:Logger = Logger.getLogger(IYuiFrameworkContainer);
-
+}
         {
             CursorManager;
             PopUpManager;

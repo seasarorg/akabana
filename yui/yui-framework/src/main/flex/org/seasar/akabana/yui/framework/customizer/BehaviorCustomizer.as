@@ -30,9 +30,11 @@ package org.seasar.akabana.yui.framework.customizer
 
     [ExcludeClass]
     public class BehaviorCustomizer extends AbstractEventListenerCustomizer {
-
-        private static const _logger:Logger = Logger.getLogger(BehaviorCustomizer);
-
+		
+		CONFIG::DEBUG {
+        	private static const _logger:Logger = Logger.getLogger(BehaviorCustomizer);
+		}
+		
         public override function customize(view:UIComponent,owner:UIComponent = null):void {
             if( owner != null ){
                 return;

@@ -31,8 +31,10 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.logging.Logger;
 
     internal class AbstractComponentEventCustomizer extends AbstractComponentCustomizer {
-        private static const _logger:Logger = Logger.getLogger(AbstractComponentEventCustomizer);
-
+		CONFIG::DEBUG {
+			private static const _logger:Logger = Logger.getLogger(AbstractComponentEventCustomizer);
+		}
+		
         protected static const EVENT_SEPARETOR:String = "_";
 
         protected static const ENHANCED_SEPARETOR:String = "$";
@@ -103,7 +105,9 @@ package org.seasar.akabana.yui.framework.customizer
                                         throw new Error("EnhancedEventHandler doesn't have proto Handler");
                                     }
                                 } catch(e:Error) {
-                                    _logger.debug(e.getStackTrace());
+									CONFIG::DEBUG {
+                                    	_logger.debug(e.getStackTrace());
+									}
                                     var owner:Object = callee.properties[FUNCTION_OWNER];
                                     if(owner is IEventDispatcher) {
                                         (owner as IEventDispatcher).dispatchEvent(RuntimeErrorEvent.createEvent(e));
@@ -130,7 +134,9 @@ package org.seasar.akabana.yui.framework.customizer
                                         throw new Error("EnhancedEventHandler doesn't have proto Handler");
                                     }
                                 } catch(e:Error) {
-                                    _logger.debug(e.getStackTrace());
+									CONFIG::DEBUG {
+                                    	_logger.debug(e.getStackTrace());
+									}
                                     var owner:Object = callee.properties[FUNCTION_OWNER];
                                     if(owner is IEventDispatcher) {
                                         (owner as IEventDispatcher).dispatchEvent(RuntimeErrorEvent.createEvent(e));

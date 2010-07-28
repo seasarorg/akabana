@@ -36,7 +36,10 @@ package org.seasar.akabana.yui.framework.customizer
 
     [ExcludeClass]
     public class EventHandlerCustomizer extends AbstractComponentEventCustomizer {
-        private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);
+		
+		CONFIG::DEBUG {
+			private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);	
+		}
 
         public override function customize(view:UIComponent,owner:UIComponent = null):void {
             if(owner == null) {

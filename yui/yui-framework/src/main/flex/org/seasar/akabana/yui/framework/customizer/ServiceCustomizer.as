@@ -29,7 +29,10 @@ package org.seasar.akabana.yui.framework.customizer
 
     [ExcludeClass]
     public class ServiceCustomizer extends AbstractComponentCustomizer {
-        private static const _logger:Logger = Logger.getLogger(ServiceCustomizer);
+		
+		CONFIG::DEBUG {
+			private static const _logger:Logger = Logger.getLogger(ServiceCustomizer);	
+		}
 
         public override function customize(view:UIComponent,owner:UIComponent = null):void {
             if( owner != null ){

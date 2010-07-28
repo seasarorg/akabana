@@ -1,3 +1,5 @@
+import flash.system.Capabilities;
+
 /*
  * Copyright 2004-2010 the Seasar Foundation and the Others.
  *
@@ -13,5 +15,6 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+private static const DEBUG:Boolean = CONFIG::DEBUG;
 public static const REVISION:String = function():String{ var rev:String = "$Revision$"; return rev.substring(11,rev.length-2);}();
-public static const VERSION:String = "1.0.1."+REVISION+"-rc4";
+public static const VERSION:String = "1.0.1."+REVISION+"-rc4" + (DEBUG?"-debug":"");

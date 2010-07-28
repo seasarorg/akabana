@@ -4,12 +4,12 @@
 
 <define>
 <name>CONFIG::DEBUG</name>
-<value>true</value>
+<value>false</value>
 </define>
 
 <define>
 <name>CONFIG::DEBUG_EVENT</name>
-<value>true</value>
+<value>false</value>
 </define>
 
 <define>
