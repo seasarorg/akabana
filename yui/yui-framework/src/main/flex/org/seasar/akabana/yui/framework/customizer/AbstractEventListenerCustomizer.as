@@ -30,12 +30,12 @@ package org.seasar.akabana.yui.framework.customizer
     internal class AbstractEventListenerCustomizer extends AbstractComponentEventCustomizer
     {
 		protected function doEventCustomize(name:String,component:UIComponent,listener:Object):void {
-			const actionClassRef:ClassRef = getClassRef(listener);
+			const listenerClassRef:ClassRef = getClassRef(listener);
 			CONFIG::FP9 {
-				var props:Array = actionClassRef.properties;
+				var props:Array = listenerClassRef.properties;
 			}
 			CONFIG::FP10 {
-				var props:Vector.<PropertyRef> = actionClassRef.properties;
+				var props:Vector.<PropertyRef> = listenerClassRef.properties;
 			}
 			
 			for each(var prop:PropertyRef in props) {
@@ -48,7 +48,7 @@ package org.seasar.akabana.yui.framework.customizer
 							prop.name,
 							child as IEventDispatcher,
 							listener,
-							actionClassRef.functions.filter(
+							listenerClassRef.functions.filter(
 								function(item:*,index:int,array:Array):Boolean {
 									return ((item as FunctionRef).name.indexOf(prop.name) == 0);
 								}
@@ -62,7 +62,7 @@ package org.seasar.akabana.yui.framework.customizer
 							prop.name,
 							child as IEventDispatcher,
 							listener,
-							actionClassRef.functions.filter(
+							listenerClassRef.functions.filter(
 								function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
 									return ((item as FunctionRef).name.indexOf(prop.name) == 0);
 								}
@@ -75,12 +75,12 @@ package org.seasar.akabana.yui.framework.customizer
 		}
 		
 		protected function doEventUncustomize(component:UIComponent,listener:Object):void {
-			const actionClassRef:ClassRef = getClassRef(listener);
+			const listenerClassRef:ClassRef = getClassRef(listener);
 			CONFIG::FP9 {
-				var props:Array = actionClassRef.properties;
+				var props:Array = listenerClassRef.properties;
 			}
 			CONFIG::FP10 {
-				var props:Vector.<PropertyRef> = actionClassRef.properties;
+				var props:Vector.<PropertyRef> = listenerClassRef.properties;
 			}
 			
 			for each(var prop:PropertyRef in props) {
@@ -93,7 +93,7 @@ package org.seasar.akabana.yui.framework.customizer
 							prop.name,
 							child as IEventDispatcher,
 							listener,
-							actionClassRef.functions.filter(
+							listenerClassRef.functions.filter(
 								function(item:*,index:int,array:Array):Boolean {
 									return ((item as FunctionRef).name.indexOf(prop.name) == 0);
 								}
@@ -106,7 +106,7 @@ package org.seasar.akabana.yui.framework.customizer
 							prop.name,
 							child as IEventDispatcher,
 							listener,
-							actionClassRef.functions.filter(
+							listenerClassRef.functions.filter(
 								function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
 									return ((item as FunctionRef).name.indexOf(prop.name) == 0);
 								}
