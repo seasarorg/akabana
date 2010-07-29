@@ -221,7 +221,7 @@ package org.seasar.akabana.yui.framework.customizer
 						doUnCustomizingByComponent(
 							owner,
 							componentName,
-							view,
+							component,
 							ownerBehavior_,
 							behaviorClassRef.functions.filter(
 								function(item:*,index:int,array:Array):Boolean {
