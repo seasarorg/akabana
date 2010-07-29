@@ -18,13 +18,13 @@ package org.seasar.akabana.yui.framework.customizer
     import mx.core.UIComponent;
 
     [ExcludeClass]
-    public interface IComponentCustomizer
+    public interface IComponentCustomizer extends IElementCustomizer
     {
-        function isTarget( view:UIComponent ):Boolean;
+        function isTargetComponent( component:UIComponent ):Boolean;
 
-        function customize( view:UIComponent, owner:UIComponent=null ):void;
+        function customizeComponent( view:UIComponent, component:UIComponent ):void;
 
-        function uncustomize( view:UIComponent, owner:UIComponent=null ):void;
+        function uncustomizeComponent( view:UIComponent, component:UIComponent ):void;
 
     }
 }

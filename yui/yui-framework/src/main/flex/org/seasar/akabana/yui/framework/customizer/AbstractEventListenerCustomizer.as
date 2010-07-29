@@ -38,8 +38,9 @@ package org.seasar.akabana.yui.framework.customizer
 				var props:Vector.<PropertyRef> = listenerClassRef.properties;
 			}
 			
+			var child:Object;
 			for each(var prop:PropertyRef in props) {
-				const child:Object = prop.getValue(listener);
+				child = prop.getValue(listener);
 				
 				if(child != null && child is IEventDispatcher) {
 					CONFIG::FP9 {
@@ -83,8 +84,9 @@ package org.seasar.akabana.yui.framework.customizer
 				var props:Vector.<PropertyRef> = listenerClassRef.properties;
 			}
 			
+			var child:Object;
 			for each(var prop:PropertyRef in props) {
-				const child:Object = prop.getValue(listener);
+				child = prop.getValue(listener);
 				
 				if(child != null && child is IEventDispatcher) {
 					CONFIG::FP9 {

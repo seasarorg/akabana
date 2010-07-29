@@ -34,10 +34,7 @@ package org.seasar.akabana.yui.framework.customizer
 			private static const _logger:Logger = Logger.getLogger(ServiceCustomizer);	
 		}
 
-        public override function customize(view:UIComponent,owner:UIComponent = null):void {
-            if( owner != null ){
-                return;
-            }
+        public override function customizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
 
@@ -54,10 +51,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        public override function uncustomize(view:UIComponent,owner:UIComponent = null):void {
-            if( owner != null ){
-                return;
-            }
+        public override function uncustomizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
 

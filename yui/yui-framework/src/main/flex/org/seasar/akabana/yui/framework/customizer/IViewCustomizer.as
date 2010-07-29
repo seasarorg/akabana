@@ -13,22 +13,18 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.core
+package org.seasar.akabana.yui.framework.customizer
 {
     import mx.core.UIComponent;
-    import mx.managers.ISystemManager;
 
     [ExcludeClass]
-    public interface IYuiFrameworkContainer
+    public interface IViewCustomizer extends IElementCustomizer
     {
-        function addExternalSystemManager(systemManager:ISystemManager):void;
+        function isTargetView( view:UIComponent ):Boolean;
 
-        function customizeView( container:UIComponent ):void;
+        function customizeView( view:UIComponent ):void;
 
-        function uncustomizeView( container:UIComponent ):void;
+        function uncustomizeView( view:UIComponent ):void;
 
-		function customizeComponent( container:UIComponent, child:UIComponent):void;
-		
-		function uncustomizeComponent( container:UIComponent, child:UIComponent):void;
     }
 }

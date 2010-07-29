@@ -35,245 +35,250 @@ package org.seasar.akabana.yui.framework.customizer
     use namespace mx_internal;
 
     [ExcludeClass]
-    public class EventHandlerCustomizer extends AbstractComponentEventCustomizer {
+    public class EventHandlerCustomizer extends AbstractComponentEventCustomizer implements IComponentCustomizer {
 		
 		CONFIG::DEBUG {
 			private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);	
 		}
+		
+		public function customizeComponent( owner:UIComponent, view:UIComponent ):void{
+			const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
+			const ownerName:String = YuiFrameworkGlobals.namingConvention.getComponentName(owner);
+			const ownerClassName:String = getCanonicalName(view);
+			const ownerProperties:Object = UIComponentUtil.getProperties(owner);
+			const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+			
+			if(ownerAction_ != null) {
+				const actionClassRef:ClassRef = getClassRef(ownerAction_);
+				CONFIG::DEBUG {
+					_logger.debug(getMessage("Customizing",ownerName,actionClassRef.name));
+				}
+				CONFIG::FP9 {
+					doCustomizingByComponent(
+						owner,
+						componentName,
+						view,
+						ownerAction_,
+						actionClassRef.functions.filter(
+							function(item:*,index:int,array:Array):Boolean {
+								return ((item as FunctionRef).name.indexOf(componentName) == 0);
+							}
+						),
+						int.MAX_VALUE>>1
+					);
+				}
+				CONFIG::FP10 {
+					doCustomizingByComponent(
+						owner,
+						componentName,
+						view,
+						ownerAction_,
+						actionClassRef.functions.filter(
+							function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+								return ((item as FunctionRef).name.indexOf(componentName) == 0);
+							}
+						),
+						int.MAX_VALUE>>1
+					);
+				}
+				CONFIG::DEBUG {
+					_logger.debug(getMessage("Customized",ownerName,actionClassRef.name));
+				}
+			}
+			//
+			const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+			
+			if(ownerBehaviors_ != null) {
+				for each(var ownerBehavior_:Object in ownerBehaviors_) {
+					const behaviorClassRef:ClassRef = getClassRef(ownerBehavior_);
+					CONFIG::DEBUG {
+						_logger.debug(getMessage("Customizing",ownerClassName,behaviorClassRef.name));
+					}
+					CONFIG::FP9 {
+						doCustomizingByComponent(
+							owner,
+							componentName,
+							view,
+							ownerBehavior_,
+							behaviorClassRef.functions.filter(
+								function(item:*,index:int,array:Array):Boolean {
+									return ((item as FunctionRef).name.indexOf(componentName) == 0);
+								}
+							),
+							0
+						);
+					}
+					CONFIG::FP10 {
+						doCustomizingByComponent(
+							owner,
+							componentName,
+							view,
+							ownerBehavior_,
+							behaviorClassRef.functions.filter(
+								function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+									return ((item as FunctionRef).name.indexOf(componentName) == 0);
+								}
+							),
+							0
+						);
+					}
+					CONFIG::DEBUG {
+						_logger.debug(getMessage("Customized",ownerClassName,behaviorClassRef.name));
+					}
+				}
+			}
+		}
 
-        public override function customize(view:UIComponent,owner:UIComponent = null):void {
-            if(owner == null) {
-                const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
-                const viewClassName:String = getCanonicalName(view);
-                const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
-                const properties:Object = UIComponentUtil.getProperties(view);
-                //
-                const action_:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+        public override function customizeView(view:UIComponent):void {
+            const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
+            const viewClassName:String = getCanonicalName(view);
+            const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
+            const properties:Object = UIComponentUtil.getProperties(view);
+            //
+            const action_:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
 
-                if(action_ != null) {
-                    CONFIG::DEBUG {
-                        _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
-                    }
-                    doCustomize(view,action_,int.MAX_VALUE>>1);
-                    CONFIG::DEBUG {
-                        _logger.debug(getMessage("Customized",viewClassName,actionClassName));
-                    }
+            if(action_ != null) {
+                CONFIG::DEBUG {
+                    _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
                 }
-                //
-                const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-
-                if(behaviors_ != null) {
-                    for each(var behavior_:Object in behaviors_) {
-                        const behaviorClassName:String = getCanonicalName(behavior_);
-                        CONFIG::DEBUG {
-                            _logger.debug(getMessage("Customizing",viewClassName,behaviorClassName));
-                        }
-                        doCustomize(view,behavior_,int.MAX_VALUE>>1);
-                        CONFIG::DEBUG {
-                            _logger.debug(getMessage("Customized",viewClassName,behaviorClassName));
-                        }
-                    }
+                doCustomize(view,action_,int.MAX_VALUE>>1);
+                CONFIG::DEBUG {
+                    _logger.debug(getMessage("Customized",viewClassName,actionClassName));
                 }
-                    //
-            } else {
-                const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
-                const ownerName:String = YuiFrameworkGlobals.namingConvention.getComponentName(owner);
-                const ownerProperties:Object = UIComponentUtil.getProperties(owner);
-                const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            }
+            //
+            const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
 
-                if(ownerAction_ != null) {
-                    const actionClassRef:ClassRef = getClassRef(ownerAction_);
+            if(behaviors_ != null) {
+                for each(var behavior_:Object in behaviors_) {
+                    const behaviorClassName:String = getCanonicalName(behavior_);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Customizing",ownerName,actionClassRef.name));
+                        _logger.debug(getMessage("Customizing",viewClassName,behaviorClassName));
                     }
-                    CONFIG::FP9 {
-                        doCustomizingByComponent(
-                                        owner,
-                                        componentName,
-                                        view,
-                                        ownerAction_,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Array):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                        }
-                                        ),
-                                        int.MAX_VALUE>>1
-                                        );
-                    }
-                    CONFIG::FP10 {
-                        doCustomizingByComponent(
-                                        owner,
-                                        componentName,
-                                        view,
-                                        ownerAction_,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                        }
-                                        ),
-                                        int.MAX_VALUE>>1
-                                        );
-                    }
+                    doCustomize(view,behavior_,int.MAX_VALUE>>1);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Customized",ownerName,actionClassRef.name));
-                    }
-                }
-                //
-                const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-
-                if(ownerBehaviors_ != null) {
-                    for each(var ownerBehavior_:Object in ownerBehaviors_) {
-                        const behaviorClassRef:ClassRef = getClassRef(ownerBehavior_);
-                        CONFIG::DEBUG {
-                            _logger.debug(getMessage("Customizing",viewClassName,behaviorClassRef.name));
-                        }
-                        CONFIG::FP9 {
-                            doCustomizingByComponent(
-                                            owner,
-                                            componentName,
-                                            view,
-                                            ownerBehavior_,
-                                            behaviorClassRef.functions.filter(
-                                            function(item:*,index:int,array:Array):Boolean {
-                                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                            }
-                                            ),
-                                            0
-                                            );
-                        }
-                        CONFIG::FP10 {
-                            doCustomizingByComponent(
-                                            owner,
-                                            componentName,
-                                            view,
-                                            ownerBehavior_,
-                                            behaviorClassRef.functions.filter(
-                                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                            }
-                                            ),
-                                            0
-                                            );
-                        }
-                        CONFIG::DEBUG {
-                            _logger.debug(getMessage("Customized",viewClassName,behaviorClassRef.name));
-                        }
+                        _logger.debug(getMessage("Customized",viewClassName,behaviorClassName));
                     }
                 }
             }
         }
 
-        public override function uncustomize(view:UIComponent,owner:UIComponent = null):void {
+		public function isTargetComponent( component:UIComponent ):Boolean{
+			return component.initialized && component.parent != null;
+		}
+		
+		public function uncustomizeComponent( owner:UIComponent, component:UIComponent):void{
+			const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
+			const ownerClassName:String = getCanonicalName(owner);
+			const ownerProperties:Object = UIComponentUtil.getProperties(owner);
+			const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+			
+			if(ownerAction_ != null) {
+				const actionClassRef:ClassRef = getClassRef(ownerAction_);
+				CONFIG::DEBUG {
+					_logger.debug(getMessage("Uncustomizing",ownerClassName,actionClassRef.name));
+				}
+				CONFIG::FP9 {
+					doUnCustomizingByComponent(
+						owner,
+						componentName,
+						component,
+						ownerAction_,
+						actionClassRef.functions.filter(
+							function(item:*,index:int,array:Array):Boolean {
+								return ((item as FunctionRef).name.indexOf(componentName) == 0);
+							}
+						)
+					);
+				}
+				CONFIG::FP10 {
+					doUnCustomizingByComponent(
+						owner,
+						componentName,
+						component,
+						ownerAction_,
+						actionClassRef.functions.filter(
+							function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+								return ((item as FunctionRef).name.indexOf(componentName) == 0);
+							}
+						)
+					);
+				}
+				CONFIG::DEBUG {
+					_logger.debug(getMessage("Uncustomized",ownerClassName,actionClassRef.name));
+				}
+			}
+			//
+			const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+			
+			if(ownerBehaviors_ != null) {
+				for each(var ownerBehavior_:Object in ownerBehaviors_) {
+					const behaviorClassRef:ClassRef = getClassRef(ownerBehavior_);
+					CONFIG::DEBUG {
+						_logger.debug(getMessage("Uncustomizing",ownerClassName,behaviorClassRef.name));
+					}
+					CONFIG::FP9 {
+						doUnCustomizingByComponent(
+							owner,
+							componentName,
+							view,
+							ownerBehavior_,
+							behaviorClassRef.functions.filter(
+								function(item:*,index:int,array:Array):Boolean {
+									return ((item as FunctionRef).name.indexOf(componentName) == 0);
+								}
+							)
+						);
+					}
+					CONFIG::FP10 {
+						doUnCustomizingByComponent(
+							owner,
+							componentName,
+							component,
+							ownerBehavior_,
+							behaviorClassRef.functions.filter(
+								function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+									return ((item as FunctionRef).name.indexOf(componentName) == 0);
+								}
+							)
+						);
+					}
+					CONFIG::DEBUG {
+						_logger.debug(getMessage("Uncustomized",ownerClassName,behaviorClassRef.name));
+					}
+				}
+			}
+		}
+		
+        public override function uncustomizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             const viewClassName:String = getCanonicalName(view);
             const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 
-            if(owner == null) {
-                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
 
-                if(action != null) {
-                    CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
-                    }
-                    doUncustomize(view,action);
-                    CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomized",viewClassName,actionClassName));
-                    }
+            if(action != null) {
+                CONFIG::DEBUG {
+                    _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
                 }
-                //
-                const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-
-                if(behaviors_ != null) {
-                    for each(var behavior_:Object in behaviors_) {
-                        const behaviorClassName:String = getCanonicalName(behavior_);
-                        CONFIG::DEBUG {
-                            _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
-                        }
-                        doUncustomize(view,behavior_);
-                        CONFIG::DEBUG {
-                            _logger.debug(getMessage("Uncustomized",viewClassName,behaviorClassName));
-                        }
-                    }
+                doUncustomize(view,action);
+                CONFIG::DEBUG {
+                    _logger.debug(getMessage("Uncustomized",viewClassName,actionClassName));
                 }
-            } else {
-                const ownerName:String = YuiFrameworkGlobals.namingConvention.getComponentName(owner);
-                const ownerProperties:Object = UIComponentUtil.getProperties(owner);
-                const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            }
+            //
+            const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
 
-                if(ownerAction_ != null) {
-                    const actionClassRef:ClassRef = getClassRef(ownerAction_);
+            if(behaviors_ != null) {
+                for each(var behavior_:Object in behaviors_) {
+                    const behaviorClassName:String = getCanonicalName(behavior_);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassRef.name));
+                        _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
                     }
-                    CONFIG::FP9 {
-                        doUnCustomizingByComponent(
-                                        owner,
-                                        viewName,
-                                        view,
-                                        ownerAction_,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Array):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(viewName) == 0);
-                                        }
-                                        )
-                                        );
-                    }
-                    CONFIG::FP10 {
-                        doUnCustomizingByComponent(
-                                        owner,
-                                        viewName,
-                                        view,
-                                        ownerAction_,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(viewName) == 0);
-                                        }
-                                        )
-                                        );
-                    }
+                    doUncustomize(view,behavior_);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomized",viewClassName,actionClassRef.name));
-                    }
-                }
-                //
-                const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-
-                if(ownerBehaviors_ != null) {
-                    for each(var ownerBehavior_:Object in ownerBehaviors_) {
-                        const behaviorClassRef:ClassRef = getClassRef(ownerBehavior_);
-                        CONFIG::DEBUG {
-                            _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassRef.name));
-                        }
-                        CONFIG::FP9 {
-                            doUnCustomizingByComponent(
-                                            owner,
-                                            viewName,
-                                            view,
-                                            ownerBehavior_,
-                                            behaviorClassRef.functions.filter(
-                                            function(item:*,index:int,array:Array):Boolean {
-                                                return ((item as FunctionRef).name.indexOf(viewName) == 0);
-                                            }
-                                            )
-                                            );
-                        }
-                        CONFIG::FP10 {
-                            doUnCustomizingByComponent(
-                                            owner,
-                                            viewName,
-                                            view,
-                                            ownerBehavior_,
-                                            behaviorClassRef.functions.filter(
-                                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                                return ((item as FunctionRef).name.indexOf(viewName) == 0);
-                                            }
-                                            )
-                                            );
-                        }
-                        CONFIG::DEBUG {
-                            _logger.debug(getMessage("Uncustomized",viewClassName,behaviorClassRef.name));
-                        }
+                        _logger.debug(getMessage("Uncustomized",viewClassName,behaviorClassName));
                     }
                 }
             }
@@ -507,5 +512,6 @@ package org.seasar.akabana.yui.framework.customizer
                 doUnCustomizingByComponent(view,componentName,component,action,functionRefs);
             }
         }
+
     }
 }

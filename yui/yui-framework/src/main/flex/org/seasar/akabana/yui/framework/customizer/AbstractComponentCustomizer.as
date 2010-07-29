@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.message.MessageManager;
 
-    internal class AbstractComponentCustomizer implements IComponentCustomizer{
+    internal class AbstractComponentCustomizer implements IViewCustomizer{
 		
         protected static function setPropertiesValue(target:Object,varClassName:String,value:Object):void {
             const targetClassRef:ClassRef = getClassRef(target);
@@ -46,15 +46,15 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        public function isTarget( view:UIComponent ):Boolean{
+        public function isTargetView( view:UIComponent ):Boolean{
             return false;
         }
 
-        public function customize( view:UIComponent, owner:UIComponent=null):void{
+        public function customizeView( view:UIComponent ):void{
             throw new IllegalOperationError("can't call");
         }
 
-        public function uncustomize( view:UIComponent, owner:UIComponent=null):void{
+        public function uncustomizeView( view:UIComponent ):void{
             throw new IllegalOperationError("can't call");
         }
 

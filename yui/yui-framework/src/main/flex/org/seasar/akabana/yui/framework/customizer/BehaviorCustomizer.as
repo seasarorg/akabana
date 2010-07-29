@@ -35,11 +35,7 @@ package org.seasar.akabana.yui.framework.customizer
         	private static const _logger:Logger = Logger.getLogger(BehaviorCustomizer);
 		}
 		
-        public override function customize(view:UIComponent,owner:UIComponent = null):void {
-            if( owner != null ){
-                return;
-            }
-
+        public override function customizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
@@ -83,11 +79,7 @@ package org.seasar.akabana.yui.framework.customizer
 
         }
 
-        public override function uncustomize(view:UIComponent,owner:UIComponent = null):void {
-            if( owner != null ){
-                return;
-            }
-
+        public override function uncustomizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             const viewClassName:String = getCanonicalName(view);
@@ -104,7 +96,7 @@ package org.seasar.akabana.yui.framework.customizer
                 var behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
                 for each(var behavior:Object in behaviors) {
 
-                    const behaviorClassName:String = getCanonicalName(view);
+                    const behaviorClassName:String = getCanonicalName(behavior);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
                     }

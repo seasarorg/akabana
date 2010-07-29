@@ -33,6 +33,8 @@ CONFIG::FP10{
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
+	import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
+	import org.seasar.akabana.yui.framework.customizer.IViewCustomizer;
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
     import org.seasar.akabana.yui.logging.Logger;
@@ -57,7 +59,7 @@ CONFIG::FP9{
         protected var _customizers:Array;
 }
 CONFIG::FP10{
-        protected var _customizers:Vector.<IComponentCustomizer>;
+        protected var _customizers:Vector.<IElementCustomizer>;
 }
         protected var _isApplicationStarted:Boolean = true;
 
@@ -84,11 +86,17 @@ CONFIG::FP10{
         public function addExternalSystemManager(systemManager:ISystemManager ):void{
         }
 
-        public function customizeComponent( container:UIComponent, owner:UIComponent=null):void{
+        public function customizeView( container:UIComponent ):void{
         }
 
-        public function uncustomizeComponent( container:UIComponent, owner:UIComponent=null):void{
+        public function uncustomizeView( container:UIComponent ):void{
         }
+		
+		public function customizeComponent( container:UIComponent, child:UIComponent):void{
+		}
+		
+		public function uncustomizeComponent( container:UIComponent, child:UIComponent):void{
+		}
 
         public function callLater(callBack:Function):void{
             _callTimer

@@ -94,8 +94,8 @@ package org.seasar.akabana.yui.framework.util
 				YuiFrameworkContainer
             	    .yuicontainer
 					.uncustomizeComponent(
-        	        	popUpUIComponent,
-        	        	PopUpUtil.lookupRelatedOwner(popUpUIComponent)
+        	        	PopUpUtil.lookupRelatedOwner(popUpUIComponent),
+						popUpUIComponent
         	        );
             	PopUpUtil.removePopUp(popUp);
             }
@@ -237,7 +237,12 @@ package org.seasar.akabana.yui.framework.util
 
         private static function creationCompleteCallBack(event:FlexEvent):void{
             var popup:UIComponent = event.target as UIComponent;
-			YuiFrameworkContainer.yuicontainer.customizeComponent(popup as UIComponent,PopUpUtil.lookupRelatedOwner(popup));
+			YuiFrameworkContainer
+				.yuicontainer
+				.customizeComponent(
+					PopUpUtil.lookupRelatedOwner(popup),
+					popup as UIComponent
+					);
             popup.setVisible(true,false);
         }
     }
