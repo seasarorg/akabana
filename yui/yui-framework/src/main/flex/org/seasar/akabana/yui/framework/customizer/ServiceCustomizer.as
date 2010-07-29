@@ -71,12 +71,13 @@ package org.seasar.akabana.yui.framework.customizer
         protected function processCustomize(action:Object):void {
             const actionClassRef:ClassRef = getClassRef(action);
 
+			var service:Service;
             for each(var propertyRef:PropertyRef in actionClassRef.properties) {
                 if(propertyRef.typeClassRef.isAssignableFrom(Service)) {
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Customizing",actionClassRef.name,propertyRef.name));
                     }
-                    var service:Service = ServiceManager.createService(propertyRef.typeClassRef.concreteClass,propertyRef.name);
+                    service = ServiceManager.createService(propertyRef.typeClassRef.concreteClass,propertyRef.name);
                     propertyRef.setValue(action,service);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Customized",actionClassRef.name,propertyRef.name));
@@ -88,12 +89,13 @@ package org.seasar.akabana.yui.framework.customizer
         protected function processUncustomize(action:Object):void {
             const actionClassRef:ClassRef = getClassRef(action);
 
+			var service:Service;
             for each(var propertyRef:PropertyRef in actionClassRef.properties) {
                 if(propertyRef.typeClassRef.isAssignableFrom(Service)) {
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomizing",actionClassRef.name,propertyRef.name));
                     }
-                    var service:Service = propertyRef.getValue(action) as Service;
+                    service = propertyRef.getValue(action) as Service;
                     service.deletePendingCallOf(action);
                     propertyRef.setValue(action,null);
                     CONFIG::DEBUG {

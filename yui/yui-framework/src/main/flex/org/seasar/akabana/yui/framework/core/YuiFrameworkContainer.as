@@ -103,8 +103,9 @@ CONFIG::DEBUG{
 CONFIG::DEBUG{
             _logger.debug("customizeView:"+container+",owner:"+container.owner);
 }
+			var viewcustomizer_:IViewCustomizer; 
             for each( var customizer_:IElementCustomizer in _customizers ){
-				var viewcustomizer_:IViewCustomizer = customizer_ as IViewCustomizer;
+				viewcustomizer_ = customizer_ as IViewCustomizer;
 				if( viewcustomizer_ != null ){
 					viewcustomizer_.customizeView( container );
 				}
@@ -116,8 +117,9 @@ CONFIG::DEBUG{
             _logger.debug("uncustomizeView:"+container+",owner:"+container.owner);
 }
             var numCustomizers:int = customizers.length;
+			var viewcustomizer_:IViewCustomizer;
             for( var i:int = numCustomizers-1; i >= 0; i-- ){
-                var viewcustomizer_:IViewCustomizer = customizers[i] as IViewCustomizer;
+                viewcustomizer_ = customizers[i] as IViewCustomizer;
 				if( viewcustomizer_ != null ){
 					viewcustomizer_.uncustomizeView( container );
 				}
@@ -128,8 +130,9 @@ CONFIG::DEBUG{
 CONFIG::DEBUG{
 	_logger.debug("customizeComponent:"+child+",owner:"+container);
 }
+			var componentcustomizer_:IComponentCustomizer;
 			for each( var customizer_:IElementCustomizer in _customizers ){
-				var componentcustomizer_:IComponentCustomizer = customizer_ as IComponentCustomizer;
+				componentcustomizer_ = customizer_ as IComponentCustomizer;
 				if( componentcustomizer_ != null ){
 					componentcustomizer_.customizeComponent( container, child );
 				}
@@ -141,8 +144,9 @@ CONFIG::DEBUG{
 	_logger.debug("uncustomizeComponent:"+child+",owner:"+container);
 }
 			var numCustomizers:int = customizers.length;
+			var componentcustomizer_:IComponentCustomizer;
 			for( var i:int = numCustomizers-1; i >= 0; i-- ){
-				var componentcustomizer_:IComponentCustomizer = customizers[i] as IComponentCustomizer;
+				componentcustomizer_ = customizers[i] as IComponentCustomizer;
 				if( componentcustomizer_ != null ){
 					componentcustomizer_.uncustomizeComponent( container, child );
 				}
@@ -306,11 +310,12 @@ CONFIG::DEBUG{
 }
 
             var viewMap:Object = ViewComponentRepository.componentMap;
+			var view:UIComponent;
             for ( var key:String in viewMap ){
 CONFIG::DEBUG{
                 _logger.debug(getMessage("ViewComponentAssembleing",key));
 }
-                var view:UIComponent = ViewComponentRepository.getComponent(key);
+                view = ViewComponentRepository.getComponent(key);
                 if( view.initialized ){
                     processAssembleView(key,view);
                 }

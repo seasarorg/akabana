@@ -51,13 +51,14 @@ package org.seasar.akabana.yui.framework.customizer
                 }
 
                 var behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()] = [];
+				var behavior:Object;
                 for each(var prop:PropertyRef in props) {
                     if( YuiFrameworkGlobals.namingConvention.isBehaviorClassName( prop.typeClassRef.name )){
 
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Customizing",viewClassName,prop.typeClassRef.name));
                         }
-                        const behavior:Object = prop.typeClassRef.newInstance();
+                        behavior = prop.typeClassRef.newInstance();
 
                         behaviors.push(behavior);
 
@@ -94,9 +95,10 @@ package org.seasar.akabana.yui.framework.customizer
                 }
 
                 var behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+				var behaviorClassName:String;
                 for each(var behavior:Object in behaviors) {
 
-                    const behaviorClassName:String = getCanonicalName(behavior);
+                    behaviorClassName = getCanonicalName(behavior);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
                     }

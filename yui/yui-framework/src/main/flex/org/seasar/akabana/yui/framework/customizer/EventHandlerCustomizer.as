@@ -89,8 +89,9 @@ package org.seasar.akabana.yui.framework.customizer
 			const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
 			
 			if(ownerBehaviors_ != null) {
+				var behaviorClassRef:ClassRef;
 				for each(var ownerBehavior_:Object in ownerBehaviors_) {
-					const behaviorClassRef:ClassRef = getClassRef(ownerBehavior_);
+					behaviorClassRef = getClassRef(ownerBehavior_);
 					CONFIG::DEBUG {
 						_logger.debug(getMessage("Customizing",ownerClassName,behaviorClassRef.name));
 					}
@@ -150,8 +151,9 @@ package org.seasar.akabana.yui.framework.customizer
             const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
 
             if(behaviors_ != null) {
+				var behaviorClassName:String;
                 for each(var behavior_:Object in behaviors_) {
-                    const behaviorClassName:String = getCanonicalName(behavior_);
+                    behaviorClassName = getCanonicalName(behavior_);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Customizing",viewClassName,behaviorClassName));
                     }
@@ -212,8 +214,9 @@ package org.seasar.akabana.yui.framework.customizer
 			const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
 			
 			if(ownerBehaviors_ != null) {
+				var behaviorClassRef:ClassRef;
 				for each(var ownerBehavior_:Object in ownerBehaviors_) {
-					const behaviorClassRef:ClassRef = getClassRef(ownerBehavior_);
+					behaviorClassRef = getClassRef(ownerBehavior_);
 					CONFIG::DEBUG {
 						_logger.debug(getMessage("Uncustomizing",ownerClassName,behaviorClassRef.name));
 					}
@@ -271,8 +274,9 @@ package org.seasar.akabana.yui.framework.customizer
             const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
 
             if(behaviors_ != null) {
-                for each(var behavior_:Object in behaviors_) {
-                    const behaviorClassName:String = getCanonicalName(behavior_);
+				var behaviorClassName:String;
+				for each(var behavior_:Object in behaviors_) {
+                    behaviorClassName = getCanonicalName(behavior_);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
                     }
@@ -293,9 +297,10 @@ package org.seasar.akabana.yui.framework.customizer
             CONFIG::FP10 {
                 var props:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
             }
-
+			
+			var child:Object;
             for each(var prop:PropertyRef in props) {
-                const child:Object = container[prop.name];
+                child = container[prop.name];
 
                 if(child != null &&
                                 child is IEventDispatcher &&
@@ -410,8 +415,9 @@ package org.seasar.akabana.yui.framework.customizer
                 const props:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
             }
 
+			var child:Object;
             for each(var prop:PropertyRef in props) {
-                const child:Object = container[prop.name];
+                child = container[prop.name];
 
 				if(child != null &&
 						child is IEventDispatcher &&
