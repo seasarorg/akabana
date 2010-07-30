@@ -20,5 +20,9 @@ package examples.yui.popup.behavior
 		public function popupCloseHandler(event:Event):void{
 			helper.hide(event.target as PopupView);
 		}
+
+		public function popupValueCommitHandler(event:Event):void{
+			helper.hide(event.target as PopupView);
+		}
 	}
 }

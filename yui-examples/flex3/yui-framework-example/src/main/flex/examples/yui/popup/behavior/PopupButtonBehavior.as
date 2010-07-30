@@ -40,6 +40,8 @@ package examples.yui.popup.behavior
         {
             trace(event);
 		    timer.start();
+
+		    helper.commit();
         }
 
 	}
