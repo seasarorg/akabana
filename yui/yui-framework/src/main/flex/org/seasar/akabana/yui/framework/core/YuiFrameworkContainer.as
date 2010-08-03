@@ -385,9 +385,9 @@ CONFIG::DEBUG{
             if( isView(component)){
                 processAssembleComponent(component as UIComponent);
             } else {
-				var owner:UIComponent = component.owner as UIComponent;
-				if( owner != null && owner.initialized && isView(owner)){
-					processAssembleViewChild(owner,component);
+				var document:UIComponent = component.document as UIComponent;
+				if( document != null && document.initialized && isView(document)){
+					processAssembleViewChild(document,component);
 				}
 			}
         }
