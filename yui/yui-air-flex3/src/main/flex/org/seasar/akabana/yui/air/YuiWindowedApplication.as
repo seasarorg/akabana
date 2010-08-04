@@ -41,7 +41,7 @@ package org.seasar.akabana.yui.air
 				_rootView = new viewClass();
 				_rootView.name = "rootView";
 				_rootView.setVisible(false,true);
-				addElement(_rootView);
+				addChild(_rootView);
 			}
 		}
 	}
