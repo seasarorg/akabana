@@ -2,6 +2,7 @@
 <flexLibProperties includeAllClasses="false" version="1">
   <includeClasses>
     <classEntry path="org.seasar.akabana.yui.air.core.Window"/>
+    <classEntry path="org.seasar.akabana.yui.air.YuiWindowedApplication"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
