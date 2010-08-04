@@ -10,7 +10,7 @@
 		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-rpc"/>
 		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework"/>
 		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework-bridge-flex3"/>
-		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-air"/>
+		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-air-flex3"/>
 
 		<projectCompilePrepare projectdir="${projectdir}"/>
 		<projectCompileWithAIRFlexLibrary9 projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="9"/>

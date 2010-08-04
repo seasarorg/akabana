@@ -17,4 +17,4 @@ import flash.system.Capabilities;
  */
 private static const DEBUG:Boolean = CONFIG::DEBUG;
 public static const REVISION:String = function():String{ var rev:String = "$Revision$"; return rev.substring(11,rev.length-2);}();
-public static const VERSION:String = "1.0.1."+REVISION+"-rc5" + (DEBUG?"-debug":"");
+public static const VERSION:String = "1.0.1."+REVISION+"-rc6-snapshot" + (DEBUG?"-debug":"");
