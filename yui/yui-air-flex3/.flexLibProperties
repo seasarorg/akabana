@@ -5,5 +5,7 @@
     <classEntry path="org.seasar.akabana.yui.air.YuiWindowedApplication"/>
   </includeClasses>
   <includeResources/>
-  <namespaceManifests/>
+  <namespaceManifests>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akabana.seasar.org/1.0"/>
+  </namespaceManifests>
 </flexLibProperties>
