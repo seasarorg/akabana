@@ -6,6 +6,7 @@ package org.seasar.akabana.yui.air
 	import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
 	import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
 	
+	[Style(name="rootViewClass", type="Class")]
 	public class YuiWindowedApplication extends WindowedApplication
 	{
 		private var _setting:YuiFrameworkSettings;

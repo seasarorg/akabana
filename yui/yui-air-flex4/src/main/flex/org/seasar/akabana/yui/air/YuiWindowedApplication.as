@@ -7,6 +7,7 @@ package org.seasar.akabana.yui.air
 	
 	import spark.components.WindowedApplication;
 	
+	[Style(name="rootViewClass", type="Class")]
 	public class YuiWindowedApplication extends WindowedApplication
 	{
 		private var _setting:YuiFrameworkSettings;
