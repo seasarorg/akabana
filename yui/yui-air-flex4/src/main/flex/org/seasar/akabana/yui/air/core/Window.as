@@ -16,11 +16,9 @@
 package org.seasar.akabana.yui.air.core
 {
     import flash.events.Event;
-    import flash.events.EventPhase;
     
     import mx.core.UIComponent;
     import mx.events.AIREvent;
-    import mx.events.CloseEvent;
     import mx.managers.ISystemManager;
     
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;

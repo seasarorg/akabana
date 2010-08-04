@@ -1,3 +1,18 @@
+/*
+* Copyright 2004-2010 the Seasar Foundation and the Others.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+* either express or implied. See the License for the specific language
+* governing permissions and limitations under the License.
+*/
 package org.seasar.akabana.yui.air
 {
 	import flash.events.Event;
@@ -6,8 +21,8 @@ package org.seasar.akabana.yui.air
 	import mx.core.WindowedApplication;
 	import mx.events.AIREvent;
 	
-	import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
 	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
+	import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
 	import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
 	
 	[Style(name="rootViewClass", type="Class")]
@@ -26,7 +41,7 @@ package org.seasar.akabana.yui.air
 		}
 		
 		public function YuiWindowedApplication()
-		{
+        {
 			super();
 			_setting = new YuiFrameworkSettings();
 			addEventListener(AIREvent.WINDOW_COMPLETE,onWindowCompleteHandler);
@@ -43,7 +58,7 @@ package org.seasar.akabana.yui.air
 			_rootView.dispatchEvent(e);
 			YuiFrameworkContainer.yuicontainer.removeExternalSystemManager(systemManager);
 		}
-		
+
 		private function onClosingHandler(event:Event):void{
 			var e:Event = new Event(event.type, false, true);
 			_rootView.dispatchEvent(e);
@@ -70,5 +85,5 @@ package org.seasar.akabana.yui.air
 				addChild(_rootView);
 			}
 		}
-	}
+    }
 }

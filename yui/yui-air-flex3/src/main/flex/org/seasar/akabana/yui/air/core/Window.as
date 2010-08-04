@@ -17,7 +17,6 @@ package org.seasar.akabana.yui.air.core
 {
     import flash.events.Event;
     
-    import mx.core.Container;
     import mx.core.UIComponent;
     import mx.core.Window;
     import mx.events.AIREvent;
@@ -26,6 +25,7 @@ package org.seasar.akabana.yui.air.core
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
 
+	[Style(name="rootViewClass", type="Class")]
     public class Window extends mx.core.Window
     {
 		
@@ -40,12 +40,12 @@ package org.seasar.akabana.yui.air.core
 			addEventListener(AIREvent.WINDOW_COMPLETE,onWindowCompleteHandler);
 		}
 		
-		public override function set systemManager(value:ISystemManager):void{
-			if( super.systemManager != value ){
-				super.systemManager = value;
-				YuiFrameworkContainer.yuicontainer.addExternalSystemManager(value);
-			}
-		}
+        public override function set systemManager(value:ISystemManager):void{
+            if( super.systemManager != value ){
+                super.systemManager = value;
+                YuiFrameworkContainer.yuicontainer.addExternalSystemManager(value);
+            }
+        }
 		
 		private function onWindowCompleteHandler(event:AIREvent):void{
 			_rootView.visible = true;
@@ -58,7 +58,7 @@ package org.seasar.akabana.yui.air.core
 			_rootView.dispatchEvent(e);
 			YuiFrameworkContainer.yuicontainer.removeExternalSystemManager(systemManager);
 		}
-		
+
 		private function onClosingHandler(event:Event):void{
 			var e:Event = new Event(event.type, false, true);
 			_rootView.dispatchEvent(e);
@@ -82,7 +82,7 @@ package org.seasar.akabana.yui.air.core
 				_rootView = new viewClass();
 				_rootView.name = "rootView";
 				_rootView.setVisible(false,true);
-				addElement(_rootView);
+				addChild(_rootView);
 			}
 		}
     }
