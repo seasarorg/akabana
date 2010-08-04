@@ -21,7 +21,9 @@ package org.seasar.akabana.yui.framework.core
     [ExcludeClass]
     public interface IYuiFrameworkContainer
     {
-        function addExternalSystemManager(systemManager:ISystemManager):void;
+		function addExternalSystemManager(systemManager:ISystemManager):void;
+		
+        function removeExternalSystemManager(systemManager:ISystemManager):void;
 
         function customizeView( container:UIComponent ):void;
 

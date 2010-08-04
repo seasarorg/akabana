@@ -18,19 +18,72 @@ package org.seasar.akabana.yui.air.core
     import flash.events.Event;
     
     import mx.core.Container;
+    import mx.core.UIComponent;
     import mx.core.Window;
+    import mx.events.AIREvent;
     import mx.managers.ISystemManager;
     
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
+    import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
 
     public class Window extends mx.core.Window
     {
-        public override function set systemManager(value:ISystemManager):void
-        {
-            if( super.systemManager != value ){
-                super.systemManager = value;
-                YuiFrameworkContainer.yuicontainer.addExternalSystemManager(value);
-            }
-        }
+		
+		private var _rootView:UIComponent;
+		
+		public function get rootView():UIComponent{
+			return _rootView;
+		}
+		
+		public function Window(){
+			super();
+			addEventListener(AIREvent.WINDOW_COMPLETE,onWindowCompleteHandler);
+		}
+		
+		public override function set systemManager(value:ISystemManager):void{
+			if( super.systemManager != value ){
+				super.systemManager = value;
+				YuiFrameworkContainer.yuicontainer.addExternalSystemManager(value);
+			}
+		}
+		
+		private function onWindowCompleteHandler(event:AIREvent):void{
+			_rootView.visible = true;
+			addEventListener(Event.CLOSE,onCloseHandler);
+			addEventListener(Event.CLOSING,onClosingHandler);
+		}
+		
+		private function onCloseHandler(event:Event):void{
+			var e:Event = new Event(event.type, false, false);
+			_rootView.dispatchEvent(e);
+			YuiFrameworkContainer.yuicontainer.removeExternalSystemManager(systemManager);
+		}
+		
+		private function onClosingHandler(event:Event):void{
+			var e:Event = new Event(event.type, false, true);
+			_rootView.dispatchEvent(e);
+			if( e.isDefaultPrevented() ){
+				event.preventDefault();			
+			}
+		}
+		
+		protected override function createChildren():void{
+			super.createChildren();
+			
+			createRootView();
+		}
+		
+		protected function createRootView():void{
+			var viewClass:Class = getStyle("rootViewClass") as Class;
+			
+			if( viewClass == null ){
+				throw new YuiFrameworkContainerError("rootViewClass style is needed.");
+			} else {
+				_rootView = new viewClass();
+				_rootView.name = "rootView";
+				_rootView.setVisible(false,true);
+				addElement(_rootView);
+			}
+		}
     }
 }

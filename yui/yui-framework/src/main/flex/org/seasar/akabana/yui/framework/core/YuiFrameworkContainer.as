@@ -65,39 +65,33 @@ CONFIG::FP10{
             super();
             if( _container == null ){
                 _container = this;
-CONFIG::FP9{
-                _systemManagers = [];
-}
-CONFIG::FP10{
-                _systemManagers = new Vector.<ISystemManager>;
-}
             } else {
                 throw new YuiFrameworkContainerError("container is already created.");
             }
         }
 
-        public override function addExternalSystemManager(systemManager:ISystemManager ):void{
+        public override function addExternalSystemManager(sm:ISystemManager ):void{
 CONFIG::DEBUG{
-            _logger.debug("add external systemManager"+systemManager);
+            _logger.debug("add external systemManager"+sm);
 }
-            systemManager
-                .addEventListener(
-                    FlexEvent.CREATION_COMPLETE,
-                    creationCompleteHandler,
-                    true,
-                    int.MAX_VALUE
-                    );
+			if( sm in _systemManagerMap ){
+				applicationMonitoringStop(sm);
+			}
+			applicationMonitoringStart(sm);
 
-            systemManager
-                .addEventListener(
-                    Event.REMOVED_FROM_STAGE,
-                    systemManager_removeFromStageHandler,
-                    true,
-                    int.MAX_VALUE
-                );
-
-            addSystemManager(systemManager);
+            addSystemManager(sm);
         }
+		
+		public override function removeExternalSystemManager(sm:ISystemManager ):void{
+			CONFIG::DEBUG{
+				_logger.debug("remove external systemManager"+sm);
+			}
+			if( sm in _systemManagerMap ){
+				applicationMonitoringStop(sm);
+			}
+			
+			removeSystemManager(sm);
+		}
 
         public override function customizeView( container:UIComponent ):void{
 CONFIG::DEBUG{
@@ -361,14 +355,17 @@ CONFIG::DEBUG{
             do{
                 if( YuiFrameworkGlobals.frameworkBridge.isApplication(component) ){
 CONFIG::DEBUG{
-                        _logger.debug(getMessage("ApplicationRegistered",component.toString()));
+                    _logger.debug(getMessage("ApplicationRegistered",component.toString()));
 }
-                        YuiFrameworkGlobals.frameworkBridge.yui_internal::application = component;
-    					Environment.yui_internal::root = component;
-    					Environment.yui_internal::parameters = YuiFrameworkGlobals.frameworkBridge.parameters;
-                        component.setVisible(false,true);
-                        applicationMonitoringStart();
-                        break;
+                    YuiFrameworkGlobals.frameworkBridge.yui_internal::application = component;
+					Environment.yui_internal::root = component;
+					Environment.yui_internal::parameters = YuiFrameworkGlobals.frameworkBridge.parameters;
+                    component.setVisible(false,true);
+					
+					const sm:ISystemManager = YuiFrameworkGlobals.frameworkBridge.systemManager;
+					applicationMonitoringStop(sm);
+                    applicationMonitoringStart(sm);
+                    break;
                 }
 
                 if( isView(component)){
@@ -467,56 +464,54 @@ CONFIG::DEBUG{
 			}
 		}
 
-        protected function applicationMonitoringStart():void{
-            var systemManager_:ISystemManager = YuiFrameworkGlobals.frameworkBridge.systemManager;
-            var application_:UIComponent = YuiFrameworkGlobals.frameworkBridge.application;
-            if( application_ != null ){
-                systemManager_
-                    .removeEventListener(
-						FlexEvent.CREATION_COMPLETE,
-                        creationCompleteHandler,
-                        true
-                        );
-
-                systemManager_
-                    .removeEventListener(
-                        Event.REMOVED_FROM_STAGE,
-                        systemManager_removeFromStageHandler,
-                        true
-                        );
-					
-				systemManager_
-					.removeEventListener(
-						Event.ADDED_TO_STAGE,
-						systemManager_addedToStageHandler2,
-						true
-					);
-            }
-
-            systemManager_
-                .addEventListener(
-					FlexEvent.CREATION_COMPLETE,
-                    creationCompleteHandler,
-                    true,
-                    int.MAX_VALUE
-                    );
+        protected function applicationMonitoringStart(sm:ISystemManager):void{
+            sm.addEventListener(
+				FlexEvent.CREATION_COMPLETE,
+                creationCompleteHandler,
+                true,
+                int.MAX_VALUE
+                );
 				
-			systemManager_
-				.addEventListener(
-					Event.REMOVED_FROM_STAGE,
-					systemManager_removeFromStageHandler,
-					true,
-					int.MAX_VALUE
+			sm.addEventListener(
+				Event.REMOVED_FROM_STAGE,
+				systemManager_removeFromStageHandler,
+				true,
+				int.MAX_VALUE
 				);
 				
-			systemManager_
-				.addEventListener(
+			sm.addEventListener(
+				Event.ADDED_TO_STAGE,
+				systemManager_addedToStageHandler2,
+				true,
+				int.MAX_VALUE
+				);
+            
+			sm.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
+        }
+		
+		protected function applicationMonitoringStop(sm:ISystemManager):void{
+			const application_:UIComponent = YuiFrameworkGlobals.frameworkBridge.application;
+			if( application_ != null ){
+				sm.removeEventListener(
+					FlexEvent.CREATION_COMPLETE,
+					creationCompleteHandler,
+					true
+				);
+				
+				sm.removeEventListener(
+					Event.REMOVED_FROM_STAGE,
+					systemManager_removeFromStageHandler,
+					true
+				);
+				
+				sm.removeEventListener(
 					Event.ADDED_TO_STAGE,
 					systemManager_addedToStageHandler2,
 					true
 				);
-            systemManager_.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
-        }
+				sm.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_STOP));
+			}
+		}
 
 CONFIG::FP9{
         protected function getDefaultCustomizers():Array{

@@ -38,6 +38,7 @@ CONFIG::FP10{
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
     import org.seasar.akabana.yui.logging.Logger;
+    import flash.utils.Dictionary;
 
     [ExcludeClass]
     internal class YuiFrameworkContainerBase implements IYuiFrameworkContainer
@@ -80,11 +81,23 @@ CONFIG::FP10{
         }
 }
 
+		protected var _systemManagerMap:Dictionary;
+
         public function YuiFrameworkContainerBase(){
-        }
+CONFIG::FP9{
+			_systemManagers = [];
+}
+CONFIG::FP10{
+			_systemManagers = new Vector.<ISystemManager>;
+}
+			_systemManagerMap = new Dictionary(true);
+		}
 
         public function addExternalSystemManager(systemManager:ISystemManager ):void{
         }
+		
+		public function removeExternalSystemManager(sm:ISystemManager ):void{
+		}
 
         public function customizeView( container:UIComponent ):void{
         }
@@ -117,12 +130,24 @@ CONFIG::DEBUG{
         }
 }
 
-        protected function addSystemManager(systemManager:ISystemManager):void{
+        protected function addSystemManager(sm:ISystemManager):void{
 CONFIG::DEBUG{
-            _logger.debug("add systemManager"+systemManager);
+            _logger.debug("add systemManager"+sm);
 }
-            _systemManagers.push(systemManager);
+			_systemManagers.push(sm);
+			_systemManagerMap[ sm ] = _systemManagers.length-1;
         }
+		
+		protected function removeSystemManager(sm:ISystemManager):void{
+CONFIG::DEBUG{
+			_logger.debug("remove systemManager"+sm);
+}
+			if( sm in _systemManagerMap ){
+				var index:int = _systemManagerMap[ sm ] as int;
+				delete _systemManagerMap[ sm ];
+				_systemManagers.splice(index,1);
+			}
+		}
 
         protected function getDefaultCustomizerClasses():Array{
 		    var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
