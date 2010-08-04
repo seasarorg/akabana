@@ -20,7 +20,6 @@ package org.seasar.akabana.yui.air
 	import mx.core.UIComponent;
 	import mx.events.AIREvent;
 	
-	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
 	import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
 	import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
 	
@@ -42,30 +41,26 @@ package org.seasar.akabana.yui.air
 		}
 		
 		public function YuiWindowedApplication()
-		{
+        {
 			super();
 			_setting = new YuiFrameworkSettings();
 			addEventListener(AIREvent.WINDOW_COMPLETE,onWindowCompleteHandler);
 		}
+
+		public override function dispatchEvent(event:Event):Boolean
+		{
+			if( _rootView != null ){
+				_rootView.dispatchEvent(event);
+			}
+			if( event.isDefaultPrevented()){
+				return false;
+			} else {
+				return super.dispatchEvent(event);
+			}
+		}
 		
 		private function onWindowCompleteHandler(event:AIREvent):void{
 			_rootView.visible = true;
-			addEventListener(Event.CLOSE,onCloseHandler);
-			addEventListener(Event.CLOSING,onClosingHandler);
-		}
-		
-		private function onCloseHandler(event:Event):void{
-			var e:Event = new Event(event.type, false, false);
-			_rootView.dispatchEvent(e);
-			YuiFrameworkContainer.yuicontainer.removeExternalSystemManager(systemManager);
-		}
-		
-		private function onClosingHandler(event:Event):void{
-			var e:Event = new Event(event.type, false, true);
-			_rootView.dispatchEvent(e);
-			if( e.isDefaultPrevented() ){
-				event.preventDefault();			
-			}
 		}
 		
 		protected override function createChildren():void{

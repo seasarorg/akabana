@@ -15,11 +15,13 @@
 */
 package org.seasar.akabana.yui.framework
 {
+    import flash.events.Event;
+    
     import mx.core.UIComponent;
-
+    
     import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
-
+    
     import spark.components.Application;
 
     [Style(name="rootViewClass", type="Class")]
@@ -42,6 +44,18 @@ package org.seasar.akabana.yui.framework
             super();
             _setting = new YuiFrameworkSettings();
         }
+
+		public override function dispatchEvent(event:Event):Boolean
+		{
+			if( _rootView != null ){
+				_rootView.dispatchEvent(event);
+			}
+			if( event.isDefaultPrevented()){
+				return false;
+			} else {
+				return super.dispatchEvent(event);
+			}
+		}
 
         protected override function createChildren():void{
             super.createChildren();

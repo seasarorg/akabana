@@ -47,24 +47,20 @@ package org.seasar.akabana.yui.air.core
             }
         }
 		
-		private function onWindowCompleteHandler(event:AIREvent):void{
-			_rootView.visible = true;
-			addEventListener(Event.CLOSE,onCloseHandler);
-			addEventListener(Event.CLOSING,onClosingHandler);
+		public override function dispatchEvent(event:Event):Boolean
+		{
+			if( _rootView != null ){
+				_rootView.dispatchEvent(event);
+			}
+			if( event.isDefaultPrevented()){
+				return false;
+			} else {
+				return super.dispatchEvent(event);
+			}
 		}
 		
-		private function onCloseHandler(event:Event):void{
-			var e:Event = new Event(event.type, false, false);
-			_rootView.dispatchEvent(e);
-			YuiFrameworkContainer.yuicontainer.removeExternalSystemManager(systemManager);
-		}
-
-		private function onClosingHandler(event:Event):void{
-			var e:Event = new Event(event.type, false, true);
-			_rootView.dispatchEvent(e);
-			if( e.isDefaultPrevented() ){
-				event.preventDefault();			
-			}
+		private function onWindowCompleteHandler(event:AIREvent):void{
+			_rootView.visible = true;
 		}
 		
 		protected override function createChildren():void{
