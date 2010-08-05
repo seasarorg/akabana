@@ -1,5 +1,3 @@
-import flash.system.Capabilities;
-
 /*
  * Copyright 2004-2010 the Seasar Foundation and the Others.
  *
@@ -17,4 +15,5 @@ import flash.system.Capabilities;
  */
 private static const DEBUG:Boolean = CONFIG::DEBUG;
 public static const REVISION:String = function():String{ var rev:String = "$Revision$"; return rev.substring(11,rev.length-2);}();
+
 public static const VERSION:String = "1.0.1."+REVISION+"-rc7-snapshot" + (DEBUG?"-debug":"");
