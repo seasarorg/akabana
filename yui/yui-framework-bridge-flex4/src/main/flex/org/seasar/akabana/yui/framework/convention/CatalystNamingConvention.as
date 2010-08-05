@@ -26,28 +26,29 @@ package org.seasar.akabana.yui.framework.convention
 			var componentName:String = null;
 			if( component != null ){
 				do{
-					if( componentName == null ){
+					{
+						if( component.id != null ){
+							componentName = component.id;
+							break;						
+						}
+					}
+					{
 						var accName:String = component.accessibilityName;
-						if( accName != null ){
+						if( accName != null && accName.length > 0 ){
 							componentName = component.name = accName;
+							break;
 						}
-						break;
 					}
-					if( componentName == null ){
+					{
 						var skinClass:String = getCanonicalName(component.getStyle("skinClass"));
-						skinClass = StringUtil.toLowerCamel(skinClass.replace(/components\./,""));
-						if( skinClass != null ){
+						if( skinClass != null && skinClass.indexOf("components") == 0 ){
+							skinClass = StringUtil.toLowerCamel(skinClass.replace(/components\./,""));
 							componentName = component.name = skinClass;
+							break;
 						}
-						break;
 					}
-					if( componentName == null ){
-						componentName = component.id;
-						break;
-					}
-					if( componentName == null ){
+					{
 						componentName = component.name;
-						break;
 					}
 				}while(false);
 			}
