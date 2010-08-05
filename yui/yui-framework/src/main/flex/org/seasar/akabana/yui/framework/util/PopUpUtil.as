@@ -138,7 +138,7 @@ package org.seasar.akabana.yui.framework.util
                 FlexEvent.INITIALIZE,
                 function(event:FlexEvent):void{
                 	if( event.eventPhase == EventPhase.AT_TARGET ){
-	                	IEventDispatcher(event.target).removeEventListener(FlexEvent.INITIALIZE,arguments.callee);
+	                	(event.target as IEventDispatcher).removeEventListener(FlexEvent.INITIALIZE,arguments.callee);
 	                    var descriptor:UIComponentDescriptor = UIComponentUtil.getDescriptor(event.target as UIComponent);
 
 	                    var popUpinfo_:Dictionary = new Dictionary(true);
