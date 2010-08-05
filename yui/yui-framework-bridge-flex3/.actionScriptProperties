@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties mainApplicationPath="yui_framework_bridge_flex3.as" projectUUID="8f406de4-4ded-47e6-9d33-4198dbe2b80e" version="6">
+<actionScriptProperties analytics="false" mainApplicationPath="yui_framework_bridge_flex3.as" projectUUID="8f406de4-4ded-47e6-9d33-4198dbe2b80e" version="6">
   <compiler additionalCompilerArguments="-target-player=10 -locale= -include-file defaults.css ..\resources\defaults.css -load-config+=define-config.xml" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="target" sourceFolderPath="src/main/flex" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="src/main/resources"/>
