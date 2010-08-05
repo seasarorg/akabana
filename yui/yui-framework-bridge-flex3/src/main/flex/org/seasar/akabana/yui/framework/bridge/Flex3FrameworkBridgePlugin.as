@@ -66,6 +66,10 @@ CONFIG::FP10{
         public function isContainer(component:Object):Boolean{
             return component is Container;
         }
+		
+		public function isComponent(component:Object):Boolean{
+			return (component is UIComponent);
+		}
 CONFIG::FP9{
 		public function getChildren(component:UIComponent):Array{
 			var result:Array = [];

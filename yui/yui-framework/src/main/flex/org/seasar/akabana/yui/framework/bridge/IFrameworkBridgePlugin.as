@@ -36,6 +36,8 @@ CONFIG::FP10{
 		function isApplication(application:Object):Boolean;
 
 		function isContainer(component:Object):Boolean;
+
+		function isComponent(component:Object):Boolean;
 		
 CONFIG::FP9{
 		function getChildren(component:UIComponent):Array;

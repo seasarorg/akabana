@@ -76,6 +76,9 @@ CONFIG::FP10{
             return frameworkBridgePlugin.isContainer(component);
         }
 		
+		public function isComponent(component:Object):Boolean{
+			return frameworkBridgePlugin.isComponent(component);
+		}
 CONFIG::FP9{
 		public function getChildren(component:UIComponent):Array{
 			return frameworkBridgePlugin.getChildren(component);

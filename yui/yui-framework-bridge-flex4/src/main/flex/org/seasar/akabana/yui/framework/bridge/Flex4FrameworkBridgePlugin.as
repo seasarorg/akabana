@@ -24,11 +24,14 @@ package org.seasar.akabana.yui.framework.bridge
     import spark.components.Group;
     import spark.components.SkinnableContainer;
     import spark.components.supportClasses.Skin;
+    import spark.skins.spark.HighlightBitmapCaptureSkin;
 
     [ExcludeClass]
     public final class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin
     {
 		private static const ROOT_VIEW:String = "rootView";
+		
+		private static const SKIN_NAME:String = "Skin";
 
         protected var _application:Application;
 
@@ -63,6 +66,11 @@ package org.seasar.akabana.yui.framework.bridge
         public function isContainer(component:Object):Boolean{
             return !( component is Skin ) && ( component is SkinnableContainer || component is Group || component is Container );
         }
+		
+		public function isComponent(component:Object):Boolean{
+			var className:String = getCanonicalName(component) as String;
+			return !( component is Skin ) && !( className.indexOf(SKIN_NAME) == className.length-SKIN_NAME.length) && ( component is UIComponent);
+		}
 
 		public function getChildren(component:UIComponent):Vector.<UIComponent>{
 			var result:Vector.<UIComponent> = new Vector.<UIComponent>();

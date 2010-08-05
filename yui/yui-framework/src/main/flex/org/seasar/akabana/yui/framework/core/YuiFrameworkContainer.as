@@ -351,6 +351,13 @@ CONFIG::DEBUG{
 			}
         }
 
+		protected function isComponent( component:Object ):Boolean{
+			if( component == null || !(component is UIComponent)){
+				return false;
+			}
+			return YuiFrameworkGlobals.frameworkBridge.isComponent(component);			
+		}
+		
         protected function doRegisterComponent( component:UIComponent ):void{
             do{
                 if( YuiFrameworkGlobals.frameworkBridge.isApplication(component) ){
@@ -381,7 +388,7 @@ CONFIG::DEBUG{
         protected function doAssembleComponent( component:UIComponent ):void{
             if( isView(component)){
                 processAssembleComponent(component as UIComponent);
-            } else {
+            } else if(isComponent(component)){
 				var document:UIComponent = component.document as UIComponent;
 				if( document != null && document.initialized && isView(document)){
 					processAssembleViewChild(document,component);
@@ -393,7 +400,7 @@ CONFIG::DEBUG{
             if( isView(component)){
                 processDisassembleView( component as UIComponent );
                 processUnregisterView( component as UIComponent );
-            } else {
+            } else if(isComponent(component)){
 				var owner:UIComponent = component.owner as UIComponent;
 				if( owner != null && owner.initialized && isView(owner)){
 					processDisassembleViewChild(owner,component);
