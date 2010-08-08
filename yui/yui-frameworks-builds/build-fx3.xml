@@ -15,6 +15,8 @@
 		<antcall target="fx3-ds-fp9" />
 		<antcall target="fx3-air-fp10" />
 		<antcall target="fx3-air-fp9" />
+		<antcall target="fx3-airrpc-fp10" />
+		<antcall target="fx3-airrpc-fp9" />
 		<antcall target="fx3-airds-fp10" />
 		<antcall target="fx3-airds-fp9" />
 	</target>
@@ -42,6 +44,12 @@
 	</target>
 	<target name="fx3-air-fp9">
 		<ant antfile="projects${file.separator}build-fx3-air-fp9.xml" />
+	</target>
+	<target name="fx3-airrpc-fp10">
+		<ant antfile="projects${file.separator}build-fx3-airrpc-fp10.xml" />
+	</target>
+	<target name="fx3-airrpc-fp9">
+		<ant antfile="projects${file.separator}build-fx3-airrpc-fp9.xml" />
 	</target>
 	<target name="fx3-airds-fp10">
 		<ant antfile="projects${file.separator}build-fx3-airds-fp10.xml" />
