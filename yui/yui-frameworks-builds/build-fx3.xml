@@ -9,14 +9,19 @@
 	<target name="all">
 		<antcall target="fx3-fp10" />
 		<antcall target="fx3-fp9" />
+
 		<antcall target="fx3-rpc-fp10" />
 		<antcall target="fx3-rpc-fp9" />
+		
 		<antcall target="fx3-ds-fp10" />
 		<antcall target="fx3-ds-fp9" />
+		
 		<antcall target="fx3-air-fp10" />
 		<antcall target="fx3-air-fp9" />
+		
 		<antcall target="fx3-airrpc-fp10" />
 		<antcall target="fx3-airrpc-fp9" />
+		
 		<antcall target="fx3-airds-fp10" />
 		<antcall target="fx3-airds-fp9" />
 	</target>
