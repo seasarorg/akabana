@@ -22,5 +22,10 @@
 <value>true</value>
 </define>
 
+<define>
+<name>CONFIG::USE_SERVICE</name>
+<value>false</value>
+</define>
+
 </compiler>
 </flex-config>

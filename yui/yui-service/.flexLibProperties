@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" version="1">
   <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ServiceCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.service.Operation"/>
     <classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
     <classEntry path="org.seasar.akabana.yui.service.Service"/>
@@ -21,6 +22,8 @@
     <classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>
     <classEntry path="org.seasar.akabana.yui.service.util.GatewayUtil"/>
   </includeClasses>
-  <includeResources/>
+  <includeResources>
+    <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
+  </includeResources>
   <namespaceManifests/>
 </flexLibProperties>

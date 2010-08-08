@@ -32,13 +32,12 @@ CONFIG::FP10{
 
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
-    import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
 	import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
-	import org.seasar.akabana.yui.framework.customizer.IViewCustomizer;
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
     import org.seasar.akabana.yui.logging.Logger;
     import flash.utils.Dictionary;
+    import org.seasar.akabana.yui.core.reflection.ClassRef;
 
     [ExcludeClass]
     internal class YuiFrameworkContainerBase implements IYuiFrameworkContainer
@@ -150,16 +149,29 @@ CONFIG::DEBUG{
 		}
 
         protected function getDefaultCustomizerClasses():Array{
-		    var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
-            var customizersDef:CSSStyleDeclaration = styleManager.getStyleDeclaration(".customizers");
-            var classNames:Object = customizersDef.getStyle("classNames");
-            if( classNames is String ){
-                classNames = [ classNames ];
-            }
-            var result:Array = [];
-            for each( var className:String in classNames ){
-                result.push( customizersDef.getStyle(className));
-            }
+		    const styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
+			const customizersDef:CSSStyleDeclaration = styleManager.getStyleDeclaration(".customizers");
+			const defaultFactory:Function = customizersDef.defaultFactory;
+
+			const result:Array = [];
+			const keys:Array = [];
+
+			var customizers:Object = {};
+			if (defaultFactory != null)
+			{
+				defaultFactory.prototype = {};
+				customizers = new defaultFactory();
+			}
+
+			var customizer:Class;
+			for( var key:String in customizers ){
+				keys.push(key);
+			}
+			keys.sort();
+			for( var i:int = 0; i < keys.length; i++ ){				
+				customizer = customizers[keys[i]] as Class;
+				result.push(customizer);
+			}
 CONFIG::DEBUG{
             _logger.debug("default customizers is "+result);
 }
