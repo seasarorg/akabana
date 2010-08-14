@@ -44,7 +44,6 @@ package org.seasar.akabana.yui.air
         {
 			super();
 			_setting = new YuiFrameworkSettings();
-			addEventListener(AIREvent.WINDOW_COMPLETE,onWindowCompleteHandler);
 		}
 
 		public override function dispatchEvent(event:Event):Boolean
@@ -57,10 +56,6 @@ package org.seasar.akabana.yui.air
 			} else {
 				return super.dispatchEvent(event);
 			}
-		}
-		
-		private function onWindowCompleteHandler(event:AIREvent):void{
-			_rootView.visible = true;
 		}
 		
 		protected override function createChildren():void{

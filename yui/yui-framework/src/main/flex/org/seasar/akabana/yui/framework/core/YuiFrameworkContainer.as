@@ -333,7 +333,7 @@ CONFIG::DEBUG{
 CONFIG::DEBUG{
             _logger.info(getMessage("ApplicationStart"));
 }
-            application.visible = true;
+            application.setVisible(true,true);
             if( rootView != null ){
                 rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
                 rootView.visible = true;

@@ -37,7 +37,6 @@ package org.seasar.akabana.yui.air.core
 		
 		public function Window(){
 			super();
-			addEventListener(AIREvent.WINDOW_COMPLETE,onWindowCompleteHandler);
 		}
 		
         public override function set systemManager(value:ISystemManager):void{
@@ -57,10 +56,6 @@ package org.seasar.akabana.yui.air.core
 			} else {
 				return super.dispatchEvent(event);
 			}
-		}
-		
-		private function onWindowCompleteHandler(event:AIREvent):void{
-			_rootView.visible = true;
 		}
 		
 		protected override function createChildren():void{

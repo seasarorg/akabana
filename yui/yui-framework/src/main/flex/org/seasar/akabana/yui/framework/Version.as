@@ -14,6 +14,5 @@
  * governing permissions and limitations under the License.
  */
 private static const DEBUG:Boolean = CONFIG::DEBUG;
-
 public static const REVISION:String = function():String{ var rev:String = "$Revision$"; return rev.substring(11,rev.length-2);}();
-public static const VERSION:String = "1.0.1."+REVISION+"-rc8" + (DEBUG?"-debug":"");
+public static const VERSION:String = "1.0.1."+REVISION+"-rc9-snapshot" + (DEBUG?"-debug":"");
