@@ -44,9 +44,7 @@
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="2" path="/yui-framework/bin/yui-framework.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="/yui-core/bin/yui-core.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="2" path="/yui-rpc/bin/yui-rpc.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="/yui-logging/bin/yui-logging.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="2" path="/yui-service/bin/yui-service.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
