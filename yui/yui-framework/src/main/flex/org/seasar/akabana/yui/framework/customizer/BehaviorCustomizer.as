@@ -59,7 +59,7 @@ package org.seasar.akabana.yui.framework.customizer
                             _logger.debug(getMessage("Customizing",viewClassName,prop.typeClassRef.name));
                         }
                         behavior = prop.typeClassRef.newInstance();
-
+                        prop.setValue(action,behavior);
                         behaviors.push(behavior);
 
                         super.doEventCustomize(viewName,view,behavior);
