@@ -5,11 +5,13 @@ package org.seasar.akabana.yui.service.http
     import flash.utils.getTimer;
     
     import mx.core.Container;
+    import mx.core.IMXMLObject;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.rpc.AsyncToken;
-    import mx.rpc.http.mxml.HTTPMultiService;
+    import mx.rpc.http.HTTPMultiService;
+    import mx.rpc.mxml.IMXMLSupport;
     
     import org.seasar.akabana.yui.service.DsPendingCall;
     import org.seasar.akabana.yui.service.OperationWatcher;
@@ -20,7 +22,7 @@ package org.seasar.akabana.yui.service.http
     use namespace flash_proxy;
     use namespace mx_internal;
     
-    public dynamic class HttpService extends HTTPMultiService implements Service
+    public dynamic class HttpService extends HTTPMultiService implements Service, IMXMLSupport, IMXMLObject
     {
         
         private var _responderOwner:Object;
@@ -46,8 +48,8 @@ package org.seasar.akabana.yui.service.http
             super(rootURL, destination);
             _pendingCallMap = new Dictionary();
         }
-
-        public override function initialized(document:Object, id:String):void
+        
+        public function initialized(document:Object, id:String):void
         {
             super.initialized(document,id);
             
@@ -85,7 +87,7 @@ package org.seasar.akabana.yui.service.http
             return result;
         }
         
-        flash_proxy override function callProperty(name:*, ... args:Array):*{
+        override flash_proxy function callProperty(name:*, ... args:Array):*{
             return internalInvoke((name as QName).localName,args);
         }
     }

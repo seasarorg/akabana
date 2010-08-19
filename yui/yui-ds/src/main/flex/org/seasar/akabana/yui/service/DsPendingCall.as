@@ -26,7 +26,6 @@ package org.seasar.akabana.yui.service {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
-    import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.ds.responder.RpcEventResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcNoneResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcObjectResponder;
@@ -54,7 +53,7 @@ package org.seasar.akabana.yui.service {
             if( resultFuncDef.parameters.length <= 0 ){
                 responderClass = RpcNoneResponder;
             } else {
-                var parameter:ParameterRef = resultFuncDef.parameters[0];
+                var parameter:ParameterRef = resultFuncDef.parameters[0] as ParameterRef;
                 if( parameter.isEvent ){
                     responderClass = RpcEventResponder;
                 } else {
