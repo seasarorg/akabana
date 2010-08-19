@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
 <componentPackage>
     <component id="RemotingService" class="org.seasar.akabana.yui.service.ds.RemotingService"/>
+    <component id="HttpService" class="org.seasar.akabana.yui.service.ds.HttpService"/>
 </componentPackage>
