@@ -27,5 +27,7 @@ package org.seasar.akabana.yui.service {
         function setCredentials(username:String, password:String, charset:String=null):void;
         
         function deletePendingCallOf(responder:Object):void;
+        
+        function deleteCallHistory(pc:PendingCall):void;
     }
 }

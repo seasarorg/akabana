@@ -33,12 +33,12 @@ package org.seasar.akabana.yui.service {
         }
 
         public static function addService( service:Service ):void{
-            serviceMap[ service.destination ] = service;
+            serviceMap[ service.name ] = service;
         }
 
         public static function removeService( service:Service ):void{
-            serviceMap[ service.destination ] = null;
-            delete serviceMap[ service.destination ];
+            serviceMap[ service.name ] = null;
+            delete serviceMap[ service.name ];
         }
 
         public static function getService( name:String ):Service{

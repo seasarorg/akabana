@@ -47,7 +47,7 @@ package org.seasar.akabana.yui.service.rpc {
             _pendingCallMap = new Dictionary();
         }
 
-        public function deleteCallHistory(pc:PendingCall):void{
+        public override function deleteCallHistory(pc:PendingCall):void{
             if( pc != null ){
                 _pendingCallMap[ pc ] = null;
                 delete _pendingCallMap[ pc ];

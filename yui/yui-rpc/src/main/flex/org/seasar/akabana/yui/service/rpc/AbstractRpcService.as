@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.service.rpc {
     import flash.utils.Dictionary;
     import flash.utils.Proxy;
     import flash.utils.flash_proxy;
-
+    
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
@@ -122,6 +122,10 @@ package org.seasar.akabana.yui.service.rpc {
 	    public function deletePendingCallOf(responder:Object):void{
 
 	    }
+        
+        public function deleteCallHistory(pc:PendingCall):void{
+            
+        }
 
 	    protected function createOperation( operationName:String ):AbstractRpcOperation{
 	        return null;

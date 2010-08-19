@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.service.ds {
     import flash.utils.Dictionary;
     import flash.utils.flash_proxy;
     import flash.utils.getTimer;
-
+    
     import mx.core.Application;
     import mx.core.Container;
     import mx.core.mx_internal;
@@ -50,7 +50,8 @@ package org.seasar.akabana.yui.service.ds {
     import mx.rpc.AsyncToken;
     import mx.rpc.events.FaultEvent;
     import mx.rpc.remoting.mxml.RemoteObject;
-
+    
+    import org.seasar.akabana.yui.service.DsPendingCall;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceManager;
@@ -122,7 +123,7 @@ package org.seasar.akabana.yui.service.ds {
 
         public function deletePendingCallOf(responder:Object):void{
             for( var item:* in _pendingCallMap ){
-                var pc:RpcPendingCall = item as RpcPendingCall;
+                var pc:DsPendingCall = item as DsPendingCall;
                 if( pc != null && pc.getResponder() === responder){
                     pc.clear();
                 }
@@ -171,14 +172,14 @@ package org.seasar.akabana.yui.service.ds {
             }
         }
 
-        protected function internalInvoke(name:String,args:Array):RpcPendingCall{
+        protected function internalInvoke(name:String,args:Array):DsPendingCall{
             if( !_isInitialzed ){
                 _isInitialzed = true;
                 initEndpoint();
             }
             var asyncToken:AsyncToken = super.callProperty.apply(null, [name].concat(args));
             asyncToken.message.destination = destination;
-            var result:RpcPendingCall = new RpcPendingCall(asyncToken.message);
+            var result:DsPendingCall = new DsPendingCall(asyncToken.message);
             result.setInternalAsyncToken(asyncToken,getOperation(name));
 
             if( RemotingService.invokeCallBack != null ){

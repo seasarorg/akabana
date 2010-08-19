@@ -13,17 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.service.ds {
+package org.seasar.akabana.yui.service {
     import mx.core.mx_internal;
     import mx.messaging.messages.IMessage;
-    import mx.messaging.messages.RemotingMessage;
     import mx.rpc.AbstractOperation;
     import mx.rpc.AsyncToken;
     import mx.rpc.IResponder;
     import mx.rpc.Responder;
     import mx.rpc.events.FaultEvent;
     import mx.rpc.events.ResultEvent;
-
+    
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
@@ -36,8 +35,8 @@ package org.seasar.akabana.yui.service.ds {
 
     use namespace mx_internal;
 
-    [ExcludeClass]
-    public class RpcPendingCall extends AsyncToken implements PendingCall {
+//    [ExcludeClass]
+    public class DsPendingCall extends AsyncToken implements PendingCall {
 
         private static const RESULT_HANDLER:String = "ResultHandler";
 
@@ -45,10 +44,10 @@ package org.seasar.akabana.yui.service.ds {
 
         private static const _responderFactory:ResponderFactory = new RpcResponderFactory();
 
-        private static function createResponder( message:RemotingMessage, responder:Object ):IResponder{
+        private static function createResponder( destination:String,operationName:String, responder:Object ):IResponder{
             const classRef:ClassRef = getClassRef(responder);
-            const resultFuncDef:FunctionRef = _responderFactory.findResultFunctionRef( classRef, message.destination , message.operation );
-            const faultFuncDef:FunctionRef = _responderFactory.findFaultFunctionRef( classRef, message.destination , message.operation );
+            const resultFuncDef:FunctionRef = _responderFactory.findResultFunctionRef( classRef, destination, operationName );
+            const faultFuncDef:FunctionRef = _responderFactory.findFaultFunctionRef( classRef, destination, operationName );
 
             var result:IResponder = null;
             var responderClass:Class;
@@ -78,7 +77,7 @@ package org.seasar.akabana.yui.service.ds {
 
         private var _operation:AbstractOperation;
 
-        public function RpcPendingCall(message:IMessage=null)
+        public function DsPendingCall(message:IMessage=null)
         {
             super(message);
         }
@@ -94,13 +93,14 @@ package org.seasar.akabana.yui.service.ds {
         }
 
         public function setResponder( responder:Object ):void{
-             if( responder is IResponder ){
+            if( responder is IResponder ){
                 _responderOwner = null;
                 _responder = responder as IResponder;
-             } else {
+            } else {
                 _responderOwner = responder;
-                _responder = createResponder( message as RemotingMessage, responder );
-             }
+                var service:Service = _operation.service as Service;
+                _responder = createResponder( service.name, _operation.name, responder );
+            }
         }
 
         public function getResponder():Object{
@@ -111,8 +111,8 @@ package org.seasar.akabana.yui.service.ds {
             }
         }
 
-        public function get remotingService():RemotingService{
-            return _operation.service as RemotingService;
+        public function get service():Service{
+            return _operation.service as Service;
         }
 
         mx_internal override function setResult(newResult:Object):void
@@ -120,10 +120,10 @@ package org.seasar.akabana.yui.service.ds {
         }
 
         public function onResult( resultEvent:ResultEvent ):void{
-            remotingService.deleteCallHistory(this);
+            service.deleteCallHistory(this);
 
-            if( RemotingService.resultCallBack != null ){
-                RemotingService.resultCallBack.apply(null,[resultEvent]);
+            if( OperationWatcher.resultCallBack != null ){
+                OperationWatcher.resultCallBack.apply(null,[resultEvent]);
             }
 
             if( _responder != null ){
@@ -137,10 +137,10 @@ package org.seasar.akabana.yui.service.ds {
         }
 
         public function onStatus( faultEvent:FaultEvent ):void{
-            remotingService.deleteCallHistory(this);
+            service.deleteCallHistory(this);
 
-            if( RemotingService.faultCallBack != null ){
-                RemotingService.faultCallBack.apply(null,[faultEvent]);
+            if( OperationWatcher.faultCallBack != null ){
+                OperationWatcher.faultCallBack.apply(null,[faultEvent]);
             }
 
             if( _responder != null ){
