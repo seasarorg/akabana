@@ -95,27 +95,42 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         protected function createEnhancedEventHandler(owner:IEventDispatcher,handler:Function):Function {
-            const func_:Object = function(event:Event):void {
-                                var callee:Object = arguments.callee;
-                                try {
-                                    var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
-                                    if(proto != null) {
-                                        proto.apply(null,[event]);
-                                    } else {
-                                        throw new Error("EnhancedEventHandler doesn't have proto Handler");
-                                    }
-                                } catch(e:Error) {
-									CONFIG::DEBUG {
-                                    	_logger.debug(e.getStackTrace());
-									}
-                                    var owner:Object = callee.properties[FUNCTION_OWNER];
-                                    if(owner is IEventDispatcher) {
-                                        (owner as IEventDispatcher).dispatchEvent(RuntimeErrorEvent.createEvent(e));
-                                    } else {
-                                        throw e;
-                                    }
-                                }
-                            };
+CONFIG::UNCAUGHT_ERROR_EVENT {
+            const func_:Object = 
+                function(event:Event):void {
+                    var callee:Object = arguments.callee;
+                    try {
+                        var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
+                        if(proto != null) {
+                            proto.apply(null,[event]);
+                        } else {
+                            throw new Error("EnhancedEventHandler doesn't have proto Handler");
+                        }
+                    } catch(e:Error) {
+						CONFIG::DEBUG {
+                        	_logger.debug(e.getStackTrace());
+						}
+                        var owner:Object = callee.properties[FUNCTION_OWNER];
+                        if(owner is IEventDispatcher) {
+                            (owner as IEventDispatcher).dispatchEvent(RuntimeErrorEvent.createEvent(e));
+                        } else {
+                            throw e;
+                        }
+                    }
+                };
+}
+CONFIG::UNCAUGHT_ERROR_GLOBAL {
+            const func_:Object = 
+                function(event:Event):void {
+                    var callee:Object = arguments.callee;
+                    var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
+                    if(proto != null) {
+                        proto.apply(null,[event]);
+                    } else {
+                        throw new Error("EnhancedEventHandler doesn't have proto Handler");
+                    }
+                };
+}               
             const properties:Dictionary = new Dictionary(true);
             properties[FUNCTION_OWNER] = owner;
             properties[FUNCTION_PROTO] = handler;
@@ -124,27 +139,42 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         protected function createEnhancedEventNoneHandler(owner:IEventDispatcher,handler:Function):Function {
-            const func_:Object = function(event:Event):void {
-                                var callee:Object = arguments.callee;
-                                try {
-                                    var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
-                                    if(proto != null) {
-                                        proto.apply(null);
-                                    } else {
-                                        throw new Error("EnhancedEventHandler doesn't have proto Handler");
-                                    }
-                                } catch(e:Error) {
-									CONFIG::DEBUG {
-                                    	_logger.debug(e.getStackTrace());
-									}
-                                    var owner:Object = callee.properties[FUNCTION_OWNER];
-                                    if(owner is IEventDispatcher) {
-                                        (owner as IEventDispatcher).dispatchEvent(RuntimeErrorEvent.createEvent(e));
-                                    } else {
-                                        throw e;
-                                    }
-                                }
-                            };
+CONFIG::UNCAUGHT_ERROR_EVENT {
+            const func_:Object =
+                function(event:Event):void {
+                    var callee:Object = arguments.callee;
+                    try {
+                        var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
+                        if(proto != null) {
+                            proto.apply(null);
+                        } else {
+                            throw new Error("EnhancedEventHandler doesn't have proto Handler");
+                        }
+                    } catch(e:Error) {
+						CONFIG::DEBUG {
+                        	_logger.debug(e.getStackTrace());
+						}
+                        var owner:Object = callee.properties[FUNCTION_OWNER];
+                        if(owner is IEventDispatcher) {
+                            (owner as IEventDispatcher).dispatchEvent(RuntimeErrorEvent.createEvent(e));
+                        } else {
+                            throw e;
+                        }
+                    }
+                };
+}
+CONFIG::UNCAUGHT_ERROR_GLOBAL {
+            const func_:Object =
+                function(event:Event):void {
+                    var callee:Object = arguments.callee;
+                    var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
+                    if(proto != null) {
+                        proto.apply(null);
+                    } else {
+                        throw new Error("EnhancedEventHandler doesn't have proto Handler");
+                    }
+                };
+}
             const properties:Dictionary = new Dictionary(true);
             properties[FUNCTION_OWNER] = owner;
             properties[FUNCTION_PROTO] = handler;

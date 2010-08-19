@@ -13,7 +13,7 @@
 		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-air-flex3"/>
 
 		<projectCompilePrepare projectdir="${projectdir}"/>
-		<projectCompileWithAIRFlexLibrary10 projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10"/>
+		<projectCompileWithAIRFlexLibrary10 projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10" uncaughtError="0"/>
 		<projectRsl projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10"/>
 	</target>
 </project>

@@ -231,6 +231,8 @@
 				<define name="CONFIG::DEBUG_EVENT" value="false" />
 				<define name="CONFIG::FP9" value="true" />
 				<define name="CONFIG::FP10" value="false" />
+				<define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="true" />
+				<define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="false" />
 				<load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}flex-config.xml" />
 				<load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
 				<source-path path-element="${projectdir}${FLEX_SRC}" />
@@ -266,6 +268,7 @@
 		<attribute name="projectname" />
 		<attribute name="projectdir" />
 		<attribute name="flashplayer" />
+		<attribute name="uncaughtError" />
 		<sequential>
 			<property name="project-locale-ja-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}ja_JP${file.separator}"/>
 			<property name="project-locale-en-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}en_US${file.separator}"/>
@@ -276,6 +279,8 @@
 				<define name="CONFIG::DEBUG_EVENT" value="false" />
 				<define name="CONFIG::FP9" value="false" />
 				<define name="CONFIG::FP10" value="true" />
+				<define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="@{uncaughtError} == 0" />
+				<define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="@{uncaughtError} == 1" />
 				<load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}flex-config.xml" />
 				<load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
 				<source-path path-element="${projectdir}${FLEX_SRC}" />
@@ -321,6 +326,8 @@
 				<define name="CONFIG::DEBUG_EVENT" value="false" />
 				<define name="CONFIG::FP9" value="true" />
 				<define name="CONFIG::FP10" value="false" />
+				<define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="true" />
+				<define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="false" />
 				<load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}air-config.xml" />
 				<load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
 				<source-path path-element="${projectdir}${FLEX_SRC}" />
@@ -354,6 +361,7 @@
 		<attribute name="projectname" />
 		<attribute name="projectdir" />
 		<attribute name="flashplayer" />
+		<attribute name="uncaughtError" />
 		<sequential>
 			<property name="project-locale-ja-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}ja_JP${file.separator}"/>
 			<property name="project-locale-en-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}en_US${file.separator}"/>
@@ -364,6 +372,8 @@
 				<define name="CONFIG::DEBUG_EVENT" value="false" />
 				<define name="CONFIG::FP9" value="false" />
 				<define name="CONFIG::FP10" value="true" />
+				<define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="@{uncaughtError} == 0" />
+				<define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="@{uncaughtError} == 1" />
 				<load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}air-config.xml" />
 				<load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
 				<source-path path-element="${projectdir}${FLEX_SRC}" />

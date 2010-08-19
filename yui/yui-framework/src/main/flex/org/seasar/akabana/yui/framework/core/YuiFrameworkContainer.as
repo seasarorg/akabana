@@ -19,6 +19,10 @@ CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
 
+CONFIG::UNCAUGHT_ERROR_GLOBAL{
+    import flash.events.UncaughtErrorEvent;
+}
+
     import flash.events.Event;
     import flash.system.Capabilities;
 
@@ -35,6 +39,7 @@ CONFIG::FP10{
 	import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
 	import org.seasar.akabana.yui.framework.util.UIComponentUtil;
+	import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
 
     [ExcludeClass]
     public final class YuiFrameworkContainer extends YuiFrameworkContainerBase
@@ -202,7 +207,10 @@ CONFIG::DEBUG{
                     systemManager_addedToStageHandler,
                     true
                 );
-
+                
+CONFIG::UNCAUGHT_ERROR_GLOBAL{
+            systemManager_.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfoUncaughtErrorHandler);
+}
             initialize();
         }
 
@@ -530,6 +538,7 @@ CONFIG::FP9{
             return result;
         }
 }
+
 CONFIG::FP10{
         protected function getDefaultCustomizers():Vector.<IElementCustomizer>{
             var classes:Array = getDefaultCustomizerClasses();
@@ -541,5 +550,12 @@ CONFIG::FP10{
         }
 }
 
+CONFIG::UNCAUGHT_ERROR_GLOBAL{
+        private function loaderInfoUncaughtErrorHandler(event:UncaughtErrorEvent):void
+        {
+            var runtimeErrorEvent:RuntimeErrorEvent = RuntimeErrorEvent.createEvent(event.error);
+            application.dispatchEvent(runtimeErrorEvent);
+        }
+}
     }
 }

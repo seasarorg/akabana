@@ -209,6 +209,8 @@
 				<define name="CONFIG::DEBUG_EVENT" value="false" />
 				<define name="CONFIG::FP9" value="false" />
 				<define name="CONFIG::FP10" value="true" />
+				<define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="false" />
+				<define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="true" />
 				<load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}flex-config.xml" />
 				<load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
 				<source-path path-element="${projectdir}${FLEX_SRC}" />
@@ -254,6 +256,8 @@
 				<define name="CONFIG::DEBUG_EVENT" value="false" />
 				<define name="CONFIG::FP9" value="false" />
 				<define name="CONFIG::FP10" value="true" />
+				<define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="false" />
+				<define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="true" />
 				<load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}air-config.xml" />
 				<load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
 				<source-path path-element="${projectdir}${FLEX_SRC}" />
