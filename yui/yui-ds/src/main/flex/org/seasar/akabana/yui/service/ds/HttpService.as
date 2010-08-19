@@ -4,14 +4,10 @@ package org.seasar.akabana.yui.service.ds
     import flash.utils.flash_proxy;
     import flash.utils.getTimer;
     
-    import mx.core.Container;
     import mx.core.IMXMLObject;
-    import mx.core.UIComponent;
     import mx.core.mx_internal;
-    import mx.events.FlexEvent;
     import mx.rpc.AsyncToken;
     import mx.rpc.http.HTTPMultiService;
-    import mx.rpc.mxml.IMXMLSupport;
     
     import org.seasar.akabana.yui.service.OperationWatcher;
     import org.seasar.akabana.yui.service.PendingCall;
@@ -50,8 +46,6 @@ package org.seasar.akabana.yui.service.ds
         
         public function initialized(document:Object, id:String):void
         {
-            super.initialized(document,id);
-            
             ServiceManager.addService( this );
         }
         

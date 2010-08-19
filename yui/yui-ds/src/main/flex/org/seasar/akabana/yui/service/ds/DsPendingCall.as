@@ -26,18 +26,18 @@ package org.seasar.akabana.yui.service.ds {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
+    import org.seasar.akabana.yui.service.OperationWatcher;
+    import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ds.responder.RpcEventResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcNoneResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcObjectResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcResponderFactory;
     import org.seasar.akabana.yui.service.resonder.ResponderFactory;
-    import org.seasar.akabana.yui.service.OperationWatcher;
-    import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.Service;
 
     use namespace mx_internal;
 
-//    [ExcludeClass]
+    [ExcludeClass]
     public class DsPendingCall extends AsyncToken implements PendingCall {
 
         private static const RESULT_HANDLER:String = "ResultHandler";
