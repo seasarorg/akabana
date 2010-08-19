@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" version="1">
   <includeClasses>
-    <classEntry path="org.seasar.akabana.yui.service.DsPendingCall"/>
-    <classEntry path="org.seasar.akabana.yui.service.ds.RemotingService"/>
-    <classEntry path="org.seasar.akabana.yui.service.ds.responder.AbstractRpcEventResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcEventResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcNoneResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcResponderFactory"/>
+    <classEntry path="org.seasar.akabana.yui.service.http.HttpService"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests>
