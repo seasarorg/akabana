@@ -1,4 +1,4 @@
-package org.seasar.akabana.yui.service.http
+package org.seasar.akabana.yui.service.ds
 {
     import flash.utils.Dictionary;
     import flash.utils.flash_proxy;
@@ -13,7 +13,6 @@ package org.seasar.akabana.yui.service.http
     import mx.rpc.http.HTTPMultiService;
     import mx.rpc.mxml.IMXMLSupport;
     
-    import org.seasar.akabana.yui.service.DsPendingCall;
     import org.seasar.akabana.yui.service.OperationWatcher;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;

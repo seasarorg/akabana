@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.service {
+package org.seasar.akabana.yui.service.ds {
     import mx.core.mx_internal;
     import mx.messaging.messages.IMessage;
     import mx.rpc.AbstractOperation;
@@ -31,6 +31,9 @@ package org.seasar.akabana.yui.service {
     import org.seasar.akabana.yui.service.ds.responder.RpcObjectResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcResponderFactory;
     import org.seasar.akabana.yui.service.resonder.ResponderFactory;
+    import org.seasar.akabana.yui.service.OperationWatcher;
+    import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.Service;
 
     use namespace mx_internal;
 
