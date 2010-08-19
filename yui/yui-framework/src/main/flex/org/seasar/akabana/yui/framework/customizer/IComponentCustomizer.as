@@ -20,11 +20,7 @@ package org.seasar.akabana.yui.framework.customizer
     [ExcludeClass]
     public interface IComponentCustomizer extends IElementCustomizer
     {
-        function isTargetComponent( component:UIComponent ):Boolean;
-
         function customizeComponent( view:UIComponent, component:UIComponent ):void;
-
         function uncustomizeComponent( view:UIComponent, component:UIComponent ):void;
-
     }
 }

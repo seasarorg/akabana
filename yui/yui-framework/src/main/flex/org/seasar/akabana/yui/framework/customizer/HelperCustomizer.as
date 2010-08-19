@@ -30,11 +30,11 @@ package org.seasar.akabana.yui.framework.customizer
 
     [ExcludeClass]
     public class HelperCustomizer extends AbstractComponentCustomizer {
-		
-		CONFIG::DEBUG {
-        	private static const _logger:Logger = Logger.getLogger(HelperCustomizer);
-		}
-		
+        
+        CONFIG::DEBUG {
+            private static const _logger:Logger = Logger.getLogger(HelperCustomizer);
+        }
+        
         public override function customizeView(container:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
@@ -51,12 +51,12 @@ package org.seasar.akabana.yui.framework.customizer
                 //
                 setPropertiesValue(helper,viewClassName,container);
                 var viewPropertyRef:PropertyRef = helperClassRef.getPropertyRef("view");
-				if( viewPropertyRef != null && viewPropertyRef.isWriteable ){
-				    var value:Object = viewPropertyRef.getValue(helper);
-				    if( value == null ){
-				        viewPropertyRef.setValue(helper,container);
-				    }
-				}
+                if( viewPropertyRef != null && viewPropertyRef.isWriteable ){
+                    var value:Object = viewPropertyRef.getValue(helper);
+                    if( value == null ){
+                        viewPropertyRef.setValue(helper,container);
+                    }
+                }
                 //
                 CONFIG::FP9 {
                     const viewProps:Array = getClassRef(getCanonicalName(container)).properties;
@@ -85,10 +85,10 @@ package org.seasar.akabana.yui.framework.customizer
                         setPropertiesValue(behavior,helperClassName,helper);
                     }
                 }
-				
-				if( helper is ILifeCyclable ){
-					(helper as ILifeCyclable).start();
-				}
+                
+                if( helper is ILifeCyclable ){
+                    (helper as ILifeCyclable).start();
+                }
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("Customized",viewClassName,helperClassName));
                 }
@@ -110,9 +110,9 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 //
                 const helper:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
-				if( helper is ILifeCyclable ){
-					(helper as ILifeCyclable).stop();
-				}
+                if( helper is ILifeCyclable ){
+                    (helper as ILifeCyclable).stop();
+                }
                 //
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 if(action != null) {

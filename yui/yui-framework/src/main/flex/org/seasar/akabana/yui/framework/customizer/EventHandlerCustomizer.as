@@ -36,99 +36,99 @@ package org.seasar.akabana.yui.framework.customizer
 
     [ExcludeClass]
     public class EventHandlerCustomizer extends AbstractComponentEventCustomizer implements IComponentCustomizer {
-		
-		CONFIG::DEBUG {
-			private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);	
-		}
-		
-		public function customizeComponent( owner:UIComponent, view:UIComponent ):void{
-			const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
-			const ownerName:String = YuiFrameworkGlobals.namingConvention.getComponentName(owner);
-			const ownerClassName:String = getCanonicalName(view);
-			const ownerProperties:Object = UIComponentUtil.getProperties(owner);
-			const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-			
-			if(ownerAction_ != null) {
-				const actionClassRef:ClassRef = getClassRef(ownerAction_);
-				CONFIG::DEBUG {
-					_logger.debug(getMessage("Customizing",ownerName,actionClassRef.name));
-				}
-				CONFIG::FP9 {
-					doCustomizingByComponent(
-						owner,
-						componentName,
-						view,
-						ownerAction_,
-						actionClassRef.functions.filter(
-							function(item:*,index:int,array:Array):Boolean {
-								return ((item as FunctionRef).name.indexOf(componentName) == 0);
-							}
-						),
-						int.MAX_VALUE>>1
-					);
-				}
-				CONFIG::FP10 {
-					doCustomizingByComponent(
-						owner,
-						componentName,
-						view,
-						ownerAction_,
-						actionClassRef.functions.filter(
-							function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-								return ((item as FunctionRef).name.indexOf(componentName) == 0);
-							}
-						),
-						int.MAX_VALUE>>1
-					);
-				}
-				CONFIG::DEBUG {
-					_logger.debug(getMessage("Customized",ownerName,actionClassRef.name));
-				}
-			}
-			//
-			const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-			
-			if(ownerBehaviors_ != null) {
-				var behaviorClassRef:ClassRef;
-				for each(var ownerBehavior_:Object in ownerBehaviors_) {
-					behaviorClassRef = getClassRef(ownerBehavior_);
-					CONFIG::DEBUG {
-						_logger.debug(getMessage("Customizing",ownerClassName,behaviorClassRef.name));
-					}
-					CONFIG::FP9 {
-						doCustomizingByComponent(
-							owner,
-							componentName,
-							view,
-							ownerBehavior_,
-							behaviorClassRef.functions.filter(
-								function(item:*,index:int,array:Array):Boolean {
-									return ((item as FunctionRef).name.indexOf(componentName) == 0);
-								}
-							),
-							0
-						);
-					}
-					CONFIG::FP10 {
-						doCustomizingByComponent(
-							owner,
-							componentName,
-							view,
-							ownerBehavior_,
-							behaviorClassRef.functions.filter(
-								function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-									return ((item as FunctionRef).name.indexOf(componentName) == 0);
-								}
-							),
-							0
-						);
-					}
-					CONFIG::DEBUG {
-						_logger.debug(getMessage("Customized",ownerClassName,behaviorClassRef.name));
-					}
-				}
-			}
-		}
+        
+        CONFIG::DEBUG {
+            private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);    
+        }
+        
+        public function customizeComponent( owner:UIComponent, component:UIComponent ):void{
+            const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
+            const ownerName:String = YuiFrameworkGlobals.namingConvention.getComponentName(owner);
+            const ownerClassName:String = getCanonicalName(component);
+            const ownerProperties:Object = UIComponentUtil.getProperties(owner);
+            const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            
+            if(ownerAction_ != null) {
+                const actionClassRef:ClassRef = getClassRef(ownerAction_);
+                CONFIG::DEBUG {
+                    _logger.debug(getMessage("Customizing",ownerName+"#"+componentName,actionClassRef.name));
+                }
+                CONFIG::FP9 {
+                    doCustomizingByComponent(
+                        owner,
+                        componentName,
+                        component,
+                        ownerAction_,
+                        actionClassRef.functions.filter(
+                            function(item:*,index:int,array:Array):Boolean {
+                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                            }
+                        ),
+                        int.MAX_VALUE>>1
+                    );
+                }
+                CONFIG::FP10 {
+                    doCustomizingByComponent(
+                        owner,
+                        componentName,
+                        component,
+                        ownerAction_,
+                        actionClassRef.functions.filter(
+                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                            }
+                        ),
+                        int.MAX_VALUE>>1
+                    );
+                }
+                CONFIG::DEBUG {
+                    _logger.debug(getMessage("Customized",ownerName+"#"+componentName,actionClassRef.name));
+                }
+            }
+            //
+            const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+            
+            if(ownerBehaviors_ != null) {
+                var behaviorClassRef:ClassRef;
+                for each(var ownerBehavior_:Object in ownerBehaviors_) {
+                    behaviorClassRef = getClassRef(ownerBehavior_);
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Customizing",ownerClassName+"#"+componentName,behaviorClassRef.name));
+                    }
+                    CONFIG::FP9 {
+                        doCustomizingByComponent(
+                            owner,
+                            componentName,
+                            component,
+                            ownerBehavior_,
+                            behaviorClassRef.functions.filter(
+                                function(item:*,index:int,array:Array):Boolean {
+                                    return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                                }
+                            ),
+                            0
+                        );
+                    }
+                    CONFIG::FP10 {
+                        doCustomizingByComponent(
+                            owner,
+                            componentName,
+                            component,
+                            ownerBehavior_,
+                            behaviorClassRef.functions.filter(
+                                function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                    return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                                }
+                            ),
+                            0
+                        );
+                    }
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Customized",ownerClassName+"#"+componentName,behaviorClassRef.name));
+                    }
+                }
+            }
+        }
 
         public override function customizeView(view:UIComponent):void {
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
@@ -151,7 +151,7 @@ package org.seasar.akabana.yui.framework.customizer
             const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
 
             if(behaviors_ != null) {
-				var behaviorClassName:String;
+                var behaviorClassName:String;
                 for each(var behavior_:Object in behaviors_) {
                     behaviorClassName = getCanonicalName(behavior_);
                     CONFIG::DEBUG {
@@ -165,94 +165,94 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-		public function isTargetComponent( component:UIComponent ):Boolean{
-			return component.initialized && component.parent != null;
-		}
-		
-		public function uncustomizeComponent( owner:UIComponent, component:UIComponent):void{
-			const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
-			const ownerClassName:String = getCanonicalName(owner);
-			const ownerProperties:Object = UIComponentUtil.getProperties(owner);
-			const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-			
-			if(ownerAction_ != null) {
-				const actionClassRef:ClassRef = getClassRef(ownerAction_);
-				CONFIG::DEBUG {
-					_logger.debug(getMessage("Uncustomizing",ownerClassName,actionClassRef.name));
-				}
-				CONFIG::FP9 {
-					doUnCustomizingByComponent(
-						owner,
-						componentName,
-						component,
-						ownerAction_,
-						actionClassRef.functions.filter(
-							function(item:*,index:int,array:Array):Boolean {
-								return ((item as FunctionRef).name.indexOf(componentName) == 0);
-							}
-						)
-					);
-				}
-				CONFIG::FP10 {
-					doUnCustomizingByComponent(
-						owner,
-						componentName,
-						component,
-						ownerAction_,
-						actionClassRef.functions.filter(
-							function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-								return ((item as FunctionRef).name.indexOf(componentName) == 0);
-							}
-						)
-					);
-				}
-				CONFIG::DEBUG {
-					_logger.debug(getMessage("Uncustomized",ownerClassName,actionClassRef.name));
-				}
-			}
-			//
-			const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-			
-			if(ownerBehaviors_ != null) {
-				var behaviorClassRef:ClassRef;
-				for each(var ownerBehavior_:Object in ownerBehaviors_) {
-					behaviorClassRef = getClassRef(ownerBehavior_);
-					CONFIG::DEBUG {
-						_logger.debug(getMessage("Uncustomizing",ownerClassName,behaviorClassRef.name));
-					}
-					CONFIG::FP9 {
-						doUnCustomizingByComponent(
-							owner,
-							componentName,
-							component,
-							ownerBehavior_,
-							behaviorClassRef.functions.filter(
-								function(item:*,index:int,array:Array):Boolean {
-									return ((item as FunctionRef).name.indexOf(componentName) == 0);
-								}
-							)
-						);
-					}
-					CONFIG::FP10 {
-						doUnCustomizingByComponent(
-							owner,
-							componentName,
-							component,
-							ownerBehavior_,
-							behaviorClassRef.functions.filter(
-								function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-									return ((item as FunctionRef).name.indexOf(componentName) == 0);
-								}
-							)
-						);
-					}
-					CONFIG::DEBUG {
-						_logger.debug(getMessage("Uncustomized",ownerClassName,behaviorClassRef.name));
-					}
-				}
-			}
-		}
-		
+        public function isTargetComponent( component:UIComponent ):Boolean{
+            return component.initialized && component.parent != null;
+        }
+        
+        public function uncustomizeComponent( owner:UIComponent, component:UIComponent):void{
+            const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
+            const ownerClassName:String = getCanonicalName(owner);
+            const ownerProperties:Object = UIComponentUtil.getProperties(owner);
+            const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            
+            if(ownerAction_ != null) {
+                const actionClassRef:ClassRef = getClassRef(ownerAction_);
+                CONFIG::DEBUG {
+                    _logger.debug(getMessage("Uncustomizing",ownerClassName+"#"+componentName,actionClassRef.name));
+                }
+                CONFIG::FP9 {
+                    doUnCustomizingByComponent(
+                        owner,
+                        componentName,
+                        component,
+                        ownerAction_,
+                        actionClassRef.functions.filter(
+                            function(item:*,index:int,array:Array):Boolean {
+                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                            }
+                        )
+                    );
+                }
+                CONFIG::FP10 {
+                    doUnCustomizingByComponent(
+                        owner,
+                        componentName,
+                        component,
+                        ownerAction_,
+                        actionClassRef.functions.filter(
+                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                            }
+                        )
+                    );
+                }
+                CONFIG::DEBUG {
+                    _logger.debug(getMessage("Uncustomized",ownerClassName+"#"+componentName,actionClassRef.name));
+                }
+            }
+            //
+            const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+            
+            if(ownerBehaviors_ != null) {
+                var behaviorClassRef:ClassRef;
+                for each(var ownerBehavior_:Object in ownerBehaviors_) {
+                    behaviorClassRef = getClassRef(ownerBehavior_);
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Uncustomizing",ownerClassName+"#"+componentName,behaviorClassRef.name));
+                    }
+                    CONFIG::FP9 {
+                        doUnCustomizingByComponent(
+                            owner,
+                            componentName,
+                            component,
+                            ownerBehavior_,
+                            behaviorClassRef.functions.filter(
+                                function(item:*,index:int,array:Array):Boolean {
+                                    return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                                }
+                            )
+                        );
+                    }
+                    CONFIG::FP10 {
+                        doUnCustomizingByComponent(
+                            owner,
+                            componentName,
+                            component,
+                            ownerBehavior_,
+                            behaviorClassRef.functions.filter(
+                                function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                    return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                                }
+                            )
+                        );
+                    }
+                    CONFIG::DEBUG {
+                        _logger.debug(getMessage("Uncustomized",ownerClassName+"#"+componentName,behaviorClassRef.name));
+                    }
+                }
+            }
+        }
+        
         public override function uncustomizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
@@ -274,8 +274,8 @@ package org.seasar.akabana.yui.framework.customizer
             const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
 
             if(behaviors_ != null) {
-				var behaviorClassName:String;
-				for each(var behavior_:Object in behaviors_) {
+                var behaviorClassName:String;
+                for each(var behavior_:Object in behaviors_) {
                     behaviorClassName = getCanonicalName(behavior_);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
@@ -288,7 +288,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        private function doCustomize(container:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {	
+        private function doCustomize(container:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {    
             const actionClassRef:ClassRef = getClassRef(action);
             //for children
             CONFIG::FP9 {
@@ -297,8 +297,8 @@ package org.seasar.akabana.yui.framework.customizer
             CONFIG::FP10 {
                 var props:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
             }
-			
-			var child:Object;
+            
+            var child:Object;
             for each(var prop:PropertyRef in props) {
                 child = container[prop.name];
 
@@ -307,7 +307,7 @@ package org.seasar.akabana.yui.framework.customizer
                                 (child is IUIComponent || child is IMXMLObject || child is IEffect)) {
                     CONFIG::FP9 {
                         doCustomizeByComponent(
-										container,
+                                        container,
                                         prop.name,
                                         child as IEventDispatcher,
                                         action,
@@ -321,7 +321,7 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                     CONFIG::FP10 {
                         doCustomizeByComponent(
-										container,
+                                        container,
                                         prop.name,
                                         child as IEventDispatcher,
                                         action,
@@ -338,7 +338,7 @@ package org.seasar.akabana.yui.framework.customizer
             //for self
             CONFIG::FP9 {
                 doCustomizeByComponent(
-								container,
+                                container,
                                 null,
                                 null,
                                 action,
@@ -352,7 +352,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
             CONFIG::FP10 {
                 doCustomizeByComponent(
-								container,
+                                container,
                                 null,
                                 null,
                                 action,
@@ -415,16 +415,16 @@ package org.seasar.akabana.yui.framework.customizer
                 const props:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
             }
 
-			var child:Object;
+            var child:Object;
             for each(var prop:PropertyRef in props) {
                 child = container[prop.name];
 
-				if(child != null &&
-						child is IEventDispatcher &&
-						(child is IUIComponent || child is IMXMLObject || child is IEffect)) {
+                if(child != null &&
+                        child is IEventDispatcher &&
+                        (child is IUIComponent || child is IMXMLObject || child is IEffect)) {
                     CONFIG::FP9 {
                         doUncustomizeByComponent(
-										container,
+                                        container,
                                         prop.name,
                                         child as IEventDispatcher,
                                         action,
@@ -437,7 +437,7 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                     CONFIG::FP10 {
                         doUncustomizeByComponent(
-										container,
+                                        container,
                                         prop.name,
                                         child as IEventDispatcher,
                                         action,
@@ -453,7 +453,7 @@ package org.seasar.akabana.yui.framework.customizer
             //for self
             CONFIG::FP9 {
                 doUncustomizeByComponent(
-								container,
+                                container,
                                 null,
                                 null,
                                 action,
@@ -466,7 +466,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
             CONFIG::FP10 {
                 doUncustomizeByComponent(
-								container,
+                                container,
                                 null,
                                 null,
                                 action,

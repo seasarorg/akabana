@@ -30,11 +30,11 @@ package org.seasar.akabana.yui.framework.customizer
 
     [ExcludeClass]
     public class BehaviorCustomizer extends AbstractEventListenerCustomizer {
-		
-		CONFIG::DEBUG {
-        	private static const _logger:Logger = Logger.getLogger(BehaviorCustomizer);
-		}
-		
+        
+        CONFIG::DEBUG {
+            private static const _logger:Logger = Logger.getLogger(BehaviorCustomizer);
+        }
+        
         public override function customizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
@@ -51,7 +51,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
 
                 var behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()] = [];
-				var behavior:Object;
+                var behavior:Object;
                 for each(var prop:PropertyRef in props) {
                     if( YuiFrameworkGlobals.namingConvention.isBehaviorClassName( prop.typeClassRef.name )){
 
@@ -64,9 +64,9 @@ package org.seasar.akabana.yui.framework.customizer
 
                         super.doEventCustomize(viewName,view,behavior);
 
-						if( behavior is ILifeCyclable ){
-							(behavior as ILifeCyclable).start();
-						}
+                        if( behavior is ILifeCyclable ){
+                            (behavior as ILifeCyclable).start();
+                        }
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Customized",viewClassName,prop.typeClassRef.name));
                         }
@@ -95,17 +95,17 @@ package org.seasar.akabana.yui.framework.customizer
                 }
 
                 var behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-				var behaviorClassName:String;
+                var behaviorClassName:String;
                 for each(var behavior:Object in behaviors) {
 
                     behaviorClassName = getCanonicalName(behavior);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
                     }
-					
-					if( behavior is ILifeCyclable ){
-						(behavior as ILifeCyclable).stop();
-					}
+                    
+                    if( behavior is ILifeCyclable ){
+                        (behavior as ILifeCyclable).stop();
+                    }
                     super.doEventUncustomize(view,behavior);
 
                     CONFIG::DEBUG {

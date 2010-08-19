@@ -33,11 +33,11 @@ package org.seasar.akabana.yui.framework.customizer
 
     [ExcludeClass]
     public class ActionCustomizer extends AbstractEventListenerCustomizer {
-		
-		CONFIG::DEBUG {
-        	private static const _logger:Logger = Logger.getLogger(ActionCustomizer);
-		}
-		
+        
+        CONFIG::DEBUG {
+            private static const _logger:Logger = Logger.getLogger(ActionCustomizer);
+        }
+        
         public override function customizeView(view:UIComponent ):void {
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
@@ -53,10 +53,10 @@ package org.seasar.akabana.yui.framework.customizer
                 const action:Object = actionClassRef.newInstance();
                 doEventCustomize(viewName,view,action);
                 properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = action;
-				
-				if( action is ILifeCyclable ){
-					(action as ILifeCyclable).start();
-				}
+                
+                if( action is ILifeCyclable ){
+                    (action as ILifeCyclable).start();
+                }
                 //
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("Customized",viewClassName,actionClassName));
@@ -77,10 +77,10 @@ package org.seasar.akabana.yui.framework.customizer
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
                 }
-				const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-				if( action is ILifeCyclable ){
-					(action as ILifeCyclable).stop();
-				}
+                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                if( action is ILifeCyclable ){
+                    (action as ILifeCyclable).stop();
+                }
                 //
                 doEventUncustomize(view,action);
                 properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = null;

@@ -46,10 +46,6 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        public function isTargetView( view:UIComponent ):Boolean{
-            return false;
-        }
-
         public function customizeView( view:UIComponent ):void{
             throw new IllegalOperationError("can't call");
         }

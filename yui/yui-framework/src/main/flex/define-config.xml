@@ -9,7 +9,7 @@
 
 <define>
 <name>CONFIG::DEBUG_EVENT</name>
-<value>true</value>
+<value>false</value>
 </define>
 
 <define>
@@ -29,11 +29,6 @@
 
 <define>
 <name>CONFIG::UNCAUGHT_ERROR_EVENT</name>
-<value>false</value>
-</define>
-
-<define>
-<name>CONFIG::USE_SERVICE</name>
 <value>false</value>
 </define>
 

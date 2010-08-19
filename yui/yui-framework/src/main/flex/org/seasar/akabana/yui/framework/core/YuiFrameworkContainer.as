@@ -35,11 +35,11 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL{
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
-	import org.seasar.akabana.yui.framework.customizer.IViewCustomizer;
-	import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
+    import org.seasar.akabana.yui.framework.customizer.IViewCustomizer;
+    import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
-	import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-	import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
+    import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
 
     [ExcludeClass]
     public final class YuiFrameworkContainer extends YuiFrameworkContainerBase
@@ -79,35 +79,35 @@ CONFIG::FP10{
 CONFIG::DEBUG{
             _logger.debug("add external systemManager"+sm);
 }
-			if( sm in _systemManagerMap ){
-				applicationMonitoringStop(sm);
-			}
-			applicationMonitoringStart(sm);
+            if( sm in _systemManagerMap ){
+                applicationMonitoringStop(sm);
+            }
+            applicationMonitoringStart(sm);
 
             addSystemManager(sm);
         }
-		
-		public override function removeExternalSystemManager(sm:ISystemManager ):void{
-			CONFIG::DEBUG{
-				_logger.debug("remove external systemManager"+sm);
-			}
-			if( sm in _systemManagerMap ){
-				applicationMonitoringStop(sm);
-			}
-			
-			removeSystemManager(sm);
-		}
+        
+        public override function removeExternalSystemManager(sm:ISystemManager ):void{
+            CONFIG::DEBUG{
+                _logger.debug("remove external systemManager"+sm);
+            }
+            if( sm in _systemManagerMap ){
+                applicationMonitoringStop(sm);
+            }
+            
+            removeSystemManager(sm);
+        }
 
         public override function customizeView( container:UIComponent ):void{
 CONFIG::DEBUG{
             _logger.debug("customizeView:"+container+",owner:"+container.owner);
 }
-			var viewcustomizer_:IViewCustomizer; 
+            var viewcustomizer_:IViewCustomizer; 
             for each( var customizer_:IElementCustomizer in _customizers ){
-				viewcustomizer_ = customizer_ as IViewCustomizer;
-				if( viewcustomizer_ != null ){
-					viewcustomizer_.customizeView( container );
-				}
+                viewcustomizer_ = customizer_ as IViewCustomizer;
+                if( viewcustomizer_ != null ){
+                    viewcustomizer_.customizeView( container );
+                }
             }
         }
 
@@ -116,45 +116,45 @@ CONFIG::DEBUG{
             _logger.debug("uncustomizeView:"+container+",owner:"+container.owner);
 }
             var numCustomizers:int = customizers.length;
-			var viewcustomizer_:IViewCustomizer;
+            var viewcustomizer_:IViewCustomizer;
             for( var i:int = numCustomizers-1; i >= 0; i-- ){
                 viewcustomizer_ = customizers[i] as IViewCustomizer;
-				if( viewcustomizer_ != null ){
-					viewcustomizer_.uncustomizeView( container );
-				}
+                if( viewcustomizer_ != null ){
+                    viewcustomizer_.uncustomizeView( container );
+                }
             }
         }
-		
-		public override function customizeComponent( container:UIComponent, child:UIComponent ):void{
+        
+        public override function customizeComponent( container:UIComponent, child:UIComponent ):void{
 CONFIG::DEBUG{
-	_logger.debug("customizeComponent:"+child+",owner:"+container);
+    _logger.debug("customizeComponent:"+child+",owner:"+container);
 }
-			var componentcustomizer_:IComponentCustomizer;
-			for each( var customizer_:IElementCustomizer in _customizers ){
-				componentcustomizer_ = customizer_ as IComponentCustomizer;
-				if( componentcustomizer_ != null ){
-					componentcustomizer_.customizeComponent( container, child );
-				}
-			}
-		}
-		
-		public override function uncustomizeComponent( container:UIComponent, child:UIComponent ):void{
+            var componentcustomizer_:IComponentCustomizer;
+            for each( var customizer_:IElementCustomizer in _customizers ){
+                componentcustomizer_ = customizer_ as IComponentCustomizer;
+                if( componentcustomizer_ != null ){
+                    componentcustomizer_.customizeComponent( container, child );
+                }
+            }
+        }
+        
+        public override function uncustomizeComponent( container:UIComponent, child:UIComponent ):void{
 CONFIG::DEBUG{
-	_logger.debug("uncustomizeComponent:"+child+",owner:"+container);
+    _logger.debug("uncustomizeComponent:"+child+",owner:"+container);
 }
-			var numCustomizers:int = customizers.length;
-			var componentcustomizer_:IComponentCustomizer;
-			for( var i:int = numCustomizers-1; i >= 0; i-- ){
-				componentcustomizer_ = customizers[i] as IComponentCustomizer;
-				if( componentcustomizer_ != null ){
-					componentcustomizer_.uncustomizeComponent( container, child );
-				}
-			}
-		}
+            var numCustomizers:int = customizers.length;
+            var componentcustomizer_:IComponentCustomizer;
+            for( var i:int = numCustomizers-1; i >= 0; i-- ){
+                componentcustomizer_ = customizers[i] as IComponentCustomizer;
+                if( componentcustomizer_ != null ){
+                    componentcustomizer_.uncustomizeComponent( container, child );
+                }
+            }
+        }
 
         private function applicationInitCompleteHandler( event:Event ):void{
 CONFIG::DEBUG_EVENT{
-			_logger.info("[EVENT] applicationInitCompleteHandler"+event+","+event.target);
+            _logger.info("[EVENT] applicationInitCompleteHandler"+event+","+event.target);
 }
 CONFIG::DEBUG{
             _logger.debug("applicationInitCompleteHandler:"+event+","+event.target);
@@ -163,7 +163,7 @@ CONFIG::DEBUG{
 
         private function applicationPreloaderDoneHandler( event:Event ):void{
 CONFIG::DEBUG_EVENT{
-			_logger.info("[EVENT] applicationPreloaderDoneHandler"+event+","+event.target);
+            _logger.info("[EVENT] applicationPreloaderDoneHandler"+event+","+event.target);
 }
 CONFIG::DEBUG{
             _logger.debug("applicationPreloaderDoneHandler:"+event+","+event.target);
@@ -173,7 +173,7 @@ CONFIG::DEBUG{
 
         private function applicationCompleteHandler( event:FlexEvent ):void{
 CONFIG::DEBUG_EVENT{
-			_logger.info("[EVENT] applicationCompleteHandler"+event+","+event.target);
+            _logger.info("[EVENT] applicationCompleteHandler"+event+","+event.target);
 }
 CONFIG::DEBUG{
             _logger.debug("applicationCompleteHandler:"+event+","+event.target);
@@ -181,7 +181,7 @@ CONFIG::DEBUG{
             var systemManager_:ISystemManager = event.currentTarget as ISystemManager;
 
             systemManager_
-            	.removeEventListener(
+                .removeEventListener(
                     FlexEvent.APPLICATION_COMPLETE,
                     applicationCompleteHandler,
                     false
@@ -228,29 +228,29 @@ CONFIG::DEBUG_EVENT{
             _logger.info("[EVENT] systemManager_addedToStageHandler2"+event+","+event.target);
 }
             if( event.target is UIComponent ){
-				var component:UIComponent = event.target as UIComponent;
-				if( component != null && component.initialized ){
-                	doAssembleComponent(component);
-				}
+                var component:UIComponent = event.target as UIComponent;
+                if( component != null && component.initialized ){
+                    doAssembleComponent(component);
+                }
             }
         }
 
         private function creationCompleteHandler(event:Event):void{
 CONFIG::DEBUG_EVENT{
-			_logger.info("[EVENT] creationCompleteHandler"+event+","+event.target);
-}			
-			if( event.target is UIComponent ){
-            	doAssembleComponent(event.target as UIComponent);
-			}
+            _logger.info("[EVENT] creationCompleteHandler"+event+","+event.target);
+}            
+            if( event.target is UIComponent ){
+                doAssembleComponent(event.target as UIComponent);
+            }
         }
 
         private function systemManager_removeFromStageHandler(event:Event):void{
 CONFIG::DEBUG_EVENT{
-			_logger.info("[EVENT] systemManager_removeHandler"+event+","+event.target);
-}		
-			if( event.target is UIComponent ){
-            	doUnregisterComponent(event.target as UIComponent);
-			}
+            _logger.info("[EVENT] systemManager_removeHandler"+event+","+event.target);
+}        
+            if( event.target is UIComponent ){
+                doUnregisterComponent(event.target as UIComponent);
+            }
         }
 
         yui_internal function monitoringSystemManager( systemManager:ISystemManager ):void{
@@ -312,7 +312,7 @@ CONFIG::DEBUG{
 }
 
             var viewMap:Object = ViewComponentRepository.componentMap;
-			var view:UIComponent;
+            var view:UIComponent;
             for ( var key:String in viewMap ){
 CONFIG::DEBUG{
                 _logger.debug(getMessage("ViewComponentAssembleing",key));
@@ -334,10 +334,10 @@ CONFIG::DEBUG{
         }
 
         protected function callApplicationStart():void{
-        	var rootView:UIComponent = YuiFrameworkGlobals.frameworkBridge.rootView;
-        	if( rootView != null ){
-            	rootView.setVisible(false,true);
-         	}
+            var rootView:UIComponent = YuiFrameworkGlobals.frameworkBridge.rootView;
+            if( rootView != null ){
+                rootView.setVisible(false,true);
+             }
 CONFIG::DEBUG{
             _logger.info(getMessage("ApplicationStart"));
 }
@@ -352,20 +352,20 @@ CONFIG::DEBUG{
             if( component == null || !(component is UIComponent)){
                 return false;
             }
-			if( YuiFrameworkGlobals.frameworkBridge.isContainer(component)){
-				return YuiFrameworkGlobals.namingConvention.isViewClassName( getCanonicalName(component) );
-			} else {
-				return false;
-			}
+            if( YuiFrameworkGlobals.frameworkBridge.isContainer(component)){
+                return YuiFrameworkGlobals.namingConvention.isViewClassName( getCanonicalName(component) );
+            } else {
+                return false;
+            }
         }
 
-		protected function isComponent( component:Object ):Boolean{
-			if( component == null || !(component is UIComponent)){
-				return false;
-			}
-			return YuiFrameworkGlobals.frameworkBridge.isComponent(component);			
-		}
-		
+        protected function isComponent( component:Object ):Boolean{
+            if( component == null || component.id == null || !(component is UIComponent)){
+                return false;
+            }
+            return YuiFrameworkGlobals.frameworkBridge.isComponent(component);            
+        }
+        
         protected function doRegisterComponent( component:UIComponent ):void{
             do{
                 if( YuiFrameworkGlobals.frameworkBridge.isApplication(component) ){
@@ -373,12 +373,12 @@ CONFIG::DEBUG{
                     _logger.debug(getMessage("ApplicationRegistered",component.toString()));
 }
                     YuiFrameworkGlobals.frameworkBridge.yui_internal::application = component;
-					Environment.yui_internal::root = component;
-					Environment.yui_internal::parameters = YuiFrameworkGlobals.frameworkBridge.parameters;
+                    Environment.yui_internal::root = component;
+                    Environment.yui_internal::parameters = YuiFrameworkGlobals.frameworkBridge.parameters;
                     component.setVisible(false,true);
-					
-					const sm:ISystemManager = YuiFrameworkGlobals.frameworkBridge.systemManager;
-					applicationMonitoringStop(sm);
+                    
+                    const sm:ISystemManager = YuiFrameworkGlobals.frameworkBridge.systemManager;
+                    applicationMonitoringStop(sm);
                     applicationMonitoringStart(sm);
                     break;
                 }
@@ -397,11 +397,11 @@ CONFIG::DEBUG{
             if( isView(component)){
                 processAssembleComponent(component as UIComponent);
             } else if(isComponent(component)){
-				var document:UIComponent = component.document as UIComponent;
-				if( document != null && document.initialized && isView(document)){
-					processAssembleViewChild(document,component);
-				}
-			}
+                var document:UIComponent = component.document as UIComponent;
+                if( document != null && document.initialized && isView(document)){
+                    processAssembleViewChild(document,component);
+                }
+            }
         }
 
         protected function doUnregisterComponent(component:UIComponent):void{
@@ -409,11 +409,11 @@ CONFIG::DEBUG{
                 processDisassembleView( component as UIComponent );
                 processUnregisterView( component as UIComponent );
             } else if(isComponent(component)){
-				var owner:UIComponent = component.owner as UIComponent;
-				if( owner != null && owner.initialized && isView(owner)){
-					processDisassembleViewChild(owner,component);
-				}
-			}
+                var document:UIComponent = component.document as UIComponent;
+                if( document != null && document.initialized && isView(document)){
+                    processDisassembleViewChild(document,component);
+                }
+            }
         }
 
         protected function processRegisterView( container:UIComponent ):void{
@@ -454,79 +454,79 @@ CONFIG::DEBUG{
             _logger.debug(viewName + "[" + view + "] is assembling... ");
 }
             customizeView(view);
-			view.dispatchEvent( new FrameworkEvent(FrameworkEvent.ASSEMBLE_COMPELETE));
+            view.dispatchEvent( new FrameworkEvent(FrameworkEvent.ASSEMBLE_COMPELETE));
 
 CONFIG::DEBUG{
-			_logger.debug(viewName + "[" + view + "] is assembled.");
+            _logger.debug(viewName + "[" + view + "] is assembled.");
 }
-		}
-		
-		protected function processAssembleViewChild(view:UIComponent,child:UIComponent):void{
-			if( view.initialized && child.initialized ){
-				customizeComponent(view,child);
-			}
-		}
+        }
+        
+        protected function processAssembleViewChild(view:UIComponent,child:UIComponent):void{
+            if( view.initialized && child.initialized ){
+                customizeComponent(view,child);
+            }
+        }
 
         protected function processDisassembleView( container:UIComponent ):void{
             if( container != null ){
                 uncustomizeView(container);
             }
         }
-		
-		protected function processDisassembleViewChild(view:UIComponent,child:UIComponent):void{
-			if( view.initialized ){
-				uncustomizeComponent(view,child);
-			}
-		}
+        
+        protected function processDisassembleViewChild(view:UIComponent,child:UIComponent):void{
+            if( view.initialized ){
+                uncustomizeComponent(view,child);
+            }
+        }
 
         protected function applicationMonitoringStart(sm:ISystemManager):void{
             sm.addEventListener(
-				FlexEvent.CREATION_COMPLETE,
+                FlexEvent.CREATION_COMPLETE,
                 creationCompleteHandler,
                 true,
                 int.MAX_VALUE
                 );
-				
-			sm.addEventListener(
-				Event.REMOVED_FROM_STAGE,
-				systemManager_removeFromStageHandler,
-				true,
-				int.MAX_VALUE
-				);
-				
-			sm.addEventListener(
-				Event.ADDED_TO_STAGE,
-				systemManager_addedToStageHandler2,
-				true,
-				int.MAX_VALUE
-				);
+                
+            sm.addEventListener(
+                Event.REMOVED_FROM_STAGE,
+                systemManager_removeFromStageHandler,
+                true,
+                int.MAX_VALUE
+                );
+                
+            sm.addEventListener(
+                Event.ADDED_TO_STAGE,
+                systemManager_addedToStageHandler2,
+                true,
+                int.MAX_VALUE
+                );
             
-			sm.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
+            sm.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
         }
-		
-		protected function applicationMonitoringStop(sm:ISystemManager):void{
-			const application_:UIComponent = YuiFrameworkGlobals.frameworkBridge.application;
-			if( application_ != null ){
-				sm.removeEventListener(
-					FlexEvent.CREATION_COMPLETE,
-					creationCompleteHandler,
-					true
-				);
-				
-				sm.removeEventListener(
-					Event.REMOVED_FROM_STAGE,
-					systemManager_removeFromStageHandler,
-					true
-				);
-				
-				sm.removeEventListener(
-					Event.ADDED_TO_STAGE,
-					systemManager_addedToStageHandler2,
-					true
-				);
-				sm.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_STOP));
-			}
-		}
+        
+        protected function applicationMonitoringStop(sm:ISystemManager):void{
+            const application_:UIComponent = YuiFrameworkGlobals.frameworkBridge.application;
+            if( application_ != null ){
+                sm.removeEventListener(
+                    FlexEvent.CREATION_COMPLETE,
+                    creationCompleteHandler,
+                    true
+                );
+                
+                sm.removeEventListener(
+                    Event.REMOVED_FROM_STAGE,
+                    systemManager_removeFromStageHandler,
+                    true
+                );
+                
+                sm.removeEventListener(
+                    Event.ADDED_TO_STAGE,
+                    systemManager_addedToStageHandler2,
+                    true
+                );
+                sm.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_STOP));
+            }
+        }
 
 CONFIG::FP9{
         protected function getDefaultCustomizers():Array{

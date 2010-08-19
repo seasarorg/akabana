@@ -16,9 +16,11 @@
 package org.seasar.akabana.yui.framework.convention
 {
     import mx.core.UIComponent;
+    
+    import org.seasar.akabana.yui.framework.ns.handler;
 
 CONFIG::FP10{
-	import __AS3__.vec.Vector;
+    import __AS3__.vec.Vector;
 }
 
     [ExcludeClass]
@@ -50,6 +52,8 @@ CONFIG::FP10{
 
         public static const HANDLER_SUFFIX:String = "Handler";
         public static const OWN_HANDLER_PREFIX:String = "on";
+
+        public static const EVENT_SEPARETOR:String = "_";
 
         private static const DOT:String = ".";
         private static const PATH_REG_PREFIX:String = "^\\.";
@@ -174,10 +178,10 @@ CONFIG::FP10{
             return changeViewPackageTo( viewClassName, getHelperPackageName(), getHelperSuffix());
         }
 
-		public function getLogicClassName( viewClassName:String ):String
-		{
+        public function getLogicClassName( viewClassName:String ):String
+        {
             return changeViewPackageTo( viewClassName, getLogicPackageName(), getLogicSuffix() );
-		}
+        }
 
         public function getValidatorClassName( viewClassName:String ):String
         {
@@ -238,7 +242,29 @@ CONFIG::FP10{
         public function isBehaviorClassName( className:String ):Boolean{
             return checkClassFullName(className,getBehaviorPackageName(),getBehaviorSuffix());
         }
-
+        
+        public function getEventName(functionName:String,functionUri:String,componentName:String):String {
+            const ns:Namespace = handler;
+            const eventWord:String = functionName.substr(componentName.length);
+            const handlerIndex:int = eventWord.lastIndexOf(getHandlerSuffix());
+            var result:String = null;
+            
+            if(eventWord.charAt(0) == EVENT_SEPARETOR) {
+                if(functionUri == ns.uri) {
+                    result = eventWord.substring(1);
+                } else {
+                    result = eventWord.substring(1,handlerIndex);
+                }
+            } else {
+                if(functionUri == ns.uri) {
+                    result = eventWord.substr(0,1).toLocaleLowerCase() + eventWord.substring(1);
+                } else {
+                    result = eventWord.substr(0,1).toLocaleLowerCase() + eventWord.substring(1,handlerIndex);
+                }
+            }
+            return result;
+        }
+        
         protected function checkClassFullName( className:String, packageName:String, suffix:String ):Boolean{
             var isTarget:Boolean = false;
 
@@ -267,9 +293,9 @@ CONFIG::FP10{
             return isTarget;
         }
 
-		protected function changeViewPackageTo( viewName:String, packageName:String, suffix:String ):String{
-			var classPathArray:Array = viewName.match(VIEW_PATH_REG);
-			return classPathArray[1] + DOT + packageName + DOT + classPathArray[2] + suffix;
-		}
+        protected function changeViewPackageTo( viewName:String, packageName:String, suffix:String ):String{
+            var classPathArray:Array = viewName.match(VIEW_PATH_REG);
+            return classPathArray[1] + DOT + packageName + DOT + classPathArray[2] + suffix;
+        }
     }
 }

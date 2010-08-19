@@ -25,47 +25,25 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
+    import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.framework.ns.handler;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.logging.Logger;
 
     internal class AbstractComponentEventCustomizer extends AbstractComponentCustomizer {
-		CONFIG::DEBUG {
-			private static const _logger:Logger = Logger.getLogger(AbstractComponentEventCustomizer);
-		}
-		
-        protected static const EVENT_SEPARETOR:String = "_";
-
-        protected static const ENHANCED_SEPARETOR:String = "$";
-
-        protected static const ENHANCED_PREFIX:String = ENHANCED_SEPARETOR + "enhanced" + ENHANCED_SEPARETOR;
-
-        protected static const FUNCTION_OWNER:String = "$owner";
-
-        protected static const FUNCTION_PROTO:String = "$proto";
+        
+        private static const ENHANCED_SEPARETOR:String = "$";
+        private static const ENHANCED_PREFIX:String = ENHANCED_SEPARETOR + "enhanced" + ENHANCED_SEPARETOR;
+        private static const FUNCTION_OWNER:String = "$owner";
+        private static const FUNCTION_PROTO:String = "$proto";
+        
+        CONFIG::DEBUG {
+            private static const _logger:Logger = Logger.getLogger(AbstractComponentEventCustomizer);
+        }
 
         protected function getEventName(functionRef:FunctionRef,componentName:String):String {
-            const functionName:String = functionRef.name;
-            const ns:Namespace = handler;
-            const eventWord:String = functionName.substr(componentName.length);
-            const handlerIndex:int = eventWord.lastIndexOf(YuiFrameworkGlobals.namingConvention.getHandlerSuffix());
-            var result:String = null;
-
-            if(eventWord.charAt(0) == EVENT_SEPARETOR) {
-                if(functionRef.uri == ns.uri) {
-                    result = eventWord.substring(1);
-                } else {
-                    result = eventWord.substring(1,handlerIndex);
-                }
-            } else {
-                if(functionRef.uri == ns.uri) {
-                    result = eventWord.substr(0,1).toLocaleLowerCase() + eventWord.substring(1);
-                } else {
-                    result = eventWord.substr(0,1).toLocaleLowerCase() + eventWord.substring(1,handlerIndex);
-                }
-            }
-            return result;
+            return YuiFrameworkGlobals.namingConvention.getEventName(functionRef.name,functionRef.uri,componentName);
         }
 
         protected function getEnhancedEventName(viewName:String,eventName:String,listener:Object):String {
@@ -107,9 +85,9 @@ CONFIG::UNCAUGHT_ERROR_EVENT {
                             throw new Error("EnhancedEventHandler doesn't have proto Handler");
                         }
                     } catch(e:Error) {
-						CONFIG::DEBUG {
-                        	_logger.debug(e.getStackTrace());
-						}
+                        CONFIG::DEBUG {
+                            _logger.debug(e.getStackTrace());
+                        }
                         var owner:Object = callee.properties[FUNCTION_OWNER];
                         if(owner is IEventDispatcher) {
                             (owner as IEventDispatcher).dispatchEvent(RuntimeErrorEvent.createEvent(e));
@@ -151,9 +129,9 @@ CONFIG::UNCAUGHT_ERROR_EVENT {
                             throw new Error("EnhancedEventHandler doesn't have proto Handler");
                         }
                     } catch(e:Error) {
-						CONFIG::DEBUG {
-                        	_logger.debug(e.getStackTrace());
-						}
+                        CONFIG::DEBUG {
+                            _logger.debug(e.getStackTrace());
+                        }
                         var owner:Object = callee.properties[FUNCTION_OWNER];
                         if(owner is IEventDispatcher) {
                             (owner as IEventDispatcher).dispatchEvent(RuntimeErrorEvent.createEvent(e));
@@ -194,7 +172,7 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                     enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
 
                     if(enhancedFunction != null) {
-                        component.removeEventListener(eventName,enhancedFunction);
+                        continue;
                     }
 
                     if(functionRef.parameters.length > 0) {
@@ -222,7 +200,7 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                     enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
 
                     if(enhancedFunction != null) {
-                        component.removeEventListener(eventName,enhancedFunction);
+                        continue;
                     }
 
                     if(functionRef.parameters.length > 0) {
