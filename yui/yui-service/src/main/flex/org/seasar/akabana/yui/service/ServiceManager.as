@@ -22,11 +22,13 @@ package org.seasar.akabana.yui.service {
 
         private static var serviceMap:Dictionary = new Dictionary(true);
 
-        public static function createService( serviceClass:Class, destination:String = null ):Service{
-            var result:Service = getService( destination);
+        public static function createService( serviceClass:Class, name:String = null ):Service{
+            var result:Service = getService( name );
             if( result == null ){
                 result = new serviceClass() as Service;
-                result.destination = destination;
+                if( result.destination == null ){
+                    result.destination = name;
+                }
                 addService( result );
             }
             return result;
