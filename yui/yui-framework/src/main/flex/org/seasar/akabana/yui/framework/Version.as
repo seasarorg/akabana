@@ -15,4 +15,4 @@
  */
 private static const DEBUG:Boolean = CONFIG::DEBUG;
 public static const REVISION:String = function():String{ var rev:String = "$Revision$"; return rev.substring(11,rev.length-2);}();
-public static const VERSION:String = "1.0.1."+REVISION+"" + (DEBUG?"-debug":"");
+public static const VERSION:String = "1.0.2."+REVISION+"-snapshot" + (DEBUG?"-debug":"");
