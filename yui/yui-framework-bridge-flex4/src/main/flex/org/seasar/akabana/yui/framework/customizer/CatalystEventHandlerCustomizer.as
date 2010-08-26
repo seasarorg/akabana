@@ -107,6 +107,9 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         protected function getElements(group:Group,result:Vector.<IVisualElement>):void{
+            if( group == null ){
+                return;
+            }
             var numElements:int = group.numElements;
             var element:IVisualElement;
             var component:UIComponent;
@@ -118,7 +121,7 @@ package org.seasar.akabana.yui.framework.customizer
                     result.push(element);
 
                     if( element is Group && !YuiFrameworkGlobals.namingConvention.isViewClassName(getCanonicalName(element))){                        
-                        getElements( component as Group, result );
+                        getElements( element as Group, result );
                     }
                 }
             }
