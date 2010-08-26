@@ -6,5 +6,6 @@ yui|YuiFrameworkSettings {
 }
 
 .customizers{
+    c30:ClassReference("org.seasar.akabana.yui.framework.customizer.CatalystHelperCustomizer");
     c40:ClassReference("org.seasar.akabana.yui.framework.customizer.CatalystEventHandlerCustomizer");
 }

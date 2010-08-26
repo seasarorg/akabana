@@ -35,6 +35,7 @@ package org.seasar.akabana.yui.framework.customizer
     import mx.core.IUIComponent;
     import mx.core.IVisualElement;
     import spark.components.Group;
+    import org.seasar.akabana.yui.framework.util.CatalystGroupUtil;
 
     use namespace mx_internal;
 
@@ -49,7 +50,7 @@ package org.seasar.akabana.yui.framework.customizer
             super.doCustomize(container,action,priority); 
             
             const actionClassRef:ClassRef = getClassRef(action);            
-            var elements:Vector.<IVisualElement> = getAllElements(container);      
+            var elements:Vector.<IVisualElement> = CatalystGroupUtil.getAllElements(container);      
             var component:UIComponent;     
             var componentName:String;
             for each(var element:IVisualElement in elements) {
@@ -76,7 +77,7 @@ package org.seasar.akabana.yui.framework.customizer
             super.doCustomize(container,action);
             
             const actionClassRef:ClassRef = getClassRef(action);            
-            var elements:Vector.<IVisualElement> = getAllElements(container);      
+            var elements:Vector.<IVisualElement> = CatalystGroupUtil.getAllElements(container);      
             var component:UIComponent;     
             var componentName:String;
             for each(var element:IVisualElement in elements) {
@@ -94,35 +95,6 @@ package org.seasar.akabana.yui.framework.customizer
                             }
                         )
                     );
-                }
-            }
-        }
-        
-        protected function getAllElements(container:UIComponent):Vector.<IVisualElement>{
-            var result:Vector.<IVisualElement> = new Vector.<IVisualElement>();
-            if( container is Group ){
-                getElements(container as Group, result);
-            }
-            return result;
-        }
-        
-        protected function getElements(group:Group,result:Vector.<IVisualElement>):void{
-            if( group == null ){
-                return;
-            }
-            var numElements:int = group.numElements;
-            var element:IVisualElement;
-            var component:UIComponent;
-            var accName:String;
-            var childGroupAccName:String;
-            for( var i:int = 0; i < numElements; i++ ){
-                element = group.getElementAt(i);
-                if( YuiFrameworkGlobals.frameworkBridge.isComponent(element)){
-                    result.push(element);
-
-                    if( element is Group && !YuiFrameworkGlobals.namingConvention.isViewClassName(getCanonicalName(element))){                        
-                        getElements( element as Group, result );
-                    }
                 }
             }
         }
