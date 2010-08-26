@@ -109,6 +109,7 @@ package org.seasar.akabana.yui.service.ds {
         }
 
         public function RemotingService( id:String = null ){
+            super( id );
             if( id != null ){
                 destination = id;
                 initEndpoint();
