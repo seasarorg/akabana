@@ -4,3 +4,7 @@ yui|YuiFrameworkSettings {
 	namingConventionClass:ClassReference("org.seasar.akabana.yui.framework.convention.CatalystNamingConvention");
 	frameworkBridgePlugin:ClassReference("org.seasar.akabana.yui.framework.bridge.Flex4FrameworkBridgePlugin");  
 }
+
+.customizers{
+    c40:ClassReference("org.seasar.akabana.yui.framework.customizer.CatalystEventHandlerCustomizer");
+}

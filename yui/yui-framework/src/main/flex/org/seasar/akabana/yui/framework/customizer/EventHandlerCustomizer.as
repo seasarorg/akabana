@@ -288,7 +288,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        private function doCustomize(container:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {    
+        protected function doCustomize(container:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {    
             const actionClassRef:ClassRef = getClassRef(action);
             //for children
             CONFIG::FP9 {
@@ -367,7 +367,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         CONFIG::FP9 {
-            private function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array,priority:int):void {
+            protected function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array,priority:int):void {
                 var componentName:String;
 
                 if(componentName != null) {
@@ -386,7 +386,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         CONFIG::FP10 {
-            private function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>,priority:int):void {
+            protected function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>,priority:int):void {
                 var componentName:String;
 
                 if(componentName != null) {
@@ -405,7 +405,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        private function doUncustomize(container:UIComponent,action:Object):void {
+        protected function doUncustomize(container:UIComponent,action:Object):void {
             const actionClassRef:ClassRef = getClassRef(action);
             //for children
             CONFIG::FP9 {
@@ -480,7 +480,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         CONFIG::FP9 {
-            private function doUncustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
+            protected function doUncustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
                 var componentName:String;
 
                 if(componentName != null) {
@@ -499,7 +499,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         CONFIG::FP10 {
-            private function doUncustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
+            protected function doUncustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
                 var componentName:String;
                 var component:IEventDispatcher;
 
