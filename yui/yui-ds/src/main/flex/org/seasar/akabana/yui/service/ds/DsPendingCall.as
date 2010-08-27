@@ -117,10 +117,6 @@ package org.seasar.akabana.yui.service.ds {
             return _operation.service as Service;
         }
 
-        mx_internal override function setResult(newResult:Object):void
-        {
-        }
-
         public function onResult( resultEvent:ResultEvent ):void{
             service.deleteCallHistory(this);
 
@@ -153,6 +149,10 @@ package org.seasar.akabana.yui.service.ds {
             _responderOwner = null;
             _operation = null;
             _internalAsyncToken = null;
+        }
+        
+        mx_internal override function setResult(newResult:Object):void
+        {
         }
 
     }
