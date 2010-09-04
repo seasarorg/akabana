@@ -19,13 +19,13 @@ package org.seasar.akabana.yui.framework.util
     import mx.styles.IStyleManager2;
 
     [ExcludeClass]
-	public class StyleManagerUtil
-	{
-		public static function getStyleManager():IStyleManager2
-		{
-		    var result:IStyleManager2 = Singleton.getInstance("mx.styles::IStyleManager2") as IStyleManager2;
+    public class StyleManagerUtil
+    {
+        public static function getStyleManager():IStyleManager2
+        {
+            var result:IStyleManager2 = Singleton.getInstance("mx.styles::IStyleManager2") as IStyleManager2;
 
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }

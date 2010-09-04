@@ -16,52 +16,52 @@
 package org.seasar.akabana.yui.framework.mixin
 {
 CONFIG::FP10{
-	import __AS3__.vec.Vector;
+    import __AS3__.vec.Vector;
 }
-	import flash.net.registerClassAlias;
+    import flash.net.registerClassAlias;
 
-	import mx.core.IFlexModuleFactory;
-	import mx.managers.ISystemManager;
+    import mx.core.IFlexModuleFactory;
+    import mx.managers.ISystemManager;
 
-	import org.seasar.akabana.yui.core.yui_internal;
-	import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
-	import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
-	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
-	import org.seasar.akabana.yui.logging.LogManager;
-	import org.seasar.akabana.yui.logging.config.ConfigurationProvider;
-	import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
+    import org.seasar.akabana.yui.core.yui_internal;
+    import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
+    import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
+    import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
+    import org.seasar.akabana.yui.logging.LogManager;
+    import org.seasar.akabana.yui.logging.config.ConfigurationProvider;
+    import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
 
     [ExcludeClass]
-	[Mixin]
-	[ResourceBundle("conventions")]
-	/**
-	 * YuiFramework初期設定用Mixinクラス
-	 *
-	 * @author $Author$
-	 * @version $Revision$
-	 */
-	public class YuiFrameworkMixin
-	{
-		{
-			LogConfigurationFactory;
-			registerClassAlias(ConfigurationProvider.FACTORY_CLASS_NAME,LogConfigurationFactory);
-		}
+    [Mixin]
+    [ResourceBundle("conventions")]
+    /**
+     * YuiFramework初期設定用Mixinクラス
+     *
+     * @author $Author$
+     * @version $Revision$
+     */
+    public class YuiFrameworkMixin
+    {
+        {
+            LogConfigurationFactory;
+            registerClassAlias(ConfigurationProvider.FACTORY_CLASS_NAME,LogConfigurationFactory);
+        }
 
-		private static var _this:YuiFrameworkMixin;
+        private static var _this:YuiFrameworkMixin;
 
-		private static var _container:YuiFrameworkContainer;
+        private static var _container:YuiFrameworkContainer;
 
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{
-        	LogManager.init();
-			
+            LogManager.init();
+            
             _this = new YuiFrameworkMixin();
             _container = new YuiFrameworkContainer();
             YuiFrameworkGlobals.yui_internal::frameworkBridge = FrameworkBridge.initialize();
 
             if( flexModuleFactory is ISystemManager ){
-            	var systemManager_:ISystemManager = flexModuleFactory as ISystemManager;
+                var systemManager_:ISystemManager = flexModuleFactory as ISystemManager;
                 _container.yui_internal::monitoringSystemManager(systemManager_);
             }
         }
-	}
+    }
 }

@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.message.MessageManager;
 
     internal class AbstractComponentCustomizer implements IViewCustomizer{
-		
+        
         protected static function setPropertiesValue(target:Object,varClassName:String,value:Object):void {
             const targetClassRef:ClassRef = getClassRef(target);
             CONFIG::FP9 {

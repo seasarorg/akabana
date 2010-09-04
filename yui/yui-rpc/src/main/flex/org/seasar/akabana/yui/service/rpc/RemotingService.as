@@ -67,10 +67,10 @@ package org.seasar.akabana.yui.service.rpc {
             return new RemotingOperation( this, operationName)
         }
 
-    	protected override function invokeOperation( operationName:String, operationArgs:Array ):PendingCall{
-			var operation:Operation;
-			if( !hasOperation( operationName )){
-			    addOperation(operationName);
+        protected override function invokeOperation( operationName:String, operationArgs:Array ):PendingCall{
+            var operation:Operation;
+            if( !hasOperation( operationName )){
+                addOperation(operationName);
             }
             operation = getOperation( operationName );
             if( operation is RemotingOperation ){
@@ -83,6 +83,6 @@ package org.seasar.akabana.yui.service.rpc {
                 _pendingCallMap[ result ] = getTimer();
             }
             return result;
-    	}
+        }
     }
 }

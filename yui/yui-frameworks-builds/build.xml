@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="all">
-	<!-- -->
-	<target name="all">
-		<ant antfile="build-fx3.xml"/>
-		<ant antfile="build-fx4.xml"/>
-	</target>
-	<target name="distAll">
-		<property file="build.properties" />
-		<!-- -->
-		<dist libname="yui-frameworks-fx3-fp10" libver="${LIB_VERSION}"  />
-		<dist libname="yui-frameworks-fx3-fp9" libver="${LIB_VERSION}"  />
-		<dist libname="yui-frameworks-fx3-ds-fp10" libver="${LIB_VERSION}"  />
-		<dist libname="yui-frameworks-fx3-ds-fp9" libver="${LIB_VERSION}"  />
-		<!-- -->
-		<dist libname="yui-frameworks-fx3-air-fp10" libver="${LIB_VERSION}" />
-		<dist libname="yui-frameworks-fx3-air-fp9" libver="${LIB_VERSION}" />
-		<dist libname="yui-frameworks-fx3-airds-fp10" libver="${LIB_VERSION}"  />
-		<dist libname="yui-frameworks-fx3-airds-fp9" libver="${LIB_VERSION}"  />
-		<!-- -->
-		<dist libname="yui-frameworks-fx4-fp10" libver="${LIB_VERSION}"  />
-		<dist libname="yui-frameworks-fx4-ds-fp10" libver="${LIB_VERSION}"  />
-		<!-- -->
-		<dist libname="yui-frameworks-fx4-air-fp10" libver="${LIB_VERSION}"  />
-		<dist libname="yui-frameworks-fx4-airds-fp10" libver="${LIB_VERSION}"  />
-		<!-- -->
-		<dist libname="yui-frameworks-fx4-fc-fp10" libver="${LIB_VERSION}"  />
-		<dist libname="yui-frameworks-fx4-fc-ds-fp10"  libver="${LIB_VERSION}"  />
-		<!-- -->
-		<dist libname="yui-frameworks-fx4-fc-air-fp10" libver="${LIB_VERSION}"   />
-		<dist libname="yui-frameworks-fx4-fc-airds-fp10"  libver="${LIB_VERSION}"  />
-	</target>
+    <!-- -->
+    <target name="all">
+        <ant antfile="build-fx3.xml"/>
+        <ant antfile="build-fx4.xml"/>
+    </target>
+    <target name="distAll">
+        <property file="build.properties" />
+        <!-- -->
+        <dist libname="yui-frameworks-fx3-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fx3-fp9" libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fx3-ds-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fx3-ds-fp9" libver="${LIB_VERSION}"  />
+        <!-- -->
+        <dist libname="yui-frameworks-fx3-air-fp10" libver="${LIB_VERSION}" />
+        <dist libname="yui-frameworks-fx3-air-fp9" libver="${LIB_VERSION}" />
+        <dist libname="yui-frameworks-fx3-airds-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fx3-airds-fp9" libver="${LIB_VERSION}"  />
+        <!-- -->
+        <dist libname="yui-frameworks-fx4-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fx4-ds-fp10" libver="${LIB_VERSION}"  />
+        <!-- -->
+        <dist libname="yui-frameworks-fx4-air-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fx4-airds-fp10" libver="${LIB_VERSION}"  />
+        <!-- -->
+        <dist libname="yui-frameworks-fx4-fc-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fx4-fc-ds-fp10"  libver="${LIB_VERSION}"  />
+        <!-- -->
+        <dist libname="yui-frameworks-fx4-fc-air-fp10" libver="${LIB_VERSION}"   />
+        <dist libname="yui-frameworks-fx4-fc-airds-fp10"  libver="${LIB_VERSION}"  />
+    </target>
     <!-- =================================
           macro: dist
          ================================= -->
-	<macrodef name="dist" description="dist the project..">
-		<attribute name="libname"/>
-		<attribute name="libver"/>
-		<sequential>
-			<echo>libname:@{libname}</echo>
-			<echo>target/@{libname}-@{libver}.zip</echo>
-			<echo>target/${basedir}</echo>
-			<zip zipfile="target/@{libname}-@{libver}-sources.zip">
-				<zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_SRC}"/>
-				<zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_RESOURCES}"/>
-			</zip>
-			<zip zipfile="target/@{libname}-@{libver}-swc.zip">
-				<zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_OUTPUT}">
-					<include name="*.swc"/>
-					<include name="*.swf"/>
-				</zipfileset>
-			</zip>
-		</sequential>
-	</macrodef>
+    <macrodef name="dist" description="dist the project..">
+        <attribute name="libname"/>
+        <attribute name="libver"/>
+        <sequential>
+            <echo>libname:@{libname}</echo>
+            <echo>target/@{libname}-@{libver}.zip</echo>
+            <echo>target/${basedir}</echo>
+            <zip zipfile="target/@{libname}-@{libver}-sources.zip">
+                <zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_SRC}"/>
+                <zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_RESOURCES}"/>
+            </zip>
+            <zip zipfile="target/@{libname}-@{libver}-swc.zip">
+                <zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_OUTPUT}">
+                    <include name="*.swc"/>
+                    <include name="*.swf"/>
+                </zipfileset>
+            </zip>
+        </sequential>
+    </macrodef>
 </project>

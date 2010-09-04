@@ -24,12 +24,12 @@ package org.seasar.akabana.yui.service.ds.responder {
 
         public var faultFunction:Function;
 
-    	public function result(data:Object):void{
+        public function result(data:Object):void{
 
-    	}
+        }
 
-    	public function fault(info:Object):void{
+        public function fault(info:Object):void{
 
-    	}
+        }
     }
 }

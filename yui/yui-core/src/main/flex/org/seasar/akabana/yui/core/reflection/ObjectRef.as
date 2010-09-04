@@ -17,11 +17,11 @@ package org.seasar.akabana.yui.core.reflection
 {
     internal class ObjectRef implements Reflector {
 
-		protected static const CLASS_NAME_SEPARATOR:String = "::";
+        protected static const CLASS_NAME_SEPARATOR:String = "::";
 
-		protected static const DOT:String = ".";
+        protected static const DOT:String = ".";
 
-		protected static const TYPE_ANY:String = "*";
+        protected static const TYPE_ANY:String = "*";
 
         protected static const excludeDeclaredByFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|(air\.)|(org.seasar\.))/);
 

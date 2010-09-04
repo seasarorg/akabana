@@ -24,7 +24,6 @@ package org.seasar.akabana.yui.framework
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
 
     [Style(name="rootViewClass", type="Class")]
-
     public class YuiApplication extends Application{
 
         private var _setting:YuiFrameworkSettings;
@@ -45,17 +44,17 @@ package org.seasar.akabana.yui.framework
             _setting = new YuiFrameworkSettings();
         }
 
-		public override function dispatchEvent(event:Event):Boolean
-		{
-			if( _rootView != null ){
-				_rootView.dispatchEvent(event);
-			}
-			if( event.isDefaultPrevented()){
-				return false;
-			} else {
-				return super.dispatchEvent(event);
-			}
-		}
+        public override function dispatchEvent(event:Event):Boolean
+        {
+            if( _rootView != null ){
+                _rootView.dispatchEvent(event);
+            }
+            if( event.isDefaultPrevented()){
+                return false;
+            } else {
+                return super.dispatchEvent(event);
+            }
+        }
 
         protected override function createChildren():void{
             super.createChildren();
@@ -71,7 +70,7 @@ package org.seasar.akabana.yui.framework
             } else {
                 _rootView = new viewClass();
                 _rootView.name = "rootView";
-				_rootView.setVisible(false,true);
+                _rootView.setVisible(false,true);
                 addChild(_rootView);
             }
         }

@@ -29,10 +29,10 @@ package org.seasar.akabana.yui.framework.customizer
 
     [ExcludeClass]
     public class ServiceCustomizer extends AbstractComponentCustomizer {
-		
-		CONFIG::DEBUG {
-			private static const _logger:Logger = Logger.getLogger(ServiceCustomizer);	
-		}
+        
+        CONFIG::DEBUG {
+            private static const _logger:Logger = Logger.getLogger(ServiceCustomizer);    
+        }
 
         public override function customizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
@@ -45,12 +45,12 @@ package org.seasar.akabana.yui.framework.customizer
                     processCustomize(action);
                 }
 
-				const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-				if(behaviors != null) {
-					for each(var behavior:Object in behaviors) {
-						processCustomize(behavior);
-					}
-				}
+                const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                if(behaviors != null) {
+                    for each(var behavior:Object in behaviors) {
+                        processCustomize(behavior);
+                    }
+                }
             } catch(e:Error) {
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
@@ -69,12 +69,12 @@ package org.seasar.akabana.yui.framework.customizer
                     processUncustomize(action);
                 }
 
-				const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-				if(behaviors != null) {
-					for each(var behavior:Object in behaviors) {
-						processUncustomize(behavior);
-					}
-				}
+                const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                if(behaviors != null) {
+                    for each(var behavior:Object in behaviors) {
+                        processUncustomize(behavior);
+                    }
+                }
             } catch(e:Error) {
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
@@ -85,7 +85,7 @@ package org.seasar.akabana.yui.framework.customizer
         protected function processCustomize(target:Object):void {
             const classRef:ClassRef = getClassRef(target);
 
-			var service:Service;
+            var service:Service;
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 if(propertyRef.typeClassRef.isAssignableFrom(Service)) {
                     CONFIG::DEBUG {
@@ -103,7 +103,7 @@ package org.seasar.akabana.yui.framework.customizer
         protected function processUncustomize(target:Object):void {
             const classRef:ClassRef = getClassRef(target);
 
-			var service:Service;
+            var service:Service;
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 if(propertyRef.typeClassRef.isAssignableFrom(Service)) {
                     CONFIG::DEBUG {

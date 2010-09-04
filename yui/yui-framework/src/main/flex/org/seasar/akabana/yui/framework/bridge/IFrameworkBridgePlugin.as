@@ -16,35 +16,35 @@
 package org.seasar.akabana.yui.framework.bridge
 {
 CONFIG::FP10{
-	import __AS3__.vec.Vector;
+    import __AS3__.vec.Vector;
 }
-	import mx.core.UIComponent;
-	import mx.managers.ISystemManager;
+    import mx.core.UIComponent;
+    import mx.managers.ISystemManager;
 
     [ExcludeClass]
-	public interface IFrameworkBridgePlugin {
-		function get application():UIComponent;
+    public interface IFrameworkBridgePlugin {
+        function get application():UIComponent;
 
-		function set application(value:UIComponent):void;
+        function set application(value:UIComponent):void;
 
-		function get parameters():Object;
+        function get parameters():Object;
 
-		function get systemManager():ISystemManager;
-		
-		function get rootView():UIComponent;
+        function get systemManager():ISystemManager;
+        
+        function get rootView():UIComponent;
 
-		function isApplication(application:Object):Boolean;
+        function isApplication(application:Object):Boolean;
 
-		function isContainer(component:Object):Boolean;
+        function isContainer(component:Object):Boolean;
 
-		function isComponent(component:Object):Boolean;
-		
+        function isComponent(component:Object):Boolean;
+        
 CONFIG::FP9{
-		function getChildren(component:UIComponent):Array;
+        function getChildren(component:UIComponent):Array;
 }
 
 CONFIG::FP10{
-		function getChildren(component:UIComponent):Vector.<UIComponent>;
+        function getChildren(component:UIComponent):Vector.<UIComponent>;
 }
-	}
+    }
 }

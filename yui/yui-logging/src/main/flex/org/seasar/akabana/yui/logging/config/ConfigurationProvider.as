@@ -44,13 +44,13 @@ package org.seasar.akabana.yui.logging.config
                     configuration = factory.create();
                 }
             } catch( e:Error ){
-            	e.message = "Logging ConfigurationFactory is faild.\n" + e.message;
+                e.message = "Logging ConfigurationFactory is faild.\n" + e.message;
                 trace(e.getStackTrace());
             } finally {
-	            if( configuration == null ){
-	                factory = new DefaultConfigurationFactory();
-	                configuration = factory.create();
-	            }
+                if( configuration == null ){
+                    factory = new DefaultConfigurationFactory();
+                    configuration = factory.create();
+                }
             }
 
             return configuration;

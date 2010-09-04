@@ -15,68 +15,68 @@
 */
 package org.seasar.akabana.yui.framework.convention
 {
-	import mx.core.UIComponent;
+    import mx.core.UIComponent;
 
-	import org.seasar.akabana.yui.util.StringUtil;
+    import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
-	public final class CatalystNamingConvention extends NamingConvention
-	{
-		public override function getComponentName( component:UIComponent ):String{
-			var componentName:String = null;
-			if( component != null ){
-				do{
-					{
-						if( component.id != null ){
-							componentName = component.id;
-							break;						
-						}
-					}
-					{
-						var accName:String = component.accessibilityName;
-						if( accName != null && accName.length > 0 ){
-							componentName = component.name = accName;
-							break;
-						}
-					}
-					{
-						var skinClass:String = getCanonicalName(component.getStyle("skinClass"));
-						if( skinClass != null && skinClass.indexOf("components") == 0 ){
-							skinClass = StringUtil.toLowerCamel(skinClass.replace(/components\./,""));
-							componentName = component.name = skinClass;
-							break;
-						}
-					}
-					{
-						componentName = component.name;
-					}
-				}while(false);
-			}
-			return componentName;
-		}
+    public final class CatalystNamingConvention extends NamingConvention
+    {
+        public override function getComponentName( component:UIComponent ):String{
+            var componentName:String = null;
+            if( component != null ){
+                do{
+                    {
+                        if( component.id != null ){
+                            componentName = component.id;
+                            break;                        
+                        }
+                    }
+                    {
+                        var accName:String = component.accessibilityName;
+                        if( accName != null && accName.length > 0 ){
+                            componentName = component.name = accName;
+                            break;
+                        }
+                    }
+                    {
+                        var skinClass:String = getCanonicalName(component.getStyle("skinClass"));
+                        if( skinClass != null && skinClass.indexOf("components") == 0 ){
+                            skinClass = StringUtil.toLowerCamel(skinClass.replace(/components\./,""));
+                            componentName = component.name = skinClass;
+                            break;
+                        }
+                    }
+                    {
+                        componentName = component.name;
+                    }
+                }while(false);
+            }
+            return componentName;
+        }
 
-		protected override function checkClassFullName( className:String, packageName:String, suffix:String ):Boolean{
-			if( className.indexOf("components") == 0 ){
-				return super.checkClassFullName(className.replace(/components/,_conventions[0]+"."+VIEW),packageName,suffix);
-			} else {
-				return super.checkClassFullName(className,packageName,suffix);
-			}
-		}
+        protected override function checkClassFullName( className:String, packageName:String, suffix:String ):Boolean{
+            if( className.indexOf("components") == 0 ){
+                return super.checkClassFullName(className.replace(/components/,_conventions[0]+"."+VIEW),packageName,suffix);
+            } else {
+                return super.checkClassFullName(className,packageName,suffix);
+            }
+        }
 
-		protected override function checkVarName( varName:String, suffix:String ):Boolean{
-			if( varName.indexOf("components") == 0 ){
-				return super.checkVarName(varName,suffix);
-			} else {
-				return super.checkVarName(varName,suffix);
-			}
-		}
+        protected override function checkVarName( varName:String, suffix:String ):Boolean{
+            if( varName.indexOf("components") == 0 ){
+                return super.checkVarName(varName,suffix);
+            } else {
+                return super.checkVarName(varName,suffix);
+            }
+        }
 
-		protected override function changeViewPackageTo( className:String, packageName:String, suffix:String ):String{
-			if( className.indexOf("components") == 0 ){
-				return super.changeViewPackageTo(className.replace(/components/,_conventions[0]+"."+VIEW),packageName,suffix);
-			} else {
-				return super.changeViewPackageTo(className,packageName,suffix);
-			}
-		}
-	}
+        protected override function changeViewPackageTo( className:String, packageName:String, suffix:String ):String{
+            if( className.indexOf("components") == 0 ){
+                return super.changeViewPackageTo(className.replace(/components/,_conventions[0]+"."+VIEW),packageName,suffix);
+            } else {
+                return super.changeViewPackageTo(className,packageName,suffix);
+            }
+        }
+    }
 }

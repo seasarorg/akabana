@@ -15,12 +15,12 @@
 */
 package org.seasar.akabana.yui.framework.core
 {
-	public interface ILifeCyclable
-	{
-		function start():void;
-		
-		//function pause():void;
-		
-		function stop():void;
-	}
+    public interface ILifeCyclable
+    {
+        function start():void;
+        
+        //function pause():void;
+        
+        function stop():void;
+    }
 }

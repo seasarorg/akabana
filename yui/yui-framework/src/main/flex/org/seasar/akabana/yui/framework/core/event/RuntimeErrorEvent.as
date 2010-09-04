@@ -15,24 +15,24 @@
  */
 package org.seasar.akabana.yui.framework.core.event
 {
-	import flash.events.ErrorEvent;
-	
-	import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import flash.events.ErrorEvent;
+    
+    import org.seasar.akabana.yui.core.reflection.ClassRef;
 
-	public class RuntimeErrorEvent extends ErrorEvent
-	{
-		public static const RUNTIME_ERROR:String = "runtimeError";
+    public class RuntimeErrorEvent extends ErrorEvent
+    {
+        public static const RUNTIME_ERROR:String = "runtimeError";
         
-		public static function createEvent( e:Error ):RuntimeErrorEvent{
-			var runtimeErrorEvent:RuntimeErrorEvent = new RuntimeErrorEvent(RUNTIME_ERROR);
+        public static function createEvent( e:Error ):RuntimeErrorEvent{
+            var runtimeErrorEvent:RuntimeErrorEvent = new RuntimeErrorEvent(RUNTIME_ERROR);
             runtimeErrorEvent.error = e;
-			return runtimeErrorEvent;
-		}
+            return runtimeErrorEvent;
+        }
         
-		public var error:Error;
+        public var error:Error;
 
-		public function RuntimeErrorEvent(type:String, bubbles:Boolean = true, cancelable:Boolean = true, error:*=null){
-			super(type,bubbles,cancelable,text);
-		}
-	}
+        public function RuntimeErrorEvent(type:String, bubbles:Boolean = true, cancelable:Boolean = true, error:*=null){
+            super(type,bubbles,cancelable,text);
+        }
+    }
 }

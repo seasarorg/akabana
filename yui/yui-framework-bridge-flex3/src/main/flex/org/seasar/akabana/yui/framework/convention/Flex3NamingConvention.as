@@ -18,8 +18,8 @@ package org.seasar.akabana.yui.framework.convention
     import mx.core.UIComponent;
 
     [ExcludeClass]
-	public final class Flex3NamingConvention extends NamingConvention
-	{
+    public final class Flex3NamingConvention extends NamingConvention
+    {
         public override function getComponentName( component:UIComponent ):String{
             var componentName:String = null;
             if( component != null ){
@@ -30,5 +30,5 @@ package org.seasar.akabana.yui.framework.convention
             }
             return componentName;
         }
-	}
+    }
 }

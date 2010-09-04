@@ -25,56 +25,56 @@ package org.seasar.akabana.yui.air.core
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
 
-	[Style(name="rootViewClass", type="Class")]
+    [Style(name="rootViewClass", type="Class")]
     public class Window extends mx.core.Window
     {
-		
-		private var _rootView:UIComponent;
-		
-		public function get rootView():UIComponent{
-			return _rootView;
-		}
-		
-		public function Window(){
-			super();
-		}
-		
+        
+        private var _rootView:UIComponent;
+        
+        public function get rootView():UIComponent{
+            return _rootView;
+        }
+        
+        public function Window(){
+            super();
+        }
+        
         public override function set systemManager(value:ISystemManager):void{
             if( super.systemManager != value ){
                 super.systemManager = value;
                 YuiFrameworkContainer.yuicontainer.addExternalSystemManager(value);
             }
         }
-		
-		public override function dispatchEvent(event:Event):Boolean
-		{
-			if( _rootView != null ){
-				_rootView.dispatchEvent(event);
-			}
-			if( event.isDefaultPrevented()){
-				return false;
-			} else {
-				return super.dispatchEvent(event);
-			}
-		}
-		
-		protected override function createChildren():void{
-			super.createChildren();
-			
-			createRootView();
-		}
-		
-		protected function createRootView():void{
-			var viewClass:Class = getStyle("rootViewClass") as Class;
-			
-			if( viewClass == null ){
-				throw new YuiFrameworkContainerError("rootViewClass style is needed.");
-			} else {
-				_rootView = new viewClass();
-				_rootView.name = "rootView";
-				_rootView.setVisible(false,true);
-				addChild(_rootView);
-			}
-		}
+        
+        public override function dispatchEvent(event:Event):Boolean
+        {
+            if( _rootView != null ){
+                _rootView.dispatchEvent(event);
+            }
+            if( event.isDefaultPrevented()){
+                return false;
+            } else {
+                return super.dispatchEvent(event);
+            }
+        }
+        
+        protected override function createChildren():void{
+            super.createChildren();
+            
+            createRootView();
+        }
+        
+        protected function createRootView():void{
+            var viewClass:Class = getStyle("rootViewClass") as Class;
+            
+            if( viewClass == null ){
+                throw new YuiFrameworkContainerError("rootViewClass style is needed.");
+            } else {
+                _rootView = new viewClass();
+                _rootView.name = "rootView";
+                _rootView.setVisible(false,true);
+                addChild(_rootView);
+            }
+        }
     }
 }

@@ -32,7 +32,7 @@ CONFIG::FP10{
 
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
-	import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
+    import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
     import org.seasar.akabana.yui.logging.Logger;
@@ -43,7 +43,7 @@ CONFIG::FP10{
     internal class YuiFrameworkContainerBase implements IYuiFrameworkContainer
     {
         include "../Version.as";
-		
+        
 CONFIG::DEBUG {
         protected static const _logger:Logger = Logger.getLogger(IYuiFrameworkContainer);
 }
@@ -80,35 +80,35 @@ CONFIG::FP10{
         }
 }
 
-		protected var _systemManagerMap:Dictionary;
+        protected var _systemManagerMap:Dictionary;
 
         public function YuiFrameworkContainerBase(){
 CONFIG::FP9{
-			_systemManagers = [];
+            _systemManagers = [];
 }
 CONFIG::FP10{
-			_systemManagers = new Vector.<ISystemManager>;
+            _systemManagers = new Vector.<ISystemManager>;
 }
-			_systemManagerMap = new Dictionary(true);
-		}
+            _systemManagerMap = new Dictionary(true);
+        }
 
         public function addExternalSystemManager(systemManager:ISystemManager ):void{
         }
-		
-		public function removeExternalSystemManager(sm:ISystemManager ):void{
-		}
+        
+        public function removeExternalSystemManager(sm:ISystemManager ):void{
+        }
 
         public function customizeView( container:UIComponent ):void{
         }
 
         public function uncustomizeView( container:UIComponent ):void{
         }
-		
-		public function customizeComponent( container:UIComponent, child:UIComponent):void{
-		}
-		
-		public function uncustomizeComponent( container:UIComponent, child:UIComponent):void{
-		}
+        
+        public function customizeComponent( container:UIComponent, child:UIComponent):void{
+        }
+        
+        public function uncustomizeComponent( container:UIComponent, child:UIComponent):void{
+        }
 
         public function callLater(callBack:Function):void{
             _callTimer
@@ -133,45 +133,45 @@ CONFIG::DEBUG{
 CONFIG::DEBUG{
             _logger.debug("add systemManager"+sm);
 }
-			_systemManagers.push(sm);
-			_systemManagerMap[ sm ] = _systemManagers.length-1;
+            _systemManagers.push(sm);
+            _systemManagerMap[ sm ] = _systemManagers.length-1;
         }
-		
-		protected function removeSystemManager(sm:ISystemManager):void{
+        
+        protected function removeSystemManager(sm:ISystemManager):void{
 CONFIG::DEBUG{
-			_logger.debug("remove systemManager"+sm);
+            _logger.debug("remove systemManager"+sm);
 }
-			if( sm in _systemManagerMap ){
-				var index:int = _systemManagerMap[ sm ] as int;
-				delete _systemManagerMap[ sm ];
-				_systemManagers.splice(index,1);
-			}
-		}
+            if( sm in _systemManagerMap ){
+                var index:int = _systemManagerMap[ sm ] as int;
+                delete _systemManagerMap[ sm ];
+                _systemManagers.splice(index,1);
+            }
+        }
 
         protected function getDefaultCustomizerClasses():Array{
-		    const styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
-			const customizersDef:CSSStyleDeclaration = styleManager.getStyleDeclaration(".customizers");
-			const defaultFactory:Function = customizersDef.defaultFactory;
+            const styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
+            const customizersDef:CSSStyleDeclaration = styleManager.getStyleDeclaration(".customizers");
+            const defaultFactory:Function = customizersDef.defaultFactory;
 
-			const result:Array = [];
-			const keys:Array = [];
+            const result:Array = [];
+            const keys:Array = [];
 
-			var customizers:Object = {};
-			if (defaultFactory != null)
-			{
-				defaultFactory.prototype = {};
-				customizers = new defaultFactory();
-			}
+            var customizers:Object = {};
+            if (defaultFactory != null)
+            {
+                defaultFactory.prototype = {};
+                customizers = new defaultFactory();
+            }
 
-			var customizer:Class;
-			for( var key:String in customizers ){
-				keys.push(key);
-			}
-			keys.sort();
-			for( var i:int = 0; i < keys.length; i++ ){				
-				customizer = customizers[keys[i]] as Class;
-				result.push(customizer);
-			}
+            var customizer:Class;
+            for( var key:String in customizers ){
+                keys.push(key);
+            }
+            keys.sort();
+            for( var i:int = 0; i < keys.length; i++ ){                
+                customizer = customizers[keys[i]] as Class;
+                result.push(customizer);
+            }
 CONFIG::DEBUG{
             _logger.debug("default customizers is "+result);
 }

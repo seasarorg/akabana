@@ -39,7 +39,7 @@ package org.seasar.akabana.yui.framework.core {
             }
             var componentInstances:Object = componentInstanceMap[ className ];
 
-			var componentId:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
+            var componentId:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
             if( componentMap[ componentId ] == null ){
                 componentMap[ componentId ] = component;
                 componentInstances[ componentId ] = component;
@@ -49,8 +49,8 @@ package org.seasar.akabana.yui.framework.core {
         }
 
         public static function removeComponent( component:UIComponent ):void{
-        	if( componentMap.hasOwnProperty(component.name)){
-        		var componentId:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
+            if( componentMap.hasOwnProperty(component.name)){
+                var componentId:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
                 componentMap[ componentId ] = null;
                 delete componentMap[ componentId ];
 
@@ -59,7 +59,7 @@ package org.seasar.akabana.yui.framework.core {
                 var componentInstances:Object = componentInstanceMap[ className ];
                 componentInstances[ componentId ] = null;
                 delete componentInstances[ componentId ];
-        	}
+            }
         }
 
         public static function getComponent( key:Object, componentId:String = null):UIComponent{
@@ -83,10 +83,10 @@ package org.seasar.akabana.yui.framework.core {
                 }
                 if( key is String ){
                     if( componentId != null ){
-						componentInstances = componentInstanceMap[ key ];
-						component = componentInstances[ componentId ] as UIComponent;
+                        componentInstances = componentInstanceMap[ key ];
+                        component = componentInstances[ componentId ] as UIComponent;
                     } else {
-                    	component = componentMap[ key ] as UIComponent;
+                        component = componentMap[ key ] as UIComponent;
                     }
                     break;
                 }

@@ -45,17 +45,17 @@ package org.seasar.akabana.yui.framework
             _setting = new YuiFrameworkSettings();
         }
 
-		public override function dispatchEvent(event:Event):Boolean
-		{
-			if( _rootView != null ){
-				_rootView.dispatchEvent(event);
-			}
-			if( event.isDefaultPrevented()){
-				return false;
-			} else {
-				return super.dispatchEvent(event);
-			}
-		}
+        public override function dispatchEvent(event:Event):Boolean
+        {
+            if( _rootView != null ){
+                _rootView.dispatchEvent(event);
+            }
+            if( event.isDefaultPrevented()){
+                return false;
+            } else {
+                return super.dispatchEvent(event);
+            }
+        }
 
         protected override function createChildren():void{
             super.createChildren();
@@ -71,7 +71,7 @@ package org.seasar.akabana.yui.framework
             } else {
                 _rootView = new viewClass();
                 _rootView.name = "rootView";
-				_rootView.setVisible(false,true);
+                _rootView.setVisible(false,true);
                 addElement(_rootView);
             }
         }

@@ -29,9 +29,9 @@ package org.seasar.akabana.yui.framework.bridge
     [ExcludeClass]
     public final class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin
     {
-		private static const ROOT_VIEW:String = "rootView";
-		
-		private static const SKIN_NAME:String = "Skin";
+        private static const ROOT_VIEW:String = "rootView";
+        
+        private static const SKIN_NAME:String = "Skin";
 
         protected var _application:Application;
 
@@ -39,9 +39,9 @@ package org.seasar.akabana.yui.framework.bridge
             return _application;
         }
 
-		public function set application(value:UIComponent):void{
-			_application = value as Application;
-		}
+        public function set application(value:UIComponent):void{
+            _application = value as Application;
+        }
 
         public function get parameters():Object{
             return _application.parameters;
@@ -54,7 +54,7 @@ package org.seasar.akabana.yui.framework.bridge
         public function get rootView():UIComponent{
             var result:UIComponent = null;
             if( _application.hasOwnProperty(ROOT_VIEW)){
-             	result = _application[ ROOT_VIEW ] as UIComponent;
+                 result = _application[ ROOT_VIEW ] as UIComponent;
             }
             return result;
         }
@@ -66,22 +66,22 @@ package org.seasar.akabana.yui.framework.bridge
         public function isContainer(component:Object):Boolean{
             return !( component is Skin ) && ( component is SkinnableContainer || component is Group || component is Container );
         }
-		
-		public function isComponent(component:Object):Boolean{
-			var className:String = getCanonicalName(component) as String;
-			return !( component is Skin ) && !( className.indexOf(SKIN_NAME) == className.length-SKIN_NAME.length) && ( component is UIComponent);
-		}
+        
+        public function isComponent(component:Object):Boolean{
+            var className:String = getCanonicalName(component) as String;
+            return !( component is Skin ) && !( className.indexOf(SKIN_NAME) == className.length-SKIN_NAME.length) && ( component is UIComponent);
+        }
 
-		public function getChildren(component:UIComponent):Vector.<UIComponent>{
-			var result:Vector.<UIComponent> = new Vector.<UIComponent>();
-			if( component is IVisualElementContainer ){
-				var container:IVisualElementContainer = component as IVisualElementContainer;
-				var numChildren:int = container.numElements;
-				for( var j:int = 0; j < numChildren; j++ ){
-					result.push(container.getElementAt(j));
-				}
-			}
-			return result;
-		}
+        public function getChildren(component:UIComponent):Vector.<UIComponent>{
+            var result:Vector.<UIComponent> = new Vector.<UIComponent>();
+            if( component is IVisualElementContainer ){
+                var container:IVisualElementContainer = component as IVisualElementContainer;
+                var numChildren:int = container.numElements;
+                for( var j:int = 0; j < numChildren; j++ ){
+                    result.push(container.getElementAt(j));
+                }
+            }
+            return result;
+        }
     }
 }

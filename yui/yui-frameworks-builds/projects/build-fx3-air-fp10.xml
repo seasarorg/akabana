@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks-fx3-air-fp10" basedir="." default="all">
 
-	<target name="all">
-		<property name="projectdir" value="${PROJECT_WORKSPACE}${file.separator}${ant.project.name}"/>
-		<projectInit projectname="${ant.project.name}" projectdir="${projectdir}"/>
-		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-core"/>
-		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-logging"/>
-		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework"/>
-		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework-bridge-flex3"/>
-		<projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-air-flex3"/>
+    <target name="all">
+        <property name="projectdir" value="${PROJECT_WORKSPACE}${file.separator}${ant.project.name}"/>
+        <projectInit projectname="${ant.project.name}" projectdir="${projectdir}"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-core"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-logging"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework-bridge-flex3"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-air-flex3"/>
 
-		<projectCompilePrepare projectdir="${projectdir}"/>
-		<projectCompileWithAIRFlexLibrary10 projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10" uncaughtError="0"/>
-		<projectRsl projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10"/>
-	</target>
+        <projectCompilePrepare projectdir="${projectdir}"/>
+        <projectCompileWithAIRFlexLibrary10 projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10" uncaughtError="0"/>
+        <projectRsl projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10"/>
+    </target>
 </project>

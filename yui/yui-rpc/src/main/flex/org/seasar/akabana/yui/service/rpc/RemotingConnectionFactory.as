@@ -41,17 +41,17 @@ CONFIG::DEBUG{
             var connection:RemotingConnection = gatewayUrlToRc[ gatewayUrl ];
             if( connection == null ){
                 connection = new RemotingConnection();
-    			connection.objectEncoding = ObjectEncoding.AMF3;
+                connection.objectEncoding = ObjectEncoding.AMF3;
 
-    			if( gatewayUrl != null ){
+                if( gatewayUrl != null ){
                     connection.connect( gatewayUrl );
                 } else {
-    			    throw new IllegalGatewayError(gatewayUrl);
-    			}
+                    throw new IllegalGatewayError(gatewayUrl);
+                }
 
-    			gatewayUrlToRc[ gatewayUrl ] = connection;
+                gatewayUrlToRc[ gatewayUrl ] = connection;
             }
-			return connection;
+            return connection;
         }
     }
 }

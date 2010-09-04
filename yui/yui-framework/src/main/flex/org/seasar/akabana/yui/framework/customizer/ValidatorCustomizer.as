@@ -29,28 +29,28 @@ package org.seasar.akabana.yui.framework.customizer {
 
     [ExcludeClass]
     public class ValidatorCustomizer extends AbstractComponentEventCustomizer{
-		
-		CONFIG::DEBUG {
-        	private static const _logger:Logger = Logger.getLogger(ValidatorCustomizer);
-		}
-		
+        
+        CONFIG::DEBUG {
+            private static const _logger:Logger = Logger.getLogger(ValidatorCustomizer);
+        }
+        
         public override function customize( view:UIComponent, owner:UIComponent=null):void {
             if( owner == null ){
-	            try{
-    	            var viewName:String = UIComponentUtil.getName(view);
-    	            var viewClassName:String = getCanonicalName(view);
-    	            var validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
-    	            var validatorClassRef:ClassRef = null;
+                try{
+                    var viewName:String = UIComponentUtil.getName(view);
+                    var viewClassName:String = getCanonicalName(view);
+                    var validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
+                    var validatorClassRef:ClassRef = null;
 CONFIG::DEBUG{
                     _logger.debug(getMessage("ViewEventCustomizing",viewName,validatorClassName));
 }
-	                validatorClassRef = getClassRef(validatorClassName);
-	                processValidatorCustomize( viewName, view, validatorClassRef );
+                    validatorClassRef = getClassRef(validatorClassName);
+                    processValidatorCustomize( viewName, view, validatorClassRef );
 CONFIG::DEBUG{
                     _logger.debug(getMessage("ViewEventCustomized",viewName,validatorClassName));
 }
-	            } catch( e:Error ){
-	            }
+                } catch( e:Error ){
+                }
             }
         }
 
@@ -58,20 +58,20 @@ CONFIG::DEBUG{
             if( owner == null ){
 
                 try{
-    	            var viewName:String = UIComponentUtil.getName(view);
-    	            var viewClassName:String = getCanonicalName(view);
-    	            var validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
-    	            var validatorClassRef:ClassRef = null;
+                    var viewName:String = UIComponentUtil.getName(view);
+                    var viewClassName:String = getCanonicalName(view);
+                    var validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
+                    var validatorClassRef:ClassRef = null;
 CONFIG::DEBUG{
             _logger.debug(getMessage("ValidatorUncustomizing",viewName,validatorClassName));
 }
-	                validatorClassRef = getClassRef(validatorClassName);
-	                processValidatorUncustomize( viewName, view, validatorClassRef );
+                    validatorClassRef = getClassRef(validatorClassName);
+                    processValidatorUncustomize( viewName, view, validatorClassRef );
 CONFIG::DEBUG{
                     _logger.debug(getMessage("ValidatorUncustomized",viewName,validatorClassName));
 }
-	            } catch( e:Error ){
-	            }
+                } catch( e:Error ){
+                }
             }
         }
 

@@ -16,7 +16,7 @@
 package org.seasar.akabana.yui.framework.bridge
 {
 CONFIG::FP10{
-	import __AS3__.vec.Vector;
+    import __AS3__.vec.Vector;
 }
     import flash.errors.IllegalOperationError;
     
@@ -32,16 +32,16 @@ CONFIG::FP10{
     public class FrameworkBridge
     {
         public static function initialize():FrameworkBridge{
-		    var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
+            var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
             var result:FrameworkBridge = new FrameworkBridge();
             var frameworkBridgeCss:CSSStyleDeclaration = styleManager.getStyleDeclaration("org.seasar.akabana.yui.framework.core.YuiFrameworkSettings");
-			if( frameworkBridgeCss == null ){
-				frameworkBridgeCss = styleManager.getStyleDeclaration("YuiFrameworkSettings");
-			    if( frameworkBridgeCss == null ){
-			        throw new IllegalOperationError("No Framework BridgePlugin");
-			    }
-			}
-			var pluginClass:Class = frameworkBridgeCss.getStyle("frameworkBridgePlugin");
+            if( frameworkBridgeCss == null ){
+                frameworkBridgeCss = styleManager.getStyleDeclaration("YuiFrameworkSettings");
+                if( frameworkBridgeCss == null ){
+                    throw new IllegalOperationError("No Framework BridgePlugin");
+                }
+            }
+            var pluginClass:Class = frameworkBridgeCss.getStyle("frameworkBridgePlugin");
             result.frameworkBridgePlugin = new pluginClass();
             return result;
         }
@@ -61,7 +61,7 @@ CONFIG::FP10{
         }
         
         public function get rootView():UIComponent{
-        	return frameworkBridgePlugin.rootView;
+            return frameworkBridgePlugin.rootView;
         }
 
         public function get systemManager():ISystemManager{
@@ -75,19 +75,19 @@ CONFIG::FP10{
         public function isContainer(component:Object):Boolean{
             return frameworkBridgePlugin.isContainer(component);
         }
-		
-		public function isComponent(component:Object):Boolean{
-			return frameworkBridgePlugin.isComponent(component);
-		}
+        
+        public function isComponent(component:Object):Boolean{
+            return frameworkBridgePlugin.isComponent(component);
+        }
 CONFIG::FP9{
-		public function getChildren(component:UIComponent):Array{
-			return frameworkBridgePlugin.getChildren(component);
-		}
+        public function getChildren(component:UIComponent):Array{
+            return frameworkBridgePlugin.getChildren(component);
+        }
 }
 CONFIG::FP10{
-		public function getChildren(component:UIComponent):Vector.<UIComponent>{
-			return frameworkBridgePlugin.getChildren(component);
-		}
+        public function getChildren(component:UIComponent):Vector.<UIComponent>{
+            return frameworkBridgePlugin.getChildren(component);
+        }
 }
     }
 }

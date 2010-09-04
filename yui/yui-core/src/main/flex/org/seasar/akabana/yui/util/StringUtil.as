@@ -20,80 +20,80 @@ CONFIG::FP10{
 }
 
     public class StringUtil
-	{
-	    public static const EMPTY:String = "";
+    {
+        public static const EMPTY:String = "";
 
-	    public static function trim(str:String):String {
-	        if (str == null){
-	           return null;
-	        }
+        public static function trim(str:String):String {
+            if (str == null){
+               return null;
+            }
 
-	        var startIndex:int = 0;
-	        while( isWhitespace(str.charAt(startIndex))){
-	            ++startIndex;
-	        }
+            var startIndex:int = 0;
+            while( isWhitespace(str.charAt(startIndex))){
+                ++startIndex;
+            }
 
-	        var endIndex:int = str.length - 1;
-	        while( isWhitespace(str.charAt(endIndex))){
-	            --endIndex;
-	        }
+            var endIndex:int = str.length - 1;
+            while( isWhitespace(str.charAt(endIndex))){
+                --endIndex;
+            }
 
-	        if( endIndex >= startIndex ){
-	            return str.slice(startIndex, endIndex + 1);
-	        } else {
-	            return EMPTY;
-	        }
-	    }
+            if( endIndex >= startIndex ){
+                return str.slice(startIndex, endIndex + 1);
+            } else {
+                return EMPTY;
+            }
+        }
 
-	    public static function isWhitespace(character:String):Boolean{
-	        switch( character ){
-	            case " ":
-	            case "\t":
-	            case "\r":
-	            case "\n":
-	            case "\f":
-	                return true;
+        public static function isWhitespace(character:String):Boolean{
+            switch( character ){
+                case " ":
+                case "\t":
+                case "\r":
+                case "\n":
+                case "\f":
+                    return true;
 
-	            default:
-	                return false;
-	        }
-	    }
+                default:
+                    return false;
+            }
+        }
 
-	    public static function substitute(str:String, ... rest):String{
-	        if( str == null ){
-	           return null;
-	        }
+        public static function substitute(str:String, ... rest):String{
+            if( str == null ){
+               return null;
+            }
 
-	        var len:uint = rest.length;
+            var len:uint = rest.length;
 CONFIG::FP9{
-	        var args:Array;
+            var args:Array;
 }
 CONFIG::FP10{
-	        var args:Vector.<Object>;
+            var args:Vector.<Object>;
 }
-	        if( len == 1 && rest[0] is Array ){
+            if( len == 1 && rest[0] is Array ){
 CONFIG::FP9{
-	            args = rest[0] as Array;
+                args = rest[0] as Array;
 }
 CONFIG::FP10{
                 args = Vector.<Object>(rest[0]);
 }
-	            len = args.length;
-	        } else {
+                len = args.length;
+            } else {
 CONFIG::FP9{
-	            args = rest;
+                args = rest;
 }
 CONFIG::FP10{
                 args = Vector.<Object>(rest);
 }
-	        }
+            }
 
-	        for( var i:int = 0; i < len; i++ ){
-	            str = str.replace(new RegExp("\\{"+i+"\\}", "g"), args[i]);
-	        }
+            for( var i:int = 0; i < len; i++ ){
+                str = str.replace(new RegExp("\\{"+i+"\\}", "g"), args[i]);
+            }
 
-	        return str;
-	    }
+            return str;
+        }
 
         public static function fill(value:Object, len:int, padding:String):String{
             var result:String = "";
@@ -112,11 +112,11 @@ CONFIG::FP10{
         }
 
         public static function toLowerCamel(value:String):String{
-        	return value.substr(0,1).toLocaleLowerCase() + value.substring(1,value.length);
+            return value.substr(0,1).toLocaleLowerCase() + value.substring(1,value.length);
         }
 
         public static function toUpperCamel(value:String):String{
-        	return value.substr(0,1).toLocaleUpperCase() + value.substring(1,value.length);
+            return value.substr(0,1).toLocaleUpperCase() + value.substring(1,value.length);
         }
-	}
+    }
 }

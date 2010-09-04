@@ -15,18 +15,18 @@
  */
 package org.seasar.akabana.yui.framework.util
 {
-	import mx.managers.ISystemManager;
+    import mx.managers.ISystemManager;
 
     [ExcludeClass]
-	public class SystemManagerUtil
-	{
-		public static function getRootSystemManager(systemManager:ISystemManager):ISystemManager
-		{
-			if( systemManager != null ){
-				return systemManager.getSandboxRoot() as ISystemManager;
-			}
-			return null;
-		}
+    public class SystemManagerUtil
+    {
+        public static function getRootSystemManager(systemManager:ISystemManager):ISystemManager
+        {
+            if( systemManager != null ){
+                return systemManager.getSandboxRoot() as ISystemManager;
+            }
+            return null;
+        }
 
-	}
+    }
 }

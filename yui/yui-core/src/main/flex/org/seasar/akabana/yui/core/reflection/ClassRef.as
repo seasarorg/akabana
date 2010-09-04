@@ -62,9 +62,9 @@ CONFIG::FP10{
             return classRef;
         }
 
-		public static function getCanonicalName( object:Object ):String{
-			return getTypeString(flash.utils.getQualifiedClassName(object));
-		}
+        public static function getCanonicalName( object:Object ):String{
+            return getTypeString(flash.utils.getQualifiedClassName(object));
+        }
 
         private static function isTargetAccessor( rootDescribeTypeXml:XML ):Boolean{
             const name_:String = rootDescribeTypeXml.@name.toString();

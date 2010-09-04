@@ -86,60 +86,60 @@ package org.seasar.akabana.yui.service.rpc {
             }
         }
 
-    	public function getOperation( name:String ):Operation{
-    	    return operations[ name ];
-    	}
+        public function getOperation( name:String ):Operation{
+            return operations[ name ];
+        }
 
-    	public function hasOperation( name:String ):Boolean{
-    	    return operations.hasOwnProperty( name );
-    	}
+        public function hasOperation( name:String ):Boolean{
+            return operations.hasOwnProperty( name );
+        }
 
-    	public function setCredentials(username:String, password:String, charset:String=null):void{
+        public function setCredentials(username:String, password:String, charset:String=null):void{
             _credentialsUsername = username;
             _credentialsPassword = password;
-    	}
+        }
 
-	    public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, weakRef:Boolean = false):void{
-	        innerEventdispatcher.addEventListener(type, listener, useCapture, priority, weakRef);
-	    }
+        public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, weakRef:Boolean = false):void{
+            innerEventdispatcher.addEventListener(type, listener, useCapture, priority, weakRef);
+        }
 
-	    public function dispatchEvent(evt:Event):Boolean{
-	        return innerEventdispatcher.dispatchEvent(evt);
-	    }
+        public function dispatchEvent(evt:Event):Boolean{
+            return innerEventdispatcher.dispatchEvent(evt);
+        }
 
-	    public function hasEventListener (type:String):Boolean{
-	        return innerEventdispatcher.hasEventListener(type);
-	    }
+        public function hasEventListener (type:String):Boolean{
+            return innerEventdispatcher.hasEventListener(type);
+        }
 
-	    public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void{
-	        innerEventdispatcher.removeEventListener(type, listener, useCapture);
-	    }
+        public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void{
+            innerEventdispatcher.removeEventListener(type, listener, useCapture);
+        }
 
-	    public function willTrigger(type:String):Boolean {
-	        return innerEventdispatcher.willTrigger(type);
-	    }
+        public function willTrigger(type:String):Boolean {
+            return innerEventdispatcher.willTrigger(type);
+        }
 
-	    public function deletePendingCallOf(responder:Object):void{
+        public function deletePendingCallOf(responder:Object):void{
 
-	    }
+        }
         
         public function deleteCallHistory(pc:PendingCall):void{
             
         }
 
-	    protected function createOperation( operationName:String ):AbstractRpcOperation{
-	        return null;
-	    }
-
-    	protected function invokeOperation( operationName:String, operationArgs:Array ):PendingCall{
+        protected function createOperation( operationName:String ):AbstractRpcOperation{
             return null;
-    	}
+        }
 
-	    flash_proxy override function callProperty(methodName:*, ...args):* {
-	        if( _destination == null || _destination.length <= 0 ){
-		        throw new IllegalDestinationError(_destination);
-	        }
-	        return invokeOperation( QName(methodName).localName, args );
-    	}
+        protected function invokeOperation( operationName:String, operationArgs:Array ):PendingCall{
+            return null;
+        }
+
+        flash_proxy override function callProperty(methodName:*, ...args):* {
+            if( _destination == null || _destination.length <= 0 ){
+                throw new IllegalDestinationError(_destination);
+            }
+            return invokeOperation( QName(methodName).localName, args );
+        }
     }
 }
