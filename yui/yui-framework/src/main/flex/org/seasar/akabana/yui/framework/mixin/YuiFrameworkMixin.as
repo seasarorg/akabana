@@ -60,7 +60,7 @@ CONFIG::FP10{
 
             if( flexModuleFactory is ISystemManager ){
                 var systemManager_:ISystemManager = flexModuleFactory as ISystemManager;
-                _container.yui_internal::monitoringSystemManager(systemManager_);
+                _container.yui_internal::systemManagerMonitoringStart(systemManager_);
             }
         }
     }
