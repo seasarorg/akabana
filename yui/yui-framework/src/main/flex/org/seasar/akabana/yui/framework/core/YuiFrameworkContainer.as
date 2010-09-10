@@ -279,7 +279,7 @@ package org.seasar.akabana.yui.framework.core
             return result;
         }
         
-        yui_internal override function initialize():void{
+        yui_internal override function applicationInitialize():void{
             if( _customizers == null ){
                 _customizers = getDefaultCustomizers();
             }
@@ -326,6 +326,16 @@ package org.seasar.akabana.yui.framework.core
                 return false;
             }
             return YuiFrameworkGlobals.public::frameworkBridge.isComponent(component);            
+        }
+        
+        yui_internal override function applicationMonitoringStart(root:DisplayObject):void{
+            root.addEventListener(
+                FlexEvent.CREATION_COMPLETE,
+                creationCompleteHandler,
+                true,
+                int.MAX_VALUE
+            );
+            super.yui_internal::applicationMonitoringStart(root);
         }
         
         yui_internal override function applicationMonitoringStop(root:DisplayObject):void{
@@ -383,16 +393,6 @@ package org.seasar.akabana.yui.framework.core
                 );
             }
             super.yui_internal::systemManagerMonitoringStop(root);
-        }
-        
-        yui_internal override function applicationMonitoringStart(root:DisplayObject):void{
-            root.addEventListener(
-                FlexEvent.CREATION_COMPLETE,
-                creationCompleteHandler,
-                true,
-                int.MAX_VALUE
-            );
-            super.yui_internal::applicationMonitoringStart(root);
         }
     }
 }

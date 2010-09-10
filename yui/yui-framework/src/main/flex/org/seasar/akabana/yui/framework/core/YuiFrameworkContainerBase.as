@@ -129,6 +129,25 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        yui_internal function applicationMonitoringStart(root:DisplayObject):void{
+            
+            root.addEventListener(
+                Event.REMOVED_FROM_STAGE,
+                systemManager_removeFromStageHandler,
+                true,
+                int.MAX_VALUE
+            );
+            
+            root.addEventListener(
+                Event.ADDED_TO_STAGE,
+                systemManager_addedToStageHandler2,
+                true,
+                int.MAX_VALUE
+            );
+            
+            root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
+        }
+        
         yui_internal function applicationMonitoringStop(root:DisplayObject):void{
             root.removeEventListener(
                 Event.ADDED_TO_STAGE,
@@ -136,7 +155,7 @@ package org.seasar.akabana.yui.framework.core
                 true
             );
             
-            yui_internal::initialize();
+            yui_internal::applicationInitialize();
         }
         
         
@@ -168,26 +187,7 @@ package org.seasar.akabana.yui.framework.core
             root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_STOP));
         }
         
-        yui_internal function applicationMonitoringStart(root:DisplayObject):void{
-            
-            root.addEventListener(
-                Event.REMOVED_FROM_STAGE,
-                systemManager_removeFromStageHandler,
-                true,
-                int.MAX_VALUE
-            );
-            
-            root.addEventListener(
-                Event.ADDED_TO_STAGE,
-                systemManager_addedToStageHandler2,
-                true,
-                int.MAX_VALUE
-            );
-            
-            root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
-        }
-        
-        yui_internal function initialize():void{
+        yui_internal function applicationInitialize():void{
             
         }
 
