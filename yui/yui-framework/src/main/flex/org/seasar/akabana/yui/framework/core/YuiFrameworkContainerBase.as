@@ -1,181 +1,307 @@
 /*
- * Copyright 2004-2010 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
+* Copyright 2004-2010 the Seasar Foundation and the Others.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+* either express or implied. See the License for the specific language
+* governing permissions and limitations under the License.
+*/
 package org.seasar.akabana.yui.framework.core
 {
-CONFIG::FP10{
-    import __AS3__.vec.Vector;
-}
-
-    import flash.events.TimerEvent;
-    import flash.utils.Timer;
-
-    import mx.core.UIComponent;
-    import mx.managers.CursorManager;
-    import mx.managers.DragManager;
-    import mx.managers.ISystemManager;
-    import mx.managers.PopUpManager;
-    import mx.styles.CSSStyleDeclaration;
-    import mx.styles.IStyleManager2;
-
+    CONFIG::FP10{
+        import __AS3__.vec.Vector;
+    }
+    
+    CONFIG::UNCAUGHT_ERROR_GLOBAL{
+        import flash.events.UncaughtErrorEvent;
+    }
+    
+    import flash.events.Event;
+    import flash.system.Capabilities;
+    
+    import flash.display.DisplayObjectContainer;
+    import flash.display.DisplayObject;
+    
+    import org.seasar.akabana.yui.core.Environment;
     import org.seasar.akabana.yui.core.yui_internal;
-    import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
+    import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
+    import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
+    import org.seasar.akabana.yui.framework.customizer.IViewCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
-    import org.seasar.akabana.yui.framework.message.MessageManager;
-    import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
-    import org.seasar.akabana.yui.logging.Logger;
-    import flash.utils.Dictionary;
-    import org.seasar.akabana.yui.core.reflection.ClassRef;
-
+    import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
+    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
+    import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
+    
+    use namespace yui_internal;
+    
     [ExcludeClass]
-    internal class YuiFrameworkContainerBase implements IYuiFrameworkContainer
+    public class YuiFrameworkContainerBase extends YuiFrameworkContainerCore
     {
-        include "../Version.as";
+        CONFIG::FP9{
+            public function get customizers():Array{
+                return _customizers;
+            }
+        }
+        CONFIG::FP10{
+            public function get customizers():Vector.<IElementCustomizer>{
+                return _customizers;
+            }
+        }
         
-CONFIG::DEBUG {
-        protected static const _logger:Logger = Logger.getLogger(IYuiFrameworkContainer);
-}
-        {
-            CursorManager;
-            PopUpManager;
-            DragManager;
-        }
-
-        protected var _callTimer:Timer = new Timer(100,1);
-
-CONFIG::FP9{
-        protected var _customizers:Array;
-}
-CONFIG::FP10{
-        protected var _customizers:Vector.<IElementCustomizer>;
-}
-        protected var _isApplicationStarted:Boolean = true;
-
-        protected var _namingConvention:NamingConvention;
-
-CONFIG::FP9{
-        protected var _systemManagers:Array;
-
-        public function get systemManagers():Array{
-            return _systemManagers;
-        }
-}
-CONFIG::FP10{
-        protected var _systemManagers:Vector.<ISystemManager>;
-
-        public function get systemManagers():Vector.<ISystemManager>{
-            return _systemManagers;
-        }
-}
-
-        protected var _systemManagerMap:Dictionary;
-
         public function YuiFrameworkContainerBase(){
-CONFIG::FP9{
-            _systemManagers = [];
-}
-CONFIG::FP10{
-            _systemManagers = new Vector.<ISystemManager>;
-}
-            _systemManagerMap = new Dictionary(true);
-        }
-
-        public function addExternalSystemManager(systemManager:ISystemManager ):void{
-        }
-        
-        public function removeExternalSystemManager(sm:ISystemManager ):void{
-        }
-
-        public function customizeView( container:UIComponent ):void{
-        }
-
-        public function uncustomizeView( container:UIComponent ):void{
-        }
-        
-        public function customizeComponent( container:UIComponent, child:UIComponent):void{
-        }
-        
-        public function uncustomizeComponent( container:UIComponent, child:UIComponent):void{
-        }
-
-        public function callLater(callBack:Function):void{
-            _callTimer
-                .addEventListener(
-                    TimerEvent.TIMER,
-                    function timerHandler(event:TimerEvent):void{
-                        _callTimer.stop();
-                        _callTimer.removeEventListener(TimerEvent.TIMER,arguments.callee);
-                        callBack.call();
-                    }
-                );
-            _callTimer.start();
-        }
-
-CONFIG::DEBUG{
-        protected function getMessage(resourceName:String,...parameters):String{
-            return MessageManager.yui_internal::yuiframework.getMessage.apply(null,[resourceName].concat(parameters));
-        }
-}
-
-        protected function addSystemManager(sm:ISystemManager):void{
-CONFIG::DEBUG{
-            _logger.debug("add systemManager"+sm);
-}
-            _systemManagers.push(sm);
-            _systemManagerMap[ sm ] = _systemManagers.length-1;
-        }
-        
-        protected function removeSystemManager(sm:ISystemManager):void{
-CONFIG::DEBUG{
-            _logger.debug("remove systemManager"+sm);
-}
-            if( sm in _systemManagerMap ){
-                var index:int = _systemManagerMap[ sm ] as int;
-                delete _systemManagerMap[ sm ];
-                _systemManagers.splice(index,1);
+            super();
+            
+            trace("yui-frameworks-"+VERSION);
+            trace("Copyright 2004-2010 the Seasar Foundation and the Others.");
+            
+            CONFIG::DEBUG{
+                if( Capabilities.isDebugger ){
+                    trace("using Flash Debug Player " + Capabilities.version);
+                } else {
+                    trace("using Flash Player " + Capabilities.version);
+                }
             }
         }
-
-        protected function getDefaultCustomizerClasses():Array{
-            const styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
-            const customizersDef:CSSStyleDeclaration = styleManager.getStyleDeclaration(".customizers");
-            const defaultFactory:Function = customizersDef.defaultFactory;
-
-            const result:Array = [];
-            const keys:Array = [];
-
-            var customizers:Object = {};
-            if (defaultFactory != null)
+        
+        public override function addRootDisplayObject(root:DisplayObject):void{
+            CONFIG::DEBUG{
+                _logger.debug("add external root"+root);
+            }
+            if( root in _rootDisplayObjectMap ){
+                applicationMonitoringStop(root);
+            }
+            applicationMonitoringStart(root);
+            
+            addRootDisplayObject(root);
+        }
+        
+        public override function removeRootDisplayObject(root:DisplayObject):void{
+            CONFIG::DEBUG{
+                _logger.debug("remove external root"+root);
+            }
+            if( root in _rootDisplayObjectMap ){
+                applicationMonitoringStop(root);
+            }
+            
+            removeRootDisplayObject(root);
+        }
+        
+        private function systemManager_addedToStageHandler( event:Event ):void{
+            CONFIG::DEBUG_EVENT{
+                _logger.info("[EVENT] systemManager_addedToStageHandler"+event+","+event.target);
+            }
+            if( event.target is DisplayObject ){
+                doRegisterComponent(event.target as DisplayObject);
+            }
+        }
+        
+        private function systemManager_addedToStageHandler2( event:Event ):void{
+            CONFIG::DEBUG_EVENT{
+                _logger.info("[EVENT] systemManager_addedToStageHandler2"+event+","+event.target);
+            }
+            if( event.target is DisplayObject ){
+                doAssembleComponent(event.target as DisplayObject);
+            }
+        }
+        
+        private function systemManager_removeFromStageHandler(event:Event):void{
+            CONFIG::DEBUG_EVENT{
+                _logger.info("[EVENT] systemManager_removeHandler"+event+","+event.target);
+            }        
+            if( event.target is DisplayObject ){
+                doUnregisterComponent(event.target as DisplayObject);
+            }
+        }
+        
+        CONFIG::UNCAUGHT_ERROR_GLOBAL{
+            private function loaderInfoUncaughtErrorHandler(event:UncaughtErrorEvent):void
             {
-                defaultFactory.prototype = {};
-                customizers = new defaultFactory();
+                var runtimeErrorEvent:RuntimeErrorEvent = RuntimeErrorEvent.createEvent(event.error);
+                YuiFrameworkGlobals.public::frameworkBridge.application.dispatchEvent(runtimeErrorEvent);
             }
+        }
+        
+        yui_internal function applicationMonitoringStop(root:DisplayObject):void{
+            root.removeEventListener(
+                Event.ADDED_TO_STAGE,
+                systemManager_addedToStageHandler,
+                true
+            );
+            
+            yui_internal::initialize();
+        }
+        
+        
+        yui_internal function systemManagerMonitoringStart( root:DisplayObject ):void{
+            CONFIG::DEBUG{
+                _logger.info("monitoring..."+root);
+            }
+            root.addEventListener(
+                Event.ADDED_TO_STAGE,
+                systemManager_addedToStageHandler,
+                true,
+                int.MAX_VALUE
+            );
+            registerRootDisplayObject(root);
+        }
+        
+        yui_internal function systemManagerMonitoringStop(root:DisplayObject):void{
+            root.removeEventListener(
+                Event.REMOVED_FROM_STAGE,
+                systemManager_removeFromStageHandler,
+                true
+            );
+            
+            root.removeEventListener(
+                Event.ADDED_TO_STAGE,
+                systemManager_addedToStageHandler2,
+                true
+            );
+            root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_STOP));
+        }
+        
+        yui_internal function applicationMonitoringStart(root:DisplayObject):void{
+            
+            root.addEventListener(
+                Event.REMOVED_FROM_STAGE,
+                systemManager_removeFromStageHandler,
+                true,
+                int.MAX_VALUE
+            );
+            
+            root.addEventListener(
+                Event.ADDED_TO_STAGE,
+                systemManager_addedToStageHandler2,
+                true,
+                int.MAX_VALUE
+            );
+            
+            root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
+        }
+        
+        yui_internal function initialize():void{
+            
+        }
 
-            var customizer:Class;
-            for( var key:String in customizers ){
-                keys.push(key);
+        protected function doRegisterComponent( component:DisplayObject ):void{
+            if( YuiFrameworkGlobals.public::frameworkBridge.isApplication(component) ){
+                processRegisterApplication(component as DisplayObjectContainer);
+            } else {
+                processRegisterView(component as DisplayObjectContainer);
+                if( _isApplicationStarted ){
+                    doAssembleComponent(component);
+                }
             }
-            keys.sort();
-            for( var i:int = 0; i < keys.length; i++ ){                
-                customizer = customizers[keys[i]] as Class;
-                result.push(customizer);
+        }
+        
+        protected function doUnregisterComponent(component:DisplayObject):void{
+            if( isView(component)){
+                processDisassembleView( component as DisplayObjectContainer);
+                processUnregisterView( component as DisplayObjectContainer);
             }
-CONFIG::DEBUG{
-            _logger.debug("default customizers is "+result);
-}
-            return result;
+        }
+        
+        protected function doAssembleComponent( component:DisplayObject ):void{
+            if( isView(component)){
+                processAssembleView( component as DisplayObjectContainer);
+            }
+        }
+        
+        protected function processRegisterApplication(component:DisplayObjectContainer):void{
+            CONFIG::DEBUG{
+                _logger.debug(getMessage("ApplicationRegistered",component.toString()));
+            }
+            YuiFrameworkGlobals.public::frameworkBridge.application = component;
+            Environment.yui_internal::root = component;
+            Environment.yui_internal::parameters = YuiFrameworkGlobals.public::frameworkBridge.parameters;
+            
+            const root:DisplayObject = YuiFrameworkGlobals.public::frameworkBridge.systemManager;
+            systemManagerMonitoringStop(root);
+            applicationMonitoringStart(root);
+            CONFIG::UNCAUGHT_ERROR_GLOBAL{
+                component.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfoUncaughtErrorHandler);
+            }
+        }
+        
+        protected function processApplicationStart():void{
+            var rootView:DisplayObjectContainer = YuiFrameworkGlobals.public::frameworkBridge.rootView;
+            if( rootView != null ){
+                rootView.visible = true;
+            }
+            CONFIG::DEBUG{
+                _logger.info(getMessage("ApplicationStart"));
+            }
+            if( rootView != null ){
+                rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+                rootView.visible = true;
+            }
+        }
+        
+        protected function processRegisterView( container:DisplayObjectContainer ):void{
+            if( isView(container)){
+                ViewComponentRepository.addComponent( container );
+                CONFIG::DEBUG{
+                    _logger.debug(getMessage("ViewComponentRegistered",container.toString()));
+                }
+            }
+        }
+        
+        protected function processUnregisterView( container:DisplayObjectContainer ):void{
+            if( isView(container)){
+                if( ViewComponentRepository.hasComponent( container.name )){
+                    ViewComponentRepository.removeComponent( container );
+                    CONFIG::DEBUG{
+                        _logger.debug(getMessage("ViewComponentUnRegistered",container.toString()));
+                    }
+                }
+            }
+        }
+        
+        protected function processAssembleView( view:DisplayObjectContainer ):void{
+            customizeView(view);
+            view.dispatchEvent( new FrameworkEvent(FrameworkEvent.ASSEMBLE_COMPELETE));
+        }
+        
+        protected function processAssembleViewChild( container:DisplayObjectContainer,child:DisplayObject):void{
+            customizeComponent(container,child);
+        }
+        
+        protected function processDisassembleView( container:DisplayObjectContainer ):void{
+            uncustomizeView(container);
+        }
+        
+        protected function processDisassembleViewChild( container:DisplayObjectContainer,child:DisplayObject):void{
+            uncustomizeComponent(container,child);
+        }
+        
+        CONFIG::FP9{
+            protected function getDefaultCustomizers():Array{
+                var classes:Array = getDefaultCustomizerClasses();
+                var result:Array = [];
+                for each( var customizerClass:Class in classes ){
+                    result.push(new customizerClass());
+                }
+                return result;
+            }
+        }
+        
+        CONFIG::FP10{
+            protected function getDefaultCustomizers():Vector.<IElementCustomizer>{
+                var classes:Array = getDefaultCustomizerClasses();
+                var result:Vector.<IElementCustomizer> = new Vector.<IElementCustomizer>();
+                for each( var customizerClass:Class in classes ){
+                    result.push(new customizerClass());
+                }
+                return result;
+            }
         }
     }
 }

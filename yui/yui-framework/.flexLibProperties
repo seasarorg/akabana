@@ -8,8 +8,7 @@
     <classEntry path="org.seasar.akabana.yui.framework.core.ILifeCyclable"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.IYuiFrameworkContainer"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
-    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainerBase"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkContainerCore"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkSettings"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.event.FrameworkEvent"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent"/>

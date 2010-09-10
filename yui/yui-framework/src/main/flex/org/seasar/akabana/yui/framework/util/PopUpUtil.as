@@ -29,6 +29,7 @@ package org.seasar.akabana.yui.framework.util
     import mx.events.FlexEvent;
     import mx.managers.PopUpManager;
     
+    import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     import org.seasar.akabana.yui.util.StringUtil;
@@ -70,7 +71,7 @@ package org.seasar.akabana.yui.framework.util
                                                ):IFlexDisplayObject{
             var parent:UIComponent = null;
             if( relatedOwner == null ){
-                parent = YuiFrameworkGlobals.frameworkBridge.application as UIComponent;
+                parent = YuiFrameworkGlobals.yui_internal::frameworkBridge.application as UIComponent;
             } else {
                 parent = relatedOwner.parentApplication as UIComponent;
             }

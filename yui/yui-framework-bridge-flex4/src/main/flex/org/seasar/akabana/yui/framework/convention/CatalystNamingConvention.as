@@ -15,14 +15,17 @@
 */
 package org.seasar.akabana.yui.framework.convention
 {
+    import flash.display.DisplayObject;
+    
     import mx.core.UIComponent;
-
+    
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
     public final class CatalystNamingConvention extends NamingConvention
     {
-        public override function getComponentName( component:UIComponent ):String{
+        public override function getComponentName( target:DisplayObject ):String{
+            var component:UIComponent = target as UIComponent;
             var componentName:String = null;
             if( component != null ){
                 do{

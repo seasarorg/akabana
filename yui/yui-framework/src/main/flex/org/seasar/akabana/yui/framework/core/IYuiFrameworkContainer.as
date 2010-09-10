@@ -15,22 +15,22 @@
  */
 package org.seasar.akabana.yui.framework.core
 {
-    import mx.core.UIComponent;
-    import mx.managers.ISystemManager;
+    import flash.display.DisplayObject;
+    import flash.display.DisplayObjectContainer;
 
     [ExcludeClass]
     public interface IYuiFrameworkContainer
     {
-        function addExternalSystemManager(systemManager:ISystemManager):void;
+        function addRootDisplayObject(systemManager:DisplayObject):void;
         
-        function removeExternalSystemManager(systemManager:ISystemManager):void;
+        function removeRootDisplayObject(systemManager:DisplayObject):void;
 
-        function customizeView( container:UIComponent ):void;
+        function customizeView( container:DisplayObjectContainer ):void;
 
-        function uncustomizeView( container:UIComponent ):void;
+        function uncustomizeView( container:DisplayObjectContainer ):void;
 
-        function customizeComponent( container:UIComponent, child:UIComponent):void;
+        function customizeComponent( container:DisplayObjectContainer, child:DisplayObject):void;
         
-        function uncustomizeComponent( container:UIComponent, child:UIComponent):void;
+        function uncustomizeComponent( container:DisplayObjectContainer, child:DisplayObject):void;
     }
 }

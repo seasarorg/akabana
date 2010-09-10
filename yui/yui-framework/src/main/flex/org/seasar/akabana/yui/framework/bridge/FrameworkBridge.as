@@ -19,6 +19,8 @@ CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
     import flash.errors.IllegalOperationError;
+    import flash.display.DisplayObjectContainer;
+    import flash.display.DisplayObject;
     
     import mx.core.UIComponent;
     import mx.managers.ISystemManager;
@@ -48,44 +50,44 @@ CONFIG::FP10{
 
         protected var frameworkBridgePlugin:IFrameworkBridgePlugin;
 
-        public function get application():UIComponent{
+        public function get application():DisplayObjectContainer{
             return frameworkBridgePlugin.application;
         }
 
-        public function get parameters():Object{
-            return frameworkBridgePlugin.parameters;
-        }
-
-        yui_internal function set application(value:UIComponent):void{
+        public function set application(value:DisplayObjectContainer):void{
             frameworkBridgePlugin.application = value;
         }
         
-        public function get rootView():UIComponent{
+        public function get parameters():Object{
+            return frameworkBridgePlugin.parameters;
+        }
+        
+        public function get rootView():DisplayObjectContainer{
             return frameworkBridgePlugin.rootView;
         }
 
-        public function get systemManager():ISystemManager{
+        public function get systemManager():DisplayObject{
             return frameworkBridgePlugin.systemManager;
         }
 
-        public function isApplication(application:Object):Boolean{
+        public function isApplication(application:DisplayObject):Boolean{
             return frameworkBridgePlugin.isApplication(application);
         }
 
-        public function isContainer(component:Object):Boolean{
+        public function isContainer(component:DisplayObject):Boolean{
             return frameworkBridgePlugin.isContainer(component);
         }
         
-        public function isComponent(component:Object):Boolean{
+        public function isComponent(component:DisplayObject):Boolean{
             return frameworkBridgePlugin.isComponent(component);
         }
 CONFIG::FP9{
-        public function getChildren(component:UIComponent):Array{
+        public function getChildren(component:DisplayObjectContainer):Array{
             return frameworkBridgePlugin.getChildren(component);
         }
 }
 CONFIG::FP10{
-        public function getChildren(component:UIComponent):Vector.<UIComponent>{
+        public function getChildren(component:DisplayObjectContainer):Vector.<DisplayObject>{
             return frameworkBridgePlugin.getChildren(component);
         }
 }

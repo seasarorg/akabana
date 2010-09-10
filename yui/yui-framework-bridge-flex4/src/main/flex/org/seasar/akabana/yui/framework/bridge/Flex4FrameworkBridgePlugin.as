@@ -15,6 +15,9 @@
 */
 package org.seasar.akabana.yui.framework.bridge
 {
+    import flash.display.DisplayObject;
+    import flash.display.DisplayObjectContainer;
+    
     import mx.core.Container;
     import mx.core.IVisualElementContainer;
     import mx.core.UIComponent;
@@ -35,11 +38,11 @@ package org.seasar.akabana.yui.framework.bridge
 
         protected var _application:Application;
 
-        public function get application():UIComponent{
+        public function get application():DisplayObjectContainer{
             return _application;
         }
 
-        public function set application(value:UIComponent):void{
+        public function set application(value:DisplayObjectContainer):void{
             _application = value as Application;
         }
 
@@ -47,11 +50,11 @@ package org.seasar.akabana.yui.framework.bridge
             return _application.parameters;
         }
 
-        public function get systemManager():ISystemManager{
-            return _application.systemManager;
+        public function get systemManager():DisplayObject{
+            return _application.systemManager as DisplayObject;
         }
 
-        public function get rootView():UIComponent{
+        public function get rootView():DisplayObjectContainer{
             var result:UIComponent = null;
             if( _application.hasOwnProperty(ROOT_VIEW)){
                  result = _application[ ROOT_VIEW ] as UIComponent;
@@ -72,8 +75,8 @@ package org.seasar.akabana.yui.framework.bridge
             return !( component is Skin ) && !( className.indexOf(SKIN_NAME) == className.length-SKIN_NAME.length) && ( component is UIComponent);
         }
 
-        public function getChildren(component:UIComponent):Vector.<UIComponent>{
-            var result:Vector.<UIComponent> = new Vector.<UIComponent>();
+        public function getChildren(component:DisplayObjectContainer):Vector.<DisplayObject>{
+            var result:Vector.<DisplayObject> = new Vector.<DisplayObject>();
             if( component is IVisualElementContainer ){
                 var container:IVisualElementContainer = component as IVisualElementContainer;
                 var numChildren:int = container.numElements;

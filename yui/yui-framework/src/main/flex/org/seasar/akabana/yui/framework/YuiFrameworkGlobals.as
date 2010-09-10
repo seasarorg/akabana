@@ -33,6 +33,8 @@ CONFIG::FP10{
     import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
+    
+    use namespace yui_internal;
 
     [ExcludeClass]
     public class YuiFrameworkGlobals
@@ -59,7 +61,7 @@ CONFIG::FP10{
 
         private static var _namingConventionClassFactory:IFactory;
 
-        protected static function initNamingConventionClassFactory():void{
+        yui_internal static function initNamingConventionClassFactory():void{
             var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
             var namingConventionClassFactoryDef:CSSStyleDeclaration = styleManager.getStyleDeclaration("org.seasar.akabana.yui.framework.core.YuiFrameworkSettings");
             if( namingConventionClassFactoryDef == null ){

@@ -19,6 +19,7 @@ CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
     import flash.net.registerClassAlias;
+    import flash.display.DisplayObject;
 
     import mx.core.IFlexModuleFactory;
     import mx.managers.ISystemManager;
@@ -60,7 +61,8 @@ CONFIG::FP10{
 
             if( flexModuleFactory is ISystemManager ){
                 var systemManager_:ISystemManager = flexModuleFactory as ISystemManager;
-                _container.yui_internal::systemManagerMonitoringStart(systemManager_);
+                var root:DisplayObject = systemManager_ as DisplayObject;
+                _container.yui_internal::systemManagerMonitoringStart(root);
             }
         }
     }

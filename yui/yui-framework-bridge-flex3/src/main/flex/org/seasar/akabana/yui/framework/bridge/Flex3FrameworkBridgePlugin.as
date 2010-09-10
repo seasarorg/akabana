@@ -18,6 +18,9 @@ package org.seasar.akabana.yui.framework.bridge
 CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
+    import flash.display.DisplayObjectContainer;
+    import flash.display.DisplayObject;
+
     import mx.core.Application;
     import mx.core.Container;
     import mx.core.UIComponent;
@@ -30,23 +33,23 @@ CONFIG::FP10{
 
         protected var _application:Application;
 
-        public function get application():UIComponent{
+        public function get application():DisplayObjectContainer{
             return _application;
+        }
+        
+        public function set application(value:DisplayObjectContainer):void{
+            _application = value as Application;
         }
 
         public function get parameters():Object{
             return _application.parameters;
         }
 
-        public function set application(value:UIComponent):void{
-            _application = value as Application;
+        public function get systemManager():DisplayObject{
+            return _application.systemManager as DisplayObject;
         }
 
-        public function get systemManager():ISystemManager{
-            return _application.systemManager;
-        }
-
-        public function get rootView():UIComponent{
+        public function get rootView():DisplayObjectContainer{
             var result:UIComponent = null;
             if( _application.hasOwnProperty(ROOT_VIEW)){
                  result = _application[ ROOT_VIEW ] as UIComponent;
@@ -71,7 +74,7 @@ CONFIG::FP10{
             return (component is UIComponent);
         }
 CONFIG::FP9{
-        public function getChildren(component:UIComponent):Array{
+        public function getChildren(component:DisplayObjectContainer):Array{
             var result:Array = [];
             var numChildren:int = component.numChildren;
             
@@ -83,8 +86,8 @@ CONFIG::FP9{
         }
 }
 CONFIG::FP10{
-        public function getChildren(component:UIComponent):Vector.<UIComponent>{
-            var result:Vector.<UIComponent> = new Vector.<UIComponent>();
+        public function getChildren(component:DisplayObjectContainer):Vector.<DisplayObject>{
+            var result:Vector.<DisplayObject> = new Vector.<DisplayObject>();
             var numChildren:int = component.numChildren;
             
             for( var i:int = 0; i < numChildren; i++ ){

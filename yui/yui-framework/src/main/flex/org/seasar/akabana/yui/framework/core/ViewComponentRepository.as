@@ -15,11 +15,10 @@
  */
 package org.seasar.akabana.yui.framework.core {
 
+    import flash.display.DisplayObject;
+    import flash.display.DisplayObjectContainer;
     import flash.utils.Dictionary;
-
-    import mx.core.Container;
-    import mx.core.UIComponent;
-
+    
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError;
@@ -32,7 +31,7 @@ package org.seasar.akabana.yui.framework.core {
 
         public static var componentInstanceMap:Dictionary = new Dictionary(true);
 
-        public static function addComponent( component:UIComponent ):void{
+        public static function addComponent( component:DisplayObject ):void{
             var className:String = getCanonicalName(component);
             if( componentInstanceMap[ className ] == null ){
                 componentInstanceMap[ className ] = new Dictionary(true);
@@ -48,7 +47,7 @@ package org.seasar.akabana.yui.framework.core {
             }
         }
 
-        public static function removeComponent( component:UIComponent ):void{
+        public static function removeComponent( component:DisplayObject ):void{
             if( componentMap.hasOwnProperty(component.name)){
                 var componentId:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
                 componentMap[ componentId ] = null;
@@ -62,19 +61,19 @@ package org.seasar.akabana.yui.framework.core {
             }
         }
 
-        public static function getComponent( key:Object, componentId:String = null):UIComponent{
-            var component:UIComponent = null;
+        public static function getComponent( key:Object, componentId:String = null):DisplayObjectContainer{
+            var result:DisplayObjectContainer = null;
             var componentInstances:Object;
             do{
                 if( key is Class ){
-                    var className:String = getCanonicalName(component);
+                    var className:String = getCanonicalName(result);
                     componentInstances = componentInstanceMap[ className ];
                     if( componentId != null){
-                        component = componentInstances[ componentId ] as UIComponent;
+                        result = componentInstances[ componentId ] as DisplayObjectContainer;
                     } else {
-                        for each( var component_:UIComponent in componentInstances ){
+                        for each( var component_:DisplayObjectContainer in componentInstances ){
                             if( component_ != null ){
-                                component = component_;
+                                result = component_;
                                 break;
                             }
                         }
@@ -84,24 +83,24 @@ package org.seasar.akabana.yui.framework.core {
                 if( key is String ){
                     if( componentId != null ){
                         componentInstances = componentInstanceMap[ key ];
-                        component = componentInstances[ componentId ] as UIComponent;
+                        result = componentInstances[ componentId ] as DisplayObjectContainer;
                     } else {
-                        component = componentMap[ key ] as UIComponent;
+                        result = componentMap[ key ] as DisplayObjectContainer;
                     }
                     break;
                 }
             } while( false );
 
-            return component;
+            return result;
         }
 
-        public static function getComponentByParent( key:Class, parent:Container):UIComponent{
-            var component:UIComponent = null;
+        public static function getComponentByParent( key:Class, parent:DisplayObjectContainer):DisplayObject{
+            var component:DisplayObject = null;
 
             var className:String = getCanonicalName(key);
             var componentInstances:Object = componentInstanceMap[ className ];
 
-            for each( var component_:UIComponent in componentInstances ){
+            for each( var component_:DisplayObject in componentInstances ){
                 if( parent.contains(component_) ){
                     component = component_;
                     break;

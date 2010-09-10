@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.framework.convention
 {
-    import mx.core.UIComponent;
+    import flash.display.DisplayObject;
     
     import org.seasar.akabana.yui.framework.ns.handler;
 
@@ -196,14 +196,8 @@ CONFIG::FP10{
             return OWN_HANDLER_PREFIX;
         }
 
-        public function getComponentName(component:UIComponent):String{
-            var componentName:String = null;
-            if( component != null ){
-                componentName = component.id;
-                if( componentName == null ){
-                    componentName = component.name;
-                }
-            }
+        public function getComponentName(component:DisplayObject):String{
+            var componentName:String = component.name;
             return componentName;
         }
 

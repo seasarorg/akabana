@@ -18,20 +18,21 @@ package org.seasar.akabana.yui.framework.bridge
 CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
-    import mx.core.UIComponent;
-    import mx.managers.ISystemManager;
+    import flash.display.DisplayObjectContainer;
+    import flash.display.DisplayObject;
+    import flash.display.DisplayObjectContainer;
 
     [ExcludeClass]
     public interface IFrameworkBridgePlugin {
-        function get application():UIComponent;
+        function get application():DisplayObjectContainer;
 
-        function set application(value:UIComponent):void;
+        function set application(value:DisplayObjectContainer):void;
 
         function get parameters():Object;
 
-        function get systemManager():ISystemManager;
+        function get systemManager():DisplayObject;
         
-        function get rootView():UIComponent;
+        function get rootView():DisplayObjectContainer;
 
         function isApplication(application:Object):Boolean;
 
@@ -40,11 +41,12 @@ CONFIG::FP10{
         function isComponent(component:Object):Boolean;
         
 CONFIG::FP9{
-        function getChildren(component:UIComponent):Array;
+        function getChildren(component:DisplayObjectContainer):Array;
 }
+import flash.display.DisplayObject;
 
 CONFIG::FP10{
-        function getChildren(component:UIComponent):Vector.<UIComponent>;
+        function getChildren(component:DisplayObjectContainer):Vector.<DisplayObject>;
 }
     }
 }
