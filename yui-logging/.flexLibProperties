@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" version="1">
+  <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.logging.config.ConfigurationProvider"/>
+    <classEntry path="org.seasar.akabana.yui.logging.Level"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.factory.IConfigurationFactory"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.factory.DefaultConfigurationFactory"/>
+    <classEntry path="org.seasar.akabana.yui.logging.LoggingData"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.LevelConfig"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.CategoryConfig"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.LayoutConfig"/>
+    <classEntry path="org.seasar.akabana.yui.logging.category.CategoryBase"/>
+    <classEntry path="org.seasar.akabana.yui.logging.category.SimpleCategory"/>
+    <classEntry path="org.seasar.akabana.yui.logging.appender.SimpleAppender"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.AppenderConfig"/>
+    <classEntry path="org.seasar.akabana.yui.logging.appender.AppenderBase"/>
+    <classEntry path="org.seasar.akabana.yui.logging.Appender"/>
+    <classEntry path="org.seasar.akabana.yui.logging.Layout"/>
+    <classEntry path="org.seasar.akabana.yui.logging.Logger"/>
+    <classEntry path="org.seasar.akabana.yui.logging.layout.SimpleLayout"/>
+    <classEntry path="org.seasar.akabana.yui.logging.layout.LayoutBase"/>
+    <classEntry path="org.seasar.akabana.yui.logging.layout.PatternLayout"/>
+    <classEntry path="org.seasar.akabana.yui.logging.LogManager"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.Configuration"/>
+    <classEntry path="org.seasar.akabana.yui.logging.Category"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.ParamConfig"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
