@@ -18,7 +18,6 @@ package org.seasar.akabana.yui.framework.bridge
     import flash.display.DisplayObject;
     import flash.display.DisplayObjectContainer;
     
-    import mx.core.Container;
     import mx.core.IVisualElementContainer;
     import mx.core.UIComponent;
     import mx.managers.ISystemManager;
@@ -27,7 +26,6 @@ package org.seasar.akabana.yui.framework.bridge
     import spark.components.Group;
     import spark.components.SkinnableContainer;
     import spark.components.supportClasses.Skin;
-    import spark.skins.spark.HighlightBitmapCaptureSkin;
 
     [ExcludeClass]
     public final class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin
@@ -67,7 +65,7 @@ package org.seasar.akabana.yui.framework.bridge
         }
 
         public function isContainer(component:Object):Boolean{
-            return !( component is Skin ) && ( component is SkinnableContainer || component is Group || component is Container );
+            return !( component is Skin ) && ( component is SkinnableContainer || component is Group || component is IVisualElementContainer );
         }
         
         public function isComponent(component:Object):Boolean{
