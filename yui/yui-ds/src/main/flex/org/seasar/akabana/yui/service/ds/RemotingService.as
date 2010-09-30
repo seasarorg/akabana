@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.service.ds {
     import flash.utils.getTimer;
     
     import mx.core.Application;
-    import mx.core.Container;
+    import mx.core.UIComponent;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.messaging.Channel;
@@ -144,7 +144,7 @@ package org.seasar.akabana.yui.service.ds {
             if( document is Application ){
                 _parentApplication = document as Application;
             } else {
-                _parentApplication = Container(document).parentApplication as Application;
+                _parentApplication = UIComponent(document).parentApplication as Application;
             }
             _parentApplication.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompleteHandler,false,0,true);
             ServiceManager.addService( this );
