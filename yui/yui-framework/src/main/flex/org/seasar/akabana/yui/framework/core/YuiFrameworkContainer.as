@@ -88,8 +88,10 @@ package org.seasar.akabana.yui.framework.core
         
         public override function customizeView( container:DisplayObjectContainer ):void{
             var view:UIComponent = container as UIComponent;
-            if( !view.initialized ){            
-                _logger.debug("customizeView:"+view+" is not initialize.");
+            if( !view.initialized ){   
+                CONFIG::DEBUG {         
+                    _logger.debug("customizeView:"+view+" is not initialize.");
+                }
                 return;
             }
             CONFIG::DEBUG{
@@ -107,7 +109,9 @@ package org.seasar.akabana.yui.framework.core
         public override function uncustomizeView( container:DisplayObjectContainer ):void{
             var view:UIComponent = container as UIComponent;
             if( !view.initialized ){     
-                _logger.debug("customizeView:"+view+" is not initialize.");       
+                CONFIG::DEBUG {
+                    _logger.debug("customizeView:"+view+" is not initialize.");       
+                }
                 return;
             }
             CONFIG::DEBUG{
@@ -127,7 +131,9 @@ package org.seasar.akabana.yui.framework.core
             var view:UIComponent = container as UIComponent;
             var component:UIComponent = child as UIComponent;
             if( !view.initialized || !component.initialized){     
-                _logger.debug("customizeView:"+view+" is not initialize.");       
+                CONFIG::DEBUG{
+                    _logger.debug("customizeView:"+view+" is not initialize.");       
+                }
                 return;
             }
             CONFIG::DEBUG{
@@ -145,8 +151,10 @@ package org.seasar.akabana.yui.framework.core
         public override function uncustomizeComponent( container:DisplayObjectContainer, child:DisplayObject ):void{
             var view:UIComponent = container as UIComponent;
             var component:UIComponent = child as UIComponent;
-            if( !view.initialized ){            
-                _logger.debug("customizeView:"+view+" is not initialize.");
+            if( !view.initialized ){     
+                CONFIG::DEBUG{       
+                    _logger.debug("customizeView:"+view+" is not initialize.");
+                }
                 return;
             }
             CONFIG::DEBUG{
