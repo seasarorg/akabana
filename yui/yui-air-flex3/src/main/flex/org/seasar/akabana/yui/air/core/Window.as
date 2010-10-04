@@ -15,6 +15,7 @@
 */
 package org.seasar.akabana.yui.air.core
 {
+    import flash.display.DisplayObject;
     import flash.events.Event;
     
     import mx.core.UIComponent;
@@ -42,7 +43,7 @@ package org.seasar.akabana.yui.air.core
         public override function set systemManager(value:ISystemManager):void{
             if( super.systemManager != value ){
                 super.systemManager = value;
-                YuiFrameworkContainer.yuicontainer.addExternalSystemManager(value);
+                YuiFrameworkContainer.yuicontainer.addRootDisplayObject(value as DisplayObject);
             }
         }
         
