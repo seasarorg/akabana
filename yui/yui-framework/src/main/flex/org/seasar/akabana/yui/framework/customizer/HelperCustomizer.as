@@ -44,50 +44,19 @@ package org.seasar.akabana.yui.framework.customizer
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("Customizing",viewClassName,helperClassName));
                 }
-                //
-                const helperClassRef:ClassRef = getClassRef(helperClassName);
-                const helper:Object = helperClassRef.newInstance();
-                properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = helper;
-                //
-                setPropertiesValue(helper,viewClassName,container);
-                var viewPropertyRef:PropertyRef = helperClassRef.getPropertyRef("view");
-                if( viewPropertyRef != null && viewPropertyRef.isWriteable ){
-                    var value:Object = viewPropertyRef.getValue(helper);
-                    if( value == null ){
-                        viewPropertyRef.setValue(helper,container);
-                    }
-                }
-                //
-                CONFIG::FP9 {
-                    const viewProps:Array = getClassRef(getCanonicalName(container)).properties;
-                }
-                CONFIG::FP10 {
-                    const viewProps:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
-                }
-                var helperPropRef:PropertyRef;
-                for each(var viewProp:PropertyRef in viewProps) {
-                    helperPropRef = helperClassRef.getPropertyRef(viewProp.name);
-                    if( helperPropRef != null && helperPropRef.uri == view.toString()){
-                        helperPropRef.setValue(helper,viewProp.getValue(container));                   
-                    }
-                }
+                properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = {};
                 //
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-
                 if(action != null) {
-                    setPropertiesValue(action,helperClassName,helper);
-                }
-                //
-                const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-
-                if(behaviors != null) {
-                    for each( var behavior:Object in behaviors){
-                        setPropertiesValue(behavior,helperClassName,helper);
-                    }
+                    setHelperProperties(container,action);
                 }
                 
-                if( helper is ILifeCyclable ){
-                    (helper as ILifeCyclable).start();
+                //
+                const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                if(behaviors != null) {
+                    for each( var behavior:Object in behaviors){
+                        setHelperProperties(container,behavior);
+                    }
                 }
                 CONFIG::DEBUG {
                     _logger.debug(getMessage("Customized",viewClassName,helperClassName));
@@ -113,11 +82,13 @@ package org.seasar.akabana.yui.framework.customizer
                 if( helper is ILifeCyclable ){
                     (helper as ILifeCyclable).stop();
                 }
+
                 //
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 if(action != null) {
                     setPropertiesValue(action,helperClassName,null);
                 }
+
                 //
                 setPropertiesValue(helper,viewClassName,null);
                 properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = null;
@@ -131,6 +102,65 @@ package org.seasar.akabana.yui.framework.customizer
                     _logger.debug(getMessage("CustomizeError",container,e.getStackTrace()));
                 }
             }
+        }
+        
+        
+        protected function setHelperProperties(container:UIComponent,obj:Object):void{
+            const viewClassName:String = getCanonicalName(container);
+            const classRef:ClassRef = getClassRef(obj);
+            const helperMap:Object = UIComponentUtil.getProperties(container)[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+            CONFIG::FP9 {
+                var props:Array = classRef.properties;
+            }
+            CONFIG::FP10 {
+                var props:Vector.<PropertyRef> = classRef.properties;
+            }
+            
+            var helper:Object;
+            var helperClassRef:ClassRef;
+            for each(var prop:PropertyRef in props) {
+                if( YuiFrameworkGlobals.namingConvention.isHelperOfView( viewClassName, prop.typeClassRef.name )){
+                    
+                    helperClassRef = getClassRef(prop.typeClassRef.name);
+                    if( helperClassRef.name in helperMap){
+                        helper = helperMap[helperClassRef.name];
+                    } else {
+                        helper = prop.typeClassRef.newInstance();
+                        helperMap[helperClassRef.name] = helper;               
+                    }
+                    
+                    setPropertiesValue(helper,viewClassName,container);
+                    setViewComponents(container,helperClassRef,helper);
+
+                    prop.setValue(obj,helper);
+                    //
+                    if( helper is ILifeCyclable ){
+                        (helper as ILifeCyclable).start();
+                    }
+                } else {
+                    CONFIG::DEBUG {
+                        if( YuiFrameworkGlobals.namingConvention.isHelperClassName(prop.typeClassRef.name)){
+                            _logger.debug(getMessage("CustomizeWarning",prop.typeClassRef.name+"isn't the Helper Class of "+viewClassName));
+                        }
+                    }
+                }
+            }
+        }
+
+        protected function setViewComponents(container:UIComponent,helperClassRef:ClassRef,helper:Object):void{
+            CONFIG::FP9 {
+                const viewProps:Array = getClassRef(getCanonicalName(container)).properties;
+            }
+            CONFIG::FP10 {
+                const viewProps:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
+            }
+            var helperPropRef:PropertyRef;
+            for each(var viewProp:PropertyRef in viewProps) {
+                helperPropRef = helperClassRef.getPropertyRef(viewProp.name);
+                if( helperPropRef != null && helperPropRef.uri == view.toString()){
+                    helperPropRef.setValue(helper,viewProp.getValue(container));                   
+                }
+            }       
         }
     }
 }
