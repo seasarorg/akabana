@@ -2,13 +2,15 @@
 <actionScriptProperties analytics="false" mainApplicationPath="yui-air.as" projectUUID="6cc9d54b-797d-4033-951b-6c841b889efb" version="6">
   <compiler additionalCompilerArguments="-target-player=10.1 -locale=ja_JP" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src/main/flex" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
-    <libraryPath defaultLinkType="1">
+    <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
         <modifiedEntries>
           <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
           <libraryPathEntry index="1" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry index="2" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/spark.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="3" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/spark.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/sparkskins.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/spark_dmv.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="2" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/mx/mx.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/air/aircore.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/air/airframework.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/air/airspark.swc" useDefaultLinkType="false"/>
