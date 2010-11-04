@@ -31,7 +31,7 @@ CONFIG::FP10{
         public static const ACTION:String = "action";
         public static const SERVICE:String = "service";
         public static const LOGIC:String = "logic";
-        public static const VALIDATOR:String = "validator";
+//        public static const VALIDATOR:String = "validator";
         public static const BEHAVIOR:String = "behavior";
 
         public static const VIEW_SUFFIX:String = "View";
@@ -39,7 +39,7 @@ CONFIG::FP10{
         public static const ACTION_SUFFIX:String = "Action";
         public static const SERVICE_SUFFIX:String = "Service";
         public static const LOGIC_SUFFIX:String = "Logic";
-        public static const VALIDATOR_SUFFIX:String = "Validator";
+//        public static const VALIDATOR_SUFFIX:String = "Validator";
         public static const BEHAVIOR_SUFFIX:String = "Behavior";
 
         public static const VIEW_PATH_REG:RegExp = /^(.+)\.view\.(.+?)View$/;
@@ -108,9 +108,9 @@ CONFIG::FP10{
             return LOGIC;
         }
 
-        public function getValidatorPackageName():String{
-            return VALIDATOR;
-        }
+//        public function getValidatorPackageName():String{
+//            return VALIDATOR;
+//        }
 
         public function getBehaviorPackageName():String{
             return BEHAVIOR;
@@ -136,39 +136,39 @@ CONFIG::FP10{
             return LOGIC_SUFFIX;
         }
 
-        public function getValidatorSuffix():String{
-            return VALIDATOR_SUFFIX;
-        }
+//        public function getValidatorSuffix():String{
+//            return VALIDATOR_SUFFIX;
+//        }
 
         public function getBehaviorSuffix():String{
             return BEHAVIOR_SUFFIX;
         }
 
-        public function getViewName( varName:String ):String{
-            var viewName:String = null;
+//        public function getViewName( varName:String ):String{
+//            var viewName:String = null;
+//
+//            var classPathArray:Array = varName.match(HELPER_NAME_REG);
+//            if( classPathArray.length <= 1 ){
+//                classPathArray = varName.match(ACTION_NAME_REG);
+//            }
+//            if( classPathArray.length > 1 ){
+//                viewName = classPathArray[1] + getViewSuffix();
+//            }
+//            return viewName;
+//        }
 
-            var classPathArray:Array = varName.match(HELPER_NAME_REG);
-            if( classPathArray.length <= 1 ){
-                classPathArray = varName.match(ACTION_NAME_REG);
-            }
-            if( classPathArray.length > 1 ){
-                viewName = classPathArray[1] + getViewSuffix();
-            }
-            return viewName;
-        }
-
-        public function getViewClassName( fullClassName:String ):String{
-            var viewName:String = null;
-
-            var classPathArray:Array = fullClassName.match(HELPER_PATH_REG);
-            if( classPathArray.length <= 1 ){
-                classPathArray = fullClassName.match(ACTION_PATH_REG);
-            }
-            if( classPathArray.length > 1 ){
-                viewName = classPathArray[1] + DOT + getViewPackageName() + DOT + classPathArray[classPathArray.length-1] + getViewSuffix();
-            }
-            return viewName;
-        }
+//        public function getViewClassName( fullClassName:String ):String{
+//            var viewName:String = null;
+//
+//            var classPathArray:Array = fullClassName.match(HELPER_PATH_REG);
+//            if( classPathArray.length <= 1 ){
+//                classPathArray = fullClassName.match(ACTION_PATH_REG);
+//            }
+//            if( classPathArray.length > 1 ){
+//                viewName = classPathArray[1] + DOT + getViewPackageName() + DOT + classPathArray[classPathArray.length-1] + getViewSuffix();
+//            }
+//            return viewName;
+//        }
 
         public function getActionClassName( viewClassName:String ):String{
             return changeViewPackageTo( viewClassName, getActionPackageName(), getActionSuffix() );
@@ -183,11 +183,16 @@ CONFIG::FP10{
             return changeViewPackageTo( viewClassName, getLogicPackageName(), getLogicSuffix() );
         }
 
-        public function getValidatorClassName( viewClassName:String ):String
+//        public function getValidatorClassName( viewClassName:String ):String
+//        {
+//            return changeViewPackageTo( viewClassName, getValidatorPackageName(), getValidatorSuffix() );
+//        }
+        
+        public function getBehaviorClassName( viewClassName:String ):String
         {
-            return changeViewPackageTo( viewClassName, getValidatorPackageName(), getValidatorSuffix() );
+            return changeViewPackageTo( viewClassName, getBehaviorPackageName(), getBehaviorSuffix() );
         }
-
+        
         public function getHandlerSuffix():String{
             return HANDLER_SUFFIX;
         }
@@ -200,6 +205,14 @@ CONFIG::FP10{
             var componentName:String = component.name;
             return componentName;
         }
+        
+        public function isHelperName( varName:String ):Boolean{
+            return checkVarName(varName,getHelperSuffix());
+        }
+        
+        public function isActionName( varName:String ):Boolean{
+            return checkVarName(varName,getActionSuffix());
+        }
 
         public function isViewClassName( className:String ):Boolean{
             return checkClassFullName(className,getViewPackageName(),getViewSuffix());
@@ -207,14 +220,6 @@ CONFIG::FP10{
 
         public function isHelperClassName( className:String ):Boolean{
             return checkClassFullName(className,getHelperPackageName(),getHelperSuffix());
-        }
-
-        public function isHelperName( varName:String ):Boolean{
-            return checkVarName(varName,getHelperSuffix());
-        }
-
-        public function isActionName( varName:String ):Boolean{
-            return checkVarName(varName,getActionSuffix());
         }
 
         public function isActionClassName( className:String ):Boolean{
@@ -229,9 +234,9 @@ CONFIG::FP10{
             return checkClassFullName(className,getLogicPackageName(),getLogicSuffix());
         }
 
-        public function isValidatorClassName( className:String ):Boolean{
-            return checkClassFullName(className,getValidatorPackageName(),getValidatorSuffix());
-        }
+//        public function isValidatorClassName( className:String ):Boolean{
+//            return checkClassFullName(className,getValidatorPackageName(),getValidatorSuffix());
+//        }
 
         public function isBehaviorClassName( className:String ):Boolean{
             return checkClassFullName(className,getBehaviorPackageName(),getBehaviorSuffix());
@@ -255,6 +260,34 @@ CONFIG::FP10{
                 } else {
                     result = eventWord.substr(0,1).toLocaleLowerCase() + eventWord.substring(1,handlerIndex);
                 }
+            }
+            return result;
+        }
+        
+//        public function isActionOfView(viewClassName:String,actionClassName:String):Boolean{
+//            var result:Boolean = false;
+//            var viewActionClassName:String = getActionClassName(viewClassName);
+//            var viewActionName:String = viewActionClassName.substring(0,viewActionClassName.lastIndexOf(ACTION_SUFFIX));
+//            result = actionClassName.indexOf(viewActionName) == 0;
+//            
+//            return result;
+//        }
+        
+        public function isHelperOfView(viewClassName:String,helperClassName:String):Boolean{
+            var result:Boolean = false;
+            var viewHelperClassName:String = getHelperClassName(viewClassName);
+            var viewHelperName:String = viewHelperClassName.substring(0,viewHelperClassName.lastIndexOf(HELPER_SUFFIX));
+            result = helperClassName.indexOf(viewHelperName) == 0;
+            
+            return result;
+        }
+        
+        public function isBehaviorOfView(viewClassName:String,behaviorClassName:String):Boolean{
+            var result:Boolean = false;
+            if( isBehaviorClassName(behaviorClassName)){
+                var viewBehaviorName:String = viewClassName.substring(0,viewClassName.lastIndexOf(VIEW_SUFFIX));
+                viewBehaviorName = viewBehaviorName.replace(VIEW,BEHAVIOR);
+                result = behaviorClassName.indexOf(viewBehaviorName) == 0;
             }
             return result;
         }

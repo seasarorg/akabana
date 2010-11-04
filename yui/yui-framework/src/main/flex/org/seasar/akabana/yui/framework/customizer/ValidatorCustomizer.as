@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.framework.customizer {
     use namespace mx_internal;
 
     [ExcludeClass]
-    public class ValidatorCustomizer extends AbstractComponentEventCustomizer{
+    internal class ValidatorCustomizer extends AbstractComponentEventCustomizer{
         
         CONFIG::DEBUG {
             private static const _logger:Logger = Logger.getLogger(ValidatorCustomizer);
