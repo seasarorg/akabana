@@ -53,7 +53,7 @@ package org.seasar.akabana.yui.service.resonder
             if( resultFuncDef.parameters.length <= 0 ){
                 responderClassRef = noneResponderClassRef;
             } else {
-                var parameter:ParameterRef = resultFuncDef.parameters[0];
+                var parameter:ParameterRef = resultFuncDef.parameters[0] as ParameterRef;
                 if( parameter.isEvent ){
                     responderClassRef = eventResoponderClassRef;
                 } else {
