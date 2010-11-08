@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="all">
     <!-- -->
-    <target name="all">
+    <target name="all" depends="flex3,flex4">
+    </target>
+    <target name="flex3">
         <ant antfile="build-fx3.xml"/>
-        <ant antfile="build-fx4.xml"/>
+    </target>
+    <target name="flex4">
+        <ant antfile="build-fx41.xml"/>
+    </target>
+    <target name="flex45">
+        <ant antfile="build-fx45.xml"/>
     </target>
     <target name="distAll">
         <property file="build.properties" />

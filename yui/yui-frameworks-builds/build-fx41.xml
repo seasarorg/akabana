@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="all">
     <!-- -->
-    <property file="flex4.properties" />
+    <property file="flex41.properties" />
     <property file="build.properties" />
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}${file.separator}ant${file.separator}lib${file.separator}flexTasks.jar" />
 
