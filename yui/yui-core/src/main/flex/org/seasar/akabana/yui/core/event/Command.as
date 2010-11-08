@@ -19,9 +19,16 @@ package org.seasar.akabana.yui.core.event
 
     public class Command extends Event
     {
-        public function Command(type:String)
+        protected var _data:Object;
+        
+        public function get data():Object{
+            return _data;
+        }  
+        
+        public function Command(type:String,data:Object)
         {
             super(type, false, true);
+            _data = data;
         }        
     }
 }
