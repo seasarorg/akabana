@@ -233,9 +233,6 @@ package org.seasar.akabana.yui.framework.core
         
         protected function processApplicationStart():void{
             var rootView:DisplayObjectContainer = YuiFrameworkGlobals.public::frameworkBridge.rootView;
-            if( rootView != null ){
-                rootView.visible = true;
-            }
             CONFIG::DEBUG{
                 _logger.info(getMessage("ApplicationStart"));
             }

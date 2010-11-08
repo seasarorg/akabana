@@ -248,19 +248,9 @@ package org.seasar.akabana.yui.framework.core
         }
         
         protected override function processApplicationStart():void{
-            var rootView:DisplayObjectContainer = YuiFrameworkGlobals.public::frameworkBridge.rootView;
-            if( rootView != null ){
-                rootView.visible = true;
-            }
-            CONFIG::DEBUG{
-                _logger.info(getMessage("ApplicationStart"));
-            }
-            var app:UIComponent = YuiFrameworkGlobals.public::frameworkBridge.application as UIComponent;
+            const app:UIComponent = YuiFrameworkGlobals.public::frameworkBridge.application as UIComponent;
             app.setVisible(true,true);
-            if( rootView != null ){
-                rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
-                rootView.visible = true;
-            }
+            super.processApplicationStart();
         }
         
         protected override function getDefaultCustomizerClasses():Array{
