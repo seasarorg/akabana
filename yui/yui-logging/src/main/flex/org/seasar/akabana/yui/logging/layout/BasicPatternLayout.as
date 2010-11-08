@@ -17,7 +17,6 @@ package org.seasar.akabana.yui.logging.layout
 {
     import flash.utils.getTimer;
 
-    import org.seasar.akabana.yui.formatter.DateFormatter;
     import org.seasar.akabana.yui.logging.LoggingData;
 
     [ExcludeClass]
@@ -29,12 +28,8 @@ package org.seasar.akabana.yui.logging.layout
      * %m message
      * %n 改行
      */
-    public class PatternLayout extends LayoutBase
+    public class BasicPatternLayout extends LayoutBase
     {
-        private static const dateFormatter:DateFormatter = new DateFormatter();
-
-        private static const DATE_FORMAT:String = "YYYY/MM/DD JJ:NN:SS";
-
         public var pattern:String;
 
         public override function format( data:LoggingData ):String{
@@ -58,17 +53,7 @@ package org.seasar.akabana.yui.logging.layout
                                 result_ += data.categoryName;
                                 break;
                             case 'd':
-                                var formatString:String = DATE_FORMAT;
-                                if( patternCharArray[i+1] == '{'){
-                                    i++;
-                                    i++;
-                                    while( i < patternCharArray.length && patternCharArray[i] != '}'){
-                                        formatString += patternCharArray[i];
-                                        i++;
-                                    }
-                                }
-                                dateFormatter.formatString = formatString;
-                                result_ = dateFormatter.format(new Date());
+                                result_ = (new Date()).toString();
                                 break;
                             case 'e':
                                 result_ += data.error != null ? data.error.getStackTrace() : "";

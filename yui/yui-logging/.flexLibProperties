@@ -19,7 +19,7 @@
     <classEntry path="org.seasar.akabana.yui.logging.Logger"/>
     <classEntry path="org.seasar.akabana.yui.logging.layout.SimpleLayout"/>
     <classEntry path="org.seasar.akabana.yui.logging.layout.LayoutBase"/>
-    <classEntry path="org.seasar.akabana.yui.logging.layout.PatternLayout"/>
+    <classEntry path="org.seasar.akabana.yui.logging.layout.BasicPatternLayout"/>
     <classEntry path="org.seasar.akabana.yui.logging.LogManager"/>
     <classEntry path="org.seasar.akabana.yui.logging.config.Configuration"/>
     <classEntry path="org.seasar.akabana.yui.logging.Category"/>

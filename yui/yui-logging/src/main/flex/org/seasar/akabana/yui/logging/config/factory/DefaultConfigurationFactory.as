@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.logging.config.factory
     import org.seasar.akabana.yui.logging.config.LayoutConfig;
     import org.seasar.akabana.yui.logging.config.LevelConfig;
     import org.seasar.akabana.yui.logging.config.ParamConfig;
-    import org.seasar.akabana.yui.logging.layout.PatternLayout;
+    import org.seasar.akabana.yui.logging.layout.BasicPatternLayout;
 
     [ExcludeClass]
     public class DefaultConfigurationFactory implements IConfigurationFactory{
@@ -45,7 +45,7 @@ package org.seasar.akabana.yui.logging.config.factory
             param.value = "%d(%t)[%c] %l - %m%t";
 
             var layout:LayoutConfig = new LayoutConfig();
-            layout.clazz = PatternLayout;
+            layout.clazz = BasicPatternLayout;
             layout.paramMap[ param.name ] = param;
 
             var appender:AppenderConfig = new AppenderConfig();
