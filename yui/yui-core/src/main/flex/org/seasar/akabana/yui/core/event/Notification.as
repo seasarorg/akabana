@@ -19,9 +19,16 @@ package org.seasar.akabana.yui.core.event
 
     public class Notification extends Event
     {
-        public function Notification(type:String)
+        protected var _data:Object;
+        
+        public function get data():Object{
+            return _data;
+        }   
+        
+        public function Notification(type:String,data:Object)
         {
             super(type, true, true);
+            _data = data;
         }        
     }
 }
