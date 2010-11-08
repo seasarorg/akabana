@@ -78,17 +78,12 @@ package org.seasar.akabana.yui.framework.customizer
                     _logger.debug(getMessage("Uncustomizing",viewClassName,helperClassName));
                 }
                 //
-                const helper:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
-                if( helper is ILifeCyclable ){
-                    (helper as ILifeCyclable).stop();
+                const helperMap:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+                for each( var helper:Object in helperMap){
+                    if( helper is ILifeCyclable ){
+                        (helper as ILifeCyclable).stop();
+                    }
                 }
-
-                //
-                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-                if(action != null) {
-                    setPropertiesValue(action,helperClassName,null);
-                }
-
                 //
                 setPropertiesValue(helper,viewClassName,null);
                 properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = null;
@@ -106,9 +101,10 @@ package org.seasar.akabana.yui.framework.customizer
         
         
         protected function setHelperProperties(container:UIComponent,obj:Object):void{
+            const properties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
             const classRef:ClassRef = getClassRef(obj);
-            const helperMap:Object = UIComponentUtil.getProperties(container)[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+            const helperMap:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
             CONFIG::FP9 {
                 var props:Array = classRef.properties;
             }

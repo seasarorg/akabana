@@ -132,12 +132,12 @@ package org.seasar.akabana.yui.framework.core
             var component:UIComponent = child as UIComponent;
             if( !view.initialized || !component.initialized){     
                 CONFIG::DEBUG{
-                    _logger.debug("customizeView:"+view+" is not initialize.");       
+                    _logger.debug("customizeComponent:"+view+" is not initialize.");       
                 }
                 return;
             }
             CONFIG::DEBUG{
-                _logger.debug("customizeComponent:"+child+",owner:"+container);
+                _logger.debug("customizeComponent:start, "+child+",owner:"+container);
             }
             var componentcustomizer_:IComponentCustomizer;
             for each( var customizer_:IElementCustomizer in _customizers ){
@@ -146,6 +146,9 @@ package org.seasar.akabana.yui.framework.core
                     componentcustomizer_.customizeComponent( view, component );
                 }
             }
+            CONFIG::DEBUG{
+                _logger.debug("customizeComponent:end, "+child+",owner:"+container);
+            }
         }
         
         public override function uncustomizeComponent( container:DisplayObjectContainer, child:DisplayObject ):void{
@@ -153,12 +156,12 @@ package org.seasar.akabana.yui.framework.core
             var component:UIComponent = child as UIComponent;
             if( !view.initialized ){     
                 CONFIG::DEBUG{       
-                    _logger.debug("customizeView:"+view+" is not initialize.");
+                    _logger.debug("uncustomizeComponent:"+view+" is not initialize.");
                 }
                 return;
             }
             CONFIG::DEBUG{
-                _logger.debug("uncustomizeComponent:"+child+",owner:"+container);
+                _logger.debug("uncustomizeComponent:start, "+child+",owner:"+container);
             }
             var numCustomizers:int = customizers.length;
             var componentcustomizer_:IComponentCustomizer;
@@ -167,6 +170,9 @@ package org.seasar.akabana.yui.framework.core
                 if( componentcustomizer_ != null ){
                     componentcustomizer_.uncustomizeComponent( view, component );
                 }
+            }
+            CONFIG::DEBUG{
+                _logger.debug("uncustomizeComponent:end, "+child+",owner:"+container);
             }
         }        
         
