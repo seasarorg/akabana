@@ -7,6 +7,10 @@
     <classEntry path="org.seasar.akabana.yui.core.Environment"/>
     <classEntry path="org.seasar.akabana.yui.core.error.ClassNotFoundError"/>
     <classEntry path="org.seasar.akabana.yui.core.error.NotFoundError"/>
+    <classEntry path="org.seasar.akabana.yui.core.event.Command"/>
+    <classEntry path="org.seasar.akabana.yui.core.event.Notification"/>
+    <classEntry path="org.seasar.akabana.yui.core.event.notify"/>
+    <classEntry path="org.seasar.akabana.yui.core.event.send"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedObjectRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedReflector"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.ClassRef"/>
@@ -18,19 +22,9 @@
     <classEntry path="org.seasar.akabana.yui.core.reflection.PropertyRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.Reflector"/>
     <classEntry path="org.seasar.akabana.yui.core.yui_internal"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.DateFormatter"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.Formatter"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.StringFormatter"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.TokenInfo"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.error.FormatError"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.naming.DateFormatNaming"/>
-    <classEntry path="org.seasar.akabana.yui.formatter.naming.IDateFormatNaming"/>
-    <classEntry path="org.seasar.akabana.yui.resources.embed.EmbedXmlReader"/>
     <classEntry path="org.seasar.akabana.yui.util.ArrayUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.StringUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.URLUtil"/>
-    <classEntry path="org.seasar.akabana.yui.core.event.Command"/>
-    <classEntry path="org.seasar.akabana.yui.core.event.Notification"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/ja_JP/yui_core.properties" sourcePath="locale/ja_JP/yui_core.properties"/>
