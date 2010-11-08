@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.core.event
     {
         public function Notification(type:String)
         {
-            super(type, true, false);
+            super(type, true, true);
         }        
     }
 }
