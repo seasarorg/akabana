@@ -29,7 +29,6 @@
     <classEntry path="org.seasar.akabana.yui.util.ArrayUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.StringUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.URLUtil"/>
-    <classEntry path="org.seasar.akabana.yui.core.event.notify"/>
     <classEntry path="org.seasar.akabana.yui.core.event.Command"/>
     <classEntry path="org.seasar.akabana.yui.core.event.Notification"/>
   </includeClasses>

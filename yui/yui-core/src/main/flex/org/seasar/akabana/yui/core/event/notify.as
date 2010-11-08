@@ -29,6 +29,6 @@ package org.seasar.akabana.yui.core.event
             n = new Notification(type,null);
         }
         
-        notifyEvent(d,n);
+        send(d,n);
     }
 }

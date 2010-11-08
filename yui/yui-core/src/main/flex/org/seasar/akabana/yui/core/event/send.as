@@ -18,7 +18,7 @@ package org.seasar.akabana.yui.core.event
     import flash.events.Event;
     import flash.events.IEventDispatcher;
 
-    internal function notifyEvent(d:IEventDispatcher,event:Event):void{  
+    public function send(d:IEventDispatcher,event:Event):void{  
         d.dispatchEvent(event);
     }
 }
