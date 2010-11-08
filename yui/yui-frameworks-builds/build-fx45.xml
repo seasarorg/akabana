@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="all">
     <!-- -->
-    <property file="flex4.properties" />
+    <property file="flex45.properties" />
     <property file="build.properties" />
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}${file.separator}ant${file.separator}lib${file.separator}flexTasks.jar" />
 
@@ -46,7 +46,7 @@
         <ant antfile="projects${file.separator}build-fx4-fc-fp10.xml" />
     </target>
     <target name="fx4-fc-rpc-fp10">
-        <ant antfile="projects${file.separator}build-fx4-fc-fp10.xml" />
+        <ant antfile="projects${file.separator}build-fx4-fc-rpc-fp10.xml" />
     </target>
     <target name="fx4-fc-ds-fp10">
         <ant antfile="projects${file.separator}build-fx4-fc-ds-fp10.xml" />
@@ -55,7 +55,7 @@
         <ant antfile="projects${file.separator}build-fx4-fc-air-fp10.xml" />
     </target>
     <target name="fx4-fc-airrpc-fp10">
-        <ant antfile="projects${file.separator}build-fx4-fc-air-fp10.xml" />
+        <ant antfile="projects${file.separator}build-fx4-fc-airrpc-fp10.xml" />
     </target>
     <target name="fx4-fc-airds-fp10">
         <ant antfile="projects${file.separator}build-fx4-fc-airds-fp10.xml" />
