@@ -16,6 +16,8 @@
 package org.seasar.akabana.yui.service {
 
     import flash.utils.Dictionary;
+    
+    import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
     public class ServiceManager {
@@ -26,7 +28,7 @@ package org.seasar.akabana.yui.service {
             var result:Service = getService( name );
             if( result == null ){
                 result = new serviceClass() as Service;
-                if( result.destination == null ){
+                if( StringUtil.isEmpty(result.destination) ){
                     result.destination = name;
                 }
                 addService( result );

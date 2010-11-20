@@ -21,9 +21,11 @@
     <classEntry path="org.seasar.akabana.yui.service.resonder.AbstractResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.Responder"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>
-    <classEntry path="org.seasar.akabana.yui.service.util.GatewayUtil"/>
+    <classEntry path="org.seasar.akabana.yui.service.ServiceGatewayUrlResolver"/>
   </includeClasses>
   <includeResources>
+    <resourceEntry destPath="locale/en_US/services.properties" sourcePath="locale/en_US/services.properties"/>
+    <resourceEntry destPath="locale/ja_JP/services.properties" sourcePath="locale/ja_JP/services.properties"/>
     <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
   </includeResources>
   <namespaceManifests/>

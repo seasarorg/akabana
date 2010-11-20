@@ -51,10 +51,11 @@ package org.seasar.akabana.yui.service.ds {
     import mx.rpc.events.FaultEvent;
     import mx.rpc.remoting.mxml.RemoteObject;
     
+    import org.seasar.akabana.yui.service.OperationWatcher;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.ServiceManager;
-    import org.seasar.akabana.yui.service.util.GatewayUtil;
     import org.seasar.akabana.yui.util.URLUtil;
 
 
@@ -66,12 +67,6 @@ package org.seasar.akabana.yui.service.ds {
         public static const HTTP_AMF_ENDPOINT_NAME:String = "http-amf";
 
         public static const HTTPS_AMF_ENDPOINT_NAME:String = "https-amf";
-
-        public static var invokeCallBack:Function;
-
-        public static var resultCallBack:Function;
-
-        public static var faultCallBack:Function;
 
         {
             registerClassAlias( "flex.messaging.config.ConfigMap", ConfigMap);
@@ -159,7 +154,7 @@ package org.seasar.akabana.yui.service.ds {
         }
 
         protected function initEndpoint():void{
-            endpoint = GatewayUtil.resolveGatewayUrl( destination );
+            endpoint = ServiceGatewayUrlResolver.resolve( destination );
             if (endpoint != null){
                 var channel:Channel;
                 if (URLUtil.isHttpsURL(endpoint)){
@@ -182,8 +177,14 @@ package org.seasar.akabana.yui.service.ds {
             var result:DsPendingCall = new DsPendingCall(asyncToken.message);
             result.setInternalAsyncToken(asyncToken,getOperation(name));
 
-            if( RemotingService.invokeCallBack != null ){
-                RemotingService.invokeCallBack.apply(null,[destination+"."+(name as QName).localName,args]);
+            if( OperationWatcher.invokeCallBack != null ){
+				var methodName:String;
+				if( name is QName ){				
+					methodName = (name as QName).localName;
+				} else {
+					methodName = name;
+				}
+				OperationWatcher.invokeCallBack.apply(null,[destination+"."+methodName,args]);
             }
             if( result != null ){
                 _pendingCallMap[ result ] = getTimer();
