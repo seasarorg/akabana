@@ -26,8 +26,10 @@ package org.seasar.akabana.yui.service
     public class ServiceGatewayUrlResolver
     {
         public static var defaultGateway:String;
-		
-		public static const DEFAULT_GATEWAY_URL:String = "defaultGatewayUrl";
+        
+        public static const GATEWAY_URL:String = "GatewayUrl";
+        
+		public static const DEFAULT_GATEWAY_URL:String = "default"+GATEWAY_URL;
 		
 		private static const SERVICES:String = "services";
 		
@@ -35,31 +37,32 @@ package org.seasar.akabana.yui.service
             var result:String = null;
             do{
 				//destination gateway
-				result = ResourceManager.getInstance().getString( SERVICES, destination);
-				if( !StringUtil.isEmpty(result) ){
-					break;
-				}
-				
-                result = Environment.getParameterValue( destination );
+                
+                result = Environment.getParameterValue( destination + GATEWAY_URL );
                 if( !StringUtil.isEmpty(result) ){
                     break;
                 }
+                
+				result = ResourceManager.getInstance().getString( SERVICES, destination + GATEWAY_URL);
+				if( !StringUtil.isEmpty(result) ){
+					break;
+				}
 				
 				//defaultGateway				
 				result = ServiceGatewayUrlResolver.defaultGateway;
 				if( !StringUtil.isEmpty(result) ){
 					break;
 				}
+                
+                result = Environment.getParameterValue( DEFAULT_GATEWAY_URL );
+                if( !StringUtil.isEmpty(result) ){
+                    ServiceGatewayUrlResolver.defaultGateway = result;
+                }
 				
 				result = ResourceManager.getInstance().getString( SERVICES, DEFAULT_GATEWAY_URL);
 				if( !StringUtil.isEmpty(result) ){
 					ServiceGatewayUrlResolver.defaultGateway = result;
 					break;
-				}
-
-                result = Environment.getParameterValue( DEFAULT_GATEWAY_URL );
-				if( !StringUtil.isEmpty(result) ){
-					ServiceGatewayUrlResolver.defaultGateway = result;
 				}
 
 			} while( false );
