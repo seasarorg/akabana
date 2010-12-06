@@ -49,7 +49,7 @@ package org.seasar.akabana.yui.service.rpc.local
                     StringUtil.DOT+
                     lservice;
             
-            var serviceOperationName:String = _service.destination + "." +_name;
+            var serviceOperationName:String = _service.destination + StringUtil.DOT +_name;
             
             var pendingCall:PendingCall = new RpcPendingCall(this);
             var invokeArgs:Array = createServiceInvokeArgs( serviceOperationName, operationArgs, pendingCall );
