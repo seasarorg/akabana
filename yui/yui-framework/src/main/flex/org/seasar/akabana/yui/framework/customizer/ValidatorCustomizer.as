@@ -29,37 +29,37 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.logging.Logger;
 
     [ExcludeClass]
-    public class HelperCustomizer extends AbstractComponentCustomizer {
+    public class ValidatorCustomizer extends AbstractComponentCustomizer {
         
         CONFIG::DEBUG {
-            private static const _logger:Logger = Logger.getLogger(HelperCustomizer);
+            private static const _logger:Logger = Logger.getLogger(ValidatorCustomizer);
         }
         
         public override function customizeView(container:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
-            const helperClassName:String = YuiFrameworkGlobals.namingConvention.getHelperClassName(viewClassName);
+            const validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
 
             try {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customizing",viewClassName,helperClassName));
+                    _logger.debug(getMessage("Customizing",viewClassName,validatorClassName));
                 }
-                properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = {};
+                properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()] = {};
                 //
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 if(action != null) {
-                    setHelperProperties(container,action);
+                    setValidatorProperties(container,action);
                 }
                 
                 //
                 const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
                 if(behaviors != null) {
                     for each( var behavior:Object in behaviors){
-                        setHelperProperties(container,behavior);
+                        setValidatorProperties(container,behavior);
                     }
                 }
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customized",viewClassName,helperClassName));
+                    _logger.debug(getMessage("Customized",viewClassName,validatorClassName));
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
@@ -71,26 +71,26 @@ package org.seasar.akabana.yui.framework.customizer
         public override function uncustomizeView(container:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
-            const helperClassName:String = YuiFrameworkGlobals.namingConvention.getHelperClassName(viewClassName);
+            const validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
 
             try {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomizing",viewClassName,helperClassName));
+                    _logger.debug(getMessage("Uncustomizing",viewClassName,validatorClassName));
                 }
                 //
-                const helperMap:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
-                for each( var helper:Object in helperMap){
-                    if( helper is ILifeCyclable ){
-                        (helper as ILifeCyclable).stop();
+                const validatorMap:Object = properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
+                for each( var validator:Object in validatorMap){
+                    if( validator is ILifeCyclable ){
+                        (validator as ILifeCyclable).stop();
                     }
                 }
                 //
-                setPropertiesValue(helper,viewClassName,null);
-                properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = null;
-                delete properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+                setPropertiesValue(validator,viewClassName,null);
+                properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()] = null;
+                delete properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
                 //
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomized",viewClassName,helperClassName));
+                    _logger.debug(getMessage("Uncustomized",viewClassName,validatorClassName));
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
@@ -100,62 +100,61 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         
-        protected function setHelperProperties(container:UIComponent,obj:Object):void{
+        protected function setValidatorProperties(container:UIComponent,obj:Object):void{
             const properties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
             const classRef:ClassRef = getClassRef(obj);
-            const helperMap:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+            const validatorMap:Object = properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
             CONFIG::FP9 {
-                const props:Array =
-                    classRef.properties.filter(
+                const props:Array = classRef.properties.filter(
                         function(item:*,index:int,array:Array):Boolean {
-                            return ( YuiFrameworkGlobals.namingConvention.isHelperOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
+                            return ( YuiFrameworkGlobals.namingConvention.isValidatorOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
                         }
                     );
             }
             CONFIG::FP10 {
-                const props:Vector.<PropertyRef> =
+                const props:Vector.<PropertyRef> = 
                     classRef.properties.filter(
                         function(item:*,index:int,array:Vector.<PropertyRef>):Boolean {
-                            return ( YuiFrameworkGlobals.namingConvention.isHelperOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
+                            return ( YuiFrameworkGlobals.namingConvention.isValidatorOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
                         }
                     );
             }
             
-            var helper:Object;
-            var helperClassRef:ClassRef;
+            var validator:Object;
+            var validatorClassRef:ClassRef;
             for each(var prop:PropertyRef in props) {
-                helperClassRef = getClassRef(prop.typeClassRef.name);
-                if( helperClassRef.name in helperMap){
-                    helper = helperMap[helperClassRef.name];
+                validatorClassRef = getClassRef(prop.typeClassRef.name);
+                if( validatorClassRef.name in validatorMap){
+                    validator = validatorMap[validatorClassRef.name];
                 } else {
-                    helper = prop.typeClassRef.newInstance();
-                    helperMap[helperClassRef.name] = helper;               
+                    validator = prop.typeClassRef.newInstance();
+                    validatorMap[validatorClassRef.name] = validator;               
                 }
                 
-                setPropertiesValue(helper,viewClassName,container);
-                setViewComponents(container,helperClassRef,helper);
+                setPropertiesValue(validator,viewClassName,container);
+                setViewComponents(container,validatorClassRef,validator);
 
-                prop.setValue(obj,helper);
+                prop.setValue(obj,validator);
                 //
-                if( helper is ILifeCyclable ){
-                    (helper as ILifeCyclable).start();
+                if( validator is ILifeCyclable ){
+                    (validator as ILifeCyclable).start();
                 }
             }
         }
 
-        protected function setViewComponents(container:UIComponent,helperClassRef:ClassRef,helper:Object):void{
+        protected function setViewComponents(container:UIComponent,validatorClassRef:ClassRef,validator:Object):void{
             CONFIG::FP9 {
                 const viewProps:Array = getClassRef(getCanonicalName(container)).properties;
             }
             CONFIG::FP10 {
                 const viewProps:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
             }
-            var helperPropRef:PropertyRef;
+            var validatorPropRef:PropertyRef;
             for each(var viewProp:PropertyRef in viewProps) {
-                helperPropRef = helperClassRef.getPropertyRef(viewProp.name);
-                if( helperPropRef != null && helperPropRef.uri == view.toString()){
-                    helperPropRef.setValue(helper,viewProp.getValue(container));                   
+                validatorPropRef = validatorClassRef.getPropertyRef(viewProp.name);
+                if( validatorPropRef != null && validatorPropRef.uri == view.toString()){
+                    validatorPropRef.setValue(validator,viewProp.getValue(container));                   
                 }
             }       
         }

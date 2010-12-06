@@ -31,7 +31,7 @@ CONFIG::FP10{
         public static const ACTION:String = "action";
         public static const SERVICE:String = "service";
         public static const LOGIC:String = "logic";
-//        public static const VALIDATOR:String = "validator";
+        public static const VALIDATOR:String = "validator";
         public static const BEHAVIOR:String = "behavior";
 
         public static const VIEW_SUFFIX:String = "View";
@@ -39,7 +39,7 @@ CONFIG::FP10{
         public static const ACTION_SUFFIX:String = "Action";
         public static const SERVICE_SUFFIX:String = "Service";
         public static const LOGIC_SUFFIX:String = "Logic";
-//        public static const VALIDATOR_SUFFIX:String = "Validator";
+        public static const VALIDATOR_SUFFIX:String = "Validator";
         public static const BEHAVIOR_SUFFIX:String = "Behavior";
 
         public static const VIEW_PATH_REG:RegExp = /^(.+)\.view\.(.+?)View$/;
@@ -108,9 +108,9 @@ CONFIG::FP10{
             return LOGIC;
         }
 
-//        public function getValidatorPackageName():String{
-//            return VALIDATOR;
-//        }
+        public function getValidatorPackageName():String{
+            return VALIDATOR;
+        }
 
         public function getBehaviorPackageName():String{
             return BEHAVIOR;
@@ -136,9 +136,9 @@ CONFIG::FP10{
             return LOGIC_SUFFIX;
         }
 
-//        public function getValidatorSuffix():String{
-//            return VALIDATOR_SUFFIX;
-//        }
+        public function getValidatorSuffix():String{
+            return VALIDATOR_SUFFIX;
+        }
 
         public function getBehaviorSuffix():String{
             return BEHAVIOR_SUFFIX;
@@ -183,10 +183,10 @@ CONFIG::FP10{
             return changeViewPackageTo( viewClassName, getLogicPackageName(), getLogicSuffix() );
         }
 
-//        public function getValidatorClassName( viewClassName:String ):String
-//        {
-//            return changeViewPackageTo( viewClassName, getValidatorPackageName(), getValidatorSuffix() );
-//        }
+        public function getValidatorClassName( viewClassName:String ):String
+        {
+            return changeViewPackageTo( viewClassName, getValidatorPackageName(), getValidatorSuffix() );
+        }
         
         public function getBehaviorClassName( viewClassName:String ):String
         {
@@ -234,9 +234,9 @@ CONFIG::FP10{
             return checkClassFullName(className,getLogicPackageName(),getLogicSuffix());
         }
 
-//        public function isValidatorClassName( className:String ):Boolean{
-//            return checkClassFullName(className,getValidatorPackageName(),getValidatorSuffix());
-//        }
+        public function isValidatorClassName( className:String ):Boolean{
+            return checkClassFullName(className,getValidatorPackageName(),getValidatorSuffix());
+        }
 
         public function isBehaviorClassName( className:String ):Boolean{
             return checkClassFullName(className,getBehaviorPackageName(),getBehaviorSuffix());
@@ -279,6 +279,16 @@ CONFIG::FP10{
             var viewHelperName:String = viewHelperClassName.substring(0,viewHelperClassName.lastIndexOf(HELPER_SUFFIX));
             result = helperClassName.indexOf(viewHelperName) == 0;
             
+            return result;
+        }
+        
+        public function isValidatorOfView(viewClassName:String,validatorClassName:String):Boolean{
+            var result:Boolean = false;
+            if( isValidatorClassName(validatorClassName)){
+                var viewvalidatorName:String = viewClassName.substring(0,viewClassName.lastIndexOf(VIEW_SUFFIX));
+                viewvalidatorName = viewvalidatorName.replace(VIEW,VALIDATOR);
+                result = validatorClassName.indexOf(viewvalidatorName) == 0;
+            }
             return result;
         }
         

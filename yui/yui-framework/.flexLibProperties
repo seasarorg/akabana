@@ -24,6 +24,7 @@
     <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.IElementCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.IViewCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError"/>
     <classEntry path="org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError"/>
     <classEntry path="org.seasar.akabana.yui.framework.message.MessageManager"/>
