@@ -57,12 +57,12 @@ package org.seasar.akabana.yui.service
                 result = Environment.getParameterValue( DEFAULT_GATEWAY_URL );
                 if( !StringUtil.isEmpty(result) ){
                     ServiceGatewayUrlResolver.defaultGateway = result;
+                    break;
                 }
 				
 				result = ResourceManager.getInstance().getString( SERVICES, DEFAULT_GATEWAY_URL);
 				if( !StringUtil.isEmpty(result) ){
 					ServiceGatewayUrlResolver.defaultGateway = result;
-					break;
 				}
 
 			} while( false );
