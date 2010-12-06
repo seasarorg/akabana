@@ -9,7 +9,7 @@ package org.seasar.akabana.yui.service.ds
     import mx.rpc.AsyncToken;
     import mx.rpc.http.HTTPMultiService;
     
-    import org.seasar.akabana.yui.service.OperationWatcher;
+    import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceManager;
@@ -71,8 +71,8 @@ package org.seasar.akabana.yui.service.ds
             var result:DsPendingCall = new DsPendingCall(asyncToken.message);
             result.setInternalAsyncToken(asyncToken,getOperation(operationName));
             
-            if( OperationWatcher.invokeCallBack != null ){
-                OperationWatcher.invokeCallBack.apply(null,[this.name+"."+operationName,args]);
+            if( OperationCallBack.invokeCallBack != null ){
+                OperationCallBack.invokeCallBack.apply(null,[this.name+"."+operationName,args]);
             }
             if( result != null ){
                 _pendingCallMap[ result ] = getTimer();

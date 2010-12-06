@@ -50,14 +50,18 @@ package org.seasar.akabana.yui.service.rpc {
 
         protected var _credentialsPassword:String;
 
-        private var innerEventdispatcher:EventDispatcher;
+        protected var innerEventdispatcher:EventDispatcher;
 
-        public function AbstractRpcService(){
-            super();
-            operations = new Dictionary();
-            innerEventdispatcher = new EventDispatcher();
+        protected var _gatewayUrl:String;
+        
+        public function get gatewayUrl():String{
+            return _gatewayUrl;
         }
-
+        
+        public function set gatewayUrl( gatewayUrl:String):void{
+            _gatewayUrl = gatewayUrl;
+        }
+        
         public function get name():String{
             return _destination;
         }
@@ -79,7 +83,13 @@ package org.seasar.akabana.yui.service.rpc {
         public function set requestTimeout( requestTimeout:int ):void{
             _requestTimeout = requestTimeout;
         }
-
+        
+        public function AbstractRpcService(){
+            super();
+            operations = new Dictionary();
+            innerEventdispatcher = new EventDispatcher();
+        }
+        
         public function addOperation( operationName:String ):void{
             if( !hasOperation( operationName )){
                 operations[ operationName ] = createOperation( operationName );
@@ -135,7 +145,7 @@ package org.seasar.akabana.yui.service.rpc {
             return null;
         }
 
-        flash_proxy override function callProperty(methodName:*, ...args):* {
+        flash_proxy override function callProperty(methodName:*, ...args):* {            
             if( _destination == null || _destination.length <= 0 ){
                 throw new IllegalDestinationError(_destination);
             }

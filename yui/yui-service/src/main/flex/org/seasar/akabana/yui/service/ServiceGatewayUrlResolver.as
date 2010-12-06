@@ -32,6 +32,16 @@ package org.seasar.akabana.yui.service
 		public static const DEFAULT_GATEWAY_URL:String = "default"+GATEWAY_URL;
 		
 		private static const SERVICES:String = "services";
+        
+        private static const LOCAL:String = "local://";
+
+        public static function isLocalUrl( url:String ):Boolean{
+            return (url.indexOf(LOCAL) == 0);
+        }
+        
+        public static function getLocalPackage( url:String ):String{
+            return url.substr(LOCAL.length);
+        }
 		
         public static function resolve( destination:String ):String{
             var result:String = null;

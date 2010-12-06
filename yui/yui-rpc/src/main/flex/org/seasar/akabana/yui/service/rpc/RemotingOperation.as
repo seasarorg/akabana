@@ -16,19 +16,22 @@
 package org.seasar.akabana.yui.service.rpc {
 
     import flash.errors.IllegalOperationError;
+    import flash.events.ErrorEvent;
     import flash.events.Event;
     import flash.events.IEventDispatcher;
     import flash.events.IOErrorEvent;
     import flash.events.NetStatusEvent;
     import flash.events.SecurityErrorEvent;
     import flash.net.Responder;
-
+    
+    import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.FaultStatus;
     import org.seasar.akabana.yui.service.rpc.AbstractRpcOperation;
     import org.seasar.akabana.yui.service.rpc.AbstractRpcService;
     import org.seasar.akabana.yui.service.rpc.RpcPendingCall;
+    import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
     public class RemotingOperation extends AbstractRpcOperation{
@@ -61,10 +64,10 @@ package org.seasar.akabana.yui.service.rpc {
         }
 
         private function errorEventHandler(event:Event):void {
-            var faultEvent:FaultEvent = new FaultEvent();
+            var faultStatus:FaultStatus = null;
             if( event is NetStatusEvent ){
                 var netStatusEvent:NetStatusEvent = event as NetStatusEvent;
-                faultEvent.faultStatus = new FaultStatus(
+                faultStatus = new FaultStatus(
                     netStatusEvent.type,
                     netStatusEvent.info["code"]+":"+netStatusEvent.info["level"],
                     netStatusEvent.toString()
@@ -72,7 +75,7 @@ package org.seasar.akabana.yui.service.rpc {
             }
             if( event is SecurityErrorEvent ){
                 var securityErrorEvent:SecurityErrorEvent = event as SecurityErrorEvent;
-                faultEvent.faultStatus = new FaultStatus(
+                faultStatus = new FaultStatus(
                     securityErrorEvent.type,
                     "",
                     securityErrorEvent.toString()
@@ -80,28 +83,22 @@ package org.seasar.akabana.yui.service.rpc {
             }
             if( event is IOErrorEvent ){
                 var ioErrorEvent:IOErrorEvent = event as IOErrorEvent;
-                faultEvent.faultStatus = new FaultStatus(
+                faultStatus = new FaultStatus(
                     ioErrorEvent.type,
                     ioErrorEvent.text,
                     ioErrorEvent.toString()
                     );
             }
-            _service.dispatchEvent(faultEvent);
-        }
-
-        private function createServiceInvokeArgs( serviceOperationName:String, operationArgs:Array, pendingCall:PendingCall ):Array{
-            var callArgs:Array = null;
-
-            if( operationArgs.length > 0 ){
-                callArgs = operationArgs.concat();
-            } else {
-                callArgs = [];
+            if( event is ErrorEvent ){
+                var errorEvent:ErrorEvent = event as ErrorEvent;
+                faultStatus = new FaultStatus(
+                    errorEvent.type,
+                    errorEvent.text,
+                    errorEvent.toString()
+                );
             }
-
-            var rpcPendingCall:RpcPendingCall = pendingCall as RpcPendingCall;
-            callArgs.unshift( serviceOperationName, new Responder( rpcPendingCall.onResult, rpcPendingCall.onStatus ));
-
-            return callArgs;
+            var faultEvent:FaultEvent = new FaultEvent(faultStatus);
+            _service.dispatchEvent(faultEvent);
         }
 
         private function setupCredentials(rc:RemotingConnection):void {
@@ -122,18 +119,17 @@ package org.seasar.akabana.yui.service.rpc {
         }
 
         protected override function doInvoke( operationArgs:Array ):PendingCall{
-            var serviceOperationName:String = _service.destination + "." +_name;
+            const rc:RemotingConnection = lookupConnection();
+            const pendingCall:PendingCall = new RpcPendingCall(this);
 
-            var pendingCall:PendingCall = new RpcPendingCall(this);
-            var invokeArgs:Array = createServiceInvokeArgs( serviceOperationName, operationArgs, pendingCall );
+            const serviceOperationName:String = _service.destination + StringUtil.DOT +_name;
+            const invokeArgs:Array = createServiceInvokeArgs( serviceOperationName, operationArgs, pendingCall );
 
-            var rc:RemotingConnection = lookupConnection();
             setupCredentials(rc);
-
             rc.call.apply(rc,invokeArgs);
 
-            if( RemotingService.invokeCallBack != null ){
-                RemotingService.invokeCallBack.apply(null,[serviceOperationName,operationArgs]);
+            if( OperationCallBack.invokeCallBack != null ){
+                OperationCallBack.invokeCallBack.apply(null,[serviceOperationName,operationArgs]);
             }
 
             return pendingCall;

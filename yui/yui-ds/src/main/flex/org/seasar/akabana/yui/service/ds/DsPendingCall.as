@@ -26,7 +26,7 @@ package org.seasar.akabana.yui.service.ds {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
-    import org.seasar.akabana.yui.service.OperationWatcher;
+    import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ds.responder.RpcEventResponder;
@@ -120,8 +120,8 @@ package org.seasar.akabana.yui.service.ds {
         public function onResult( resultEvent:ResultEvent ):void{
             service.deleteCallHistory(this);
 
-            if( OperationWatcher.resultCallBack != null ){
-                OperationWatcher.resultCallBack.apply(null,[resultEvent]);
+            if( OperationCallBack.resultCallBack != null ){
+                OperationCallBack.resultCallBack.apply(null,[resultEvent]);
             }
 
             if( _responder != null ){
@@ -137,8 +137,8 @@ package org.seasar.akabana.yui.service.ds {
         public function onStatus( faultEvent:FaultEvent ):void{
             service.deleteCallHistory(this);
 
-            if( OperationWatcher.faultCallBack != null ){
-                OperationWatcher.faultCallBack.apply(null,[faultEvent]);
+            if( OperationCallBack.faultCallBack != null ){
+                OperationCallBack.faultCallBack.apply(null,[faultEvent]);
             }
 
             if( _responder != null ){

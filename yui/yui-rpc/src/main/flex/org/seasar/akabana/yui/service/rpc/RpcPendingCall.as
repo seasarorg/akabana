@@ -14,6 +14,7 @@
  * governing permissions and limitations under the License.
  */
 package org.seasar.akabana.yui.service.rpc {
+    import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.FaultStatus;
@@ -31,14 +32,14 @@ package org.seasar.akabana.yui.service.rpc {
 
         private var _responderOwner:Object;
 
-        private var _operation:RemotingOperation;
+        private var _operation:AbstractRpcOperation;
 
         public function get remotingService():RemotingService{
             return _operation.service as RemotingService;
         }
 
-        public function RpcPendingCall(opration:RemotingOperation){
-            _operation = opration as RemotingOperation;
+        public function RpcPendingCall(opration:AbstractRpcOperation){
+            _operation = opration;
         }
 
         public function clear():void{
@@ -66,16 +67,15 @@ package org.seasar.akabana.yui.service.rpc {
         public function onResult( result:* ):void{
             remotingService.deleteCallHistory(this);
 
-            var resultEvent:ResultEvent = new ResultEvent();
+            var resultEvent:ResultEvent = new ResultEvent(result);
             resultEvent.pendigCall = this;
-            resultEvent.result = result;
 
             if( _responder != null ){
                 _responder.onResult( resultEvent );
             }
 
-            if( RemotingService.resultCallBack != null ){
-                RemotingService.resultCallBack.apply(null,[resultEvent]);
+            if( OperationCallBack.resultCallBack != null ){
+                OperationCallBack.resultCallBack.apply(null,[resultEvent]);
             }
 
             _responder = null;
@@ -86,20 +86,22 @@ package org.seasar.akabana.yui.service.rpc {
         public function onStatus( status:* ):void{
             remotingService.deleteCallHistory(this);
 
-            var faultEvent:FaultEvent = new FaultEvent();
-            faultEvent.pendigCall = this;
-
+            var faultStatus:FaultStatus = new FaultStatus();
             if( status != null ){
-                var faultStatus:FaultStatus = new FaultStatus( status.code, status.description, status.details);
-                faultEvent.faultStatus = faultStatus;
+                faultStatus.code = status.code;
+                faultStatus.description = status.description;
+                faultStatus.details = status.details;
             }
-
+            
+            var faultEvent:FaultEvent = new FaultEvent(faultStatus);
+            faultEvent.pendigCall = this;
+            
             if( _responder != null ){
                 _responder.onFault( faultEvent );
             }
 
-            if( RemotingService.faultCallBack != null ){
-                RemotingService.faultCallBack.apply(null,[faultEvent]);
+            if( OperationCallBack.faultCallBack != null ){
+                OperationCallBack.faultCallBack.apply(null,[faultEvent]);
             }
 
             _responder = null;

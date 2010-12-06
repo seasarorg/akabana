@@ -9,6 +9,8 @@
     <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcNoneResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcObjectResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcResponderFactory"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.local.LocalOperation"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.local.LocalMessage"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests>

@@ -16,7 +16,8 @@
 package org.seasar.akabana.yui.service.rpc {
 
     import flash.events.EventDispatcher;
-
+    import flash.net.Responder;
+    
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.error.IllegalOperationError;
@@ -69,6 +70,21 @@ package org.seasar.akabana.yui.service.rpc {
             event.service = _service;
             event.operation = this;
             _service.dispatchEvent( event );
+        }
+        
+        protected function createServiceInvokeArgs( serviceOperationName:String, operationArgs:Array, pendingCall:PendingCall ):Array{
+            var callArgs:Array = null;
+            
+            if( operationArgs.length > 0 ){
+                callArgs = operationArgs.concat();
+            } else {
+                callArgs = [];
+            }
+            
+            var rpcPendingCall:RpcPendingCall = pendingCall as RpcPendingCall;
+            callArgs.unshift( serviceOperationName, new Responder( rpcPendingCall.onResult, rpcPendingCall.onStatus ));
+            
+            return callArgs;
         }
     }
 }

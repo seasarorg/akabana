@@ -47,16 +47,18 @@ package org.seasar.akabana.yui.service.ds {
     import mx.messaging.messages.ErrorMessage;
     import mx.messaging.messages.MessagePerformanceInfo;
     import mx.messaging.messages.RemotingMessage;
+    import mx.rpc.AbstractOperation;
     import mx.rpc.AsyncToken;
     import mx.rpc.events.FaultEvent;
     import mx.rpc.remoting.mxml.RemoteObject;
     
-    import org.seasar.akabana.yui.service.OperationWatcher;
+    import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.ServiceManager;
     import org.seasar.akabana.yui.util.URLUtil;
+    import org.seasar.akabana.yui.service.ds.local.LocalOperation;
 
 
     use namespace flash_proxy;
@@ -115,7 +117,23 @@ package org.seasar.akabana.yui.service.ds {
             addEventListener(FaultEvent.FAULT,function(e:FaultEvent):void{});
             _pendingCallMap = new Dictionary();
         }
-
+        
+        public override function getOperation(name:String):AbstractOperation
+        {
+            var o:Object = _operations[name];
+            var op:AbstractOperation = (o is AbstractOperation) ? AbstractOperation(o) : null;
+            if (op == null)
+            {
+                if( ServiceGatewayUrlResolver.isLocalUrl(endpoint) ){
+                    op = new LocalOperation(this, name);
+                    _operations[name] = op;
+                } else {
+                    op = super.getOperation(name);
+                }
+            }
+            return op;
+        }
+        
         public function deletePendingCallOf(responder:Object):void{
             for( var item:* in _pendingCallMap ){
                 var pc:DsPendingCall = item as DsPendingCall;
@@ -167,7 +185,7 @@ package org.seasar.akabana.yui.service.ds {
             }
         }
 
-        protected function internalInvoke(name:String,args:Array):DsPendingCall{
+        protected function internalInvoke(name:QName,args:Array):DsPendingCall{
             if( !_isInitialzed ){
                 _isInitialzed = true;
                 initEndpoint();
@@ -175,16 +193,11 @@ package org.seasar.akabana.yui.service.ds {
             var asyncToken:AsyncToken = super.callProperty.apply(null, [name].concat(args));
             asyncToken.message.destination = destination;
             var result:DsPendingCall = new DsPendingCall(asyncToken.message);
-            result.setInternalAsyncToken(asyncToken,getOperation(name));
+            result.setInternalAsyncToken(asyncToken,getOperation(name.localName));
 
-            if( OperationWatcher.invokeCallBack != null ){
-				var methodName:String;
-				if( name is QName ){				
-					methodName = (name as QName).localName;
-				} else {
-					methodName = name;
-				}
-				OperationWatcher.invokeCallBack.apply(null,[destination+"."+methodName,args]);
+            if( OperationCallBack.invokeCallBack != null ){
+				var methodName:String = name.localName;
+				OperationCallBack.invokeCallBack.apply(null,[destination+"."+methodName,args]);
             }
             if( result != null ){
                 _pendingCallMap[ result ] = getTimer();

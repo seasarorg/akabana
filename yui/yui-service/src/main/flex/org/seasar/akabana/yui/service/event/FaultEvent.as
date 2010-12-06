@@ -21,8 +21,9 @@ package org.seasar.akabana.yui.service.event {
         
         public var faultStatus:FaultStatus;
         
-        public function FaultEvent( bubbles:Boolean = false, cancelable:Boolean = false){
+        public function FaultEvent( faultStatus:FaultStatus, bubbles:Boolean = false, cancelable:Boolean = false){
             super( FAULT, bubbles, cancelable);
+            this.faultStatus = faultStatus;
         }
     }
 }

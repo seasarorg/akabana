@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.service.event
         
         public var result:Object;
         
-        public function ResultEvent( bubbles:Boolean = false, cancelable:Boolean = false, result:Object = null )
+        public function ResultEvent( result:Object = null, bubbles:Boolean = false, cancelable:Boolean = false  )
         {
             super( RESULT, bubbles, cancelable );
             

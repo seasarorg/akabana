@@ -1,6 +1,6 @@
 package org.seasar.akabana.yui.service
 {
-    public class OperationWatcher
+    public class OperationCallBack
     {
         public static var invokeCallBack:Function;
         

@@ -20,31 +20,24 @@ package org.seasar.akabana.yui.service.rpc {
 
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
-
+    
+    import org.seasar.akabana.yui.service.OperationCallBack;
+    import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
+    import org.seasar.akabana.yui.service.ServiceManager;
+    import org.seasar.akabana.yui.service.rpc.local.LocalOperation;
+    import org.seasar.akabana.yui.util.URLUtil;
+    
     public dynamic class RemotingService extends AbstractRpcService {
 
-        public static var invokeCallBack:Function;
-
-        public static var resultCallBack:Function;
-
-        public static var faultCallBack:Function;
-
         private var _pendingCallMap:Dictionary;
-
-        private var _gatewayUrl:String;
-
-        public function get gatewayUrl():String{
-            return _gatewayUrl;
-        }
-
-        public function set gatewayUrl( gatewayUrl:String):void{
-            _gatewayUrl = gatewayUrl;
-        }
 
         public function RemotingService( destination:String = null){
             super();
             _destination = destination;
             _pendingCallMap = new Dictionary();
+            _gatewayUrl = ServiceGatewayUrlResolver.resolve(destination);
         }
 
         public override function deleteCallHistory(pc:PendingCall):void{
@@ -64,7 +57,11 @@ package org.seasar.akabana.yui.service.rpc {
         }
 
         protected override function createOperation( operationName:String ):AbstractRpcOperation{
-            return new RemotingOperation( this, operationName)
+            if( ServiceGatewayUrlResolver.isLocalUrl(gatewayUrl) ){
+                return new LocalOperation( this, operationName);
+            } else {
+                return new RemotingOperation( this, operationName)
+            }
         }
 
         protected override function invokeOperation( operationName:String, operationArgs:Array ):PendingCall{

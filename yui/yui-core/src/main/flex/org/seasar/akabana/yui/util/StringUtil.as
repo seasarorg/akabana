@@ -22,6 +22,8 @@ CONFIG::FP10{
     public class StringUtil
     {
         public static const EMPTY:String = "";
+        
+        public static const DOT:String = ".";
 
         public static function trim(str:String):String {
             if (str == null){

@@ -18,32 +18,20 @@ package org.seasar.akabana.yui.service.event {
     
     public class FaultStatus {
         
-        private var _code:String;
+        public var code:String;
         
-        private var _description:String;
+        public var description:String;
         
-        private var _details:String;
+        public var details:String;
         
-        public function FaultStatus(code:String, description:String, details:String = null){
-            _code = code;
-            _description = description;
-            _details = details;
-        }
-        
-        public function get code():String{
-            return _code;
-        }
-        
-        public function get description():String{
-            return _description;
-        }
-        
-        public function get details():String{
-            return _details;
+        public function FaultStatus(code:String=null, description:String=null, details:String = null){
+            this.code = code;
+            this.description = description;
+            this.details = details;
         }
         
         public function toString():String{
-            return StringUtil.substitute("[{0}] {1}\n{2}",_code,_description,_details);
+            return StringUtil.substitute("[{0}] {1}\n{2}",code,description,details);
         }
     }
 }
