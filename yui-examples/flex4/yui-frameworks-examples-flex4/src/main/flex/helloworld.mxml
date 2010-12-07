@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:yui="http://yui.akabana.seasar.org/1.0"
+    layout="vertical"
+	xmlns:view="examples.yui.helloworld.view.*"
+	show="trace('onShow',event)"
+    hide="trace('onHide',event)"
+	>
+    <mx:Style source="assets/css/applicationStyles.css"/>
+    <mx:Style source="examples/yui/helloworld/helloworldClasses.css"/>
+    <mx:Style>
+    .customizers{
+        classNames:c1,c2,c3;
+
+        c2:ClassReference("org.seasar.akabana.yui.framework.customizer.ActionCustomizer");
+        c3:ClassReference("org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer");
+    }
+    </mx:Style>
+    <yui:YuiFrameworkSettings/>
+
+    <view:HelloWorldView id="rootView"/>
+    <mx:Button label="rootView削除" click="this.removeChild(rootView)"/>
+</mx:Application>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+    showEffect="{fadeIn}"
+    backgroundColor="0"
+    >
+    <mx:Fade id="fadeIn" alphaFrom="0" alphaTo="1" duration="500"/>
+	<mx:Button id="show" />
+</mx:Canvas>
