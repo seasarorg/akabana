@@ -37,6 +37,12 @@
     <classEntry path="org.seasar.akabana.yui.framework.ns.logic"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.service"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.view"/>
+    <classEntry path="org.seasar.akabana.yui.framework.rule.IAction"/>
+    <classEntry path="org.seasar.akabana.yui.framework.rule.IBehavior"/>
+    <classEntry path="org.seasar.akabana.yui.framework.rule.IHelper"/>
+    <classEntry path="org.seasar.akabana.yui.framework.rule.IStateful"/>
+    <classEntry path="org.seasar.akabana.yui.framework.rule.IStateless"/>
+    <classEntry path="org.seasar.akabana.yui.framework.rule.IValidator"/>
     <classEntry path="org.seasar.akabana.yui.framework.util.PopUpUtil"/>
     <classEntry path="org.seasar.akabana.yui.framework.util.StyleManagerUtil"/>
     <classEntry path="org.seasar.akabana.yui.framework.util.SystemManagerUtil"/>
