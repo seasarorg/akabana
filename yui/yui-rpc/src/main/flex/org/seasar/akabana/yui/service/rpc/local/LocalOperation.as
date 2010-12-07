@@ -41,21 +41,11 @@ package org.seasar.akabana.yui.service.rpc.local
         
         protected override function doInvoke( operationArgs:Array ):PendingCall{
             const lpackage:String = ServiceGatewayUrlResolver.getLocalPackage(service.gatewayUrl);
-            const lservice:String = StringUtil.toUpperCamel(service.destination);
-            const serviceClassName:String = 
-                    lpackage+
-                    StringUtil.DOT+
-                    LocalServiceInvoker.SERVICE+
-                    StringUtil.DOT+
-                    lservice;
-            
-            var serviceOperationName:String = _service.destination + StringUtil.DOT +_name;
-            
             var pendingCall:PendingCall = new RpcPendingCall(this);
-            var invokeArgs:Array = createServiceInvokeArgs( serviceOperationName, operationArgs, pendingCall );
+            var invokeArgs:Array = createServiceInvokeArgs( getServiceOperationName(), operationArgs, pendingCall );
             
             try{
-                const value:Object = serviceInvoker.invoke.apply(null,[serviceClassName,name].concat(operationArgs));
+                const value:Object = serviceInvoker.invoke.apply(null,[lpackage,service.name,name].concat(operationArgs));
                 new LocalServiceMethod(resultCallBack,[value,pendingCall],10);
                 
             } catch( e:Error ){

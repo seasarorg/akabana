@@ -44,21 +44,15 @@ package org.seasar.akabana.yui.service.ds.local
         public override function send(... args:Array):AsyncToken {   
             const lpackage:String = ServiceGatewayUrlResolver.getLocalPackage(service.endpoint);
             const lservice:String = StringUtil.toUpperCamel(service.destination);
-            const serviceClassName:String = 
-                    lpackage+
-                    StringUtil.DOT+
-                    LocalServiceInvoker.SERVICE+
-                    StringUtil.DOT+
-                    lservice;
             
             const message:LocalMessage = new LocalMessage();
             message.operation = name;
             message.body = args;
-            message.service = serviceClassName;
+            message.service = lservice;
             
             const token:AsyncToken = new AsyncToken(message);
             try{
-                const value:Object = serviceInvoker.invoke.apply(null,[serviceClassName,name].concat(args));
+                const value:Object = serviceInvoker.invoke.apply(null,[lpackage,lservice,name].concat(args));
                 const resultEvent:ResultEvent = ResultEvent.createEvent(value, token, message);
                 new LocalServiceMethod(dispatchRpcEvent, [resultEvent], 10);
             } catch( e:Error ){

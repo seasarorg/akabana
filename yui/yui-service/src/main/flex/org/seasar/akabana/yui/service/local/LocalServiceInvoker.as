@@ -22,13 +22,17 @@ package org.seasar.akabana.yui.service.local
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.util.StringUtil;
 
-    public class LocalServiceInvoker
-    {   
-        public static const SERVICE:String = "lservice";
+    public class LocalServiceInvoker {
         
         protected static const _serviceCache:Object = {};
         
-        public function invoke(serviceClassName:String,methodName:String,...args):Object{
+        public function invoke(servicePackageName:String,serviceName:String,methodName:String,...args):Object{
+            const lservice:String = StringUtil.toUpperCamel(serviceName);
+            const serviceClassName:String = 
+                servicePackageName+
+                StringUtil.DOT+
+                lservice;
+            
             const service:Object = getServiceInstance(serviceClassName);
             const result:Object = doInvokeServiceMethod(service,methodName,args);
             return result;

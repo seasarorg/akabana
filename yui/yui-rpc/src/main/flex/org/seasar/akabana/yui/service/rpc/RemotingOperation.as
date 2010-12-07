@@ -122,7 +122,7 @@ package org.seasar.akabana.yui.service.rpc {
             const rc:RemotingConnection = lookupConnection();
             const pendingCall:PendingCall = new RpcPendingCall(this);
 
-            const serviceOperationName:String = _service.destination + StringUtil.DOT +_name;
+            const serviceOperationName:String = getServiceOperationName();
             const invokeArgs:Array = createServiceInvokeArgs( serviceOperationName, operationArgs, pendingCall );
 
             setupCredentials(rc);

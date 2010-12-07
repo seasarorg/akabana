@@ -22,6 +22,7 @@ package org.seasar.akabana.yui.service.rpc {
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.error.IllegalOperationError;
     import org.seasar.akabana.yui.service.event.InvokeEvent;
+    import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
     public class AbstractRpcOperation extends EventDispatcher implements Operation{
@@ -59,7 +60,7 @@ package org.seasar.akabana.yui.service.rpc {
 
             return pendingCall;
         }
-
+        
         protected function doInvoke( operationArgs:Array ):PendingCall{
             return null;
         }
@@ -85,6 +86,11 @@ package org.seasar.akabana.yui.service.rpc {
             callArgs.unshift( serviceOperationName, new Responder( rpcPendingCall.onResult, rpcPendingCall.onStatus ));
             
             return callArgs;
+        }
+        
+        protected function getServiceOperationName():String{
+            const result:String = _service.destination + StringUtil.DOT +_name;
+            return result;
         }
     }
 }
