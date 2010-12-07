@@ -58,7 +58,7 @@ package org.seasar.akabana.yui.framework.customizer
                         CONFIG::DEBUG {
                             _logger.debug(getMessage("Customizing",viewClassName,prop.typeClassRef.name));
                         }
-                        behavior = prop.typeClassRef.newInstance();
+                        behavior = newInstance(prop.typeClassRef);
                         prop.setValue(action,behavior);
                         behaviors.push(behavior);
 

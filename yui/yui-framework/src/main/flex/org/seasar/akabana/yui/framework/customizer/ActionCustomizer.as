@@ -50,7 +50,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 //
                 const actionClassRef:ClassRef = getClassRef(actionClassName);
-                const action:Object = actionClassRef.newInstance();
+                const action:Object = newInstance(actionClassRef);
                 doEventCustomize(viewName,view,action);
                 properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = action;
                 

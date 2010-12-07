@@ -128,7 +128,7 @@ package org.seasar.akabana.yui.framework.customizer
                 if( validatorClassRef.name in validatorMap){
                     validator = validatorMap[validatorClassRef.name];
                 } else {
-                    validator = prop.typeClassRef.newInstance();
+                    validator = newInstance(prop.typeClassRef);
                     validatorMap[validatorClassRef.name] = validator;               
                 }
                 

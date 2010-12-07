@@ -27,8 +27,16 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.message.MessageManager;
+    import org.seasar.akabana.yui.framework.rule.IStateless;
+    import org.seasar.akabana.yui.logging.Logger;
 
-    internal class AbstractComponentCustomizer implements IViewCustomizer{
+    internal class AbstractComponentCustomizer implements IViewCustomizer {
+        
+        CONFIG::DEBUG {
+            private static const _logger:Logger = Logger.getLogger(IViewCustomizer);
+        }
+        
+        protected static const _instanceCache:Object = {};
         
         protected static function setPropertiesValue(target:Object,varClassName:String,value:Object):void {
             const targetClassRef:ClassRef = getClassRef(target);
@@ -46,6 +54,31 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
+        protected static function newInstance(classRef:ClassRef,...args):Object{
+            var result:Object = null;
+            if( classRef.isAssignableFrom(IStateless)){
+                result = classRef.newInstance.apply(null,args);
+                CONFIG::DEBUG {
+                    _logger.debug("Stateless instance created:" + classRef.name);
+                }
+            } else {
+                if( _instanceCache in classRef.name ){
+                    result = _instanceCache[ classRef.name ];
+                    
+                    CONFIG::DEBUG {
+                        _logger.debug("Stateful instance reused:" + classRef.name);
+                    }                    
+                } else {
+                    result = classRef.newInstance.apply(null,args);
+                    _instanceCache[ classRef.name ] = result;
+                    CONFIG::DEBUG {
+                        _logger.debug("Stateful instance created and cached:" + classRef.name);
+                    }
+                }
+            }
+            return result;
+        }
+
         public function customizeView( view:UIComponent ):void{
             throw new IllegalOperationError("can't call");
         }
@@ -53,7 +86,7 @@ package org.seasar.akabana.yui.framework.customizer
         public function uncustomizeView( view:UIComponent ):void{
             throw new IllegalOperationError("can't call");
         }
-
+        
         protected function getMessage(resourceName:String,...parameters):String{
             return MessageManager.yui_internal::yuiframework.getMessage.apply(null,[resourceName].concat(parameters));
         }

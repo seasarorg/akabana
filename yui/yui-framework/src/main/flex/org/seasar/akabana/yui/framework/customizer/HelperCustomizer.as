@@ -129,7 +129,7 @@ package org.seasar.akabana.yui.framework.customizer
                 if( helperClassRef.name in helperMap){
                     helper = helperMap[helperClassRef.name];
                 } else {
-                    helper = prop.typeClassRef.newInstance();
+                    helper = newInstance(prop.typeClassRef);
                     helperMap[helperClassRef.name] = helper;               
                 }
                 
