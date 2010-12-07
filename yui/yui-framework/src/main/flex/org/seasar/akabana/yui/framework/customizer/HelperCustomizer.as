@@ -83,9 +83,9 @@ package org.seasar.akabana.yui.framework.customizer
                     if( helper is ILifeCyclable ){
                         (helper as ILifeCyclable).stop();
                     }
+                    //
+                    setPropertiesValue(helper,viewClassName,null);
                 }
-                //
-                setPropertiesValue(helper,viewClassName,null);
                 properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = null;
                 delete properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
                 //

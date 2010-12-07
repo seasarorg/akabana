@@ -83,9 +83,9 @@ package org.seasar.akabana.yui.framework.customizer
                     if( validator is ILifeCyclable ){
                         (validator as ILifeCyclable).stop();
                     }
+                    //
+                    setPropertiesValue(validator,viewClassName,null);
                 }
-                //
-                setPropertiesValue(validator,viewClassName,null);
                 properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()] = null;
                 delete properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
                 //

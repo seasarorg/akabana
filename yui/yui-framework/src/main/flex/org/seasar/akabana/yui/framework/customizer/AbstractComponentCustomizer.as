@@ -62,7 +62,7 @@ package org.seasar.akabana.yui.framework.customizer
                     _logger.debug("Stateless instance created:" + classRef.name);
                 }
             } else {
-                if( _instanceCache in classRef.name ){
+                if( classRef.name in _instanceCache ){
                     result = _instanceCache[ classRef.name ];
                     
                     CONFIG::DEBUG {
