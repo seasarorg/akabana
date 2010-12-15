@@ -30,7 +30,7 @@ package org.seasar.akabana.yui.service.rpc.local
     import org.seasar.akabana.yui.util.StringUtil;
     
     [ExcludeClass]
-    public class LocalOperation extends AbstractRpcOperation {
+    public final class LocalOperation extends AbstractRpcOperation {
         
         protected var serviceInvoker:LocalServiceInvoker;
         

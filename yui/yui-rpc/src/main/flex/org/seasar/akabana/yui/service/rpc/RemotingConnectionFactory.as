@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.service.rpc {
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
 
     [ExcludeClass]
-    public class RemotingConnectionFactory {
+    public final class RemotingConnectionFactory {
 
         private static const _logger:Logger = Logger.getLogger(RemotingConnectionFactory);
 

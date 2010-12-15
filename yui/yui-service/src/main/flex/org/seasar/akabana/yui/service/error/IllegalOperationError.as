@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.service.error {
 
-    public class IllegalOperationError extends Error {
+    public final class IllegalOperationError extends Error {
         
         public function IllegalOperationError(name:String){
             var errorMessage:String;

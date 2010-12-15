@@ -39,20 +39,20 @@ package org.seasar.akabana.yui.service.rpc {
             _pendingCallMap = new Dictionary();
             _gatewayUrl = ServiceGatewayUrlResolver.resolve(destination);
         }
-
-        public override function deleteCallHistory(pc:PendingCall):void{
-            if( pc != null ){
-                _pendingCallMap[ pc ] = null;
-                delete _pendingCallMap[ pc ];
-            }
-        }
-
-        public override function deletePendingCallOf(responder:Object):void{
+        
+        public override function finalizeResponder(responder:Object):void{
             for( var item:* in _pendingCallMap ){
                 var pc:RpcPendingCall = item as RpcPendingCall;
                 if( pc != null && pc.getResponder() === responder){
                     pc.clear();
                 }
+            }
+        }
+
+        public override function finalizePendingCall(pc:PendingCall):void{
+            if( pc != null ){
+                _pendingCallMap[ pc ] = null;
+                delete _pendingCallMap[ pc ];
             }
         }
 

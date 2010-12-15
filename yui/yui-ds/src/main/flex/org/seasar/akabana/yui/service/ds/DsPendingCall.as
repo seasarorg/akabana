@@ -26,6 +26,7 @@ package org.seasar.akabana.yui.service.ds {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
+    import org.seasar.akabana.yui.service.ManagedService;
     import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
@@ -38,7 +39,7 @@ package org.seasar.akabana.yui.service.ds {
     use namespace mx_internal;
 
     [ExcludeClass]
-    public class DsPendingCall extends AsyncToken implements PendingCall {
+    public final class DsPendingCall extends AsyncToken implements PendingCall {
 
         private static const RESULT_HANDLER:String = "ResultHandler";
 
@@ -118,7 +119,9 @@ package org.seasar.akabana.yui.service.ds {
         }
 
         public function onResult( resultEvent:ResultEvent ):void{
-            service.deleteCallHistory(this);
+            if( service is ManagedService ){
+                ( service as ManagedService ).finalizePendingCall(this);
+            }
 
             if( OperationCallBack.resultCallBack != null ){
                 OperationCallBack.resultCallBack.apply(null,[resultEvent]);
@@ -135,8 +138,10 @@ package org.seasar.akabana.yui.service.ds {
         }
 
         public function onStatus( faultEvent:FaultEvent ):void{
-            service.deleteCallHistory(this);
-
+            if( service is ManagedService ){
+                ( service as ManagedService ).finalizePendingCall(this);
+            }
+            
             if( OperationCallBack.faultCallBack != null ){
                 OperationCallBack.faultCallBack.apply(null,[faultEvent]);
             }

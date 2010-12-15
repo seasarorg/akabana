@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.service.event {
     
-    public class FaultEvent extends AbstractServiceEvent {
+    public final class FaultEvent extends AbstractServiceEvent {
         
         public static const FAULT:String = "fault";
         

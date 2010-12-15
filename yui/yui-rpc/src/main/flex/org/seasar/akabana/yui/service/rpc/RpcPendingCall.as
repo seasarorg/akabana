@@ -24,7 +24,7 @@ package org.seasar.akabana.yui.service.rpc {
     import org.seasar.akabana.yui.service.rpc.responder.RpcResponderFactory;
 
     [ExcludeClass]
-    public class RpcPendingCall implements PendingCall {
+    public final class RpcPendingCall implements PendingCall {
 
         private static const _responderFactory:ResponderFactory = new RpcResponderFactory();
 

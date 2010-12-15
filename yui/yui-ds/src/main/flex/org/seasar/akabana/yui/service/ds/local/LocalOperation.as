@@ -32,7 +32,7 @@ package org.seasar.akabana.yui.service.ds.local
     use namespace mx_internal;
     
     [ExcludeClass]
-    public class LocalOperation extends AbstractOperation {
+    public final class LocalOperation extends AbstractOperation {
         
         protected var serviceInvoker:LocalServiceInvoker;
         

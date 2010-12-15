@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.service {
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
-    public class ServiceManager {
+    public final class ServiceManager {
 
         private static var serviceMap:Dictionary = new Dictionary(true);
 

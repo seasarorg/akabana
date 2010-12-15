@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.service.ds.responder {
     import mx.rpc.events.ResultEvent;
 
     [ExcludeClass]
-    public class RpcObjectResponder extends AbstractRpcEventResponder {
+    public final class RpcObjectResponder extends AbstractRpcEventResponder {
 
         public function RpcObjectResponder( resultFunction:Function, faultFunction:Function){
             this.resultFunction = resultFunction;

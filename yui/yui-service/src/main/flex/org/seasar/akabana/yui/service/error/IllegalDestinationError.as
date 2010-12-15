@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.service.error {
 
-    public class IllegalDestinationError extends Error {
+    public final class IllegalDestinationError extends Error {
         
         public function IllegalDestinationError(name:String){
             var errorMessage:String;

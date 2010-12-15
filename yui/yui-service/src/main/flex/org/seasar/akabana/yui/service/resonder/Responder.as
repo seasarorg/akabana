@@ -17,7 +17,8 @@ package org.seasar.akabana.yui.service.resonder {
 
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.ResultEvent;
-
+    
+    [ExcludeClass]
     public interface Responder {
         function onResult( resultEvent:ResultEvent ):void;
         function onFault( faultEvent:FaultEvent ):void;

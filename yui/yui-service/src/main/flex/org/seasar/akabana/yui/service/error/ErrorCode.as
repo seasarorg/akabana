@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.service.error {
 
-    internal class ErrorCode {
+    public class ErrorCode {
         
         public static const BASE:int = 3000;
         

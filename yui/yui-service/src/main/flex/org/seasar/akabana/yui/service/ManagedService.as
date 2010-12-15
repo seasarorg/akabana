@@ -13,22 +13,14 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.service.error {
-
-    public final class IllegalGatewayError extends Error {
+package org.seasar.akabana.yui.service {
+    
+    import flash.events.IEventDispatcher;
+    
+    [ExcludeClass]
+    public interface ManagedService extends Service {
+        function finalizeResponder(responder:Object):void;
         
-        public function IllegalGatewayError(name:String){
-            var errorMessage:String;
-            var errorCode:int;
-            if( name == null ){
-                errorMessage = "gateway is none.";
-                errorCode = ErrorCode.BASE + 1;
-            } else {
-                errorMessage = name + " is illegal gateway name.";
-                errorCode = ErrorCode.BASE + 2;
-            }
-            super(errorMessage,errorCode);
-        }
-        
+        function finalizePendingCall(pc:PendingCall):void;
     }
 }

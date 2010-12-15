@@ -26,6 +26,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceManager;
+    import org.seasar.akabana.yui.service.ManagedService;
 
     [ExcludeClass]
     public class ServiceCustomizer extends AbstractComponentCustomizer {
@@ -110,7 +111,10 @@ package org.seasar.akabana.yui.framework.customizer
                         _logger.debug(getMessage("Uncustomizing",classRef.name,propertyRef.name));
                     }
                     service = propertyRef.getValue(target) as Service;
-                    service.deletePendingCallOf(target);
+                    
+                    if( service is ManagedService ){
+                        (service as ManagedService).finalizeResponder(target);
+                    }
                     propertyRef.setValue(target,null);
                     CONFIG::DEBUG {
                         _logger.debug(getMessage("Uncustomized",classRef.name,propertyRef.name));

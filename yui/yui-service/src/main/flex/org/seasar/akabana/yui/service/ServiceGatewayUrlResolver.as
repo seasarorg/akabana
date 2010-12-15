@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.service
 
     [ExcludeClass]
 	[ResourceBundle("services")]
-    public class ServiceGatewayUrlResolver
+    public final class ServiceGatewayUrlResolver
     {
         public static var defaultGateway:String;
         

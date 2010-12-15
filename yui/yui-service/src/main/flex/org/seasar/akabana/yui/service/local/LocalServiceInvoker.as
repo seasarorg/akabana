@@ -22,7 +22,8 @@ package org.seasar.akabana.yui.service.local
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.util.StringUtil;
 
-    public class LocalServiceInvoker {
+    [ExcludeClass]
+    public final class LocalServiceInvoker {
         
         protected static const _serviceCache:Object = {};
         

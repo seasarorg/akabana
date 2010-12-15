@@ -17,7 +17,8 @@ package org.seasar.akabana.yui.service.ds.local
 {
     import mx.messaging.messages.AbstractMessage;
     
-    public class LocalMessage extends AbstractMessage
+    [ExcludeClass]
+    public final class LocalMessage extends AbstractMessage
     {
         public var service:String;
         

@@ -16,7 +16,7 @@
 package org.seasar.akabana.yui.service.event {
     import org.seasar.akabana.yui.util.StringUtil;
     
-    public class FaultStatus {
+    public final class FaultStatus {
         
         public var code:String;
         

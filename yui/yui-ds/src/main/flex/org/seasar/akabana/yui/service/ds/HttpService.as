@@ -12,12 +12,13 @@ package org.seasar.akabana.yui.service.ds
     import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.ManagedService;
     import org.seasar.akabana.yui.service.ServiceManager;
     
     use namespace flash_proxy;
     use namespace mx_internal;
     
-    public dynamic class HttpService extends HTTPMultiService implements Service, IMXMLObject
+    public dynamic class HttpService extends HTTPMultiService implements ManagedService, IMXMLObject
     {
         
         private var _responderOwner:Object;
@@ -49,7 +50,7 @@ package org.seasar.akabana.yui.service.ds
             ServiceManager.addService( this );
         }
         
-        public function deletePendingCallOf(responder:Object):void{
+        public function finalizeResponder(responder:Object):void{
             for( var item:* in _pendingCallMap ){
                 var pc:DsPendingCall = item as DsPendingCall;
                 if( pc != null && pc.getResponder() === responder){
@@ -58,7 +59,7 @@ package org.seasar.akabana.yui.service.ds
             }
         }
         
-        public function deleteCallHistory(pc:PendingCall):void{
+        public function finalizePendingCall(pc:PendingCall):void{
             if( pc != null ){
                 _pendingCallMap[ pc ] = null;
                 delete _pendingCallMap[ pc ];

@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.service.event {
     
-    public class InvokeEvent extends AbstractServiceEvent {
+    public final class InvokeEvent extends AbstractServiceEvent {
         
         public static const INVOKE:String = "invoke";
         

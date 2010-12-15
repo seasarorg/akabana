@@ -2,8 +2,9 @@ package org.seasar.akabana.yui.service.local
 {
     import flash.events.TimerEvent;
     import flash.utils.Timer;
-
-    public class LocalServiceMethod
+    
+    [ExcludeClass]
+    public final class LocalServiceMethod
     {
         private var _method:Function;
         
