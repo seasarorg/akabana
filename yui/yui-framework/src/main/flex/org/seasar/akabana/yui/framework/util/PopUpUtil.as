@@ -34,6 +34,8 @@ package org.seasar.akabana.yui.framework.util
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     import org.seasar.akabana.yui.util.StringUtil;
 
+    [ExcludeClass]
+    [Deprecated(message="This use is Deprecated.",replacement="spark.components.PopUpAnchor",since="1.1")]    
     public class PopUpUtil
     {
         public static const POPUP_INFO:String = "__popUp_info";
@@ -51,7 +53,7 @@ package org.seasar.akabana.yui.framework.util
             var popupClassName:String = getClassRef(popupClass).className;
             var viewName:String = StringUtil.toLowerCamel(popupClassName);
             var window:UIComponent =
-                PopUpUtil.createPopUpView(
+                createPopUpView(
                     viewName,
                     popupClass,
                     true,
@@ -76,7 +78,7 @@ package org.seasar.akabana.yui.framework.util
                 parent = relatedOwner.parentApplication as UIComponent;
             }
             var window:UIComponent =
-                PopUpUtil.createPopUp(
+                createPopUp(
                     viewName,
                     parent,
                     popupClass,
@@ -95,10 +97,10 @@ package org.seasar.akabana.yui.framework.util
                 YuiFrameworkContainer
                     .yuicontainer
                     .uncustomizeComponent(
-                        PopUpUtil.lookupRelatedOwner(popUpUIComponent),
+                        lookupRelatedOwner(popUpUIComponent),
                         popUpUIComponent
                     );
-                PopUpUtil.removePopUp(popUp);
+                removePopUp(popUp);
             }
         }
 
@@ -241,7 +243,7 @@ package org.seasar.akabana.yui.framework.util
             YuiFrameworkContainer
                 .yuicontainer
                 .customizeComponent(
-                    PopUpUtil.lookupRelatedOwner(popup),
+                    lookupRelatedOwner(popup),
                     popup as UIComponent
                     );
             popup.setVisible(true,false);
