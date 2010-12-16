@@ -15,12 +15,21 @@
  */
 package org.seasar.akabana.yui.service.ds.responder {
 
+    import mx.rpc.Fault;
     import mx.rpc.events.FaultEvent;
     import mx.rpc.events.ResultEvent;
+    
+    import org.seasar.akabana.yui.service.event.FaultStatus;
 
     [ExcludeClass]
     public final class RpcObjectResponder extends AbstractRpcEventResponder {
-
+        
+        private static function toFaultStatus(faultEvent:FaultEvent):FaultStatus{
+            const fault:Fault = faultEvent.fault;
+            var result:FaultStatus = new FaultStatus(fault.faultCode,fault.faultDetail,fault.faultString);
+            return result;
+        }
+            
         public function RpcObjectResponder( resultFunction:Function, faultFunction:Function){
             this.resultFunction = resultFunction;
             this.faultFunction = faultFunction;
@@ -34,10 +43,11 @@ package org.seasar.akabana.yui.service.ds.responder {
 
         public override function fault(info:Object):void {
             if( faultFunction != null ){
-                faultFunction.call( null, (info as FaultEvent).fault );
+                faultFunction.call( null, toFaultStatus(info as FaultEvent) );
             }
             resultFunction = null;
             faultFunction = null;
         }
+        
     }
 }
