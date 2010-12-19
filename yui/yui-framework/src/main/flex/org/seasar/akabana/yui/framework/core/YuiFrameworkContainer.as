@@ -27,6 +27,7 @@ package org.seasar.akabana.yui.framework.core
     import flash.system.Capabilities;
     import flash.display.DisplayObjectContainer;
     import flash.display.DisplayObject;
+	import flash.utils.Dictionary;
     
     import mx.core.UIComponent;
     import mx.events.FlexEvent;
@@ -50,7 +51,6 @@ package org.seasar.akabana.yui.framework.core
     import mx.managers.CursorManager;
     import mx.managers.PopUpManager;
     import mx.managers.DragManager;
-    import mx.core.Application;
     
     use namespace yui_internal;
     
@@ -251,6 +251,14 @@ package org.seasar.akabana.yui.framework.core
             const app:UIComponent = YuiFrameworkGlobals.public::frameworkBridge.application as UIComponent;
             app.setVisible(true,true);
             super.processApplicationStart();
+			
+			var componentInstanceMap:Dictionary = ViewComponentRepository.componentInstanceMap;
+			for each (var component:UIComponent in componentInstanceMap) 
+			{
+				if( component.hasEventListener(FrameworkEvent.APPLICATION_START)){
+					component.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+				}
+			}			
         }
         
         protected override function getDefaultCustomizerClasses():Array{
@@ -282,7 +290,7 @@ package org.seasar.akabana.yui.framework.core
             }
             return result;
         }
-        
+
         yui_internal override function applicationInitialize():void{
             if( _customizers == null ){
                 _customizers = getDefaultCustomizers();
