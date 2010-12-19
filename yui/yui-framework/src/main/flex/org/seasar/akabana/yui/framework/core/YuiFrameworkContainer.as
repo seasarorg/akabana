@@ -252,8 +252,8 @@ package org.seasar.akabana.yui.framework.core
             app.setVisible(true,true);
             super.processApplicationStart();
 			
-			var componentInstanceMap:Dictionary = ViewComponentRepository.componentInstanceMap;
-			for each (var component:UIComponent in componentInstanceMap) 
+			var componentMap:Dictionary = ViewComponentRepository.componentMap;
+			for each (var component:UIComponent in componentMap) 
 			{
 				if( component.hasEventListener(FrameworkEvent.APPLICATION_START)){
 					component.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
