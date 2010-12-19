@@ -65,7 +65,7 @@ package org.seasar.akabana.yui.service.rpc {
         }
 
         public function onResult( result:* ):void{
-            remotingService.deleteCallHistory(this);
+            remotingService.finalizePendingCall(this);
 
             var resultEvent:ResultEvent = new ResultEvent(result);
             resultEvent.pendigCall = this;
@@ -84,7 +84,7 @@ package org.seasar.akabana.yui.service.rpc {
         }
 
         public function onStatus( status:* ):void{
-            remotingService.deleteCallHistory(this);
+            remotingService.finalizePendingCall(this);
 
             var faultStatus:FaultStatus = new FaultStatus();
             if( status != null ){
