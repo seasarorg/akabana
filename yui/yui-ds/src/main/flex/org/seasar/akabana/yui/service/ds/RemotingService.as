@@ -20,7 +20,6 @@ package org.seasar.akabana.yui.service.ds {
     import flash.utils.flash_proxy;
     import flash.utils.getTimer;
     
-    import mx.core.Application;
     import mx.core.UIComponent;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
@@ -52,14 +51,14 @@ package org.seasar.akabana.yui.service.ds {
     import mx.rpc.events.FaultEvent;
     import mx.rpc.remoting.mxml.RemoteObject;
     
+    import org.seasar.akabana.yui.service.ManagedService;
     import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
-    import org.seasar.akabana.yui.service.ManagedService;
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.ServiceManager;
-    import org.seasar.akabana.yui.util.URLUtil;
     import org.seasar.akabana.yui.service.ds.local.LocalOperation;
+    import org.seasar.akabana.yui.util.URLUtil;
 
 
     use namespace flash_proxy;
@@ -96,7 +95,7 @@ package org.seasar.akabana.yui.service.ds {
             registerClassAlias( "flex.messaging.messages.RemotingMessage", RemotingMessage);
         }
 
-        private var _parentApplication:Application;
+        private var _parentApplication:UIComponent;
 
         private var _isInitialzed:Boolean;
 
@@ -155,11 +154,9 @@ package org.seasar.akabana.yui.service.ds {
         {
             super.initialized(document,id);
 
-            if( document is Application ){
-                _parentApplication = document as Application;
-            } else {
-                _parentApplication = UIComponent(document).parentApplication as Application;
-            }
+            if( document is UIComponent ){
+				_parentApplication = (document as UIComponent).parentApplication as UIComponent;
+			}
             _parentApplication.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompleteHandler,false,0,true);
             ServiceManager.addService( this );
         }
