@@ -145,7 +145,9 @@ package org.seasar.akabana.yui.framework.core
                 int.MAX_VALUE
             );
             
-            root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
+            if( root.hasEventListener(FrameworkEvent.APPLICATION_MONITOR_START)){
+                root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
+            }
         }
         
         yui_internal function applicationMonitoringStop(root:DisplayObject):void{
@@ -184,7 +186,9 @@ package org.seasar.akabana.yui.framework.core
                 systemManager_addedToStageHandler2,
                 true
             );
-            root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_STOP));
+            if( root.hasEventListener(FrameworkEvent.APPLICATION_MONITOR_STOP)){
+                root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_STOP));
+            }
         }
         
         yui_internal function applicationInitialize():void{
@@ -232,12 +236,14 @@ package org.seasar.akabana.yui.framework.core
         }
         
         protected function processApplicationStart():void{
-            var rootView:DisplayObjectContainer = YuiFrameworkGlobals.public::frameworkBridge.rootView;
+            var rootView:DisplayObjectContainer = YuiFrameworkGlobals.public::frameworkBridge.rootView as DisplayObjectContainer;
             CONFIG::DEBUG{
                 _logger.info(getMessage("ApplicationStart"));
             }
             if( rootView != null ){
-                rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+                if( rootView.hasEventListener(FrameworkEvent.APPLICATION_START)){
+                    rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+                }
                 rootView.visible = true;
             }
         }
@@ -264,7 +270,9 @@ package org.seasar.akabana.yui.framework.core
         
         protected function processAssembleView( view:DisplayObjectContainer ):void{
             customizeView(view);
-            view.dispatchEvent( new FrameworkEvent(FrameworkEvent.ASSEMBLE_COMPELETE));
+            if( view.hasEventListener(FrameworkEvent.ASSEMBLE_COMPELETE)){
+                view.dispatchEvent( new FrameworkEvent(FrameworkEvent.ASSEMBLE_COMPELETE));
+            }
         }
         
         protected function processAssembleViewChild( container:DisplayObjectContainer,child:DisplayObject):void{
