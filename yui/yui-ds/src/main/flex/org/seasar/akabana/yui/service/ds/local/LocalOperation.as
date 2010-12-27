@@ -54,11 +54,11 @@ package org.seasar.akabana.yui.service.ds.local
             try{
                 const value:Object = serviceInvoker.invoke.apply(null,[lpackage,lservice,name].concat(args));
                 const resultEvent:ResultEvent = ResultEvent.createEvent(value, token, message);
-                new LocalServiceMethod(dispatchRpcEvent, [resultEvent], 10);
+                new LocalServiceMethod(dispatchRpcEvent, [resultEvent]);
             } catch( e:Error ){
                 var fault:Fault = new Fault(e.errorID.toString(),e.name,e.message);
                 var faultEvent:FaultEvent = FaultEvent.createEvent(fault, token,message);
-                new LocalServiceMethod(dispatchRpcEvent, [faultEvent], 10);
+                new LocalServiceMethod(dispatchRpcEvent, [faultEvent]);
             }
             
             return token;

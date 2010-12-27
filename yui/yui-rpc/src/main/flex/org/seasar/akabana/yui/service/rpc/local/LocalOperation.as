@@ -46,10 +46,10 @@ package org.seasar.akabana.yui.service.rpc.local
             
             try{
                 const value:Object = serviceInvoker.invoke.apply(null,[lpackage,service.name,name].concat(operationArgs));
-                new LocalServiceMethod(resultCallBack,[value,pendingCall],10);
+                new LocalServiceMethod(resultCallBack,[value,pendingCall]);
                 
             } catch( e:Error ){
-                new LocalServiceMethod(faultCallBack,[e,pendingCall],10);
+                new LocalServiceMethod(faultCallBack,[e,pendingCall]);
             }
             
             return pendingCall;

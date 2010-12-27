@@ -44,8 +44,7 @@ CONFIG::DEBUG{
 			
 			if( gatewayUrl in GATEWAY_RC_REF_CACHE ){
 				rc = GATEWAY_RC_REF_CACHE[ gatewayUrl ];
-			}
-            if( rc == null ){
+			} else {
 				rc = new RemotingConnection();
 				rc.objectEncoding = ObjectEncoding.AMF3;
 

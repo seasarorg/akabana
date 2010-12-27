@@ -44,8 +44,7 @@ package org.seasar.akabana.yui.service.local
 			var result:Object = null;
 			if( serviceClassName in SERVICE_REF_CACHE ){
             	result = SERVICE_REF_CACHE[serviceClassName];
-			}
-            if (result == null){
+			} else {
                 var serviceClassRef:ClassRef = getClassRef(serviceClassName);
                 result = serviceClassRef.newInstance();
             }
