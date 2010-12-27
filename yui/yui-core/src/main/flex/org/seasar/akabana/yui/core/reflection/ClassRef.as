@@ -23,11 +23,12 @@ CONFIG::FP10{
     import flash.utils.getQualifiedClassName;
 
     import org.seasar.akabana.yui.core.ClassLoader;
+    import flash.utils.Dictionary;
 
     public class ClassRef extends AnnotatedObjectRef
     {
 
-        public static const CLASS_REF_CACHE:Object = {};
+        public static const CLASS_REF_CACHE:Dictionary = new Dictionary();
 
         public static var classLoader:ClassLoader = new ClassLoader();
 
@@ -52,8 +53,11 @@ CONFIG::FP10{
             }
 
             if( clazz != null ){
-                var classRef:ClassRef = CLASS_REF_CACHE[ clazz ];
-                if( classRef == null ){
+				var classRef:ClassRef = null;
+				if( clazz in CLASS_REF_CACHE ){
+                	classRef = CLASS_REF_CACHE[ clazz ];
+				}
+				if( classRef == null ){
                     classRef = new ClassRef(clazz);
                     CLASS_REF_CACHE[ clazz ] = classRef;
                 }

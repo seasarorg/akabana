@@ -16,18 +16,19 @@
 package org.seasar.akabana.yui.service.rpc {
 
     import flash.net.ObjectEncoding;
+    import flash.utils.Dictionary;
     
     import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.service.Service;
-    import org.seasar.akabana.yui.service.error.IllegalGatewayError;
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
+    import org.seasar.akabana.yui.service.error.IllegalGatewayError;
 
     [ExcludeClass]
     public final class RemotingConnectionFactory {
 
         private static const _logger:Logger = Logger.getLogger(RemotingConnectionFactory);
 
-        private static const gatewayUrlToRc:Object = {};
+        private static const GATEWAY_RC_REF_CACHE:Dictionary = new Dictionary();
 
         public static function createConnection( gatewayUrl:String, destination:String ):RemotingConnection{
             if( gatewayUrl == null ){
@@ -39,20 +40,25 @@ CONFIG::DEBUG{
             if( gatewayUrl == null ){
                 throw new IllegalGatewayError(gatewayUrl);
             }
-            var connection:RemotingConnection = gatewayUrlToRc[ gatewayUrl ];
-            if( connection == null ){
-                connection = new RemotingConnection();
-                connection.objectEncoding = ObjectEncoding.AMF3;
+            var rc:RemotingConnection = null;
+			
+			if( gatewayUrl in GATEWAY_RC_REF_CACHE ){
+				rc = GATEWAY_RC_REF_CACHE[ gatewayUrl ];
+			}
+            if( rc == null ){
+				rc = new RemotingConnection();
+				rc.objectEncoding = ObjectEncoding.AMF3;
 
                 if( gatewayUrl != null ){
-                    connection.connect( gatewayUrl );
+					rc.connect( gatewayUrl );
                 } else {
                     throw new IllegalGatewayError(gatewayUrl);
                 }
 
-                gatewayUrlToRc[ gatewayUrl ] = connection;
+				GATEWAY_RC_REF_CACHE[ gatewayUrl ] = rc;
             }
-            return connection;
+
+            return rc;
         }
     }
 }

@@ -29,6 +29,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.rule.IStateless;
     import org.seasar.akabana.yui.logging.Logger;
+    import flash.utils.Dictionary;
 
     internal class AbstractComponentCustomizer implements IViewCustomizer {
         
@@ -36,7 +37,7 @@ package org.seasar.akabana.yui.framework.customizer
             private static const _logger:Logger = Logger.getLogger(IViewCustomizer);
         }
         
-        protected static const _instanceCache:Object = {};
+        protected static const INSTANCE_REF_CACHE:Dictionary = new Dictionary();
         
         protected static function setPropertiesValue(target:Object,varClassName:String,value:Object):void {
             const targetClassRef:ClassRef = getClassRef(target);
@@ -62,15 +63,15 @@ package org.seasar.akabana.yui.framework.customizer
                     _logger.debug("Stateless instance created:" + classRef.name);
                 }
             } else {
-                if( classRef.name in _instanceCache ){
-                    result = _instanceCache[ classRef.name ];
+                if( classRef.name in INSTANCE_REF_CACHE ){
+                    result = INSTANCE_REF_CACHE[ classRef.name ];
                     
                     CONFIG::DEBUG {
                         _logger.debug("Stateful instance reused:" + classRef.name);
                     }                    
                 } else {
                     result = classRef.newInstance.apply(null,args);
-                    _instanceCache[ classRef.name ] = result;
+					INSTANCE_REF_CACHE[ classRef.name ] = result;
                     CONFIG::DEBUG {
                         _logger.debug("Stateful instance created and cached:" + classRef.name);
                     }

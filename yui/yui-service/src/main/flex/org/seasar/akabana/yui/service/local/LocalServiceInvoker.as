@@ -15,6 +15,7 @@
 */
 package org.seasar.akabana.yui.service.local
 {
+    import flash.utils.Dictionary;
     import flash.utils.getDefinitionByName;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
@@ -25,7 +26,7 @@ package org.seasar.akabana.yui.service.local
     [ExcludeClass]
     public final class LocalServiceInvoker {
         
-        protected static const _serviceCache:Object = {};
+        protected static const SERVICE_REF_CACHE:Dictionary = new Dictionary();
         
         public function invoke(servicePackageName:String,serviceName:String,methodName:String,...args):Object{
             const lservice:String = StringUtil.toUpperCamel(serviceName);
@@ -40,9 +41,11 @@ package org.seasar.akabana.yui.service.local
         }
         
         protected function getServiceInstance(serviceClassName:String):Object{
-            var result:Object = _serviceCache[serviceClassName];
-            if (result == null)
-            {
+			var result:Object = null;
+			if( serviceClassName in SERVICE_REF_CACHE ){
+            	result = SERVICE_REF_CACHE[serviceClassName];
+			}
+            if (result == null){
                 var serviceClassRef:ClassRef = getClassRef(serviceClassName);
                 result = serviceClassRef.newInstance();
             }
