@@ -21,9 +21,10 @@ CONFIG::FP10{
 
     import flash.utils.describeType;
     import flash.utils.getQualifiedClassName;
+	import flash.utils.Dictionary;
 
     import org.seasar.akabana.yui.core.ClassLoader;
-    import flash.utils.Dictionary;
+    import org.seasar.akabana.yui.core.error.ClassNotFoundError;
 
     public class ClassRef extends AnnotatedObjectRef
     {
@@ -32,7 +33,7 @@ CONFIG::FP10{
 
         public static var classLoader:ClassLoader = new ClassLoader();
 
-        public static function getReflector( target:Object ):ClassRef{
+        public static function getInstance( target:Object ):ClassRef{
 
             var clazz:Class = null;
             try {
@@ -52,12 +53,11 @@ CONFIG::FP10{
                 throw e;
             }
 
-            if( clazz != null ){
-				var classRef:ClassRef = null;
+			var classRef:ClassRef = null;
+			if( clazz != null ){
 				if( clazz in CLASS_REF_CACHE ){
                 	classRef = CLASS_REF_CACHE[ clazz ];
-				}
-				if( classRef == null ){
+				} else {
                     classRef = new ClassRef(clazz);
                     CLASS_REF_CACHE[ clazz ] = classRef;
                 }
@@ -478,7 +478,7 @@ CONFIG::FP10{
 
             var interfaceRef:ClassRef = null;
             for each( var interfaceXML:XML in interfacesXMLList ){
-                interfaceRef = getReflector(getTypeString(interfaceXML.@type));
+                interfaceRef = ClassRef.getInstance(getTypeString(interfaceXML.@type));
 
                 _interfaces.push( interfaceRef );
                 _interfaceMap[ interfaceRef.name ] = interfaceRef;
