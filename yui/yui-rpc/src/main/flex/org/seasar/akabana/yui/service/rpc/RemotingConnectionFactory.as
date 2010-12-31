@@ -18,15 +18,12 @@ package org.seasar.akabana.yui.service.rpc {
     import flash.net.ObjectEncoding;
     import flash.utils.Dictionary;
     
-    import org.seasar.akabana.yui.logging.Logger;
-    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.error.IllegalGatewayError;
 
     [ExcludeClass]
     public final class RemotingConnectionFactory {
-
-        private static const _logger:Logger = Logger.getLogger(RemotingConnectionFactory);
 
         private static const GATEWAY_RC_REF_CACHE:Dictionary = new Dictionary();
 
@@ -35,7 +32,7 @@ package org.seasar.akabana.yui.service.rpc {
                 gatewayUrl = ServiceGatewayUrlResolver.resolve( destination );
             }
 CONFIG::DEBUG{
-            _logger.debug( destination + " service gateway is " + gatewayUrl);
+            debug( RemotingConnectionFactory, destination + " service gateway is " + gatewayUrl);
 }
             if( gatewayUrl == null ){
                 throw new IllegalGatewayError(gatewayUrl);

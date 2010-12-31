@@ -26,14 +26,10 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
     import org.seasar.akabana.yui.framework.ns.view;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-    import org.seasar.akabana.yui.logging.Logger;
+	import org.seasar.akabana.yui.framework.logging.debug;
 
     [ExcludeClass]
     public class ValidatorCustomizer extends AbstractComponentCustomizer {
-        
-        CONFIG::DEBUG {
-            private static const _logger:Logger = Logger.getLogger(ValidatorCustomizer);
-        }
         
         public override function customizeView(container:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(container);
@@ -42,7 +38,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             try {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customizing",viewClassName,validatorClassName));
+                    debug(this,getMessage("Customizing",viewClassName,validatorClassName));
                 }
                 properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()] = {};
                 //
@@ -59,11 +55,11 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                 }
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customized",viewClassName,validatorClassName));
+                    debug(this,getMessage("Customized",viewClassName,validatorClassName));
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("CustomizeError",container,e.getStackTrace()));
+                    debug(this,getMessage("CustomizeError",container,e.getStackTrace()));
                 }
             }
         }
@@ -75,7 +71,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             try {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomizing",viewClassName,validatorClassName));
+                    debug(this,getMessage("Uncustomizing",viewClassName,validatorClassName));
                 }
                 //
                 const validatorMap:Object = properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
@@ -90,11 +86,11 @@ package org.seasar.akabana.yui.framework.customizer
                 delete properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
                 //
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomized",viewClassName,validatorClassName));
+                    debug(this,getMessage("Uncustomized",viewClassName,validatorClassName));
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("CustomizeError",container,e.getStackTrace()));
+                    debug(this,getMessage("CustomizeError",container,e.getStackTrace()));
                 }
             }
         }

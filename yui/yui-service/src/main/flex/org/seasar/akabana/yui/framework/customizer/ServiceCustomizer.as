@@ -23,17 +23,13 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-    import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceManager;
     import org.seasar.akabana.yui.service.ManagedService;
+	import org.seasar.akabana.yui.framework.logging.debug;
 
     [ExcludeClass]
     public class ServiceCustomizer extends AbstractComponentCustomizer {
-        
-        CONFIG::DEBUG {
-            private static const _logger:Logger = Logger.getLogger(ServiceCustomizer);    
-        }
 
         public override function customizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
@@ -54,7 +50,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
+                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
                 }
             }
         }
@@ -78,7 +74,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
+                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
                 }
             }
         }
@@ -90,12 +86,12 @@ package org.seasar.akabana.yui.framework.customizer
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 if(propertyRef.typeClassRef.isAssignableFrom(Service)) {
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Customizing",classRef.name,propertyRef.name));
+                        debug(this,getMessage("Customizing",classRef.name,propertyRef.name));
                     }
                     service = ServiceManager.createService(propertyRef.typeClassRef.concreteClass,propertyRef.name);
                     propertyRef.setValue(target,service);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Customized",classRef.name,propertyRef.name));
+						debug(this,getMessage("Customized",classRef.name,propertyRef.name));
                     }
                 }
             }
@@ -108,7 +104,7 @@ package org.seasar.akabana.yui.framework.customizer
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 if(propertyRef.typeClassRef.isAssignableFrom(Service)) {
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomizing",classRef.name,propertyRef.name));
+						debug(this,getMessage("Uncustomizing",classRef.name,propertyRef.name));
                     }
                     service = propertyRef.getValue(target) as Service;
                     
@@ -117,7 +113,7 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                     propertyRef.setValue(target,null);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomized",classRef.name,propertyRef.name));
+						debug(this,getMessage("Uncustomized",classRef.name,propertyRef.name));
                     }
                 }
             }

@@ -19,11 +19,17 @@ package org.seasar.akabana.yui.framework.customizer
         import __AS3__.vec.Vector;
     }
     import flash.events.IEventDispatcher;
+	
     import mx.core.IMXMLObject;
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
     import mx.core.mx_internal;
     import mx.effects.IEffect;
+	import mx.core.IUIComponent;
+	import mx.core.IVisualElement;
+	
+	import spark.components.Group;
+	
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
@@ -31,10 +37,6 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
-    import org.seasar.akabana.yui.logging.Logger;
-    import mx.core.IUIComponent;
-    import mx.core.IVisualElement;
-    import spark.components.Group;
     import org.seasar.akabana.yui.framework.util.CatalystGroupUtil;
 
     use namespace mx_internal;
@@ -42,10 +44,6 @@ package org.seasar.akabana.yui.framework.customizer
     [ExcludeClass]
     public class CatalystEventHandlerCustomizer extends EventHandlerCustomizer implements IComponentCustomizer {
         
-        CONFIG::DEBUG {
-            private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);    
-        }
-
         protected override function doCustomize(container:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {
             super.doCustomize(container,action,priority); 
             

@@ -28,9 +28,6 @@ CONFIG::FP10{
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
-    import org.seasar.akabana.yui.logging.LogManager;
-    import org.seasar.akabana.yui.logging.config.ConfigurationProvider;
-    import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
 
     [ExcludeClass]
     [Mixin]
@@ -43,18 +40,12 @@ CONFIG::FP10{
      */
     public class YuiFrameworkMixin
     {
-        {
-            LogConfigurationFactory;
-            registerClassAlias(ConfigurationProvider.FACTORY_CLASS_NAME,LogConfigurationFactory);
-        }
 
         private static var _this:YuiFrameworkMixin;
 
         private static var _container:YuiFrameworkContainer;
 
-        public static function init( flexModuleFactory:IFlexModuleFactory ):void{
-            LogManager.init();
-            
+        public static function init( flexModuleFactory:IFlexModuleFactory ):void{            
             _this = new YuiFrameworkMixin();
             _container = new YuiFrameworkContainer();
             YuiFrameworkGlobals.yui_internal::frameworkBridge = FrameworkBridge.initialize();

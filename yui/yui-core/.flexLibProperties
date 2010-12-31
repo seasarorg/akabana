@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" version="1">
   <includeClasses>
+    <classEntry path="findClass"/>
     <classEntry path="getCanonicalName"/>
     <classEntry path="getClassRef"/>
     <classEntry path="org.seasar.akabana.yui.core.ClassLoader"/>
@@ -22,6 +23,8 @@
     <classEntry path="org.seasar.akabana.yui.core.reflection.PropertyRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.Reflector"/>
     <classEntry path="org.seasar.akabana.yui.core.yui_internal"/>
+    <classEntry path="org.seasar.akabana.yui.logging.ILogger"/>
+    <classEntry path="org.seasar.akabana.yui.logging.ILoggerFactory"/>
     <classEntry path="org.seasar.akabana.yui.util.ArrayUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.StringUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.URLUtil"/>

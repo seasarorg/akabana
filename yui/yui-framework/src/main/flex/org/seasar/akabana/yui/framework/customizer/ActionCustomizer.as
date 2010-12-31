@@ -28,15 +28,11 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-    import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
+	import org.seasar.akabana.yui.framework.logging.debug;
 
     [ExcludeClass]
     public class ActionCustomizer extends AbstractEventListenerCustomizer {
-        
-        CONFIG::DEBUG {
-            private static const _logger:Logger = Logger.getLogger(ActionCustomizer);
-        }
         
         public override function customizeView(view:UIComponent ):void {
             const properties:Object = UIComponentUtil.getProperties(view);
@@ -46,7 +42,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             try {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
+                    debug(this,getMessage("Customizing",viewClassName,actionClassName));
                 }
                 //
                 const actionClassRef:ClassRef = getClassRef(actionClassName);
@@ -59,11 +55,11 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 //
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customized",viewClassName,actionClassName));
+                    debug(this,getMessage("Customized",viewClassName,actionClassName));
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
+                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
                 }
             }
         }
@@ -75,7 +71,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             try {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
+                    debug(this,getMessage("Uncustomizing",viewClassName,actionClassName));
                 }
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 if( action is ILifeCyclable ){
@@ -87,11 +83,11 @@ package org.seasar.akabana.yui.framework.customizer
                 delete properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 //
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomized",viewClassName,actionClassName));
+                    debug(this,getMessage("Uncustomized",viewClassName,actionClassName));
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
+                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
                 }
             }
         }

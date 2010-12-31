@@ -15,6 +15,8 @@
  */
 package org.seasar.akabana.yui.logging
 {
+    import flash.utils.getQualifiedClassName;
+    
     import org.seasar.akabana.yui.logging.config.AppenderConfig;
     import org.seasar.akabana.yui.logging.config.CategoryConfig;
     import org.seasar.akabana.yui.logging.config.Configuration;
@@ -42,14 +44,14 @@ package org.seasar.akabana.yui.logging
             _logManager.init(ConfigurationProvider.createConfiguration());
         }
 
-        public static function getLogger( targetClass:Class ):Logger{
-            return _logManager.getLogger( targetClass );
+        public static function getLogger( target:Object ):Logger{
+            return _logManager.getLogger( target );
         }
 
         public function LogManager(){
         }
 
-        private final function init(configuration:Configuration):void{
+        private function init(configuration:Configuration):void{
             configureAppenders( configuration.appenderMap );
             configureRootLogger( configuration.root );
             configureCategories(configuration.categoryMap);
@@ -57,7 +59,7 @@ package org.seasar.akabana.yui.logging
             CATEGORY_NAME.sort(Array.DESCENDING);
         }
 
-        private final function configureAppenders( appenderConfigMap:Object ):void{
+        private function configureAppenders( appenderConfigMap:Object ):void{
             var appender:Appender;
             for each( var appenderConfig:AppenderConfig in appenderConfigMap ){
                 var appenderClass:Class = appenderConfig.clazz;
@@ -71,7 +73,7 @@ package org.seasar.akabana.yui.logging
             }
         }
 
-        private final function configureLayout( layoutConfig:LayoutConfig ):Layout{
+        private function configureLayout( layoutConfig:LayoutConfig ):Layout{
             var layoutClass:Class = layoutConfig.clazz;
             var layout:Layout = new layoutClass() as Layout;
 
@@ -84,11 +86,11 @@ package org.seasar.akabana.yui.logging
             return layout;
         }
 
-        private final function configureRootLogger( categoryConfig:CategoryConfig ):void{
+        private function configureRootLogger( categoryConfig:CategoryConfig ):void{
             ROOT_LOGGER = configureCategory( categoryConfig );
         }
 
-        private final function configureCategory( categoryConfig:CategoryConfig ):Category{
+        private function configureCategory( categoryConfig:CategoryConfig ):Category{
             var categoryClass:Class = categoryConfig.clazz;
             var category:Category = new categoryClass() as Category;
             category.level = Level.getLevel(categoryConfig.level.value);
@@ -101,15 +103,20 @@ package org.seasar.akabana.yui.logging
             return category;
         }
 
-        private final function configureCategories( categoryConfigMap:Object ):void{
+        private function configureCategories( categoryConfigMap:Object ):void{
             for each( var categoryConfig:CategoryConfig in categoryConfigMap ){
                 configureCategory( categoryConfig );
             }
         }
 
-        private final function getLogger( targetClass:Class ):Logger{
+        private function getLogger( target:Object ):Logger{
+			var fullClassName:String;
+			if( target is String ){
+				fullClassName = target as String;
+			} else {
+				fullClassName = getCanonicalName(target);
+			}
 
-            var fullClassName:String = getCanonicalName(targetClass);
             var logger_:Logger = CACHE[ fullClassName ];
 
             if( logger_ == null ){

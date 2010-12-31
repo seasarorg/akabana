@@ -19,6 +19,7 @@ package org.seasar.akabana.yui.framework.customizer
         import __AS3__.vec.Vector;
     }
     import mx.core.UIComponent;
+	import mx.core.IVisualElement;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
@@ -26,16 +27,11 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
     import org.seasar.akabana.yui.framework.ns.view;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-    import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.framework.util.CatalystGroupUtil;
-    import mx.core.IVisualElement;
+	import org.seasar.akabana.yui.framework.logging.debug;
 
     [ExcludeClass]
     public class CatalystHelperCustomizer extends HelperCustomizer {
-        
-        CONFIG::DEBUG {
-            private static const _logger:Logger = Logger.getLogger(CatalystHelperCustomizer);
-        }
         
         public override function customizeView(container:UIComponent):void {
             super.customizeView(container);
@@ -46,7 +42,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             try {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customizing",viewClassName,helperClassName));
+                    debug(this,getMessage("Customizing",viewClassName,helperClassName));
                 }
                 const helper:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
                 const helperClassRef:ClassRef = getClassRef(helper);
@@ -67,11 +63,11 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                 }
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customized",viewClassName,helperClassName));
+					debug(this,getMessage("Customized",viewClassName,helperClassName));
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("CustomizeError",container,e.getStackTrace()));
+					debug(this,getMessage("CustomizeError",container,e.getStackTrace()));
                 }
             }
         }

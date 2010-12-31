@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.framework.ns.handler;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-    import org.seasar.akabana.yui.logging.Logger;
+	import org.seasar.akabana.yui.framework.logging.debug;
 
     internal class AbstractComponentEventCustomizer extends AbstractComponentCustomizer {
         
@@ -37,10 +37,6 @@ package org.seasar.akabana.yui.framework.customizer
         private static const ENHANCED_PREFIX:String = ENHANCED_SEPARETOR + "enhanced" + ENHANCED_SEPARETOR;
         private static const FUNCTION_OWNER:String = "$owner";
         private static const FUNCTION_PROTO:String = "$proto";
-        
-        CONFIG::DEBUG {
-            private static const _logger:Logger = Logger.getLogger(AbstractComponentEventCustomizer);
-        }
 
         protected function getEventName(functionRef:FunctionRef,componentName:String):String {
             return YuiFrameworkGlobals.namingConvention.getEventName(functionRef.name,functionRef.uri,componentName);
@@ -86,7 +82,7 @@ CONFIG::UNCAUGHT_ERROR_EVENT {
                         }
                     } catch(e:Error) {
                         CONFIG::DEBUG {
-                            _logger.debug(e.getStackTrace());
+                            debug(this,e.getStackTrace());
                         }
                         var owner:Object = callee.properties[FUNCTION_OWNER];
                         if(owner is IEventDispatcher) {
@@ -130,7 +126,7 @@ CONFIG::UNCAUGHT_ERROR_EVENT {
                         }
                     } catch(e:Error) {
                         CONFIG::DEBUG {
-                            _logger.debug(e.getStackTrace());
+                            debug(this,e.getStackTrace());
                         }
                         var owner:Object = callee.properties[FUNCTION_OWNER];
                         if(owner is IEventDispatcher) {
@@ -183,7 +179,7 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                     addEventListener(component,eventName,enhancedFunction,priority);
                     storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("EventAddEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
+                        debug(this,getMessage("EventAddEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
                     }
                 }
             }
@@ -211,7 +207,7 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                     addEventListener(component,eventName,enhancedFunction,priority);
                     storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("EventAddEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
+                        debug(this,getMessage("EventAddEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,functionRef.name));
                     }
                 }
             }
@@ -231,7 +227,7 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                         component.removeEventListener(eventName,enhancedFunction);
                         removeEnhancedEventHandler(view,enhancedEventName);
                         CONFIG::DEBUG {
-                            _logger.debug(getMessage("EventRemoveEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,functionRef.name));
+                            debug(this,getMessage("EventRemoveEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,functionRef.name));
                         }
                     }
                 }
@@ -252,7 +248,7 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                         component.removeEventListener(eventName,enhancedFunction);
                         removeEnhancedEventHandler(view,enhancedEventName);
                         CONFIG::DEBUG {
-                            _logger.debug(getMessage("EventRemoveEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,functionRef.name));
+                            debug(this,getMessage("EventRemoveEvent",view.className,componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,functionRef.name));
                         }
                     }
                 }

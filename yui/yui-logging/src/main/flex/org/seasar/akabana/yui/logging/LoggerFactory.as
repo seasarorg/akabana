@@ -15,8 +15,13 @@
  */
 package org.seasar.akabana.yui.logging
 {
-    import org.seasar.akabana.yui.logging.category.SimpleCategory;
-    
-    public class Logger extends SimpleCategory implements ILogger{
+	import flash.utils.getQualifiedClassName;
+
+    public class LoggerFactory implements ILoggerFactory{
+        
+        public function getLogger( target:Object ):ILogger{
+			var logger_:Logger = LogManager.getLogger(target);
+            return logger_;
+        }
     }
 }

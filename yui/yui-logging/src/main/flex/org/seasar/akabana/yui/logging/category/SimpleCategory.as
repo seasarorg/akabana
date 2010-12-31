@@ -21,38 +21,47 @@ package org.seasar.akabana.yui.logging.category
     [ExcludeClass]
     public class SimpleCategory extends CategoryBase{
 
-        public function fatal( message:String, erorr:Error = null ):void{
+        public function fatal( message:String,...args ):void{
             if( Level.FATAL.isGreaterOrEqual( _level )){
-                doLog( Level.FATAL, message, erorr);
+                doLog( Level.FATAL, message, args);
             }
         }
 
-        public function error( message:String, erorr:Error = null ):void{
+        public function error( message:String,...args ):void{
             if( Level.ERROR.isGreaterOrEqual( _level )){
-                doLog( Level.ERROR, message, erorr);
+                doLog( Level.ERROR, message, args);
             }
         }
 
-        public function warn( message:String, erorr:Error = null ):void{
+        public function warn( message:String,...args ):void{
             if( Level.WARN.isGreaterOrEqual( _level )){
-                doLog( Level.WARN, message, erorr);
+                doLog( Level.WARN, message, args);
             }
         }
 
-        public function info( message:String, erorr:Error = null ):void{
+        public function info( message:String,...args ):void{
             if( Level.INFO.isGreaterOrEqual( _level )){
-                doLog( Level.INFO, message, erorr);
+                doLog( Level.INFO, message, args);
             }
         }
 
-        public function debug( message:String, erorr:Error = null ):void{
+        public function debug( message:String,...args ):void{
             if( Level.DEBUG.isGreaterOrEqual( _level )){
-                doLog( Level.DEBUG, message, erorr);
+                doLog( Level.DEBUG, message, args);
             }
         }
 
-        protected function doLog( level:Level, message:String, erorr:Error=null):void{
-            callAppenders(new LoggingData( message, _level, this, erorr));
+        protected function doLog( level:Level, message:String, args:Array=null):void{
+			if( args.length == 0 ){
+            	callAppenders(new LoggingData( message, _level, this));
+			} else {
+				var e:Error = args[0] as Error;
+				if( e == null ){
+					callAppenders(new LoggingData( message, _level, this, null, args));
+				} else {
+					callAppenders(new LoggingData( message, _level, this, e, args.splice(0,1)));
+				}
+			}
         }
 
         protected function callAppenders( data:LoggingData ):void{

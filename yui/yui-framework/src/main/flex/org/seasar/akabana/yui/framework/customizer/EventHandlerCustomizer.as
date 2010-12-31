@@ -21,6 +21,7 @@ package org.seasar.akabana.yui.framework.customizer
     import flash.events.IEventDispatcher;
     import mx.core.IMXMLObject;
     import mx.core.UIComponent;
+	import mx.core.IUIComponent;
     import mx.core.UIComponentDescriptor;
     import mx.core.mx_internal;
     import mx.effects.IEffect;
@@ -29,17 +30,12 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-    import org.seasar.akabana.yui.logging.Logger;
-    import mx.core.IUIComponent;
-
+	import org.seasar.akabana.yui.framework.logging.debug;
+	
     use namespace mx_internal;
 
     [ExcludeClass]
     public class EventHandlerCustomizer extends AbstractComponentEventCustomizer implements IComponentCustomizer {
-        
-        CONFIG::DEBUG {
-            private static const _logger:Logger = Logger.getLogger(EventHandlerCustomizer);    
-        }
         
         public function customizeComponent( owner:UIComponent, component:UIComponent ):void{
             const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
@@ -51,7 +47,7 @@ package org.seasar.akabana.yui.framework.customizer
             if(ownerAction_ != null) {
                 const actionClassRef:ClassRef = getClassRef(ownerAction_);
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customizing",ownerName+"#"+componentName,actionClassRef.name));
+                    debug(this,getMessage("Customizing",ownerName+"#"+componentName,actionClassRef.name));
                 }
                 CONFIG::FP9 {
                     doCustomizingByComponent(
@@ -82,7 +78,7 @@ package org.seasar.akabana.yui.framework.customizer
                     );
                 }
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customized",ownerName+"#"+componentName,actionClassRef.name));
+                    debug(this,getMessage("Customized",ownerName+"#"+componentName,actionClassRef.name));
                 }
             }
             //
@@ -93,7 +89,7 @@ package org.seasar.akabana.yui.framework.customizer
                 for each(var ownerBehavior_:Object in ownerBehaviors_) {
                     behaviorClassRef = getClassRef(ownerBehavior_);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Customizing",ownerClassName+"#"+componentName,behaviorClassRef.name));
+                        debug(this,getMessage("Customizing",ownerClassName+"#"+componentName,behaviorClassRef.name));
                     }
                     CONFIG::FP9 {
                         doCustomizingByComponent(
@@ -124,7 +120,7 @@ package org.seasar.akabana.yui.framework.customizer
                         );
                     }
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Customized",ownerClassName+"#"+componentName,behaviorClassRef.name));
+                        debug(this,getMessage("Customized",ownerClassName+"#"+componentName,behaviorClassRef.name));
                     }
                 }
             }
@@ -140,11 +136,11 @@ package org.seasar.akabana.yui.framework.customizer
 
             if(action_ != null) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customizing",viewClassName,actionClassName));
+                    debug(this,getMessage("Customizing",viewClassName,actionClassName));
                 }
                 doCustomize(view,action_,int.MAX_VALUE>>1);
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Customized",viewClassName,actionClassName));
+                    debug(this,getMessage("Customized",viewClassName,actionClassName));
                 }
             }
             //
@@ -155,11 +151,11 @@ package org.seasar.akabana.yui.framework.customizer
                 for each(var behavior_:Object in behaviors_) {
                     behaviorClassName = getCanonicalName(behavior_);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Customizing",viewClassName,behaviorClassName));
+                        debug(this,getMessage("Customizing",viewClassName,behaviorClassName));
                     }
                     doCustomize(view,behavior_,int.MAX_VALUE>>1);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Customized",viewClassName,behaviorClassName));
+                        debug(this,getMessage("Customized",viewClassName,behaviorClassName));
                     }
                 }
             }
@@ -178,7 +174,7 @@ package org.seasar.akabana.yui.framework.customizer
             if(ownerAction_ != null) {
                 const actionClassRef:ClassRef = getClassRef(ownerAction_);
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomizing",ownerClassName+"#"+componentName,actionClassRef.name));
+                    debug(this,getMessage("Uncustomizing",ownerClassName+"#"+componentName,actionClassRef.name));
                 }
                 CONFIG::FP9 {
                     doUnCustomizingByComponent(
@@ -207,7 +203,7 @@ package org.seasar.akabana.yui.framework.customizer
                     );
                 }
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomized",ownerClassName+"#"+componentName,actionClassRef.name));
+                    debug(this,getMessage("Uncustomized",ownerClassName+"#"+componentName,actionClassRef.name));
                 }
             }
             //
@@ -218,7 +214,7 @@ package org.seasar.akabana.yui.framework.customizer
                 for each(var ownerBehavior_:Object in ownerBehaviors_) {
                     behaviorClassRef = getClassRef(ownerBehavior_);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomizing",ownerClassName+"#"+componentName,behaviorClassRef.name));
+                        debug(this,getMessage("Uncustomizing",ownerClassName+"#"+componentName,behaviorClassRef.name));
                     }
                     CONFIG::FP9 {
                         doUnCustomizingByComponent(
@@ -247,7 +243,7 @@ package org.seasar.akabana.yui.framework.customizer
                         );
                     }
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomized",ownerClassName+"#"+componentName,behaviorClassRef.name));
+                        debug(this,getMessage("Uncustomized",ownerClassName+"#"+componentName,behaviorClassRef.name));
                     }
                 }
             }
@@ -263,11 +259,11 @@ package org.seasar.akabana.yui.framework.customizer
 
             if(action != null) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomizing",viewClassName,actionClassName));
+                    debug(this,getMessage("Uncustomizing",viewClassName,actionClassName));
                 }
                 doUncustomize(view,action);
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("Uncustomized",viewClassName,actionClassName));
+                    debug(this,getMessage("Uncustomized",viewClassName,actionClassName));
                 }
             }
             //
@@ -278,11 +274,11 @@ package org.seasar.akabana.yui.framework.customizer
                 for each(var behavior_:Object in behaviors_) {
                     behaviorClassName = getCanonicalName(behavior_);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
+                        debug(this,getMessage("Uncustomizing",viewClassName,behaviorClassName));
                     }
                     doUncustomize(view,behavior_);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomized",viewClassName,behaviorClassName));
+                        debug(this,getMessage("Uncustomized",viewClassName,behaviorClassName));
                     }
                 }
             }

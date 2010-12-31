@@ -51,6 +51,9 @@ package org.seasar.akabana.yui.framework.core
     import mx.managers.CursorManager;
     import mx.managers.PopUpManager;
     import mx.managers.DragManager;
+    import org.seasar.akabana.yui.framework.logging.debug;
+    import flash.errors.IllegalOperationError;
+    import org.seasar.akabana.yui.framework.logging.Logging;
     
     use namespace yui_internal;
     
@@ -90,12 +93,12 @@ package org.seasar.akabana.yui.framework.core
             var view:UIComponent = container as UIComponent;
             if( !view.initialized ){   
                 CONFIG::DEBUG {         
-                    _logger.debug("customizeView:"+view+" is not initialize.");
+                    debug(this,"customizeView:"+view+" is not initialize.");
                 }
                 return;
             }
             CONFIG::DEBUG{
-                _logger.debug("customizeView:"+view+",owner:"+view.owner);
+                debug(this,"customizeView:"+view+",owner:"+view.owner);
             }
             var viewcustomizer_:IViewCustomizer; 
             for each( var customizer_:IElementCustomizer in _customizers ){
@@ -110,12 +113,12 @@ package org.seasar.akabana.yui.framework.core
             var view:UIComponent = container as UIComponent;
             if( !view.initialized ){     
                 CONFIG::DEBUG {
-                    _logger.debug("customizeView:"+view+" is not initialize.");       
+                    debug(this,"customizeView:"+view+" is not initialize.");       
                 }
                 return;
             }
             CONFIG::DEBUG{
-                _logger.debug("uncustomizeView:"+view+",owner:"+view.owner);
+                debug(this,"uncustomizeView:"+view+",owner:"+view.owner);
             }
             var numCustomizers:int = customizers.length;
             var viewcustomizer_:IViewCustomizer;
@@ -132,12 +135,12 @@ package org.seasar.akabana.yui.framework.core
             var component:UIComponent = child as UIComponent;
             if( !view.initialized || !component.initialized){     
                 CONFIG::DEBUG{
-                    _logger.debug("customizeComponent:"+view+" is not initialize.");       
+                    debug(this,"customizeComponent:"+view+" is not initialize.");       
                 }
                 return;
             }
             CONFIG::DEBUG{
-                _logger.debug("customizeComponent:start, "+child+",owner:"+container);
+                debug(this,"customizeComponent:start, "+child+",owner:"+container);
             }
             var componentcustomizer_:IComponentCustomizer;
             for each( var customizer_:IElementCustomizer in _customizers ){
@@ -147,7 +150,7 @@ package org.seasar.akabana.yui.framework.core
                 }
             }
             CONFIG::DEBUG{
-                _logger.debug("customizeComponent:end, "+child+",owner:"+container);
+                debug(this,"customizeComponent:end, "+child+",owner:"+container);
             }
         }
         
@@ -156,12 +159,12 @@ package org.seasar.akabana.yui.framework.core
             var component:UIComponent = child as UIComponent;
             if( !view.initialized ){     
                 CONFIG::DEBUG{       
-                    _logger.debug("uncustomizeComponent:"+view+" is not initialize.");
+                    debug(this,"uncustomizeComponent:"+view+" is not initialize.");
                 }
                 return;
             }
             CONFIG::DEBUG{
-                _logger.debug("uncustomizeComponent:start, "+child+",owner:"+container);
+                debug(this,"uncustomizeComponent:start, "+child+",owner:"+container);
             }
             var numCustomizers:int = customizers.length;
             var componentcustomizer_:IComponentCustomizer;
@@ -172,7 +175,7 @@ package org.seasar.akabana.yui.framework.core
                 }
             }
             CONFIG::DEBUG{
-                _logger.debug("uncustomizeComponent:end, "+child+",owner:"+container);
+                debug(this,"uncustomizeComponent:end, "+child+",owner:"+container);
             }
         }        
         
@@ -180,8 +183,9 @@ package org.seasar.akabana.yui.framework.core
             CONFIG::DEBUG_EVENT{
                 _logger.info("[EVENT] applicationInitCompleteHandler"+event+","+event.target);
             }
+			Logging.initialize();
             CONFIG::DEBUG{
-                _logger.debug("applicationInitCompleteHandler:"+event+","+event.target);
+                debug(this,"applicationInitCompleteHandler:"+event+","+event.target);
             }
         }
         
@@ -190,11 +194,17 @@ package org.seasar.akabana.yui.framework.core
                 _logger.info("[EVENT] applicationPreloaderDoneHandler"+event+","+event.target);
             }
             CONFIG::DEBUG{
-                _logger.debug("applicationPreloaderDoneHandler:"+event+","+event.target);
+                debug(this,"applicationPreloaderDoneHandler:"+event+","+event.target);
             }
+			if( event.currentTarget is ISystemManager ){
+				var sm:ISystemManager = event.currentTarget as ISystemManager;
+				super.yui_internal::systemManagerMonitoringStart(sm as DisplayObject);
+			} else {
+				throw new IllegalOperationError("Illegal SystemManager"+event.currentTarget);
+			}
             YuiFrameworkGlobals.initNamingConvention();
             CONFIG::DEBUG{
-                _logger.debug(getMessage("ApplicationConventions",YuiFrameworkGlobals.public::namingConvention.conventions.toString()));
+                debug(this,getMessage("ApplicationConventions",YuiFrameworkGlobals.public::namingConvention.conventions.toString()));
             }            
         }
         
@@ -203,7 +213,7 @@ package org.seasar.akabana.yui.framework.core
                 _logger.info("[EVENT] applicationCompleteHandler"+event+","+event.target);
             }
             CONFIG::DEBUG{
-                _logger.debug("applicationCompleteHandler:"+event+","+event.target);
+                debug(this,"applicationCompleteHandler:"+event+","+event.target);
             }
             applicationMonitoringStop(event.currentTarget as DisplayObject);            
         }
@@ -286,7 +296,7 @@ package org.seasar.akabana.yui.framework.core
                 result.push(customizer);
             }
             CONFIG::DEBUG{
-                _logger.debug("default customizers is "+result);
+                debug(this,"default customizers is "+result);
             }
             return result;
         }
@@ -296,26 +306,26 @@ package org.seasar.akabana.yui.framework.core
                 _customizers = getDefaultCustomizers();
             }
             CONFIG::DEBUG{
-                _logger.debug(getMessage("ViewComponentAssembleStart"));
+                debug(this,getMessage("ViewComponentAssembleStart"));
             }
             
             var viewMap:Object = ViewComponentRepository.componentMap;
             var view:UIComponent;
             for ( var viewName:String in viewMap ){
                 CONFIG::DEBUG{
-                    _logger.debug(getMessage("ViewComponentAssembleing",viewName));
+                    debug(this,getMessage("ViewComponentAssembleing",viewName));
                 }
                 view = ViewComponentRepository.getComponent(viewName) as UIComponent;
                 if( view != null && view.initialized ){
                     processAssembleView(view);
                 }
                 CONFIG::DEBUG{
-                    _logger.debug(getMessage("ViewComponentAssembled",viewName));
+                    debug(this,getMessage("ViewComponentAssembled",viewName));
                 }
             }
             
             CONFIG::DEBUG{
-                _logger.debug(getMessage("ViewComponentAssembleEnd"));
+                debug(this,getMessage("ViewComponentAssembleEnd"));
             }
             _isApplicationStarted = true;
             callLater( processApplicationStart );
@@ -372,7 +382,6 @@ package org.seasar.akabana.yui.framework.core
         }
         
         yui_internal override function systemManagerMonitoringStart( root:DisplayObject ):void{
-            super.yui_internal::systemManagerMonitoringStart(root);
             root.addEventListener(
                 FlexEvent.INIT_COMPLETE,
                 applicationInitCompleteHandler,

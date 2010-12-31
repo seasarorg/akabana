@@ -29,13 +29,16 @@ package org.seasar.akabana.yui.logging
         public var timeStamp:Number;
 
         public var error:Error;
+		
+		public var args:Array;
 
-        public function LoggingData( message:String, level:Level=null, logger:Category=null, error:Error=null){
+        public function LoggingData( message:String, level:Level=null, logger:Category=null, error:Error=null, args:Array=null){
             this.timeStamp = new Date().time;
             this.categoryName = logger.name;
             this.message = message;
             this.level = level;
             this.error = error;
+			this.args = args;
         }
     }
 }

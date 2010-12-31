@@ -28,14 +28,10 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.yui_internal;
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.rule.IStateless;
-    import org.seasar.akabana.yui.logging.Logger;
+	import org.seasar.akabana.yui.framework.logging.debug;
     import flash.utils.Dictionary;
 
     internal class AbstractComponentCustomizer implements IViewCustomizer {
-        
-        CONFIG::DEBUG {
-            private static const _logger:Logger = Logger.getLogger(IViewCustomizer);
-        }
         
         protected static const INSTANCE_REF_CACHE:Dictionary = new Dictionary();
         
@@ -55,25 +51,25 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        protected static function newInstance(classRef:ClassRef,...args):Object{
+        protected function newInstance(classRef:ClassRef,...args):Object{
             var result:Object = null;
             if( classRef.isAssignableFrom(IStateless)){
                 result = classRef.newInstance.apply(null,args);
                 CONFIG::DEBUG {
-                    _logger.debug("Stateless instance created:" + classRef.name);
+                    debug(this,"Stateless instance created:" + classRef.name);
                 }
             } else {
                 if( classRef.name in INSTANCE_REF_CACHE ){
                     result = INSTANCE_REF_CACHE[ classRef.name ];
                     
                     CONFIG::DEBUG {
-                        _logger.debug("Stateful instance reused:" + classRef.name);
+                        debug(this,"Stateful instance reused:" + classRef.name);
                     }                    
                 } else {
                     result = classRef.newInstance.apply(null,args);
 					INSTANCE_REF_CACHE[ classRef.name ] = result;
                     CONFIG::DEBUG {
-                        _logger.debug("Stateful instance created and cached:" + classRef.name);
+                        debug(this,"Stateful instance created and cached:" + classRef.name);
                     }
                 }
             }

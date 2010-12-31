@@ -30,8 +30,8 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
-    import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import org.seasar.akabana.yui.framework.logging.debug;
     
     use namespace yui_internal;
     
@@ -39,11 +39,7 @@ package org.seasar.akabana.yui.framework.core
     internal class YuiFrameworkContainerCore implements IYuiFrameworkContainer
     {
         include "../Version.as";
-        
-        CONFIG::DEBUG {
-            protected static const _logger:Logger = Logger.getLogger(IYuiFrameworkContainer);
-        }
-        
+       
         protected var _callTimer:Timer = new Timer(100,1);
         
         CONFIG::FP9{
@@ -122,7 +118,7 @@ package org.seasar.akabana.yui.framework.core
         
         protected function registerRootDisplayObject(root:DisplayObject):void{
             CONFIG::DEBUG{
-                _logger.debug("add rootDisplayObject"+root);
+                debug(YuiFrameworkContainerCore,"add rootDisplayObject"+root);
             }
             _rootDisplayObjects.push(root);
             _rootDisplayObjectMap[ root ] = _rootDisplayObjects.length-1;
@@ -130,7 +126,7 @@ package org.seasar.akabana.yui.framework.core
         
         protected function unregisterRootDisplayObject(root:DisplayObject):void{
             CONFIG::DEBUG{
-                _logger.debug("remove rootDisplayObject"+root);
+                debug(YuiFrameworkContainerCore,"remove rootDisplayObject"+root);
             }
             if( root in _rootDisplayObjectMap ){
                 var index:int = _rootDisplayObjectMap[ root ] as int;

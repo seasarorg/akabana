@@ -25,15 +25,11 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-    import org.seasar.akabana.yui.logging.Logger;
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
+	import org.seasar.akabana.yui.framework.logging.debug;
 
     [ExcludeClass]
     public class BehaviorCustomizer extends AbstractEventListenerCustomizer {
-        
-        CONFIG::DEBUG {
-            private static const _logger:Logger = Logger.getLogger(BehaviorCustomizer);
-        }
         
         public override function customizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
@@ -56,7 +52,7 @@ package org.seasar.akabana.yui.framework.customizer
                     if( YuiFrameworkGlobals.namingConvention.isBehaviorOfView( viewClassName, prop.typeClassRef.name )){
 
                         CONFIG::DEBUG {
-                            _logger.debug(getMessage("Customizing",viewClassName,prop.typeClassRef.name));
+                            debug(this,getMessage("Customizing",viewClassName,prop.typeClassRef.name));
                         }
                         behavior = newInstance(prop.typeClassRef);
                         prop.setValue(action,behavior);
@@ -68,12 +64,12 @@ package org.seasar.akabana.yui.framework.customizer
                             (behavior as ILifeCyclable).start();
                         }
                         CONFIG::DEBUG {
-                            _logger.debug(getMessage("Customized",viewClassName,prop.typeClassRef.name));
+                            debug(this,getMessage("Customized",viewClassName,prop.typeClassRef.name));
                         }
                     } else {
                         CONFIG::DEBUG {
                             if( YuiFrameworkGlobals.namingConvention.isBehaviorClassName(prop.typeClassRef.name)){
-                                _logger.debug(getMessage("CustomizeWarning",prop.typeClassRef.name+"isn't the Behavior Class of "+viewClassName));
+                                debug(this,getMessage("CustomizeWarning",prop.typeClassRef.name+"isn't the Behavior Class of "+viewClassName));
                             }
                         }
                     }
@@ -81,7 +77,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
+                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
                 }
             }
 
@@ -107,7 +103,7 @@ package org.seasar.akabana.yui.framework.customizer
 
                     behaviorClassName = getCanonicalName(behavior);
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomizing",viewClassName,behaviorClassName));
+                        debug(this,getMessage("Uncustomizing",viewClassName,behaviorClassName));
                     }
                     
                     if( behavior is ILifeCyclable ){
@@ -116,12 +112,12 @@ package org.seasar.akabana.yui.framework.customizer
                     super.doEventUncustomize(view,behavior);
 
                     CONFIG::DEBUG {
-                        _logger.debug(getMessage("Uncustomized",viewClassName,behaviorClassName));
+                        debug(this,getMessage("Uncustomized",viewClassName,behaviorClassName));
                     }
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    _logger.debug(getMessage("CustomizeError",view,e.getStackTrace()));
+                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
                 }
             }
         }
