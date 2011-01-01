@@ -39,8 +39,8 @@
     <classEntry path="org.seasar.akabana.yui.framework.ns.handler"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.helper"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.logic"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.part"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.service"/>
-    <classEntry path="org.seasar.akabana.yui.framework.ns.view"/>
     <classEntry path="org.seasar.akabana.yui.framework.rule.IAction"/>
     <classEntry path="org.seasar.akabana.yui.framework.rule.IBehavior"/>
     <classEntry path="org.seasar.akabana.yui.framework.rule.IHelper"/>
@@ -54,12 +54,12 @@
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/en_US/errors.properties" sourcePath="locale/en_US/errors.properties"/>
-    <resourceEntry destPath="locale/ja_JP/errors.properties" sourcePath="locale/ja_JP/errors.properties"/>
     <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
-    <resourceEntry destPath="locale/en_US/messages.properties" sourcePath="locale/en_US/messages.properties"/>
+    <resourceEntry destPath="locale/ja_JP/errors.properties" sourcePath="locale/ja_JP/errors.properties"/>
     <resourceEntry destPath="locale/ja_JP/yui_framework.properties" sourcePath="locale/ja_JP/yui_framework.properties"/>
-    <resourceEntry destPath="locale/en_US/application.properties" sourcePath="locale/en_US/application.properties"/>
+    <resourceEntry destPath="locale/en_US/messages.properties" sourcePath="locale/en_US/messages.properties"/>
     <resourceEntry destPath="locale/en_US/yui_framework.properties" sourcePath="locale/en_US/yui_framework.properties"/>
+    <resourceEntry destPath="locale/en_US/application.properties" sourcePath="locale/en_US/application.properties"/>
     <resourceEntry destPath="locale/ja_JP/messages.properties" sourcePath="locale/ja_JP/messages.properties"/>
     <resourceEntry destPath="locale/ja_JP/application.properties" sourcePath="locale/ja_JP/application.properties"/>
   </includeResources>
