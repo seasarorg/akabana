@@ -25,7 +25,7 @@ package org.seasar.akabana.yui.core.reflection
 
         protected static const excludeDeclaredByFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|(air\.)|(org.seasar\.))/);
 
-        protected static const excludeUriFilterRegExp:RegExp = new RegExp(/^(http:\/\/adobe.com\/AS3\/2006\/builtin)/);
+        protected static const excludeUriFilterRegExp:RegExp = new RegExp(/^(http:\/\/adobe.com)/);
 
         protected static function getTypeString( type:String ):String{
             if( type != TYPE_ANY){

@@ -23,7 +23,6 @@
     <classEntry path="org.seasar.akabana.yui.service.resonder.Responder"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>
     <classEntry path="org.seasar.akabana.yui.service.local.LocalServiceInvoker"/>
-    <classEntry path="org.seasar.akabana.yui.service.local.LocalServiceMethod"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/en_US/services.properties" sourcePath="locale/en_US/services.properties"/>

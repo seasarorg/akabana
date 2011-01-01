@@ -26,7 +26,7 @@ package org.seasar.akabana.yui.service.ds.local
     
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.local.LocalServiceInvoker;
-    import org.seasar.akabana.yui.service.local.LocalServiceMethod;
+    import org.seasar.akabana.yui.core.reflection.FunctionInvoker;
     import org.seasar.akabana.yui.util.StringUtil;
     
     use namespace mx_internal;
@@ -54,11 +54,11 @@ package org.seasar.akabana.yui.service.ds.local
             try{
                 const value:Object = serviceInvoker.invoke.apply(null,[lpackage,lservice,name].concat(args));
                 const resultEvent:ResultEvent = ResultEvent.createEvent(value, token, message);
-                new LocalServiceMethod(dispatchRpcEvent, [resultEvent]);
+                new FunctionInvoker(dispatchRpcEvent, [resultEvent]).invokeDelay();
             } catch( e:Error ){
                 var fault:Fault = new Fault(e.errorID.toString(),e.name,e.message);
                 var faultEvent:FaultEvent = FaultEvent.createEvent(fault, token,message);
-                new LocalServiceMethod(dispatchRpcEvent, [faultEvent]);
+                new FunctionInvoker(dispatchRpcEvent, [faultEvent]).invokeDelay();
             }
             
             return token;

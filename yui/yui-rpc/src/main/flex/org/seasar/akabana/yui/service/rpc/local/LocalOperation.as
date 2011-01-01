@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.service.rpc.local
     import org.seasar.akabana.yui.service.event.FaultStatus;
     import org.seasar.akabana.yui.service.event.ResultEvent;
     import org.seasar.akabana.yui.service.local.LocalServiceInvoker;
-    import org.seasar.akabana.yui.service.local.LocalServiceMethod;
+    import org.seasar.akabana.yui.core.reflection.FunctionInvoker;
     import org.seasar.akabana.yui.service.rpc.AbstractRpcOperation;
     import org.seasar.akabana.yui.service.rpc.AbstractRpcService;
     import org.seasar.akabana.yui.service.rpc.RpcPendingCall;
@@ -46,10 +46,10 @@ package org.seasar.akabana.yui.service.rpc.local
             
             try{
                 const value:Object = serviceInvoker.invoke.apply(null,[lpackage,service.name,name].concat(operationArgs));
-                new LocalServiceMethod(resultCallBack,[value,pendingCall]);
+                new FunctionInvoker(resultCallBack,[value,pendingCall]).invokeDelay();
                 
             } catch( e:Error ){
-                new LocalServiceMethod(faultCallBack,[e,pendingCall]);
+                new FunctionInvoker(faultCallBack,[e,pendingCall]).invokeDelay();
             }
             
             return pendingCall;

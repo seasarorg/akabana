@@ -75,10 +75,11 @@ CONFIG::FP10{
             const declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
             const uri_:String = rootDescribeTypeXml.@uri.toString();
 
-            return (!(
-                excludeDeclaredByFilterRegExp.test(declaredBy_) ||
-                excludeUriFilterRegExp.test(uri_)
-            )) && (name_.indexOf("_") != 0);
+            return (name_.indexOf("_") != 0) && 
+				(!(
+	                excludeDeclaredByFilterRegExp.test(declaredBy_) ||
+	                excludeUriFilterRegExp.test(uri_)
+	            ));
         }
 
         private static function isTargetVariable( rootDescribeTypeXml:XML ):Boolean{
@@ -86,20 +87,23 @@ CONFIG::FP10{
             const declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
             const uri_:String = rootDescribeTypeXml.@uri.toString();
 
-            return (!(
-                excludeDeclaredByFilterRegExp.test(declaredBy_) ||
-                excludeUriFilterRegExp.test(uri_)
-            )) && (name_.indexOf("_") != 0);
+            return (name_.indexOf("_") != 0) &&
+				(!(
+	                excludeDeclaredByFilterRegExp.test(declaredBy_) ||
+	                excludeUriFilterRegExp.test(uri_)
+	            ));
         }
 
         private static function isTargetFunction( rootDescribeTypeXml:XML ):Boolean{
-            const name_:String = rootDescribeTypeXml.@declaredBy.toString();
+            const name_:String = rootDescribeTypeXml.@name.toString();
+			const declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
             const uri_:String = rootDescribeTypeXml.@uri.toString();
 
-            return !(
-                excludeDeclaredByFilterRegExp.test(name_) ||
-                excludeUriFilterRegExp.test(uri_)
-            );
+            return (name_.indexOf("_") != 0) &&
+				(!(
+	                excludeDeclaredByFilterRegExp.test(declaredBy_) ||
+	                excludeUriFilterRegExp.test(uri_)
+				));
         }
 
         public var concreteClass:Class;

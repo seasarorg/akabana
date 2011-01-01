@@ -31,6 +31,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
+	import org.seasar.akabana.yui.core.reflection.FunctionInvoker;
     import org.seasar.akabana.yui.framework.logging.debug;
     
     use namespace yui_internal;
@@ -39,8 +40,6 @@ package org.seasar.akabana.yui.framework.core
     internal class YuiFrameworkContainerCore implements IYuiFrameworkContainer
     {
         include "../Version.as";
-       
-        protected var _callTimer:Timer = new Timer(100,1);
         
         CONFIG::FP9{
             protected var _customizers:Array;
@@ -98,16 +97,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public function callLater(callBack:Function):void{
-            _callTimer
-            .addEventListener(
-                TimerEvent.TIMER,
-                function timerHandler(event:TimerEvent):void{
-                    _callTimer.stop();
-                    _callTimer.removeEventListener(TimerEvent.TIMER,arguments.callee);
-                    callBack.call();
-                }
-            );
-            _callTimer.start();
+            new FunctionInvoker(callBack).invokeDelay();
         }
         
         CONFIG::DEBUG{
