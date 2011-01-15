@@ -18,17 +18,7 @@ package org.seasar.akabana.yui.core.event
     import flash.events.Event;
     import flash.events.IEventDispatcher;
 
-    public function notify(d:IEventDispatcher,type:String,...args):void{  
-        var n:Notification;
-        
-        if( args.length > 1 ){
-            n = new Notification(type,args);
-        } else if( args.length == 1 ){
-            n = new Notification(type,args[0]);
-        } else {
-            n = new Notification(type,null);
-        }
-        
-        dispatchEvent(d,n);
+    public function dispatchEvent(d:IEventDispatcher,e:Event):void{  
+        d.dispatchEvent(e);
     }
 }

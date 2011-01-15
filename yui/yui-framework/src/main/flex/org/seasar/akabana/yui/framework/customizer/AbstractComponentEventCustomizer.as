@@ -18,18 +18,19 @@ package org.seasar.akabana.yui.framework.customizer
     import flash.events.Event;
     import flash.events.IEventDispatcher;
     import flash.utils.Dictionary;
-
+    
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
-
+    
+    import org.seasar.akabana.yui.core.event.Command;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.framework.ns.handler;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-	import org.seasar.akabana.yui.framework.logging.debug;
 
     internal class AbstractComponentEventCustomizer extends AbstractComponentCustomizer {
         
@@ -76,7 +77,11 @@ CONFIG::UNCAUGHT_ERROR_EVENT {
                     try {
                         var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
                         if(proto != null) {
-                            proto.apply(null,[event]);
+                            if( event is Command ){
+                                proto.apply(null,[(event as Command).data]);
+                            } else {
+                                proto.apply(null,[event]);
+                            }
                         } else {
                             throw new Error("EnhancedEventHandler doesn't have proto Handler");
                         }
@@ -99,7 +104,11 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                     var callee:Object = arguments.callee;
                     var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
                     if(proto != null) {
-                        proto.apply(null,[event]);
+						if( event is Command ){
+							proto.apply(null,[(event as Command).data]);
+						} else {
+							proto.apply(null,[event]);
+						}
                     } else {
                         throw new Error("EnhancedEventHandler doesn't have proto Handler");
                     }
