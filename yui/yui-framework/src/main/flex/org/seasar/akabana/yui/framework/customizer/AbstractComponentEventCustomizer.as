@@ -23,6 +23,7 @@ package org.seasar.akabana.yui.framework.customizer
     import mx.core.UIComponentDescriptor;
     
     import org.seasar.akabana.yui.core.event.Command;
+    import org.seasar.akabana.yui.core.event.Notification;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
@@ -44,7 +45,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         protected function getEnhancedEventName(viewName:String,eventName:String,listener:Object):String {
-            var listenerClassName:String = ClassRef.getCanonicalName(listener);
+            var listenerClassName:String = getCanonicalName(listener);
             return viewName + ENHANCED_PREFIX + listenerClassName + ENHANCED_SEPARETOR + eventName;
         }
 
@@ -79,7 +80,9 @@ CONFIG::UNCAUGHT_ERROR_EVENT {
                         if(proto != null) {
                             if( event is Command ){
                                 proto.apply(null,[(event as Command).data]);
-                            } else {
+                            } else if( event is Notification ){
+								proto.apply(null,[(event as Notification).data]);
+							} else {
                                 proto.apply(null,[event]);
                             }
                         } else {
@@ -106,6 +109,8 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                     if(proto != null) {
 						if( event is Command ){
 							proto.apply(null,[(event as Command).data]);
+						} else if( event is Notification ){
+							proto.apply(null,[(event as Notification).data]);
 						} else {
 							proto.apply(null,[event]);
 						}
