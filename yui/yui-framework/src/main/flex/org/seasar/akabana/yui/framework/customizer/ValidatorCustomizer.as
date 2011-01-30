@@ -141,10 +141,10 @@ package org.seasar.akabana.yui.framework.customizer
 
         protected function setViewComponents(container:UIComponent,validatorClassRef:ClassRef,validator:Object):void{
             CONFIG::FP9 {
-                const viewProps:Array = getClassRef(getCanonicalName(container)).properties;
+                const viewProps:Array = getClassRef(container).properties;
             }
             CONFIG::FP10 {
-                const viewProps:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
+                const viewProps:Vector.<PropertyRef> = getClassRef(container).properties;
             }
             var validatorPropRef:PropertyRef;
             for each(var viewProp:PropertyRef in viewProps) {

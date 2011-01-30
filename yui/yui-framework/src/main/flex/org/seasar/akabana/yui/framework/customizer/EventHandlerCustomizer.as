@@ -288,10 +288,10 @@ package org.seasar.akabana.yui.framework.customizer
             const actionClassRef:ClassRef = getClassRef(action);
             //for children
             CONFIG::FP9 {
-                var props:Array = getClassRef(getCanonicalName(container)).properties;
+                var props:Array = getClassRef(container).properties;
             }
             CONFIG::FP10 {
-                var props:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
+                var props:Vector.<PropertyRef> = getClassRef(container).properties;
             }
             
             var child:Object;
@@ -405,10 +405,10 @@ package org.seasar.akabana.yui.framework.customizer
             const actionClassRef:ClassRef = getClassRef(action);
             //for children
             CONFIG::FP9 {
-                const props:Array = getClassRef(getCanonicalName(container)).properties;
+                const props:Array = getClassRef(container).properties;
             }
             CONFIG::FP10 {
-                const props:Vector.<PropertyRef> = getClassRef(getCanonicalName(container)).properties;
+                const props:Vector.<PropertyRef> = getClassRef(container).properties;
             }
 
             var child:Object;
