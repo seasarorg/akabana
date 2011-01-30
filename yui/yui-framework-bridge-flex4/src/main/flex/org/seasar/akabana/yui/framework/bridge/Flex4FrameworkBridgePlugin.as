@@ -65,7 +65,7 @@ package org.seasar.akabana.yui.framework.bridge
         }
 
         public function isContainer(component:Object):Boolean{
-            return !( component is Skin ) && ( component is SkinnableContainer || component is Group || component is IVisualElementContainer );
+            return !( component is Skin ) && ( component is IVisualElementContainer ) && ( component is Group || component is SkinnableContainer );
         }
         
         public function isComponent(component:Object):Boolean{
