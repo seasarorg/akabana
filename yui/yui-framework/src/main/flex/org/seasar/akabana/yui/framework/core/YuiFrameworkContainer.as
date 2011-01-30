@@ -262,11 +262,13 @@ package org.seasar.akabana.yui.framework.core
             app.setVisible(true,true);
             super.processApplicationStart();
 			
-			var componentMap:Dictionary = ViewComponentRepository.componentMap;
-			for each (var component:UIComponent in componentMap) 
+			var allView:Dictionary = ViewComponentRepository.allView;
+			var fevent:FrameworkEvent;
+			for each (var view:UIComponent in allView) 
 			{
-				if( component.hasEventListener(FrameworkEvent.APPLICATION_START)){
-					component.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+				if( view.hasEventListener(FrameworkEvent.APPLICATION_START)){
+					fevent = new FrameworkEvent(FrameworkEvent.APPLICATION_START);
+					view.dispatchEvent( fevent );
 				}
 			}			
         }
@@ -309,9 +311,9 @@ package org.seasar.akabana.yui.framework.core
                 debug(this,getMessage("ViewComponentAssembleStart"));
             }
             
-            var viewMap:Object = ViewComponentRepository.componentMap;
+            var allView:Dictionary = ViewComponentRepository.allView;
             var view:UIComponent;
-            for ( var viewName:String in viewMap ){
+            for ( var viewName:String in allView ){
                 CONFIG::DEBUG{
                     debug(this,getMessage("ViewComponentAssembleing",viewName));
                 }

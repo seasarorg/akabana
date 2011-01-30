@@ -24,9 +24,9 @@ package org.seasar.akabana.yui.framework.core.event
         
         public static const APPLICATION_MONITOR_STOP:String = "applicationMonitorStop";
         
-        public static const ASSEMBLE_COMPELETE:String = "assembleComplete";
-        
         public static const APPLICATION_START:String = "applicationStart";
+
+		public static const VIEW_INITIALIZED:String = "viewInitialized";
         
         public function FrameworkEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
         {

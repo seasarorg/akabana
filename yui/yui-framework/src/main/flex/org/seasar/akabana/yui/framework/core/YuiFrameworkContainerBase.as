@@ -272,8 +272,8 @@ package org.seasar.akabana.yui.framework.core
         
         protected function processAssembleView( view:DisplayObjectContainer ):void{
             customizeView(view);
-            if( view.hasEventListener(FrameworkEvent.ASSEMBLE_COMPELETE)){
-                view.dispatchEvent( new FrameworkEvent(FrameworkEvent.ASSEMBLE_COMPELETE));
+            if( view.hasEventListener(FrameworkEvent.VIEW_INITIALIZED)){
+                view.dispatchEvent( new FrameworkEvent(FrameworkEvent.VIEW_INITIALIZED));
             }
         }
         
