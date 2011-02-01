@@ -43,10 +43,10 @@ CONFIG::FP10{
 CONFIG::FP9{
         function getChildren(component:DisplayObjectContainer):Array;
 }
-import flash.display.DisplayObject;
 
 CONFIG::FP10{
         function getChildren(component:DisplayObjectContainer):Vector.<DisplayObject>;
 }
+
     }
 }
