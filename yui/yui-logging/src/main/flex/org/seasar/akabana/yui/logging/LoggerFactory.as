@@ -16,6 +16,8 @@
 package org.seasar.akabana.yui.logging
 {
 	import flash.utils.getQualifiedClassName;
+	import org.seasar.akabana.yui.core.logging.ILogger;
+	import org.seasar.akabana.yui.core.logging.ILoggerFactory;
 
     public class LoggerFactory implements ILoggerFactory{
         

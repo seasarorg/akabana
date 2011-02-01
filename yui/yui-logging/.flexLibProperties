@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" version="1">
   <includeClasses>
-    <classEntry path="org.seasar.akabana.yui.logging.Appender"/>
-    <classEntry path="org.seasar.akabana.yui.logging.Category"/>
-    <classEntry path="org.seasar.akabana.yui.logging.Layout"/>
     <classEntry path="org.seasar.akabana.yui.logging.Level"/>
-    <classEntry path="org.seasar.akabana.yui.logging.LogManager"/>
     <classEntry path="org.seasar.akabana.yui.logging.Logger"/>
     <classEntry path="org.seasar.akabana.yui.logging.LoggingData"/>
     <classEntry path="org.seasar.akabana.yui.logging.appender.AppenderBase"/>

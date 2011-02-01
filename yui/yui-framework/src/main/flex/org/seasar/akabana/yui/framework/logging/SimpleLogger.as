@@ -15,7 +15,7 @@
 */
 package org.seasar.akabana.yui.framework.logging
 {
-	import org.seasar.akabana.yui.logging.ILogger;
+	import org.seasar.akabana.yui.core.logging.ILogger;
 	
 	public class SimpleLogger implements ILogger{
 		

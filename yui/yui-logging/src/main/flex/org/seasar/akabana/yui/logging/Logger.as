@@ -16,6 +16,7 @@
 package org.seasar.akabana.yui.logging
 {
     import org.seasar.akabana.yui.logging.category.SimpleCategory;
+    import org.seasar.akabana.yui.core.logging.ILogger;
     
     public class Logger extends SimpleCategory implements ILogger{
     }
