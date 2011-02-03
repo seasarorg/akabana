@@ -11,7 +11,7 @@ package org.seasar.akabana.yui.core.data
 
     public class Converter
     {   
-        private static const cloneBuffer:ByteArray = new ByteArray();
+        private static var cloneBuffer:ByteArray = new ByteArray();
         
         private static var _instance:Converter;
                 
@@ -73,7 +73,13 @@ package org.seasar.akabana.yui.core.data
             if( value == null ){
                 return null;
             }
-            cloneBuffer.clear();
+            
+            CONFIG::FP10 {
+                cloneBuffer.clear();
+            }
+            CONFIG::FP9 {
+                cloneBuffer = new ByteArray();
+            }
             cloneBuffer.position = 0;
             
             cloneBuffer.writeObject(value);
