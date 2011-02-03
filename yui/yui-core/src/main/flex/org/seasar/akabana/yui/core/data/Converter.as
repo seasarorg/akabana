@@ -93,8 +93,7 @@ package org.seasar.akabana.yui.core.data
                 return null;
             }
             var propertyName:String = classRef.name;
-            var vectorClass:ClassRef = getClassRef(propertyName);
-            var result:Object = vectorClass.newInstance();
+            var result:Object = classRef.newInstance();
             var numLen:int = value.length;
             var className:String = propertyName.substring(ClassRef.VECTOR_CLASS.length,propertyName.length-1);
             for (var i:int = 0; i < numLen; i++)
