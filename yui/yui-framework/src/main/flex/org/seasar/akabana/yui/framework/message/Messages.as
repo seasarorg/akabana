@@ -48,7 +48,7 @@ package org.seasar.akabana.yui.framework.message
             return substitute(
                         ResourceManager.getInstance().getString(_bundleName,resourceName),
                         parameters
-                    )
+                    );
         }
         
         protected function substitute(str:String, ... args):String{
