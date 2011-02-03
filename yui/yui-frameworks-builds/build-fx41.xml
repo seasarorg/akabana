@@ -200,8 +200,6 @@
         <attribute name="projectdir" />
         <attribute name="flashplayer" />
         <sequential>
-            <property name="project-locale-ja-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}ja_JP${file.separator}" />
-            <property name="project-locale-en-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}en_US${file.separator}" />
             <property name="project-full-name" value="@{projectname}-${LIB_VERSION}" />
 
             <compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="@{flashplayer}" locale="">
@@ -219,20 +217,6 @@
 
                 <namespace uri="${LIB_NAMESPACE}" manifest="@{projectdir}${FLEX_MANIFEST_PATH}" />
 
-                <include-file name="locale/ja_JP/yui_framework.properties" path="${project-locale-ja-dir}yui_framework.properties" />
-                <include-file name="locale/ja_JP/yui_core.properties" path="${project-locale-ja-dir}yui_core.properties" />
-                <include-file name="locale/ja_JP/log4yui.properties" path="${project-locale-ja-dir}log4yui.properties" />
-                <include-file name="locale/ja_JP/application.properties" path="${project-locale-ja-dir}application.properties" />
-                <include-file name="locale/ja_JP/messages.properties" path="${project-locale-ja-dir}messages.properties" />
-                <include-file name="locale/ja_JP/errors.properties" path="${project-locale-ja-dir}errors.properties" />
-
-                <include-file name="locale/en_US/yui_framework.properties" path="${project-locale-en-dir}yui_framework.properties" />
-                <include-file name="locale/en_US/yui_core.properties" path="${project-locale-en-dir}yui_core.properties" />
-                <include-file name="locale/en_US/log4yui.properties" path="${project-locale-en-dir}log4yui.properties" />
-                <include-file name="locale/en_US/application.properties" path="${project-locale-en-dir}application.properties" />
-                <include-file name="locale/en_US/messages.properties" path="${project-locale-en-dir}messages.properties" />
-                <include-file name="locale/en_US/errors.properties" path="${project-locale-en-dir}errors.properties" />
-
                 <include-file name="defaults.css" path="@{projectdir}${FLEX_DEFAULT_CSS_PATH}" />
 
                 <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
@@ -247,8 +231,6 @@
         <attribute name="projectdir" />
         <attribute name="flashplayer" />
         <sequential>
-            <property name="project-locale-ja-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}ja_JP${file.separator}" />
-            <property name="project-locale-en-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}en_US${file.separator}" />
             <property name="project-full-name" value="@{projectname}-${LIB_VERSION}" />
 
             <compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="@{flashplayer}" locale="">
@@ -265,20 +247,6 @@
                 <include-namespaces uri="${LIB_NAMESPACE}" />
 
                 <namespace uri="${LIB_NAMESPACE}" manifest="@{projectdir}${FLEX_MANIFEST_PATH}" />
-
-                <include-file name="locale/ja_JP/yui_framework.properties" path="${project-locale-ja-dir}yui_framework.properties" />
-                <include-file name="locale/ja_JP/yui_core.properties" path="${project-locale-ja-dir}yui_core.properties" />
-                <include-file name="locale/ja_JP/log4yui.properties" path="${project-locale-ja-dir}log4yui.properties" />
-                <include-file name="locale/ja_JP/application.properties" path="${project-locale-ja-dir}application.properties" />
-                <include-file name="locale/ja_JP/messages.properties" path="${project-locale-ja-dir}messages.properties" />
-                <include-file name="locale/ja_JP/errors.properties" path="${project-locale-ja-dir}errors.properties" />
-
-                <include-file name="locale/en_US/yui_framework.properties" path="${project-locale-en-dir}yui_framework.properties" />
-                <include-file name="locale/en_US/yui_core.properties" path="${project-locale-en-dir}yui_core.properties" />
-                <include-file name="locale/en_US/log4yui.properties" path="${project-locale-en-dir}log4yui.properties" />
-                <include-file name="locale/en_US/application.properties" path="${project-locale-en-dir}application.properties" />
-                <include-file name="locale/en_US/messages.properties" path="${project-locale-en-dir}messages.properties" />
-                <include-file name="locale/en_US/errors.properties" path="${project-locale-en-dir}errors.properties" />
 
                 <include-file name="defaults.css" path="@{projectdir}${FLEX_DEFAULT_CSS_PATH}" />
 

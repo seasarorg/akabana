@@ -1,65 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="yui-frameworks" basedir="." default="all">
+<project name="yui-logging" basedir="." default="all">
     <!-- -->
-    <property file="flex45.properties" />
+    <property file="flex41.properties" />
     <property file="build.properties" />
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}${file.separator}ant${file.separator}lib${file.separator}flexTasks.jar" />
 
     <!-- -->
     <target name="all">
-        <antcall target="fx4-fp10" />
-        <antcall target="fx4-rpc-fp10" />
-        <antcall target="fx4-ds-fp10" />
-        
-        <antcall target="fx4-air-fp10" />
-        <antcall target="fx4-airrpc-fp10" />
-        <antcall target="fx4-airds-fp10" />
-        
-        <antcall target="fx4-fc-fp10" />
-        <antcall target="fx4-fc-rpc-fp10" />
-        <antcall target="fx4-fc-ds-fp10" />
-        
-        <antcall target="fx4-fc-air-fp10" />
-        <antcall target="fx4-fc-airrpc-fp10" />
-        <antcall target="fx4-fc-airds-fp10" />
+        <property name="projectdir" value="${PROJECT_WORKSPACE}${file.separator}${ant.project.name}"/>
+    	<projectInit projectname="${ant.project.name}" projectdir="${projectdir}"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-logging"/>
+        <projectCompilePrepare projectdir="${projectdir}"/>
+        <projectCompileWithFlexLibrary projectname="${ant.project.name}" projectdir="${projectdir}"/>
+        <projectRsl projectname="${ant.project.name}" projectdir="${projectdir}"/>
     </target>
 
-    <target name="fx4-fp10">
-        <ant antfile="projects${file.separator}build-fx4-fp10.xml" />
-    </target>
-    <target name="fx4-rpc-fp10">
-        <ant antfile="projects${file.separator}build-fx4-rpc-fp10.xml" />
-    </target>
-    <target name="fx4-ds-fp10">
-        <ant antfile="projects${file.separator}build-fx4-ds-fp10.xml" />
-    </target>
-    <target name="fx4-air-fp10">
-        <ant antfile="projects${file.separator}build-fx4-air-fp10.xml" />
-    </target>
-    <target name="fx4-airrpc-fp10">
-        <ant antfile="projects${file.separator}build-fx4-airrpc-fp10.xml" />
-    </target>
-    <target name="fx4-airds-fp10">
-        <ant antfile="projects${file.separator}build-fx4-airds-fp10.xml" />
-    </target>
-    <target name="fx4-fc-fp10">
-        <ant antfile="projects${file.separator}build-fx4-fc-fp10.xml" />
-    </target>
-    <target name="fx4-fc-rpc-fp10">
-        <ant antfile="projects${file.separator}build-fx4-fc-rpc-fp10.xml" />
-    </target>
-    <target name="fx4-fc-ds-fp10">
-        <ant antfile="projects${file.separator}build-fx4-fc-ds-fp10.xml" />
-    </target>
-    <target name="fx4-fc-air-fp10">
-        <ant antfile="projects${file.separator}build-fx4-fc-air-fp10.xml" />
-    </target>
-    <target name="fx4-fc-airrpc-fp10">
-        <ant antfile="projects${file.separator}build-fx4-fc-airrpc-fp10.xml" />
-    </target>
-    <target name="fx4-fc-airds-fp10">
-        <ant antfile="projects${file.separator}build-fx4-fc-airds-fp10.xml" />
-    </target>
 
     <!-- -->
     <macrodef name="projectInit">
@@ -72,10 +27,10 @@
         </sequential>
     </macrodef>
 
+
     <macrodef name="projectAddSubProject">
         <attribute name="projectdir" />
         <attribute name="subprojectdir" />
-        <attribute name="defaultsCss" default="defaults.css" />
         <sequential>
             <echo message="Add Project @{projectdir}" />
 
@@ -107,7 +62,7 @@
 
             <concat destfile="${project-defaults_css}" fixlastline="true" append="true" encoding="utf-8">
                 <filelist>
-                    <file name="@{subprojectdir}${FLEX_RESOURCES}${file.separator}@{defaultsCss}" />
+                    <file name="@{subprojectdir}${FLEX_DEFAULT_CSS_PATH}" />
                 </filelist>
             </concat>
             <echo message="@{subprojectdir}${FLEX_DEFAULT_CSS_PATH} add to ${project-defaults_css}." />
@@ -198,11 +153,12 @@
     <macrodef name="projectCompileWithFlexLibrary">
         <attribute name="projectname" />
         <attribute name="projectdir" />
-        <attribute name="flashplayer" />
         <sequential>
+            <property name="project-locale-ja-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}ja_JP${file.separator}" />
+            <property name="project-locale-en-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}en_US${file.separator}" />
             <property name="project-full-name" value="@{projectname}-${LIB_VERSION}" />
 
-            <compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="@{flashplayer}" locale="">
+        	<compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="10.1" locale="">
                 <define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}" />
                 <define name="CONFIG::DEBUG_EVENT" value="false" />
                 <define name="CONFIG::FP9" value="false" />
@@ -211,48 +167,26 @@
                 <define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="true" />
                 <load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}flex-config.xml" />
                 <load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
+        		
+            	<include-libraries dir="${PROJECT_WORKSPACE}" append="true">
+                    <include name="**/yui-core-1.1.0-beta5-snapshot.swc" />
+            	</include-libraries>
+            	
                 <source-path path-element="${projectdir}${FLEX_SRC}" />
 
                 <include-namespaces uri="${LIB_NAMESPACE}" />
 
                 <namespace uri="${LIB_NAMESPACE}" manifest="@{projectdir}${FLEX_MANIFEST_PATH}" />
 
-                <include-file name="defaults.css" path="@{projectdir}${FLEX_DEFAULT_CSS_PATH}" />
+                <include-file name="locale/ja_JP/log4yui.properties" path="${project-locale-ja-dir}log4yui.properties" />
 
-                <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
+                <include-file name="locale/en_US/log4yui.properties" path="${project-locale-en-dir}log4yui.properties" />
+                   	
+        		<external-library-path dir="${FLEX_FRAMEWORK}" append="true">
                     <include name="libs" />
                 </external-library-path>
-            </compc>
-        </sequential>
-    </macrodef>
-
-    <macrodef name="projectCompileWithAIRFlexLibrary">
-        <attribute name="projectname" />
-        <attribute name="projectdir" />
-        <attribute name="flashplayer" />
-        <sequential>
-            <property name="project-full-name" value="@{projectname}-${LIB_VERSION}" />
-
-            <compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="@{flashplayer}" locale="">
-                <define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}" />
-                <define name="CONFIG::DEBUG_EVENT" value="false" />
-                <define name="CONFIG::FP9" value="false" />
-                <define name="CONFIG::FP10" value="true" />
-                <define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="false" />
-                <define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="true" />
-                <load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}air-config.xml" />
-                <load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
-                <source-path path-element="${projectdir}${FLEX_SRC}" />
-
-                <include-namespaces uri="${LIB_NAMESPACE}" />
-
-                <namespace uri="${LIB_NAMESPACE}" manifest="@{projectdir}${FLEX_MANIFEST_PATH}" />
-
-                <include-file name="defaults.css" path="@{projectdir}${FLEX_DEFAULT_CSS_PATH}" />
-
-                <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
-                    <include name="libs" />
-                    <include name="libs/air" />
+                <external-library-path dir="${PROJECT_WORKSPACE}" append="true">
+                    <include name="**/yui-core-1.1.0-beta5-snapshot.swc" />
                 </external-library-path>
             </compc>
         </sequential>
@@ -261,7 +195,6 @@
     <macrodef name="projectRsl">
         <attribute name="projectname" />
         <attribute name="projectdir" />
-        <attribute name="flashplayer" />
         <sequential>
             <property name="project-full-name" value="@{projectname}-${LIB_VERSION}" />
             <property name="project-output" value="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}" />

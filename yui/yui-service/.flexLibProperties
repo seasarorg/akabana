@@ -2,6 +2,7 @@
 <flexLibProperties includeAllClasses="false" version="1">
   <includeClasses>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.ServiceCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.service.ManagedService"/>
     <classEntry path="org.seasar.akabana.yui.service.Operation"/>
     <classEntry path="org.seasar.akabana.yui.service.OperationCallBack"/>
     <classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
@@ -17,16 +18,14 @@
     <classEntry path="org.seasar.akabana.yui.service.event.FaultStatus"/>
     <classEntry path="org.seasar.akabana.yui.service.event.InvokeEvent"/>
     <classEntry path="org.seasar.akabana.yui.service.event.ResultEvent"/>
+    <classEntry path="org.seasar.akabana.yui.service.local.LocalServiceInvoker"/>
     <classEntry path="org.seasar.akabana.yui.service.ns.rpc_fault"/>
     <classEntry path="org.seasar.akabana.yui.service.ns.rpc_result"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.AbstractResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.Responder"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>
-    <classEntry path="org.seasar.akabana.yui.service.local.LocalServiceInvoker"/>
   </includeClasses>
   <includeResources>
-    <resourceEntry destPath="locale/en_US/services.properties" sourcePath="locale/en_US/services.properties"/>
-    <resourceEntry destPath="locale/ja_JP/services.properties" sourcePath="locale/ja_JP/services.properties"/>
     <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
   </includeResources>
   <namespaceManifests/>
