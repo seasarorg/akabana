@@ -30,9 +30,17 @@ CONFIG::FP10{
     {
 
         public static const CLASS_REF_CACHE:Dictionary = new Dictionary();
-
+        
+        public static const PRIMITIVE_CLASS_MAP:Object = {String:1,Boolean:1,int:1,Number:1,Object:1,String:1,uint:1};
+        
+        public static const TOPLEVEL_CLASS_MAP:Object = {Date:1,XML:1,Object:1};
+        
+        public static const ARRAY_CLASS:String = "Array";
+        
+        public static const VECTOR_CLASS:String = "__AS3__.vec.Vector.<";
+        
         public static var classLoader:ClassLoader = new ClassLoader();
-
+        
         public static function getInstance( target:Object ):ClassRef{
 
             var clazz:Class = null;
@@ -108,11 +116,11 @@ CONFIG::FP10{
 
         public var concreteClass:Class;
 
-        public var isDynamic:Boolean;
-
-        public var isFinal:Boolean;
-
-        public var isStatic:Boolean;
+//        public var isDynamic:Boolean;
+//
+//        public var isFinal:Boolean;
+//
+//        public var isStatic:Boolean;
 
         public var isInterface:Boolean;
 
@@ -211,7 +219,31 @@ CONFIG::FP10{
         public function getPackage():String{
             return _package;
         }
-
+        
+        private var _isPrimitive:Boolean = true;
+        
+        public function get isPrimitive():Boolean{
+            return _isPrimitive;
+        }
+        
+        private var _isTopLevel:Boolean = true;
+        
+        public function get isTopLevel():Boolean{
+            return _isTopLevel;
+        }
+        
+        private var _isArray:Boolean = true;
+        
+        public function get isArray():Boolean{
+            return _isArray;
+        }
+        
+        private var _isVector:Boolean = true;
+        
+        public function get isVector():Boolean{
+            return _isVector;
+        }
+        
         public function ClassRef( clazz:Class ){
             const describeTypeXml:XML = flash.utils.describeType(clazz);
             concreteClass = clazz;
@@ -490,9 +522,15 @@ CONFIG::FP10{
         }
 
         private final function assembleThis( rootDescribeTypeXml:XML ):void{
-            isDynamic = rootDescribeTypeXml.@isDynamic.toString() == "true";
-            isFinal = rootDescribeTypeXml.@isFinal.toString() == "true";
-            isStatic = rootDescribeTypeXml.@isStatic.toString() == "true";
+//            isDynamic = rootDescribeTypeXml.@isDynamic.toString() == "true";
+//            isFinal = rootDescribeTypeXml.@isFinal.toString() == "true";
+//            isStatic = rootDescribeTypeXml.@isStatic.toString() == "true";
+            
+            _isPrimitive = ( name in PRIMITIVE_CLASS_MAP );
+            _isTopLevel = ( name in TOPLEVEL_CLASS_MAP );
+            
+            _isArray = ( name == ARRAY_CLASS );
+            _isVector = ( name.indexOf(VECTOR_CLASS) == 0 );
         }
 
         protected override function getName( rootDescribeTypeXml:XML ):String{
