@@ -37,13 +37,13 @@
         <dist libname="yui-frameworks-fx4-airds-fp10" libver="${LIB_VERSION}"  />
         <dist libname="yui-frameworks-fx4-airrpc-fp10" libver="${LIB_VERSION}"  />
         <!-- -->
-        <dist libname="yui-frameworks-fx4-fc-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx4-fc-ds-fp10"  libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx4-fc-rpc-fp10"  libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fc-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fc-ds-fp10"  libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fc-rpc-fp10"  libver="${LIB_VERSION}"  />
         <!-- -->
-        <dist libname="yui-frameworks-fx4-fc-air-fp10" libver="${LIB_VERSION}"   />
-        <dist libname="yui-frameworks-fx4-fc-airds-fp10"  libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx4-fc-airrpc-fp10"  libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fc-air-fp10" libver="${LIB_VERSION}"   />
+        <dist libname="yui-frameworks-fc-airds-fp10"  libver="${LIB_VERSION}"  />
+        <dist libname="yui-frameworks-fc-airrpc-fp10"  libver="${LIB_VERSION}"  />
     </target>
     <!-- =================================
           macro: dist

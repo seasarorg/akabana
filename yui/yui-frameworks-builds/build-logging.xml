@@ -166,9 +166,9 @@
                 <load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}flex-config.xml" />
                 <load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
         		
-            	<include-libraries dir="${PROJECT_WORKSPACE}" append="true">
+            	<library-path dir="${PROJECT_WORKSPACE}" append="true">
                     <include name="**/yui-frameworks-fx4-fp10-${LIB_VERSION}.swc" />
-            	</include-libraries>
+            	</library-path>
             	
                 <source-path path-element="${projectdir}${FLEX_SRC}" />
 
