@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="all">
     <!-- -->
-    <target name="all" depends="flex3,flex4,flex4,logging,rb">
+    <target name="all" depends="flex3,flex4,logging,rb">
     </target>
     <target name="flex3">
         <ant antfile="build-fx3.xml"/>
     </target>
     <target name="flex4">
         <ant antfile="build-fx41.xml"/>
-    </target>
-    <target name="flex45">
-        <ant antfile="build-fx45.xml"/>
     </target>
     <target name="logging">
         <ant antfile="build-logging.xml"/>
@@ -21,35 +18,38 @@
     <target name="distAll">
         <property file="build.properties" />
         <!-- -->
-        <dist libname="yui-frameworks-fx3-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx3-fp9" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx3-ds-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx3-ds-fp9" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx3-rpc-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx3-rpc-fp9" libver="${LIB_VERSION}"  />
+        <dist libname="fx3/yui-frameworks-fx3-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx3/yui-frameworks-fx3-fp9" libver="${LIB_VERSION}"  />
+        <dist libname="fx3/yui-frameworks-fx3-ds-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx3/yui-frameworks-fx3-ds-fp9" libver="${LIB_VERSION}"  />
+        <dist libname="fx3/yui-frameworks-fx3-rpc-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx3/yui-frameworks-fx3-rpc-fp9" libver="${LIB_VERSION}"  />
         <!-- -->
-        <dist libname="yui-frameworks-fx3-air-fp10" libver="${LIB_VERSION}" />
-        <dist libname="yui-frameworks-fx3-air-fp9" libver="${LIB_VERSION}" />
-        <dist libname="yui-frameworks-fx3-airds-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx3-airds-fp9" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx3-airrpc-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx3-airrpc-fp9" libver="${LIB_VERSION}"  />
+        <dist libname="fx3/yui-frameworks-fx3-air-fp10" libver="${LIB_VERSION}" />
+        <dist libname="fx3/yui-frameworks-fx3-air-fp9" libver="${LIB_VERSION}" />
+        <dist libname="fx3/yui-frameworks-fx3-airds-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx3/yui-frameworks-fx3-airds-fp9" libver="${LIB_VERSION}"  />
+        <dist libname="fx3/yui-frameworks-fx3-airrpc-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx3/yui-frameworks-fx3-airrpc-fp9" libver="${LIB_VERSION}"  />
         <!-- -->
-        <dist libname="yui-frameworks-fx4-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx4-ds-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx4-rpc-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fx4-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fx4-ds-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fx4-rpc-fp10" libver="${LIB_VERSION}"  />
         <!-- -->
-        <dist libname="yui-frameworks-fx4-air-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx4-airds-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fx4-airrpc-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fx4-air-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fx4-airds-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fx4-airrpc-fp10" libver="${LIB_VERSION}"  />
         <!-- -->
-        <dist libname="yui-frameworks-fc-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fc-ds-fp10"  libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fc-rpc-fp10"  libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fc-fp10" libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fc-ds-fp10"  libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fc-rpc-fp10"  libver="${LIB_VERSION}"  />
         <!-- -->
-        <dist libname="yui-frameworks-fc-air-fp10" libver="${LIB_VERSION}"   />
-        <dist libname="yui-frameworks-fc-airds-fp10"  libver="${LIB_VERSION}"  />
-        <dist libname="yui-frameworks-fc-airrpc-fp10"  libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fc-air-fp10" libver="${LIB_VERSION}"   />
+        <dist libname="fx41/yui-frameworks-fc-airds-fp10"  libver="${LIB_VERSION}"  />
+        <dist libname="fx41/yui-frameworks-fc-airrpc-fp10"  libver="${LIB_VERSION}"  />
+        <!-- -->
+        <dist libname="yui-logging" libver="${LIB_VERSION}"   />
+        <dist libname="yui-frameworks-rb"  libver="${LIB_VERSION}"  />
     </target>
     <!-- =================================
           macro: dist
@@ -67,8 +67,8 @@
             </zip>
             <zip zipfile="target/@{libname}-@{libver}-swc.zip">
                 <zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_OUTPUT}">
-                    <include name="*.swc"/>
-                    <include name="*.swf"/>
+                    <include name="**/*.swc"/>
+                    <include name="**/*.swf"/>
                 </zipfileset>
             </zip>
         </sequential>

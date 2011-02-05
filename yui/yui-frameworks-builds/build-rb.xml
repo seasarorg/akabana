@@ -24,6 +24,8 @@
             <echo message="@{projectname} Project initialize at @{projectdir}." />
             <delete dir="@{projectdir}" />
             <mkdir dir="@{projectdir}" />
+            <mkdir dir="${projectdir}${FLEX_SRC}"/>
+            <mkdir dir="${projectdir}${FLEX_RESOURCES}"/>
         </sequential>
     </macrodef>
 
