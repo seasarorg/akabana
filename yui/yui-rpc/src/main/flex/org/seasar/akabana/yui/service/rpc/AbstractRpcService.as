@@ -32,7 +32,7 @@ package org.seasar.akabana.yui.service.rpc {
     [ExcludeClass]
     public dynamic class AbstractRpcService extends Proxy implements ManagedService {
 
-        protected static const OBJECT_FUNCTION_MAP:Object = {
+        private static const OBJECT_FUNCTION_MAP:Object = {
             hasOwnProperty:true,
             isPrototypeOf:true,
             propertyIsEnumerable:true,
@@ -51,7 +51,7 @@ package org.seasar.akabana.yui.service.rpc {
 
         protected var _credentialsPassword:String;
 
-        protected var innerEventdispatcher:EventDispatcher;
+        protected var _innerEventdispatcher:EventDispatcher;
 
         protected var _gatewayUrl:String;
         
@@ -88,7 +88,7 @@ package org.seasar.akabana.yui.service.rpc {
         public function AbstractRpcService(){
             super();
             operations = new Dictionary();
-            innerEventdispatcher = new EventDispatcher();
+            _innerEventdispatcher = new EventDispatcher();
         }
         
         public function addOperation( operationName:String ):void{
@@ -111,23 +111,23 @@ package org.seasar.akabana.yui.service.rpc {
         }
 
         public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, weakRef:Boolean = false):void{
-            innerEventdispatcher.addEventListener(type, listener, useCapture, priority, weakRef);
+            _innerEventdispatcher.addEventListener(type, listener, useCapture, priority, weakRef);
         }
 
         public function dispatchEvent(evt:Event):Boolean{
-            return innerEventdispatcher.dispatchEvent(evt);
+            return _innerEventdispatcher.dispatchEvent(evt);
         }
 
         public function hasEventListener (type:String):Boolean{
-            return innerEventdispatcher.hasEventListener(type);
+            return _innerEventdispatcher.hasEventListener(type);
         }
 
         public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void{
-            innerEventdispatcher.removeEventListener(type, listener, useCapture);
+            _innerEventdispatcher.removeEventListener(type, listener, useCapture);
         }
 
         public function willTrigger(type:String):Boolean {
-            return innerEventdispatcher.willTrigger(type);
+            return _innerEventdispatcher.willTrigger(type);
         }
 
         public function finalizeResponder(responder:Object):void{

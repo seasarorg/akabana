@@ -39,7 +39,7 @@ CONFIG::FP10{
     [ExcludeClass]
     public class YuiFrameworkGlobals
     {
-        protected static var _frameworkBridge:FrameworkBridge;
+        private static var _frameworkBridge:FrameworkBridge;
 
         public static function get frameworkBridge():FrameworkBridge{
             return _frameworkBridge;
@@ -49,7 +49,7 @@ CONFIG::FP10{
             _frameworkBridge = value;
         }
 
-        protected static var _namingConvention:NamingConvention;
+        private static var _namingConvention:NamingConvention;
 
         public static function get namingConvention():NamingConvention{
             return _namingConvention;

@@ -17,17 +17,17 @@ package org.seasar.akabana.yui.core.reflection
 {
     internal class ObjectRef implements Reflector {
 
-        protected static const CLASS_NAME_SEPARATOR:String = "::";
+        internal static const CLASS_NAME_SEPARATOR:String = "::";
 
-        protected static const DOT:String = ".";
+        internal static const DOT:String = ".";
 
-        protected static const TYPE_ANY:String = "*";
+        internal static const TYPE_ANY:String = "*";
 
-        protected static const excludeDeclaredByFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|(air\.)|(org.seasar\.))/);
+        internal static const excludeDeclaredByFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|(air\.)|(org.seasar\.))/);
 
-        protected static const excludeUriFilterRegExp:RegExp = new RegExp(/^(http:\/\/adobe.com)/);
+        internal static const excludeUriFilterRegExp:RegExp = new RegExp(/^(http:\/\/adobe.com)/);
 
-        protected static function getTypeString( type:String ):String{
+        internal static function getTypeString( type:String ):String{
             if( type != TYPE_ANY){
                 return type.replace(CLASS_NAME_SEPARATOR,DOT);
             } else {
@@ -35,7 +35,7 @@ package org.seasar.akabana.yui.core.reflection
             }
         }
 
-        protected static function getTypeName( type:String ):String{
+        internal static function getTypeName( type:String ):String{
             var result:String;
             var dotIndex:int = type.lastIndexOf(DOT);
             if( dotIndex > 0 ) {

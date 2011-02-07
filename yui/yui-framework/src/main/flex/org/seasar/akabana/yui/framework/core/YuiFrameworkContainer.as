@@ -66,7 +66,7 @@ package org.seasar.akabana.yui.framework.core
             DragManager;
         }
         
-        protected static var _container:IYuiFrameworkContainer;
+        private static var _container:IYuiFrameworkContainer;
         
         public static function get yuicontainer():IYuiFrameworkContainer{
             return _container;

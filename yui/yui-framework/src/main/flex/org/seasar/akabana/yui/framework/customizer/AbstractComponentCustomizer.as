@@ -33,23 +33,7 @@ package org.seasar.akabana.yui.framework.customizer
 
     internal class AbstractComponentCustomizer implements IViewCustomizer {
         
-        protected static const INSTANCE_REF_CACHE:Dictionary = new Dictionary();
-        
-        protected static function setPropertiesValue(target:Object,varClassName:String,value:Object):void {
-            const targetClassRef:ClassRef = getClassRef(target);
-            CONFIG::FP9 {
-                const propertyRefs:Array = targetClassRef.getPropertyRefByType(varClassName);
-            }
-            CONFIG::FP10 {
-                const propertyRefs:Vector.<PropertyRef> = targetClassRef.getPropertyRefByType(varClassName);
-            }
-
-            if(propertyRefs != null) {
-                for each(var propertyRef:PropertyRef in propertyRefs) {
-                    propertyRef.setValue(target,value);
-                }
-            }
-        }
+        private static const INSTANCE_REF_CACHE:Dictionary = new Dictionary();
 
         protected function newInstance(classRef:ClassRef,...args):Object{
             var result:Object = null;
@@ -74,6 +58,22 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
             return result;
+        }
+        
+        protected function setPropertiesValue(target:Object,varClassName:String,value:Object):void {
+            const targetClassRef:ClassRef = getClassRef(target);
+            CONFIG::FP9 {
+                const propertyRefs:Array = targetClassRef.getPropertyRefByType(varClassName);
+            }
+            CONFIG::FP10 {
+                const propertyRefs:Vector.<PropertyRef> = targetClassRef.getPropertyRefByType(varClassName);
+            }
+            
+            if(propertyRefs != null) {
+                for each(var propertyRef:PropertyRef in propertyRefs) {
+                    propertyRef.setValue(target,value);
+                }
+            }
         }
 
         public function customizeView( view:UIComponent ):void{

@@ -26,7 +26,7 @@ package org.seasar.akabana.yui.service.local
     [ExcludeClass]
     public final class LocalServiceInvoker {
         
-        protected static const SERVICE_REF_CACHE:Dictionary = new Dictionary();
+        private static const SERVICE_REF_CACHE:Dictionary = new Dictionary();
         
         public function invoke(servicePackageName:String,serviceName:String,methodName:String,...args):Object{
             const lservice:String = StringUtil.toUpperCamel(serviceName);
