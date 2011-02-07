@@ -20,23 +20,23 @@ package org.seasar.akabana.yui.framework.logging
 	public class SimpleLogger implements ILogger{
 		
 		public function error(message:String,...args):void{
-			log.apply(null,["[ERROR]",message].concat(args));		
+			log.apply(null,["[ERR]",message].concat(args));		
 		}
 		
 		public function debug(message:String,...args):void{
-			log.apply(null,["[DEBUG]",message].concat(args));		
+			log.apply(null,["[DBG]",message].concat(args));		
 		}
 		
 		public function info(message:String,...args):void{
-			log.apply(null,["[INFO]",message].concat(args));		
+			log.apply(null,["[INF]",message].concat(args));		
 		}
 		
 		public function fatal(message:String,...args):void{
-			log.apply(null,["[FATAL]",message].concat(args));		
+			log.apply(null,["[FTL]",message].concat(args));		
 		}
 		
 		public function warn(message:String,...args):void{
-			log.apply(null,["[WARN]",message].concat(args));		
+			log.apply(null,["[WRN]",message].concat(args));		
 		}
 		
 		protected function log(level:String,message:String,...args):void{
