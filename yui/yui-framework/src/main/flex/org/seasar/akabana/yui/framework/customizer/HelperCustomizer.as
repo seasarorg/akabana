@@ -24,7 +24,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
-    import org.seasar.akabana.yui.framework.ns.part;
+    import org.seasar.akabana.yui.framework.ns.viewpart;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
 	import org.seasar.akabana.yui.framework.logging.debug;
 
@@ -150,7 +150,7 @@ package org.seasar.akabana.yui.framework.customizer
             var helperPropRef:PropertyRef;
             for each(var viewProp:PropertyRef in viewProps) {
                 helperPropRef = helperClassRef.getPropertyRef(viewProp.name);
-                if( helperPropRef != null && helperPropRef.uri == part.toString()){
+                if( helperPropRef != null && helperPropRef.uri == viewpart.toString()){
                     helperPropRef.setValue(helper,viewProp.getValue(container));                   
                 }
             }       

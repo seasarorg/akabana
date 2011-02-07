@@ -25,10 +25,11 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
-    import org.seasar.akabana.yui.framework.ns.part;
+    import org.seasar.akabana.yui.framework.ns.viewpart;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.framework.util.CatalystGroupUtil;
 	import org.seasar.akabana.yui.framework.logging.debug;
+	import org.seasar.akabana.yui.framework.ns.viewpart;
 
     [ExcludeClass]
     public class CatalystHelperCustomizer extends HelperCustomizer {
@@ -57,7 +58,7 @@ package org.seasar.akabana.yui.framework.customizer
                         component = element as UIComponent;
                         componentName = YuiFrameworkGlobals.namingConvention.getComponentName(component);
                         helperPropRef = helperClassRef.getPropertyRef(componentName);
-                        if( helperPropRef != null && helperPropRef.uri == part.toString()){
+                        if( helperPropRef != null && helperPropRef.uri == viewpart.toString()){
                             helperPropRef.setValue(helper,component);                   
                         }
                     }
