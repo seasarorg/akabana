@@ -56,10 +56,10 @@ package org.seasar.akabana.yui.framework
                 return super.dispatchEvent(event);
             }
         }
-
-        protected override function createChildren():void{
-            super.createChildren();
-
+        
+        protected override function commitProperties():void{
+            super.commitProperties();
+            
             createRootView();
         }
 

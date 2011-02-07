@@ -56,8 +56,8 @@ package org.seasar.akabana.yui.framework
             }
         }
 
-        protected override function createChildren():void{
-            super.createChildren();
+        protected override function commitProperties():void{
+            super.commitProperties();
 
             createRootView();
         }
