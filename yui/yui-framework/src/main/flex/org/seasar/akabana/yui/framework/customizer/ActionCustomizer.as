@@ -35,7 +35,7 @@ package org.seasar.akabana.yui.framework.customizer
     public class ActionCustomizer extends AbstractEventListenerCustomizer {
         
         public override function customizeView(view:UIComponent ):void {
-            const properties:Object = UIComponentUtil.getProperties(view);
+            const viewProperties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
@@ -48,7 +48,7 @@ package org.seasar.akabana.yui.framework.customizer
                 const actionClassRef:ClassRef = getClassRef(actionClassName);
                 const action:Object = newInstance(actionClassRef);
                 doEventCustomize(viewName,view,action);
-                properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = action;
+                viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = action;
                 
                 if( action is ILifeCyclable ){
                     (action as ILifeCyclable).start();
@@ -65,7 +65,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         public override function uncustomizeView(view:UIComponent ):void {
-            const properties:Object = UIComponentUtil.getProperties(view);
+            const viewProperties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
             const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 
@@ -73,14 +73,14 @@ package org.seasar.akabana.yui.framework.customizer
                 CONFIG::DEBUG {
                     debug(this,getMessage("Uncustomizing",viewClassName,actionClassName));
                 }
-                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 if( action is ILifeCyclable ){
                     (action as ILifeCyclable).stop();
                 }
                 //
                 doEventUncustomize(view,action);
-                properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = null;
-                delete properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = null;
+                delete viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 //
                 CONFIG::DEBUG {
                     debug(this,getMessage("Uncustomized",viewClassName,actionClassName));

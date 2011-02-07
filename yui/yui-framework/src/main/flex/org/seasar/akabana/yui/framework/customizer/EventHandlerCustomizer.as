@@ -130,9 +130,9 @@ package org.seasar.akabana.yui.framework.customizer
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             const viewClassName:String = getCanonicalName(view);
             const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
-            const properties:Object = UIComponentUtil.getProperties(view);
+            const viewProperties:Object = UIComponentUtil.getProperties(view);
             //
-            const action_:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            const action_:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
 
             if(action_ != null) {
                 CONFIG::DEBUG {
@@ -144,7 +144,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
             //
-            const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+            const behaviors_:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
 
             if(behaviors_ != null) {
                 var behaviorClassName:String;
@@ -250,12 +250,12 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         public override function uncustomizeView(view:UIComponent):void {
-            const properties:Object = UIComponentUtil.getProperties(view);
+            const viewProperties:Object = UIComponentUtil.getProperties(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             const viewClassName:String = getCanonicalName(view);
             const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 
-            const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
 
             if(action != null) {
                 CONFIG::DEBUG {
@@ -267,7 +267,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
             //
-            const behaviors_:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+            const behaviors_:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
 
             if(behaviors_ != null) {
                 var behaviorClassName:String;

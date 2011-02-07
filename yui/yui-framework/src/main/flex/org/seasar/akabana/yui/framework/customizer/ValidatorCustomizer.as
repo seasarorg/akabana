@@ -32,7 +32,7 @@ package org.seasar.akabana.yui.framework.customizer
     public class ValidatorCustomizer extends AbstractComponentCustomizer {
         
         public override function customizeView(container:UIComponent):void {
-            const properties:Object = UIComponentUtil.getProperties(container);
+            const viewProperties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
             const validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
 
@@ -40,15 +40,15 @@ package org.seasar.akabana.yui.framework.customizer
                 CONFIG::DEBUG {
                     debug(this,getMessage("Customizing",viewClassName,validatorClassName));
                 }
-                properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()] = {};
+                viewProperties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()] = {};
                 //
-                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 if(action != null) {
                     setValidatorProperties(container,action);
                 }
                 
                 //
-                const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                const behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
                 if(behaviors != null) {
                     for each( var behavior:Object in behaviors){
                         setValidatorProperties(container,behavior);
@@ -65,7 +65,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         public override function uncustomizeView(container:UIComponent):void {
-            const properties:Object = UIComponentUtil.getProperties(container);
+            const viewProperties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
             const validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
 
@@ -74,7 +74,7 @@ package org.seasar.akabana.yui.framework.customizer
                     debug(this,getMessage("Uncustomizing",viewClassName,validatorClassName));
                 }
                 //
-                const validatorMap:Object = properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
+                const validatorMap:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
                 for each( var validator:Object in validatorMap){
                     if( validator is ILifeCyclable ){
                         (validator as ILifeCyclable).stop();
@@ -82,8 +82,8 @@ package org.seasar.akabana.yui.framework.customizer
                     //
                     setPropertiesValue(validator,viewClassName,null);
                 }
-                properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()] = null;
-                delete properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
+                viewProperties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()] = null;
+                delete viewProperties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
                 //
                 CONFIG::DEBUG {
                     debug(this,getMessage("Uncustomized",viewClassName,validatorClassName));
@@ -97,12 +97,12 @@ package org.seasar.akabana.yui.framework.customizer
         
         
         protected function setValidatorProperties(container:UIComponent,obj:Object):void{
-            const properties:Object = UIComponentUtil.getProperties(container);
+            const viewProperties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
-            const classRef:ClassRef = getClassRef(obj);
-            const validatorMap:Object = properties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
+            const targetClassRef:ClassRef = getClassRef(obj);
+            const validatorMap:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()];
             CONFIG::FP9 {
-                const props:Array = classRef.properties.filter(
+                const props:Array = targetClassRef.properties.filter(
                         function(item:*,index:int,array:Array):Boolean {
                             return ( YuiFrameworkGlobals.namingConvention.isValidatorOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
                         }
@@ -110,7 +110,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
             CONFIG::FP10 {
                 const props:Vector.<PropertyRef> = 
-                    classRef.properties.filter(
+                    targetClassRef.properties.filter(
                         function(item:*,index:int,array:Vector.<PropertyRef>):Boolean {
                             return ( YuiFrameworkGlobals.namingConvention.isValidatorOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
                         }

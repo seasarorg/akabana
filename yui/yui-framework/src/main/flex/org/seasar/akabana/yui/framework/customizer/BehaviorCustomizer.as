@@ -32,12 +32,12 @@ package org.seasar.akabana.yui.framework.customizer
     public class BehaviorCustomizer extends AbstractEventListenerCustomizer {
         
         public override function customizeView(view:UIComponent):void {
-            const properties:Object = UIComponentUtil.getProperties(view);
+            const viewProperties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
 
             try {
-                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 const actionClassRef:ClassRef = getClassRef(action);
                 CONFIG::FP9 {
                     var props:Array = actionClassRef.properties;
@@ -46,7 +46,7 @@ package org.seasar.akabana.yui.framework.customizer
                     var props:Vector.<PropertyRef> = actionClassRef.properties;
                 }
 
-                var behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()] = [];
+                var behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()] = [];
                 var behavior:Object;
                 for each(var prop:PropertyRef in props) {
                     if( YuiFrameworkGlobals.namingConvention.isBehaviorOfView( viewClassName, prop.typeClassRef.name )){
@@ -84,11 +84,11 @@ package org.seasar.akabana.yui.framework.customizer
         }
 
         public override function uncustomizeView(view:UIComponent):void {
-            const properties:Object = UIComponentUtil.getProperties(view);
+            const viewProperties:Object = UIComponentUtil.getProperties(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             const viewClassName:String = getCanonicalName(view);
             try {
-                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 const actionClassRef:ClassRef = getClassRef(action);
                 CONFIG::FP9 {
                     var props:Array = actionClassRef.properties;
@@ -97,7 +97,7 @@ package org.seasar.akabana.yui.framework.customizer
                     var props:Vector.<PropertyRef> = actionClassRef.properties;
                 }
 
-                var behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                var behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
                 var behaviorClassName:String;
                 for each(var behavior:Object in behaviors) {
 
