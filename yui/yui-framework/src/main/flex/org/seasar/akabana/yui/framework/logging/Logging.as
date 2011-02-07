@@ -29,30 +29,25 @@ package org.seasar.akabana.yui.framework.logging
 	
 	public class Logging{
 		
-		public static var defaultLoggerFactory:IFactory = new ClassFactory(SimpleLogger);
+        private static const _defaultLoggerFactory:ILoggerFactory = new SimpleLoggerFactory();
 		
 		private static var _loggerFactory:ILoggerFactory;
 		
-		private static var _logger:ILogger;
-		
 		public static function getLogger(target:Object):ILogger{
-			if( _loggerFactory == null ){
-				return _logger;
-			} else {
-				return _loggerFactory.getLogger(target);
-			}
+			return _loggerFactory.getLogger(target);
 		}
 		
 		public static function initialize():void{
+            var clazz:Class = null;
 			try{
-				var clazz:Class = findClass("org.seasar.akabana.yui.logging.LoggerFactory");
-				_loggerFactory = new clazz() as ILoggerFactory;
+				clazz = findClass("org.seasar.akabana.yui.logging.LoggerFactory");
 			} catch( e:Error ){
 			}
-			
-			if( _logger == null ){
-				_logger = defaultLoggerFactory.newInstance() as ILogger;
-			}
+            if( clazz == null ){
+                _loggerFactory = _defaultLoggerFactory;
+            } else {
+                _loggerFactory = new clazz() as ILoggerFactory;
+            }
 		}
 	}
 }

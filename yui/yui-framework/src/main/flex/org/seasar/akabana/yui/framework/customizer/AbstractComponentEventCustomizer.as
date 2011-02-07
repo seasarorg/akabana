@@ -193,7 +193,7 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                     addEventListener(component,eventName,enhancedFunction,priority);
                     storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
                     CONFIG::DEBUG {
-                        debug(this,getMessage("AutoEvent_AddEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,getCanonicalName(listener),functionRef.name));
+                        debug(this,getMessage("Event_AddEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,getCanonicalName(listener),functionRef.name));
                     }
                 }
             }
@@ -221,7 +221,7 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                     addEventListener(component,eventName,enhancedFunction,priority);
                     storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
                     CONFIG::DEBUG {
-                        debug(this,getMessage("AutoEvent_AddEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,getCanonicalName(listener),functionRef.name));
+                        debug(this,getMessage("Event_AddEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,getCanonicalName(listener),functionRef.name));
                     }
                 }
             }
@@ -241,7 +241,7 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                         component.removeEventListener(eventName,enhancedFunction);
                         removeEnhancedEventHandler(view,enhancedEventName);
                         CONFIG::DEBUG {
-                            debug(this,getMessage("AutoEvent_RemoveEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,getCanonicalName(listener),functionRef.name));
+                            debug(this,getMessage("Event_RemoveEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,getCanonicalName(listener),functionRef.name));
                         }
                     }
                 }
@@ -262,7 +262,7 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                         component.removeEventListener(eventName,enhancedFunction);
                         removeEnhancedEventHandler(view,enhancedEventName);
                         CONFIG::DEBUG {
-                            debug(this,getMessage("AutoEvent_RemoveEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,getCanonicalName(listener),functionRef.name));
+                            debug(this,getMessage("Event_RemoveEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,getCanonicalName(listener),functionRef.name));
                         }
                     }
                 }

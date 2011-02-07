@@ -41,6 +41,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
 	import org.seasar.akabana.yui.framework.logging.debug;
 	import org.seasar.akabana.yui.framework.logging.info;
+    import org.seasar.akabana.yui.framework.logging.dump;
     
     use namespace yui_internal;
     
@@ -98,7 +99,7 @@ package org.seasar.akabana.yui.framework.core
         
         private function systemManager_addedToStageHandler( event:Event ):void{
             CONFIG::DEBUG_EVENT{
-                _logger.info("[EVENT] systemManager_addedToStageHandler"+event+","+event.target);
+                dump(this,event);
             }
             if( event.target is DisplayObject ){
                 doRegisterComponent(event.target as DisplayObject);
@@ -107,7 +108,7 @@ package org.seasar.akabana.yui.framework.core
         
         private function systemManager_addedToStageHandler2( event:Event ):void{
             CONFIG::DEBUG_EVENT{
-                _logger.info("[EVENT] systemManager_addedToStageHandler2"+event+","+event.target);
+                dump(this,event,"");
             }
             if( event.target is DisplayObject ){
                 doAssembleComponent(event.target as DisplayObject);
@@ -116,7 +117,7 @@ package org.seasar.akabana.yui.framework.core
         
         private function systemManager_removeFromStageHandler(event:Event):void{
             CONFIG::DEBUG_EVENT{
-                _logger.info("[EVENT] systemManager_removeHandler"+event+","+event.target);
+                dump(this,event);
             }        
             if( event.target is DisplayObject ){
                 doUnregisterComponent(event.target as DisplayObject);

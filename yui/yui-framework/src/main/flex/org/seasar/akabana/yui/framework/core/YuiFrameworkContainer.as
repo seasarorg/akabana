@@ -24,6 +24,7 @@ package org.seasar.akabana.yui.framework.core
     }
     
     import flash.events.Event;
+    import flash.errors.IllegalOperationError;
     import flash.system.Capabilities;
     import flash.display.DisplayObjectContainer;
     import flash.display.DisplayObject;
@@ -33,6 +34,11 @@ package org.seasar.akabana.yui.framework.core
     import mx.events.FlexEvent;
     import mx.managers.ISystemManager;
     import mx.managers.SystemManager;
+    import mx.managers.CursorManager;
+    import mx.managers.PopUpManager;
+    import mx.managers.DragManager;
+    import mx.styles.IStyleManager2;
+    import mx.styles.CSSStyleDeclaration;
     
     import org.seasar.akabana.yui.core.Environment;
     import org.seasar.akabana.yui.core.yui_internal;
@@ -46,13 +52,8 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
     import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
-    import mx.styles.IStyleManager2;
-    import mx.styles.CSSStyleDeclaration;
-    import mx.managers.CursorManager;
-    import mx.managers.PopUpManager;
-    import mx.managers.DragManager;
     import org.seasar.akabana.yui.framework.logging.debug;
-    import flash.errors.IllegalOperationError;
+    import org.seasar.akabana.yui.framework.logging.dump;
     import org.seasar.akabana.yui.framework.logging.Logging;
     
     use namespace yui_internal;
@@ -180,21 +181,15 @@ package org.seasar.akabana.yui.framework.core
         }        
         
         private function applicationInitCompleteHandler( event:Event ):void{
+            Logging.initialize();
             CONFIG::DEBUG_EVENT{
-                _logger.info("[EVENT] applicationInitCompleteHandler"+event+","+event.target);
-            }
-			Logging.initialize();
-            CONFIG::DEBUG{
-                debug(this,"applicationInitCompleteHandler:"+event+","+event.target);
+                dump(this,event);
             }
         }
         
         private function applicationPreloaderDoneHandler( event:Event ):void{
             CONFIG::DEBUG_EVENT{
-                _logger.info("[EVENT] applicationPreloaderDoneHandler"+event+","+event.target);
-            }
-            CONFIG::DEBUG{
-                debug(this,"applicationPreloaderDoneHandler:"+event+","+event.target);
+                dump(this,event);
             }
 			if( event.currentTarget is ISystemManager ){
 				var sm:ISystemManager = event.currentTarget as ISystemManager;
@@ -210,17 +205,14 @@ package org.seasar.akabana.yui.framework.core
         
         private function applicationCompleteHandler( event:FlexEvent ):void{
             CONFIG::DEBUG_EVENT{
-                _logger.info("[EVENT] applicationCompleteHandler"+event+","+event.target);
-            }
-            CONFIG::DEBUG{
-                debug(this,"applicationCompleteHandler:"+event+","+event.target);
+                dump(this,event);
             }
             applicationMonitoringStop(event.currentTarget as DisplayObject);            
         }
         
         private function creationCompleteHandler(event:FlexEvent):void{
             CONFIG::DEBUG_EVENT{
-                _logger.info("[EVENT] creationCompleteHandler"+event+","+event.target);
+                dump(this,event);
             }            
             doAssembleComponent(event.target as DisplayObject);
         }
