@@ -59,8 +59,8 @@ package org.seasar.akabana.yui.air.core
             }
         }
         
-        protected override function commitProperties():void{
-            super.commitProperties();
+        protected override function createChildren():void{
+            super.createChildren();
             
             createRootView();
         }

@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.framework.core
     import flash.system.Capabilities;
     import flash.display.DisplayObjectContainer;
     import flash.display.DisplayObject;
-	import flash.utils.Dictionary;
+    import flash.utils.Dictionary;
     
     import mx.core.UIComponent;
     import mx.events.FlexEvent;
@@ -191,12 +191,12 @@ package org.seasar.akabana.yui.framework.core
             CONFIG::DEBUG_EVENT{
                 dump(this,event);
             }
-			if( event.currentTarget is ISystemManager ){
-				var sm:ISystemManager = event.currentTarget as ISystemManager;
-				super.yui_internal::systemManagerMonitoringStart(sm as DisplayObject);
-			} else {
-				throw new IllegalOperationError("Illegal SystemManager"+event.currentTarget);
-			}
+            if( event.currentTarget is ISystemManager ){
+                var sm:ISystemManager = event.currentTarget as ISystemManager;
+                super.yui_internal::systemManagerMonitoringStart(sm as DisplayObject);
+            } else {
+                throw new IllegalOperationError("Illegal SystemManager"+event.currentTarget);
+            }
             YuiFrameworkGlobals.initNamingConvention();
             CONFIG::DEBUG{
                 debug(this,getMessage("ApplicationConventions",YuiFrameworkGlobals.public::namingConvention.conventions.toString()));
@@ -251,18 +251,22 @@ package org.seasar.akabana.yui.framework.core
         
         protected override function processApplicationStart():void{
             const app:UIComponent = YuiFrameworkGlobals.public::frameworkBridge.application as UIComponent;
+            const rootView:DisplayObjectContainer = YuiFrameworkGlobals.public::frameworkBridge.rootView as DisplayObjectContainer;
             app.setVisible(true,true);
             super.processApplicationStart();
-			
-			var allView:Dictionary = ViewComponentRepository.allView;
-			var fevent:FrameworkEvent;
-			for each (var view:UIComponent in allView) 
-			{
-				if( view.hasEventListener(FrameworkEvent.APPLICATION_START)){
-					fevent = new FrameworkEvent(FrameworkEvent.APPLICATION_START);
-					view.dispatchEvent( fevent );
-				}
-			}			
+            
+            var allView:Dictionary = ViewComponentRepository.allView;
+            var fevent:FrameworkEvent;
+            for each (var view:UIComponent in allView) 
+            {
+                if( view === rootView ){
+                    continue;
+                }
+                if( view.hasEventListener(FrameworkEvent.APPLICATION_START)){
+                    fevent = new FrameworkEvent(FrameworkEvent.APPLICATION_START);
+                    view.dispatchEvent( fevent );
+                }
+            }
         }
         
         protected override function getDefaultCustomizerClasses():Array{

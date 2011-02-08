@@ -57,12 +57,12 @@ package org.seasar.akabana.yui.air
             }
         }
 
-        protected override function commitProperties():void{
-            super.commitProperties();
+        protected override function createChildren():void{
+            super.createChildren();
             
             createRootView();
         }
-        
+
         protected function createRootView():void{
             var viewClass:Class = getStyle("rootViewClass") as Class;
             
