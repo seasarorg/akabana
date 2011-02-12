@@ -18,6 +18,11 @@ package org.seasar.akabana.yui.service {
     import flash.events.IEventDispatcher;
     
     public interface Service extends IEventDispatcher {
+        
+        {
+            ServiceGatewayUrlResolver;
+        }
+        
         function get name():String;
         
         function get destination():String;
