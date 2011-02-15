@@ -24,6 +24,7 @@
     <classEntry path="org.seasar.akabana.yui.service.resonder.AbstractResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.Responder"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>
+    <classEntry path="org.seasar.akabana.yui.service.ns.service"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>

@@ -38,7 +38,6 @@
     <classEntry path="org.seasar.akabana.yui.framework.ns.behavior"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.handler"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.helper"/>
-    <classEntry path="org.seasar.akabana.yui.framework.ns.service"/>
     <classEntry path="org.seasar.akabana.yui.framework.rule.IAction"/>
     <classEntry path="org.seasar.akabana.yui.framework.rule.IBehavior"/>
     <classEntry path="org.seasar.akabana.yui.framework.rule.IHelper"/>

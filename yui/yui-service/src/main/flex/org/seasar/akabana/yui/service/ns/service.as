@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.ns
+package org.seasar.akabana.yui.service.ns
 {
     public namespace service = "http://yui.akabana.seasar.org/1.0/framework/service";
 }
