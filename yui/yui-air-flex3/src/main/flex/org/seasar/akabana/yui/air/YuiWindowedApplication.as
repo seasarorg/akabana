@@ -22,7 +22,7 @@ package org.seasar.akabana.yui.air
     import mx.events.AIREvent;
     
     import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
-    import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
+    import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
     
     [Style(name="rootViewClass", type="Class")]
     public class YuiWindowedApplication extends WindowedApplication
@@ -67,7 +67,7 @@ package org.seasar.akabana.yui.air
             var viewClass:Class = getStyle("rootViewClass") as Class;
             
             if( viewClass == null ){
-                throw new YuiFrameworkContainerError("rootViewClass style is needed.");
+                throw new YuiFrameworkError("rootViewClass style is needed.");
             } else {
                 _rootView = new viewClass();
                 _rootView.name = "rootView";

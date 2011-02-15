@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.framework
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
-    import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
+    import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
 
     [Style(name="rootViewClass", type="Class")]
     public class YuiApplication extends Application{
@@ -66,7 +66,7 @@ package org.seasar.akabana.yui.framework
             var viewClass:Class = getStyle("rootViewClass") as Class;
 
             if( viewClass == null ){
-                throw new YuiFrameworkContainerError("rootViewClass style is needed.");
+                throw new YuiFrameworkError("rootViewClass style is needed.");
             } else {
                 _rootView = new viewClass();
                 _rootView.name = "rootView";

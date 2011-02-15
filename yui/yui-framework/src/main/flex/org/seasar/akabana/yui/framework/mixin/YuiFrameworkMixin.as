@@ -27,7 +27,7 @@ CONFIG::FP10{
     import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
-    import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
+    import org.seasar.akabana.yui.framework.core.YuiFrameworkController;
 
     [ExcludeClass]
     [Mixin]
@@ -43,11 +43,11 @@ CONFIG::FP10{
 
         private static var _this:YuiFrameworkMixin;
 
-        private static var _container:YuiFrameworkContainer;
+        private static var _container:YuiFrameworkController;
 
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{            
             _this = new YuiFrameworkMixin();
-            _container = new YuiFrameworkContainer();
+            _container = new YuiFrameworkController();
             YuiFrameworkGlobals.yui_internal::frameworkBridge = FrameworkBridge.initialize();
 
             if( flexModuleFactory is ISystemManager ){

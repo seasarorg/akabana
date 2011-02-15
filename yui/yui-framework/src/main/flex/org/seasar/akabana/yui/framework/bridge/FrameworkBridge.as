@@ -22,7 +22,6 @@ CONFIG::FP10{
     import flash.display.DisplayObjectContainer;
     import flash.display.DisplayObject;
     
-    import mx.core.UIComponent;
     import mx.managers.ISystemManager;
     import mx.styles.CSSStyleDeclaration;
     import mx.styles.IStyleManager2;

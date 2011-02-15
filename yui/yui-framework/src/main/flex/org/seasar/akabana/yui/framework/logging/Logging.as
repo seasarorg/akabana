@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.framework.logging
 	
 	import org.seasar.akabana.yui.core.ClassLoader;
 	import org.seasar.akabana.yui.core.reflection.ClassRef;
-	import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
+	import org.seasar.akabana.yui.framework.core.YuiFrameworkController;
 	import org.seasar.akabana.yui.core.logging.ILogger;
 	import org.seasar.akabana.yui.core.logging.ILoggerFactory;
 	

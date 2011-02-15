@@ -44,14 +44,14 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.core.ns.yui_internal;
     
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
-    import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
+    import org.seasar.akabana.yui.framework.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IViewCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
-    import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
+    import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
-    import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.framework.logging.dump;
     import org.seasar.akabana.yui.framework.logging.Logging;
@@ -60,7 +60,7 @@ package org.seasar.akabana.yui.framework.core
     use namespace yui_internal;
     
     [ExcludeClass]
-    public final class YuiFrameworkContainer extends YuiFrameworkContainerBase
+    public final class YuiFrameworkController extends YuiFrameworkControllerBase
     {   
         {
             CursorManager;
@@ -74,12 +74,12 @@ package org.seasar.akabana.yui.framework.core
             return _container;
         }
         
-        public function YuiFrameworkContainer(){
+        public function YuiFrameworkController(){
             super();
             if( _container == null ){
                 _container = this;
             } else {
-                throw new YuiFrameworkContainerError("container is already created.");
+                throw new YuiFrameworkError("container is already created.");
             }            
         }
         

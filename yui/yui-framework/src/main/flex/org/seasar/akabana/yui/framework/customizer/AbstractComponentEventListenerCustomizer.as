@@ -27,7 +27,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
 
-    internal class AbstractEventListenerCustomizer extends AbstractComponentEventCustomizer
+    internal class AbstractComponentEventListenerCustomizer extends AbstractComponentEventCustomizer
     {
         protected function doEventCustomize(name:String,component:UIComponent,listener:Object):void {
             const listenerClassRef:ClassRef = getClassRef(listener);

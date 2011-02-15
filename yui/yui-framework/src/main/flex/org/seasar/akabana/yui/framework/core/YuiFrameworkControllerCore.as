@@ -37,7 +37,7 @@ package org.seasar.akabana.yui.framework.core
     use namespace yui_internal;
     
     [ExcludeClass]
-    internal class YuiFrameworkContainerCore implements IYuiFrameworkContainer
+    internal class YuiFrameworkControllerCore implements IYuiFrameworkContainer
     {
         include "../Version.as";
         
@@ -68,7 +68,7 @@ package org.seasar.akabana.yui.framework.core
         
         protected var _rootDisplayObjectMap:Dictionary;
         
-        public function YuiFrameworkContainerCore(){
+        public function YuiFrameworkControllerCore(){
             CONFIG::FP9{
                 _rootDisplayObjects = [];
             }
@@ -108,7 +108,7 @@ package org.seasar.akabana.yui.framework.core
         
         protected function registerRootDisplayObject(root:DisplayObject):void{
             CONFIG::DEBUG{
-                debug(YuiFrameworkContainerCore,"add rootDisplayObject"+root);
+                debug(YuiFrameworkControllerCore,"add rootDisplayObject"+root);
             }
             _rootDisplayObjects.push(root);
             _rootDisplayObjectMap[ root ] = _rootDisplayObjects.length-1;
@@ -116,7 +116,7 @@ package org.seasar.akabana.yui.framework.core
         
         protected function unregisterRootDisplayObject(root:DisplayObject):void{
             CONFIG::DEBUG{
-                debug(YuiFrameworkContainerCore,"remove rootDisplayObject"+root);
+                debug(YuiFrameworkControllerCore,"remove rootDisplayObject"+root);
             }
             if( root in _rootDisplayObjectMap ){
                 var index:int = _rootDisplayObjectMap[ root ] as int;

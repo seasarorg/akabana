@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
-    import org.seasar.akabana.yui.framework.core.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.framework.ns.handler;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;

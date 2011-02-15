@@ -31,7 +31,7 @@ package org.seasar.akabana.yui.framework.util
     
     import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
-    import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
+    import org.seasar.akabana.yui.framework.core.YuiFrameworkController;
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
@@ -94,7 +94,7 @@ package org.seasar.akabana.yui.framework.util
         public static function removePopUpView(popUp:IFlexDisplayObject):void{
             if( popUp is UIComponent ){
                 var popUpUIComponent:UIComponent = popUp as UIComponent;
-                YuiFrameworkContainer
+                YuiFrameworkController
                     .yuicontainer
                     .uncustomizeComponent(
                         lookupRelatedOwner(popUpUIComponent),
@@ -240,7 +240,7 @@ package org.seasar.akabana.yui.framework.util
 
         private static function creationCompleteCallBack(event:FlexEvent):void{
             var popup:UIComponent = event.target as UIComponent;
-            YuiFrameworkContainer
+            YuiFrameworkController
                 .yuicontainer
                 .customizeComponent(
                     lookupRelatedOwner(popup),

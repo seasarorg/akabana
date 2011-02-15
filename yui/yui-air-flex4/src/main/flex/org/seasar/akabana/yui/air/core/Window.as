@@ -22,8 +22,8 @@ package org.seasar.akabana.yui.air.core
     import mx.events.AIREvent;
     import mx.managers.ISystemManager;
     
-    import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
-    import org.seasar.akabana.yui.framework.error.YuiFrameworkContainerError;
+    import org.seasar.akabana.yui.framework.core.YuiFrameworkController;
+    import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
     
     import spark.components.Window;
     
@@ -43,7 +43,7 @@ package org.seasar.akabana.yui.air.core
         public override function set systemManager(value:ISystemManager):void{
             if( super.systemManager != value ){
                 super.systemManager = value;
-                YuiFrameworkContainer.yuicontainer.addRootDisplayObject(value as DisplayObject);
+                YuiFrameworkController.yuicontainer.addRootDisplayObject(value as DisplayObject);
             }
         }
         
@@ -69,7 +69,7 @@ package org.seasar.akabana.yui.air.core
             var viewClass:Class = getStyle("rootViewClass") as Class;
             
             if( viewClass == null ){
-                throw new YuiFrameworkContainerError("rootViewClass style is needed.");
+                throw new YuiFrameworkError("rootViewClass style is needed.");
             } else {
                 _rootView = new viewClass();
                 _rootView.name = "rootView";

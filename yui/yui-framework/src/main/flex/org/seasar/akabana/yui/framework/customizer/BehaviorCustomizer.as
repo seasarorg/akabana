@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.framework.customizer
 	import org.seasar.akabana.yui.framework.logging.debug;
 
     [ExcludeClass]
-    public class BehaviorCustomizer extends AbstractEventListenerCustomizer {
+    public class BehaviorCustomizer extends AbstractComponentEventListenerCustomizer {
         
         public override function customizeView(view:UIComponent):void {
             const viewProperties:Object = UIComponentUtil.getProperties(view);
