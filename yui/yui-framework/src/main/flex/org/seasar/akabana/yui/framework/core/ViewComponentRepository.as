@@ -26,10 +26,10 @@ package org.seasar.akabana.yui.framework.core {
 
     [ExcludeClass]
     public class ViewComponentRepository {
-
-        private static const _viewDic:Dictionary = new Dictionary(true);
-
+        
         public static const componentInstanceMap:Dictionary = new Dictionary(true);
+        
+        private static const _viewDic:Dictionary = new Dictionary(true);
 
 		public static function get allView():Dictionary{
 			return _viewDic;
