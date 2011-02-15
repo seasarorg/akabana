@@ -15,5 +15,5 @@
  */
 package org.seasar.akabana.yui.framework.ns
 {
-    public namespace behavior = "http://yui.akabana.seasar.org/1.0/framework/behavior";
+    public namespace behavior = "http://yui.akabana.seasar.org/framework/behavior";
 }

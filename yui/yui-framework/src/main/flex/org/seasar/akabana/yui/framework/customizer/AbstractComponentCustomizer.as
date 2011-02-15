@@ -25,7 +25,7 @@ package org.seasar.akabana.yui.framework.customizer
 
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
-    import org.seasar.akabana.yui.core.yui_internal;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.rule.IStateless;
 	import org.seasar.akabana.yui.framework.logging.debug;

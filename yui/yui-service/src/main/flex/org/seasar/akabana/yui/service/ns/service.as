@@ -15,5 +15,5 @@
  */
 package org.seasar.akabana.yui.service.ns
 {
-    public namespace service = "http://yui.akabana.seasar.org/1.0/framework/service";
+    public namespace service = "http://yui.akabana.seasar.org/framework/service";
 }

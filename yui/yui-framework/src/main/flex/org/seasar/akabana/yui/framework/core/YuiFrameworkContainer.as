@@ -41,7 +41,7 @@ package org.seasar.akabana.yui.framework.core
     import mx.styles.CSSStyleDeclaration;
     
     import org.seasar.akabana.yui.core.Environment;
-    import org.seasar.akabana.yui.core.yui_internal;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
     
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
@@ -55,6 +55,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.framework.logging.dump;
     import org.seasar.akabana.yui.framework.logging.Logging;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
     
     use namespace yui_internal;
     

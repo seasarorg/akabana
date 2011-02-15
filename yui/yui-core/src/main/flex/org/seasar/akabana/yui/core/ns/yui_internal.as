@@ -13,7 +13,7 @@
 * either express or implied. See the License for the specific language
 * governing permissions and limitations under the License.
 */
-package org.seasar.akabana.yui.core
+package org.seasar.akabana.yui.core.ns
 {
-public namespace yui_internal = "http://yui.akabana.seasar.org/1.0/internal";
+public namespace yui_internal = "http://yui.akabana.seasar.org/internal";
 }

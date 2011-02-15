@@ -26,7 +26,7 @@
     <classEntry path="org.seasar.akabana.yui.core.reflection.ParameterRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.PropertyRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.Reflector"/>
-    <classEntry path="org.seasar.akabana.yui.core.yui_internal"/>
+    <classEntry path="org.seasar.akabana.yui.core.ns.yui_internal"/>
     <classEntry path="org.seasar.akabana.yui.util.ArrayUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.StringUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.URLUtil"/>

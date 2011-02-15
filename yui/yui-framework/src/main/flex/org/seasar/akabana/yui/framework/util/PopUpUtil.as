@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.framework.util
     import mx.events.FlexEvent;
     import mx.managers.PopUpManager;
     
-    import org.seasar.akabana.yui.core.yui_internal;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;
     import org.seasar.akabana.yui.util.StringUtil;

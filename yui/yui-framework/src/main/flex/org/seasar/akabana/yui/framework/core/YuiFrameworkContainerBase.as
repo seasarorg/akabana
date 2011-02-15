@@ -30,7 +30,7 @@ package org.seasar.akabana.yui.framework.core
     import flash.display.DisplayObject;
     
     import org.seasar.akabana.yui.core.Environment;
-    import org.seasar.akabana.yui.core.yui_internal;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.event.FrameworkEvent;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;

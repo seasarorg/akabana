@@ -27,7 +27,7 @@ CONFIG::FP10{
     import mx.styles.CSSStyleDeclaration;
     import mx.styles.IStyleManager2;
     
-    import org.seasar.akabana.yui.core.yui_internal;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
 
     [ExcludeClass]

@@ -16,7 +16,7 @@
 package org.seasar.akabana.yui.framework.message
 {
     import mx.resources.ResourceManager;
-    import org.seasar.akabana.yui.core.yui_internal;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
     
     import org.seasar.akabana.yui.util.StringUtil;
     

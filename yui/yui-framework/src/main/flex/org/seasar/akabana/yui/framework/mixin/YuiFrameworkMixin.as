@@ -24,7 +24,7 @@ CONFIG::FP10{
     import mx.core.IFlexModuleFactory;
     import mx.managers.ISystemManager;
 
-    import org.seasar.akabana.yui.core.yui_internal;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkContainer;

@@ -25,7 +25,7 @@ package org.seasar.akabana.yui.framework.core
     import flash.display.DisplayObject;
     import flash.display.DisplayObjectContainer;
     
-    import org.seasar.akabana.yui.core.yui_internal;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
     import org.seasar.akabana.yui.framework.message.MessageManager;

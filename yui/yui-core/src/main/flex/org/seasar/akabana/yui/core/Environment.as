@@ -16,6 +16,7 @@
 package org.seasar.akabana.yui.core
 {
     import flash.display.DisplayObject;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
 
     public class Environment
     {

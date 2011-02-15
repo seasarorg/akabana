@@ -15,5 +15,5 @@
  */
 package org.seasar.akabana.yui.framework.ns
 {
-    public namespace action = "http://yui.akabana.seasar.org/1.0/framework/action";
+    public namespace action = "http://yui.akabana.seasar.org/framework/action";
 }
