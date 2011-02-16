@@ -12,7 +12,7 @@
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkControllerBase"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkControllerCore"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkSettings"/>
-    <classEntry path="org.seasar.akabana.yui.framework.event.FrameworkEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.event.YuiFrameworkEvent"/>
     <classEntry path="org.seasar.akabana.yui.framework.event.RuntimeErrorEvent"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentEventCustomizer"/>
@@ -51,12 +51,12 @@
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/en_US/errors.properties" sourcePath="locale/en_US/errors.properties"/>
-    <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
     <resourceEntry destPath="locale/ja_JP/errors.properties" sourcePath="locale/ja_JP/errors.properties"/>
-    <resourceEntry destPath="locale/ja_JP/yui_framework.properties" sourcePath="locale/ja_JP/yui_framework.properties"/>
+    <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
     <resourceEntry destPath="locale/en_US/messages.properties" sourcePath="locale/en_US/messages.properties"/>
-    <resourceEntry destPath="locale/en_US/yui_framework.properties" sourcePath="locale/en_US/yui_framework.properties"/>
+    <resourceEntry destPath="locale/ja_JP/yui_framework.properties" sourcePath="locale/ja_JP/yui_framework.properties"/>
     <resourceEntry destPath="locale/en_US/application.properties" sourcePath="locale/en_US/application.properties"/>
+    <resourceEntry destPath="locale/en_US/yui_framework.properties" sourcePath="locale/en_US/yui_framework.properties"/>
     <resourceEntry destPath="locale/ja_JP/messages.properties" sourcePath="locale/ja_JP/messages.properties"/>
     <resourceEntry destPath="locale/ja_JP/application.properties" sourcePath="locale/ja_JP/application.properties"/>
   </includeResources>

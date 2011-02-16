@@ -18,7 +18,7 @@ package org.seasar.akabana.yui.framework.event
     import flash.events.Event;
     
 
-    public class FrameworkEvent extends Event
+    public class YuiFrameworkEvent extends Event
     {
         public static const APPLICATION_MONITOR_START:String = "applicationMonitorStart";
         
@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.framework.event
 
 		public static const VIEW_INITIALIZED:String = "viewInitialized";
         
-        public function FrameworkEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
+        public function YuiFrameworkEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
         {
             super(type, bubbles, cancelable);
         }

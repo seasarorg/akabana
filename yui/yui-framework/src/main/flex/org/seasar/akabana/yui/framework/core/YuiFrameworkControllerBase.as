@@ -32,7 +32,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.core.Environment;
     import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
-    import org.seasar.akabana.yui.framework.event.FrameworkEvent;
+    import org.seasar.akabana.yui.framework.event.YuiFrameworkEvent;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IViewCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
@@ -148,8 +148,8 @@ package org.seasar.akabana.yui.framework.core
                 int.MAX_VALUE
             );
             
-            if( root.hasEventListener(FrameworkEvent.APPLICATION_MONITOR_START)){
-                root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_START));
+            if( root.hasEventListener(YuiFrameworkEvent.APPLICATION_MONITOR_START)){
+                root.dispatchEvent(new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_MONITOR_START));
             }
         }
         
@@ -189,8 +189,8 @@ package org.seasar.akabana.yui.framework.core
                 systemManager_addedToStageHandler2,
                 true
             );
-            if( root.hasEventListener(FrameworkEvent.APPLICATION_MONITOR_STOP)){
-                root.dispatchEvent(new FrameworkEvent(FrameworkEvent.APPLICATION_MONITOR_STOP));
+            if( root.hasEventListener(YuiFrameworkEvent.APPLICATION_MONITOR_STOP)){
+                root.dispatchEvent(new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_MONITOR_STOP));
             }
         }
         
@@ -244,8 +244,8 @@ package org.seasar.akabana.yui.framework.core
                 info(this,getMessage("ApplicationStart"));
             }
             if( rootView != null ){
-                if( rootView.hasEventListener(FrameworkEvent.APPLICATION_START)){
-                    rootView.dispatchEvent( new FrameworkEvent(FrameworkEvent.APPLICATION_START));
+                if( rootView.hasEventListener(YuiFrameworkEvent.APPLICATION_START)){
+                    rootView.dispatchEvent( new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_START));
                 }
                 rootView.visible = true;
             }
@@ -273,8 +273,8 @@ package org.seasar.akabana.yui.framework.core
         
         protected function processAssembleView( view:DisplayObjectContainer ):void{
             customizeView(view);
-            if( view.hasEventListener(FrameworkEvent.VIEW_INITIALIZED)){
-                view.dispatchEvent( new FrameworkEvent(FrameworkEvent.VIEW_INITIALIZED));
+            if( view.hasEventListener(YuiFrameworkEvent.VIEW_INITIALIZED)){
+                view.dispatchEvent( new YuiFrameworkEvent(YuiFrameworkEvent.VIEW_INITIALIZED));
             }
         }
         

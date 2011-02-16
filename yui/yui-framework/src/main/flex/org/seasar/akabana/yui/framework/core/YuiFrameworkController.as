@@ -44,7 +44,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.core.ns.yui_internal;
     
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
-    import org.seasar.akabana.yui.framework.event.FrameworkEvent;
+    import org.seasar.akabana.yui.framework.event.YuiFrameworkEvent;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IViewCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
@@ -257,14 +257,14 @@ package org.seasar.akabana.yui.framework.core
             super.processApplicationStart();
             
             var allView:Dictionary = ViewComponentRepository.allView;
-            var fevent:FrameworkEvent;
+            var fevent:YuiFrameworkEvent;
             for each (var view:UIComponent in allView) 
             {
                 if( view === rootView ){
                     continue;
                 }
-                if( view.hasEventListener(FrameworkEvent.APPLICATION_START)){
-                    fevent = new FrameworkEvent(FrameworkEvent.APPLICATION_START);
+                if( view.hasEventListener(YuiFrameworkEvent.APPLICATION_START)){
+                    fevent = new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_START);
                     view.dispatchEvent( fevent );
                 }
             }
