@@ -18,7 +18,7 @@ package org.seasar.akabana.yui.core.event
     import flash.events.Event;
     import flash.events.IEventDispatcher;
 
-    public function send(d:IEventDispatcher,type:String,data:Object):void{  
+    public function send(d:IEventDispatcher,type:String,data:Object=null):void{  
 		var c:Command = new Command(type,data);
 		
 		dispatchEvent(d,c);

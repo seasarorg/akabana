@@ -21,12 +21,12 @@ CONFIG::FP10{
 
     internal class AnnotatedObjectRef extends ObjectRef implements AnnotatedReflector{
 
-        private static const HELP_METADATA:String = "__go_to_definition_help";
+        private static const METADATA_HELP:String = "__go_to_definition_help";
 
         private static function isTargetMetadata( metadataXML:XML ):Boolean{
             var isTarget:Boolean;
             do{
-                if( metadataXML.@name.toString() == HELP_METADATA){
+                if( metadataXML.@name.toString() == METADATA_HELP){
                     isTarget = false;
                     break;
                 }

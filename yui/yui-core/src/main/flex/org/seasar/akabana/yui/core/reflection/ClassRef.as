@@ -28,18 +28,17 @@ CONFIG::FP10{
 
     public class ClassRef extends AnnotatedObjectRef
     {
-
-        public static const CLASS_REF_CACHE:Dictionary = new Dictionary();
-        
-        public static const PRIMITIVE_CLASS_MAP:Object = {String:1,Boolean:1,int:1,Number:1,Object:1,String:1,uint:1};
-        
-        public static const TOPLEVEL_CLASS_MAP:Object = {Date:1,XML:1,Object:1};
-        
         public static const ARRAY_CLASS:String = "Array";
         
         public static const VECTOR_CLASS:String = "__AS3__.vec.Vector.<";
-        
+
         public static var classLoader:ClassLoader = new ClassLoader();
+
+        private static const CLASS_REF_CACHE:Dictionary = new Dictionary();
+        
+        private static const PRIMITIVE_CLASS_MAP:Object = {String:1,Boolean:1,int:1,Number:1,Object:1,String:1,uint:1};
+        
+        private static const TOPLEVEL_CLASS_MAP:Object = {Date:1,XML:1,Object:1};
         
         public static function getInstance( target:Object ):ClassRef{
 
