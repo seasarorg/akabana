@@ -121,7 +121,10 @@ package org.seasar.akabana.yui.service.ds {
         public override function getOperation(name:String):AbstractOperation
         {
             var o:Object = _operations[name];
-            var op:AbstractOperation = (o is AbstractOperation) ? (o　as AbstractOperation) : null;
+            var op:AbstractOperation = null;
+            if( o != null && o is AbstractOperation){
+                op = o as AbstractOperation; 
+            }
             if (op == null)
             {
                 if( ServiceGatewayUrlResolver.isLocalUrl(endpoint) ){
