@@ -9,6 +9,9 @@
     <target name="flex4">
         <ant antfile="build-fx41.xml"/>
     </target>
+    <target name="flex45">
+        <ant antfile="build-fx45.xml"/>
+    </target>
     <target name="logging">
         <ant antfile="build-logging.xml"/>
     </target>
