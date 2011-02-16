@@ -41,15 +41,18 @@ package org.seasar.akabana.yui.framework.core
     {
         include "../Version.as";
         
+        protected var _isApplicationStarted:Boolean = true;
+        
+        protected var _namingConvention:NamingConvention;
+        
+        protected var _rootDisplayObjectMap:Dictionary;
+        
         CONFIG::FP9{
             protected var _customizers:Array;
         }
         CONFIG::FP10{
             protected var _customizers:Vector.<IElementCustomizer>;
         }
-        protected var _isApplicationStarted:Boolean = true;
-        
-        protected var _namingConvention:NamingConvention;
         
         CONFIG::FP9{
             protected var _rootDisplayObjects:Array;
@@ -65,8 +68,6 @@ package org.seasar.akabana.yui.framework.core
                 return _rootDisplayObjects;
             }
         }
-        
-        protected var _rootDisplayObjectMap:Dictionary;
         
         public function YuiFrameworkControllerCore(){
             CONFIG::FP9{

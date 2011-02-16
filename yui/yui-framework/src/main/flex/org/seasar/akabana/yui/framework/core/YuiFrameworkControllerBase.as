@@ -200,9 +200,9 @@ package org.seasar.akabana.yui.framework.core
 
         protected function doRegisterComponent( component:DisplayObject ):void{
             if( YuiFrameworkGlobals.public::frameworkBridge.isApplication(component) ){
-                processRegisterApplication(component as DisplayObjectContainer);
+                processApplicationRegister(component as DisplayObjectContainer);
             } else {
-                processRegisterView(component as DisplayObjectContainer);
+                processViewRegister(component as DisplayObjectContainer);
                 if( _isApplicationStarted ){
                     doAssembleComponent(component);
                 }
@@ -211,18 +211,18 @@ package org.seasar.akabana.yui.framework.core
         
         protected function doUnregisterComponent(component:DisplayObject):void{
             if( isView(component)){
-                processDisassembleView( component as DisplayObjectContainer);
-                processUnregisterView( component as DisplayObjectContainer);
+                processViewDisassemble( component as DisplayObjectContainer);
+                processViewUnregister( component as DisplayObjectContainer);
             }
         }
         
         protected function doAssembleComponent( component:DisplayObject ):void{
             if( isView(component)){
-                processAssembleView( component as DisplayObjectContainer);
+                processViewAssemble( component as DisplayObjectContainer);
             }
         }
         
-        protected function processRegisterApplication(component:DisplayObjectContainer):void{
+        protected function processApplicationRegister(component:DisplayObjectContainer):void{
             CONFIG::DEBUG{
                 debug(this,getMessage("ApplicationRegistered",component.toString()));
             }
@@ -251,7 +251,7 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
-        protected function processRegisterView( container:DisplayObjectContainer ):void{
+        protected function processViewRegister( container:DisplayObjectContainer ):void{
             if( isView(container)){
                 ViewComponentRepository.addComponent( container );
                 CONFIG::DEBUG{
@@ -260,7 +260,7 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
-        protected function processUnregisterView( container:DisplayObjectContainer ):void{
+        protected function processViewUnregister( container:DisplayObjectContainer ):void{
             if( isView(container)){
                 if( ViewComponentRepository.hasComponent( container.name )){
                     ViewComponentRepository.removeComponent( container );
@@ -271,22 +271,19 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
-        protected function processAssembleView( view:DisplayObjectContainer ):void{
+        protected function processViewAssemble( view:DisplayObjectContainer ):void{
             customizeView(view);
-            if( view.hasEventListener(YuiFrameworkEvent.VIEW_INITIALIZED)){
-                view.dispatchEvent( new YuiFrameworkEvent(YuiFrameworkEvent.VIEW_INITIALIZED));
-            }
         }
         
-        protected function processAssembleViewChild( container:DisplayObjectContainer,child:DisplayObject):void{
+        protected function processViewChildAssemble( container:DisplayObjectContainer,child:DisplayObject):void{
             customizeComponent(container,child);
         }
         
-        protected function processDisassembleView( container:DisplayObjectContainer ):void{
+        protected function processViewDisassemble( container:DisplayObjectContainer ):void{
             uncustomizeView(container);
         }
         
-        protected function processDisassembleViewChild( container:DisplayObjectContainer,child:DisplayObject):void{
+        protected function processViewChildDisassemble( container:DisplayObjectContainer,child:DisplayObject):void{
             uncustomizeComponent(container,child);
         }
         

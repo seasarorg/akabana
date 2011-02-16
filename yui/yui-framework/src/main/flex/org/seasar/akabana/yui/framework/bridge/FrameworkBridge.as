@@ -43,51 +43,51 @@ CONFIG::FP10{
                 }
             }
             var pluginClass:Class = frameworkBridgeCss.getStyle("frameworkBridgePlugin");
-            result.frameworkBridgePlugin = new pluginClass();
+            result._plugin = new pluginClass();
             return result;
         }
 
-        protected var frameworkBridgePlugin:IFrameworkBridgePlugin;
+        private var _plugin:IFrameworkBridgePlugin;
 
         public function get application():DisplayObjectContainer{
-            return frameworkBridgePlugin.application;
+            return _plugin.application;
         }
 
         public function set application(value:DisplayObjectContainer):void{
-            frameworkBridgePlugin.application = value;
+            _plugin.application = value;
         }
         
         public function get parameters():Object{
-            return frameworkBridgePlugin.parameters;
+            return _plugin.parameters;
         }
         
         public function get rootView():DisplayObjectContainer{
-            return frameworkBridgePlugin.rootView;
+            return _plugin.rootView;
         }
 
         public function get systemManager():DisplayObject{
-            return frameworkBridgePlugin.systemManager;
+            return _plugin.systemManager;
         }
 
         public function isApplication(application:DisplayObject):Boolean{
-            return frameworkBridgePlugin.isApplication(application);
+            return _plugin.isApplication(application);
         }
 
         public function isContainer(component:DisplayObject):Boolean{
-            return frameworkBridgePlugin.isContainer(component);
+            return _plugin.isContainer(component);
         }
         
         public function isComponent(component:DisplayObject):Boolean{
-            return frameworkBridgePlugin.isComponent(component);
+            return _plugin.isComponent(component);
         }
 CONFIG::FP9{
         public function getChildren(component:DisplayObjectContainer):Array{
-            return frameworkBridgePlugin.getChildren(component);
+            return _plugin.getChildren(component);
         }
 }
 CONFIG::FP10{
         public function getChildren(component:DisplayObjectContainer):Vector.<DisplayObject>{
-            return frameworkBridgePlugin.getChildren(component);
+            return _plugin.getChildren(component);
         }
 }
     }

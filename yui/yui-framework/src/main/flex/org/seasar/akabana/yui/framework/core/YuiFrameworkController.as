@@ -109,6 +109,9 @@ package org.seasar.akabana.yui.framework.core
                     viewcustomizer_.customizeView( view );
                 }
             }
+            if( view.hasEventListener(YuiFrameworkEvent.VIEW_INITIALIZED)){
+                view.dispatchEvent( new YuiFrameworkEvent(YuiFrameworkEvent.VIEW_INITIALIZED));
+            }
         }
         
         public override function uncustomizeView( container:DisplayObjectContainer ):void{
@@ -230,7 +233,7 @@ package org.seasar.akabana.yui.framework.core
             } else if(isComponent(component)){
                 var document:UIComponent = component.document as UIComponent;
                 if( document != null && document.initialized && isView(document)){
-                    processDisassembleViewChild(document,component);
+                    processViewChildDisassemble(document,component);
                 }
             }
         }
@@ -241,11 +244,11 @@ package org.seasar.akabana.yui.framework.core
                 return;
             }
             if( isView(component)){
-                processAssembleView(component);
+                processViewAssemble(component);
             } else if(isComponent(component)){
                 var document:UIComponent = component.document as UIComponent;
                 if( document != null && document.initialized && isView(document)){
-                    processAssembleViewChild(document,component);
+                    processViewChildAssemble(document,component);
                 }
             }
         }
@@ -316,7 +319,7 @@ package org.seasar.akabana.yui.framework.core
                 }
                 view = ViewComponentRepository.getComponent(viewName) as UIComponent;
                 if( view != null && view.initialized ){
-                    processAssembleView(view);
+                    processViewAssemble(view);
                 }
                 CONFIG::DEBUG{
                     debug(this,getMessage("ViewComponentAssembled",viewName));
