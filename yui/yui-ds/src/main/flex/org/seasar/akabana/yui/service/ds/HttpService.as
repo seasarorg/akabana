@@ -12,6 +12,7 @@ package org.seasar.akabana.yui.service.ds
     import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.ManagedService;
     import org.seasar.akabana.yui.service.ServiceManager;
     
@@ -47,6 +48,9 @@ package org.seasar.akabana.yui.service.ds
         
         public function initialized(document:Object, id:String):void
         {
+            if( baseURL == null && name != null){
+                baseURL = ServiceGatewayUrlResolver.resolve( name );
+            }
             ServiceManager.addService( this );
         }
         
@@ -67,7 +71,12 @@ package org.seasar.akabana.yui.service.ds
         }
         
         protected function internalInvoke(operationName:String,args:Array):DsPendingCall{
+            if( baseURL == null && name != null){
+                baseURL = ServiceGatewayUrlResolver.resolve( name );
+            }
+            
             var asyncToken:AsyncToken = super.callProperty.apply(null, [operationName].concat(args));
+            
             asyncToken.message.destination = destination;
             var result:DsPendingCall = new DsPendingCall(asyncToken.message);
             result.setInternalAsyncToken(asyncToken,getOperation(operationName));
