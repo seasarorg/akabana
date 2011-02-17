@@ -16,5 +16,6 @@
 package org.seasar.akabana.yui.framework.rule
 {
     public interface IValidator {
+        function validate():Array;
     }
 }
