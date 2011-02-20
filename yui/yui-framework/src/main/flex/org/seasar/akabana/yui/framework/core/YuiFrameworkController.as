@@ -45,6 +45,7 @@ package org.seasar.akabana.yui.framework.core
     
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.event.YuiFrameworkEvent;
+    import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IViewCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
@@ -58,6 +59,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.core.ns.yui_internal;
     import flash.display.LoaderInfo;
     import flash.events.UncaughtErrorEvent;
+    import org.seasar.akabana.yui.framework.convention.NamingConvention;
     
     use namespace yui_internal;
     
@@ -283,8 +285,9 @@ package org.seasar.akabana.yui.framework.core
         }
         
         protected override function processApplicationStart():void{
-            const app:UIComponent = YuiFrameworkGlobals.public::frameworkBridge.application as UIComponent;
-            const rootView:DisplayObjectContainer = YuiFrameworkGlobals.public::frameworkBridge.rootView as DisplayObjectContainer;
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            const app:UIComponent = frameworkBridge.application as UIComponent;
+            const rootView:DisplayObjectContainer = frameworkBridge.rootView as DisplayObjectContainer;
             app.setVisible(true,true);
             super.processApplicationStart();
             
@@ -367,8 +370,10 @@ package org.seasar.akabana.yui.framework.core
             if( component == null || !(component is UIComponent)){
                 return false;
             }
-            if( YuiFrameworkGlobals.public::frameworkBridge.isContainer(component)){
-                return YuiFrameworkGlobals.public::namingConvention.isViewClassName( getCanonicalName(component) );
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            if( frameworkBridge.isContainer(component)){
+                const namingConvention:NamingConvention = YuiFrameworkGlobals.public::namingConvention as NamingConvention;
+                return namingConvention.isViewClassName( getCanonicalName(component) );
             } else {
                 return false;
             }
@@ -379,7 +384,8 @@ package org.seasar.akabana.yui.framework.core
             if( component == null || component.id == null || !(component is UIComponent)){
                 return false;
             }
-            return YuiFrameworkGlobals.public::frameworkBridge.isComponent(component);            
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            return frameworkBridge.isComponent(component);            
         }
         
         yui_internal override function applicationMonitoringStart(root:DisplayObject):void{
@@ -389,7 +395,7 @@ package org.seasar.akabana.yui.framework.core
                 true,
                 int.MAX_VALUE
             );
-            super.yui_internal::applicationMonitoringStart(root);
+            super.applicationMonitoringStart(root);
         }
         
         yui_internal override function applicationMonitoringStop(root:DisplayObject):void{
@@ -437,7 +443,8 @@ package org.seasar.akabana.yui.framework.core
         }
         
         yui_internal override function systemManagerMonitoringStop(root:DisplayObject):void{
-            const application_:DisplayObjectContainer = YuiFrameworkGlobals.public::frameworkBridge.application;
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            const application_:DisplayObjectContainer = frameworkBridge.application;
             if( application_ != null ){
                 root.removeEventListener(
                     FlexEvent.CREATION_COMPLETE,
@@ -445,7 +452,7 @@ package org.seasar.akabana.yui.framework.core
                     true
                 );
             }
-            super.yui_internal::systemManagerMonitoringStop(root);
+            super.systemManagerMonitoringStop(root);
         }
     }
 }

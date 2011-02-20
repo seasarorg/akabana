@@ -158,8 +158,8 @@ package org.seasar.akabana.yui.service.ds {
             super.initialized(document,id);
 
             if( document is UIComponent ){
-				_parentApplication = (document as UIComponent).parentApplication as UIComponent;
-			}
+                _parentApplication = (document as UIComponent).parentApplication as UIComponent;
+            }
             _parentApplication.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompleteHandler,false,0,true);
             ServiceManager.addService( this );
         }
@@ -197,8 +197,8 @@ package org.seasar.akabana.yui.service.ds {
             result.setInternalAsyncToken(asyncToken,getOperation(name.localName));
 
             if( OperationCallBack.invokeCallBack != null ){
-				var methodName:String = name.localName;
-				OperationCallBack.invokeCallBack.apply(null,[destination+"."+methodName,args]);
+                var methodName:String = name.localName;
+                OperationCallBack.invokeCallBack.apply(null,[destination+"."+methodName,args]);
             }
             if( result != null ){
                 _pendingCallMap[ result ] = getTimer();

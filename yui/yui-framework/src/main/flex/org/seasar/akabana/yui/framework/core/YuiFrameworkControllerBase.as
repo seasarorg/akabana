@@ -32,16 +32,17 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.core.Environment;
     import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
-    import org.seasar.akabana.yui.framework.event.YuiFrameworkEvent;
+    import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
     import org.seasar.akabana.yui.framework.customizer.IComponentCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IViewCustomizer;
     import org.seasar.akabana.yui.framework.customizer.IElementCustomizer;
-    import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
-    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
+    import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
+    import org.seasar.akabana.yui.framework.event.YuiFrameworkEvent;
 	import org.seasar.akabana.yui.framework.logging.debug;
 	import org.seasar.akabana.yui.framework.logging.info;
     import org.seasar.akabana.yui.framework.logging.dump;
+    import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     
     use namespace yui_internal;
     
@@ -127,8 +128,11 @@ package org.seasar.akabana.yui.framework.core
         CONFIG::UNCAUGHT_ERROR_GLOBAL{
             yui_internal function loaderInfoUncaughtErrorHandler(event:UncaughtErrorEvent):void
             {
-                var runtimeErrorEvent:RuntimeErrorEvent = RuntimeErrorEvent.createEvent(event.error);
-                YuiFrameworkGlobals.public::frameworkBridge.application.dispatchEvent(runtimeErrorEvent);
+                const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+                const runtimeErrorEvent:RuntimeErrorEvent = RuntimeErrorEvent.createEvent(event.error);
+                if (!frameworkBridge.application.dispatchEvent(runtimeErrorEvent)){
+                    event.preventDefault();
+                }
             }
         }
         
@@ -199,7 +203,8 @@ package org.seasar.akabana.yui.framework.core
         }
 
         protected function doRegisterComponent( component:DisplayObject ):void{
-            if( YuiFrameworkGlobals.public::frameworkBridge.isApplication(component) ){
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            if( frameworkBridge.isApplication(component) ){
                 processApplicationRegister(component as DisplayObjectContainer);
             } else {
                 processViewRegister(component as DisplayObjectContainer);
@@ -226,13 +231,15 @@ package org.seasar.akabana.yui.framework.core
             CONFIG::DEBUG{
                 debug(this,getMessage("ApplicationRegistered",component.toString()));
             }
-            YuiFrameworkGlobals.public::frameworkBridge.application = component;
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            frameworkBridge.application = component;
             Environment.yui_internal::root = component;
-            Environment.yui_internal::parameters = YuiFrameworkGlobals.public::frameworkBridge.parameters;
+            Environment.yui_internal::parameters = frameworkBridge.parameters;
         }
         
         protected function processApplicationStart():void{
-            var rootView:DisplayObjectContainer = YuiFrameworkGlobals.public::frameworkBridge.rootView as DisplayObjectContainer;
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            const rootView:DisplayObjectContainer = frameworkBridge.rootView as DisplayObjectContainer;
             CONFIG::DEBUG{
                 info(this,getMessage("ApplicationStart"));
             }
