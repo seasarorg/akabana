@@ -81,8 +81,8 @@ CONFIG::UNCAUGHT_ERROR_EVENT {
                             if( event is Command ){
                                 proto.apply(null,[(event as Command).data]);
                             } else if( event is Notification ){
-								proto.apply(null,[(event as Notification).data]);
-							} else {
+                                proto.apply(null,[(event as Notification).data]);
+                            } else {
                                 proto.apply(null,[event]);
                             }
                         } else {
@@ -107,13 +107,13 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                     var callee:Object = arguments.callee;
                     var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
                     if(proto != null) {
-						if( event is Command ){
-							proto.apply(null,[(event as Command).data]);
-						} else if( event is Notification ){
-							proto.apply(null,[(event as Notification).data]);
-						} else {
-							proto.apply(null,[event]);
-						}
+                        if( event is Command ){
+                            proto.apply(null,[(event as Command).data]);
+                        } else if( event is Notification ){
+                            proto.apply(null,[(event as Notification).data]);
+                        } else {
+                            proto.apply(null,[event]);
+                        }
                     } else {
                         throw new Error("EnhancedEventHandler doesn't have proto Handler");
                     }

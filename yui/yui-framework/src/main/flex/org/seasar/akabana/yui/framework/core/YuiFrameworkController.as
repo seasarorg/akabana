@@ -56,6 +56,8 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.logging.dump;
     import org.seasar.akabana.yui.framework.logging.Logging;
     import org.seasar.akabana.yui.core.ns.yui_internal;
+    import flash.display.LoaderInfo;
+    import flash.events.UncaughtErrorEvent;
     
     use namespace yui_internal;
     
@@ -253,6 +255,33 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        protected override function processApplicationRegister(component:DisplayObjectContainer):void{
+            super.processApplicationRegister(component);
+            
+            const root:DisplayObject = YuiFrameworkGlobals.public::frameworkBridge.systemManager;
+            systemManagerMonitoringStop(root);
+            applicationMonitoringStart(root);
+            CONFIG::UNCAUGHT_ERROR_GLOBAL{
+                root.loaderInfo.uncaughtErrorEvents
+                    .addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfoUncaughtErrorHandler,false,int.MAX_VALUE);
+            }
+            if( root is SystemManager ){
+                var sm:SystemManager = root as SystemManager;
+                var preloadedRSLs:Dictionary = sm.preloadedRSLs;
+                
+                for( var item:Object in preloadedRSLs ){
+                    var loaderInfo:LoaderInfo = item as LoaderInfo;
+                    CONFIG::DEBUG{
+                        debug(this,"preloadedRSLs:"+loaderInfo.url);
+                    }
+                    CONFIG::UNCAUGHT_ERROR_GLOBAL{
+                        loaderInfo.loader.uncaughtErrorEvents
+                            .addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfoUncaughtErrorHandler,false,int.MAX_VALUE);
+                    }
+                }
+            }
+        }
+        
         protected override function processApplicationStart():void{
             const app:UIComponent = YuiFrameworkGlobals.public::frameworkBridge.application as UIComponent;
             const rootView:DisplayObjectContainer = YuiFrameworkGlobals.public::frameworkBridge.rootView as DisplayObjectContainer;
@@ -304,6 +333,7 @@ package org.seasar.akabana.yui.framework.core
         }
 
         yui_internal override function applicationInitialize():void{
+            
             if( _customizers == null ){
                 _customizers = getDefaultCustomizers();
             }

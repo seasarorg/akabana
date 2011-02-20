@@ -125,7 +125,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         CONFIG::UNCAUGHT_ERROR_GLOBAL{
-            private function loaderInfoUncaughtErrorHandler(event:UncaughtErrorEvent):void
+            yui_internal function loaderInfoUncaughtErrorHandler(event:UncaughtErrorEvent):void
             {
                 var runtimeErrorEvent:RuntimeErrorEvent = RuntimeErrorEvent.createEvent(event.error);
                 YuiFrameworkGlobals.public::frameworkBridge.application.dispatchEvent(runtimeErrorEvent);
@@ -229,13 +229,6 @@ package org.seasar.akabana.yui.framework.core
             YuiFrameworkGlobals.public::frameworkBridge.application = component;
             Environment.yui_internal::root = component;
             Environment.yui_internal::parameters = YuiFrameworkGlobals.public::frameworkBridge.parameters;
-            
-            const root:DisplayObject = YuiFrameworkGlobals.public::frameworkBridge.systemManager;
-            systemManagerMonitoringStop(root);
-            applicationMonitoringStart(root);
-            CONFIG::UNCAUGHT_ERROR_GLOBAL{
-                component.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfoUncaughtErrorHandler);
-            }
         }
         
         protected function processApplicationStart():void{
