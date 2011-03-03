@@ -35,9 +35,11 @@ package org.seasar.akabana.yui.framework.customizer
             const viewProperties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
-
+            const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            if( action == null ){
+                return;
+            }
             try {
-                const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 const actionClassRef:ClassRef = getClassRef(action);
                 CONFIG::FP9 {
                     var props:Array = actionClassRef.properties;
@@ -87,8 +89,11 @@ package org.seasar.akabana.yui.framework.customizer
             const viewProperties:Object = UIComponentUtil.getProperties(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             const viewClassName:String = getCanonicalName(view);
+            const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            if( action == null ){
+                return;
+            }
             try {
-                const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 const actionClassRef:ClassRef = getClassRef(action);
                 CONFIG::FP9 {
                     var props:Array = actionClassRef.properties;
