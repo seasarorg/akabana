@@ -49,7 +49,7 @@ package org.seasar.akabana.yui.air
         public override function dispatchEvent(event:Event):Boolean
         {
             var result:Boolean = super.dispatchEvent(event);
-            if( !event.type in YuiApplicationConsts.UNRECOMMEND_EVENT_MAP ){
+            if( !(event.type in YuiApplicationConsts.UNRECOMMEND_EVENT_MAP)){
                 if( result ){
                     if( initialized && _rootView != null && _rootView.initialized ){
                         result = _rootView.dispatchEvent(event);
