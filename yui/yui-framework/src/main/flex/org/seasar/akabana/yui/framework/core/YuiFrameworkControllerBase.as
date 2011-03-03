@@ -84,7 +84,7 @@ package org.seasar.akabana.yui.framework.core
             }
             applicationMonitoringStart(root);
             
-            addRootDisplayObject(root);
+            super.addRootDisplayObject(root);
         }
         
         public override function removeRootDisplayObject(root:DisplayObject):void{
@@ -95,7 +95,7 @@ package org.seasar.akabana.yui.framework.core
                 applicationMonitoringStop(root);
             }
             
-            removeRootDisplayObject(root);
+            super.removeRootDisplayObject(root);
         }
         
         private function systemManager_addedToStageHandler( event:Event ):void{

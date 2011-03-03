@@ -20,8 +20,10 @@ package org.seasar.akabana.yui.air
     import mx.core.UIComponent;
     import mx.events.AIREvent;
     
+    import org.seasar.akabana.yui.framework.YuiApplicationConsts;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
+    import org.seasar.akabana.yui.framework.logging.debug;
     
     import spark.components.WindowedApplication;
     
@@ -48,14 +50,15 @@ package org.seasar.akabana.yui.air
 
         public override function dispatchEvent(event:Event):Boolean
         {
-            if( _rootView != null ){
-                _rootView.dispatchEvent(event);
+            var result:Boolean = super.dispatchEvent(event);
+            if( !(event.type in YuiApplicationConsts.UNRECOMMEND_EVENT_MAP)){
+                if( result ){
+                    if( initialized && _rootView != null && _rootView.initialized ){
+                        result = _rootView.dispatchEvent(event);
+                    }
+                }
             }
-            if( event.isDefaultPrevented()){
-                return false;
-            } else {
-                return super.dispatchEvent(event);
-            }
+            return result;
         }
         
         protected override function createChildren():void{
