@@ -72,10 +72,16 @@ package org.seasar.akabana.yui.framework.core
             DragManager;
         }
         
-        private static var _container:IYuiFrameworkContainer;
+        private static var _container:IYuiFrameworkController;
         
-        public static function get yuicontainer():IYuiFrameworkContainer{
+        public static function get yuicontainer():IYuiFrameworkController{
             return _container;
+        }
+        
+        private static var _currentRoot:DisplayObjectContainer;
+        
+        public static function get currentRoot():DisplayObjectContainer{
+            return _currentRoot;
         }
         
         public function YuiFrameworkController(){
@@ -232,6 +238,10 @@ package org.seasar.akabana.yui.framework.core
         
         protected override function doUnregisterComponent(target:DisplayObject):void{
             var component:UIComponent = target as UIComponent;
+            if( component == null || !component.initialized ){
+                return;
+            }
+            _currentRoot = component.systemManager as DisplayObjectContainer;
             if( isView(component)){
                 super.doUnregisterComponent(component);
             } else if(isComponent(component)){
@@ -247,6 +257,7 @@ package org.seasar.akabana.yui.framework.core
             if( component == null || !component.initialized ){
                 return;
             }
+            _currentRoot = component.systemManager as DisplayObjectContainer;
             if( isView(component)){
                 processViewAssemble(component);
             } else if(isComponent(component)){

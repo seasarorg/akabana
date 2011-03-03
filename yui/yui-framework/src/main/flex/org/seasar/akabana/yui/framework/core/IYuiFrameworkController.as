@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.framework.core
     import flash.display.DisplayObjectContainer;
 
     [ExcludeClass]
-    public interface IYuiFrameworkContainer
+    public interface IYuiFrameworkController
     {
         function addRootDisplayObject(systemManager:DisplayObject):void;
         

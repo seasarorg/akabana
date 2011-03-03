@@ -37,7 +37,7 @@ package org.seasar.akabana.yui.framework.core
     use namespace yui_internal;
     
     [ExcludeClass]
-    internal class YuiFrameworkControllerCore implements IYuiFrameworkContainer
+    internal class YuiFrameworkControllerCore implements IYuiFrameworkController
     {
         include "../Version.as";
         

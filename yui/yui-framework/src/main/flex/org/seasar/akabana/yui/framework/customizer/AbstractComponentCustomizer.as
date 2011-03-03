@@ -29,31 +29,46 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.rule.IStateless;
 	import org.seasar.akabana.yui.framework.logging.debug;
+    import org.seasar.akabana.yui.framework.core.YuiFrameworkController;
     import flash.utils.Dictionary;
+    import flash.display.DisplayObjectContainer;
 
     internal class AbstractComponentCustomizer implements IViewCustomizer {
         
         private static const INSTANCE_REF_CACHE:Dictionary = new Dictionary();
-
+        
+        private static function get currentInstanceRefCache():Dictionary{
+            const currentRoot:DisplayObjectContainer = YuiFrameworkController.currentRoot;
+            
+            var result:Dictionary;
+            if( currentRoot in INSTANCE_REF_CACHE ){
+                result = INSTANCE_REF_CACHE[ currentRoot ];   
+            } else {
+                result = new Dictionary(true);
+                INSTANCE_REF_CACHE[ currentRoot ] = result;
+            }
+            return result;
+        }
+        
         protected function newInstance(classRef:ClassRef,...args):Object{
             var result:Object = null;
             if( classRef.isAssignableFrom(IStateless)){
                 result = classRef.newInstance.apply(null,args);
                 CONFIG::DEBUG {
-                    debug(this,"Stateless instance created:" + classRef.name);
+                    debug(this,"instance created:" + classRef.name);
                 }
             } else {
-                if( classRef.name in INSTANCE_REF_CACHE ){
+                if( classRef.name in currentInstanceRefCache ){
                     result = INSTANCE_REF_CACHE[ classRef.name ];
                     
                     CONFIG::DEBUG {
-                        debug(this,"Stateful instance reused:" + classRef.name);
+                        debug(this,"instance reused:" + classRef.name);
                     }                    
                 } else {
                     result = classRef.newInstance.apply(null,args);
-					INSTANCE_REF_CACHE[ classRef.name ] = result;
+                    currentInstanceRefCache[ classRef.name ] = result;
                     CONFIG::DEBUG {
-                        debug(this,"Stateful instance created and cached:" + classRef.name);
+                        debug(this,"instance created and cached:" + classRef.name);
                     }
                 }
             }
