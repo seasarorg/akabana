@@ -41,7 +41,9 @@ CONFIG::FP10{
         private static const TOPLEVEL_CLASS_MAP:Object = {Date:1,XML:1,Object:1};
         
         public static function getInstance( target:Object ):ClassRef{
-
+            if( target == null ){
+                return null;
+            }
             var clazz:Class = null;
             try {
                 switch( true ){
