@@ -21,6 +21,8 @@ package org.seasar.akabana.yui.framework.core
     [ExcludeClass]
     public interface IYuiFrameworkController
     {
+        function get currentRoot():DisplayObject;
+        
         function addRootDisplayObject(systemManager:DisplayObject):void;
         
         function removeRootDisplayObject(systemManager:DisplayObject):void;

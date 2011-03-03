@@ -95,7 +95,7 @@ package org.seasar.akabana.yui.framework.util
             if( popUp is UIComponent ){
                 var popUpUIComponent:UIComponent = popUp as UIComponent;
                 YuiFrameworkController
-                    .yuicontainer
+                    .getInstance()
                     .uncustomizeComponent(
                         lookupRelatedOwner(popUpUIComponent),
                         popUpUIComponent
@@ -241,7 +241,7 @@ package org.seasar.akabana.yui.framework.util
         private static function creationCompleteCallBack(event:FlexEvent):void{
             var popup:UIComponent = event.target as UIComponent;
             YuiFrameworkController
-                .yuicontainer
+                .getInstance()
                 .customizeComponent(
                     lookupRelatedOwner(popup),
                     popup as UIComponent

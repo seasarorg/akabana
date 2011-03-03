@@ -34,47 +34,7 @@ package org.seasar.akabana.yui.framework.customizer
     import flash.display.DisplayObjectContainer;
 
     internal class AbstractComponentCustomizer implements IViewCustomizer {
-        
-        private static const INSTANCE_REF_CACHE:Dictionary = new Dictionary();
-        
-        private static function get currentInstanceRefCache():Dictionary{
-            const currentRoot:DisplayObjectContainer = YuiFrameworkController.currentRoot;
-            
-            var result:Dictionary;
-            if( currentRoot in INSTANCE_REF_CACHE ){
-                result = INSTANCE_REF_CACHE[ currentRoot ];   
-            } else {
-                result = new Dictionary(true);
-                INSTANCE_REF_CACHE[ currentRoot ] = result;
-            }
-            return result;
-        }
-        
-        protected function newInstance(classRef:ClassRef,...args):Object{
-            var result:Object = null;
-            if( classRef.isAssignableFrom(IStateless)){
-                result = classRef.newInstance.apply(null,args);
-                CONFIG::DEBUG {
-                    debug(this,"instance created:" + classRef.name);
-                }
-            } else {
-                if( classRef.name in currentInstanceRefCache ){
-                    result = INSTANCE_REF_CACHE[ classRef.name ];
-                    
-                    CONFIG::DEBUG {
-                        debug(this,"instance reused:" + classRef.name);
-                    }                    
-                } else {
-                    result = classRef.newInstance.apply(null,args);
-                    currentInstanceRefCache[ classRef.name ] = result;
-                    CONFIG::DEBUG {
-                        debug(this,"instance created and cached:" + classRef.name);
-                    }
-                }
-            }
-            return result;
-        }
-        
+
         protected function setPropertiesValue(target:Object,varClassName:String,value:Object):void {
             const targetClassRef:ClassRef = getClassRef(target);
             CONFIG::FP9 {

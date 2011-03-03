@@ -69,6 +69,10 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        public function get currentRoot():DisplayObject{
+            return null;
+        }
+        
         public function YuiFrameworkControllerCore(){
             CONFIG::FP9{
                 _rootDisplayObjects = [];

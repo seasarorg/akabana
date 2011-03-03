@@ -27,6 +27,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.ns.viewpart;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
 	import org.seasar.akabana.yui.framework.logging.debug;
+	import org.seasar.akabana.yui.framework.core.InstanceCache;
 
     [ExcludeClass]
     public class ValidatorCustomizer extends AbstractComponentCustomizer {
@@ -124,7 +125,7 @@ package org.seasar.akabana.yui.framework.customizer
                 if( validatorClassRef.name in validatorMap){
                     validator = validatorMap[validatorClassRef.name];
                 } else {
-                    validator = newInstance(prop.typeClassRef);
+                    validator = InstanceCache.newInstance(prop.typeClassRef);
                     validatorMap[validatorClassRef.name] = validator;               
                 }
                 

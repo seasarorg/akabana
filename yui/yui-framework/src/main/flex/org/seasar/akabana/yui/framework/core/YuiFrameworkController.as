@@ -72,33 +72,19 @@ package org.seasar.akabana.yui.framework.core
             DragManager;
         }
         
-        private static var _container:IYuiFrameworkController;
+        private static var _this:IYuiFrameworkController;
         
-        public static function get yuicontainer():IYuiFrameworkController{
-            return _container;
-        }
-        
-        private static var _currentRoot:DisplayObjectContainer;
-        
-        public static function get currentRoot():DisplayObjectContainer{
-            return _currentRoot;
+        public static function getInstance():IYuiFrameworkController{
+            return _this;
         }
         
         public function YuiFrameworkController(){
             super();
-            if( _container == null ){
-                _container = this;
+            if( _this == null ){
+                _this = this;
             } else {
                 throw new YuiFrameworkError("container is already created.");
             }            
-        }
-        
-        public function addExternalSystemManager(sm:ISystemManager ):void{
-            addRootDisplayObject(sm as DisplayObject);
-        }
-        
-        public function removeExternalSystemManager(sm:ISystemManager ):void{
-            removeRootDisplayObject(sm as DisplayObject);
         }
         
         public override function customizeView( container:DisplayObjectContainer ):void{

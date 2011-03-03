@@ -30,6 +30,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
 	import org.seasar.akabana.yui.framework.logging.debug;
+	import org.seasar.akabana.yui.framework.core.InstanceCache;
 
     [ExcludeClass]
     public class ActionCustomizer extends AbstractComponentEventListenerCustomizer {
@@ -46,7 +47,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 //
                 const actionClassRef:ClassRef = getClassRef(actionClassName);
-                const action:Object = newInstance(actionClassRef);
+                const action:Object = InstanceCache.newInstance(actionClassRef);
                 doEventCustomize(viewName,view,action);
                 viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = action;
                 

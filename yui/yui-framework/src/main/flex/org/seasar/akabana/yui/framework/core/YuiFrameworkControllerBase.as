@@ -60,6 +60,12 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        protected var _currentRoot:DisplayObject;
+        
+        public override function get currentRoot():DisplayObject{
+            return _currentRoot;
+        }
+        
         public function YuiFrameworkControllerBase(){
             super();
             
@@ -79,11 +85,12 @@ package org.seasar.akabana.yui.framework.core
             CONFIG::DEBUG{
                 debug(this,"add external root"+root);
             }
+            InstanceCache.addRoot(root);
             if( root in _rootDisplayObjectMap ){
                 applicationMonitoringStop(root);
             }
+            _rootDisplayObjectMap[ root ] = true;
             applicationMonitoringStart(root);
-            
             super.addRootDisplayObject(root);
         }
         
@@ -91,11 +98,17 @@ package org.seasar.akabana.yui.framework.core
             CONFIG::DEBUG{
                 debug(this,"remove external root"+root);
             }
+            super.removeRootDisplayObject(root);            
             if( root in _rootDisplayObjectMap ){
                 applicationMonitoringStop(root);
             }
+            _rootDisplayObjectMap[ root ] = true;
+            delete _rootDisplayObjectMap[ root ];
             
-            super.removeRootDisplayObject(root);
+            if( _currentRoot === root ){
+                _currentRoot = null;
+            }
+            InstanceCache.removeRoot(root);
         }
         
         private function systemManager_addedToStageHandler( event:Event ):void{

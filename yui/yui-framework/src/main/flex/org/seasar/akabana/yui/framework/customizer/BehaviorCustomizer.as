@@ -27,6 +27,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
 	import org.seasar.akabana.yui.framework.logging.debug;
+	import org.seasar.akabana.yui.framework.core.InstanceCache;
 
     [ExcludeClass]
     public class BehaviorCustomizer extends AbstractComponentEventListenerCustomizer {
@@ -56,7 +57,7 @@ package org.seasar.akabana.yui.framework.customizer
                         CONFIG::DEBUG {
                             debug(this,getMessage("Customizing",viewClassName,prop.typeClassRef.name));
                         }
-                        behavior = newInstance(prop.typeClassRef);
+                        behavior = InstanceCache.newInstance(prop.typeClassRef);
                         prop.setValue(action,behavior);
                         behaviors.push(behavior);
 

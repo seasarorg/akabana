@@ -27,6 +27,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.ns.viewpart;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
 	import org.seasar.akabana.yui.framework.logging.debug;
+	import org.seasar.akabana.yui.framework.core.InstanceCache;
 
     [ExcludeClass]
     public class HelperCustomizer extends AbstractComponentCustomizer {
@@ -125,7 +126,7 @@ package org.seasar.akabana.yui.framework.customizer
                 if( helperClassRef.name in helperMap){
                     helper = helperMap[helperClassRef.name];
                 } else {
-                    helper = newInstance(prop.typeClassRef);
+                    helper = InstanceCache.newInstance(prop.typeClassRef);
                     helperMap[helperClassRef.name] = helper;               
                 }
                 

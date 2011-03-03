@@ -40,12 +40,13 @@ package org.seasar.akabana.yui.air.core
         public function Window(){
             super();
             addEventListener(AIREvent.WINDOW_COMPLETE,on_windowComplete);
+            addEventListener(Event.CLOSE,on_windowClose);
         }
         
         public override function set systemManager(value:ISystemManager):void{
             if( super.systemManager != value ){
                 super.systemManager = value;
-                YuiFrameworkController.yuicontainer.addRootDisplayObject(value as DisplayObject);
+                YuiFrameworkController.getInstance().addRootDisplayObject(value as DisplayObject);
             }
         }
         
@@ -86,6 +87,11 @@ package org.seasar.akabana.yui.air.core
             if( _rootView != null ){
                 _rootView.setVisible(true,false);
             }
+        }
+        
+        private function on_windowClose(event:Event):void
+        {
+            YuiFrameworkController.getInstance().removeRootDisplayObject(systemManager as DisplayObject);
         }
     }
 }
