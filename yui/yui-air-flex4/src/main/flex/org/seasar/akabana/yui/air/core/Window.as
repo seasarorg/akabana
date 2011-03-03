@@ -39,6 +39,7 @@ package org.seasar.akabana.yui.air.core
         
         public function Window(){
             super();
+            addEventListener(AIREvent.WINDOW_COMPLETE,on_windowComplete);
         }
         
         public override function set systemManager(value:ISystemManager):void{
@@ -77,6 +78,13 @@ package org.seasar.akabana.yui.air.core
                 _rootView.name = "rootView";
                 _rootView.setVisible(false,true);
                 addElement(_rootView);
+            }
+        }
+        
+        private function on_windowComplete(event:AIREvent):void
+        {
+            if( _rootView != null ){
+                _rootView.setVisible(true,false);
             }
         }
     }

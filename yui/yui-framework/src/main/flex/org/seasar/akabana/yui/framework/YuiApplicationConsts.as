@@ -40,7 +40,7 @@ package org.seasar.akabana.yui.framework
                 "partRemoved":true,
                 "elementAdd":true,
                 "elementRemove":true,
-                "globalNotifyWindowCreating":true,
+                "windowComplete":true,
                 
                 "addedToStage":true,//Event.ADDED_TO_STAGE,
                 "removedFromStage":true,//Event.REMOVED_FROM_STAGE,
