@@ -47,7 +47,7 @@ package org.seasar.akabana.yui.framework.core
             } else {
                 var cache:Dictionary = getCurrentInstanceRefCache();
                 if( classRef.name in cache ){
-                    result = INSTANCE_REF_CACHE[ classRef.name ];
+                    result = cache[ classRef.name ];
                 } else {
                     result = classRef.newInstance.apply(null,args);
                     cache[ classRef.name ] = result;

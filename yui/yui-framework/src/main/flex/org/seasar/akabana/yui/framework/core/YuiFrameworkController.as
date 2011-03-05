@@ -60,6 +60,7 @@ package org.seasar.akabana.yui.framework.core
     import flash.display.LoaderInfo;
     import flash.events.UncaughtErrorEvent;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import flash.system.System;
     
     use namespace yui_internal;
     
@@ -76,6 +77,13 @@ package org.seasar.akabana.yui.framework.core
         
         public static function getInstance():IYuiFrameworkController{
             return _this;
+        }
+        
+        protected function set currentSystemManger(value:ISystemManager):void{  
+            _currentRoot = value as DisplayObject;
+            CONFIG::DEBUG {         
+                debug(this,"currentSystemManger:"+value);
+            }
         }
         
         public function YuiFrameworkController(){
@@ -98,6 +106,7 @@ package org.seasar.akabana.yui.framework.core
             CONFIG::DEBUG{
                 debug(this,"customizeView:"+view+",owner:"+view.owner);
             }
+            currentSystemManger = view.systemManager;
             var viewcustomizer_:IViewCustomizer; 
             for each( var customizer_:IElementCustomizer in _customizers ){
                 viewcustomizer_ = customizer_ as IViewCustomizer;
@@ -121,6 +130,7 @@ package org.seasar.akabana.yui.framework.core
             CONFIG::DEBUG{
                 debug(this,"uncustomizeView:"+view+",owner:"+view.owner);
             }
+            currentSystemManger = view.systemManager;
             var numCustomizers:int = customizers.length;
             var viewcustomizer_:IViewCustomizer;
             for( var i:int = numCustomizers-1; i >= 0; i-- ){
@@ -143,6 +153,7 @@ package org.seasar.akabana.yui.framework.core
             CONFIG::DEBUG{
                 debug(this,"customizeComponent:start, "+child+",owner:"+container);
             }
+            currentSystemManger = view.systemManager;
             var componentcustomizer_:IComponentCustomizer;
             for each( var customizer_:IElementCustomizer in _customizers ){
                 componentcustomizer_ = customizer_ as IComponentCustomizer;
@@ -167,6 +178,7 @@ package org.seasar.akabana.yui.framework.core
             CONFIG::DEBUG{
                 debug(this,"uncustomizeComponent:start, "+child+",owner:"+container);
             }
+            currentSystemManger = view.systemManager;
             var numCustomizers:int = customizers.length;
             var componentcustomizer_:IComponentCustomizer;
             for( var i:int = numCustomizers-1; i >= 0; i-- ){
@@ -227,7 +239,6 @@ package org.seasar.akabana.yui.framework.core
             if( component == null || !component.initialized ){
                 return;
             }
-            _currentRoot = component.systemManager as DisplayObjectContainer;
             if( isView(component)){
                 super.doUnregisterComponent(component);
             } else if(isComponent(component)){
@@ -243,7 +254,6 @@ package org.seasar.akabana.yui.framework.core
             if( component == null || !component.initialized ){
                 return;
             }
-            _currentRoot = component.systemManager as DisplayObjectContainer;
             if( isView(component)){
                 processViewAssemble(component);
             } else if(isComponent(component)){
