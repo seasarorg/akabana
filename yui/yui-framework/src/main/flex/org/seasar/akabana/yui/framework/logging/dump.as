@@ -15,15 +15,15 @@
 */
 package org.seasar.akabana.yui.framework.logging 
 {
-	import flash.events.Event;
-	import flash.utils.getQualifiedClassName;
+    import flash.events.Event;
+    import flash.utils.getQualifiedClassName;
 
-	public function dump(target:Object,value:Object,...args):void{
+    public function dump(target:Object,value:Object,...args):void{
         if( value is Event ){
             var event:Event = value as Event;
-    		Logging
-    			.getLogger(target)
-    				.debug.apply(null,["[MON]" + getCanonicalName(event)+"."+event.type+"|"+event.target].concat(args));
+            Logging
+                .getLogger(target)
+                .debug.apply(null,["[EVENT] " + getCanonicalName(event)+"."+event.type+"|"+event.target].concat(args));
         }
-	}
+    }
 }

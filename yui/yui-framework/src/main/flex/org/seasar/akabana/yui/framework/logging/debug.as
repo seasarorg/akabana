@@ -15,10 +15,10 @@
 */
 package org.seasar.akabana.yui.framework.logging 
 {
-	public function debug(target:Object,message:String,...args):void{
-		Logging
-			.getLogger(target)
-				.debug.apply(null,[message].concat(args));		
-		
-	}
+    public function debug(target:Object,message:String,...args):void{
+        Logging
+            .getLogger(target)
+                .debug.apply(null,[message].concat(args));
+        
+    }
 }

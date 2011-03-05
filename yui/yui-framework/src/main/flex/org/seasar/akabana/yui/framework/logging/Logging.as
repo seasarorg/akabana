@@ -15,39 +15,39 @@
 */
 package org.seasar.akabana.yui.framework.logging
 {
-	import flash.errors.IllegalOperationError;
-	import flash.utils.getDefinitionByName;
-	
-	import mx.core.ClassFactory;
-	import mx.core.IFactory;
-	
-	import org.seasar.akabana.yui.core.ClassLoader;
-	import org.seasar.akabana.yui.core.reflection.ClassRef;
-	import org.seasar.akabana.yui.framework.core.YuiFrameworkController;
-	import org.seasar.akabana.yui.core.logging.ILogger;
-	import org.seasar.akabana.yui.core.logging.ILoggerFactory;
-	
-	public class Logging{
-		
+    import flash.errors.IllegalOperationError;
+    import flash.utils.getDefinitionByName;
+    
+    import mx.core.ClassFactory;
+    import mx.core.IFactory;
+    
+    import org.seasar.akabana.yui.core.ClassLoader;
+    import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import org.seasar.akabana.yui.framework.core.YuiFrameworkController;
+    import org.seasar.akabana.yui.core.logging.ILogger;
+    import org.seasar.akabana.yui.core.logging.ILoggerFactory;
+    
+    public class Logging{
+        
         private static const _defaultLoggerFactory:ILoggerFactory = new SimpleLoggerFactory();
-		
-		private static var _loggerFactory:ILoggerFactory;
-		
-		public static function getLogger(target:Object):ILogger{
-			return _loggerFactory.getLogger(target);
-		}
-		
-		public static function initialize():void{
+        
+        private static var _loggerFactory:ILoggerFactory;
+        
+        public static function getLogger(target:Object):ILogger{
+            return _loggerFactory.getLogger(target);
+        }
+        
+        public static function initialize():void{
             var clazz:Class = null;
-			try{
-				clazz = findClass("org.seasar.akabana.yui.logging.LoggerFactory");
-			} catch( e:Error ){
-			}
+            try{
+                clazz = findClass("org.seasar.akabana.yui.logging.LoggerFactory");
+            } catch( e:Error ){
+            }
             if( clazz == null ){
                 _loggerFactory = _defaultLoggerFactory;
             } else {
                 _loggerFactory = new clazz() as ILoggerFactory;
             }
-		}
-	}
+        }
+    }
 }

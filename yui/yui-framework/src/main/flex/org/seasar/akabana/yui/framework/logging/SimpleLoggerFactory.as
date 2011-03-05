@@ -15,15 +15,15 @@
 */
 package org.seasar.akabana.yui.framework.logging
 {
-	import org.seasar.akabana.yui.core.logging.ILogger;
-	import org.seasar.akabana.yui.core.logging.ILoggerFactory;
-	
-	public class SimpleLoggerFactory implements ILoggerFactory{
-		
+    import org.seasar.akabana.yui.core.logging.ILogger;
+    import org.seasar.akabana.yui.core.logging.ILoggerFactory;
+    
+    public class SimpleLoggerFactory implements ILoggerFactory{
+        
         private static const _logger:SimpleLogger = new SimpleLogger();
         
-		public function getLogger(target:Object):ILogger{
+        public function getLogger(target:Object):ILogger{
             return _logger;
         }
-	}
+    }
 }

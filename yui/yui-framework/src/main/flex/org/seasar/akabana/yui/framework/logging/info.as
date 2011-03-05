@@ -15,13 +15,13 @@
 */
 package org.seasar.akabana.yui.framework.logging 
 {
-	import flash.utils.getQualifiedClassName;
+    import flash.utils.getQualifiedClassName;
 
-	public function info(target:Object,message:String,...args):void{
-		Logging
-			.getLogger(target)
-				.info.apply(null,[message].concat(args));
-		
-		
-	}
+    public function info(target:Object,message:String,...args):void{
+        Logging
+            .getLogger(target)
+            .info.apply(null,[message].concat(args));
+        
+        
+    }
 }

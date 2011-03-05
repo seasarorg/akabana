@@ -15,36 +15,36 @@
 */
 package org.seasar.akabana.yui.framework.logging
 {
-	import org.seasar.akabana.yui.core.logging.ILogger;
-	
-	public class SimpleLogger implements ILogger{
-		
-		public function error(message:String,...args):void{
-			log.apply(null,["[ERR]",message].concat(args));		
-		}
-		
-		public function debug(message:String,...args):void{
-			log.apply(null,["[DBG]",message].concat(args));		
-		}
-		
-		public function info(message:String,...args):void{
-			log.apply(null,["[INF]",message].concat(args));		
-		}
-		
-		public function fatal(message:String,...args):void{
-			log.apply(null,["[FTL]",message].concat(args));		
-		}
-		
-		public function warn(message:String,...args):void{
-			log.apply(null,["[WRN]",message].concat(args));		
-		}
-		
-		protected function log(level:String,message:String,...args):void{
-			if( args.length == 0 ){
-				trace(level,message);
-			} else {
-				trace.apply(null,[level,message].concat(args));
-			}
-		}
-	}
+    import org.seasar.akabana.yui.core.logging.ILogger;
+    
+    public class SimpleLogger implements ILogger{
+        
+        public function error(message:String,...args):void{
+            log.apply(null,["[ERROR]",message].concat(args));
+        }
+        
+        public function debug(message:String,...args):void{
+            log.apply(null,["[DBGUG]",message].concat(args));
+        }
+        
+        public function info(message:String,...args):void{
+            log.apply(null,["[INFO ]",message].concat(args));
+        }
+        
+        public function fatal(message:String,...args):void{
+            log.apply(null,["[FATAL]",message].concat(args));
+        }
+        
+        public function warn(message:String,...args):void{
+            log.apply(null,["[WARN ]",message].concat(args));
+        }
+        
+        protected function log(level:String,message:String,...args):void{
+            if( args.length == 0 ){
+                trace(level,message);
+            } else {
+                trace.apply(null,[level,message].concat(args));
+            }
+        }
+    }
 }
