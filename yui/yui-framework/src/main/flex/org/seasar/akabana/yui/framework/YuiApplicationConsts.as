@@ -25,7 +25,7 @@ package org.seasar.akabana.yui.framework
         public static const UNRECOMMEND_EVENT_MAP:Object = {
                 "creationComplete":true,//FlexEvent.CREATION_COMPLETE,
                 "applicationComplete":true,//FlexEvent.APPLICATION_COMPLETE,
-                "addFocusManager ":FlexEvent.ADD_FOCUS_MANAGER,
+                "addFocusManager ":true,//FlexEvent.ADD_FOCUS_MANAGER,
                 "contentCreationComplete":true,//FlexEvent.CONTENT_CREATION_COMPLETE,
                 "preloaderDocFrameReady":true,//FlexEvent.PRELOADER_DOC_FRAME_READY,
                 "updateComplete":true,//FlexEvent.UPDATE_COMPLETE,

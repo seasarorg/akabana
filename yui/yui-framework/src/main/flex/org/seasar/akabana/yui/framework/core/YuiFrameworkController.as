@@ -29,6 +29,7 @@ package org.seasar.akabana.yui.framework.core
     import flash.display.DisplayObjectContainer;
     import flash.display.DisplayObject;
     import flash.utils.Dictionary;
+    import flash.display.LoaderInfo;
     
     import mx.core.UIComponent;
     import mx.events.FlexEvent;
@@ -57,10 +58,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.logging.dump;
     import org.seasar.akabana.yui.framework.logging.Logging;
     import org.seasar.akabana.yui.core.ns.yui_internal;
-    import flash.display.LoaderInfo;
-    import flash.events.UncaughtErrorEvent;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
-    import flash.system.System;
     
     use namespace yui_internal;
     
