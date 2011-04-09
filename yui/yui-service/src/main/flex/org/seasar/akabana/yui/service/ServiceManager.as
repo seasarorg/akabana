@@ -27,7 +27,8 @@ package org.seasar.akabana.yui.service {
         public static function createService( serviceClass:Class, name:String = null ):Service{
             var result:Service = getService( name );
             if( result == null ){
-                result = new serviceClass() as Service;
+                result = new serviceClass();
+				result.name = name;
                 if( StringUtil.isEmpty(result.destination) ){
                     result.destination = name;
                 }

@@ -22,6 +22,7 @@ package org.seasar.akabana.yui.service.ds
     import mx.core.IMXMLObject;
     import mx.core.mx_internal;
     import mx.rpc.AsyncToken;
+	import mx.rpc.AbstractOperation;
     import mx.rpc.http.HTTPMultiService;
     
     import org.seasar.akabana.yui.service.OperationCallBack;
@@ -30,6 +31,7 @@ package org.seasar.akabana.yui.service.ds
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.ManagedService;
     import org.seasar.akabana.yui.service.ServiceManager;
+	import org.seasar.akabana.yui.service.ds.local.LocalOperation;
     
     use namespace flash_proxy;
     use namespace mx_internal;
@@ -68,6 +70,28 @@ package org.seasar.akabana.yui.service.ds
             }
             ServiceManager.addService( this );
         }
+		
+		public override function getOperation(name:String):AbstractOperation
+		{
+			var o:Object = _operations[name];
+			var op:AbstractOperation = null;
+			if( o != null && o is AbstractOperation){
+				op = o as AbstractOperation; 
+			}
+			if (op == null)
+			{
+				if( baseURL == null ){
+					baseURL = ServiceGatewayUrlResolver.resolve( destination );
+				}
+				if( ServiceGatewayUrlResolver.isLocalUrl(baseURL) ){
+					op = new LocalOperation(this, name, baseURL);
+					_operations[name] = op;
+				} else {
+					op = super.getOperation(name);
+				}
+			}
+			return op;
+		}
         
         public function finalizeResponder(responder:Object):void{
             for( var item:* in _pendingCallMap ){

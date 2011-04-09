@@ -34,16 +34,18 @@ package org.seasar.akabana.yui.service.ds.local
     [ExcludeClass]
     public final class LocalOperation extends AbstractOperation {
         
-        protected var serviceInvoker:LocalServiceInvoker;
-        
-        public function LocalOperation(service:AbstractService=null, name:String=null){
-            super(service, name);
+		protected var localPackage:String;
+		
+		protected var serviceInvoker:LocalServiceInvoker;
+		
+        public function LocalOperation(service:AbstractService=null, name:String=null, endpoint:String=null){
+			super(service, name);
+			localPackage = ServiceGatewayUrlResolver.getLocalPackage(endpoint);
             serviceInvoker = new LocalServiceInvoker();
         }
         
         public override function send(... args:Array):AsyncToken {   
-            const lpackage:String = ServiceGatewayUrlResolver.getLocalPackage(service.endpoint);
-            const lservice:String = StringUtil.toUpperCamel(service.destination);
+            const lservice:String = StringUtil.toUpperCamel(service.name);
             
             const message:LocalMessage = new LocalMessage();
             message.operation = name;
@@ -52,7 +54,7 @@ package org.seasar.akabana.yui.service.ds.local
             
             const token:AsyncToken = new AsyncToken(message);
             try{
-                const value:Object = serviceInvoker.invoke.apply(null,[lpackage,lservice,name].concat(args));
+                const value:Object = serviceInvoker.invoke.apply(null,[localPackage,lservice,name].concat(args));
                 const resultEvent:ResultEvent = ResultEvent.createEvent(value, token, message);
                 new FunctionInvoker(dispatchRpcEvent, [resultEvent]).invokeDelay();
             } catch( e:Error ){

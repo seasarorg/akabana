@@ -24,10 +24,12 @@ package org.seasar.akabana.yui.service {
         }
         
         function get name():String;
+		
+		function set name( value:String ):void;
         
         function get destination():String;
         
-        function set destination( destination:String ):void;
+        function set destination( value:String ):void;
         
         function setCredentials(username:String, password:String, charset:String=null):void;
     }

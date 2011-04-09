@@ -104,6 +104,8 @@ package org.seasar.akabana.yui.service.ds {
         public function get name():String{
             return destination;
         }
+		public function set name(value:String):void{
+		}
 
         public function RemotingService( id:String = null ){
             super( id );
@@ -127,8 +129,11 @@ package org.seasar.akabana.yui.service.ds {
             }
             if (op == null)
             {
+				if( endpoint == null ){
+					endpoint = ServiceGatewayUrlResolver.resolve( name );
+				}
                 if( ServiceGatewayUrlResolver.isLocalUrl(endpoint) ){
-                    op = new LocalOperation(this, name);
+                    op = new LocalOperation(this, name, endpoint);
                     _operations[name] = op;
                 } else {
                     op = super.getOperation(name);
