@@ -44,6 +44,10 @@ CONFIG::FP10{
                 return EMPTY;
             }
         }
+		
+		public static function isEmpty(value:String):Boolean{
+			return value == null || value.length == 0;
+		}
 
         public static function isWhitespace(character:String):Boolean{
             switch( character ){
