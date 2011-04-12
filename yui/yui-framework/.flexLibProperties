@@ -8,6 +8,7 @@
     <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.ILifeCyclable"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.IYuiFrameworkController"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.InstanceCache"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkController"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkControllerBase"/>
@@ -30,7 +31,9 @@
     <classEntry path="org.seasar.akabana.yui.framework.event.YuiFrameworkEvent"/>
     <classEntry path="org.seasar.akabana.yui.framework.logging.Logging"/>
     <classEntry path="org.seasar.akabana.yui.framework.logging.SimpleLogger"/>
+    <classEntry path="org.seasar.akabana.yui.framework.logging.SimpleLoggerFactory"/>
     <classEntry path="org.seasar.akabana.yui.framework.logging.debug"/>
+    <classEntry path="org.seasar.akabana.yui.framework.logging.dump"/>
     <classEntry path="org.seasar.akabana.yui.framework.logging.info"/>
     <classEntry path="org.seasar.akabana.yui.framework.message.MessageManager"/>
     <classEntry path="org.seasar.akabana.yui.framework.message.Messages"/>
@@ -39,6 +42,7 @@
     <classEntry path="org.seasar.akabana.yui.framework.ns.behavior"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.handler"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.helper"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.viewlogic"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.viewpart"/>
     <classEntry path="org.seasar.akabana.yui.framework.rule.IAction"/>
     <classEntry path="org.seasar.akabana.yui.framework.rule.IBehavior"/>
