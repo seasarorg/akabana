@@ -62,7 +62,7 @@ package org.seasar.akabana.yui.core.reflection
 		}
 		
 		public function invokeDelay(delay:Number=10):void{
-			_timer = new Timer(10);
+			_timer = new Timer(delay);
 			_timer.addEventListener(TimerEvent.TIMER, timerEventHandler);
 			_timer.start();
 		}
