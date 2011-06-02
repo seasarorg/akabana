@@ -207,7 +207,7 @@
                 <define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}" />
                 <define name="CONFIG::DEBUG_EVENT" value="false" />
                 <define name="CONFIG::FP9" value="@{flashplayer} == 9" />
-                <define name="CONFIG::FP10" value="@{flashplayer} == 10.1" />
+                <define name="CONFIG::FP10" value="@{flashplayer} == 10" />
                 <define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="@{uncaughtError} == 0" />
                 <define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="@{uncaughtError} == 1" />
                 <load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}flex-config.xml" />
@@ -239,7 +239,7 @@
                 <define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}" />
                 <define name="CONFIG::DEBUG_EVENT" value="false" />
                 <define name="CONFIG::FP9" value="@{flashplayer} == 9" />
-                <define name="CONFIG::FP10" value="@{flashplayer} == 10.1" />
+                <define name="CONFIG::FP10" value="@{flashplayer} == 10" />
                 <define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="@{uncaughtError} == 0" />
                 <define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="@{uncaughtError} == 1" />
                 <load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}air-config.xml" />
