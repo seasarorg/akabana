@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-logging" basedir="." default="all">
     <!-- -->
-    <property file="flex41.properties" />
+    <property file="flex45.properties" />
     <property file="build.properties" />
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}${file.separator}ant${file.separator}lib${file.separator}flexTasks.jar" />
 
@@ -158,7 +158,7 @@
         <sequential>
             <property name="project-full-name" value="@{projectname}-${LIB_VERSION}" />
 
-        	<compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="10.1" locale="">
+        	<compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="10.2" locale="">
                 <define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}" />
                 <define name="CONFIG::DEBUG_EVENT" value="false" />
                 <define name="CONFIG::FP9" value="false" />

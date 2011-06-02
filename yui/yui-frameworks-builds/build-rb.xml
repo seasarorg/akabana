@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks-rb" basedir="." default="all">
     <!-- -->
-    <property file="flex41.properties" />
+    <property file="flex45.properties" />
     <property file="build.properties" />
     <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}${file.separator}ant${file.separator}lib${file.separator}flexTasks.jar" />
 
@@ -53,7 +53,7 @@
             <property name="project-locale-dir" value="${projectdir}${file.separator}${FLEX_LOCALE}${file.separator}@{locale}${file.separator}" />
             <property name="project-full-name" value="@{projectname}-${LIB_VERSION}" />
 
-            <compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}locale${file.separator}@{locale}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="10.1" locale="@{locale}">
+            <compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}locale${file.separator}@{locale}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="10.2" locale="@{locale}">
                 <load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}flex-config.xml" />
                 
                 <include-file name="locale/@{locale}/yui_framework.properties" path="${project-locale-dir}yui_framework.properties" />
