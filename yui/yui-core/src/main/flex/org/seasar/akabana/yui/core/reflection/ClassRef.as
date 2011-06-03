@@ -143,10 +143,14 @@ CONFIG::FP10{
             return _constructor;
         }
 
+		private var _isInitialiedProperties:Boolean;
 CONFIG::FP9{
         private var _properties:Array;
 
         public function get properties():Array{
+			if( !_isInitialiedProperties){ 
+				assemblePropertyRef(describeTypeXml.factory[0]);
+			}
             return _properties;
         }
 }
@@ -154,6 +158,9 @@ CONFIG::FP10{
         private var _properties:Vector.<PropertyRef>;
 
         public function get properties():Vector.<PropertyRef>{
+			if( !_isInitialiedProperties){ 
+				assemblePropertyRef(_describeTypeXml.factory[0]);
+			}
             return _properties;
         }
 }
@@ -162,17 +169,24 @@ CONFIG::FP10{
 
         private var _typeToPropertyMap:Object;
 
+		private var _isInitialiedFunctions:Boolean;
 CONFIG::FP9{
         private var _functions:Array;
 
         public function get functions():Array{
-            return _functions;
+			if( !_isInitialiedFunctions ){ 
+            	assembleFunctionRef(_describeTypeXml.factory[0]);
+			}
+			return _functions;
         }
 }
 CONFIG::FP10{
         private var _functions:Vector.<FunctionRef>;
 
         public function get functions():Vector.<FunctionRef>{
+			if( !_isInitialiedFunctions ){ 
+				assembleFunctionRef(_describeTypeXml.factory[0]);
+			}
             return _functions;
         }
 }
@@ -180,37 +194,52 @@ CONFIG::FP10{
         private var _functionMap:Object;
 
         private var _returnTypeToFunctionMap:Object;
-
+		
+		
+		private var _isInitialiedSuperClasses:Boolean;
 CONFIG::FP9{
-        private var _superClasses:Array;
-
-        public function get superClasses():Array{
-            return _superClasses;
-        }
+		private var _superClasses:Array;
+		
+		public function get superClasses():Array{
+			if( !_isInitialiedSuperClasses ){ 
+				assembleClassInheritance(_describeTypeXml.factory[0]);
+			}
+			return _superClasses;
+		}
 }
 CONFIG::FP10{
-        private var _superClasses:Vector.<String>;
-
-        public function get superClasses():Vector.<String>{
-            return _superClasses;
-        }
+		private var _superClasses:Vector.<String>;
+		
+		public function get superClasses():Vector.<String>{
+			if( !_isInitialiedSuperClasses ){ 
+				assembleSuperClasses(_describeTypeXml.factory[0]);
+			}
+			return _superClasses;
+		}
 }
-
-        private var _superClassMap:Object;
-
+		
+		private var _superClassMap:Object;
+		
+		private var _isInitialiedInterfaces:Boolean;
 CONFIG::FP9{
-        private var _interfaces:Array;
-
-        public function get interfaces():Array{
-            return _interfaces;
-        }
+		private var _interfaces:Array;
+		
+		public function get interfaces():Array{
+			if( !_isInitialiedInterfaces ){
+				assembleInterfaces(_describeTypeXml.factory[0]);
+			}
+			return _interfaces;
+		}
 }
 CONFIG::FP10{
-        private var _interfaces:Vector.<String>;
-
-        public function get interfaces():Vector.<String>{
-            return _interfaces;
-        }
+		private var _interfaces:Vector.<String>;
+		
+		public function get interfaces():Vector.<String>{
+			if( !_isInitialiedInterfaces ){
+				assembleInterfaces(_describeTypeXml.factory[0]);
+			}
+			return _interfaces;
+		}
 }
 
         private var _interfaceMap:Object;
@@ -246,17 +275,23 @@ CONFIG::FP10{
         }
         
         public function ClassRef( clazz:Class ){
+			_functionMap = {};
+			_interfaceMap = {};
+			_propertyMap = {};
+			_superClassMap = {};
+			_typeToPropertyMap = {};
+			
             const describeTypeXml:XML = flash.utils.describeType(clazz);
             concreteClass = clazz;
             super( describeTypeXml );
             _className = getTypeName(_name);
 
-            assembleMetadataRef(describeTypeXml.factory[0]);
+            //assembleMetadataRef(describeTypeXml.factory[0]);
             //assembleConstructor(describeTypeXml.factory[0]);
-            assemblePropertyRef(describeTypeXml.factory[0]);
-            assembleFunctionRef(describeTypeXml.factory[0]);
-            assembleInterfaces(describeTypeXml.factory[0]);
-            assembleClassInheritance(describeTypeXml.factory[0]);
+            //assemblePropertyRef(describeTypeXml.factory[0]);
+            //assembleFunctionRef(describeTypeXml.factory[0]);
+            //assembleInterfaces(describeTypeXml.factory[0]);
+            //assembleSuperClasses(describeTypeXml.factory[0]);
             assemblePackage( describeTypeXml );
             assembleThis( describeTypeXml );
         }
@@ -325,19 +360,34 @@ CONFIG::FP10{
 
 CONFIG::FP9{
         public function getPropertyRefByType( propertyType:String ):Array{
+			if( !_isInitialiedProperties){ 
+				assemblePropertyRef(_describeTypeXml.factory[0]);
+				_isInitialiedProperties = true;
+			}
             return _typeToPropertyMap[ propertyType ];
         }
 }
 CONFIG::FP10{
         public function getPropertyRefByType( propertyType:String ):Vector.<PropertyRef>{
+			if( !_isInitialiedProperties){ 
+				assemblePropertyRef(_describeTypeXml.factory[0]);
+				_isInitialiedProperties = true;
+			}
             return _typeToPropertyMap[ propertyType ];
         }
 }
 
         public function isAssignableFrom(type:Object):Boolean{
+			//
+			if( !_isInitialiedInterfaces ){
+				assembleInterfaces(_describeTypeXml.factory[0]);
+			}
+			if( !_isInitialiedSuperClasses ){ 
+				assembleSuperClasses(_describeTypeXml.factory[0]);
+			}
+			//
             var result:Boolean = false;
             var className:String = null;
-
             do{
                 if( type is Class ){
                     className = getCanonicalName(type as Class);
@@ -369,9 +419,6 @@ CONFIG::FP9{
 CONFIG::FP10{
             _properties = new Vector.<PropertyRef>();
 }
-            _propertyMap = {};
-            _typeToPropertyMap = {};
-
             const typeName:String = describeType.@type.toString();
 
             var propertysXMLList:XMLList = rootDescribeTypeXml.accessor;
@@ -400,6 +447,7 @@ CONFIG::FP10{
                     assembleTypeOfPropertyRef(propertyRef);
                 }
             }
+			_isInitialiedProperties = true;
         }
 
         private final function assembleTypeOfPropertyRef( propertyRef:PropertyRef ):void{
@@ -453,6 +501,7 @@ CONFIG::FP10{
                     }
                 }
             }
+			_isInitialiedFunctions = true;
         }
 
         private final function assembleInterfaces( rootDescribeTypeXml:XML ):void{
@@ -473,9 +522,10 @@ CONFIG::FP10{
                 _interfaces.push( interfaceName );
                 _interfaceMap[ interfaceName ] = null;
             }
+			_isInitialiedInterfaces = true;
         }
 
-        private final function assembleClassInheritance( rootDescribeTypeXml:XML ):void{
+        private final function assembleSuperClasses( rootDescribeTypeXml:XML ):void{
 CONFIG::FP9{
             _superClasses = [];
 }
@@ -504,23 +554,24 @@ CONFIG::FP10{
                         break;
                 }
             }
+			_isInitialiedSuperClasses = true;
         }
 
         private final function assemblePackage( rootDescribeTypeXml:XML ):void{
             _package = _name.substring(0,_name.lastIndexOf("."));
         }
 
-        private final function assembleExtends( rootDescribeTypeXml:XML ):void{
-            const interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
-
-            var interfaceRef:ClassRef = null;
-            for each( var interfaceXML:XML in interfacesXMLList ){
-                interfaceRef = ClassRef.getInstance(getTypeString(interfaceXML.@type));
-
-                _interfaces.push( interfaceRef );
-                _interfaceMap[ interfaceRef.name ] = interfaceRef;
-            }
-        }
+//        private final function assembleExtends( rootDescribeTypeXml:XML ):void{
+//            const interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
+//
+//            var interfaceRef:ClassRef = null;
+//            for each( var interfaceXML:XML in interfacesXMLList ){
+//                interfaceRef = ClassRef.getInstance(getTypeString(interfaceXML.@type));
+//
+//                _interfaces.push( interfaceRef );
+//                _interfaceMap[ interfaceRef.name ] = interfaceRef;
+//            }
+//        }
 
         private final function assembleThis( rootDescribeTypeXml:XML ):void{
 //            isDynamic = rootDescribeTypeXml.@isDynamic.toString() == "true";

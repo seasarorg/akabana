@@ -42,11 +42,15 @@ CONFIG::FP10{
             }while(false);
             return isTarget;
         }
-
+		
+		private var _isInitialiedMetadata:Boolean;
 CONFIG::FP9{
         private var _metadatas:Array;
 
         public function get metadatas():Array{
+			if( !_isInitialiedMetadata ){
+				assembleMetadataRef(describeType);
+			}
             return _metadatas;
         }
 }
@@ -54,6 +58,9 @@ CONFIG::FP10{
         private var _metadatas:Vector.<MetadataRef>;
 
         public function get metadatas():Vector.<MetadataRef>{
+			if( !_isInitialiedMetadata ){
+				assembleMetadataRef(describeType);
+			}
             return _metadatas;
         }
 }
@@ -62,6 +69,13 @@ CONFIG::FP10{
 
         public function AnnotatedObjectRef( describeTypeXml:XML ){
             super( describeTypeXml );
+CONFIG::FP9{
+            _metadatas = [];
+}
+CONFIG::FP10{
+            _metadatas = new Vector.<MetadataRef>();
+}
+            _metadataMap = {};
         }
 
         public function hasMetadata( metadataName:String ):Boolean{
@@ -73,14 +87,6 @@ CONFIG::FP10{
         }
 
         protected final function assembleMetadataRef( rootDescribeTypeXml:XML ):void{
-CONFIG::FP9{
-            _metadatas = [];
-}
-CONFIG::FP10{
-            _metadatas = new Vector.<MetadataRef>();
-}
-            _metadataMap = {};
-
             var metadataRef:MetadataRef = null;
             var metadatasXMLList:XMLList = rootDescribeTypeXml.metadata;
             for each( var metadataXML:XML in metadatasXMLList ){
@@ -91,6 +97,7 @@ CONFIG::FP10{
                     _metadataMap[ metadataRef.name ] = metadataRef;
                 }
             }
+            _isInitialiedMetadata = true;
         }
     }
 }

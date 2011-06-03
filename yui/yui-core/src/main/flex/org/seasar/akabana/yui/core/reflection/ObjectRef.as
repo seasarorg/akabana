@@ -46,7 +46,7 @@ package org.seasar.akabana.yui.core.reflection
             return result;
         }
 
-        private var _describeTypeXml:XML;
+		protected var _describeTypeXml:XML;
 
         public function get describeType():XML{
             return _describeTypeXml;

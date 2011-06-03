@@ -33,6 +33,9 @@
     <classEntry path="org.seasar.akabana.yui.core.data.Converter"/>
     <classEntry path="convert"/>
   </includeClasses>
-  <includeResources/>
+  <includeResources>
+    <resourceEntry destPath="locale/en_US/yui_core.properties" sourcePath="locale/en_US/yui_core.properties"/>
+    <resourceEntry destPath="locale/ja_JP/yui_core.properties" sourcePath="locale/ja_JP/yui_core.properties"/>
+  </includeResources>
   <namespaceManifests/>
 </flexLibProperties>
