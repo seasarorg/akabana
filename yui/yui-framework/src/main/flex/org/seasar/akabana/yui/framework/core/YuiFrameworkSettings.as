@@ -16,11 +16,13 @@
 package org.seasar.akabana.yui.framework.core
 {
     import mx.core.IMXMLObject;
-
+    import mx.styles.CSSStyleDeclaration;
+    import mx.styles.IStyleClient;
+    
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin;
 
-    public class YuiFrameworkSettings implements IMXMLObject
+    public class YuiFrameworkSettings implements IMXMLObject,IStyleClient
     {
         {
             YuiFrameworkMixin;
@@ -34,5 +36,53 @@ package org.seasar.akabana.yui.framework.core
         public function initialized(document:Object, id:String):void
         {
         }
+		
+		public function get styleName():Object{
+			return null;
+		}
+			
+		public function set styleName(value:Object):void{}
+				
+		public function styleChanged(styleProp:String):void{}
+		
+		
+		public function get className():String{
+			return "YuiFrameworkSettings";
+		}
+		
+		public function get inheritingStyles():Object{
+			return {};
+		}
+		
+		public function set inheritingStyles(value:Object):void{}
+		
+		public function get nonInheritingStyles():Object{
+			return {};
+		}
+		
+		public function set nonInheritingStyles(value:Object):void{}
+		
+		private var _styleDeclaration:CSSStyleDeclaration;
+		public function get styleDeclaration():CSSStyleDeclaration{
+			return _styleDeclaration;
+		}
+		
+		public function set styleDeclaration(value:CSSStyleDeclaration):void{}
+		
+		public function getStyle(styleProp:String):*{}
+		
+		public function setStyle(styleProp:String, newValue:*):void{}
+			
+		public function clearStyle(styleProp:String):void{}
+			
+		public function getClassStyleDeclarations():Array{
+			return [];
+		}
+			
+		public function notifyStyleChangeInChildren(styleProp:String,recursive:Boolean):void{}
+			
+		public function regenerateStyleCache(recursive:Boolean):void{}
+			
+		public function registerEffects(effects:Array /* of String */):void{}
     }
 }
