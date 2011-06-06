@@ -143,7 +143,7 @@ CONFIG::FP9{
 
         public function get properties():Array{
 			if( !_isInitialiedProperties){ 
-				assemblePropertyRef(describeTypeXml.factory[0]);
+				assemblePropertyRef(_describeTypeXml.factory[0]);
 			}
             return _properties;
         }
@@ -196,7 +196,7 @@ CONFIG::FP9{
 		
 		public function get superClasses():Array{
 			if( !_isInitialiedSuperClasses ){ 
-				assembleClassInheritance(_describeTypeXml.factory[0]);
+                assembleSuperClasses(_describeTypeXml.factory[0]);
 			}
 			return _superClasses;
 		}
