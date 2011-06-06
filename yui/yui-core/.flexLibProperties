@@ -29,6 +29,7 @@
     <classEntry path="org.seasar.akabana.yui.core.reflection.PropertyRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.Reflector"/>
     <classEntry path="org.seasar.akabana.yui.util.ArrayUtil"/>
+    <classEntry path="org.seasar.akabana.yui.util.DateUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.StringUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.URLUtil"/>
   </includeClasses>

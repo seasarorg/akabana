@@ -18,6 +18,7 @@ package org.seasar.akabana.yui.framework.logging
     import flash.utils.getTimer;
     
     import org.seasar.akabana.yui.core.logging.ILogger;
+    import org.seasar.akabana.yui.util.DateUtil;
     
     public class SimpleLogger implements ILogger{
         
@@ -30,7 +31,7 @@ package org.seasar.akabana.yui.framework.logging
         }
         
         public function info(message:String,...args):void{
-            log.apply(null,["[INFO ]",message].concat(args));
+            log.apply(null,["[INFO_]",message].concat(args));
         }
         
         public function fatal(message:String,...args):void{
@@ -38,12 +39,11 @@ package org.seasar.akabana.yui.framework.logging
         }
         
         public function warn(message:String,...args):void{
-            log.apply(null,["[WARN ]",message].concat(args));
+            log.apply(null,["[WARN_]",message].concat(args));
         }
         
         protected function log(level:String,message:String,...args):void{
-            var now:Date = new Date();
-            var time:String = "["+now.fullYear+"/"+(now.month+1)+"/"+now.date+" "+now.hours+":"+now.minutes+":"+now.seconds+","+now.milliseconds+"]";
+            var time:String = "[" + DateUtil.getCurrentDateString() + "]";
             if( args.length == 0 ){
                 trace(time,level,message);
             } else {
