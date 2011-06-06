@@ -50,7 +50,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
+                    _debug("CustomizeError",view,e.getStackTrace());
                 }
             }
         }
@@ -74,7 +74,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
+                    _debug("CustomizeError",view,e.getStackTrace());
                 }
             }
         }
@@ -86,12 +86,12 @@ package org.seasar.akabana.yui.framework.customizer
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 if(propertyRef.typeClassRef.isAssignableFrom(Service)) {
                     CONFIG::DEBUG {
-                        debug(this,getMessage("Customizing",classRef.name,propertyRef.name));
+                        _debug("Customizing",classRef.name,propertyRef.name);
                     }
                     service = ServiceManager.createService(propertyRef.typeClassRef.concreteClass,propertyRef.name);
                     propertyRef.setValue(target,service);
                     CONFIG::DEBUG {
-						debug(this,getMessage("Customized",classRef.name,propertyRef.name));
+						_debug("Customized",classRef.name,propertyRef.name);
                     }
                 }
             }
@@ -104,7 +104,7 @@ package org.seasar.akabana.yui.framework.customizer
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 if(propertyRef.typeClassRef.isAssignableFrom(Service)) {
                     CONFIG::DEBUG {
-						debug(this,getMessage("Uncustomizing",classRef.name,propertyRef.name));
+						_debug("Uncustomizing",classRef.name,propertyRef.name);
                     }
                     service = propertyRef.getValue(target) as Service;
                     
@@ -113,7 +113,7 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                     propertyRef.setValue(target,null);
                     CONFIG::DEBUG {
-						debug(this,getMessage("Uncustomized",classRef.name,propertyRef.name));
+						_debug("Uncustomized",classRef.name,propertyRef.name);
                     }
                 }
             }
