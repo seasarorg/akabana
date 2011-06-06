@@ -55,7 +55,7 @@ package org.seasar.akabana.yui.framework.customizer
                     if( YuiFrameworkGlobals.namingConvention.isBehaviorOfView( viewClassName, prop.typeClassRef.name )){
 
                         CONFIG::DEBUG {
-                            debug(this,getMessage("Customizing",viewClassName,prop.typeClassRef.name));
+                            _debug("Customizing",viewClassName,prop.typeClassRef.name);
                         }
                         behavior = InstanceCache.newInstance(prop.typeClassRef);
                         prop.setValue(action,behavior);
@@ -67,12 +67,12 @@ package org.seasar.akabana.yui.framework.customizer
                             (behavior as ILifeCyclable).start();
                         }
                         CONFIG::DEBUG {
-                            debug(this,getMessage("Customized",viewClassName,prop.typeClassRef.name));
+                            _debug("Customized",viewClassName,prop.typeClassRef.name);
                         }
                     } else {
                         CONFIG::DEBUG {
                             if( YuiFrameworkGlobals.namingConvention.isBehaviorClassName(prop.typeClassRef.name)){
-                                debug(this,getMessage("CustomizeWarning",prop.typeClassRef.name+"isn't the Behavior Class of "+viewClassName));
+                                _debug("CustomizeWarning",prop.typeClassRef.name+"isn't the Behavior Class of "+viewClassName);
                             }
                         }
                     }
@@ -80,7 +80,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
+                    _debug("CustomizeError",view,e.getStackTrace());
                 }
             }
 
@@ -109,7 +109,7 @@ package org.seasar.akabana.yui.framework.customizer
 
                     behaviorClassName = getCanonicalName(behavior);
                     CONFIG::DEBUG {
-                        debug(this,getMessage("Uncustomizing",viewClassName,behaviorClassName));
+                        _debug("Uncustomizing",viewClassName,behaviorClassName);
                     }
                     
                     if( behavior is ILifeCyclable ){
@@ -118,12 +118,12 @@ package org.seasar.akabana.yui.framework.customizer
                     super.doEventUncustomize(view,behavior);
 
                     CONFIG::DEBUG {
-                        debug(this,getMessage("Uncustomized",viewClassName,behaviorClassName));
+                        _debug("Uncustomized",viewClassName,behaviorClassName);
                     }
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
+                    _debug("CustomizeError",view,e.getStackTrace());
                 }
             }
         }

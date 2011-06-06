@@ -43,7 +43,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             try {
                 CONFIG::DEBUG {
-                    debug(this,getMessage("Customizing",viewClassName,actionClassName));
+                    _debug("Customizing",viewClassName,actionClassName);
                 }
                 //
                 const actionClassRef:ClassRef = getClassRef(actionClassName);
@@ -56,11 +56,11 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 //
                 CONFIG::DEBUG {
-                    debug(this,getMessage("Customized",viewClassName,actionClassName));
+                    _debug("Customized",viewClassName,actionClassName);
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
+                    _debug("CustomizeError",view,e.getStackTrace());
                 }
             }
         }
@@ -72,7 +72,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             try {
                 CONFIG::DEBUG {
-                    debug(this,getMessage("Uncustomizing",viewClassName,actionClassName));
+                    _debug("Uncustomizing",viewClassName,actionClassName);
                 }
                 const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 if( action is ILifeCyclable ){
@@ -84,11 +84,11 @@ package org.seasar.akabana.yui.framework.customizer
                 delete viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 //
                 CONFIG::DEBUG {
-                    debug(this,getMessage("Uncustomized",viewClassName,actionClassName));
+                    _debug("Uncustomized",viewClassName,actionClassName);
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-                    debug(this,getMessage("CustomizeError",view,e.getStackTrace()));
+                    _debug("CustomizeError",view,e.getStackTrace());
                 }
             }
         }

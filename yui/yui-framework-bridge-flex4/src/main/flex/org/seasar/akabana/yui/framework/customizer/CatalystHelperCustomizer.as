@@ -43,7 +43,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             try {
                 CONFIG::DEBUG {
-                    debug(this,getMessage("Customizing",viewClassName,helperClassName));
+                    _debug("Customizing",viewClassName,helperClassName);
                 }
                 const helper:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
                 const helperClassRef:ClassRef = getClassRef(helper);
@@ -64,11 +64,11 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                 }
                 CONFIG::DEBUG {
-					debug(this,getMessage("Customized",viewClassName,helperClassName));
+					_debug("Customized",viewClassName,helperClassName);
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {
-					debug(this,getMessage("CustomizeError",container,e.getStackTrace()));
+					_debug("CustomizeError",container,e.getStackTrace());
                 }
             }
         }
