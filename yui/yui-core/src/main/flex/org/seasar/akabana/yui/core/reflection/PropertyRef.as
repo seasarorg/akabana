@@ -49,7 +49,6 @@ package org.seasar.akabana.yui.core.reflection
         public function PropertyRef( describeTypeXml:XML )
         {
             super( describeTypeXml );
-            assembleMetadataRef( describeTypeXml );
             assembleThis( describeTypeXml );
         }
 

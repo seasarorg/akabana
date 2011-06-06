@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
+    <classEntry path="convert"/>
     <classEntry path="findClass"/>
     <classEntry path="getCanonicalName"/>
     <classEntry path="getClassRef"/>
     <classEntry path="org.seasar.akabana.yui.core.ClassLoader"/>
     <classEntry path="org.seasar.akabana.yui.core.Environment"/>
+    <classEntry path="org.seasar.akabana.yui.core.data.Converter"/>
     <classEntry path="org.seasar.akabana.yui.core.error.ClassNotFoundError"/>
     <classEntry path="org.seasar.akabana.yui.core.error.NotFoundError"/>
     <classEntry path="org.seasar.akabana.yui.core.event.Command"/>
@@ -15,10 +17,10 @@
     <classEntry path="org.seasar.akabana.yui.core.event.send"/>
     <classEntry path="org.seasar.akabana.yui.core.logging.ILogger"/>
     <classEntry path="org.seasar.akabana.yui.core.logging.ILoggerFactory"/>
+    <classEntry path="org.seasar.akabana.yui.core.ns.yui_internal"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedObjectRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedReflector"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.ClassRef"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.Constructor"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.FunctionInvoker"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.FunctionRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.MetadataRef"/>
@@ -26,16 +28,13 @@
     <classEntry path="org.seasar.akabana.yui.core.reflection.ParameterRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.PropertyRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.Reflector"/>
-    <classEntry path="org.seasar.akabana.yui.core.ns.yui_internal"/>
     <classEntry path="org.seasar.akabana.yui.util.ArrayUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.StringUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.URLUtil"/>
-    <classEntry path="org.seasar.akabana.yui.core.data.Converter"/>
-    <classEntry path="convert"/>
   </includeClasses>
   <includeResources>
-    <resourceEntry destPath="locale/en_US/yui_core.properties" sourcePath="locale/en_US/yui_core.properties"/>
     <resourceEntry destPath="locale/ja_JP/yui_core.properties" sourcePath="locale/ja_JP/yui_core.properties"/>
+    <resourceEntry destPath="locale/en_US/yui_core.properties" sourcePath="locale/en_US/yui_core.properties"/>
   </includeResources>
   <namespaceManifests/>
 </flexLibProperties>

@@ -137,12 +137,6 @@ CONFIG::FP10{
             return _className;
         }
 
-        private var _constructor:Constructor;
-
-        public function get constructor():Constructor{
-            return _constructor;
-        }
-
 		private var _isInitialiedProperties:Boolean;
 CONFIG::FP9{
         private var _properties:Array;
@@ -408,10 +402,6 @@ CONFIG::FP10{
             return result;
         }
 
-        private final function assembleConstructor( rootDescribeTypeXml:XML ):void{
-            _constructor = new Constructor( rootDescribeTypeXml, this.concreteClass);
-        }
-
         private final function assemblePropertyRef( rootDescribeTypeXml:XML ):void{
 CONFIG::FP9{
             _properties = [];
@@ -520,7 +510,7 @@ CONFIG::FP10{
                 interfaceName = getTypeString(interfaceXML.@type);
 
                 _interfaces.push( interfaceName );
-                _interfaceMap[ interfaceName ] = null;
+                _interfaceMap[ interfaceName ] = 1;
             }
 			_isInitialiedInterfaces = true;
         }
@@ -539,7 +529,7 @@ CONFIG::FP10{
             for each( var extendsClassXML:XML in extendsClassXMLList ){
                 className = getTypeString(extendsClassXML.@type);
                 _superClasses.push(className);
-                _superClassMap[ className ] = null;
+                _superClassMap[ className ] = 1;
                 switch( className ){
                     case "flash.events.Event":
                         isEvent = true;
