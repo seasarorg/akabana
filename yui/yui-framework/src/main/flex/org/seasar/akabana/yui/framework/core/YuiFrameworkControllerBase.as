@@ -83,7 +83,7 @@ package org.seasar.akabana.yui.framework.core
         
         public override function addRootDisplayObject(root:DisplayObject):void{
             CONFIG::DEBUG{
-                debug(this,"add external root"+root);
+                _debug("ExternalRootAdd",root);
             }
             InstanceCache.addRoot(root);
             if( root in _rootDisplayObjectMap ){
@@ -96,7 +96,7 @@ package org.seasar.akabana.yui.framework.core
         
         public override function removeRootDisplayObject(root:DisplayObject):void{
             CONFIG::DEBUG{
-                debug(this,"remove external root"+root);
+                _debug("ExternalRootRemove",root);
             }
             super.removeRootDisplayObject(root);            
             if( root in _rootDisplayObjectMap ){
@@ -183,7 +183,7 @@ package org.seasar.akabana.yui.framework.core
         
         yui_internal function systemManagerMonitoringStart( root:DisplayObject ):void{
             CONFIG::DEBUG{
-                info(this,"SystemManager Monitoring Start..."+root);
+                _info("SystemManagerMonitoringStart",root);
             }
             root.addEventListener(
                 Event.ADDED_TO_STAGE,
@@ -242,7 +242,7 @@ package org.seasar.akabana.yui.framework.core
         
         protected function processApplicationRegister(component:DisplayObjectContainer):void{
             CONFIG::DEBUG{
-                debug(this,getMessage("ApplicationRegistered",component.toString()));
+                _debug("ApplicationRegistered",component.toString());
             }
             const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
             frameworkBridge.application = component;
@@ -254,7 +254,7 @@ package org.seasar.akabana.yui.framework.core
             const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
             const rootView:DisplayObjectContainer = frameworkBridge.rootView as DisplayObjectContainer;
             CONFIG::DEBUG{
-                info(this,getMessage("ApplicationStart"));
+                _info("ApplicationStart");
             }
             if( rootView != null ){
                 if( rootView.hasEventListener(YuiFrameworkEvent.APPLICATION_START)){
@@ -268,7 +268,7 @@ package org.seasar.akabana.yui.framework.core
             if( isView(container)){
                 ViewComponentRepository.addComponent( container );
                 CONFIG::DEBUG{
-                    debug(this,getMessage("ViewComponentRegistered",container.toString()));
+                    _debug("ViewRegistered",container.toString());
                 }
             }
         }
@@ -278,7 +278,7 @@ package org.seasar.akabana.yui.framework.core
                 if( ViewComponentRepository.hasComponent( container.name )){
                     ViewComponentRepository.removeComponent( container );
                     CONFIG::DEBUG{
-                        debug(this,getMessage("ViewComponentUnRegistered",container.toString()));
+                        _debug("ViewUnRegistered",container.toString());
                     }
                 }
             }

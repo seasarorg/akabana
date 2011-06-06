@@ -78,10 +78,12 @@ package org.seasar.akabana.yui.framework.core
         }
         
         protected function set currentSystemManger(value:ISystemManager):void{  
-            _currentRoot = value as DisplayObject;
-            CONFIG::DEBUG {         
-                debug(this,"currentSystemManger:"+value);
+            CONFIG::DEBUG{
+                if( _currentRoot != value ){
+                    _debug("CurrentRoot",value);
+                }
             }
+            _currentRoot = value as DisplayObject;
         }
         
         public function YuiFrameworkController(){
@@ -96,13 +98,13 @@ package org.seasar.akabana.yui.framework.core
         public override function customizeView( container:DisplayObjectContainer ):void{
             var view:UIComponent = container as UIComponent;
             if( !view.initialized ){   
-                CONFIG::DEBUG {         
-                    debug(this,"customizeView:"+view+" is not initialize.");
+                CONFIG::DEBUG{
+                    _debug("ViewCustomizeInitializeError",view);
                 }
                 return;
             }
             CONFIG::DEBUG{
-                debug(this,"customizeView:"+view+",owner:"+view.owner);
+                _debug("ViewCustomizing", view, view.owner);
             }
             currentSystemManger = view.systemManager;
             var viewcustomizer_:IViewCustomizer; 
@@ -115,18 +117,21 @@ package org.seasar.akabana.yui.framework.core
             if( view.hasEventListener(YuiFrameworkEvent.VIEW_INITIALIZED)){
                 view.dispatchEvent( new YuiFrameworkEvent(YuiFrameworkEvent.VIEW_INITIALIZED));
             }
+            CONFIG::DEBUG{
+                _debug("ViewCustomized",view,view.owner);
+            }
         }
         
         public override function uncustomizeView( container:DisplayObjectContainer ):void{
             var view:UIComponent = container as UIComponent;
             if( !view.initialized ){     
                 CONFIG::DEBUG {
-                    debug(this,"customizeView:"+view+" is not initialize.");       
+                    _debug("ViewUncustomizeInitializeError",view);       
                 }
                 return;
             }
             CONFIG::DEBUG{
-                debug(this,"uncustomizeView:"+view+",owner:"+view.owner);
+                _debug("ViewUncustomizing",view,view.owner);
             }
             currentSystemManger = view.systemManager;
             var numCustomizers:int = customizers.length;
@@ -137,6 +142,9 @@ package org.seasar.akabana.yui.framework.core
                     viewcustomizer_.uncustomizeView( view );
                 }
             }
+            CONFIG::DEBUG{
+                _debug("ViewUncustomized",view,view.owner);
+            }
         }
         
         public override function customizeComponent( container:DisplayObjectContainer, child:DisplayObject ):void{
@@ -144,12 +152,12 @@ package org.seasar.akabana.yui.framework.core
             var component:UIComponent = child as UIComponent;
             if( !view.initialized || !component.initialized){     
                 CONFIG::DEBUG{
-                    debug(this,"customizeComponent:"+view+" is not initialize.");       
+                    _debug("ComponentCustomizeViewInitializeError",view,view.owner);       
                 }
                 return;
             }
             CONFIG::DEBUG{
-                debug(this,"customizeComponent:start, "+child+",owner:"+container);
+                _debug("ComponentCustomizing",child,container);
             }
             currentSystemManger = view.systemManager;
             var componentcustomizer_:IComponentCustomizer;
@@ -160,7 +168,7 @@ package org.seasar.akabana.yui.framework.core
                 }
             }
             CONFIG::DEBUG{
-                debug(this,"customizeComponent:end, "+child+",owner:"+container);
+                _debug("ComponentCustomized",child,container);
             }
         }
         
@@ -169,12 +177,12 @@ package org.seasar.akabana.yui.framework.core
             var component:UIComponent = child as UIComponent;
             if( !view.initialized ){     
                 CONFIG::DEBUG{       
-                    debug(this,"uncustomizeComponent:"+view+" is not initialize.");
+                    _debug("ComponentUncustomizeViewInitializeError",view);
                 }
                 return;
             }
             CONFIG::DEBUG{
-                debug(this,"uncustomizeComponent:start, "+child+",owner:"+container);
+                _debug("ComponentUncustomizing",child, container);
             }
             currentSystemManger = view.systemManager;
             var numCustomizers:int = customizers.length;
@@ -186,7 +194,7 @@ package org.seasar.akabana.yui.framework.core
                 }
             }
             CONFIG::DEBUG{
-                debug(this,"uncustomizeComponent:end, "+child+",owner:"+container);
+                _debug("ComponentUncustomized",child, container);
             }
         }        
         
@@ -209,7 +217,7 @@ package org.seasar.akabana.yui.framework.core
             }
             YuiFrameworkGlobals.initNamingConvention();
             CONFIG::DEBUG{
-                debug(this,getMessage("ApplicationConventions",YuiFrameworkGlobals.public::namingConvention.conventions.toString()));
+                _debug("ApplicationConventions",YuiFrameworkGlobals.public::namingConvention.conventions.toString());
             }            
         }
         
@@ -335,7 +343,7 @@ package org.seasar.akabana.yui.framework.core
                 result.push(customizer);
             }
             CONFIG::DEBUG{
-                debug(this,"default customizers is "+result);
+                _debug("CustomizerLoaded",result);
             }
             return result;
         }
@@ -346,26 +354,26 @@ package org.seasar.akabana.yui.framework.core
                 _customizers = getDefaultCustomizers();
             }
             CONFIG::DEBUG{
-                debug(this,getMessage("ViewComponentAssembleStart"));
+                _debug("ViewAssembleStart");
             }
             
             var allView:Dictionary = ViewComponentRepository.allView;
             var view:UIComponent;
             for ( var viewName:String in allView ){
                 CONFIG::DEBUG{
-                    debug(this,getMessage("ViewComponentAssembleing",viewName));
+                    _debug("ViewAssembleing",viewName);
                 }
                 view = ViewComponentRepository.getComponent(viewName) as UIComponent;
                 if( view != null && view.initialized ){
                     processViewAssemble(view);
                 }
                 CONFIG::DEBUG{
-                    debug(this,getMessage("ViewComponentAssembled",viewName));
+                    _debug("ViewAssembled",viewName);
                 }
             }
             
             CONFIG::DEBUG{
-                debug(this,getMessage("ViewComponentAssembleEnd"));
+                _debug("ViewAssembleEnd");
             }
             _isApplicationStarted = true;
             callLater( processApplicationStart );

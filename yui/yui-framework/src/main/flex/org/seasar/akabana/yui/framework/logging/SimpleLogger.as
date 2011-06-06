@@ -15,6 +15,8 @@
 */
 package org.seasar.akabana.yui.framework.logging
 {
+    import flash.utils.getTimer;
+    
     import org.seasar.akabana.yui.core.logging.ILogger;
     
     public class SimpleLogger implements ILogger{
@@ -40,10 +42,12 @@ package org.seasar.akabana.yui.framework.logging
         }
         
         protected function log(level:String,message:String,...args):void{
+            var now:Date = new Date();
+            var time:String = "["+now.fullYear+"/"+(now.month+1)+"/"+now.date+" "+now.hours+":"+now.minutes+":"+now.seconds+","+now.milliseconds+"]";
             if( args.length == 0 ){
-                trace(level,message);
+                trace(time,level,message);
             } else {
-                trace.apply(null,[level,message].concat(args));
+                trace.apply(null,[time,level,message].concat(args));
             }
         }
     }
