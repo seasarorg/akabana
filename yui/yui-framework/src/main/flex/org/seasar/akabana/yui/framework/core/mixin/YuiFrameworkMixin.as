@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.framework.mixin
+package org.seasar.akabana.yui.framework.core.mixin
 {
 CONFIG::FP10{
     import __AS3__.vec.Vector;

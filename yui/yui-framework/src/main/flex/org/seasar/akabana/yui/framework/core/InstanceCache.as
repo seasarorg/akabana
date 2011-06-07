@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.framework.core
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.logging.debug;
-    import org.seasar.akabana.yui.framework.rule.IStateless;
+    import org.seasar.akabana.yui.framework.core.rule.IStateless;
     
     [ExcludeClass]
     public class InstanceCache

@@ -13,8 +13,8 @@
 * either express or implied. See the License for the specific language
 * governing permissions and limitations under the License.
 */
-package org.seasar.akabana.yui.framework.rule
+package org.seasar.akabana.yui.framework.core.rule
 {
-    public interface IBehavior {
+    public interface IHelper {
     }
 }

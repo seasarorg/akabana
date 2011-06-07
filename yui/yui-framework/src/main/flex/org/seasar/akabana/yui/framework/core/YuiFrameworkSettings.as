@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.framework.core
     import mx.styles.IStyleClient;
     
     import org.seasar.akabana.yui.framework.message.MessageManager;
-    import org.seasar.akabana.yui.framework.mixin.YuiFrameworkMixin;
+    import org.seasar.akabana.yui.framework.core.mixin.YuiFrameworkMixin;
 
     public class YuiFrameworkSettings implements IMXMLObject,IStyleClient
     {
