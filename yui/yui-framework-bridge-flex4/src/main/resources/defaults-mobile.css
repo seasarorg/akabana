@@ -1,6 +1,1 @@
 
-.customizers{
-    c10:ClassReference("org.seasar.akabana.yui.framework.customizer.ActionCustomizer");
-    c30:ClassReference("org.seasar.akabana.yui.framework.customizer.HelperCustomizer");
-    c40:ClassReference("org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer");
-}
