@@ -14,6 +14,10 @@
         <antcall target="fx4-air-fp10" />
         <antcall target="fx4-airrpc-fp10" />
         <antcall target="fx4-airds-fp10" />
+    	
+        <antcall target="fx4-mobile-fp10" />
+        <antcall target="fx4-mobilerpc-fp10" />
+        <antcall target="fx4-mobileds-fp10" />
     </target>
 
     <target name="fx4-fp10">
@@ -33,6 +37,15 @@
     </target>
     <target name="fx4-airds-fp10">
         <ant antfile="projects${file.separator}fx45${file.separator}build-fx4-airds-fp10.xml" />
+    </target>
+    <target name="fx4-mobile-fp10">
+        <ant antfile="projects${file.separator}fx45${file.separator}build-fx4-mobile-fp10.xml" />
+    </target>
+    <target name="fx4-mobilerpc-fp10">
+        <ant antfile="projects${file.separator}fx45${file.separator}build-fx4-mobilerpc-fp10.xml" />
+    </target>
+    <target name="fx4-mobileds-fp10">
+        <ant antfile="projects${file.separator}fx45${file.separator}build-fx4-mobileds-fp10.xml" />
     </target>
 
     <!-- -->
@@ -196,13 +209,45 @@
                 <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
                     <include name="libs" />
                     <include name="libs/mx" />
-                    <include name="libs/mobile" />
                 </external-library-path>
             </compc>
         </sequential>
     </macrodef>
 
     <macrodef name="projectCompileWithAIRFlexLibrary">
+        <attribute name="projectname" />
+        <attribute name="projectdir" />
+        <attribute name="flashplayer" />
+        <sequential>
+            <property name="project-full-name" value="@{projectname}-${LIB_VERSION}" />
+
+            <compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="@{flashplayer}" locale="">
+                <define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}" />
+                <define name="CONFIG::DEBUG_EVENT" value="false" />
+                <define name="CONFIG::FP9" value="false" />
+                <define name="CONFIG::FP10" value="true" />
+                <define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="false" />
+                <define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="true" />
+                <load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}air-config.xml" />
+                <load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
+                <source-path path-element="${projectdir}${FLEX_SRC}" />
+
+                <include-namespaces uri="${LIB_NAMESPACE}" />
+
+                <namespace uri="${LIB_NAMESPACE}" manifest="@{projectdir}${FLEX_MANIFEST_PATH}" />
+
+                <include-file name="defaults.css" path="@{projectdir}${FLEX_DEFAULT_CSS_PATH}" />
+
+                <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
+                    <include name="libs" />
+                    <include name="libs/air" />
+                    <include name="libs/mx" />
+                </external-library-path>
+            </compc>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="projectCompileWithMobileFlexLibrary">
         <attribute name="projectname" />
         <attribute name="projectdir" />
         <attribute name="flashplayer" />
