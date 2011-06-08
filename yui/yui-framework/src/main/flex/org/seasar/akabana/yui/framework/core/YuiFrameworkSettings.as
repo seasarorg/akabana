@@ -28,13 +28,13 @@ package org.seasar.akabana.yui.framework.core
             YuiFrameworkMixin;
             MessageManager;
         }
-
-        public function YuiFrameworkSettings()
-        {
+        
+        private var _styles:Object = {};
+        
+        public function YuiFrameworkSettings(){
         }
 
-        public function initialized(document:Object, id:String):void
-        {
+        public function initialized(document:Object, id:String):void{
         }
 		
 		public function get styleName():Object{
@@ -57,7 +57,7 @@ package org.seasar.akabana.yui.framework.core
 		public function set inheritingStyles(value:Object):void{}
 		
 		public function get nonInheritingStyles():Object{
-			return {};
+			return _styles;
 		}
 		
 		public function set nonInheritingStyles(value:Object):void{}
@@ -69,9 +69,13 @@ package org.seasar.akabana.yui.framework.core
 		
 		public function set styleDeclaration(value:CSSStyleDeclaration):void{}
 		
-		public function getStyle(styleProp:String):*{}
+		public function getStyle(styleProp:String):*{
+            return _styles[styleProp];
+        }
 		
-		public function setStyle(styleProp:String, newValue:*):void{}
+		public function setStyle(styleProp:String, newValue:*):void{
+            _styles[styleProp] = newValue;
+        }
 			
 		public function clearStyle(styleProp:String):void{}
 			
