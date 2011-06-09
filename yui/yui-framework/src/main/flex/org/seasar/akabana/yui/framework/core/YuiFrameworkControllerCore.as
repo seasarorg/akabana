@@ -139,13 +139,5 @@ package org.seasar.akabana.yui.framework.core
         protected function getDefaultCustomizerClasses():Array{
             return [];
         }
-        
-        yui_internal function isView( component:DisplayObject ):Boolean{
-            return false;
-        }
-        
-        yui_internal function isComponent( component:DisplayObject ):Boolean{
-            return false;            
-        }
     }
 }

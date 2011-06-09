@@ -43,12 +43,35 @@ package org.seasar.akabana.yui.framework.core
 	import org.seasar.akabana.yui.framework.logging.info;
     import org.seasar.akabana.yui.framework.logging.dump;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
+    import org.seasar.akabana.yui.framework.convention.NamingConvention;
     
     use namespace yui_internal;
     
     [ExcludeClass]
     public class YuiFrameworkControllerBase extends YuiFrameworkControllerCore
     {
+        
+        protected static function isView(component:DisplayObject):Boolean{
+            if( component == null ){
+                return false;
+            }
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            if( frameworkBridge.isContainer(component)){
+                const namingConvention:NamingConvention = YuiFrameworkGlobals.public::namingConvention as NamingConvention;
+                return namingConvention.isViewClassName( getCanonicalName(component) );
+            } else {
+                return false;
+            }
+        }
+        
+        protected static function isComponent( target:DisplayObject ):Boolean{
+            if( target == null ){
+                return false;
+            }
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            return frameworkBridge.isComponent(target);            
+        }
+        
         CONFIG::FP9{
             public function get customizers():Array{
                 return _customizers;
@@ -198,7 +221,7 @@ package org.seasar.akabana.yui.framework.core
             if( root.hasEventListener(YuiFrameworkEvent.APPLICATION_MONITOR_STOP)){
 				root.dispatchEvent(new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_MONITOR_STOP));
             }
-            yui_internal::applicationInitialize();
+            applicationInitialize();
         }
         
         
@@ -238,7 +261,6 @@ package org.seasar.akabana.yui.framework.core
         }
         
         yui_internal function applicationInitialize():void{
-            
         }
 
         protected function doRegisterComponent( component:DisplayObject ):void{
@@ -292,22 +314,6 @@ package org.seasar.akabana.yui.framework.core
                     }
                 }
             }
-        }
-        
-        protected function processViewAssemble( view:DisplayObjectContainer ):void{
-            customizeView(view);
-        }
-        
-        protected function processViewChildAssemble( container:DisplayObjectContainer,child:DisplayObject):void{
-            customizeComponent(container,child);
-        }
-        
-        protected function processViewDisassemble( container:DisplayObjectContainer ):void{
-            uncustomizeView(container);
-        }
-        
-        protected function processViewChildDisassemble( container:DisplayObjectContainer,child:DisplayObject):void{
-            uncustomizeComponent(container,child);
         }
         
         CONFIG::FP9{

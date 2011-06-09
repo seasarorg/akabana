@@ -65,6 +65,15 @@ package org.seasar.akabana.yui.framework.core
     [ExcludeClass]
     public final class YuiFrameworkController extends YuiFrameworkControllerBase
     {   
+        
+        private static function getDocumentOf(target:DisplayObject):UIComponent{
+            if( target == null ){
+                return null;
+            }
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            return frameworkBridge.getDocumentOf(target) as UIComponent; 
+        }
+        
         {
             CursorManager;
             PopUpManager;
@@ -257,12 +266,12 @@ package org.seasar.akabana.yui.framework.core
                 return;
             }
             if( isView(component)){
-                processViewDisassemble( component as DisplayObjectContainer);
+                uncustomizeView( component as DisplayObjectContainer);
                 processViewUnregister( component as DisplayObjectContainer);
             } else if(isComponent(component)){
-                var document:UIComponent = component.document as UIComponent;
-                if( document != null && document.initialized && isView(document)){
-                    processViewChildDisassemble(document,component);
+                var document:UIComponent = getDocumentOf(component);
+                if( document != null && isView(document)){
+                    uncustomizeComponent(document,component);
                 }
             }
         }
@@ -273,11 +282,11 @@ package org.seasar.akabana.yui.framework.core
                 return;
             }
             if( isView(component)){
-                processViewAssemble(component);
+                customizeView(component);
             } else if(isComponent(component)){
-                var document:UIComponent = component.document as UIComponent;
-                if( document != null && document.initialized && isView(document)){
-                    processViewChildAssemble(document,component);
+                var document:UIComponent = getDocumentOf(component);
+                if( document != null && isView(document)){
+                    customizeComponent(document,component);
                 }
             }
         }
@@ -386,28 +395,6 @@ package org.seasar.akabana.yui.framework.core
                 _debug("ViewAssembleEnd");
             }
             callLater( processApplicationStart );
-        }
-        
-        yui_internal override function isView(component:DisplayObject):Boolean{
-            if( component == null || !(component is UIComponent)){
-                return false;
-            }
-            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
-            if( frameworkBridge.isContainer(component)){
-                const namingConvention:NamingConvention = YuiFrameworkGlobals.public::namingConvention as NamingConvention;
-                return namingConvention.isViewClassName( getCanonicalName(component) );
-            } else {
-                return false;
-            }
-        }
-        
-        yui_internal override function isComponent( target:DisplayObject ):Boolean{
-            var component:UIComponent = target as UIComponent;
-            if( component == null || component.id == null || !(component is UIComponent)){
-                return false;
-            }
-            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
-            return frameworkBridge.isComponent(component);            
         }
         
         yui_internal override function applicationMonitoringStart(root:DisplayObject):void{
