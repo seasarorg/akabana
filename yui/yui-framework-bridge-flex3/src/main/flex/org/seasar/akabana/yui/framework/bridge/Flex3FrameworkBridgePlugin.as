@@ -62,17 +62,26 @@ CONFIG::FP10{
             return result;
         }
 
-        public function isApplication(component:Object):Boolean{
+        public function isApplication(component:DisplayObject):Boolean{
             return component is Application;
         }
 
-        public function isContainer(component:Object):Boolean{
+        public function isContainer(component:DisplayObject):Boolean{
             return component is Container;
         }
         
-        public function isComponent(component:Object):Boolean{
+        public function isComponent(component:DisplayObject):Boolean{
             return (component is UIComponent);
         }
+        
+        public function getDocumentOf(component:DisplayObject):DisplayObject{
+            var result:UIComponent = null;
+            if( component is UIComponent ){
+                result = (component as UIComponent).document as UIComponent;
+            }
+            return result;
+        }
+        
 CONFIG::FP9{
         public function getChildren(component:DisplayObjectContainer):Array{
             var result:Array = [];

@@ -80,6 +80,11 @@ CONFIG::FP10{
         public function isComponent(component:DisplayObject):Boolean{
             return _plugin.isComponent(component);
         }
+        
+        public function getDocumentOf(component:DisplayObject):DisplayObject{
+            return _plugin.getDocumentOf(component);
+        }
+        
 CONFIG::FP9{
         public function getChildren(component:DisplayObjectContainer):Array{
             return _plugin.getChildren(component);

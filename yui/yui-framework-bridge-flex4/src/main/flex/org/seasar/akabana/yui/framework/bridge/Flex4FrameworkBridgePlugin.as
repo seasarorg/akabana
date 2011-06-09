@@ -60,17 +60,28 @@ package org.seasar.akabana.yui.framework.bridge
             return result;
         }
 
-        public function isApplication(component:Object):Boolean{
+        public function isApplication(component:DisplayObject):Boolean{
             return (component is spark.components.Application);
         }
 
-        public function isContainer(component:Object):Boolean{
+        public function isContainer(component:DisplayObject):Boolean{
             return !( component is Skin ) && ( component is IVisualElementContainer ) && ( component is Group || component is SkinnableContainer );
         }
         
-        public function isComponent(component:Object):Boolean{
+        public function isComponent(component:DisplayObject):Boolean{
             var className:String = getCanonicalName(component) as String;
             return !( component is Skin ) && !( className.indexOf(SKIN_NAME) == className.length-SKIN_NAME.length) && ( component is UIComponent);
+        }
+        
+        public function getDocumentOf(component:DisplayObject):DisplayObject{
+            var result:UIComponent = null;
+            if( component is UIComponent ){
+                result = (component as UIComponent).document as UIComponent;
+                if( result is Skin ){
+                    result = result["hostComponent"] as UIComponent;
+                }
+            }
+            return result;
         }
 
         public function getChildren(component:DisplayObjectContainer):Vector.<DisplayObject>{

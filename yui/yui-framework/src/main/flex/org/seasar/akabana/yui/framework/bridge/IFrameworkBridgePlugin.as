@@ -34,11 +34,13 @@ CONFIG::FP10{
         
         function get rootView():DisplayObjectContainer;
 
-        function isApplication(application:Object):Boolean;
+        function isApplication(application:DisplayObject):Boolean;
 
-        function isContainer(component:Object):Boolean;
+        function isContainer(component:DisplayObject):Boolean;
 
-        function isComponent(component:Object):Boolean;
+        function isComponent(component:DisplayObject):Boolean;
+
+        function getDocumentOf(component:DisplayObject):DisplayObject;
         
 CONFIG::FP9{
         function getChildren(component:DisplayObjectContainer):Array;

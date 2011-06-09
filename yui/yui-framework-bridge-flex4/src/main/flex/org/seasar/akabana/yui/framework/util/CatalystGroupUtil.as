@@ -15,13 +15,15 @@
 */
 package org.seasar.akabana.yui.framework.util
 {
+    import flash.display.DisplayObject;
+    
     import mx.core.IVisualElement;
     import mx.core.UIComponent;
     
-    import spark.components.Group;
-    
     import org.seasar.akabana.yui.framework.bridge.Flex4FrameworkBridgePlugin;
     import org.seasar.akabana.yui.framework.convention.CatalystNamingConvention;
+    
+    import spark.components.Group;
     
     [ExcludeClass]
     public class CatalystGroupUtil
@@ -49,7 +51,7 @@ package org.seasar.akabana.yui.framework.util
             var childGroupAccName:String;
             for( var i:int = 0; i < numElements; i++ ){
                 element = group.getElementAt(i);
-                if( bridge.isComponent(element)){
+                if( bridge.isComponent(element as DisplayObject)){
                     result.push(element);
                     
                     if( element is Group && !namingConvention.isViewClassName(getCanonicalName(element))){                        
