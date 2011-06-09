@@ -38,25 +38,26 @@ package org.seasar.akabana.yui.framework.customizer
             const validatorClassName:String = YuiFrameworkGlobals.namingConvention.getValidatorClassName(viewClassName);
 
             try {
-                CONFIG::DEBUG {
-                    _debug("Customizing",viewClassName,validatorClassName);
-                }
-                viewProperties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()] = {};
-                //
                 const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-                if(action != null) {
-                    setValidatorProperties(container,action);
-                }
-                
-                //
-                const behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-                if(behaviors != null) {
-                    for each( var behavior:Object in behaviors){
-                        setValidatorProperties(container,behavior);
+                if(action == null) {
+                    //no action
+                } else {
+                    CONFIG::DEBUG {
+                        _debug("Customizing",viewClassName,validatorClassName);
                     }
-                }
-                CONFIG::DEBUG {
-                    _debug("Customized",viewClassName,validatorClassName);
+                    viewProperties[YuiFrameworkGlobals.namingConvention.getValidatorPackageName()] = {};
+                    //
+                    setValidatorProperties(container,action);
+                    //
+                    const behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                    if(behaviors != null) {
+                        for each( var behavior:Object in behaviors){
+                            setValidatorProperties(container,behavior);
+                        }
+                    }
+                    CONFIG::DEBUG {
+                        _debug("Customized",viewClassName,validatorClassName);
+                    }
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {

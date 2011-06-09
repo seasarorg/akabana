@@ -38,25 +38,28 @@ package org.seasar.akabana.yui.framework.customizer
             const helperClassName:String = YuiFrameworkGlobals.namingConvention.getHelperClassName(viewClassName);
 
             try {
-                CONFIG::DEBUG {
-                    _debug("Customizing",viewClassName,helperClassName);
-                }
-                viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = {};
                 //
                 const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-                if(action != null) {
-                    setHelperProperties(container,action);
-                }
                 
-                //
-                const behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-                if(behaviors != null) {
-                    for each( var behavior:Object in behaviors){
-                        setHelperProperties(container,behavior);
+                if(action == null) {
+                    //no action
+                } else {
+                    CONFIG::DEBUG {
+                        _debug("Customizing",viewClassName,helperClassName);
                     }
-                }
-                CONFIG::DEBUG {
-                    _debug("Customized",viewClassName,helperClassName);
+                    viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = {};
+                    setHelperProperties(container,action);
+                    
+                    //
+                    const behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                    if(behaviors != null) {
+                        for each( var behavior:Object in behaviors){
+                            setHelperProperties(container,behavior);
+                        }
+                    }
+                    CONFIG::DEBUG {
+                        _debug("Customized",viewClassName,helperClassName);
+                    }
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {

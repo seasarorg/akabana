@@ -242,28 +242,12 @@ package org.seasar.akabana.yui.framework.core
         }
 
         protected function doRegisterComponent( component:DisplayObject ):void{
-            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
-            if( frameworkBridge.isApplication(component) ){
-                processApplicationRegister(component as DisplayObjectContainer);
-            } else {
-                processViewRegister(component as DisplayObjectContainer);
-                if( _isApplicationStarted ){
-                    doAssembleComponent(component);
-                }
-            }
         }
         
         protected function doUnregisterComponent(component:DisplayObject):void{
-            if( isView(component)){
-                processViewDisassemble( component as DisplayObjectContainer);
-                processViewUnregister( component as DisplayObjectContainer);
-            }
         }
         
         protected function doAssembleComponent( component:DisplayObject ):void{
-            if( isView(component)){
-                processViewAssemble( component as DisplayObjectContainer);
-            }
         }
         
         protected function processApplicationRegister(component:DisplayObjectContainer):void{

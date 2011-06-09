@@ -36,47 +36,49 @@ package org.seasar.akabana.yui.framework.customizer
             const viewProperties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
-            const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-            if( action == null ){
-                return;
-            }
+            
             try {
-                const actionClassRef:ClassRef = getClassRef(action);
-                CONFIG::FP9 {
-                    var props:Array = actionClassRef.properties;
-                }
-                CONFIG::FP10 {
-                    var props:Vector.<PropertyRef> = actionClassRef.properties;
-                }
-
-                var behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()] = [];
-                var behavior:Object;
-                for each(var prop:PropertyRef in props) {
-                    if( YuiFrameworkGlobals.namingConvention.isBehaviorOfView( viewClassName, prop.typeClassRef.name )){
-
-                        CONFIG::DEBUG {
-                            _debug("Customizing",viewClassName,prop.typeClassRef.name);
-                        }
-                        behavior = InstanceCache.newInstance(prop.typeClassRef);
-                        prop.setValue(action,behavior);
-                        behaviors.push(behavior);
-
-                        super.doEventCustomize(viewName,view,behavior);
-
-                        if( behavior is ILifeCyclable ){
-                            (behavior as ILifeCyclable).start();
-                        }
-                        CONFIG::DEBUG {
-                            _debug("Customized",viewClassName,prop.typeClassRef.name);
-                        }
-                    } else {
-                        CONFIG::DEBUG {
-                            if( YuiFrameworkGlobals.namingConvention.isBehaviorClassName(prop.typeClassRef.name)){
-                                _debug("CustomizeWarning",prop.typeClassRef.name+"isn't the Behavior Class of "+viewClassName);
+                const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                if( action == null ){
+                    //no action
+                } else {
+                    const actionClassRef:ClassRef = getClassRef(action);
+                    CONFIG::FP9 {
+                        var props:Array = actionClassRef.properties;
+                    }
+                    CONFIG::FP10 {
+                        var props:Vector.<PropertyRef> = actionClassRef.properties;
+                    }
+    
+                    var behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()] = [];
+                    var behavior:Object;
+                    for each(var prop:PropertyRef in props) {
+                        if( YuiFrameworkGlobals.namingConvention.isBehaviorOfView( viewClassName, prop.typeClassRef.name )){
+    
+                            CONFIG::DEBUG {
+                                _debug("Customizing",viewClassName,prop.typeClassRef.name);
+                            }
+                            behavior = InstanceCache.newInstance(prop.typeClassRef);
+                            prop.setValue(action,behavior);
+                            behaviors.push(behavior);
+    
+                            super.doEventCustomize(viewName,view,behavior);
+    
+                            if( behavior is ILifeCyclable ){
+                                (behavior as ILifeCyclable).start();
+                            }
+                            CONFIG::DEBUG {
+                                _debug("Customized",viewClassName,prop.typeClassRef.name);
+                            }
+                        } else {
+                            CONFIG::DEBUG {
+                                if( YuiFrameworkGlobals.namingConvention.isBehaviorClassName(prop.typeClassRef.name)){
+                                    _debug("CustomizeWarning",prop.typeClassRef.name+"isn't the Behavior Class of "+viewClassName);
+                                }
                             }
                         }
+                        
                     }
-                    
                 }
             } catch(e:Error) {
                 CONFIG::DEBUG {

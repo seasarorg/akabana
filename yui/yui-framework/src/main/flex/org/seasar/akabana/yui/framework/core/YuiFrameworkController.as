@@ -240,7 +240,15 @@ package org.seasar.akabana.yui.framework.core
 			if( component == null || !component.initialized ){
 				return;
 			}
-        	super.doRegisterComponent(component);
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            if( frameworkBridge.isApplication(component) ){
+                processApplicationRegister(component as DisplayObjectContainer);
+            } else {
+                processViewRegister(component as DisplayObjectContainer);
+                if( _isApplicationStarted ){
+                    doAssembleComponent(component);
+                }
+            }
         }
         
         protected override function doUnregisterComponent(target:DisplayObject):void{
@@ -249,7 +257,8 @@ package org.seasar.akabana.yui.framework.core
                 return;
             }
             if( isView(component)){
-                super.doUnregisterComponent(component);
+                processViewDisassemble( component as DisplayObjectContainer);
+                processViewUnregister( component as DisplayObjectContainer);
             } else if(isComponent(component)){
                 var document:UIComponent = component.document as UIComponent;
                 if( document != null && document.initialized && isView(document)){
