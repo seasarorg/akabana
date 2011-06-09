@@ -30,7 +30,7 @@ package org.seasar.akabana.yui.framework.customizer
 	import org.seasar.akabana.yui.framework.core.InstanceCache;
 
     [ExcludeClass]
-    public class HelperCustomizer extends AbstractComponentCustomizer {
+    public class HelperCustomizer extends AbstractComponentCustomizer implements IComponentCustomizer {
         
         public override function customizeView(container:UIComponent):void {
             const viewProperties:Object = UIComponentUtil.getProperties(container);
@@ -95,6 +95,38 @@ package org.seasar.akabana.yui.framework.customizer
             } catch(e:Error) {
                 CONFIG::DEBUG {
                     _debug("CustomizeError",container,e.getStackTrace());
+                }
+            }
+        }
+        
+        public function customizeComponent( view:UIComponent, component:UIComponent ):void{
+            const viewProperties:Object = UIComponentUtil.getProperties(view);
+            const viewClassName:String = getCanonicalName(view);
+            const helperClassName:String = YuiFrameworkGlobals.namingConvention.getHelperClassName(viewClassName);
+            
+            const helperMap:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+            const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
+            for each( var helper:Object in helperMap){
+                var helperClassRef:ClassRef = getClassRef(helper);
+                var helperPropRef:PropertyRef = helperClassRef.getPropertyRef(componentName);
+                if( helperPropRef != null && helperPropRef.uri == viewpart.toString()){
+                    helperPropRef.setValue(helper,component);                   
+                }
+            }
+        }
+        
+        public function uncustomizeComponent( view:UIComponent, component:UIComponent ):void{
+            const viewProperties:Object = UIComponentUtil.getProperties(view);
+            const viewClassName:String = getCanonicalName(view);
+            const helperClassName:String = YuiFrameworkGlobals.namingConvention.getHelperClassName(viewClassName);
+            
+            const helperMap:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+            const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
+            for each( var helper:Object in helperMap){
+                var helperClassRef:ClassRef = getClassRef(helper);
+                var helperPropRef:PropertyRef = helperClassRef.getPropertyRef(componentName);
+                if( helperPropRef != null && helperPropRef.uri == viewpart.toString()){
+                    helperPropRef.setValue(helper,null);                   
                 }
             }
         }
