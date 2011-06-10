@@ -38,14 +38,15 @@ package org.seasar.akabana.yui.framework.customizer
             try {
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
 
-                if(action != null) {
+                if(action == null) {
+                    //no action 
+                } else {
                     processCustomize(action);
-                }
-
-                const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
-                if(behaviors != null) {
-                    for each(var behavior:Object in behaviors) {
-                        processCustomize(behavior);
+                    const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                    if(behaviors != null) {
+                        for each(var behavior:Object in behaviors) {
+                            processCustomize(behavior);
+                        }
                     }
                 }
             } catch(e:Error) {
