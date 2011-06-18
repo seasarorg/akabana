@@ -9,6 +9,7 @@
     <classEntry path="org.seasar.akabana.yui.service.Service"/>
     <classEntry path="org.seasar.akabana.yui.service.ServiceGatewayUrlResolver"/>
     <classEntry path="org.seasar.akabana.yui.service.ServiceManager"/>
+    <classEntry path="org.seasar.akabana.yui.service.ServiceMethod"/>
     <classEntry path="org.seasar.akabana.yui.service.error.ErrorCode"/>
     <classEntry path="org.seasar.akabana.yui.service.error.IllegalDestinationError"/>
     <classEntry path="org.seasar.akabana.yui.service.error.IllegalGatewayError"/>
@@ -21,10 +22,10 @@
     <classEntry path="org.seasar.akabana.yui.service.local.LocalServiceInvoker"/>
     <classEntry path="org.seasar.akabana.yui.service.ns.rpc_fault"/>
     <classEntry path="org.seasar.akabana.yui.service.ns.rpc_result"/>
+    <classEntry path="org.seasar.akabana.yui.service.ns.service"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.AbstractResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.Responder"/>
     <classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>
-    <classEntry path="org.seasar.akabana.yui.service.ns.service"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>

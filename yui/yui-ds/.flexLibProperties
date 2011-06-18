@@ -5,7 +5,6 @@
     <classEntry path="org.seasar.akabana.yui.service.ds.HttpService"/>
     <classEntry path="org.seasar.akabana.yui.service.ds.RemotingService"/>
     <classEntry path="org.seasar.akabana.yui.service.ds.responder.AbstractRpcEventResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcEventResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcNoneResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcObjectResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcResponderFactory"/>

@@ -21,9 +21,9 @@ package org.seasar.akabana.yui.service.rpc {
     import flash.utils.Proxy;
     import flash.utils.flash_proxy;
     
+    import org.seasar.akabana.yui.service.ManagedService;
     import org.seasar.akabana.yui.service.Operation;
     import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.ManagedService;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.error.IllegalDestinationError;
 
@@ -139,7 +139,11 @@ package org.seasar.akabana.yui.service.rpc {
         public function finalizePendingCall(pc:PendingCall):void{
             
         }
-
+        
+        public function invokeMethod(name:String,args:Array):PendingCall{
+            return null;
+        }
+        
         protected function createOperation( operationName:String ):AbstractRpcOperation{
             return null;
         }
@@ -152,7 +156,7 @@ package org.seasar.akabana.yui.service.rpc {
             if( _destination == null || _destination.length <= 0 ){
                 throw new IllegalDestinationError(_destination);
             }
-            return invokeOperation( QName(methodName).localName, args );
+            return invokeOperation( (methodName as QName).localName, args );
         }
     }
 }

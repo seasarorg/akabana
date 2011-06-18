@@ -168,7 +168,11 @@ package org.seasar.akabana.yui.service.ds {
             _parentApplication.addEventListener(FlexEvent.CREATION_COMPLETE,creationCompleteHandler,false,0,true);
             ServiceManager.addService( this );
         }
-
+        
+        public function invokeMethod(name:String,args:Array):PendingCall{
+            return internalInvoke( new QName(name),args);
+        }
+        
         private function creationCompleteHandler( event:FlexEvent ):void{
             _parentApplication.removeEventListener( FlexEvent.CREATION_COMPLETE, creationCompleteHandler, false );
             _parentApplication = null;

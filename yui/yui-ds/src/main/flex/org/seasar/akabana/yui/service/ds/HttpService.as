@@ -21,17 +21,17 @@ package org.seasar.akabana.yui.service.ds
     
     import mx.core.IMXMLObject;
     import mx.core.mx_internal;
+    import mx.rpc.AbstractOperation;
     import mx.rpc.AsyncToken;
-	import mx.rpc.AbstractOperation;
     import mx.rpc.http.HTTPMultiService;
     
+    import org.seasar.akabana.yui.service.ManagedService;
     import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
-    import org.seasar.akabana.yui.service.ManagedService;
     import org.seasar.akabana.yui.service.ServiceManager;
-	import org.seasar.akabana.yui.service.ds.local.LocalOperation;
+    import org.seasar.akabana.yui.service.ds.local.LocalOperation;
     
     use namespace flash_proxy;
     use namespace mx_internal;
@@ -107,6 +107,10 @@ package org.seasar.akabana.yui.service.ds
                 _pendingCallMap[ pc ] = null;
                 delete _pendingCallMap[ pc ];
             }
+        }
+        
+        public function invokeMethod(name:String,args:Array):PendingCall{
+            return internalInvoke(name,args);
         }
         
         protected function internalInvoke(operationName:String,args:Array):DsPendingCall{

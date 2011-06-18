@@ -15,27 +15,20 @@
  */
 package org.seasar.akabana.yui.service.ds.responder {
 
-    import mx.rpc.Fault;
     import mx.rpc.events.FaultEvent;
     import mx.rpc.events.ResultEvent;
-    
-    import org.seasar.akabana.yui.service.event.FaultEvent;
-    import org.seasar.akabana.yui.service.event.FaultStatus;
-    import org.seasar.akabana.yui.service.event.ResultEvent;
 
     [ExcludeClass]
-    public final class RpcEventResponder extends AbstractRpcEventResponder {
+    public final class RpcDefaultEventResponder extends AbstractRpcEventResponder {
 
-        public function RpcEventResponder( resultFunction:Function, faultFunction:Function){
+        public function RpcDefaultEventResponder( resultFunction:Function, faultFunction:Function){
             this.resultFunction = resultFunction;
             this.faultFunction = faultFunction;
         }
 
         public override function result(data:Object):void
         {
-            var result:Object = (data as mx.rpc.events.ResultEvent).result;
-            var newEvent:org.seasar.akabana.yui.service.event.ResultEvent = new org.seasar.akabana.yui.service.event.ResultEvent(result);
-            resultFunction.call( null, newEvent );
+            resultFunction.call( null, data as ResultEvent );
             resultFunction = null;
             faultFunction = null;
         }
@@ -43,10 +36,7 @@ package org.seasar.akabana.yui.service.ds.responder {
         public override function fault(info:Object):void
         {
             if( faultFunction != null ){
-                var fault:Fault = (info as mx.rpc.events.FaultEvent).fault;
-                var faultStatus:FaultStatus = new FaultStatus( fault.faultCode, fault.faultString, fault.faultDetail );
-                var newEvent:org.seasar.akabana.yui.service.event.FaultEvent = new org.seasar.akabana.yui.service.event.FaultEvent(faultStatus);
-                faultFunction.call( null, newEvent);
+                faultFunction.call( null, info as FaultEvent);
             }
             resultFunction = null;
             faultFunction = null;

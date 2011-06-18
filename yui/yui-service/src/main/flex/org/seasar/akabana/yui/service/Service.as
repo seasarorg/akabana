@@ -32,5 +32,7 @@ package org.seasar.akabana.yui.service {
         function set destination( value:String ):void;
         
         function setCredentials(username:String, password:String, charset:String=null):void;
+        
+        function invokeMethod( name:String, args:Array ):PendingCall;
     }
 }

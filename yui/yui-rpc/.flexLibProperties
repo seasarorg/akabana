@@ -8,8 +8,9 @@
     <classEntry path="org.seasar.akabana.yui.service.rpc.RemotingOperation"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.RemotingService"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.RpcPendingCall"/>
+    <classEntry path="org.seasar.akabana.yui.service.rpc.local.LocalOperation"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.responder.AbstractRpcEventResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcEventResponder"/>
+    <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcDefaultEventResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcNoneResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcObjectResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcResponder"/>

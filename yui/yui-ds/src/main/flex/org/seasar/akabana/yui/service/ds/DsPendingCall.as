@@ -30,10 +30,12 @@ package org.seasar.akabana.yui.service.ds {
     import org.seasar.akabana.yui.service.OperationCallBack;
     import org.seasar.akabana.yui.service.PendingCall;
     import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.ds.responder.RpcDefaultEventResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcEventResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcNoneResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcObjectResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcResponderFactory;
+    import org.seasar.akabana.yui.service.resonder.Responder;
     import org.seasar.akabana.yui.service.resonder.ResponderFactory;
 
     use namespace mx_internal;
@@ -59,7 +61,7 @@ package org.seasar.akabana.yui.service.ds {
             } else {
                 var parameter:ParameterRef = resultFuncDef.parameters[0] as ParameterRef;
                 if( parameter.isEvent ){
-                    responderClass = RpcEventResponder;
+                    responderClass = RpcDefaultEventResponder;
                 } else {
                     responderClass = RpcObjectResponder;
                 }
@@ -91,7 +93,7 @@ package org.seasar.akabana.yui.service.ds {
 
         public function setInternalAsyncToken( asyncToken:AsyncToken, operation:AbstractOperation ):void{
             _internalAsyncToken = asyncToken;
-            _internalAsyncToken.addResponder( new Responder(onResult,onStatus));
+            _internalAsyncToken.addResponder( new mx.rpc.Responder(onResult,onStatus));
             _operation = operation;
         }
 
@@ -99,6 +101,9 @@ package org.seasar.akabana.yui.service.ds {
             if( responder is IResponder ){
                 _responderOwner = null;
                 _responder = responder as IResponder;
+            } else if( responder is org.seasar.akabana.yui.service.resonder.Responder ){
+                _responderOwner = null;
+                _responder = new RpcEventResponder(responder.onResult,responder.onFault);
             } else {
                 _responderOwner = responder;
                 var service:Service = _operation.service as Service;

@@ -55,6 +55,10 @@ package org.seasar.akabana.yui.service.rpc {
                 delete _pendingCallMap[ pc ];
             }
         }
+        
+        public override function invokeMethod(name:String,args:Array):PendingCall{
+            return invokeOperation( name,args);
+        }
 
         protected override function createOperation( operationName:String ):AbstractRpcOperation{
             if( ServiceGatewayUrlResolver.isLocalUrl(gatewayUrl) ){
