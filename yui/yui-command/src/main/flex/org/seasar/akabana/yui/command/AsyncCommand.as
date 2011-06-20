@@ -13,18 +13,21 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.command.core.impl
+package org.seasar.akabana.yui.command
 {
     import flash.events.TimerEvent;
     import flash.utils.Timer;
     
     import org.seasar.akabana.yui.command.events.CommandEvent;
+    import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     
     public class AsyncCommand extends AbstractCommand
     {
         protected var dispatchTimer:Timer;
         
-        protected var nextStatusEvent:CommandEvent;
+        protected var _result:Object;
+        
+        protected var _message:Object;
         
         /**
          * 
@@ -41,7 +44,7 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public override function done( value:Object = null ):void{
             dispatchTimerStop();
-            nextStatusEvent = CommandEvent.createCompleteEvent( this, value );
+            _result = value;
             dispatchTimerStart();
         } 
         
@@ -52,7 +55,7 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public override function failed( message:Object = null ):void{
             dispatchTimerStop();
-            nextStatusEvent = CommandEvent.createErrorEvent( this, message );
+            _message = message;
             dispatchTimerStart();
         }
         
@@ -83,7 +86,14 @@ package org.seasar.akabana.yui.command.core.impl
         protected function dispatchTimerHandler(event:TimerEvent):void{
             dispatchTimer.removeEventListener(TimerEvent.TIMER,dispatchTimerHandler);
             dispatchTimerStop();
-            dispatchEvent(nextStatusEvent);
+            if( _result != null ){
+                super.done(_result);
+            }
+            if( _message != null ){
+                super.failed(_message);
+            }
+            _result = null;
+            _message = null;
         }
         
     }

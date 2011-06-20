@@ -20,6 +20,7 @@ package org.seasar.akabana.yui.command.core.impl
     import org.seasar.akabana.yui.command.core.EventListener;
     import org.seasar.akabana.yui.command.core.SubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
+    import org.seasar.akabana.yui.command.AsyncCommand;
     
     /**
      * 
