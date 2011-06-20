@@ -10,11 +10,9 @@
     <classEntry path="org.seasar.akabana.yui.core.data.Converter"/>
     <classEntry path="org.seasar.akabana.yui.core.error.ClassNotFoundError"/>
     <classEntry path="org.seasar.akabana.yui.core.error.NotFoundError"/>
-    <classEntry path="org.seasar.akabana.yui.core.event.Command"/>
-    <classEntry path="org.seasar.akabana.yui.core.event.Notification"/>
-    <classEntry path="org.seasar.akabana.yui.core.event.dispatchEvent"/>
-    <classEntry path="org.seasar.akabana.yui.core.event.notify"/>
-    <classEntry path="org.seasar.akabana.yui.core.event.send"/>
+    <classEntry path="org.seasar.akabana.yui.core.event.MessageEvent"/>
+    <classEntry path="org.seasar.akabana.yui.core.event.NotificationEvent"/>
+    <classEntry path="dispatchEvent"/>
     <classEntry path="org.seasar.akabana.yui.core.logging.ILogger"/>
     <classEntry path="org.seasar.akabana.yui.core.logging.ILoggerFactory"/>
     <classEntry path="org.seasar.akabana.yui.core.ns.yui_internal"/>

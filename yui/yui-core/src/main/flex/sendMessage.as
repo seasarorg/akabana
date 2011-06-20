@@ -13,12 +13,17 @@
 * either express or implied. See the License for the specific language
 * governing permissions and limitations under the License.
 */
-package org.seasar.akabana.yui.core.event
+package 
 {
     import flash.events.Event;
     import flash.events.IEventDispatcher;
+    import org.seasar.akabana.yui.core.event.MessageEvent;
 
-    public function dispatchEvent(d:IEventDispatcher,e:Event):void{  
-        d.dispatchEvent(e);
+    /**
+     * 指定されたターゲットに対してメッセージを送ります。
+     */
+    public function sendMessage(target:IEventDispatcher,type:String,data:Object=null):void{  
+        var m:MessageEvent = new MessageEvent(type,data);
+        dispatchEvent(target,m);
     }
 }

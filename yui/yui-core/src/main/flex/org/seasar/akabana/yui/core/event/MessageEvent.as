@@ -17,16 +17,21 @@ package org.seasar.akabana.yui.core.event
 {
     import flash.events.Event;
 
-    public class Command extends Event
-    {
+    /**
+     * メッセージイベントクラス
+     * 
+     * メッセージを通知するためイベントクラスです。
+     * 
+     */
+    public class MessageEvent extends Event {
+        
         protected var _data:Object;
         
-        public function get data():Object{
+        public function get data():Object {
             return _data;
         }  
         
-        public function Command(type:String,data:Object)
-        {
+        public function MessageEvent(type:String,data:Object){
             super(type, false, true);
             _data = data;
         }        
