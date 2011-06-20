@@ -79,7 +79,8 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         public function stop(...args):void{
-            throw new Error( "no implements" );
+            _completeEventListener.clear();
+            _errorEventListener.clear();
         }
         
         /**
@@ -95,7 +96,7 @@ package org.seasar.akabana.yui.command.core.impl
                 }                
             } else {
                 _completeEventListener.handler = handler;
-                addEventListener( CommandEvent.COMPLETE, handler, false, int.MAX_VALUE, true );
+                addEventListener( CommandEvent.COMPLETE, _completeEventListener.handler, false, int.MAX_VALUE, true );
             }
             return this;
         }
@@ -113,7 +114,7 @@ package org.seasar.akabana.yui.command.core.impl
                 }                
             } else {
                 _errorEventListener.handler = handler;
-                addEventListener( CommandEvent.ERROR, handler, false, int.MAX_VALUE, true );
+                addEventListener( CommandEvent.ERROR, _errorEventListener.handler, false, int.MAX_VALUE, true );
             }
             return this;
         }
@@ -145,10 +146,10 @@ package org.seasar.akabana.yui.command.core.impl
                 const errorFuncDef:FunctionRef = classRef.getFunctionRef( errorMethod, ns );
 
                 if( completeFuncDef != null ){
-                    _completeEventListener.handler = completeFuncDef.getFunction(listenerObj);
+                    complete(completeFuncDef.getFunction(listenerObj));
                 }
                 if( errorFuncDef != null ){
-                    _errorEventListener.handler = errorFuncDef.getFunction(listenerObj);
+                    error(errorFuncDef.getFunction(listenerObj));
                 }
             }
             return this;
@@ -161,6 +162,7 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public function done( value:Object = null ):void{
             dispatchEvent( CommandEvent.createCompleteEvent( this, value ) );
+            stop();
         } 
         
         /**
@@ -170,6 +172,7 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public function failed( message:Object = null ):void{
             dispatchEvent( CommandEvent.createErrorEvent( this, message ) );
+            stop();
         }
 
         /**
