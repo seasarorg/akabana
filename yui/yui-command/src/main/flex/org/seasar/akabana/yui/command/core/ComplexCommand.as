@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.command.core
      * 複合コマンド定義インターフェイス
      * 
      */
-    public interface ComplexCommand extends Command
+    public interface ComplexCommand extends ICommand
     {
         /**
          * コマンドを追加する
@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.command.core
          * @return 複合コマンド
          * 
          */
-        function add( command:Command, name:String=null ):ComplexCommand;
+        function add( command:ICommand, name:String=null ):ComplexCommand;
         
         /**
          * 名前よりコマンドを取得する
@@ -38,7 +38,7 @@ package org.seasar.akabana.yui.command.core
          * @return 複合コマンド
          * 
          */
-        function fetch( name:String ):Command;
+        function fetch( name:String ):ICommand;
         
         /**
          * 子コマンドのイベント完了リスナーを設定する

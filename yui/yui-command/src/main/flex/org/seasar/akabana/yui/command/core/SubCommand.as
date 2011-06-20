@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.command.core
      * 複合コマンドに依存するコマンドを示すインターフェイスです。
      * 
      */
-    public interface SubCommand extends Command {
+    public interface SubCommand extends ICommand {
 
         /**
          * 親となる複合コマンドを取得する。

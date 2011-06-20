@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.command
 {
-    import org.seasar.akabana.yui.command.core.Command;
+    import org.seasar.akabana.yui.command.core.ICommand;
     import org.seasar.akabana.yui.command.core.StatefulObject;
     import org.seasar.akabana.yui.command.core.impl.AbstractSubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
@@ -24,11 +24,9 @@ package org.seasar.akabana.yui.command
     {       
         protected var target:StatefulObject;
         
-        protected var targetName:String;
-        
         protected var caseMap:Object;
         
-        protected var defaultCommand:Command;
+        protected var defaultCommand:ICommand;
         
         public function ConditionalCommand()
         {
@@ -40,17 +38,12 @@ package org.seasar.akabana.yui.command
             this.target = target;
             return this;
         }
-        
-        public function setTargetByName(name:String):ConditionalCommand{
-            this.targetName = name;
-            return this;
-        }
 
         protected override function run(...args):void{
          
-            var result:Command = null;
-            if( target == null && targetName != null && targetName.length > 0 ){
-                target = parent.fetch(targetName) as StatefulObject;
+            var result:ICommand = null;
+            if( target == null && _name != null && _name.length > 0 ){
+                target = parent.fetch(_name) as StatefulObject;
             }
             var state:String = target.state;
             if( caseMap.hasOwnProperty( state )){
@@ -63,22 +56,22 @@ package org.seasar.akabana.yui.command
             result.start(target);
         }
         
-        public function addCaseCommand( value:String, command:Command ):ConditionalCommand{
+        public function addCaseCommand( value:String, command:ICommand ):ConditionalCommand{
             caseMap[ value ] = command;
             return this;
         }
 
-        public function setDefaultCommand( command:Command ):ConditionalCommand{
+        public function setDefaultCommand( command:ICommand ):ConditionalCommand{
             defaultCommand = command;
             return this;
         }
         
         protected function commandCompleteEventListener(event:CommandEvent):void{
-            done(event.value);
+            done(event.data);
         }
 
         protected function commandErrorEventListener(event:CommandEvent):void{
-            failed(event.value);            
+            failed(event.data);
         }
     }
 }

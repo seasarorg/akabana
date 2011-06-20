@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.command.core.impl
 {
-    import org.seasar.akabana.yui.command.core.Command;
+    import org.seasar.akabana.yui.command.core.ICommand;
     import org.seasar.akabana.yui.command.core.ComplexCommand;
     import org.seasar.akabana.yui.command.core.EventListener;
     import org.seasar.akabana.yui.command.core.SubCommand;
@@ -95,7 +95,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function add(command:Command,name:String=null):ComplexCommand
+        public function add(command:ICommand,name:String=null):ComplexCommand
         {
             if( command is AbstractCommand ){
                 doAddCommand(command as AbstractCommand);
@@ -113,9 +113,9 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function fetch(name:String):Command
+        public function fetch(name:String):ICommand
         {
-            var result:Command = commandMap[name];
+            var result:ICommand = commandMap[name];
             return result;
         }
 
@@ -125,7 +125,7 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function doStartCommandAt(index:int):void{
-            var command:Command = commands[ index ];
+            var command:ICommand = commands[ index ];
             (command.start as Function).apply(null,commandArguments);
         }         
                 
@@ -161,7 +161,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param command
          * 
          */
-        protected function doRegisterCommand(command:Command):void{
+        protected function doRegisterCommand(command:ICommand):void{
             commands.push(command);
             if( command is SubCommand ){
                 (command as SubCommand).parent = this;

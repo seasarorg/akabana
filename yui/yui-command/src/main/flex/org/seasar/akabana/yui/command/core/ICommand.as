@@ -20,15 +20,23 @@ package org.seasar.akabana.yui.command.core
      *  
      * 
      */
-    public interface Command {
-
+    public interface ICommand {
+        
+        /**
+         * コマンドの名前を指定
+         * 
+         * @param value 名前
+         * 
+         */
+        function name(value:String):ICommand;
+        
         /**
          * コマンドを開始する
          * 
          * @param args コマンド引数
          * 
          */
-        function start(...args):Command;
+        function start(...args):ICommand;
 
         /**
          * コマンドを停止する
@@ -43,7 +51,7 @@ package org.seasar.akabana.yui.command.core
          * @return コマンド
          * 
          */
-        function complete(handler:Function):Command;
+        function complete(handler:Function):ICommand;
 
         /**
          * コマンドエラーイベントリスナーを設定する
@@ -52,7 +60,16 @@ package org.seasar.akabana.yui.command.core
          * @return コマンド
          * 
          */
-        function error(handler:Function):Command;
+        function error(handler:Function):ICommand;
+
+        /**
+         * コマンドイベントリスナーを設定する
+         * 
+         * @param listener コマンドイベントリスナー
+         * @return コマンド
+         * 
+         */
+        function listener(listenerObj:Object):ICommand;
 
     }
 }

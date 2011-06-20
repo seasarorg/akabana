@@ -15,22 +15,29 @@
  */
 package org.seasar.akabana.yui.command.core.impl
 {
+    import flash.errors.IllegalOperationError;
     import flash.events.EventDispatcher;
     
-    import org.seasar.akabana.yui.command.core.Command;
     import org.seasar.akabana.yui.command.core.EventListener;
+    import org.seasar.akabana.yui.command.core.ICommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
+    import org.seasar.akabana.yui.core.ns.handler;
+    import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import org.seasar.akabana.yui.core.reflection.FunctionRef;
+    import org.seasar.akabana.yui.util.StringUtil;
 
     /**
      * 
      * 
      */
-    public class AbstractCommand extends EventDispatcher implements Command {
+    public class AbstractCommand extends EventDispatcher implements ICommand {
 
         private var _completeEventListener:EventListener;
         
         private var _errorEventListener:EventListener;
 
+        protected var _name:String;
+        
         /**
          * 
          * 
@@ -42,11 +49,22 @@ package org.seasar.akabana.yui.command.core.impl
         }
         
         /**
+         * コマンドの名前を指定
+         * 
+         * @param value 名前
+         * 
+         */
+        public function name(value:String):ICommand {
+            _name = value;
+            return this;
+        }
+        
+        /**
          * 
          * @param args
          * 
          */
-        public function start( ...args ):Command{
+        public function start( ...args ):ICommand{
             try{
                 ( this.run as Function ).apply( null, args );
             }catch( e:Error ){
@@ -70,7 +88,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function complete( handler:Function ):Command{
+        public function complete( handler:Function ):ICommand{
             if( handler == null ){
                 if( _completeEventListener.handler != null ){
                     removeEventListener( CommandEvent.COMPLETE, _completeEventListener.handler, false );
@@ -88,7 +106,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function error( handler:Function ):Command{
+        public function error( handler:Function ):ICommand{
             if( handler == null ){
                 if( _errorEventListener.handler != null ){
                     removeEventListener( CommandEvent.ERROR,_errorEventListener.handler, false );
@@ -97,7 +115,43 @@ package org.seasar.akabana.yui.command.core.impl
                 _errorEventListener.handler = handler;
                 addEventListener( CommandEvent.ERROR, handler, false, int.MAX_VALUE, true );
             }
-            return this;            
+            return this;
+        }
+        
+        /**
+         * 
+         * @param handler
+         * @return 
+         * 
+         */
+        public function listener( listenerObj:Object ):ICommand{
+            if( _name == null ){
+                throw new IllegalOperationError(this+" is no name.");
+            }
+            if( listenerObj != null ){
+                if( _errorEventListener.handler != null ){
+                    removeEventListener( CommandEvent.ERROR,_errorEventListener.handler, false );
+                }
+                if( _completeEventListener.handler != null ){
+                    removeEventListener( CommandEvent.COMPLETE, _completeEventListener.handler, false );
+                }
+                
+                const classRef:ClassRef = getClassRef(listenerObj);
+                const completeMethod:String = _name + "_" + CommandEvent.COMPLETE;
+                const errorMethod:String = _name + "_" + CommandEvent.ERROR;
+                
+                const ns:Namespace = org.seasar.akabana.yui.core.ns.handler;
+                const completeFuncDef:FunctionRef = classRef.getFunctionRef( completeMethod, ns );
+                const errorFuncDef:FunctionRef = classRef.getFunctionRef( errorMethod, ns );
+
+                if( completeFuncDef != null ){
+                    _completeEventListener.handler = completeFuncDef.getFunction(listenerObj);
+                }
+                if( errorFuncDef != null ){
+                    _errorEventListener.handler = errorFuncDef.getFunction(listenerObj);
+                }
+            }
+            return this;
         }
         
         /**

@@ -17,38 +17,36 @@ package org.seasar.akabana.yui.command.events
 {
     import flash.events.Event;
     
-    import org.seasar.akabana.yui.command.core.Command;
+    import org.seasar.akabana.yui.command.core.ICommand;
 
     public class CommandEvent extends Event
     {
-        public static const COMPLETE:String = "onCommandComplete";
+        public static const COMPLETE:String = "complete";
         
-        public static const ERROR:String = "onCommandError";
+        public static const ERROR:String = "error";
         
-        public static function createCompleteEvent(command:Command,value:Object):CommandEvent{
+        public static function createCompleteEvent(command:ICommand,data:Object):CommandEvent{
             var event:CommandEvent = new CommandEvent(COMPLETE,false,false);
-            event.value = value;
+            event.data = data;
             event.command = command;
             
             return event;
         }
         
-        public static function createErrorEvent(command:Command,message:Object):CommandEvent{
+        public static function createErrorEvent(command:ICommand,message:Object):CommandEvent{
             var event:CommandEvent = new CommandEvent(ERROR,false,false);
-            event.value = message;
+            event.data = message;
             event.command = command;
             
             return event;
         }
         
-        public var value:Object;
+        public var data:Object;
         
-        public var command:Command;
+        public var command:ICommand;
         
-        public function CommandEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
-        {
+        public function CommandEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) {
             super(type, bubbles, cancelable);
         }
-        
     }
 }
