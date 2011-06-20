@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:fx="http://ns.adobe.com/mxml/2009" 
+          xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+          horizontalAlign="left"
+          xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:view="examples.viewstack.view.*"
+          >
+    <s:Button id="runCommand1"/>
+    <s:Button id="runCommand2"/>
+</s:VGroup>
