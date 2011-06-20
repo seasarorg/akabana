@@ -18,7 +18,7 @@ package org.seasar.akabana.yui.service
     import flash.events.EventDispatcher;
     
     import org.seasar.akabana.yui.core.error.NotFoundError;
-    import org.seasar.akabana.yui.core.event.Command;
+    import org.seasar.akabana.yui.core.event.MessageEvent;
     import org.seasar.akabana.yui.service.ServiceManager;
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.ResultEvent;
@@ -60,12 +60,12 @@ package org.seasar.akabana.yui.service
         }
         
         public function onResult( resultEvent:ResultEvent ):void{
-            var newEvent:Command = new Command(resultEvent.type,resultEvent.result);
+            var newEvent:MessageEvent = new MessageEvent(resultEvent.type,resultEvent.result);
             dispatchEvent(newEvent);
         }
         
         public function onFault( faultEvent:FaultEvent ):void{
-            var newEvent:Command = new Command(faultEvent.type,faultEvent.faultStatus);
+            var newEvent:MessageEvent = new MessageEvent(faultEvent.type,faultEvent.faultStatus);
             dispatchEvent(newEvent);
         }
     }
