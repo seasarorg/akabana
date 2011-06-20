@@ -13,6 +13,7 @@ package examples.command.behavior
     {
         public var helper:RootHelper;
         
+        /** 自作サンプルコマンド */        
         public var cmd3:SampleCommand;
         
         public function RootCmd3Behavior(){
