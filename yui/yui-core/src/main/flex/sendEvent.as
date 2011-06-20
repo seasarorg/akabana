@@ -21,7 +21,7 @@ package
     /**
      * イベント発行メソッド
      */
-    public function dispatchEvent(target:IEventDispatcher,e:Event):void{
+    public function sendEvent(target:IEventDispatcher,e:Event):void{
         if( target != null ){
             target.dispatchEvent(e);
         }

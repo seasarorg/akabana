@@ -24,6 +24,6 @@ package
      */
     public function sendMessage(target:IEventDispatcher,type:String,data:Object=null):void{  
         var m:MessageEvent = new MessageEvent(type,data);
-        dispatchEvent(target,m);
+        sendEvent(target,m);
     }
 }

@@ -12,7 +12,6 @@
     <classEntry path="org.seasar.akabana.yui.core.error.NotFoundError"/>
     <classEntry path="org.seasar.akabana.yui.core.event.MessageEvent"/>
     <classEntry path="org.seasar.akabana.yui.core.event.NotificationEvent"/>
-    <classEntry path="dispatchEvent"/>
     <classEntry path="org.seasar.akabana.yui.core.logging.ILogger"/>
     <classEntry path="org.seasar.akabana.yui.core.logging.ILoggerFactory"/>
     <classEntry path="org.seasar.akabana.yui.core.ns.yui_internal"/>
@@ -30,6 +29,9 @@
     <classEntry path="org.seasar.akabana.yui.util.DateUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.StringUtil"/>
     <classEntry path="org.seasar.akabana.yui.util.URLUtil"/>
+    <classEntry path="sendEvent"/>
+    <classEntry path="sendMessage"/>
+    <classEntry path="sendNotification"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/ja_JP/yui_core.properties" sourcePath="locale/ja_JP/yui_core.properties"/>

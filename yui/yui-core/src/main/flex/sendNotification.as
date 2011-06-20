@@ -33,6 +33,6 @@ package
             n = new NotificationEvent(type,null);
         }
         
-        dispatchEvent(target,n);
+        sendEvent(target,n);
     }
 }
