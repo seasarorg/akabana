@@ -33,7 +33,7 @@ package org.seasar.akabana.yui.framework.customizer
 	import org.seasar.akabana.yui.framework.core.InstanceCache;
 
     [ExcludeClass]
-    public class ActionCustomizer extends AbstractComponentEventListenerCustomizer {
+    public class ActionCustomizer extends AbstractComponentCustomizer {
         
         public override function customizeView(view:UIComponent ):void {
             const viewProperties:Object = UIComponentUtil.getProperties(view);
@@ -48,7 +48,7 @@ package org.seasar.akabana.yui.framework.customizer
                 //
                 const actionClassRef:ClassRef = getClassRef(actionClassName);
                 const action:Object = InstanceCache.newInstance(actionClassRef);
-                doEventCustomize(viewName,view,action);
+                
                 viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = action;
                 
                 if( action is ILifeCyclable ){
@@ -79,7 +79,6 @@ package org.seasar.akabana.yui.framework.customizer
                     (action as ILifeCyclable).stop();
                 }
                 //
-                doEventUncustomize(view,action);
                 viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = null;
                 delete viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
                 //

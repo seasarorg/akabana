@@ -1,5 +1,6 @@
 package examples.command.behavior
 {
+    import examples.command.command.SampleCommand;
     import examples.command.helper.RootHelper;
     
     import org.seasar.akabana.yui.command.SequenceCommand;
@@ -8,34 +9,32 @@ package examples.command.behavior
     import org.seasar.akabana.yui.command.events.CommandEvent;
     import org.seasar.akabana.yui.core.ns.handler;
     
-    public class RootCmd2Behavior
+    public class RootCmd3Behavior
     {
         public var helper:RootHelper;
         
-        public var cmd2:ICommand;
+        public var cmd3:SampleCommand;
         
-        public function RootCmd2Behavior(){
-            //一時停止コマンドを生成
-            cmd2 = new WaitCommand(1000);
+        public function RootCmd3Behavior(){
         }
 
-        handler function runCommand2_click():void{
+        handler function runCommand3_click():void{
             //コマンドスタート
-            cmd2.start();
+            cmd3.start();
         }
         
         /**
-         * cmd2コマンドの完了イベントハンドラ
+         * cmd3コマンドの完了イベントハンドラ
          */
-        handler function cmd2_complete(event:CommandEvent):void{
-            trace(2,event);
+        handler function cmd3_complete(event:CommandEvent):void{
+            trace(3,event);
         }
         
         /**
-         * cmd2コマンドのエラーイベントハンドラ
+         * cmd3コマンドのエラーイベントハンドラ
          */
-        handler function cmd2_error(event:CommandEvent):void{
-            trace(2,event);
+        handler function cmd3_error(event:CommandEvent):void{
+            trace(3,event);
         }
     }
 }

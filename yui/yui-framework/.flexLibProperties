@@ -14,6 +14,7 @@
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkControllerBase"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkControllerCore"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkSettings"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.mixin.YuiFrameworkMixin"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.rule.IAction"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.rule.IBehavior"/>
     <classEntry path="org.seasar.akabana.yui.framework.core.rule.IHelper"/>
@@ -25,6 +26,7 @@
     <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentEventListenerCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.BehaviorCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.CommandCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.HelperCustomizer"/>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
@@ -43,9 +45,9 @@
     <classEntry path="org.seasar.akabana.yui.framework.logging.info"/>
     <classEntry path="org.seasar.akabana.yui.framework.message.MessageManager"/>
     <classEntry path="org.seasar.akabana.yui.framework.message.Messages"/>
-    <classEntry path="org.seasar.akabana.yui.framework.core.mixin.YuiFrameworkMixin"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.action"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.behavior"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.handler"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.helper"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.viewlogic"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.viewpart"/>
@@ -56,12 +58,12 @@
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/en_US/errors.properties" sourcePath="locale/en_US/errors.properties"/>
-    <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
     <resourceEntry destPath="locale/ja_JP/errors.properties" sourcePath="locale/ja_JP/errors.properties"/>
-    <resourceEntry destPath="locale/en_US/messages.properties" sourcePath="locale/en_US/messages.properties"/>
+    <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
     <resourceEntry destPath="locale/ja_JP/yui_framework.properties" sourcePath="locale/ja_JP/yui_framework.properties"/>
-    <resourceEntry destPath="locale/en_US/application.properties" sourcePath="locale/en_US/application.properties"/>
+    <resourceEntry destPath="locale/en_US/messages.properties" sourcePath="locale/en_US/messages.properties"/>
     <resourceEntry destPath="locale/en_US/yui_framework.properties" sourcePath="locale/en_US/yui_framework.properties"/>
+    <resourceEntry destPath="locale/en_US/application.properties" sourcePath="locale/en_US/application.properties"/>
     <resourceEntry destPath="locale/ja_JP/messages.properties" sourcePath="locale/ja_JP/messages.properties"/>
     <resourceEntry destPath="locale/ja_JP/application.properties" sourcePath="locale/ja_JP/application.properties"/>
   </includeResources>

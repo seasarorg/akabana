@@ -1,18 +1,18 @@
 /*
- * Copyright 2004-2011 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
+* Copyright 2004-2011 the Seasar Foundation and the Others.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+* either express or implied. See the License for the specific language
+* governing permissions and limitations under the License.
+*/
 package org.seasar.akabana.yui.framework.customizer
 {
     CONFIG::FP10 {
@@ -23,22 +23,20 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-    import org.seasar.akabana.yui.service.Service;
-    import org.seasar.akabana.yui.service.ServiceManager;
-    import org.seasar.akabana.yui.service.ManagedService;
-	import org.seasar.akabana.yui.framework.logging.debug;
+    import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
-
+    import org.seasar.akabana.yui.framework.core.InstanceCache;
+    
     [ExcludeClass]
-    public class ServiceCustomizer extends AbstractComponentCustomizer {
-
+    public class CommandCustomizer extends AbstractComponentCustomizer {
+        
         public override function customizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
-
+            
             try {
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-
+                
                 if(action == null) {
                     //no action 
                 } else {
@@ -56,18 +54,18 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
         }
-
+        
         public override function uncustomizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);
             const viewClassName:String = getCanonicalName(view);
-
+            
             try {
                 const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
-
+                
                 if(action != null) {
                     processUncustomize(action);
                 }
-
+                
                 const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
                 if(behaviors != null) {
                     for each(var behavior:Object in behaviors) {
@@ -80,50 +78,45 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
         }
-
+        
         protected function processCustomize(target:Object):void {
             const classRef:ClassRef = getClassRef(target);
-
-            var service:Service;
+            
+            var command:Object;
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 var className:String = propertyRef.typeClassRef.className;
                 if(
-                    YuiFrameworkGlobals.namingConvention.isServiceClassName(className) &&
+                    YuiFrameworkGlobals.namingConvention.isCommandClassName(className) &&
                     (!propertyRef.typeClassRef.isInterface)
                 ) {
                     CONFIG::DEBUG {
                         _debug("Customizing",classRef.name,propertyRef.name);
                     }
-                    service = ServiceManager.createService(propertyRef.typeClassRef.concreteClass,propertyRef.name);
-                    propertyRef.setValue(target,service);
+                    command = InstanceCache.newInstance( propertyRef.typeClassRef );
+                    propertyRef.setValue(target,command);
                     CONFIG::DEBUG {
-						_debug("Customized",classRef.name,propertyRef.name);
+                        _debug("Customized",classRef.name,propertyRef.name);
                     }
                 }
             }
         }
-
+        
         protected function processUncustomize(target:Object):void {
             const classRef:ClassRef = getClassRef(target);
-
-            var service:Service;
+            
+            var command:Object;
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 var className:String = propertyRef.typeClassRef.className;
                 if(
-                    YuiFrameworkGlobals.namingConvention.isServiceClassName(className) &&
+                    YuiFrameworkGlobals.namingConvention.isCommandClassName(className) &&
                     (!propertyRef.typeClassRef.isInterface)
                 ) {
                     CONFIG::DEBUG {
-						_debug("Uncustomizing",classRef.name,propertyRef.name);
-                    }
-                    service = propertyRef.getValue(target) as Service;
-                    
-                    if( service is ManagedService ){
-                        (service as ManagedService).finalizeResponder(target);
+                        _debug("Uncustomizing",classRef.name,propertyRef.name);
                     }
                     propertyRef.setValue(target,null);
                     CONFIG::DEBUG {
-						_debug("Uncustomized",classRef.name,propertyRef.name);
+                        _debug("Uncustomized",classRef.name,propertyRef.name);
                     }
                 }
             }

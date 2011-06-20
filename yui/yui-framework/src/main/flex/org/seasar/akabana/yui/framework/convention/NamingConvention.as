@@ -30,7 +30,7 @@ CONFIG::FP10{
         public static const HELPER:String = "helper";
         public static const ACTION:String = "action";
         public static const SERVICE:String = "service";
-        public static const LOGIC:String = "logic";
+        public static const COMMAND:String = "command";
         public static const VALIDATOR:String = "validator";
         public static const BEHAVIOR:String = "behavior";
 
@@ -38,7 +38,7 @@ CONFIG::FP10{
         public static const HELPER_SUFFIX:String = "Helper";
         public static const ACTION_SUFFIX:String = "Action";
         public static const SERVICE_SUFFIX:String = "Service";
-        public static const LOGIC_SUFFIX:String = "Logic";
+        public static const COMMAND_SUFFIX:String = "Command";
         public static const VALIDATOR_SUFFIX:String = "Validator";
         public static const BEHAVIOR_SUFFIX:String = "Behavior";
 
@@ -104,8 +104,8 @@ CONFIG::FP10{
             return SERVICE;
         }
 
-        public function getLogicPackageName():String{
-            return LOGIC;
+        public function getCommandPackageName():String{
+            return COMMAND;
         }
 
         public function getValidatorPackageName():String{
@@ -132,8 +132,8 @@ CONFIG::FP10{
             return SERVICE_SUFFIX;
         }
 
-        public function getLogicSuffix():String{
-            return LOGIC_SUFFIX;
+        public function getCommandSuffix():String{
+            return COMMAND_SUFFIX;
         }
 
         public function getValidatorSuffix():String{
@@ -176,11 +176,6 @@ CONFIG::FP10{
 
         public function getHelperClassName( viewClassName:String ):String{
             return changeViewPackageTo( viewClassName, getHelperPackageName(), getHelperSuffix());
-        }
-
-        public function getLogicClassName( viewClassName:String ):String
-        {
-            return changeViewPackageTo( viewClassName, getLogicPackageName(), getLogicSuffix() );
         }
 
         public function getValidatorClassName( viewClassName:String ):String
@@ -227,11 +222,11 @@ CONFIG::FP10{
         }
 
         public function isServiceClassName( className:String ):Boolean{
-            return checkClassFullName(className,getServicePackageName(),getServiceSuffix());
+            return checkClassName(className,getServiceSuffix());
         }
 
-        public function isLogicClassName( className:String ):Boolean{
-            return checkClassFullName(className,getLogicPackageName(),getLogicSuffix());
+        public function isCommandClassName( className:String ):Boolean{
+            return checkClassName(className,getCommandSuffix());
         }
 
         public function isValidatorClassName( className:String ):Boolean{
@@ -316,6 +311,12 @@ CONFIG::FP10{
                 }
             }
 
+            return isTarget;
+        }
+        
+        protected function checkClassName( className:String, suffix:String ):Boolean{
+            var isTarget:Boolean = (className.lastIndexOf(suffix) == (className.length - suffix.length));
+            
             return isTarget;
         }
 

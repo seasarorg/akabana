@@ -42,16 +42,12 @@ package org.seasar.akabana.yui.framework.core
         
         public static function newInstance(classRef:ClassRef,...args):Object{
             var result:Object = null;
-            if( classRef.isAssignableFrom(IStateless)){
-                result = classRef.newInstance.apply(null,args);
+            var cache:Dictionary = getCurrentInstanceRefCache();
+            if( classRef.name in cache ){
+                result = cache[ classRef.name ];
             } else {
-                var cache:Dictionary = getCurrentInstanceRefCache();
-                if( classRef.name in cache ){
-                    result = cache[ classRef.name ];
-                } else {
-                    result = classRef.newInstance.apply(null,args);
-                    cache[ classRef.name ] = result;
-                }
+                result = classRef.newInstance.apply(null,args);
+                cache[ classRef.name ] = result;
             }
             return result;
         }

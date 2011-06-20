@@ -14,19 +14,27 @@ package examples.command.behavior
         public var cmd1:ICommand;
         
         public function RootCmd1Behavior(){
+            //一時停止コマンドを生成してcommand1という名前を設定
             cmd1 = new WaitCommand(1000).name("command1");
         }
 
         handler function runCommand1_click():void{
+            //コマンドイベントのリスナーにthisを登録して、コマンドスタート
             cmd1.listener(this).start();
         }
         
+        /**
+         * commnad1コマンドの完了イベントハンドラ
+         */
         handler function command1_complete(event:CommandEvent):void{
-            trace(event);
+            trace(1,event);
         }
         
+        /**
+         * commnad1コマンドのエラーイベントハンドラ
+         */
         handler function command1_error(event:CommandEvent):void{
-            trace(event);
+            trace(1,event);
         }
     }
 }

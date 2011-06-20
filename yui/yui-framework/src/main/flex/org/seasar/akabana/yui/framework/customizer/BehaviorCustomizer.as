@@ -30,7 +30,7 @@ package org.seasar.akabana.yui.framework.customizer
 	import org.seasar.akabana.yui.framework.core.InstanceCache;
 
     [ExcludeClass]
-    public class BehaviorCustomizer extends AbstractComponentEventListenerCustomizer {
+    public class BehaviorCustomizer extends AbstractComponentCustomizer {
         
         public override function customizeView(view:UIComponent):void {
             const viewProperties:Object = UIComponentUtil.getProperties(view);
@@ -61,8 +61,6 @@ package org.seasar.akabana.yui.framework.customizer
                             behavior = InstanceCache.newInstance(prop.typeClassRef);
                             prop.setValue(action,behavior);
                             behaviors.push(behavior);
-    
-                            super.doEventCustomize(viewName,view,behavior);
     
                             if( behavior is ILifeCyclable ){
                                 (behavior as ILifeCyclable).start();
@@ -117,7 +115,6 @@ package org.seasar.akabana.yui.framework.customizer
                     if( behavior is ILifeCyclable ){
                         (behavior as ILifeCyclable).stop();
                     }
-                    super.doEventUncustomize(view,behavior);
 
                     CONFIG::DEBUG {
                         _debug("Uncustomized",viewClassName,behaviorClassName);

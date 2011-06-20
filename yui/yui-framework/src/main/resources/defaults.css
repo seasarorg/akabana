@@ -2,6 +2,7 @@
 .customizers{
     c10:ClassReference("org.seasar.akabana.yui.framework.customizer.ActionCustomizer");
     c20:ClassReference("org.seasar.akabana.yui.framework.customizer.BehaviorCustomizer");
+    c25:ClassReference("org.seasar.akabana.yui.framework.customizer.CommandCustomizer");
     c30:ClassReference("org.seasar.akabana.yui.framework.customizer.HelperCustomizer");
     c35:ClassReference("org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer");
     c40:ClassReference("org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer");

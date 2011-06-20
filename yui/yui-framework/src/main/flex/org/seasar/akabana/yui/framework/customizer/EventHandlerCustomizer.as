@@ -35,7 +35,7 @@ package org.seasar.akabana.yui.framework.customizer
     use namespace mx_internal;
 
     [ExcludeClass]
-    public class EventHandlerCustomizer extends AbstractComponentEventCustomizer implements IComponentCustomizer {
+    public class EventHandlerCustomizer extends AbstractComponentEventListenerCustomizer implements IComponentCustomizer {
         
         public function customizeComponent( owner:UIComponent, component:UIComponent ):void{
             const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
@@ -139,6 +139,8 @@ package org.seasar.akabana.yui.framework.customizer
                     _debug("Customizing",viewClassName,actionClassName);
                 }
                 doCustomize(view,action_,int.MAX_VALUE>>1);
+                
+                super.doEventCustomize(viewName,view,action_);
                 CONFIG::DEBUG {
                     _debug("Customized",viewClassName,actionClassName);
                 }
@@ -154,6 +156,8 @@ package org.seasar.akabana.yui.framework.customizer
                         _debug("Customizing",viewClassName,behaviorClassName);
                     }
                     doCustomize(view,behavior_,int.MAX_VALUE>>1);
+                    
+                    super.doEventCustomize(viewName,view,behavior_);
                     CONFIG::DEBUG {
                         _debug("Customized",viewClassName,behaviorClassName);
                     }
@@ -255,13 +259,15 @@ package org.seasar.akabana.yui.framework.customizer
             const viewClassName:String = getCanonicalName(view);
             const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 
-            const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            const action_:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
 
-            if(action != null) {
+            if(action_ != null) {
                 CONFIG::DEBUG {
                     _debug("Uncustomizing",viewClassName,actionClassName);
                 }
-                doUncustomize(view,action);
+                doUncustomize(view,action_);
+                
+                super.doEventUncustomize(view,action_);
                 CONFIG::DEBUG {
                     _debug("Uncustomized",viewClassName,actionClassName);
                 }
@@ -277,6 +283,8 @@ package org.seasar.akabana.yui.framework.customizer
                         _debug("Uncustomizing",viewClassName,behaviorClassName);
                     }
                     doUncustomize(view,behavior_);
+                    
+                    super.doEventUncustomize(view,behavior_);
                     CONFIG::DEBUG {
                         _debug("Uncustomized",viewClassName,behaviorClassName);
                     }

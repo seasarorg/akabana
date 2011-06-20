@@ -371,37 +371,6 @@ CONFIG::FP10{
         }
 }
 
-        public function isAssignableFrom(type:Object):Boolean{
-			//
-			if( !_isInitialiedInterfaces ){
-				assembleInterfaces(_describeTypeXml.factory[0]);
-			}
-			if( !_isInitialiedSuperClasses ){ 
-				assembleSuperClasses(_describeTypeXml.factory[0]);
-			}
-			//
-            var result:Boolean = false;
-            var className:String = null;
-            do{
-                if( type is Class ){
-                    className = getCanonicalName(type as Class);
-                    break;
-                }
-                if( type is String ){
-                    className = type as String;
-                    break;
-                }
-
-            }while(false);
-
-            result = _interfaceMap.hasOwnProperty( className );
-            if( !result ){
-                result = _superClassMap.hasOwnProperty( className );
-            }
-
-            return result;
-        }
-
         private final function assemblePropertyRef( rootDescribeTypeXml:XML ):void{
 CONFIG::FP9{
             _properties = [];
@@ -573,6 +542,8 @@ CONFIG::FP10{
             
             _isArray = ( name == ARRAY_CLASS );
             _isVector = ( name.indexOf(VECTOR_CLASS) == 0 );
+            
+            isInterface = (rootDescribeTypeXml.factory.extendsClass as XMLList).length() == 0;
         }
 
         protected override function getName( rootDescribeTypeXml:XML ):String{
