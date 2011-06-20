@@ -46,7 +46,6 @@
     <classEntry path="org.seasar.akabana.yui.framework.core.mixin.YuiFrameworkMixin"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.action"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.behavior"/>
-    <classEntry path="org.seasar.akabana.yui.framework.ns.handler"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.helper"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.viewlogic"/>
     <classEntry path="org.seasar.akabana.yui.framework.ns.viewpart"/>

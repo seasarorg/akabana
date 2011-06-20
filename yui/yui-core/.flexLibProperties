@@ -32,6 +32,7 @@
     <classEntry path="sendEvent"/>
     <classEntry path="sendMessage"/>
     <classEntry path="sendNotification"/>
+    <classEntry path="org.seasar.akabana.yui.core.ns.handler"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/ja_JP/yui_core.properties" sourcePath="locale/ja_JP/yui_core.properties"/>

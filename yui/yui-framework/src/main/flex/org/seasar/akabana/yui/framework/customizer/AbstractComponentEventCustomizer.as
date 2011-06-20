@@ -22,15 +22,15 @@ package org.seasar.akabana.yui.framework.customizer
     import mx.core.UIComponent;
     import mx.core.UIComponentDescriptor;
     
-    import org.seasar.akabana.yui.core.event.Command;
-    import org.seasar.akabana.yui.core.event.Notification;
+    import org.seasar.akabana.yui.core.event.MessageEvent;
+    import org.seasar.akabana.yui.core.event.NotificationEvent;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.framework.logging.debug;
-    import org.seasar.akabana.yui.framework.ns.handler;
+    import org.seasar.akabana.yui.core.ns.handler;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
 
     internal class AbstractComponentEventCustomizer extends AbstractComponentCustomizer {
@@ -78,10 +78,10 @@ CONFIG::UNCAUGHT_ERROR_EVENT {
                     try {
                         var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
                         if(proto != null) {
-                            if( event is Command ){
-                                proto.apply(null,[(event as Command).data]);
-                            } else if( event is Notification ){
-                                proto.apply(null,[(event as Notification).data]);
+                            if( event is MessageEvent ){
+                                proto.apply(null,[(event as MessageEvent).data]);
+                            } else if( event is NotificationEvent ){
+                                proto.apply(null,[(event as NotificationEvent).data]);
                             } else {
                                 proto.apply(null,[event]);
                             }
@@ -107,10 +107,10 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
                     var callee:Object = arguments.callee;
                     var proto:Function = callee.properties[FUNCTION_PROTO] as Function;
                     if(proto != null) {
-                        if( event is Command ){
-                            proto.apply(null,[(event as Command).data]);
-                        } else if( event is Notification ){
-                            proto.apply(null,[(event as Notification).data]);
+                        if( event is MessageEvent ){
+                            proto.apply(null,[(event as MessageEvent).data]);
+                        } else if( event is NotificationEvent ){
+                            proto.apply(null,[(event as NotificationEvent).data]);
                         } else {
                             proto.apply(null,[event]);
                         }

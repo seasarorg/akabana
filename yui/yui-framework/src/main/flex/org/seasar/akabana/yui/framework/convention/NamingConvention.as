@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.framework.convention
 {
     import flash.display.DisplayObject;
     
-    import org.seasar.akabana.yui.framework.ns.handler;
+    import org.seasar.akabana.yui.core.ns.handler;
 
 CONFIG::FP10{
     import __AS3__.vec.Vector;
