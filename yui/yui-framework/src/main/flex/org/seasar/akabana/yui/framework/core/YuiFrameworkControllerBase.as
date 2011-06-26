@@ -134,21 +134,12 @@ package org.seasar.akabana.yui.framework.core
             InstanceCache.removeRoot(root);
         }
         
-        private function systemManager_addedToStageHandler_forRegister( event:Event ):void{
+        private function systemManager_addedToStageHandler( event:Event ):void{
             CONFIG::DEBUG_EVENT{
                 dump(this,event);
             }
             if( event.target is DisplayObject ){
                 doRegisterComponent(event.target as DisplayObject);
-            }
-        }
-        
-        private function systemManager_addedToStageHandler_forAssemble( event:Event ):void{
-            CONFIG::DEBUG_EVENT{
-                dump(this,event);
-            }
-            if( event.target is DisplayObject ){
-                doAssembleComponent(event.target as DisplayObject);
             }
         }
         
@@ -160,108 +151,6 @@ package org.seasar.akabana.yui.framework.core
                 doUnregisterComponent(event.target as DisplayObject);
             }
         }
-        
-        CONFIG::UNCAUGHT_ERROR_GLOBAL{
-            yui_internal function loaderInfoUncaughtErrorHandler(event:UncaughtErrorEvent):void
-            {
-                const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
-                const runtimeErrorEvent:RuntimeErrorEvent = RuntimeErrorEvent.createEvent(event.error);
-                if (!frameworkBridge.application.dispatchEvent(runtimeErrorEvent)){
-                    event.preventDefault();
-                }
-            }
-        }
-        
-        yui_internal function applicationMonitoringStart(root:DisplayObject):void{
-			
-			//detecting component deletion for assemble
-			if( root.hasEventListener(Event.REMOVED_FROM_STAGE)){
-				root.removeEventListener(
-					Event.REMOVED_FROM_STAGE,
-					systemManager_removeFromStageHandler,
-					true
-				);
-			}
-            root.addEventListener(
-                Event.REMOVED_FROM_STAGE,
-                systemManager_removeFromStageHandler,
-                true,
-                int.MAX_VALUE
-            );
-			
-			//detecting component addition for assemble
-			if( root.hasEventListener(Event.ADDED_TO_STAGE)){
-				root.removeEventListener(
-					Event.ADDED_TO_STAGE,
-					systemManager_addedToStageHandler_forAssemble,
-					true
-				);
-			}
-            root.addEventListener(
-                Event.ADDED_TO_STAGE,
-                systemManager_addedToStageHandler_forAssemble,
-                true,
-                int.MAX_VALUE
-            );
-            
-			//
-            if( root.hasEventListener(YuiFrameworkEvent.APPLICATION_MONITOR_START)){
-                root.dispatchEvent(new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_MONITOR_START));
-            }
-        }
-        
-        yui_internal function applicationMonitoringStop(root:DisplayObject):void{
-			//stop detecting component addition for register
-            root.removeEventListener(
-                Event.ADDED_TO_STAGE,
-                systemManager_addedToStageHandler_forRegister,
-                true
-            );
-			
-            if( root.hasEventListener(YuiFrameworkEvent.APPLICATION_MONITOR_STOP)){
-				root.dispatchEvent(new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_MONITOR_STOP));
-            }
-            applicationInitialize();
-        }
-        
-        
-        yui_internal function systemManagerMonitoringStart(root:DisplayObject ):void{
-            CONFIG::DEBUG{
-                _info("SystemManagerMonitoringStart",root);
-            }
-			
-			//detecting component addition for register
-            root.addEventListener(
-                Event.ADDED_TO_STAGE,
-                systemManager_addedToStageHandler_forRegister,
-                true,
-                int.MAX_VALUE
-            );
-            registerRootDisplayObject(root);
-        }
-        
-        yui_internal function systemManagerMonitoringStop(root:DisplayObject):void{
-			//detecting component deletion for assemble
-			if( root.hasEventListener(Event.REMOVED_FROM_STAGE)){
-				root.removeEventListener(
-					Event.REMOVED_FROM_STAGE,
-					systemManager_removeFromStageHandler,
-					true
-				);
-			}
-			
-			//detecting component addition for assemble
-			if( root.hasEventListener(Event.ADDED_TO_STAGE)){
-				root.removeEventListener(
-					Event.ADDED_TO_STAGE,
-					systemManager_addedToStageHandler_forAssemble,
-					true
-				);
-			}
-        }
-        
-        yui_internal function applicationInitialize():void{
-        }
 
         protected function doRegisterComponent( component:DisplayObject ):void{
         }
@@ -269,10 +158,7 @@ package org.seasar.akabana.yui.framework.core
         protected function doUnregisterComponent(component:DisplayObject):void{
         }
         
-        protected function doAssembleComponent( component:DisplayObject ):void{
-        }
-        
-        protected function processApplicationRegister(component:DisplayObjectContainer):void{
+        protected function doRegisterApplication(component:DisplayObjectContainer):void{
             CONFIG::DEBUG{
                 _debug("ApplicationRegistered",component.toString());
             }
@@ -298,16 +184,20 @@ package org.seasar.akabana.yui.framework.core
         
         protected function processViewRegister( container:DisplayObjectContainer ):void{
             if( isView(container)){
-                ViewComponentRepository.addComponent( container );
-                CONFIG::DEBUG{
-                    _debug("ViewRegistered",container.toString());
+                const componentId:String = YuiFrameworkGlobals.public::namingConvention.getComponentName(container);
+                if( !ViewComponentRepository.hasComponent( componentId )){
+                    ViewComponentRepository.addComponent( container );
+                    CONFIG::DEBUG{
+                        _debug("ViewRegistered",container.toString());
+                    }
                 }
             }
         }
         
         protected function processViewUnregister( container:DisplayObjectContainer ):void{
             if( isView(container)){
-                if( ViewComponentRepository.hasComponent( container.name )){
+                const componentId:String = YuiFrameworkGlobals.public::namingConvention.getComponentName(container);
+                if( ViewComponentRepository.hasComponent( componentId )){
                     ViewComponentRepository.removeComponent( container );
                     CONFIG::DEBUG{
                         _debug("ViewUnRegistered",container.toString());
@@ -336,6 +226,86 @@ package org.seasar.akabana.yui.framework.core
                 }
                 return result;
             }
+        }
+        
+        
+        
+        CONFIG::UNCAUGHT_ERROR_GLOBAL{
+            yui_internal function loaderInfoUncaughtErrorHandler(event:UncaughtErrorEvent):void
+            {
+                const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+                const runtimeErrorEvent:RuntimeErrorEvent = RuntimeErrorEvent.createEvent(event.error);
+                if (!frameworkBridge.application.dispatchEvent(runtimeErrorEvent)){
+                    event.preventDefault();
+                }
+            }
+        }
+        
+        yui_internal function applicationMonitoringStart(root:DisplayObject):void{
+            //
+            componentMonitoringStart(root);
+            
+            //
+            if( root.hasEventListener(YuiFrameworkEvent.APPLICATION_MONITOR_START)){
+                root.dispatchEvent(new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_MONITOR_START));
+            }
+        }
+        
+        yui_internal function applicationMonitoringStop(root:DisplayObject):void{
+            //stop detecting component addition for register
+            
+            if( root.hasEventListener(YuiFrameworkEvent.APPLICATION_MONITOR_STOP)){
+                root.dispatchEvent(new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_MONITOR_STOP));
+            }
+        }
+        
+        yui_internal function componentMonitoringStart(root:DisplayObject):void{
+            
+            //detecting component addition for assemble
+            if( root.hasEventListener(Event.ADDED_TO_STAGE)){
+                root.removeEventListener(
+                    Event.ADDED_TO_STAGE,
+                    systemManager_addedToStageHandler,
+                    true
+                );
+            }
+            root.addEventListener(
+                Event.ADDED_TO_STAGE,
+                systemManager_addedToStageHandler,
+                true,
+                int.MAX_VALUE
+            );
+            
+            //detecting component deletion for assemble
+            if( root.hasEventListener(Event.REMOVED_FROM_STAGE)){
+                root.removeEventListener(
+                    Event.REMOVED_FROM_STAGE,
+                    systemManager_removeFromStageHandler,
+                    true
+                );
+            }
+            root.addEventListener(
+                Event.REMOVED_FROM_STAGE,
+                systemManager_removeFromStageHandler,
+                true,
+                int.MAX_VALUE
+            );
+        }
+        
+        yui_internal function componentMonitoringStop(root:DisplayObject):void{
+            root.removeEventListener(
+                Event.ADDED_TO_STAGE,
+                systemManager_addedToStageHandler,
+                true
+            );
+            root.removeEventListener(
+                Event.REMOVED_FROM_STAGE,
+                systemManager_removeFromStageHandler,
+                true
+            );
+        }
+        
+        yui_internal function applicationInitialize():void{
         }
     }
 }

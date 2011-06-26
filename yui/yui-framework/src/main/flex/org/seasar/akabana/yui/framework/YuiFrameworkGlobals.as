@@ -33,6 +33,7 @@ CONFIG::FP10{
     import org.seasar.akabana.yui.framework.bridge.FrameworkBridge;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
+    import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
     
     use namespace yui_internal;
 
@@ -58,7 +59,17 @@ CONFIG::FP10{
         yui_internal static function set namingConvention( value:NamingConvention ):void{
             _namingConvention = value;
         }
-
+		
+		private static var _settings:YuiFrameworkSettings;
+		
+		public static function get settings():YuiFrameworkSettings{
+            return _settings;
+        }
+        
+        yui_internal static function set settings(value:YuiFrameworkSettings):void{
+            _settings = value;
+        }
+		
         private static var _namingConventionClassFactory:IFactory;
 
         yui_internal static function initNamingConventionClassFactory():void{

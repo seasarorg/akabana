@@ -19,9 +19,11 @@ package org.seasar.akabana.yui.framework.core
     import mx.styles.CSSStyleDeclaration;
     import mx.styles.IStyleClient;
     
-    import org.seasar.akabana.yui.framework.message.MessageManager;
+    import org.seasar.akabana.yui.core.ns.yui_internal;
+    import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.core.mixin.YuiFrameworkMixin;
-
+    import org.seasar.akabana.yui.framework.message.MessageManager;
+    
     public class YuiFrameworkSettings implements IMXMLObject,IStyleClient
     {
         {
@@ -31,7 +33,20 @@ package org.seasar.akabana.yui.framework.core
         
         private var _styles:Object = {};
         
+        private var _autoMonitoring:Boolean = true;
+        
+        public function get autoMonitoring():Boolean
+        {
+            return _autoMonitoring;
+        }
+        
+        public function set autoMonitoring(value:Boolean):void
+        {
+            _autoMonitoring = value;
+        }
+        
         public function YuiFrameworkSettings(){
+            YuiFrameworkGlobals.yui_internal::settings = this;
         }
 
         public function initialized(document:Object, id:String):void{
