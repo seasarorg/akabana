@@ -335,6 +335,7 @@ package org.seasar.akabana.yui.framework.core
         
         protected override function processApplicationStart():void{
             const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
             const root:DisplayObject = frameworkBridge.systemManager;
             const app:UIComponent = frameworkBridge.application as UIComponent;
             const rootView:DisplayObjectContainer = frameworkBridge.rootView as DisplayObjectContainer;
@@ -354,7 +355,10 @@ package org.seasar.akabana.yui.framework.core
                 }
             }
 			_isApplicationStarted = true;
-            componentMonitoringStart(root);
+            
+            if( settings.autoMonitoring ){
+                componentMonitoringStart(root);
+            }
         }
         
         protected override function getDefaultCustomizerClasses():Array{

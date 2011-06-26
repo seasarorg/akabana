@@ -253,6 +253,7 @@ package org.seasar.akabana.yui.framework.core
         
         yui_internal function applicationMonitoringStop(root:DisplayObject):void{
             //stop detecting component addition for register
+            componentMonitoringStop(root);
             
             if( root.hasEventListener(YuiFrameworkEvent.APPLICATION_MONITOR_STOP)){
                 root.dispatchEvent(new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_MONITOR_STOP));
