@@ -242,8 +242,11 @@ package org.seasar.akabana.yui.framework.core
         }
         
         yui_internal function applicationMonitoringStart(root:DisplayObject):void{
+            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
             //
-            componentMonitoringStart(root);
+            if( settings.autoMonitoring ){
+                componentMonitoringStart(root);
+            }
             
             //
             if( root.hasEventListener(YuiFrameworkEvent.APPLICATION_MONITOR_START)){
@@ -252,8 +255,11 @@ package org.seasar.akabana.yui.framework.core
         }
         
         yui_internal function applicationMonitoringStop(root:DisplayObject):void{
+            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
             //stop detecting component addition for register
-            componentMonitoringStop(root);
+            if( settings.autoMonitoring ){
+                componentMonitoringStop(root);
+            }
             
             if( root.hasEventListener(YuiFrameworkEvent.APPLICATION_MONITOR_STOP)){
                 root.dispatchEvent(new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_MONITOR_STOP));

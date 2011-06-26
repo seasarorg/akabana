@@ -106,17 +106,21 @@ package org.seasar.akabana.yui.framework.core
         
         public override function customizeView( container:DisplayObjectContainer ):void{
             var view:UIComponent = container as UIComponent;
-            if( view == null || !view.initialized ){   
-                CONFIG::DEBUG{
-                    _debug("ViewCustomizeInitializeError",view);
-                }
+            if( view == null && !isView(view) ){   
                 return;
             }
             CONFIG::DEBUG{
                 _debug("ViewCustomizing", view, view.owner);
             }
-            processViewRegister(container);
+            if( !view.initialized ){   
+                CONFIG::DEBUG{
+                    _debug("ViewCustomizeInitializeError",view);
+                }
+                return;
+            }
             currentSystemManger = view.systemManager;
+            //
+            processViewRegister(view);
             var viewcustomizer_:IViewCustomizer; 
             for each( var customizer_:IElementCustomizer in _customizers ){
                 viewcustomizer_ = customizer_ as IViewCustomizer;
@@ -134,6 +138,9 @@ package org.seasar.akabana.yui.framework.core
         
         public override function uncustomizeView( container:DisplayObjectContainer ):void{
             var view:UIComponent = container as UIComponent;
+            if( !isView(view) ){   
+                return;
+            }
             if( !view.initialized ){     
                 CONFIG::DEBUG {
                     _debug("ViewUncustomizeInitializeError",view);       
@@ -152,7 +159,7 @@ package org.seasar.akabana.yui.framework.core
                     viewcustomizer_.uncustomizeView( view );
                 }
             }
-            processViewUnregister(container);
+            processViewUnregister(view);
             CONFIG::DEBUG{
                 _debug("ViewUncustomized",view,view.owner);
             }
@@ -418,6 +425,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
 		yui_internal function systemManagerMonitoringStart( root:DisplayObject ):void{
+            Logging.initialize();
 			root.addEventListener(
 				FlexEvent.INIT_COMPLETE,
 				application_initCompleteHandler,
