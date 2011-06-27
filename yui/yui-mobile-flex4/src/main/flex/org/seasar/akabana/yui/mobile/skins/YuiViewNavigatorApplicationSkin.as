@@ -1,3 +1,18 @@
+/*
+* Copyright 2004-2011 the Seasar Foundation and the Others.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+* either express or implied. See the License for the specific language
+* governing permissions and limitations under the License.
+*/
 package org.seasar.akabana.yui.mobile.skins
 {
     import mx.core.ClassFactory;
@@ -10,80 +25,45 @@ package org.seasar.akabana.yui.mobile.skins
     import spark.components.ViewNavigatorApplication;
     import spark.skins.mobile.supportClasses.MobileSkin;
     
-    /**
-     *  The ActionScript-based skin used for ViewNavigatorApplication.  This
-     *  skin contains a single ViewNavigator that spans the entire
-     *  content area of the application.
-     * 
-     * @see spark.components.ViewNavigatorApplication
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public class YuiViewNavigatorApplicationSkin extends MobileSkin
-    {
-        //--------------------------------------------------------------------------
-        //
-        //  Constructor
-        //
-        //--------------------------------------------------------------------------
-        /**
-         *  Constructor.
-         *  
-         *  @langversion 3.0
-         *  @playerversion AIR 2.5
-         *  @productversion Flex 4.5
-         */
-        public function YuiViewNavigatorApplicationSkin()
-        {
-            super();
-            
-            viewMenu = new ClassFactory(ViewMenu);
-        }
-        
-        //--------------------------------------------------------------------------
-        //
-        //  Properties
-        //
-        //--------------------------------------------------------------------------
+    public class YuiViewNavigatorApplicationSkin extends MobileSkin{
         
         /**
          * The navigator for the application.
-         *  
-         *  @langversion 3.0
-         *  @playerversion AIR 2.5
-         *  @productversion Flex 4.5
          */
         public var navigator:YuiViewNavigator;
-        
         
         /**
          *  Creates an action menu from this factory when the menu button is pressed 
          */ 
         public var viewMenu:IFactory;
-    
-        //--------------------------------------------------------------------------
-        //
-        //  Overridden Properties
-        //
-        //--------------------------------------------------------------------------
+        
         /** 
          *  @copy spark.skins.spark.ApplicationSkin#hostComponent
          */
         public var hostComponent:ViewNavigatorApplication;
         
-        //--------------------------------------------------------------------------
-        //
-        // Methods
-        //
-        //--------------------------------------------------------------------------
+        /**
+         *  @private 
+         */ 
+        public override function set initialized(value:Boolean):void{        
+            super.initialized = value;
+            
+            navigator.canCustomize = true;
+        }
         
         /**
          *  @private
          */
-        override protected function createChildren():void
-        {
+        public function YuiViewNavigatorApplicationSkin(){
+            super();
+            
+            viewMenu = new ClassFactory(ViewMenu);
+        }
+        
+        /**
+         *  @private
+         */
+        protected override function createChildren():void{
             navigator = new YuiViewNavigator();
             navigator.id = "navigator";
             
@@ -93,18 +73,7 @@ package org.seasar.akabana.yui.mobile.skins
         /**
          *  @private 
          */ 
-        override public  function set initialized(value:Boolean):void
-        {        
-            super.initialized = value;
-            
-            navigator.monitring = true;
-        }
-        
-        /**
-         *  @private 
-         */ 
-        override protected function measure():void
-        {        
+        protected override function measure():void{        
             super.measure();
             
             measuredWidth = navigator.getPreferredBoundsWidth();
@@ -114,8 +83,7 @@ package org.seasar.akabana.yui.mobile.skins
         /**
          *  @private
          */
-        override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
-        {
+        protected override function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void{
             super.layoutContents(unscaledWidth, unscaledHeight);
             
             navigator.setLayoutBoundsSize(unscaledWidth, unscaledHeight);

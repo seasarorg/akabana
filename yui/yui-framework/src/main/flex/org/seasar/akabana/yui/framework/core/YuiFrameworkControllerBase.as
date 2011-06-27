@@ -244,7 +244,7 @@ package org.seasar.akabana.yui.framework.core
         yui_internal function applicationMonitoringStart(root:DisplayObject):void{
             const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
             //
-            if( settings.autoMonitoring ){
+            if( settings.isAutoMonitoring ){
                 componentMonitoringStart(root);
             }
             
@@ -257,7 +257,7 @@ package org.seasar.akabana.yui.framework.core
         yui_internal function applicationMonitoringStop(root:DisplayObject):void{
             const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
             //stop detecting component addition for register
-            if( settings.autoMonitoring ){
+            if( settings.isAutoMonitoring ){
                 componentMonitoringStop(root);
             }
             

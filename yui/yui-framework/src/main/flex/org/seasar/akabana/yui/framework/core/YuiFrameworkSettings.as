@@ -24,6 +24,9 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.core.mixin.YuiFrameworkMixin;
     import org.seasar.akabana.yui.framework.message.MessageManager;
     
+    [Style(name="namingConventionClass", inherit="no", type="Class")]
+    [Style(name="frameworkBridgePlugin", inherit="no", type="Class")]
+    [Style(name="autoMonitoring", inherit="no", type="Boolean")]
     public class YuiFrameworkSettings implements IMXMLObject,IStyleClient
     {
         {
@@ -35,14 +38,9 @@ package org.seasar.akabana.yui.framework.core
         
         private var _autoMonitoring:Boolean = true;
         
-        public function get autoMonitoring():Boolean
+        public function get isAutoMonitoring():Boolean
         {
             return _autoMonitoring;
-        }
-        
-        public function set autoMonitoring(value:Boolean):void
-        {
-            _autoMonitoring = value;
         }
         
         public function YuiFrameworkSettings(){
@@ -90,6 +88,9 @@ package org.seasar.akabana.yui.framework.core
 		
 		public function setStyle(styleProp:String, newValue:*):void{
             _styles[styleProp] = newValue;
+            if( styleProp == "autoMonitoring"){
+                _autoMonitoring = newValue as Boolean;
+            }
         }
 			
 		public function clearStyle(styleProp:String):void{}

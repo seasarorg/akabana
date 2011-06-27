@@ -363,7 +363,7 @@ package org.seasar.akabana.yui.framework.core
             }
 			_isApplicationStarted = true;
             
-            if( settings.autoMonitoring ){
+            if( settings.isAutoMonitoring ){
                 componentMonitoringStart(root);
             }
         }
