@@ -3,4 +3,5 @@
 yui|YuiFrameworkSettings {
     namingConventionClass:ClassReference("org.seasar.akabana.yui.framework.convention.Flex4NamingConvention");
     frameworkBridgePlugin:ClassReference("org.seasar.akabana.yui.framework.bridge.Flex4FrameworkBridgePlugin");
+    autoMonitoring:false;
 }
