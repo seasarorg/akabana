@@ -271,11 +271,16 @@
 
                 <include-file name="defaults.css" path="@{projectdir}${FLEX_DEFAULT_CSS_PATH}" />
 
+                <include-sources dir="${FLEX_FRAMEWORK}" append="true">
+                    <include name="themes/Mobile" />
+                </include-sources >
+                	
                 <external-library-path dir="${FLEX_FRAMEWORK}" append="true">
                     <include name="libs" />
                     <include name="libs/air" />
                     <include name="libs/mx" />
                     <include name="libs/mobile" />
+                    <include name="themes/Mobile" />
                 </external-library-path>
             </compc>
         </sequential>
