@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.mobile.skins
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public class ViewNavigatorApplicationSkin extends MobileSkin
+    public class YuiViewNavigatorApplicationSkin extends MobileSkin
     {
         //--------------------------------------------------------------------------
         //
@@ -35,7 +35,7 @@ package org.seasar.akabana.yui.mobile.skins
          *  @playerversion AIR 2.5
          *  @productversion Flex 4.5
          */
-        public function ViewNavigatorApplicationSkin()
+        public function YuiViewNavigatorApplicationSkin()
         {
             super();
             

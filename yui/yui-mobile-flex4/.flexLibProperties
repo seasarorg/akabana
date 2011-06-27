@@ -2,8 +2,10 @@
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="true" version="3">
   <includeClasses>
     <classEntry path="org.seasar.akabana.yui.mobile.components.YuiViewNavigator"/>
-    <classEntry path="org.seasar.akabana.yui.mobile.skins.ViewNavigatorApplicationSkin"/>
+    <classEntry path="org.seasar.akabana.yui.mobile.skins.YuiViewNavigatorApplicationSkin"/>
   </includeClasses>
-  <includeResources/>
+  <includeResources>
+    <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
+  </includeResources>
   <namespaceManifests/>
 </flexLibProperties>
