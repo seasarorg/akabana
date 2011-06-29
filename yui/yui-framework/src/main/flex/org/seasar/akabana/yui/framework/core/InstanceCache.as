@@ -20,25 +20,13 @@ package org.seasar.akabana.yui.framework.core
     import flash.utils.Dictionary;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import org.seasar.akabana.yui.framework.core.rule.IVolatileObject;
     import org.seasar.akabana.yui.framework.logging.debug;
-    import org.seasar.akabana.yui.framework.core.rule.IStateless;
     
     [ExcludeClass]
     public class InstanceCache
     {
         private static const INSTANCE_REF_CACHE:Dictionary = new Dictionary(true);
-        
-        private static function getCurrentInstanceRefCache():Dictionary{
-            const currentRoot:Object = YuiFrameworkController.getInstance().currentRoot;
-            var result:Dictionary;
-            if( currentRoot in INSTANCE_REF_CACHE ){
-                result = INSTANCE_REF_CACHE[ currentRoot ];   
-            } else {
-                result = new Dictionary(true);
-                INSTANCE_REF_CACHE[ currentRoot ] = result;
-            }
-            return result;
-        }
         
         public static function newInstance(classRef:ClassRef,...args):Object{
             var result:Object = null;
@@ -47,10 +35,14 @@ package org.seasar.akabana.yui.framework.core
                 result = cache[ classRef.name ];
             } else {
                 result = classRef.newInstance.apply(null,args);
-                cache[ classRef.name ] = result;
+                if( result is IVolatileObject ){
+                } else {
+                    cache[ classRef.name ] = result;
+                }
             }
             return result;
         }
+
         public static function addRoot(root:Object):void{
             if( root != null ){
                 removeRoot(root);
@@ -63,6 +55,18 @@ package org.seasar.akabana.yui.framework.core
                 INSTANCE_REF_CACHE[root] = null;
                 delete INSTANCE_REF_CACHE[root];
             }
+        }
+        
+        private static function getCurrentInstanceRefCache():Dictionary{
+            const currentRoot:Object = YuiFrameworkController.getInstance().currentRoot;
+            var result:Dictionary;
+            if( currentRoot in INSTANCE_REF_CACHE ){
+                result = INSTANCE_REF_CACHE[ currentRoot ];   
+            } else {
+                result = new Dictionary(true);
+                INSTANCE_REF_CACHE[ currentRoot ] = result;
+            }
+            return result;
         }
     }
 }

@@ -15,6 +15,6 @@
 */
 package org.seasar.akabana.yui.framework.core.rule
 {
-    public interface IStateless {
+    public interface IVolatileObject {
     }
 }
