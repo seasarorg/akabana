@@ -1,8 +1,8 @@
-package org.seasar.akabana.yui.command.core
+package org.seasar.akabana.yui.command.core.impl
 {
 	import flash.utils.Dictionary;
 
-	public class EventListener
+	internal class EventListener
 	{
 		protected var _handler:Function;
         

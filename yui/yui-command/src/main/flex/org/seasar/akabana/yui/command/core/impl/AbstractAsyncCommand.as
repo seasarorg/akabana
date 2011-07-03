@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the Seasar Foundation and the Others.
+ * Copyright 2004-2011 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.command
+package org.seasar.akabana.yui.command.core.impl
 {
     import flash.events.TimerEvent;
     import flash.utils.Timer;
     
-    import org.seasar.akabana.yui.command.events.CommandEvent;
-    import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
-    
-    public class AsyncCommand extends AbstractCommand
+    public class AbstractAsyncCommand extends AbstractSubCommand
     {
         protected var dispatchTimer:Timer;
         
@@ -33,7 +30,7 @@ package org.seasar.akabana.yui.command
          * 
          * 
          */
-        public function AsyncCommand(){
+        public function AbstractAsyncCommand(){
             dispatchTimer = new Timer(1);
         }
         

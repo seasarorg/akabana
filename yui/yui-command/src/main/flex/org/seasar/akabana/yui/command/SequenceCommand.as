@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the Seasar Foundation and the Others.
+ * Copyright 2004-2011 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ package org.seasar.akabana.yui.command
     import org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
-    public class SequenceCommand extends AbstractComplexCommand
-    {
+    public class SequenceCommand extends AbstractComplexCommand {
+
         protected var currentCommandIndex:int;
         
         protected override function run(...args):void{

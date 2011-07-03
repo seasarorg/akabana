@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the Seasar Foundation and the Others.
+ * Copyright 2004-2011 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,27 +16,16 @@
 package org.seasar.akabana.yui.command.core
 {
     /**
-     * サブコマンド定義インターフェイス
-     * 
-     * 複合コマンドに依存するコマンドを示すインターフェイスです。
+     * 状態オブジェクトインターフェイス
      * 
      */
-    public interface SubCommand extends ICommand {
-
+    public interface IStatefulObject{
         /**
-         * 親となる複合コマンドを取得する。
+         * 状態を取得する 
          * 
-         * @return 複合コマンド
+         * @return 状態を表す文字列
          * 
          */
-        function get parent():ComplexCommand;
-        
-        /**
-         * 親となる複合コマンドを設定する。
-         * 
-         * @param value 複合コマンド
-         * 
-         */
-        function set parent( value:ComplexCommand ):void;
+        function get state():String;
     }
 }

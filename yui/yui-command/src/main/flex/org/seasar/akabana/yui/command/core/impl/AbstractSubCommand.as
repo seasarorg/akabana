@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the Seasar Foundation and the Others.
+ * Copyright 2004-2011 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,17 @@
  */
 package org.seasar.akabana.yui.command.core.impl
 {
-    import org.seasar.akabana.yui.command.core.ComplexCommand;
-    import org.seasar.akabana.yui.command.core.SubCommand;
+    import org.seasar.akabana.yui.command.core.IComplexCommand;
+    import org.seasar.akabana.yui.command.core.ISubCommand;
 
-    public class AbstractSubCommand extends AbstractCommand implements SubCommand
-    {
-        private var _parent:ComplexCommand;
+    public class AbstractSubCommand extends AbstractCommand implements ISubCommand {
+        private var _parent:IComplexCommand;
 
-        public function get parent():ComplexCommand{
+        public function get parent():IComplexCommand{
             return _parent;
         }
         
-        public function set parent( value:ComplexCommand ):void{
+        public function set parent( value:IComplexCommand ):void{
             _parent = value;
         }  
     }

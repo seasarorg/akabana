@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the Seasar Foundation and the Others.
+ * Copyright 2004-2011 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,13 @@ package org.seasar.akabana.yui.command
     
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     
-    public class WaitCommand extends AbstractCommand
-    {
+    public class WaitCommand extends AbstractCommand {
+        
         protected var timer:Timer;
         
         protected var sleep:int;
         
-        public function WaitCommand(sleep:int=0)
-        {
+        public function WaitCommand(sleep:int=0){
             super();
             this.sleep = sleep;
         }

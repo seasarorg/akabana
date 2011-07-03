@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the Seasar Foundation and the Others.
+ * Copyright 2004-2011 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,34 +16,32 @@
 package org.seasar.akabana.yui.command
 {
     import org.seasar.akabana.yui.command.core.ICommand;
-    import org.seasar.akabana.yui.command.core.StatefulObject;
+    import org.seasar.akabana.yui.command.core.IStatefulObject;
     import org.seasar.akabana.yui.command.core.impl.AbstractSubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
-    public class ConditionalCommand extends AbstractSubCommand
-    {       
-        protected var target:StatefulObject;
+    public class ConditionalCommand extends AbstractSubCommand{ 
+        
+        protected var target:IStatefulObject;
         
         protected var caseMap:Object;
         
         protected var defaultCommand:ICommand;
         
-        public function ConditionalCommand()
-        {
+        public function ConditionalCommand(){
             super();
             caseMap = {};
         }
         
-        public function setTarget(target:StatefulObject):ConditionalCommand{
+        public function setTarget(target:IStatefulObject):ConditionalCommand{
             this.target = target;
             return this;
         }
 
         protected override function run(...args):void{
-         
             var result:ICommand = null;
             if( target == null && _name != null && _name.length > 0 ){
-                target = parent.fetch(_name) as StatefulObject;
+                target = parent.commandByName(_name) as IStatefulObject;
             }
             var state:String = target.state;
             if( caseMap.hasOwnProperty( state )){

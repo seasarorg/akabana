@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the Seasar Foundation and the Others.
+ * Copyright 2004-2011 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ package org.seasar.akabana.yui.command
     import org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
-    public class ParallelCommand extends AbstractComplexCommand
-    {
+    public class ParallelCommand extends AbstractComplexCommand {
+
         protected var finishedCommand:Object;
         
         protected var finishedCommandCount:int;
@@ -36,7 +36,6 @@ package org.seasar.akabana.yui.command
         private var currentCommandIndex:int;
         
         protected override function run(...args):void{
-         
             commandArguments = args;
             if( commands.length > 0 ){            
                 doStartCommands(args);

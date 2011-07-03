@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the Seasar Foundation and the Others.
+ * Copyright 2004-2011 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.command.core
      * 複合コマンド定義インターフェイス
      * 
      */
-    public interface ComplexCommand extends ICommand
+    public interface IComplexCommand extends ICommand
     {
         /**
          * コマンドを追加する
@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.command.core
          * @return 複合コマンド
          * 
          */
-        function add( command:ICommand, name:String=null ):ComplexCommand;
+        function add( command:ICommand, name:String=null ):IComplexCommand;
         
         /**
          * 名前よりコマンドを取得する
@@ -38,7 +38,7 @@ package org.seasar.akabana.yui.command.core
          * @return 複合コマンド
          * 
          */
-        function fetch( name:String ):ICommand;
+        function commandByName( name:String ):ICommand;
         
         /**
          * 子コマンドのイベント完了リスナーを設定する
@@ -47,7 +47,7 @@ package org.seasar.akabana.yui.command.core
          * @return 複合コマンド
          * 
          */
-        function childComplete( handler:Function ):ComplexCommand;
+        function childComplete( handler:Function ):IComplexCommand;
 
         /**
          * 子コマンドのイベントエラーリスナーを設定する
@@ -56,6 +56,6 @@ package org.seasar.akabana.yui.command.core
          * @return 複合コマンド
          * 
          */
-        function childError( handler:Function ):ComplexCommand;        
+        function childError( handler:Function ):IComplexCommand;        
     }
 }

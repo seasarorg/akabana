@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the Seasar Foundation and the Others.
+ * Copyright 2004-2011 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,15 @@
 package org.seasar.akabana.yui.command.core.impl
 {
     import org.seasar.akabana.yui.command.core.ICommand;
-    import org.seasar.akabana.yui.command.core.ComplexCommand;
-    import org.seasar.akabana.yui.command.core.EventListener;
-    import org.seasar.akabana.yui.command.core.SubCommand;
+    import org.seasar.akabana.yui.command.core.IComplexCommand;
+    import org.seasar.akabana.yui.command.core.ISubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
-    import org.seasar.akabana.yui.command.AsyncCommand;
     
     /**
      * 
-     * @author arikawa.eiichi
      * 
      */
-    public class AbstractComplexCommand extends AsyncCommand implements ComplexCommand
-    {
+    public class AbstractComplexCommand extends AbstractAsyncCommand implements IComplexCommand {
         /**
          * 
          */
@@ -57,8 +53,7 @@ package org.seasar.akabana.yui.command.core.impl
         /**
          * 
          */
-        public function AbstractComplexCommand()
-        {
+        public function AbstractComplexCommand(){
             super();
             commands = [];
             commandMap = {};
@@ -72,8 +67,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function childComplete(handler:Function):ComplexCommand
-        {
+        public function childComplete(handler:Function):IComplexCommand{
             this.childCompleteEventListener.handler = handler;
             return this;
         }
@@ -84,8 +78,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function childError(handler:Function):ComplexCommand
-        {
+        public function childError(handler:Function):IComplexCommand{
             this.childErrorEventListener.handler = handler;
             return this;
         }
@@ -96,8 +89,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function add(command:ICommand,name:String=null):ComplexCommand
-        {
+        public function add(command:ICommand,name:String=null):IComplexCommand{
             if( command is AbstractCommand ){
                 doAddCommand(command as AbstractCommand);
             }
@@ -114,8 +106,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function fetch(name:String):ICommand
-        {
+        public function commandByName(name:String):ICommand{
             var result:ICommand = commandMap[name];
             return result;
         }
@@ -164,8 +155,8 @@ package org.seasar.akabana.yui.command.core.impl
          */
         protected function doRegisterCommand(command:ICommand):void{
             commands.push(command);
-            if( command is SubCommand ){
-                (command as SubCommand).parent = this;
+            if( command is ISubCommand ){
+                (command as ISubCommand).parent = this;
             }
         }
         

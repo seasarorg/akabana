@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2009 the Seasar Foundation and the Others.
+ * Copyright 2004-2011 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package org.seasar.akabana.yui.command.core.impl
     import flash.errors.IllegalOperationError;
     import flash.events.EventDispatcher;
     
-    import org.seasar.akabana.yui.command.core.EventListener;
     import org.seasar.akabana.yui.command.core.ICommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
     import org.seasar.akabana.yui.core.ns.handler;
