@@ -24,7 +24,7 @@ package org.seasar.akabana.yui.command.core.impl
         
         protected var _result:Object;
         
-        protected var _message:Object;
+        protected var _error:Object;
         
         /**
          * 
@@ -50,9 +50,9 @@ package org.seasar.akabana.yui.command.core.impl
          * @param message
          * 
          */
-        public override function failed( message:Object = null ):void{
+        public override function failed( error:Object = null ):void{
             dispatchTimerStop();
-            _message = message;
+            _error = error;
             dispatchTimerStart();
         }
         
@@ -83,13 +83,13 @@ package org.seasar.akabana.yui.command.core.impl
         protected function dispatchTimerHandler(event:TimerEvent):void{
             _dispatchTimer.removeEventListener(TimerEvent.TIMER,dispatchTimerHandler);
             dispatchTimerStop();
-            if( _message != null ){
-                super.failed(_message);
+            if( _error != null ){
+                super.failed(_error);
             } else {
                 super.done(_result);
             }
             _result = null;
-            _message = null;
+            _error = null;
         }
         
     }

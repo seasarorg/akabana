@@ -33,25 +33,28 @@ package org.seasar.akabana.yui.command
             _caseMap = {};
         }
         
-        public function setTarget(target:IStatefulObject):ConditionalCommand{
-            this._target = target;
-            return this;
-        }
-
         protected override function run(...args):void{
             var result:ICommand = null;
             if( _target == null && _name != null && _name.length > 0 ){
-                _target = parent.commandByName(_name) as IStatefulObject;
+                _target = _parent.commandByName(_name) as IStatefulObject;
             }
-            var state:String = _target.state;
-            if( _caseMap.hasOwnProperty( state )){
-                result = _caseMap[ state ];
+            if( _target == null ){
+                var state:String = _target.state;
+                if( _caseMap.hasOwnProperty( state )){
+                    result = _caseMap[ state ];
+                } else {
+                    result = _defaultCommand;
+                }
             } else {
                 result = _defaultCommand;
             }
-            result.complete(commandCompleteEventListener);
-            result.error(commandErrorEventListener);
-            result.start(_target);
+            if( result == null ){
+                failed();
+            } else {
+                result.complete(commandCompleteEventListener);
+                result.error(commandErrorEventListener);
+                result.start(_target);
+            }
         }
         
         public function addCaseCommand( value:String, command:ICommand ):ConditionalCommand{
