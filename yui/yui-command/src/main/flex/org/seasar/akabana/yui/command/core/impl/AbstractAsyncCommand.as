@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.command.core.impl
     
     public class AbstractAsyncCommand extends AbstractSubCommand
     {
-        protected var dispatchTimer:Timer;
+        protected var _dispatchTimer:Timer;
         
         protected var _result:Object;
         
@@ -31,7 +31,7 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         public function AbstractAsyncCommand(){
-            dispatchTimer = new Timer(1);
+            _dispatchTimer = new Timer(1);
         }
         
         /**
@@ -61,8 +61,8 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function dispatchTimerStart():void{
-            dispatchTimer.addEventListener(TimerEvent.TIMER,dispatchTimerHandler);
-            dispatchTimer.start();
+            _dispatchTimer.addEventListener(TimerEvent.TIMER,dispatchTimerHandler);
+            _dispatchTimer.start();
         }
         
         /**
@@ -70,8 +70,8 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function dispatchTimerStop():void{
-            if( dispatchTimer.running ){
-                dispatchTimer.stop();
+            if( _dispatchTimer.running ){
+                _dispatchTimer.stop();
             }
         }
         
@@ -81,13 +81,12 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function dispatchTimerHandler(event:TimerEvent):void{
-            dispatchTimer.removeEventListener(TimerEvent.TIMER,dispatchTimerHandler);
+            _dispatchTimer.removeEventListener(TimerEvent.TIMER,dispatchTimerHandler);
             dispatchTimerStop();
-            if( _result != null ){
-                super.done(_result);
-            }
             if( _message != null ){
                 super.failed(_message);
+            } else {
+                super.done(_result);
             }
             _result = null;
             _message = null;

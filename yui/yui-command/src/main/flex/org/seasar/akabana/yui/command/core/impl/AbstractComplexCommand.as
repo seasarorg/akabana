@@ -28,37 +28,37 @@ package org.seasar.akabana.yui.command.core.impl
         /**
          * 
          */
-        protected var commands:Array;
+        protected var _commands:Array;
         
         /**
          * 
          */
-        protected var commandMap:Object;
+        protected var _commandMap:Object;
         
         /**
          * 
          */
-        protected var commandArguments:Array;
+        protected var _commandArguments:Array;
         
         /**
          * 
          */
-        protected var childCompleteEventListener:EventListener;
+        protected var _childCompleteEventListener:EventListener;
         
         /**
          * 
          */
-        protected var childErrorEventListener:EventListener;
+        protected var _childErrorEventListener:EventListener;
         
         /**
          * 
          */
         public function AbstractComplexCommand(){
             super();
-            commands = [];
-            commandMap = {};
-            childCompleteEventListener = new EventListener();
-            childErrorEventListener = new EventListener();
+            _commands = [];
+            _commandMap = {};
+            _childCompleteEventListener = new EventListener();
+            _childErrorEventListener = new EventListener();
         }
         
         /**
@@ -68,7 +68,7 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         public function childComplete(handler:Function):IComplexCommand{
-            this.childCompleteEventListener.handler = handler;
+            this._childCompleteEventListener.handler = handler;
             return this;
         }
         
@@ -79,7 +79,7 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         public function childError(handler:Function):IComplexCommand{
-            this.childErrorEventListener.handler = handler;
+            this._childErrorEventListener.handler = handler;
             return this;
         }
         
@@ -94,7 +94,7 @@ package org.seasar.akabana.yui.command.core.impl
                 doAddCommand(command as AbstractCommand);
             }
             if( name != null ){
-                commandMap[name] = command;
+                _commandMap[name] = command;
             }
             doRegisterCommand(command);
             return this;
@@ -107,7 +107,7 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         public function commandByName(name:String):ICommand{
-            var result:ICommand = commandMap[name];
+            var result:ICommand = _commandMap[name];
             return result;
         }
 
@@ -117,8 +117,8 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function doStartCommandAt(index:int):void{
-            var command:ICommand = commands[ index ];
-            (command.start as Function).apply(null,commandArguments);
+            var command:ICommand = _commands[ index ];
+            (command.start as Function).apply(null,_commandArguments);
         }         
                 
         /**
@@ -154,7 +154,7 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function doRegisterCommand(command:ICommand):void{
-            commands.push(command);
+            _commands.push(command);
             if( command is ISubCommand ){
                 (command as ISubCommand).parent = this;
             }

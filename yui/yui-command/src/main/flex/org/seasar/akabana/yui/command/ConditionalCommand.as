@@ -22,45 +22,45 @@ package org.seasar.akabana.yui.command
 
     public class ConditionalCommand extends AbstractSubCommand{ 
         
-        protected var target:IStatefulObject;
+        protected var _target:IStatefulObject;
         
-        protected var caseMap:Object;
+        protected var _caseMap:Object;
         
-        protected var defaultCommand:ICommand;
+        protected var _defaultCommand:ICommand;
         
         public function ConditionalCommand(){
             super();
-            caseMap = {};
+            _caseMap = {};
         }
         
         public function setTarget(target:IStatefulObject):ConditionalCommand{
-            this.target = target;
+            this._target = target;
             return this;
         }
 
         protected override function run(...args):void{
             var result:ICommand = null;
-            if( target == null && _name != null && _name.length > 0 ){
-                target = parent.commandByName(_name) as IStatefulObject;
+            if( _target == null && _name != null && _name.length > 0 ){
+                _target = parent.commandByName(_name) as IStatefulObject;
             }
-            var state:String = target.state;
-            if( caseMap.hasOwnProperty( state )){
-                result = caseMap[ state ];
+            var state:String = _target.state;
+            if( _caseMap.hasOwnProperty( state )){
+                result = _caseMap[ state ];
             } else {
-                result = defaultCommand;
+                result = _defaultCommand;
             }
             result.complete(commandCompleteEventListener);
             result.error(commandErrorEventListener);
-            result.start(target);
+            result.start(_target);
         }
         
         public function addCaseCommand( value:String, command:ICommand ):ConditionalCommand{
-            caseMap[ value ] = command;
+            _caseMap[ value ] = command;
             return this;
         }
 
         public function setDefaultCommand( command:ICommand ):ConditionalCommand{
-            defaultCommand = command;
+            _defaultCommand = command;
             return this;
         }
         

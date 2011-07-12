@@ -23,21 +23,21 @@ package org.seasar.akabana.yui.command
 
     public class ParallelCommand extends AbstractComplexCommand {
 
-        protected var finishedCommand:Object;
+        protected var _finishedCommand:Object;
         
-        protected var finishedCommandCount:int;
+        protected var _finishedCommandCount:int;
         
-        protected var hasError:Boolean;
+        protected var _hasError:Boolean;
         
-        protected var errorCommandEvents:Array;
+        protected var _errorCommandEvents:Array;
         
-        private var commandStartTimer:Timer;
+        protected var _commandStartTimer:Timer;
         
-        private var currentCommandIndex:int;
+        protected var _currentCommandIndex:int;
         
         protected override function run(...args):void{
-            commandArguments = args;
-            if( commands.length > 0 ){            
+            _commandArguments = args;
+            if( _commands.length > 0 ){            
                 doStartCommands(args);
             } else {
                 complete(null);
@@ -45,38 +45,38 @@ package org.seasar.akabana.yui.command
         } 
 
         protected function doStartCommands(args:Array):void{
-            commandArguments = args;
-            finishedCommand = {};
-            finishedCommandCount = 0;
-            hasError = false;
-            errorCommandEvents = [];
-            currentCommandIndex = 0;
-            commandStartTimer = new Timer(1);
-            commandStartTimer.addEventListener(TimerEvent.TIMER,commandStartTimerHandler);
-            commandStartTimer.start();
+            _commandArguments = args;
+            _finishedCommand = {};
+            _finishedCommandCount = 0;
+            _hasError = false;
+            _errorCommandEvents = [];
+            _currentCommandIndex = 0;
+            _commandStartTimer = new Timer(1);
+            _commandStartTimer.addEventListener(TimerEvent.TIMER,commandStartTimerHandler);
+            _commandStartTimer.start();
         }   
 
         protected override function childCommandCompleteEventHandler(event:CommandEvent):void{
-            if( childCompleteEventListener.handler != null ){
-                childCompleteEventListener.handler(event);
+            if( _childCompleteEventListener.handler != null ){
+                _childCompleteEventListener.handler(event);
             }
             doCheckFinishedCommand();
         }     
 
         protected override function childCommandErrorEventHandler(event:CommandEvent):void{
-            if( childErrorEventListener.handler != null ){
-                childErrorEventListener.handler(event);
+            if( _childErrorEventListener.handler != null ){
+                _childErrorEventListener.handler(event);
             }
-            hasError = true;
-            errorCommandEvents.push( event );
+            _hasError = true;
+            _errorCommandEvents.push( event );
             doCheckFinishedCommand();
         }  
         
         protected function doCheckFinishedCommand():void{
-            finishedCommandCount++;
-            if( finishedCommandCount >= commands.length ){
-                if( hasError ){
-                    failed(errorCommandEvents);
+            _finishedCommandCount++;
+            if( _finishedCommandCount >= _commands.length ){
+                if( _hasError ){
+                    failed(_errorCommandEvents);
                 } else {
                     done();
                 }
@@ -87,11 +87,11 @@ package org.seasar.akabana.yui.command
         }
         
         private function commandStartTimerHandler(event:TimerEvent):void{
-            doStartCommandAt(currentCommandIndex);
-            currentCommandIndex++;
+            doStartCommandAt(_currentCommandIndex);
+            _currentCommandIndex++;
             
-            if( currentCommandIndex >= commands.length ){
-                commandStartTimer.stop();
+            if( _currentCommandIndex >= _commands.length ){
+                _commandStartTimer.stop();
             }
         }
     }

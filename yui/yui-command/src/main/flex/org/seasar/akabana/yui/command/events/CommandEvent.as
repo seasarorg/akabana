@@ -41,9 +41,29 @@ package org.seasar.akabana.yui.command.events
             return event;
         }
         
-        public var data:Object;
+        private var _data:Object;
         
-        public var command:ICommand;
+        public function get data():Object
+        {
+            return _data;
+        }
+        
+        public function set data(value:Object):void
+        {
+            _data = value;
+        }
+        
+        private var _command:ICommand;
+        
+        public function get command():ICommand
+        {
+            return _command;
+        }
+        
+        public function set command(value:ICommand):void
+        {
+            _command = value;
+        }
         
         public function CommandEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) {
             super(type, bubbles, cancelable);

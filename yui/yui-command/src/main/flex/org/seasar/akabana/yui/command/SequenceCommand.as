@@ -20,11 +20,11 @@ package org.seasar.akabana.yui.command
 
     public class SequenceCommand extends AbstractComplexCommand {
 
-        protected var currentCommandIndex:int;
+        protected var _currentCommandIndex:int;
         
         protected override function run(...args):void{
-            currentCommandIndex = 0;
-            if( commands.length > 0 ){
+            _currentCommandIndex = 0;
+            if( _commands.length > 0 ){
                 doStartCommands(args);
             } else {
                 done();
@@ -32,29 +32,29 @@ package org.seasar.akabana.yui.command
         }
         
         protected override function childCommandCompleteEventHandler(event:CommandEvent):void{
-            if( childCompleteEventListener.handler != null ){
-                childCompleteEventListener.handler(event);
+            if( _childCompleteEventListener.handler != null ){
+                _childCompleteEventListener.handler(event);
             }
-            currentCommandIndex++;
-            if( currentCommandIndex < commands.length ){
-                doStartCommandAt(currentCommandIndex);
+            _currentCommandIndex++;
+            if( _currentCommandIndex < _commands.length ){
+                doStartCommandAt(_currentCommandIndex);
             } else {
                 done();
             }
         }     
 
         protected override function childCommandErrorEventHandler(event:CommandEvent):void{
-            if( childErrorEventListener.handler != null ){
-                childErrorEventListener.handler(event);
+            if( _childErrorEventListener.handler != null ){
+                _childErrorEventListener.handler(event);
             }
             failed(event);
         }
         
         protected function doStartCommands(args:Array):void{
-            currentCommandIndex = 0;
-            commandArguments = args;
+            _currentCommandIndex = 0;
+            _commandArguments = args;
 
-            doStartCommandAt(currentCommandIndex);
+            doStartCommandAt(_currentCommandIndex);
         }
     }
 }

@@ -19,7 +19,8 @@ package org.seasar.akabana.yui.command.core.impl
     import org.seasar.akabana.yui.command.core.ISubCommand;
 
     public class AbstractSubCommand extends AbstractCommand implements ISubCommand {
-        private var _parent:IComplexCommand;
+        
+        protected var _parent:IComplexCommand;
 
         public function get parent():IComplexCommand{
             return _parent;

@@ -22,31 +22,35 @@ package org.seasar.akabana.yui.command
     
     public class WaitCommand extends AbstractCommand {
         
-        protected var timer:Timer;
+        protected var _timer:Timer;
         
-        protected var sleep:int;
+        protected var _sleep:int;
         
         public function WaitCommand(sleep:int=0){
             super();
-            this.sleep = sleep;
+            this._sleep = sleep;
+        }
+        
+        public override function toString():String{
+            return super.toString()+"{"+_sleep+"}";
         }
         
         protected override function run(...args):void{
-            timer = createTimer();
-            timer.start();
+            _timer = createTimer();
+            _timer.start();
         }
         
         protected function createTimer():Timer{
-            var result:Timer = new Timer(sleep);
+            var result:Timer = new Timer(_sleep);
             result.addEventListener(TimerEvent.TIMER,timerHandler,false,int.MAX_VALUE,false);
             return result;
         }
         
         protected function timerHandler( event:TimerEvent ):void{
-            if( timer != null ){
-                timer.stop();
-                timer.removeEventListener(TimerEvent.TIMER,timerHandler,false);
-                timer = null;
+            if( _timer != null ){
+                _timer.stop();
+                _timer.removeEventListener(TimerEvent.TIMER,timerHandler,false);
+                _timer = null;
             }
             done();
         }

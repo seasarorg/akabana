@@ -31,9 +31,9 @@ package org.seasar.akabana.yui.command.core.impl
      */
     public class AbstractCommand extends EventDispatcher implements ICommand {
 
-        private var _completeEventListener:EventListener;
+        protected var _completeEventListener:EventListener;
         
-        private var _errorEventListener:EventListener;
+        protected var _errorEventListener:EventListener;
 
         protected var _name:String;
         
