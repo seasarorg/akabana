@@ -16,7 +16,9 @@ package examples.command.behavior
         
         public function RootCmd2Behavior(){
             //一時停止コマンドを生成
-            cmd2 = new WaitCommand(1000);
+            cmd2 = new SequenceCommand()
+                        .add(new WaitCommand(300))
+                        .add(new WaitCommand(500));
         }
 
         handler function runCommand2_click():void{
