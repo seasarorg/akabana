@@ -2,7 +2,7 @@
 <actionScriptProperties analytics="false" mainApplicationPath="yui-command.as" projectUUID="a79928ae-43e2-4115-b86f-0e92e9a99058" version="10">
   <compiler additionalCompilerArguments="-optimize=true" autoRSLOrdering="true" copyDependentFiles="true" flex3CompatMode="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="target/swc" removeUnusedRSL="true" sourceFolderPath="src/main/flex" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
-    <libraryPath defaultLinkType="0">
+    <libraryPath defaultLinkType="1">
       <libraryPathEntry kind="4" path="">
         <modifiedEntries>
           <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/core.swc" useDefaultLinkType="true"/>
@@ -16,19 +16,19 @@
               <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="sparkskins_4.5.1.21328.swz"/>
             </crossDomainRsls>
           </libraryPathEntry>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/charts.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/charts.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry applicationDomain="default" forceLoad="false" index="2" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/textLayout.swc" useDefaultLinkType="true">
-            <crossDomainRsls>
-              <crossDomainRslEntry autoExtract="true" policyFileUrl="http://fpdownload.adobe.com/pub/swz/crossdomain.xml" rslUrl="http://fpdownload.adobe.com/pub/swz/tlf/2.0.0.232/textLayout_2.0.0.232.swz"/>
-              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="textLayout_2.0.0.232.swz"/>
-            </crossDomainRsls>
-          </libraryPathEntry>
           <libraryPathEntry applicationDomain="default" forceLoad="false" index="8" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/mx/mx.swc" useDefaultLinkType="true">
             <crossDomainRsls>
               <crossDomainRslEntry autoExtract="true" policyFileUrl="http://fpdownload.adobe.com/pub/swz/crossdomain.xml" rslUrl="http://fpdownload.adobe.com/pub/swz/flex/4.5.1.21328/mx_4.5.1.21328.swz"/>
               <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="mx_4.5.1.21328.swz"/>
+            </crossDomainRsls>
+          </libraryPathEntry>
+          <libraryPathEntry applicationDomain="default" forceLoad="false" index="2" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/textLayout.swc" useDefaultLinkType="true">
+            <crossDomainRsls>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="http://fpdownload.adobe.com/pub/swz/crossdomain.xml" rslUrl="http://fpdownload.adobe.com/pub/swz/tlf/2.0.0.232/textLayout_2.0.0.232.swz"/>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="textLayout_2.0.0.232.swz"/>
             </crossDomainRsls>
           </libraryPathEntry>
           <libraryPathEntry applicationDomain="default" forceLoad="false" index="6" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/spark_dmv.swc" useDefaultLinkType="true">

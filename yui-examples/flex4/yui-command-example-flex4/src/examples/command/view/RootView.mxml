@@ -8,4 +8,5 @@
     <s:Button id="runCommand1"/>
     <s:Button id="runCommand2"/>
     <s:Button id="runCommand3"/>
+    <s:Button id="runCommand4"/>
 </s:VGroup>

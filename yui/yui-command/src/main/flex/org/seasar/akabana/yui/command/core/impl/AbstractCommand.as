@@ -37,6 +37,26 @@ package org.seasar.akabana.yui.command.core.impl
 
         protected var _name:String;
         
+        private var _result:Object;
+
+        public function get result():Object{
+            return _result;
+        }
+
+        public function set result(value:Object):void{
+            _result = value;
+        }
+        
+        private var _status:Object;
+        
+        public function get status():Object{
+            return _status;
+        }
+        
+        public function set status(value:Object):void{
+            _status = value;
+        }
+        
         /**
          * 
          * 
@@ -66,6 +86,7 @@ package org.seasar.akabana.yui.command.core.impl
         public function start( ...args ):ICommand{
             try{
                 ( this.run as Function ).apply( null, args );
+                done();
             }catch( e:Error ){
                 failed(e);
             }
@@ -160,7 +181,7 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         public function done( value:Object = null ):void{
-            dispatchEvent( CommandEvent.createCompleteEvent( this, value ) );
+            dispatchEvent( CommandEvent.createCompleteEvent( this, result ) );
             stop();
         } 
         
@@ -169,8 +190,8 @@ package org.seasar.akabana.yui.command.core.impl
          * @param message
          * 
          */
-        public function failed( message:Object = null ):void{
-            dispatchEvent( CommandEvent.createErrorEvent( this, message ) );
+        public function failed( value:Object = null ):void{
+            dispatchEvent( CommandEvent.createErrorEvent( this, status ) );
             stop();
         }
 

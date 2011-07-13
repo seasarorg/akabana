@@ -21,6 +21,13 @@ package org.seasar.akabana.yui.command.core
      */
     public interface IComplexCommand extends ICommand
     {
+        
+        /**
+         * 前回実行したコマンドを取得する
+         * 
+         */
+        function get lastCommand():ICommand;
+
         /**
          * コマンドを追加する
          * 

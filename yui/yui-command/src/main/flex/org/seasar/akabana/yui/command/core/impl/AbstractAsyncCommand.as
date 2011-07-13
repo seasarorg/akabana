@@ -18,13 +18,15 @@ package org.seasar.akabana.yui.command.core.impl
     import flash.events.TimerEvent;
     import flash.utils.Timer;
     
+    import org.seasar.akabana.yui.command.core.ICommand;
+    
     public class AbstractAsyncCommand extends AbstractSubCommand
     {
         protected var _dispatchTimer:Timer;
         
-        protected var _result:Object;
+        protected var _pendingResult:Object;
         
-        protected var _error:Object;
+        protected var _pendingStatus:Object;
         
         /**
          * 
@@ -39,9 +41,23 @@ package org.seasar.akabana.yui.command.core.impl
          * @param value
          * 
          */
+        public override function start( ...args ):ICommand{
+            try{
+                ( this.run as Function ).apply( null, args );
+            }catch( e:Error ){
+                failed(e);
+            }
+            return this;
+        }
+        
+        /**
+         * 
+         * @param value
+         * 
+         */
         public override function done( value:Object = null ):void{
             dispatchTimerStop();
-            _result = value;
+            _pendingResult = value;
             dispatchTimerStart();
         } 
         
@@ -52,7 +68,7 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public override function failed( error:Object = null ):void{
             dispatchTimerStop();
-            _error = error;
+            _pendingStatus = error;
             dispatchTimerStart();
         }
         
@@ -83,13 +99,17 @@ package org.seasar.akabana.yui.command.core.impl
         protected function dispatchTimerHandler(event:TimerEvent):void{
             _dispatchTimer.removeEventListener(TimerEvent.TIMER,dispatchTimerHandler);
             dispatchTimerStop();
-            if( _error != null ){
-                super.failed(_error);
+            if( _pendingStatus == null ){
+                result = _pendingResult;
+                _pendingResult = null;
+                _pendingStatus = null;
+                super.done();
             } else {
-                super.done(_result);
+                status = _pendingStatus;
+                _pendingResult = null;
+                _pendingStatus = null;
+                super.failed();
             }
-            _result = null;
-            _error = null;
         }
         
     }

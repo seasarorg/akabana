@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
-    <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractAsyncCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.AsyncCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.Command"/>
-    <classEntry path="org.seasar.akabana.yui.command.ConditionalCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.ParallelCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.SequenceCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.SwitchCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.WaitCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.IComplexCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.impl.EventListener"/>
     <classEntry path="org.seasar.akabana.yui.command.core.ICommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.IStatefulObject"/>
+    <classEntry path="org.seasar.akabana.yui.command.core.IComplexCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.ISubCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractAsyncCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractSubCommand"/>
+    <classEntry path="org.seasar.akabana.yui.command.core.impl.EventListener"/>
     <classEntry path="org.seasar.akabana.yui.command.events.CommandEvent"/>
   </includeClasses>
   <includeResources/>

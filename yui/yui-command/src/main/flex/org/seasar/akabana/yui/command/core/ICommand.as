@@ -23,6 +23,18 @@ package org.seasar.akabana.yui.command.core
     public interface ICommand {
         
         /**
+         * コマンドの結果
+         * 
+         */
+        function get result():Object;
+        
+        /**
+         * コマンドのエラーステータス
+         * 
+         */
+        function get status():Object;
+        
+        /**
          * コマンドの名前を指定
          * 
          * @param value 名前

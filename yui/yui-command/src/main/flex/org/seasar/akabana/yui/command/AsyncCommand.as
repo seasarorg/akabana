@@ -13,19 +13,12 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.command.core
+package org.seasar.akabana.yui.command
 {
-    /**
-     * 状態オブジェクトインターフェイス
-     * 
-     */
-    public interface IStatefulObject{
-        /**
-         * 状態を取得する 
-         * 
-         * @return 状態を表す文字列
-         * 
-         */
-        function get state():String;
+    import org.seasar.akabana.yui.command.core.impl.AbstractAsyncCommand;
+    
+    public class AsyncCommand extends AbstractAsyncCommand{
+        protected override function run(...args):void{
+        }
     }
 }

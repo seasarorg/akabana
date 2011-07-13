@@ -19,6 +19,7 @@ package org.seasar.akabana.yui.command.core.impl
     import org.seasar.akabana.yui.command.core.IComplexCommand;
     import org.seasar.akabana.yui.command.core.ISubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
+    import org.seasar.akabana.yui.core.reflection.FunctionInvoker;
     
     /**
      * 
@@ -49,6 +50,18 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected var _childErrorEventListener:EventListener;
+        
+        /**
+         * 
+         */
+        protected var _lastCommand:ICommand;
+        
+        /**
+         * 
+         */
+        public function get lastCommand():ICommand{
+            return _lastCommand;
+        }
         
         /**
          * 
@@ -116,9 +129,10 @@ package org.seasar.akabana.yui.command.core.impl
          * @param index
          * 
          */
-        protected function doStartCommandAt(index:int):void{
+        protected function doStartCommandAt(index:int):ICommand{
             var command:ICommand = _commands[ index ];
-            (command.start as Function).apply(null,_commandArguments);
+            new FunctionInvoker(command.start as Function,_commandArguments).invokeDelay();
+            return command;
         }         
                 
         /**

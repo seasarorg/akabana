@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.command
     
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     
-    public class WaitCommand extends AbstractCommand {
+    public class WaitCommand extends AsyncCommand {
         
         protected var _timer:Timer;
         

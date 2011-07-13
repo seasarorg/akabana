@@ -16,53 +16,53 @@
 package org.seasar.akabana.yui.command
 {
     import org.seasar.akabana.yui.command.core.ICommand;
-    import org.seasar.akabana.yui.command.core.IStatefulObject;
+    import org.seasar.akabana.yui.command.core.impl.AbstractAsyncCommand;
     import org.seasar.akabana.yui.command.core.impl.AbstractSubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
+    import org.seasar.akabana.yui.core.error.NotFoundError;
 
-    public class ConditionalCommand extends AbstractSubCommand{ 
-        
-        protected var _target:IStatefulObject;
+    public class SwitchCommand extends AbstractAsyncCommand{ 
         
         protected var _caseMap:Object;
         
         protected var _defaultCommand:ICommand;
         
-        public function ConditionalCommand(){
+        public function SwitchCommand(){
             super();
             _caseMap = {};
         }
         
         protected override function run(...args):void{
-            var result:ICommand = null;
-            if( _target == null && _name != null && _name.length > 0 ){
-                _target = _parent.commandByName(_name) as IStatefulObject;
+            var cmd:ICommand = null;
+            var lastCommand:ICommand = _parent.lastCommand;
+            if( lastCommand == null && _name != null && _name.length > 0 ){
+                lastCommand = _parent.commandByName(_name);
             }
-            if( _target == null ){
-                var state:String = _target.state;
-                if( _caseMap.hasOwnProperty( state )){
-                    result = _caseMap[ state ];
+            var targetResult:Object = lastCommand.result;
+            if( lastCommand == null ){
+                cmd = _defaultCommand;
+            } else {
+                if( targetResult in _caseMap){
+                    cmd = _caseMap[ targetResult ];
                 } else {
-                    result = _defaultCommand;
+                    cmd = _defaultCommand;
                 }
-            } else {
-                result = _defaultCommand;
             }
-            if( result == null ){
-                failed();
+            if( cmd == null ){
+                failed("Command Not Found for " + targetResult);
             } else {
-                result.complete(commandCompleteEventListener);
-                result.error(commandErrorEventListener);
-                result.start(_target);
+                cmd.complete(commandCompleteEventListener);
+                cmd.error(commandErrorEventListener);
+                cmd.start(targetResult);
             }
         }
         
-        public function addCaseCommand( value:String, command:ICommand ):ConditionalCommand{
+        public function caseCommand( value:Object, command:ICommand ):SwitchCommand{
             _caseMap[ value ] = command;
             return this;
         }
 
-        public function setDefaultCommand( command:ICommand ):ConditionalCommand{
+        public function defaultCommand( command:ICommand ):SwitchCommand{
             _defaultCommand = command;
             return this;
         }
