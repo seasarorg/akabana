@@ -40,7 +40,7 @@ package org.seasar.akabana.yui.command
             if( _currentCommandIndex < _commands.length ){
                 doStartCommandAt(_currentCommandIndex);
             } else {
-                done();
+                done(_lastCommand.result);
             }
         }     
 
