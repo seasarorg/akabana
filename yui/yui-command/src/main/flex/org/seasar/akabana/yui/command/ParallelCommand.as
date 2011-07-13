@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.command
     import org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
 
-    public class ParallelCommand extends AbstractComplexCommand {
+    internal class ParallelCommand extends AbstractComplexCommand {
 
         protected var _finishedCommand:Object;
         

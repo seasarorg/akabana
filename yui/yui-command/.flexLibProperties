@@ -4,7 +4,6 @@
     <classEntry path="org.seasar.akabana.yui.command.AsyncCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.CallBackCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.Command"/>
-    <classEntry path="org.seasar.akabana.yui.command.ParallelCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.SequenceCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.SwitchCommand"/>
     <classEntry path="org.seasar.akabana.yui.command.WaitCommand"/>
