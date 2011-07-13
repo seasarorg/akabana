@@ -61,6 +61,11 @@ package org.seasar.akabana.yui.command
             _caseMap[ value ] = command;
             return this;
         }
+        
+        public function caseCallBack( value:Object, callback:Function ):SwitchCommand{
+            _caseMap[ value ] = new CallBackCommand(callback);
+            return this;
+        }
 
         public function defaultCommand( command:ICommand ):SwitchCommand{
             _defaultCommand = command;

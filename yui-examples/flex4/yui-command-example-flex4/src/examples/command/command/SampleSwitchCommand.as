@@ -1,5 +1,6 @@
 package examples.command.command
 {
+    import org.seasar.akabana.yui.command.CallBackCommand;
     import org.seasar.akabana.yui.command.SequenceCommand;
     import org.seasar.akabana.yui.command.SwitchCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
@@ -10,18 +11,16 @@ package examples.command.command
         {
             super();
             add( new RandomDataCommnad() );
-            add(
-                new SwitchCommand()
-                    .caseCommand( "high", new TraceCommand())
-                    .caseCommand( "low", new TraceCommand())
-                    .complete(on_completeHandler)
+            add( new SwitchCommand()
+                    .caseCommand( "high", new CallBackCommand(traceHandler))
+                    .caseCallBack( "low", traceHandler )
             )
-            .complete(on_completeHandler);
         }
         
-        private function on_completeHandler(event:CommandEvent):void
+        private function traceHandler(data:Object):Object
         {
-            trace(event.command);
+            trace(data);
+            return data;
         }
     }
 }
