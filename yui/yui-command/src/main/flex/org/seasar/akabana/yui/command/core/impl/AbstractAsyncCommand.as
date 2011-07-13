@@ -38,35 +38,27 @@ package org.seasar.akabana.yui.command.core.impl
         
         /**
          * 
-         * @param value
-         * 
          */
-        public override function start( ...args ):ICommand{
-            try{
-                ( this.run as Function ).apply( null, args );
-            }catch( e:Error ){
-                failed(e);
-            }
-            return this;
-        }
+        protected override function done():void{
+        }  
         
         /**
          * 
          * @param value
          * 
          */
-        public override function done( value:Object = null ):void{
+        protected function doDoneCommand( value:Object = null ):void{
             dispatchTimerStop();
             _pendingResult = value;
             dispatchTimerStart();
         } 
-        
+
         /**
          * 
          * @param message
          * 
          */
-        public override function failed( error:Object = null ):void{
+        protected function doFailedCommand( error:Object = null ):void{
             dispatchTimerStop();
             _pendingStatus = error;
             dispatchTimerStart();

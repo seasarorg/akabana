@@ -4,7 +4,7 @@ package examples.command.command
     
     public class RandomDataCommnad extends Command
     {
-        protected override function run(...args):void{
+        protected override function run():void{
             
             var n:Number = Math.random()*100;
             

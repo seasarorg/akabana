@@ -18,7 +18,5 @@ package org.seasar.akabana.yui.command
     import org.seasar.akabana.yui.command.core.impl.AbstractAsyncCommand;
     
     public class AsyncCommand extends AbstractAsyncCommand{
-        protected override function run(...args):void{
-        }
     }
 }

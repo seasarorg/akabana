@@ -22,12 +22,12 @@ package org.seasar.akabana.yui.command
 
         protected var _currentCommandIndex:int;
         
-        protected override function run(...args):void{
+        protected override function run():void{
             _currentCommandIndex = 0;
             if( _commands.length > 0 ){
-                doStartCommands(args);
+                doStartCommands();
             } else {
-                done();
+                doDoneCommand();
             }
         }
         
@@ -38,9 +38,21 @@ package org.seasar.akabana.yui.command
             }
             _currentCommandIndex++;
             if( _currentCommandIndex < _commands.length ){
-                doStartCommandAt(_currentCommandIndex);
+                var args:Array = null;
+                
+                if( _lastCommand == null ){
+                    args = _arguments;
+                } else {
+                    if( _lastCommand is AbstractComplexCommand ){
+                        args = _arguments;
+                    } else {
+                        args = [_lastCommand.result];
+                    }
+                }
+                
+                doStartCommandAt(_currentCommandIndex,args);
             } else {
-                done(_lastCommand.result);
+                doDoneCommand(_lastCommand.result);
             }
         }     
 
@@ -49,14 +61,13 @@ package org.seasar.akabana.yui.command
             if( _childErrorEventListener.handler != null ){
                 _childErrorEventListener.handler(event);
             }
-            failed(event);
+            doFailedCommand(event.data);
         }
         
-        protected function doStartCommands(args:Array):void{
+        protected function doStartCommands():void{
             _currentCommandIndex = 0;
-            _commandArguments = args;
 
-            doStartCommandAt(_currentCommandIndex);
+            doStartCommandAt(_currentCommandIndex,_arguments);
         }
     }
 }

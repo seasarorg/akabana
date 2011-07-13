@@ -15,6 +15,8 @@
  */
 package org.seasar.akabana.yui.command
 {
+    import flash.errors.IllegalOperationError;
+    
     import org.seasar.akabana.yui.command.core.ICommand;
     import org.seasar.akabana.yui.command.core.impl.AbstractAsyncCommand;
     import org.seasar.akabana.yui.command.core.impl.AbstractSubCommand;
@@ -32,7 +34,7 @@ package org.seasar.akabana.yui.command
             _caseMap = {};
         }
         
-        protected override function run(...args):void{
+        protected override function run():void{
             var cmd:ICommand = null;
             var lastCommand:ICommand = _parent.lastCommand;
             if( lastCommand == null && _name != null && _name.length > 0 ){
@@ -49,7 +51,8 @@ package org.seasar.akabana.yui.command
                 }
             }
             if( cmd == null ){
-                failed("Command Not Found for " + targetResult);
+                status = new IllegalOperationError("Command Not Found for " + targetResult);
+                failed();
             } else {
                 cmd.complete(commandCompleteEventListener);
                 cmd.error(commandErrorEventListener);
@@ -73,11 +76,11 @@ package org.seasar.akabana.yui.command
         }
         
         protected function commandCompleteEventListener(event:CommandEvent):void{
-            done(event.data);
+            doDoneCommand(event.data);
         }
 
         protected function commandErrorEventListener(event:CommandEvent):void{
-            failed(event.data);
+            doFailedCommand(event.data);
         }
     }
 }

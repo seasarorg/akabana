@@ -36,6 +36,8 @@ package org.seasar.akabana.yui.command.core.impl
         protected var _errorEventListener:EventListener;
 
         protected var _name:String;
+
+        protected var _arguments:Array = [];
         
         private var _result:Object;
 
@@ -79,16 +81,29 @@ package org.seasar.akabana.yui.command.core.impl
         }
         
         /**
+         * コマンドの引数を指定
+         * 
+         * @param value 名前
+         * 
+         */
+        public function arguments(...args):ICommand {
+            _arguments = args;
+            return this;
+        }
+        
+        /**
          * 
          * @param args
          * 
          */
         public function start( ...args ):ICommand{
+            arguments(args);
             try{
-                ( this.run as Function ).apply( null, args );
+                run();
                 done();
             }catch( e:Error ){
-                failed(e);
+                status = e;
+                failed();
             }
             return this;
         }
@@ -98,7 +113,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param args
          * 
          */
-        public function stop(...args):void{
+        public function stop():void{
             _completeEventListener.clear();
             _errorEventListener.clear();
         }
@@ -180,7 +195,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param value
          * 
          */
-        public function done( value:Object = null ):void{
+        protected function done():void{
             dispatchEvent( CommandEvent.createCompleteEvent( this, result ) );
             stop();
         } 
@@ -190,18 +205,16 @@ package org.seasar.akabana.yui.command.core.impl
          * @param message
          * 
          */
-        public function failed( value:Object = null ):void{
+        protected function failed():void{
             dispatchEvent( CommandEvent.createErrorEvent( this, status ) );
             stop();
         }
 
         /**
          * 
-         * @param args
-         * 
          */
-        protected function run( ...args ):void{
+        protected function run():void{
             throw new Error( "no implements" );
-        }     
+        } 
     }
 }

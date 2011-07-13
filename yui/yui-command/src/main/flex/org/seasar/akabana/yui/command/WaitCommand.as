@@ -35,7 +35,7 @@ package org.seasar.akabana.yui.command
             return super.toString()+"{"+_sleep+"}";
         }
         
-        protected override function run(...args):void{
+        protected override function run():void{
             _timer = createTimer();
             _timer.start();
         }

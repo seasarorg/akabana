@@ -17,8 +17,6 @@ package org.seasar.akabana.yui.command
 {
     import org.seasar.akabana.yui.command.core.impl.AbstractSubCommand;
     
-    public class Command extends AbstractSubCommand{
-        protected override function run(...args):void{
-        }
+    public class Command extends AbstractSubCommand {
     }
 }

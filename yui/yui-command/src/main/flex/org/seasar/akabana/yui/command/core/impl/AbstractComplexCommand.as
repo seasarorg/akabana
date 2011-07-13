@@ -39,11 +39,6 @@ package org.seasar.akabana.yui.command.core.impl
         /**
          * 
          */
-        protected var _commandArguments:Array;
-        
-        /**
-         * 
-         */
         protected var _childCompleteEventListener:EventListener;
         
         /**
@@ -129,9 +124,9 @@ package org.seasar.akabana.yui.command.core.impl
          * @param index
          * 
          */
-        protected function doStartCommandAt(index:int):ICommand{
+        protected function doStartCommandAt(index:int,args:Array):ICommand{
             var command:ICommand = _commands[ index ];
-            new FunctionInvoker(command.start as Function,_commandArguments).invokeDelay();
+            new FunctionInvoker(command.start as Function,args).invokeDelay();
             return command;
         }         
                 

@@ -29,8 +29,8 @@ package org.seasar.akabana.yui.command
             _callback = callback;
         }
         
-        protected override function run(...args):void{
-            result = _callback.apply(null,args);
+        protected override function run():void{
+            result = _callback.apply(null,_arguments);
         }
     }
 }

@@ -43,6 +43,14 @@ package org.seasar.akabana.yui.command.core
         function name(value:String):ICommand;
         
         /**
+         * コマンドの引数を指定
+         * 
+         * @param value 名前
+         * 
+         */
+        function arguments(...args):ICommand;
+        
+        /**
          * コマンドを開始する
          * 
          * @param args コマンド引数
@@ -54,7 +62,7 @@ package org.seasar.akabana.yui.command.core
          * コマンドを停止する
          * 
          */        
-        function stop(...args):void;
+        function stop():void;
         
         /**
          * コマンド完了イベントリスナーを設定する
