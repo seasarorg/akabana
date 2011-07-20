@@ -28,6 +28,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
 	import org.seasar.akabana.yui.framework.logging.debug;
 	import org.seasar.akabana.yui.framework.core.InstanceCache;
+	import org.seasar.akabana.yui.framework.convention.NamingConvention;
 
     [ExcludeClass]
     public class HelperCustomizer extends AbstractComponentCustomizer implements IComponentCustomizer {
@@ -39,7 +40,7 @@ package org.seasar.akabana.yui.framework.customizer
 
             try {
                 //
-                const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                const action:Object = viewProperties[NamingConvention.ACTION];
                 
                 if(action == null) {
                     //no action
@@ -47,11 +48,11 @@ package org.seasar.akabana.yui.framework.customizer
                     CONFIG::DEBUG {
                         _debug("Customizing",viewClassName,helperClassName);
                     }
-                    viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = {};
+                    viewProperties[NamingConvention.HELPER] = {};
                     setHelperProperties(container,action);
                     
                     //
-                    const behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                    const behaviors:Array = viewProperties[NamingConvention.BEHAVIOR];
                     if(behaviors != null) {
                         for each( var behavior:Object in behaviors){
                             setHelperProperties(container,behavior);
@@ -78,7 +79,7 @@ package org.seasar.akabana.yui.framework.customizer
                     _debug("Uncustomizing",viewClassName,helperClassName);
                 }
                 //
-                const helperMap:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+                const helperMap:Object = viewProperties[NamingConvention.HELPER];
                 for each( var helper:Object in helperMap){
                     if( helper is ILifeCyclable ){
                         (helper as ILifeCyclable).stop();
@@ -86,8 +87,8 @@ package org.seasar.akabana.yui.framework.customizer
                     //
                     setPropertiesValue(helper,viewClassName,null);
                 }
-                viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()] = null;
-                delete viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+                viewProperties[NamingConvention.HELPER] = null;
+                delete viewProperties[NamingConvention.HELPER];
                 //
                 CONFIG::DEBUG {
                     _debug("Uncustomized",viewClassName,helperClassName);
@@ -104,7 +105,7 @@ package org.seasar.akabana.yui.framework.customizer
             const viewClassName:String = getCanonicalName(view);
             const helperClassName:String = YuiFrameworkGlobals.namingConvention.getHelperClassName(viewClassName);
             
-            const helperMap:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+            const helperMap:Object = viewProperties[NamingConvention.HELPER];
             const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
             for each( var helper:Object in helperMap){
                 var helperClassRef:ClassRef = getClassRef(helper);
@@ -120,7 +121,7 @@ package org.seasar.akabana.yui.framework.customizer
             const viewClassName:String = getCanonicalName(view);
             const helperClassName:String = YuiFrameworkGlobals.namingConvention.getHelperClassName(viewClassName);
             
-            const helperMap:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+            const helperMap:Object = viewProperties[NamingConvention.HELPER];
             const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
             for each( var helper:Object in helperMap){
                 var helperClassRef:ClassRef = getClassRef(helper);
@@ -136,7 +137,7 @@ package org.seasar.akabana.yui.framework.customizer
             const viewProperties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
             const targetClassRef:ClassRef = getClassRef(obj);
-            const helperMap:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+            const helperMap:Object = viewProperties[NamingConvention.HELPER];
             CONFIG::FP9 {
                 const props:Array =
                     targetClassRef.properties.filter(

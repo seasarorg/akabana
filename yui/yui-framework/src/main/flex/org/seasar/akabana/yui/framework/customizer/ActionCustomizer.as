@@ -31,6 +31,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
 	import org.seasar.akabana.yui.framework.logging.debug;
 	import org.seasar.akabana.yui.framework.core.InstanceCache;
+	import org.seasar.akabana.yui.framework.convention.NamingConvention;
 
     [ExcludeClass]
     public class ActionCustomizer extends AbstractComponentCustomizer {
@@ -49,7 +50,7 @@ package org.seasar.akabana.yui.framework.customizer
                 const actionClassRef:ClassRef = getClassRef(actionClassName);
                 const action:Object = InstanceCache.newInstance(actionClassRef);
                 
-                viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = action;
+                viewProperties[NamingConvention.ACTION] = action;
                 
                 if( action is ILifeCyclable ){
                     (action as ILifeCyclable).start();
@@ -74,13 +75,13 @@ package org.seasar.akabana.yui.framework.customizer
                 CONFIG::DEBUG {
                     _debug("Uncustomizing",viewClassName,actionClassName);
                 }
-                const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                const action:Object = viewProperties[NamingConvention.ACTION];
                 if( action is ILifeCyclable ){
                     (action as ILifeCyclable).stop();
                 }
                 //
-                viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()] = null;
-                delete viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                viewProperties[NamingConvention.ACTION] = null;
+                delete viewProperties[NamingConvention.ACTION];
                 //
                 CONFIG::DEBUG {
                     _debug("Uncustomized",viewClassName,actionClassName);

@@ -31,6 +31,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
 	import org.seasar.akabana.yui.framework.logging.debug;
+	import org.seasar.akabana.yui.framework.convention.NamingConvention;
 	
     use namespace mx_internal;
 
@@ -42,7 +43,7 @@ package org.seasar.akabana.yui.framework.customizer
             const ownerName:String = YuiFrameworkGlobals.namingConvention.getComponentName(owner);
             const ownerClassName:String = getCanonicalName(component);
             const ownerProperties:Object = UIComponentUtil.getProperties(owner);
-            const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            const ownerAction_:Object = ownerProperties[NamingConvention.ACTION];
             
             if(ownerAction_ != null) {
                 const actionClassRef:ClassRef = getClassRef(ownerAction_);
@@ -82,7 +83,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
             //
-            const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+            const ownerBehaviors_:Array = ownerProperties[NamingConvention.BEHAVIOR];
             
             if(ownerBehaviors_ != null) {
                 var behaviorClassRef:ClassRef;
@@ -132,7 +133,7 @@ package org.seasar.akabana.yui.framework.customizer
             const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
             const viewProperties:Object = UIComponentUtil.getProperties(view);
             //
-            const action_:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            const action_:Object = viewProperties[NamingConvention.ACTION];
 
             if(action_ != null) {
                 CONFIG::DEBUG {
@@ -146,7 +147,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
             //
-            const behaviors_:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+            const behaviors_:Array = viewProperties[NamingConvention.BEHAVIOR];
 
             if(behaviors_ != null) {
                 var behaviorClassName:String;
@@ -173,7 +174,7 @@ package org.seasar.akabana.yui.framework.customizer
             const componentName:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
             const ownerClassName:String = getCanonicalName(owner);
             const ownerProperties:Object = UIComponentUtil.getProperties(owner);
-            const ownerAction_:Object = ownerProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            const ownerAction_:Object = ownerProperties[NamingConvention.ACTION];
             
             if(ownerAction_ != null) {
                 const actionClassRef:ClassRef = getClassRef(ownerAction_);
@@ -211,7 +212,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
             //
-            const ownerBehaviors_:Array = ownerProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+            const ownerBehaviors_:Array = ownerProperties[NamingConvention.BEHAVIOR];
             
             if(ownerBehaviors_ != null) {
                 var behaviorClassRef:ClassRef;
@@ -259,7 +260,7 @@ package org.seasar.akabana.yui.framework.customizer
             const viewClassName:String = getCanonicalName(view);
             const actionClassName:String = YuiFrameworkGlobals.namingConvention.getActionClassName(viewClassName);
 
-            const action_:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            const action_:Object = viewProperties[NamingConvention.ACTION];
 
             if(action_ != null) {
                 CONFIG::DEBUG {
@@ -273,7 +274,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
             //
-            const behaviors_:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+            const behaviors_:Array = viewProperties[NamingConvention.BEHAVIOR];
 
             if(behaviors_ != null) {
                 var behaviorClassName:String;

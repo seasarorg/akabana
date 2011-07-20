@@ -35,13 +35,13 @@ package org.seasar.akabana.yui.framework.customizer
             const viewClassName:String = getCanonicalName(view);
             
             try {
-                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                const action:Object = properties[NamingConvention.ACTION];
                 
                 if(action == null) {
                     //no action 
                 } else {
                     processCustomize(action);
-                    const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                    const behaviors:Array = properties[NamingConvention.BEHAVIOR];
                     if(behaviors != null) {
                         for each(var behavior:Object in behaviors) {
                             processCustomize(behavior);
@@ -60,13 +60,13 @@ package org.seasar.akabana.yui.framework.customizer
             const viewClassName:String = getCanonicalName(view);
             
             try {
-                const action:Object = properties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                const action:Object = properties[NamingConvention.ACTION];
                 
                 if(action != null) {
                     processUncustomize(action);
                 }
                 
-                const behaviors:Array = properties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                const behaviors:Array = properties[NamingConvention.BEHAVIOR];
                 if(behaviors != null) {
                     for each(var behavior:Object in behaviors) {
                         processUncustomize(behavior);

@@ -28,6 +28,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
 	import org.seasar.akabana.yui.framework.logging.debug;
 	import org.seasar.akabana.yui.framework.core.InstanceCache;
+	import org.seasar.akabana.yui.framework.convention.NamingConvention;
 
     [ExcludeClass]
     public class BehaviorCustomizer extends AbstractComponentCustomizer {
@@ -38,7 +39,7 @@ package org.seasar.akabana.yui.framework.customizer
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             
             try {
-                const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+                const action:Object = viewProperties[NamingConvention.ACTION];
                 if( action == null ){
                     //no action
                 } else {
@@ -50,7 +51,7 @@ package org.seasar.akabana.yui.framework.customizer
                         var props:Vector.<PropertyRef> = actionClassRef.properties;
                     }
     
-                    var behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()] = [];
+                    var behaviors:Array = viewProperties[NamingConvention.BEHAVIOR] = [];
                     var behavior:Object;
                     for each(var prop:PropertyRef in props) {
                         if( YuiFrameworkGlobals.namingConvention.isBehaviorOfView( viewClassName, prop.typeClassRef.name )){
@@ -90,7 +91,7 @@ package org.seasar.akabana.yui.framework.customizer
             const viewProperties:Object = UIComponentUtil.getProperties(view);
             const viewName:String = YuiFrameworkGlobals.namingConvention.getComponentName(view);
             const viewClassName:String = getCanonicalName(view);
-            const action:Object = viewProperties[YuiFrameworkGlobals.namingConvention.getActionPackageName()];
+            const action:Object = viewProperties[NamingConvention.ACTION];
             if( action == null ){
                 return;
             }
@@ -103,7 +104,7 @@ package org.seasar.akabana.yui.framework.customizer
                     var props:Vector.<PropertyRef> = actionClassRef.properties;
                 }
 
-                var behaviors:Array = viewProperties[YuiFrameworkGlobals.namingConvention.getBehaviorPackageName()];
+                var behaviors:Array = viewProperties[NamingConvention.BEHAVIOR];
                 var behaviorClassName:String;
                 for each(var behavior:Object in behaviors) {
 

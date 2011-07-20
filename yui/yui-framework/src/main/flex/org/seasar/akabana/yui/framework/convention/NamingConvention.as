@@ -41,14 +41,11 @@ CONFIG::FP10{
         public static const COMMAND_SUFFIX:String = "Command";
         public static const VALIDATOR_SUFFIX:String = "Validator";
         public static const BEHAVIOR_SUFFIX:String = "Behavior";
-
-        public static const VIEW_PATH_REG:RegExp = /^(.+)\.view\.(.+?)View$/;
-        public static const HELPER_PATH_REG:RegExp = /^(.+)\.(.+)\.(.+?)Helper$/;
-        public static const ACTION_PATH_REG:RegExp = /^(.+)\.action\.(.+?)Action$/;
-
-        public static const VIEW_NAME_REG:RegExp = /^(.+?)View$/;
-        public static const HELPER_NAME_REG:RegExp = /^(.+?)Helper$/;
-        public static const ACTION_NAME_REG:RegExp = /^(.+?)Action$/;
+        
+        public static const VIEW_NAME_REG_SUFFIX:String = VIEW_SUFFIX+"|"+VIEW_SUFFIX+"_.+?";
+        public static const VIEW_PATH_REG:RegExp = new RegExp("^(.+)\." + VIEW +"\.(.+?)" + VIEW_NAME_REG_SUFFIX + PATH_REG_SUFFIX );// /^(.+)\.view\.(.+?)(View|View_.+?)$/;
+        public static const HELPER_PATH_REG:RegExp = new RegExp("^(.+)\." + HELPER +"\.(.+?)" + HELPER_SUFFIX + PATH_REG_SUFFIX );// /^(.+)\.helper\.(.+?)Helper$/;
+        public static const ACTION_PATH_REG:RegExp = new RegExp("^(.+)\." + ACTION +"\.(.+?)" + ACTION_SUFFIX + PATH_REG_SUFFIX );// /^(.+)\.action\.(.+?)Action$/;
 
         public static const HANDLER_SUFFIX:String = "Handler";
         public static const OWN_HANDLER_PREFIX:String = "on";
@@ -88,104 +85,22 @@ CONFIG::FP10{
         public function NamingConvention(){
         }
 
-        public function getViewPackageName():String{
-            return VIEW;
-        }
-
-        public function getHelperPackageName():String{
-            return HELPER;
-        }
-
-        public function getActionPackageName():String{
-            return ACTION;
-        }
-
-        public function getServicePackageName():String{
-            return SERVICE;
-        }
-
-        public function getCommandPackageName():String{
-            return COMMAND;
-        }
-
-        public function getValidatorPackageName():String{
-            return VALIDATOR;
-        }
-
-        public function getBehaviorPackageName():String{
-            return BEHAVIOR;
-        }
-
-        public function getViewSuffix():String{
-            return VIEW_SUFFIX;
-        }
-
-        public function getHelperSuffix():String{
-            return HELPER_SUFFIX;
-        }
-
-        public function getActionSuffix():String{
-            return ACTION_SUFFIX;
-        }
-
-        public function getServiceSuffix():String{
-            return SERVICE_SUFFIX;
-        }
-
-        public function getCommandSuffix():String{
-            return COMMAND_SUFFIX;
-        }
-
-        public function getValidatorSuffix():String{
-            return VALIDATOR_SUFFIX;
-        }
-
-        public function getBehaviorSuffix():String{
-            return BEHAVIOR_SUFFIX;
-        }
-
-//        public function getViewName( varName:String ):String{
-//            var viewName:String = null;
-//
-//            var classPathArray:Array = varName.match(HELPER_NAME_REG);
-//            if( classPathArray.length <= 1 ){
-//                classPathArray = varName.match(ACTION_NAME_REG);
-//            }
-//            if( classPathArray.length > 1 ){
-//                viewName = classPathArray[1] + getViewSuffix();
-//            }
-//            return viewName;
-//        }
-
-//        public function getViewClassName( fullClassName:String ):String{
-//            var viewName:String = null;
-//
-//            var classPathArray:Array = fullClassName.match(HELPER_PATH_REG);
-//            if( classPathArray.length <= 1 ){
-//                classPathArray = fullClassName.match(ACTION_PATH_REG);
-//            }
-//            if( classPathArray.length > 1 ){
-//                viewName = classPathArray[1] + DOT + getViewPackageName() + DOT + classPathArray[classPathArray.length-1] + getViewSuffix();
-//            }
-//            return viewName;
-//        }
-
         public function getActionClassName( viewClassName:String ):String{
-            return changeViewPackageTo( viewClassName, getActionPackageName(), getActionSuffix() );
+            return changeViewPackageTo( viewClassName, ACTION, ACTION_SUFFIX );
         }
 
         public function getHelperClassName( viewClassName:String ):String{
-            return changeViewPackageTo( viewClassName, getHelperPackageName(), getHelperSuffix());
+            return changeViewPackageTo( viewClassName, HELPER, HELPER_SUFFIX);
         }
 
         public function getValidatorClassName( viewClassName:String ):String
         {
-            return changeViewPackageTo( viewClassName, getValidatorPackageName(), getValidatorSuffix() );
+            return changeViewPackageTo( viewClassName, VALIDATOR, VALIDATOR_SUFFIX );
         }
         
         public function getBehaviorClassName( viewClassName:String ):String
         {
-            return changeViewPackageTo( viewClassName, getBehaviorPackageName(), getBehaviorSuffix() );
+            return changeViewPackageTo( viewClassName, BEHAVIOR, BEHAVIOR_SUFFIX );
         }
         
         public function getHandlerSuffix():String{
@@ -202,39 +117,39 @@ CONFIG::FP10{
         }
         
         public function isHelperName( varName:String ):Boolean{
-            return checkVarName(varName,getHelperSuffix());
+            return checkVarName(varName,HELPER_SUFFIX);
         }
         
         public function isActionName( varName:String ):Boolean{
-            return checkVarName(varName,getActionSuffix());
+            return checkVarName(varName,ACTION_SUFFIX);
         }
 
         public function isViewClassName( className:String ):Boolean{
-            return checkClassFullName(className,getViewPackageName(),getViewSuffix());
+            return checkClassFullName(className,VIEW,VIEW_NAME_REG_SUFFIX);
         }
 
         public function isHelperClassName( className:String ):Boolean{
-            return checkClassFullName(className,getHelperPackageName(),getHelperSuffix());
+            return checkClassFullName(className,HELPER,HELPER_SUFFIX);
         }
 
         public function isActionClassName( className:String ):Boolean{
-            return checkClassFullName(className,getActionPackageName(),getActionSuffix());
+            return checkClassFullName(className,ACTION,ACTION_SUFFIX);
         }
 
         public function isServiceClassName( className:String ):Boolean{
-            return checkClassName(className,getServiceSuffix());
+            return checkClassName(className,SERVICE_SUFFIX);
         }
 
         public function isCommandClassName( className:String ):Boolean{
-            return checkClassName(className,getCommandSuffix());
+            return checkClassName(className,COMMAND_SUFFIX);
         }
 
         public function isValidatorClassName( className:String ):Boolean{
-            return checkClassFullName(className,getValidatorPackageName(),getValidatorSuffix());
+            return checkClassFullName(className,VALIDATOR,VALIDATOR_SUFFIX);
         }
 
         public function isBehaviorClassName( className:String ):Boolean{
-            return checkClassFullName(className,getBehaviorPackageName(),getBehaviorSuffix());
+            return checkClassFullName(className,BEHAVIOR,BEHAVIOR_SUFFIX);
         }
         
         public function getEventName(functionName:String,functionUri:String,componentName:String):String {
@@ -258,15 +173,6 @@ CONFIG::FP10{
             }
             return result;
         }
-        
-//        public function isActionOfView(viewClassName:String,actionClassName:String):Boolean{
-//            var result:Boolean = false;
-//            var viewActionClassName:String = getActionClassName(viewClassName);
-//            var viewActionName:String = viewActionClassName.substring(0,viewActionClassName.lastIndexOf(ACTION_SUFFIX));
-//            result = actionClassName.indexOf(viewActionName) == 0;
-//            
-//            return result;
-//        }
         
         public function isHelperOfView(viewClassName:String,helperClassName:String):Boolean{
             var result:Boolean = false;
@@ -299,7 +205,6 @@ CONFIG::FP10{
         
         protected function checkClassFullName( className:String, packageName:String, suffix:String ):Boolean{
             var isTarget:Boolean = false;
-
             for each( var rootPath:String in _conventions ){
                 if( className.indexOf(rootPath) == 0 ){
                     var subPath:String = className.substring(rootPath.length);

@@ -30,6 +30,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.util.CatalystGroupUtil;
 	import org.seasar.akabana.yui.framework.logging.debug;
 	import org.seasar.akabana.yui.framework.ns.viewpart;
+    import org.seasar.akabana.yui.framework.convention.NamingConvention;
 
     [ExcludeClass]
     public class CatalystHelperCustomizer extends HelperCustomizer {
@@ -45,7 +46,7 @@ package org.seasar.akabana.yui.framework.customizer
                 CONFIG::DEBUG {
                     _debug("Customizing",viewClassName,helperClassName);
                 }
-                const helper:Object = properties[YuiFrameworkGlobals.namingConvention.getHelperPackageName()];
+                const helper:Object = properties[NamingConvention.HELPER];
                 const helperClassRef:ClassRef = getClassRef(helper);
 
                 //
