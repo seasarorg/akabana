@@ -132,7 +132,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 
                 setPropertiesValue(validator,viewClassName,container);
-                setViewComponents(container,validatorClassRef,validator);
+                setViewParts(container,validatorClassRef,validator);
 
                 prop.setValue(obj,validator);
                 //
@@ -141,19 +141,21 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
         }
-
-        protected function setViewComponents(container:UIComponent,validatorClassRef:ClassRef,validator:Object):void{
+        
+        protected function setViewParts(container:UIComponent,validatorClassRef:ClassRef,validator:Object):void{
+            const ns:Namespace = viewpart;
             CONFIG::FP9 {
-                const viewProps:Array = getClassRef(container).properties;
+                const validatorProps:Array = validatorClassRef.properties;
             }
             CONFIG::FP10 {
-                const viewProps:Vector.<PropertyRef> = getClassRef(container).properties;
+                const validatorProps:Vector.<PropertyRef> = validatorClassRef.properties;
             }
-            var validatorPropRef:PropertyRef;
-            for each(var viewProp:PropertyRef in viewProps) {
-                validatorPropRef = validatorClassRef.getPropertyRef(viewProp.name);
-                if( validatorPropRef != null && validatorPropRef.uri == viewpart.toString()){
-                    validatorPropRef.setValue(validator,viewProp.getValue(container));                   
+            
+            for each(var validatorProp:PropertyRef in validatorProps) {
+                if( validatorProp.uri == ns.uri){
+                    if( validatorProp.name in container ){
+                        validatorProp.setValue(validator,container[validatorProp.name]);
+                    }
                 }
             }       
         }

@@ -167,7 +167,7 @@ package org.seasar.akabana.yui.framework.customizer
                 }
                 
                 setPropertiesValue(helper,viewClassName,container);
-                setViewComponents(container,helperClassRef,helper);
+                setViewParts(container,helperClassRef,helper);
 
                 prop.setValue(obj,helper);
                 //
@@ -177,18 +177,20 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        protected function setViewComponents(container:UIComponent,helperClassRef:ClassRef,helper:Object):void{
+        protected function setViewParts(container:UIComponent,helperClassRef:ClassRef,helper:Object):void{
+            const ns:Namespace = viewpart;
             CONFIG::FP9 {
-                const viewProps:Array = getClassRef(container).properties;
+                const helperProps:Array = helperClassRef.properties;
             }
             CONFIG::FP10 {
-                const viewProps:Vector.<PropertyRef> = getClassRef(container).properties;
+                const helperProps:Vector.<PropertyRef> = helperClassRef.properties;
             }
-            var helperPropRef:PropertyRef;
-            for each(var viewProp:PropertyRef in viewProps) {
-                helperPropRef = helperClassRef.getPropertyRef(viewProp.name);
-                if( helperPropRef != null && helperPropRef.uri == viewpart.toString()){
-                    helperPropRef.setValue(helper,viewProp.getValue(container));                   
+            
+            for each(var helperProp:PropertyRef in helperProps) {
+                if( helperProp.uri == ns.uri){
+                    if( helperProp.name in container ){
+                        helperProp.setValue(helper,container[helperProp.name]);
+                    }
                 }
             }       
         }
