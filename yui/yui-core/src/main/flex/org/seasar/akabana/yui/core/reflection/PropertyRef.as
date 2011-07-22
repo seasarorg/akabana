@@ -17,6 +17,12 @@ package org.seasar.akabana.yui.core.reflection
 {
     public class PropertyRef extends AnnotatedObjectRef
     {
+        
+        private static const WRITE_ONLY:String = "writeonly";
+        
+        private static const READ_ONLY:String = "readonly";
+        
+        private static const READ_WRITE:String = "readwrite";
 
         private var _isReadable:Boolean;
 
@@ -78,8 +84,8 @@ package org.seasar.akabana.yui.core.reflection
 
         private function assembleThis( rootDescribeTypeXml:XML ):void{
             var access:String = rootDescribeTypeXml.@access.toString();
-            _isReadable = ( access == "readonly" || access == "readwrite" );
-            _isWriteable = ( access == "writeonly" || access == "readwrite" );
+            _isReadable = ( access == READ_ONLY || access == READ_WRITE );
+            _isWriteable = ( access == WRITE_ONLY || access == READ_WRITE );
             _type = getTypeString(rootDescribeTypeXml.@type.toString());
             _declaredBy = getTypeString(rootDescribeTypeXml.@declaredBy.toString());
         }

@@ -17,8 +17,10 @@ package org.seasar.akabana.yui.util
 {
     public class ArrayUtil
     {
+        private static const _UID_:String = "uid";
+        
         public static function toUidMap(value:Array,key:String=null):Object{
-            return toMap(value,"uid");
+            return toMap(value,_UID_);
         }
         
         public static function toMap(value:Array,key:String=null):Object{

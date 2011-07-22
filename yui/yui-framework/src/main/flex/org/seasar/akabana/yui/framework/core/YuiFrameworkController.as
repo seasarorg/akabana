@@ -105,6 +105,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public override function customizeView( container:DisplayObjectContainer ):void{
+            var viewCustomizer_:IViewCustomizer;
             var view:UIComponent = container as UIComponent;
             if( view == null && !isView(view) ){   
                 return;
@@ -120,12 +121,11 @@ package org.seasar.akabana.yui.framework.core
             }
             currentSystemManger = view.systemManager;
             //
-            processViewRegister(view);
-            var viewcustomizer_:IViewCustomizer; 
+            processViewRegister(view); 
             for each( var customizer_:IElementCustomizer in _customizers ){
-                viewcustomizer_ = customizer_ as IViewCustomizer;
-                if( viewcustomizer_ != null ){
-                    viewcustomizer_.customizeView( view );
+                viewCustomizer_ = customizer_ as IViewCustomizer;
+                if( viewCustomizer_ != null ){
+                    viewCustomizer_.customizeView( view );
                 }
             }
             if( view.hasEventListener(YuiFrameworkEvent.VIEW_INITIALIZED)){
@@ -137,6 +137,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public override function uncustomizeView( container:DisplayObjectContainer ):void{
+            var viewCustomizer_:IViewCustomizer;
             var view:UIComponent = container as UIComponent;
             if( !isView(view) ){   
                 return;
@@ -152,11 +153,10 @@ package org.seasar.akabana.yui.framework.core
             }
             currentSystemManger = view.systemManager;
             var numCustomizers:int = customizers.length;
-            var viewcustomizer_:IViewCustomizer;
             for( var i:int = numCustomizers-1; i >= 0; i-- ){
-                viewcustomizer_ = customizers[i] as IViewCustomizer;
-                if( viewcustomizer_ != null ){
-                    viewcustomizer_.uncustomizeView( view );
+                viewCustomizer_ = customizers[i] as IViewCustomizer;
+                if( viewCustomizer_ != null ){
+                    viewCustomizer_.uncustomizeView( view );
                 }
             }
             processViewUnregister(view);
@@ -166,6 +166,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public override function customizeComponent( container:DisplayObjectContainer, child:DisplayObject ):void{
+            var componentCustomizer_:IComponentCustomizer;
             var view:UIComponent = container as UIComponent;
             var component:UIComponent = child as UIComponent;
             if( !view.initialized || !component.initialized){     
@@ -178,11 +179,10 @@ package org.seasar.akabana.yui.framework.core
                 _debug("ComponentCustomizing",child,container);
             }
             currentSystemManger = view.systemManager;
-            var componentcustomizer_:IComponentCustomizer;
             for each( var customizer_:IElementCustomizer in _customizers ){
-                componentcustomizer_ = customizer_ as IComponentCustomizer;
-                if( componentcustomizer_ != null ){
-                    componentcustomizer_.customizeComponent( view, component );
+                componentCustomizer_ = customizer_ as IComponentCustomizer;
+                if( componentCustomizer_ != null ){
+                    componentCustomizer_.customizeComponent( view, component );
                 }
             }
             CONFIG::DEBUG{
@@ -191,6 +191,7 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public override function uncustomizeComponent( container:DisplayObjectContainer, child:DisplayObject ):void{
+            var componentCustomizer_:IComponentCustomizer;
             var view:UIComponent = container as UIComponent;
             var component:UIComponent = child as UIComponent;
             if( !view.initialized ){     
@@ -204,11 +205,10 @@ package org.seasar.akabana.yui.framework.core
             }
             currentSystemManger = view.systemManager;
             var numCustomizers:int = customizers.length;
-            var componentcustomizer_:IComponentCustomizer;
             for( var i:int = numCustomizers-1; i >= 0; i-- ){
-                componentcustomizer_ = customizers[i] as IComponentCustomizer;
-                if( componentcustomizer_ != null ){
-                    componentcustomizer_.uncustomizeComponent( view, component );
+                componentCustomizer_ = customizers[i] as IComponentCustomizer;
+                if( componentCustomizer_ != null ){
+                    componentCustomizer_.uncustomizeComponent( view, component );
                 }
             }
             CONFIG::DEBUG{
@@ -326,9 +326,10 @@ package org.seasar.akabana.yui.framework.core
             if( root is SystemManager ){
                 var sm:SystemManager = root as SystemManager;
                 var preloadedRSLs:Dictionary = sm.preloadedRSLs;
+                var loaderInfo:LoaderInfo;
                 
                 for( var item:Object in preloadedRSLs ){
-                    var loaderInfo:LoaderInfo = item as LoaderInfo;
+                    loaderInfo = item as LoaderInfo;
                     CONFIG::DEBUG{
                         debug(this,"preloadedRSLs:"+loaderInfo.url);
                     }

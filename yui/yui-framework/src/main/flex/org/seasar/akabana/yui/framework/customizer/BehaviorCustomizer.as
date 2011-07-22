@@ -127,7 +127,5 @@ package org.seasar.akabana.yui.framework.customizer
                 }
             }
         }
-
-
     }
 }

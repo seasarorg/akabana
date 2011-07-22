@@ -70,9 +70,9 @@ package org.seasar.akabana.yui.core.reflection
         private function assembleThis( rootDescribeTypeXml:XML ):void{
             _index = parseInt( rootDescribeTypeXml.@index.toString());
             _type = getTypeString(rootDescribeTypeXml.@type.toString());
-            _optional = ( rootDescribeTypeXml.@type.toString() == "true");
+            _optional = ( rootDescribeTypeXml.@type.toString() == ObjectRef.BOOL_TRUE);
 
-            _isAnyType = ( _type == "*" );
+            _isAnyType = ( _type == ObjectRef.TYPE_ANY );
         }
 
         protected override function getName( rootDescribeTypeXml:XML ):String{

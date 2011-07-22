@@ -16,7 +16,11 @@
 package org.seasar.akabana.yui.core.reflection
 {
     internal class ObjectRef implements Reflector {
-
+        
+        internal static const BOOL_TRUE:String = "true";
+        
+        internal static const BOOL_FALSE:String = "false";
+        
         internal static const CLASS_NAME_SEPARATOR:String = "::";
 
         internal static const DOT:String = ".";

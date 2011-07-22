@@ -28,11 +28,14 @@ CONFIG::FP10{
 
     public class ClassRef extends AnnotatedObjectRef
     {
+        
         public static const ARRAY_CLASS:String = "Array";
         
         public static const VECTOR_CLASS:String = "__AS3__.vec.Vector.<";
 
         public static var classLoader:ClassLoader = new ClassLoader();
+        
+        private static const _UNDER_:String = _UNDER_;
 
         private static const CLASS_REF_CACHE:Dictionary = new Dictionary();
         
@@ -84,7 +87,7 @@ CONFIG::FP10{
             const declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
             const uri_:String = rootDescribeTypeXml.@uri.toString();
 
-            return (name_.indexOf("_") != 0) && 
+            return (name_.indexOf(_UNDER_) != 0) && 
 				(!(
 	                excludeDeclaredByFilterRegExp.test(declaredBy_) ||
 	                excludeUriFilterRegExp.test(uri_)
@@ -96,7 +99,7 @@ CONFIG::FP10{
             const declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
             const uri_:String = rootDescribeTypeXml.@uri.toString();
 
-            return (name_.indexOf("_") != 0) &&
+            return (name_.indexOf(_UNDER_) != 0) &&
 				(!(
 	                excludeDeclaredByFilterRegExp.test(declaredBy_) ||
 	                excludeUriFilterRegExp.test(uri_)
@@ -108,7 +111,7 @@ CONFIG::FP10{
 			const declaredBy_:String = rootDescribeTypeXml.@declaredBy.toString();
             const uri_:String = rootDescribeTypeXml.@uri.toString();
 
-            return (name_.indexOf("_") != 0) &&
+            return (name_.indexOf(_UNDER_) != 0) &&
 				(!(
 	                excludeDeclaredByFilterRegExp.test(declaredBy_) ||
 	                excludeUriFilterRegExp.test(uri_)

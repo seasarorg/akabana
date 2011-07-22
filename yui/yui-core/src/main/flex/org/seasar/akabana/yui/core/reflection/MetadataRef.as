@@ -74,9 +74,11 @@ CONFIG::FP10{
             _argMap = {};
 
             var argsXMLList:XMLList = rootDescribeTypeXml.arg;
+            var name:String;
+            var value:Object;
             for each( var argXML:XML in argsXMLList ){
-                var name:String = argXML.@key.toString();
-                var value:Object = argXML.@value.toString();
+                name = argXML.@key.toString();
+                value = argXML.@value.toString();
 
                 _args.push( name );
                 _argMap[ name ] = value;
