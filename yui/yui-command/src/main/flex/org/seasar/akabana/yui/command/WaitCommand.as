@@ -56,7 +56,7 @@ package org.seasar.akabana.yui.command
                 _timer.removeEventListener(TimerEvent.TIMER,timerHandler,false);
                 _timer = null;
             }
-            done();
+            doDoneCommand();
         }
     }
 }
