@@ -378,18 +378,20 @@ package org.seasar.akabana.yui.framework.core
             const keys:Array = [];
             
             var customizers:Object = {};
-            if (defaultFactory != null)
-            {
+            var customizer:Class;
+            var numKeys:int;
+            
+            if (defaultFactory != null){
                 defaultFactory.prototype = {};
                 customizers = new defaultFactory();
             }
             
-            var customizer:Class;
             for( var key:String in customizers ){
                 keys.push(key);
             }
             keys.sort();
-            for( var i:int = 0; i < keys.length; i++ ){                
+            numKeys = keys.length;
+            for( var i:int = 0; i < numKeys; i++ ){
                 customizer = customizers[keys[i]] as Class;
                 result.push(customizer);
             }
