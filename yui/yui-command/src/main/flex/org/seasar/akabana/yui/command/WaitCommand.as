@@ -25,6 +25,14 @@ package org.seasar.akabana.yui.command
         protected var _timer:Timer;
         
         protected var _sleep:int;
+
+        public function get sleep():int{
+            return _sleep;
+        }
+
+        public function set sleep(value:int):void{
+            _sleep = value;
+        }
         
         public function WaitCommand(sleep:int=0){
             super();

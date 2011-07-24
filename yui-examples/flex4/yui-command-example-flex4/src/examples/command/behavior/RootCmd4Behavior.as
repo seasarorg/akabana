@@ -1,6 +1,5 @@
 package examples.command.behavior
 {
-    import examples.command.command.SampleCommand;
     import examples.command.command.SampleSwitchCommand;
     import examples.command.helper.RootHelper;
     

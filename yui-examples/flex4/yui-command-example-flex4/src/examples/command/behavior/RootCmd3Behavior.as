@@ -1,6 +1,5 @@
 package examples.command.behavior
 {
-    import examples.command.command.SampleCommand;
     import examples.command.helper.RootHelper;
     
     import org.seasar.akabana.yui.command.SequenceCommand;
@@ -14,13 +13,14 @@ package examples.command.behavior
         public var helper:RootHelper;
         
         /** 自作サンプルコマンド */        
-        public var cmd3:SampleCommand;
+        public var cmd3:WaitCommand;
         
         public function RootCmd3Behavior(){
         }
 
         handler function runCommand3_click():void{
             //コマンドスタート
+            cmd3.sleep = 1000;
             cmd3.start();
         }
         
