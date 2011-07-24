@@ -25,8 +25,8 @@ package org.seasar.akabana.yui.core.data
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     
     [ExcludeClass]
-    public class Converter
-    {   
+    public final class Converter {
+        
         private static var cloneBuffer:ByteArray = new ByteArray();
         
         private static var _instance:Converter;

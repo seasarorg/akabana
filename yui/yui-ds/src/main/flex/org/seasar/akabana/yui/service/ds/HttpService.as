@@ -70,28 +70,28 @@ package org.seasar.akabana.yui.service.ds
             }
             ServiceManager.addService( this );
         }
-		
-		public override function getOperation(name:String):AbstractOperation
-		{
-			var o:Object = _operations[name];
-			var op:AbstractOperation = null;
-			if( o != null && o is AbstractOperation){
-				op = o as AbstractOperation; 
-			}
-			if (op == null)
-			{
-				if( baseURL == null ){
-					baseURL = ServiceGatewayUrlResolver.resolve( destination );
-				}
-				if( ServiceGatewayUrlResolver.isLocalUrl(baseURL) ){
-					op = new LocalOperation(this, name, baseURL);
-					_operations[name] = op;
-				} else {
-					op = super.getOperation(name);
-				}
-			}
-			return op;
-		}
+        
+        public override function getOperation(name:String):AbstractOperation
+        {
+            var o:Object = _operations[name];
+            var op:AbstractOperation = null;
+            if( o != null && o is AbstractOperation){
+                op = o as AbstractOperation; 
+            }
+            if (op == null)
+            {
+                if( baseURL == null ){
+                    baseURL = ServiceGatewayUrlResolver.resolve( destination );
+                }
+                if( ServiceGatewayUrlResolver.isLocalUrl(baseURL) ){
+                    op = new LocalOperation(this, name, baseURL);
+                    _operations[name] = op;
+                } else {
+                    op = super.getOperation(name);
+                }
+            }
+            return op;
+        }
         
         public function finalizeResponder(responder:Object):void{
             for( var item:* in _pendingCallMap ){

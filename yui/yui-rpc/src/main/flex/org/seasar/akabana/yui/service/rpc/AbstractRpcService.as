@@ -66,8 +66,8 @@ package org.seasar.akabana.yui.service.rpc {
         public function get name():String{
             return _destination;
         }
-		public function set name(value:String):void{
-		}
+        public function set name(value:String):void{
+        }
 
         public function get destination():String{
             return _destination;

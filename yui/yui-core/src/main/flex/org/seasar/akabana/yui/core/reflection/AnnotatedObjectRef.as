@@ -19,7 +19,7 @@ CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
 
-    internal class AnnotatedObjectRef extends ObjectRef implements AnnotatedReflector{
+    internal class AnnotatedObjectRef extends ObjectRef implements AnnotatedReflector {
 
         private static const METADATA_HELP:String = "__go_to_definition_help";
 
@@ -42,15 +42,15 @@ CONFIG::FP10{
             }while(false);
             return isTarget;
         }
-		
-		private var _isInitialiedMetadata:Boolean;
+        
+        private var _isInitialiedMetadata:Boolean;
 CONFIG::FP9{
         private var _metadatas:Array;
 
         public function get metadatas():Array{
-			if( !_isInitialiedMetadata ){
-				assembleMetadataRef(describeType);
-			}
+            if( !_isInitialiedMetadata ){
+                assembleMetadataRef(describeType);
+            }
             return _metadatas;
         }
 }
@@ -58,9 +58,9 @@ CONFIG::FP10{
         private var _metadatas:Vector.<MetadataRef>;
 
         public function get metadatas():Vector.<MetadataRef>{
-			if( !_isInitialiedMetadata ){
-				assembleMetadataRef(describeType);
-			}
+            if( !_isInitialiedMetadata ){
+                assembleMetadataRef(describeType);
+            }
             return _metadatas;
         }
 }

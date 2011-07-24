@@ -18,8 +18,8 @@ package org.seasar.akabana.yui.core
     import flash.display.DisplayObject;
     import org.seasar.akabana.yui.core.ns.yui_internal;
 
-    public class Environment
-    {
+    public final class Environment {
+        
         private static var _parameters:Object = {};
 
         private static var _root:DisplayObject;
@@ -28,18 +28,10 @@ package org.seasar.akabana.yui.core
             return _parameters[ parameterName ];
         }
 
-        yui_internal static function set parameters( value:Object ):void{
-            _parameters = value;
-        }
-
         public static function get root():DisplayObject{
             return _root;
         }
-
-        yui_internal static function set root(value:DisplayObject):void{
-            _root = value;
-        }
-
+        
         public static function get url():String{
             if( _root == null ){
                 return null;
@@ -47,5 +39,14 @@ package org.seasar.akabana.yui.core
                 return _root.stage.loaderInfo.url;
             }
         }
+        
+        yui_internal static function setParameters( value:Object ):void{
+            _parameters = value;
+        }
+        
+        yui_internal static function setRoot(value:DisplayObject):void{
+            _root = value;
+        }
+
     }
 }

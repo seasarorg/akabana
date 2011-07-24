@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.core.InstanceCache;
     
     [ExcludeClass]
-    public class CommandCustomizer extends AbstractComponentCustomizer {
+    public final class CommandCustomizer extends AbstractComponentCustomizer {
         
         public override function customizeView(view:UIComponent):void {
             const properties:Object = UIComponentUtil.getProperties(view);

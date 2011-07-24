@@ -22,16 +22,16 @@ package org.seasar.akabana.yui.service
     import org.seasar.akabana.yui.util.URLUtil;
 
     [ExcludeClass]
-	[ResourceBundle("services")]
-    public final class ServiceGatewayUrlResolver
-    {
+    [ResourceBundle("services")]
+    public final class ServiceGatewayUrlResolver {
+        
         public static var defaultGateway:String;
         
         public static const GATEWAY_URL:String = "GatewayUrl";
         
-		public static const DEFAULT_GATEWAY_URL:String = "default"+GATEWAY_URL;
-		
-		private static const SERVICES:String = "services";
+        public static const DEFAULT_GATEWAY_URL:String = "default"+GATEWAY_URL;
+        
+        private static const SERVICES:String = "services";
         
         private static const LOCAL:String = "local://";
 
@@ -42,41 +42,41 @@ package org.seasar.akabana.yui.service
         public static function getLocalPackage( url:String ):String{
             return url.substr(LOCAL.length);
         }
-		
+        
         public static function resolve( destination:String ):String{
             var result:String = null;
             do{
-				//destination gateway
+                //destination gateway
                 
                 result = Environment.getParameterValue( destination + GATEWAY_URL );
                 if( !StringUtil.isEmpty(result) ){
                     break;
                 }
                 
-				result = ResourceManager.getInstance().getString( SERVICES, destination + GATEWAY_URL);
-				if( !StringUtil.isEmpty(result) ){
-					break;
-				}
-				
-				//defaultGateway				
-				result = ServiceGatewayUrlResolver.defaultGateway;
-				if( !StringUtil.isEmpty(result) ){
-					break;
-				}
+                result = ResourceManager.getInstance().getString( SERVICES, destination + GATEWAY_URL);
+                if( !StringUtil.isEmpty(result) ){
+                    break;
+                }
+                
+                //defaultGateway                
+                result = ServiceGatewayUrlResolver.defaultGateway;
+                if( !StringUtil.isEmpty(result) ){
+                    break;
+                }
                 
                 result = Environment.getParameterValue( DEFAULT_GATEWAY_URL );
                 if( !StringUtil.isEmpty(result) ){
                     ServiceGatewayUrlResolver.defaultGateway = result;
                     break;
                 }
-				
-				result = ResourceManager.getInstance().getString( SERVICES, DEFAULT_GATEWAY_URL);
-				if( !StringUtil.isEmpty(result) ){
-					ServiceGatewayUrlResolver.defaultGateway = result;
-				}
+                
+                result = ResourceManager.getInstance().getString( SERVICES, DEFAULT_GATEWAY_URL);
+                if( !StringUtil.isEmpty(result) ){
+                    ServiceGatewayUrlResolver.defaultGateway = result;
+                }
 
-			} while( false );
-			
+            } while( false );
+            
             return result;
         }
     }

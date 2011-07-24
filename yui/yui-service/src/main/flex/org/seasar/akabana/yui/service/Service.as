@@ -24,8 +24,8 @@ package org.seasar.akabana.yui.service {
         }
         
         function get name():String;
-		
-		function set name( value:String ):void;
+        
+        function set name( value:String ):void;
         
         function get destination():String;
         

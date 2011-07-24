@@ -52,16 +52,16 @@ package org.seasar.akabana.yui.logging.category
         }
 
         protected function doLog( level:Level, message:String, args:Array=null):void{
-			if( args.length == 0 ){
-            	callAppenders(new LoggingData( message, _level, this));
-			} else {
-				var e:Error = args[0] as Error;
-				if( e == null ){
-					callAppenders(new LoggingData( message, _level, this, null, args));
-				} else {
-					callAppenders(new LoggingData( message, _level, this, e, args.splice(0,1)));
-				}
-			}
+            if( args.length == 0 ){
+                callAppenders(new LoggingData( message, _level, this));
+            } else {
+                var e:Error = args[0] as Error;
+                if( e == null ){
+                    callAppenders(new LoggingData( message, _level, this, null, args));
+                } else {
+                    callAppenders(new LoggingData( message, _level, this, e, args.splice(0,1)));
+                }
+            }
         }
 
         protected function callAppenders( data:LoggingData ):void{

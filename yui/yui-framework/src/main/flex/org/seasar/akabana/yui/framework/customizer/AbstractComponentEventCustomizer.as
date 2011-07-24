@@ -32,8 +32,9 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.core.ns.handler;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-
-    internal class AbstractComponentEventCustomizer extends AbstractComponentCustomizer {
+    
+    [ExcludeClass]
+    public class AbstractComponentEventCustomizer extends AbstractComponentCustomizer {
         
         private static const ENHANCED_SEPARETOR:String = "$";
         private static const ENHANCED_PREFIX:String = ENHANCED_SEPARETOR + "enhanced" + ENHANCED_SEPARETOR;

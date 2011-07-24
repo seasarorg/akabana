@@ -21,7 +21,7 @@ package org.seasar.akabana.yui.framework.customizer
     import flash.events.IEventDispatcher;
     import mx.core.IMXMLObject;
     import mx.core.UIComponent;
-	import mx.core.IUIComponent;
+    import mx.core.IUIComponent;
     import mx.core.UIComponentDescriptor;
     import mx.core.mx_internal;
     import mx.effects.IEffect;
@@ -30,9 +30,9 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-	import org.seasar.akabana.yui.framework.logging.debug;
-	import org.seasar.akabana.yui.framework.convention.NamingConvention;
-	
+    import org.seasar.akabana.yui.framework.logging.debug;
+    import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    
     use namespace mx_internal;
 
     [ExcludeClass]

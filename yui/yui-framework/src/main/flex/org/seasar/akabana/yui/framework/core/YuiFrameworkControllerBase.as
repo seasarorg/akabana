@@ -39,8 +39,8 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.event.RuntimeErrorEvent;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
     import org.seasar.akabana.yui.framework.event.YuiFrameworkEvent;
-	import org.seasar.akabana.yui.framework.logging.debug;
-	import org.seasar.akabana.yui.framework.logging.info;
+    import org.seasar.akabana.yui.framework.logging.debug;
+    import org.seasar.akabana.yui.framework.logging.info;
     import org.seasar.akabana.yui.framework.logging.dump;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
@@ -164,8 +164,8 @@ package org.seasar.akabana.yui.framework.core
             }
             const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
             frameworkBridge.application = component;
-            Environment.yui_internal::root = component;
-            Environment.yui_internal::parameters = frameworkBridge.parameters;
+            Environment.yui_internal::setRoot( component );
+            Environment.yui_internal::setParameters( frameworkBridge.parameters );
         }
         
         protected function processApplicationStart():void{

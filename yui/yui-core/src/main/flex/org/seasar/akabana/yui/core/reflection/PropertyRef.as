@@ -15,8 +15,7 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
-    public class PropertyRef extends AnnotatedObjectRef
-    {
+    public final class PropertyRef extends AnnotatedObjectRef {
         
         private static const WRITE_ONLY:String = "writeonly";
         
@@ -52,8 +51,7 @@ package org.seasar.akabana.yui.core.reflection
             return _declaredBy;
         }
 
-        public function PropertyRef( describeTypeXml:XML )
-        {
+        public function PropertyRef( describeTypeXml:XML ){
             super( describeTypeXml );
             assembleThis( describeTypeXml );
         }
@@ -76,10 +74,6 @@ package org.seasar.akabana.yui.core.reflection
                 var ns:Namespace = new Namespace(_uri);
                 object.ns::[ _name ] = value;
             }
-        }
-
-        public function toString():String{
-            return name + "{type=" + _type + ", declaredBy=" + _declaredBy + ", isReadable=" + _isReadable + ", isWriteable=" + _isWriteable + "}";
         }
 
         private function assembleThis( rootDescribeTypeXml:XML ):void{

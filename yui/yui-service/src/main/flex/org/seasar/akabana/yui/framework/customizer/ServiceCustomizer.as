@@ -26,7 +26,7 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ServiceManager;
     import org.seasar.akabana.yui.service.ManagedService;
-	import org.seasar.akabana.yui.framework.logging.debug;
+    import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
 
     [ExcludeClass]
@@ -97,7 +97,7 @@ package org.seasar.akabana.yui.framework.customizer
                     service = ServiceManager.createService(propertyRef.typeClassRef.concreteClass,propertyRef.name);
                     propertyRef.setValue(target,service);
                     CONFIG::DEBUG {
-						_debug("Customized",classRef.name,propertyRef.name);
+                        _debug("Customized",classRef.name,propertyRef.name);
                     }
                 }
             }
@@ -114,7 +114,7 @@ package org.seasar.akabana.yui.framework.customizer
                     (!propertyRef.typeClassRef.isInterface)
                 ) {
                     CONFIG::DEBUG {
-						_debug("Uncustomizing",classRef.name,propertyRef.name);
+                        _debug("Uncustomizing",classRef.name,propertyRef.name);
                     }
                     service = propertyRef.getValue(target) as Service;
                     
@@ -123,7 +123,7 @@ package org.seasar.akabana.yui.framework.customizer
                     }
                     propertyRef.setValue(target,null);
                     CONFIG::DEBUG {
-						_debug("Uncustomized",classRef.name,propertyRef.name);
+                        _debug("Uncustomized",classRef.name,propertyRef.name);
                     }
                 }
             }

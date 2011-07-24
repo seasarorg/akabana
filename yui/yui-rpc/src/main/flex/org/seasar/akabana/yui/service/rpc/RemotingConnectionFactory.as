@@ -38,20 +38,20 @@ CONFIG::DEBUG{
                 throw new IllegalGatewayError(gatewayUrl);
             }
             var rc:RemotingConnection = null;
-			
-			if( gatewayUrl in GATEWAY_RC_REF_CACHE ){
-				rc = GATEWAY_RC_REF_CACHE[ gatewayUrl ];
-			} else {
-				rc = new RemotingConnection();
-				rc.objectEncoding = ObjectEncoding.AMF3;
+            
+            if( gatewayUrl in GATEWAY_RC_REF_CACHE ){
+                rc = GATEWAY_RC_REF_CACHE[ gatewayUrl ];
+            } else {
+                rc = new RemotingConnection();
+                rc.objectEncoding = ObjectEncoding.AMF3;
 
                 if( gatewayUrl != null ){
-					rc.connect( gatewayUrl );
+                    rc.connect( gatewayUrl );
                 } else {
                     throw new IllegalGatewayError(gatewayUrl);
                 }
 
-				GATEWAY_RC_REF_CACHE[ gatewayUrl ] = rc;
+                GATEWAY_RC_REF_CACHE[ gatewayUrl ] = rc;
             }
 
             return rc;

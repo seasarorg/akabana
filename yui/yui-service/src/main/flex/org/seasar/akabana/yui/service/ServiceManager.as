@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.service {
             var result:Service = getService( name );
             if( result == null ){
                 result = new serviceClass();
-				result.name = name;
+                result.name = name;
                 if( StringUtil.isEmpty(result.destination) ){
                     result.destination = name;
                 }

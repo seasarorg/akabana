@@ -22,8 +22,8 @@ package org.seasar.akabana.yui.framework.convention
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
-    public final class Flex4NamingConvention extends NamingConvention
-    {
+    public final class Flex4NamingConvention extends NamingConvention {
+        
         public override function getComponentName( target:DisplayObject ):String{
             var component:UIComponent = target as UIComponent;
             var componentName:String = null;

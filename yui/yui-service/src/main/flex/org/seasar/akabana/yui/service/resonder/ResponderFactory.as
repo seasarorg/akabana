@@ -25,8 +25,8 @@ package org.seasar.akabana.yui.service.resonder
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
-    public class ResponderFactory
-    {
+    public class ResponderFactory {
+        
         private static const EVENT_SEPARETOR:String = "_";
 
         private static const RESULT_HANDLER:String = "ResultHandler";

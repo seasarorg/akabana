@@ -20,8 +20,8 @@ package org.seasar.akabana.yui.command.core.impl
     
     import org.seasar.akabana.yui.command.core.ICommand;
     
-    public class AbstractAsyncCommand extends AbstractSubCommand
-    {
+    public class AbstractAsyncCommand extends AbstractSubCommand {
+        
         protected var _dispatchTimer:Timer;
         
         protected var _pendingResult:Object;

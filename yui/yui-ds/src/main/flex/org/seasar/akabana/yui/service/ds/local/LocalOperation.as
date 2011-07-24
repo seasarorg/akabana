@@ -34,13 +34,13 @@ package org.seasar.akabana.yui.service.ds.local
     [ExcludeClass]
     public final class LocalOperation extends AbstractOperation {
         
-		protected var localPackage:String;
-		
-		protected var serviceInvoker:LocalServiceInvoker;
-		
+        protected var localPackage:String;
+        
+        protected var serviceInvoker:LocalServiceInvoker;
+        
         public function LocalOperation(service:AbstractService=null, name:String=null, endpoint:String=null){
-			super(service, name);
-			localPackage = ServiceGatewayUrlResolver.getLocalPackage(endpoint);
+            super(service, name);
+            localPackage = ServiceGatewayUrlResolver.getLocalPackage(endpoint);
             serviceInvoker = new LocalServiceInvoker();
         }
         

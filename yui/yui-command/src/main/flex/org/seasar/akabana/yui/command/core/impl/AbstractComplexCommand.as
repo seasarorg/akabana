@@ -153,8 +153,8 @@ package org.seasar.akabana.yui.command.core.impl
          */
         protected function doAddCommand(command:AbstractCommand):void{
             command
-            	.complete(childCommandCompleteEventHandler)         
-            	.error(childCommandErrorEventHandler);
+                .complete(childCommandCompleteEventHandler)         
+                .error(childCommandErrorEventHandler);
         }
         
         /**

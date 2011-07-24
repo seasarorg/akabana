@@ -19,8 +19,8 @@ package org.seasar.akabana.yui.framework.event
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
 
-    public class RuntimeErrorEvent extends ErrorEvent
-    {
+    public final class RuntimeErrorEvent extends ErrorEvent {
+        
         public static const RUNTIME_ERROR:String = "runtimeError";
         
         public static function createEvent( e:Error ):RuntimeErrorEvent{

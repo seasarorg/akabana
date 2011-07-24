@@ -16,9 +16,8 @@
 package org.seasar.akabana.yui.core.reflection
 {
 
-    public class ParameterRef extends ObjectRef
-    {
-
+    public final class ParameterRef extends ObjectRef {
+        
         private var _index:int;
 
         public function get index():int{
@@ -61,10 +60,6 @@ package org.seasar.akabana.yui.core.reflection
         {
             super( describeTypeXml );
             assembleThis( describeTypeXml );
-        }
-
-        public function toString():String{
-            return "[" + _index + "]{type=" + _type + ", optional=" + _optional + ", isAnyType=" + _isAnyType + "}";
         }
 
         private function assembleThis( rootDescribeTypeXml:XML ):void{

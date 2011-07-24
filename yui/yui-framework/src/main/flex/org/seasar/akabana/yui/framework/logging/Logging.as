@@ -27,7 +27,7 @@ package org.seasar.akabana.yui.framework.logging
     import org.seasar.akabana.yui.core.logging.ILogger;
     import org.seasar.akabana.yui.core.logging.ILoggerFactory;
     
-    public class Logging{
+    public final class Logging {
         
         private static const _defaultLoggerFactory:ILoggerFactory = new SimpleLoggerFactory();
         

@@ -30,7 +30,7 @@ CONFIG::FP10{
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
 
     [ExcludeClass]
-    public class FrameworkBridge
+    public final class FrameworkBridge
     {
         public static function initialize():FrameworkBridge{
             var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();

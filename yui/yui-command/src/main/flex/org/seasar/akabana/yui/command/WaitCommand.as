@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.command
     
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     
-    public class WaitCommand extends AsyncCommand {
+    public final class WaitCommand extends AsyncCommand {
         
         protected var _timer:Timer;
         
@@ -29,10 +29,6 @@ package org.seasar.akabana.yui.command
         public function WaitCommand(sleep:int=0){
             super();
             this._sleep = sleep;
-        }
-        
-        public override function toString():String{
-            return super.toString()+"{"+_sleep+"}";
         }
         
         protected override function run():void{

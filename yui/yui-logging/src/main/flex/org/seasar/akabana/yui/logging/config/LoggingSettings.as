@@ -15,8 +15,8 @@
  */
 package org.seasar.akabana.yui.logging.config
 {
-	import org.seasar.akabana.yui.logging.mixin.LoggingMixin;
-	
+    import org.seasar.akabana.yui.logging.mixin.LoggingMixin;
+    
     public class LoggingSettings
     {
         {

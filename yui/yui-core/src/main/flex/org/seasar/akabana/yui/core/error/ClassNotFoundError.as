@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.core.error
 {
-    public class ClassNotFoundError extends Error{
+    public final class ClassNotFoundError extends Error {
         
         public static function createError(className:String):ClassNotFoundError{
             var e:ClassNotFoundError = new ClassNotFoundError();

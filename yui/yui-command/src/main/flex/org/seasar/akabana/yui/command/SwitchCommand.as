@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.command
     import org.seasar.akabana.yui.command.events.CommandEvent;
     import org.seasar.akabana.yui.core.error.NotFoundError;
 
-    public class SwitchCommand extends AbstractAsyncCommand{ 
+    public final class SwitchCommand extends AbstractAsyncCommand{ 
         
         protected var _caseMap:Object;
         

@@ -28,11 +28,13 @@ package org.seasar.akabana.yui.framework.bridge
     import spark.components.supportClasses.Skin;
 
     [ExcludeClass]
-    public final class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin
-    {
+    public final class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin {
+        
         private static const ROOT_VIEW:String = "rootView";
         
         private static const SKIN_NAME:String = "Skin";
+        
+        private static const HOST_COMPONENT:String = "hostComponent";
 
         protected var _application:Application;
 
@@ -78,7 +80,7 @@ package org.seasar.akabana.yui.framework.bridge
             if( component is UIComponent ){
                 result = (component as UIComponent).document as UIComponent;
                 if( result is Skin ){
-                    result = result["hostComponent"] as UIComponent;
+                    result = result[HOST_COMPONENT] as UIComponent;
                 }
             }
             return result;

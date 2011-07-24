@@ -28,8 +28,11 @@ package org.seasar.akabana.yui.air.core
     import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
 
     [Style(name="rootViewClass", type="Class")]
-    public class Window extends mx.core.Window
-    {
+    public class Window extends mx.core.Window {
+        
+        private static const ROOT_VIEW_CLASS:String = "rootViewClass";
+        
+        private static const ROOT_VIEW:String = "rootView";
         
         private var _rootView:UIComponent;
         
@@ -70,27 +73,25 @@ package org.seasar.akabana.yui.air.core
         }
         
         protected function createRootView():void{
-            var viewClass:Class = getStyle("rootViewClass") as Class;
+            var viewClass:Class = getStyle(ROOT_VIEW_CLASS) as Class;
             
             if( viewClass == null ){
                 throw new YuiFrameworkError("rootViewClass style is needed.");
             } else {
                 _rootView = new viewClass();
-                _rootView.name = "rootView";
+                _rootView.name = ROOT_VIEW;
                 _rootView.setVisible(false,true);
                 addChild(_rootView);
             }
         }
         
-        private function on_windowComplete(event:AIREvent):void
-        {
+        private function on_windowComplete(event:AIREvent):void{
             if( _rootView != null ){
                 _rootView.setVisible(true,false);
             }
         }
         
-        private function on_windowClose(event:Event):void
-        {
+        private function on_windowClose(event:Event):void{
             YuiFrameworkController.getInstance().removeRootDisplayObject(systemManager as DisplayObject);
         }
     }

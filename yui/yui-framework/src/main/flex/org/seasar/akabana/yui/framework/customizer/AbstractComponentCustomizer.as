@@ -27,12 +27,13 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.message.MessageManager;
-	import org.seasar.akabana.yui.framework.logging.debug;
+    import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.framework.core.YuiFrameworkController;
     import flash.utils.Dictionary;
     import flash.display.DisplayObjectContainer;
-
-    internal class AbstractComponentCustomizer implements IViewCustomizer {
+    
+    [ExcludeClass]
+    public class AbstractComponentCustomizer implements IViewCustomizer {
 
         protected function setPropertiesValue(target:Object,varClassName:String,value:Object):void {
             const targetClassRef:ClassRef = getClassRef(target);

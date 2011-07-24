@@ -25,8 +25,8 @@ package org.seasar.akabana.yui.framework.message
     use namespace flash_proxy;
     
     [Bindable]
-    public dynamic class Messages extends Proxy
-    {   
+    public dynamic class Messages extends Proxy {
+        
         private var _bundleName:String;
         
         public function Messages(bundleName:String):void{

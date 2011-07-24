@@ -23,79 +23,79 @@ package org.seasar.akabana.yui.core.reflection
     import flash.utils.Timer;
     
     [ExcludeClass]
-    public final class FunctionInvoker{
-		
+    public final class FunctionInvoker {
+        
         private var _func:Function;
-		
-		private var _args:Array;
+        
+        private var _args:Array;
         
         private var _timer:Timer;
-		
-		private var _frameCount:int;
-		
-		private var _invokeFrame:int;
+        
+        private var _frameCount:int;
+        
+        private var _invokeFrame:int;
         
         public function FunctionInvoker(func:Function, args:Array=null){
             super();
-			_func = func;
-			_args = args;
+            _func = func;
+            _args = args;
         }
-		
-		public function invokeLater(base:DisplayObject,invokeFrame:int=1):void{
-			if( base == null ){
-				clear();
-			} else {
-				_frameCount = 0;
-				_invokeFrame = invokeFrame;
-				base.addEventListener(Event.ENTER_FRAME,baseEnterFrameHandler);
-			}
-			
-		}
-		
-		private function baseEnterFrameHandler(event:Event):void{
-			_frameCount++;
-			if( _frameCount > 0 && _frameCount >= _invokeFrame ){
-				var base:DisplayObject = event.target as DisplayObject;
-				base.removeEventListener(Event.ENTER_FRAME,baseEnterFrameHandler);
-				doInvoke();
-			}
-		}
-		
-		public function invokeDelay(delay:Number=10):void{
-			_timer = new Timer(delay);
-			_timer.addEventListener(TimerEvent.TIMER, timerEventHandler);
-			_timer.start();
-		}
+        
+        public function invokeLater(base:DisplayObject,invokeFrame:int=1):void{
+            if( base == null ){
+                clear();
+            } else {
+                _frameCount = 0;
+                _invokeFrame = invokeFrame;
+                base.addEventListener(Event.ENTER_FRAME,baseEnterFrameHandler);
+            }
+            
+        }
+        
+        private function baseEnterFrameHandler(event:Event):void{
+            _frameCount++;
+            if( _frameCount > 0 && _frameCount >= _invokeFrame ){
+                var base:DisplayObject = event.target as DisplayObject;
+                base.removeEventListener(Event.ENTER_FRAME,baseEnterFrameHandler);
+                doInvoke();
+            }
+        }
+        
+        public function invokeDelay(delay:Number=10):void{
+            _timer = new Timer(delay);
+            _timer.addEventListener(TimerEvent.TIMER, timerEventHandler);
+            _timer.start();
+        }
         
         private function timerEventHandler(event:TimerEvent):void{
             _timer.stop();
             _timer.removeEventListener(TimerEvent.TIMER, timerEventHandler);
             _timer = null;
-			
-			doInvoke();
-		}
-		
-		private function doInvoke():void{
-			const func:Function = _func;
-			try{
-				var args:Array = _args;
-				if( args != null && args.length > 0 ){
-					func.apply(null, args);
-				} else {
-					func.apply(null);
-				}
-			} catch( e:Error ){
-				throw e;
-			} finally {
-				clear();
-			}
+            
+            doInvoke();
         }
-		
-		private function clear():void{
-			_frameCount = 0;
-			_invokeFrame = 0;
-			_func = null;
-			_args = null;
-		}
+        
+        private function doInvoke():void{
+            const func:Function = _func;
+            try{
+                var args:Array = _args;
+                if( args != null && args.length > 0 ){
+                    func.apply(null, args);
+                } else {
+                    func.apply(null);
+                }
+            } catch( e:Error ){
+                throw e;
+            } finally {
+                clear();
+            }
+        }
+        
+        private function clear():void{
+            _frameCount = 0;
+            _invokeFrame = 0;
+            _func = null;
+            _args = null;
+        }
     }
 }

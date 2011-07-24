@@ -27,7 +27,7 @@ package org.seasar.akabana.yui.framework.core
     [Style(name="namingConventionClass", inherit="no", type="Class")]
     [Style(name="frameworkBridgePlugin", inherit="no", type="Class")]
     [Style(name="autoMonitoring", inherit="no", type="Boolean")]
-    public class YuiFrameworkSettings implements IMXMLObject,IStyleClient
+    public final class YuiFrameworkSettings implements IMXMLObject,IStyleClient
     {
         {
             YuiFrameworkMixin;
@@ -44,65 +44,65 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public function YuiFrameworkSettings(){
-            YuiFrameworkGlobals.yui_internal::settings = this;
+            YuiFrameworkGlobals.yui_internal::setSettings( this );
         }
 
         public function initialized(document:Object, id:String):void{
         }
-		
-		public function get styleName():Object{
-			return null;
-		}
-			
-		public function set styleName(value:Object):void{}
-				
-		public function styleChanged(styleProp:String):void{}
-		
-		
-		public function get className():String{
-			return "YuiFrameworkSettings";
-		}
-		
-		public function get inheritingStyles():Object{
-			return {};
-		}
-		
-		public function set inheritingStyles(value:Object):void{}
-		
-		public function get nonInheritingStyles():Object{
-			return _styles;
-		}
-		
-		public function set nonInheritingStyles(value:Object):void{}
-		
-		private var _styleDeclaration:CSSStyleDeclaration;
-		public function get styleDeclaration():CSSStyleDeclaration{
-			return _styleDeclaration;
-		}
-		
-		public function set styleDeclaration(value:CSSStyleDeclaration):void{}
-		
-		public function getStyle(styleProp:String):*{
+        
+        public function get styleName():Object{
+            return null;
+        }
+            
+        public function set styleName(value:Object):void{}
+                
+        public function styleChanged(styleProp:String):void{}
+        
+        
+        public function get className():String{
+            return "YuiFrameworkSettings";
+        }
+        
+        public function get inheritingStyles():Object{
+            return {};
+        }
+        
+        public function set inheritingStyles(value:Object):void{}
+        
+        public function get nonInheritingStyles():Object{
+            return _styles;
+        }
+        
+        public function set nonInheritingStyles(value:Object):void{}
+        
+        private var _styleDeclaration:CSSStyleDeclaration;
+        public function get styleDeclaration():CSSStyleDeclaration{
+            return _styleDeclaration;
+        }
+        
+        public function set styleDeclaration(value:CSSStyleDeclaration):void{}
+        
+        public function getStyle(styleProp:String):*{
             return _styles[styleProp];
         }
-		
-		public function setStyle(styleProp:String, newValue:*):void{
+        
+        public function setStyle(styleProp:String, newValue:*):void{
             _styles[styleProp] = newValue;
             if( styleProp == "autoMonitoring"){
                 _autoMonitoring = newValue as Boolean;
             }
         }
-			
-		public function clearStyle(styleProp:String):void{}
-			
-		public function getClassStyleDeclarations():Array{
-			return [];
-		}
-			
-		public function notifyStyleChangeInChildren(styleProp:String,recursive:Boolean):void{}
-			
-		public function regenerateStyleCache(recursive:Boolean):void{}
-			
-		public function registerEffects(effects:Array /* of String */):void{}
+            
+        public function clearStyle(styleProp:String):void{}
+            
+        public function getClassStyleDeclarations():Array{
+            return [];
+        }
+            
+        public function notifyStyleChangeInChildren(styleProp:String,recursive:Boolean):void{}
+            
+        public function regenerateStyleCache(recursive:Boolean):void{}
+            
+        public function registerEffects(effects:Array /* of String */):void{}
     }
 }

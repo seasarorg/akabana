@@ -316,8 +316,8 @@ package org.seasar.akabana.yui.framework.core
         
         protected override function doRegisterApplication(component:DisplayObjectContainer):void{
             super.doRegisterApplication(component);
-			
-			const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
             const root:DisplayObject = frameworkBridge.systemManager;
             CONFIG::UNCAUGHT_ERROR_GLOBAL{
                 root.loaderInfo.uncaughtErrorEvents
@@ -362,7 +362,7 @@ package org.seasar.akabana.yui.framework.core
                     view.dispatchEvent( fevent );
                 }
             }
-			_isApplicationStarted = true;
+            _isApplicationStarted = true;
             
             if( settings.isAutoMonitoring ){
                 componentMonitoringStart(root);
@@ -425,29 +425,29 @@ package org.seasar.akabana.yui.framework.core
             callLater( processApplicationStart );
         }
         
-		yui_internal function systemManagerMonitoringStart( root:DisplayObject ):void{
+        yui_internal function systemManagerMonitoringStart( root:DisplayObject ):void{
             Logging.initialize();
-			root.addEventListener(
-				FlexEvent.INIT_COMPLETE,
-				application_initCompleteHandler,
-				true,
-				int.MAX_VALUE
-			);
-			
-			root.addEventListener(
-				FlexEvent.PRELOADER_DONE,
-				application_preloaderDoneHandler,
-				true,
-				int.MAX_VALUE
-			);
-			
-			root.addEventListener(
-				FlexEvent.APPLICATION_COMPLETE,
-				application_applicationCompleteHandler,
-				false,
-				int.MAX_VALUE
-			);
-		}
+            root.addEventListener(
+                FlexEvent.INIT_COMPLETE,
+                application_initCompleteHandler,
+                true,
+                int.MAX_VALUE
+            );
+            
+            root.addEventListener(
+                FlexEvent.PRELOADER_DONE,
+                application_preloaderDoneHandler,
+                true,
+                int.MAX_VALUE
+            );
+            
+            root.addEventListener(
+                FlexEvent.APPLICATION_COMPLETE,
+                application_applicationCompleteHandler,
+                false,
+                int.MAX_VALUE
+            );
+        }
         
         yui_internal function systemManagerMonitoringStop( root:DisplayObject ):void{
             
@@ -474,25 +474,25 @@ package org.seasar.akabana.yui.framework.core
                 true
             );
         }
-		
-		yui_internal override function componentMonitoringStart(root:DisplayObject):void{
+        
+        yui_internal override function componentMonitoringStart(root:DisplayObject):void{
             super.componentMonitoringStart(root);
-			root.addEventListener(
-				FlexEvent.CREATION_COMPLETE,
-				systemManager_creationCompleteHandler,
-				true,
-				int.MAX_VALUE
-			);
-		}
-		
-		yui_internal override function componentMonitoringStop(root:DisplayObject):void{
+            root.addEventListener(
+                FlexEvent.CREATION_COMPLETE,
+                systemManager_creationCompleteHandler,
+                true,
+                int.MAX_VALUE
+            );
+        }
+        
+        yui_internal override function componentMonitoringStop(root:DisplayObject):void{
             super.componentMonitoringStop(root);
-			root.addEventListener(
-				FlexEvent.CREATION_COMPLETE,
-				systemManager_creationCompleteHandler,
-				true,
-				int.MAX_VALUE
-			);
-		}
+            root.addEventListener(
+                FlexEvent.CREATION_COMPLETE,
+                systemManager_creationCompleteHandler,
+                true,
+                int.MAX_VALUE
+            );
+        }
     }
 }

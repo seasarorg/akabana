@@ -31,7 +31,7 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.message.MessageManager;
     import org.seasar.akabana.yui.framework.util.StyleManagerUtil;
     import org.seasar.akabana.yui.core.reflection.ClassRef;
-	import org.seasar.akabana.yui.core.reflection.FunctionInvoker;
+    import org.seasar.akabana.yui.core.reflection.FunctionInvoker;
     import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.framework.logging.info;
     

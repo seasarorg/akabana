@@ -19,8 +19,8 @@ CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
 
-    public class StringUtil
-    {
+    public final class StringUtil {
+        
         public static const EMPTY:String = "";
         
         public static const DOT:String = ".";
@@ -46,10 +46,10 @@ CONFIG::FP10{
                 return EMPTY;
             }
         }
-		
-		public static function isEmpty(value:String):Boolean{
-			return value == null || value.length == 0;
-		}
+        
+        public static function isEmpty(value:String):Boolean{
+            return value == null || value.length == 0;
+        }
 
         public static function isWhitespace(character:String):Boolean{
             switch( character ){

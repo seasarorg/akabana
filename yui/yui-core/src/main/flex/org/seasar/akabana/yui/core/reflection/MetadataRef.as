@@ -19,8 +19,7 @@ CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
 
-    public class MetadataRef extends ObjectRef
-    {
+    public final class MetadataRef extends ObjectRef {
 
 CONFIG::FP9{
         private var _args:Array;

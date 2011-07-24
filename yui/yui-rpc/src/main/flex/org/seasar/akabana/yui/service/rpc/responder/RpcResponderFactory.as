@@ -19,10 +19,9 @@ package org.seasar.akabana.yui.service.rpc.responder
     import org.seasar.akabana.yui.service.resonder.ResponderFactory;
 
     [ExcludeClass]
-    public final class RpcResponderFactory extends ResponderFactory
-    {
-        public function RpcResponderFactory()
-        {
+    public final class RpcResponderFactory extends ResponderFactory {
+        
+        public function RpcResponderFactory(){
             super();
             eventResoponderClassRef = getClassRef(RpcDefaultEventResponder);
             objectResponderClassRef = getClassRef(RpcObjectResponder);

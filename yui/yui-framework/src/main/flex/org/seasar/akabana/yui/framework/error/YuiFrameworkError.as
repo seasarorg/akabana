@@ -15,10 +15,9 @@
  */
 package org.seasar.akabana.yui.framework.error
 {
-    public class YuiFrameworkError extends Error
-    {
-        public function YuiFrameworkError(message:String="", id:int=0)
-        {
+    public final class YuiFrameworkError extends Error {
+        
+        public function YuiFrameworkError(message:String="", id:int=0){
             super(message, id);
         }
     }

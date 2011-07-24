@@ -16,10 +16,9 @@
 package org.seasar.akabana.yui.core.reflection
 {
     internal interface Reflector {
-        
+
         function get name():String;
-        
+
         function get describeType():XML;
-        
     }
 }

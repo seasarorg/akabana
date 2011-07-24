@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.service.rpc {
     import flash.net.Responder;
 
     [ExcludeClass]
-    public final dynamic class RemotingConnection extends NetConnection{
+    public final dynamic class RemotingConnection extends NetConnection {
 
         private var originalUrl_:String;
 

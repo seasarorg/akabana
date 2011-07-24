@@ -41,10 +41,10 @@ package org.seasar.akabana.yui.service.local
         }
         
         protected function getServiceInstance(serviceClassName:String):Object{
-			var result:Object = null;
-			if( serviceClassName in SERVICE_REF_CACHE ){
-            	result = SERVICE_REF_CACHE[serviceClassName];
-			} else {
+            var result:Object = null;
+            if( serviceClassName in SERVICE_REF_CACHE ){
+                result = SERVICE_REF_CACHE[serviceClassName];
+            } else {
                 var serviceClassRef:ClassRef = getClassRef(serviceClassName);
                 result = serviceClassRef.newInstance();
             }

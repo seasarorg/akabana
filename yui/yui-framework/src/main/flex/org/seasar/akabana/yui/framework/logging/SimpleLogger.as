@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.framework.logging
     import org.seasar.akabana.yui.core.logging.ILogger;
     import org.seasar.akabana.yui.util.DateUtil;
     
-    public class SimpleLogger implements ILogger{
+    public final class SimpleLogger implements ILogger {
         
         public function error(message:String,...args):void{
             log.apply(null,["[ERROR]",message].concat(args));

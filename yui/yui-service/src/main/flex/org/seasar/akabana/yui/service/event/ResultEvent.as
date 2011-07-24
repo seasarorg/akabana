@@ -15,8 +15,8 @@
  */
 package org.seasar.akabana.yui.service.event 
 {
-    public final class ResultEvent extends AbstractServiceEvent 
-    {
+    public final class ResultEvent extends AbstractServiceEvent {
+        
         public static const RESULT:String = "result";
         
         public var result:Object;

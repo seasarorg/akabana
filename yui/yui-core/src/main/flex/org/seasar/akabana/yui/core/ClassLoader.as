@@ -20,8 +20,8 @@ package org.seasar.akabana.yui.core
 
     import org.seasar.akabana.yui.core.error.ClassNotFoundError;
 
-    public class ClassLoader
-    {
+    public final class ClassLoader {
+        
         public function findClass( name:String ):Class {
             var clazz:Class = null;
             try{

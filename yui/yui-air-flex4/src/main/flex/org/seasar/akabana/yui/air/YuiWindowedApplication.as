@@ -28,8 +28,12 @@ package org.seasar.akabana.yui.air
     import spark.components.WindowedApplication;
     
     [Style(name="rootViewClass", type="Class")]
-    public class YuiWindowedApplication extends WindowedApplication
-    {
+    public class YuiWindowedApplication extends WindowedApplication {
+        
+        private static const ROOT_VIEW_CLASS:String = "rootViewClass";
+        
+        private static const ROOT_VIEW:String = "rootView";
+        
         private var _setting:YuiFrameworkSettings;
         
         public function get setting():YuiFrameworkSettings{
@@ -42,14 +46,12 @@ package org.seasar.akabana.yui.air
             return _rootView;
         }
         
-        public function YuiWindowedApplication()
-        {
+        public function YuiWindowedApplication(){
             super();
             _setting = new YuiFrameworkSettings();
         }
 
-        public override function dispatchEvent(event:Event):Boolean
-        {
+        public override function dispatchEvent(event:Event):Boolean{
             var result:Boolean = super.dispatchEvent(event);
             if( !(event.type in YuiApplicationConsts.UNRECOMMEND_EVENT_MAP)){
                 if( result ){
@@ -68,13 +70,13 @@ package org.seasar.akabana.yui.air
         }
         
         protected function createRootView():void{
-            var viewClass:Class = getStyle("rootViewClass") as Class;
+            var viewClass:Class = getStyle(ROOT_VIEW_CLASS) as Class;
             
             if( viewClass == null ){
                 throw new YuiFrameworkError("rootViewClass style is needed.");
             } else {
                 _rootView = new viewClass();
-                _rootView.name = "rootView";
+                _rootView.name = ROOT_VIEW;
                 _rootView.setVisible(false,true);
                 addElement(_rootView);
             }

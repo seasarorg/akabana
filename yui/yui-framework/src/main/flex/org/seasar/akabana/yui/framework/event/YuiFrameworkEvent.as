@@ -18,18 +18,17 @@ package org.seasar.akabana.yui.framework.event
     import flash.events.Event;
     
 
-    public class YuiFrameworkEvent extends Event
-    {
+    public final class YuiFrameworkEvent extends Event {
+        
         public static const APPLICATION_MONITOR_START:String = "applicationMonitorStart";
         
         public static const APPLICATION_MONITOR_STOP:String = "applicationMonitorStop";
         
         public static const APPLICATION_START:String = "applicationStart";
 
-		public static const VIEW_INITIALIZED:String = "viewInitialized";
+        public static const VIEW_INITIALIZED:String = "viewInitialized";
         
-        public function YuiFrameworkEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
-        {
+        public function YuiFrameworkEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false){
             super(type, bubbles, cancelable);
         }
     }

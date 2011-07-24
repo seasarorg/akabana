@@ -25,16 +25,16 @@ package org.seasar.akabana.yui.framework.core {
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
 
     [ExcludeClass]
-    public class ViewComponentRepository {
+    public final class ViewComponentRepository {
         
         public static const componentInstanceMap:Dictionary = new Dictionary(true);
         
         private static const _viewDic:Dictionary = new Dictionary(true);
 
-		public static function get allView():Dictionary{
-			return _viewDic;
-		}
-		
+        public static function get allView():Dictionary{
+            return _viewDic;
+        }
+        
         public static function addComponent( component:DisplayObject ):void{
             var className:String = getCanonicalName(component);
             if( componentInstanceMap[ className ] == null ){

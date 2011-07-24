@@ -110,12 +110,12 @@ package org.seasar.akabana.yui.logging
         }
 
         private function getLogger( target:Object ):Logger{
-			var fullClassName:String;
-			if( target is String ){
-				fullClassName = target as String;
-			} else {
-				fullClassName = getCanonicalName(target);
-			}
+            var fullClassName:String;
+            if( target is String ){
+                fullClassName = target as String;
+            } else {
+                fullClassName = getCanonicalName(target);
+            }
 
             var logger_:Logger = CACHE[ fullClassName ];
 

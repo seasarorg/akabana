@@ -15,7 +15,8 @@
  */
 package org.seasar.akabana.yui.util {
 
-    public class URLUtil {
+    public final class URLUtil {
+        
         private static const SERVER_URL_PATTERN:RegExp = /^http[s]?:\/\/.+?\//;
 
         private static const SWF_DIR_URL_PATTERN:RegExp = /^http[s]?:\/\/.+\//;

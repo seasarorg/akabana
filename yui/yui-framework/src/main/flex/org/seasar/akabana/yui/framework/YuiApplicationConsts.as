@@ -20,8 +20,8 @@ package org.seasar.akabana.yui.framework
     
     import mx.events.FlexEvent;
 
-    public class YuiApplicationConsts
-    {
+    public final class YuiApplicationConsts {
+        
         public static const UNRECOMMEND_EVENT_MAP:Object = {
                 "creationComplete":true,//FlexEvent.CREATION_COMPLETE,
                 "applicationComplete":true,//FlexEvent.APPLICATION_COMPLETE,

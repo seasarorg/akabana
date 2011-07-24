@@ -33,14 +33,14 @@ package org.seasar.akabana.yui.logging.mixin
      * @version $Revision: 1316 $
      */
     public class LoggingMixin{
-		{
-			LogConfigurationFactory;
-			registerClassAlias(ConfigurationProvider.FACTORY_CLASS_NAME,LogConfigurationFactory);
-			registerClassAlias("org.seasar.akabana.yui.logging.LoggerFactory",LoggerFactory);
-		}
+        {
+            LogConfigurationFactory;
+            registerClassAlias(ConfigurationProvider.FACTORY_CLASS_NAME,LogConfigurationFactory);
+            registerClassAlias("org.seasar.akabana.yui.logging.LoggerFactory",LoggerFactory);
+        }
 
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{            
-			LogManager.init();
+            LogManager.init();
         }
     }
 }

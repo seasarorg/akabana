@@ -17,6 +17,6 @@ package org.seasar.akabana.yui.service.rpc.responder {
     import org.seasar.akabana.yui.service.resonder.Responder;
 
     [ExcludeClass]
-    public interface RpcResponder extends Responder{
+    public interface RpcResponder extends Responder {
     }
 }

@@ -17,8 +17,7 @@ package
 {
     import org.seasar.akabana.yui.core.data.Converter;
 
-    public function convert(value:Object,toClass:Class):*
-    {
+    public function convert(value:Object,toClass:Class):*{
         return Converter.getInstanceBy(toClass).convert(value,toClass);
     }
 }

@@ -25,7 +25,7 @@ package org.seasar.akabana.yui.service.rpc {
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
-    public class AbstractRpcOperation extends EventDispatcher implements Operation{
+    public class AbstractRpcOperation extends EventDispatcher implements Operation {
 
         protected var _name:String;
 

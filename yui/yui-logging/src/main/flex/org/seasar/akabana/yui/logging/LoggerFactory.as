@@ -15,14 +15,14 @@
  */
 package org.seasar.akabana.yui.logging
 {
-	import flash.utils.getQualifiedClassName;
-	import org.seasar.akabana.yui.core.logging.ILogger;
-	import org.seasar.akabana.yui.core.logging.ILoggerFactory;
+    import flash.utils.getQualifiedClassName;
+    import org.seasar.akabana.yui.core.logging.ILogger;
+    import org.seasar.akabana.yui.core.logging.ILoggerFactory;
 
     public class LoggerFactory implements ILoggerFactory{
         
         public function getLogger( target:Object ):ILogger{
-			var logger_:Logger = LogManager.getLogger(target);
+            var logger_:Logger = LogManager.getLogger(target);
             return logger_;
         }
     }

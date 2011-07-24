@@ -19,8 +19,8 @@ package org.seasar.akabana.yui.command.events
     
     import org.seasar.akabana.yui.command.core.ICommand;
 
-    public class CommandEvent extends Event
-    {
+    public final class CommandEvent extends Event {
+        
         public static const COMPLETE:String = "complete";
         
         public static const ERROR:String = "error";

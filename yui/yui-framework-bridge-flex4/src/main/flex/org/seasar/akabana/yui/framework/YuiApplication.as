@@ -25,8 +25,12 @@ package org.seasar.akabana.yui.framework
     import spark.components.Application;
 
     [Style(name="rootViewClass", type="Class")]
-    public class YuiApplication extends Application
-    {
+    public class YuiApplication extends Application {
+        
+        private static const ROOT_VIEW_CLASS:String = "rootViewClass";
+        
+        private static const ROOT_VIEW:String = "rootView";
+        
         private var _setting:YuiFrameworkSettings;
 
         public function get setting():YuiFrameworkSettings{
@@ -65,13 +69,13 @@ package org.seasar.akabana.yui.framework
         }
 
         protected function createRootView():void{
-            var viewClass:Class = getStyle("rootViewClass") as Class;
+            var viewClass:Class = getStyle(ROOT_VIEW_CLASS) as Class;
 
             if( viewClass == null ){
                 throw new YuiFrameworkError("rootViewClass style is needed.");
             } else {
                 _rootView = new viewClass();
-                _rootView.name = "rootView";
+                _rootView.name = ROOT_VIEW;
                 _rootView.setVisible(false,true);
                 addElement(_rootView);
             }

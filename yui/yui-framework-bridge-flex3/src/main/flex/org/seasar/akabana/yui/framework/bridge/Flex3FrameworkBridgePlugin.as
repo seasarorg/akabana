@@ -27,8 +27,8 @@ CONFIG::FP10{
     import mx.managers.ISystemManager;
 
     [ExcludeClass]
-    public final class Flex3FrameworkBridgePlugin implements IFrameworkBridgePlugin
-    {
+    public final class Flex3FrameworkBridgePlugin implements IFrameworkBridgePlugin {
+        
         private static const ROOT_VIEW:String = "rootView";
 
         protected var _application:Application;

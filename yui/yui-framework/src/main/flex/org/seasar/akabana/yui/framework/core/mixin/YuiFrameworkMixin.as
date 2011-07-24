@@ -38,7 +38,7 @@ CONFIG::FP10{
      * @author $Author$
      * @version $Revision$
      */
-    public class YuiFrameworkMixin
+    public final class YuiFrameworkMixin
     {
 
         private static var _this:YuiFrameworkMixin;
@@ -48,7 +48,7 @@ CONFIG::FP10{
         public static function init( flexModuleFactory:IFlexModuleFactory ):void{            
             _this = new YuiFrameworkMixin();
             _container = new YuiFrameworkController();
-            YuiFrameworkGlobals.yui_internal::frameworkBridge = FrameworkBridge.initialize();
+            YuiFrameworkGlobals.yui_internal::setFrameworkBridge( FrameworkBridge.initialize() );
 
             if( flexModuleFactory is ISystemManager ){
                 var systemManager_:ISystemManager = flexModuleFactory as ISystemManager;

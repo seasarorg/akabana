@@ -38,7 +38,7 @@ CONFIG::FP10{
     use namespace yui_internal;
 
     [ExcludeClass]
-    public class YuiFrameworkGlobals
+    public final class YuiFrameworkGlobals
     {
         private static var _frameworkBridge:FrameworkBridge;
 
@@ -46,32 +46,32 @@ CONFIG::FP10{
             return _frameworkBridge;
         }
 
-        yui_internal static function set frameworkBridge(value:FrameworkBridge):void{
-            _frameworkBridge = value;
-        }
-
         private static var _namingConvention:NamingConvention;
 
         public static function get namingConvention():NamingConvention{
             return _namingConvention;
         }
-
-        yui_internal static function set namingConvention( value:NamingConvention ):void{
-            _namingConvention = value;
-        }
-		
-		private static var _settings:YuiFrameworkSettings;
-		
-		public static function get settings():YuiFrameworkSettings{
+        
+        private static var _settings:YuiFrameworkSettings;
+        
+        public static function get settings():YuiFrameworkSettings{
             return _settings;
         }
         
-        yui_internal static function set settings(value:YuiFrameworkSettings):void{
+        private static var _namingConventionClassFactory:IFactory;
+        
+        yui_internal static function setFrameworkBridge(value:FrameworkBridge):void{
+            _frameworkBridge = value;
+        }
+        
+        yui_internal static function setNamingConvention( value:NamingConvention ):void{
+            _namingConvention = value;
+        }
+        
+        yui_internal static function setSettings(value:YuiFrameworkSettings):void{
             _settings = value;
         }
-		
-        private static var _namingConventionClassFactory:IFactory;
-
+        
         yui_internal static function initNamingConventionClassFactory():void{
             var styleManager:IStyleManager2 = StyleManagerUtil.getStyleManager();
             var namingConventionClassFactoryDef:CSSStyleDeclaration = styleManager.getStyleDeclaration("org.seasar.akabana.yui.framework.core.YuiFrameworkSettings");
@@ -93,7 +93,7 @@ CONFIG::FP9{
 CONFIG::FP10{
             namingConvention.conventions = Vector.<String>(ResourceManager.getInstance().getStringArray("conventions","package"));
 }
-            YuiFrameworkGlobals.yui_internal::namingConvention = namingConvention;
+            YuiFrameworkGlobals.yui_internal::setNamingConvention( namingConvention );
         }
     }
 }

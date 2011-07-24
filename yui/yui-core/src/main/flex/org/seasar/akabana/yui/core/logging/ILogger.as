@@ -15,11 +15,11 @@
 */
 package org.seasar.akabana.yui.core.logging
 {
-	public interface ILogger{
-		function error(message:String,...args):void;
-		function debug(message:String,...args):void;
-		function info(message:String,...args):void;
-		function fatal(message:String,...args):void;
-		function warn(message:String,...args):void;
-	}
+    public interface ILogger {
+        function error(message:String,...args):void;
+        function debug(message:String,...args):void;
+        function info(message:String,...args):void;
+        function fatal(message:String,...args):void;
+        function warn(message:String,...args):void;
+    }
 }

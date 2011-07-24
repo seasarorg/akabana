@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.core.event
      * 子コンポーネントから親コンテナにメッセージを通知するためのイベントクラスです。
      * 
      */
-    public class NotificationEvent extends Event {
+    public final class NotificationEvent extends Event {
         
         protected var _data:Object;
         

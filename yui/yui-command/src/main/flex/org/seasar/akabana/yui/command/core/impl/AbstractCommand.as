@@ -75,7 +75,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param value 名前
          * 
          */
-        public function name(value:String):ICommand {
+        public function name(value:String):ICommand{
             _name = value;
             return this;
         }
@@ -86,7 +86,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param value 名前
          * 
          */
-        public function arguments(...args):ICommand {
+        public function arguments(...args):ICommand{
             _arguments = args;
             return this;
         }

@@ -15,7 +15,7 @@
 */
 package org.seasar.akabana.yui.core.logging
 {
-	public interface ILoggerFactory{
-		function getLogger(target:Object):ILogger;
-	}
+    public interface ILoggerFactory {
+        function getLogger(target:Object):ILogger;
+    }
 }

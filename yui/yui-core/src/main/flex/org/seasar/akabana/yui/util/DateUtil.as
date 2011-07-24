@@ -1,7 +1,7 @@
 package org.seasar.akabana.yui.util
 {
-    public class DateUtil
-    {
+    public final class DateUtil {
+        
         private static const _ZERO:String = "0";
         
         public static function getCurrentDateString():String{

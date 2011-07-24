@@ -26,12 +26,12 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.framework.core.ILifeCyclable;
     import org.seasar.akabana.yui.framework.ns.viewpart;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-	import org.seasar.akabana.yui.framework.logging.debug;
-	import org.seasar.akabana.yui.framework.core.InstanceCache;
-	import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import org.seasar.akabana.yui.framework.logging.debug;
+    import org.seasar.akabana.yui.framework.core.InstanceCache;
+    import org.seasar.akabana.yui.framework.convention.NamingConvention;
 
     [ExcludeClass]
-    public class ValidatorCustomizer extends AbstractComponentCustomizer {
+    public final class ValidatorCustomizer extends AbstractComponentCustomizer {
         
         public override function customizeView(container:UIComponent):void {
             const viewProperties:Object = UIComponentUtil.getProperties(container);

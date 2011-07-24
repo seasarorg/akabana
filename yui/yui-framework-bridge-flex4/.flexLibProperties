@@ -4,9 +4,6 @@
     <classEntry path="org.seasar.akabana.yui.framework.YuiApplication"/>
     <classEntry path="org.seasar.akabana.yui.framework.bridge.Flex4FrameworkBridgePlugin"/>
     <classEntry path="org.seasar.akabana.yui.framework.convention.Flex4NamingConvention"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.CatalystEventHandlerCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.customizer.CatalystHelperCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.framework.util.CatalystGroupUtil"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>

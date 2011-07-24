@@ -23,7 +23,7 @@ package org.seasar.akabana.yui.core.event
      * メッセージを通知するためイベントクラスです。
      * 
      */
-    public class MessageEvent extends Event {
+    public final class MessageEvent extends Event {
         
         protected var _data:Object;
         

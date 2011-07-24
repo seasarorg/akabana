@@ -18,16 +18,16 @@ package org.seasar.akabana.yui.core.reflection
 CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
-    public class FunctionRef extends AnnotatedObjectRef {
-		
-		private var _isInitialiedParameters:Boolean;
+    public final class FunctionRef extends AnnotatedObjectRef {
+        
+        private var _isInitialiedParameters:Boolean;
 CONFIG::FP9{
         private var _parameters:Array;
 
         public function get parameters():Array{
-			if( !_isInitialiedParameters ){
-				assembleParameter(_describeTypeXml );
-			}
+            if( !_isInitialiedParameters ){
+                assembleParameter(_describeTypeXml );
+            }
             return _parameters;
         }
 }
@@ -79,10 +79,6 @@ CONFIG::FP10{
             return result;
         }
 
-        public function toString():String{
-            return name + "{ returnType=" + _returnType + ", declaredBy=" + _declaredBy + ", isReturnAnyType=" + _isReturnAnyType + "}(" + _parameters + ")";
-        }
-
         private function assembleThis( rootDescribeTypeXml:XML ):void{
             var access:String = rootDescribeTypeXml.@access.toString();
             _returnType = getTypeString(rootDescribeTypeXml.@returnType.toString());
@@ -109,7 +105,7 @@ CONFIG::FP10{
                 _parameterMap[ parameterRef.name ] = parameterRef;
             }
 
-			_isInitialiedParameters = true;
+            _isInitialiedParameters = true;
         }
     }
 }

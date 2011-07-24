@@ -36,8 +36,8 @@ package org.seasar.akabana.yui.framework.util
 
     [ExcludeClass]
     [Deprecated(message="The PopUpUtil is deprecated. Use spark.components.PopUpAnchor or similar component instead.",replacement="Use spark.components.PopUpAnchor instead",since="1.1")]    
-    public class PopUpUtil
-    {
+    public final class PopUpUtil {
+        
         public static const POPUP_INFO:String = "__popUp_info";
 
         public static const POPUP_OWNER:String = "popUpOwner";
