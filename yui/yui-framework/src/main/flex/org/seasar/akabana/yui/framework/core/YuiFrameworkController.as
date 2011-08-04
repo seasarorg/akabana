@@ -290,7 +290,7 @@ package org.seasar.akabana.yui.framework.core
             }
             if( isView(component)){
                 customizeView(component);
-            } else if(isComponent(component)){
+            } else if(isView(component.owner) && isComponent(component)){
                 var document:UIComponent = getDocumentOf(component);
                 if( document != null && isView(document)){
                     customizeComponent(document,component);
@@ -306,7 +306,7 @@ package org.seasar.akabana.yui.framework.core
             if( isView(component)){
                 uncustomizeView( component as DisplayObjectContainer);
                 processViewUnregister( component as DisplayObjectContainer);
-            } else if(isComponent(component)){
+            } else if(isView(component.owner) && isComponent(component)){
                 var document:UIComponent = getDocumentOf(component);
                 if( document != null && isView(document)){
                     uncustomizeComponent(document,component);
