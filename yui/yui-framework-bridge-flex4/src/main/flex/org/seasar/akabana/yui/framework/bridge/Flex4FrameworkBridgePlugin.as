@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.framework.bridge
 
     [ExcludeClass]
     public final class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin {
-        
+
         private static const ROOT_VIEW:String = "rootView";
         
         private static const SKIN_NAME:String = "Skin";
@@ -79,7 +79,7 @@ package org.seasar.akabana.yui.framework.bridge
             var result:UIComponent = null;
             if( component is UIComponent ){
                 result = (component as UIComponent).document as UIComponent;
-                if( result is Skin ){
+                if( result is Skin && HOST_COMPONENT in result){
                     result = result[HOST_COMPONENT] as UIComponent;
                 }
             }
