@@ -284,32 +284,43 @@ package org.seasar.akabana.yui.framework.core
         }
         
         protected override function doRegisterComponent( target:DisplayObject ):void{
+            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
+            
             var component:UIComponent = target as UIComponent;
             if( component == null || !component.initialized ){
                 return;
             }
-            if( isView(component)){
+            if( isView(component) ){
                 customizeView(component);
-            } else if(isView(component.owner) && isComponent(component)){
-                var document:UIComponent = getDocumentOf(component);
-                if( document != null && isView(document)){
-                    customizeComponent(document,component);
+            } else {
+                if( settings.isAutoMonitoring ){
+                    if( isComponent(component) ){
+                        var document:UIComponent = getDocumentOf(component);
+                        if( isView(document) ){
+                            customizeComponent(document,component);
+                        }
+                    }
                 }
             }
         }
         
         protected override function doUnregisterComponent(target:DisplayObject):void{
+            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
+            
             var component:UIComponent = target as UIComponent;
             if( component == null || !component.initialized ){
                 return;
             }
             if( isView(component)){
                 uncustomizeView( component as DisplayObjectContainer);
-                processViewUnregister( component as DisplayObjectContainer);
-            } else if(isView(component.owner) && isComponent(component)){
-                var document:UIComponent = getDocumentOf(component);
-                if( document != null && isView(document)){
-                    uncustomizeComponent(document,component);
+            } else {
+                if( settings.isAutoMonitoring ){
+                    if( isComponent(component) ){
+                        var document:UIComponent = getDocumentOf(component);
+                        if( isView(document) ){
+                            uncustomizeComponent(document,component);
+                        }
+                    }
                 }
             }
         }
