@@ -24,8 +24,8 @@ CONFIG::FP10{
 }
 
     [ExcludeClass]
-    public class NamingConvention
-    {
+    public class NamingConvention {
+
         public static const VIEW:String = "view";
         public static const HELPER:String = "helper";
         public static const ACTION:String = "action";

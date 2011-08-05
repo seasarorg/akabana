@@ -533,26 +533,10 @@ CONFIG::FP10{
         }
 
         private final function assemblePackage( rootDescribeTypeXml:XML ):void{
-            _package = _name.substring(0,_name.lastIndexOf("."));
+            _package = _name.substring(0,_name.lastIndexOf(DOT));
         }
 
-//        private final function assembleExtends( rootDescribeTypeXml:XML ):void{
-//            const interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
-//
-//            var interfaceRef:ClassRef = null;
-//            for each( var interfaceXML:XML in interfacesXMLList ){
-//                interfaceRef = ClassRef.getInstance(getTypeString(interfaceXML.@type));
-//
-//                _interfaces.push( interfaceRef );
-//                _interfaceMap[ interfaceRef.name ] = interfaceRef;
-//            }
-//        }
-
         private final function assembleThis( rootDescribeTypeXml:XML ):void{
-//            isDynamic = rootDescribeTypeXml.@isDynamic.toString() == "true";
-//            isFinal = rootDescribeTypeXml.@isFinal.toString() == "true";
-//            isStatic = rootDescribeTypeXml.@isStatic.toString() == "true";
-            
             _isPrimitive = ( name in PRIMITIVE_CLASS_MAP );
             _isTopLevel = ( name in TOPLEVEL_CLASS_MAP );
             

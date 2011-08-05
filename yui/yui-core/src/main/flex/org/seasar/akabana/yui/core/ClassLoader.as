@@ -16,13 +16,14 @@
 package org.seasar.akabana.yui.core
 {
     import flash.net.getClassByAlias;
+    import flash.system.ApplicationDomain;
     import flash.utils.getDefinitionByName;
-
+    
     import org.seasar.akabana.yui.core.error.ClassNotFoundError;
 
     public final class ClassLoader {
         
-        public function findClass( name:String ):Class {
+        public function findClass( name:String, ad:ApplicationDomain=null):Class {
             var clazz:Class = null;
             try{
                 clazz = getDefinitionByName( name ) as Class;
@@ -34,11 +35,29 @@ package org.seasar.akabana.yui.core
                 } catch( e:Error ){
                 }
             }
+            if ( clazz == null ){
+                try{
+                    clazz = findClassByApplicationDomain( name, ad == null ? ApplicationDomain.currentDomain : ad );
+                } catch( e:Error ){
+                }
+            }
             if( clazz == null){
                 var e:ClassNotFoundError = ClassNotFoundError.createError(name);
                 throw e;
             }
 
+            return clazz;
+        }
+        
+        public function findClassByApplicationDomain( name:String, ad:ApplicationDomain):Class{
+            var clazz:Class = null;
+            if( ad.hasDefinition(name) ){
+                clazz = ad.getDefinition( name ) as Class;
+            }
+            if( clazz == null){
+                var e:ClassNotFoundError = ClassNotFoundError.createError(name);
+                throw e;
+            }
             return clazz;
         }
     }

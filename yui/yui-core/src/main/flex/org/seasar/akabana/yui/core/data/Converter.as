@@ -31,8 +31,7 @@ package org.seasar.akabana.yui.core.data
         
         private static var _instance:Converter;
                 
-        public static function getInstanceBy(toClass:Class):Converter
-        {
+        public static function getInstanceBy(toClass:Class):Converter{
             if( _instance == null ){
                 _instance = new Converter();
             }
@@ -63,7 +62,7 @@ package org.seasar.akabana.yui.core.data
                         if( propertyRef.name in value ){
                             result[propertyRef.name] = processPropertyConvert(value[propertyRef.name],propertyRef.typeClassRef);
                         }
-                    }                
+                    }
                 }
             }
                 
@@ -86,8 +85,7 @@ package org.seasar.akabana.yui.core.data
             return result;
         }
         
-        protected function doClone(value:Object):*
-        {
+        protected function doClone(value:Object):*{
             if( value == null ){
                 return null;
             }

@@ -22,8 +22,7 @@ package org.seasar.akabana.yui.core.error
     [ResourceBundle("yui_core")]
     public final class NotFoundError extends Error {
         
-        public function NotFoundError(owner:Object,target:String)
-        {
+        public function NotFoundError(owner:Object,target:String){
             var ownerName:String;
             if( owner is String ){
                 ownerName = owner as String;

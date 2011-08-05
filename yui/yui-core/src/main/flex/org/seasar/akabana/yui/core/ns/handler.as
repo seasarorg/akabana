@@ -15,5 +15,5 @@
  */
 package org.seasar.akabana.yui.core.ns
 {
-    public namespace handler = "http://yui.akabana.seasar.org/framework/event/handler";
+    public namespace handler = "http://yui.akabana.seasar.org/core/handler";
 }

@@ -15,5 +15,6 @@
 */
 package org.seasar.akabana.yui.core.ns
 {
+[Exclude]
 public namespace yui_internal = "http://yui.akabana.seasar.org/internal";
 }
