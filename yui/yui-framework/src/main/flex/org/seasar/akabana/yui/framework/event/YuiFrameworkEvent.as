@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.framework.event
 {
     import flash.events.Event;
     
-
+    [ExcludeClass]
     public final class YuiFrameworkEvent extends Event {
         
         public static const APPLICATION_MONITOR_START:String = "applicationMonitorStart";

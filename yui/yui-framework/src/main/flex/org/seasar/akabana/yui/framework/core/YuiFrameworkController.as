@@ -59,15 +59,37 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.logging.Logging;
     import org.seasar.akabana.yui.core.ns.yui_internal;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
+    import mx.managers.FocusManager;
+    import mx.styles.StyleManager;
     
     use namespace yui_internal;
     
     [ExcludeClass]
-    public final class YuiFrameworkController extends YuiFrameworkControllerBase
-    {   
+    public final class YuiFrameworkController extends YuiFrameworkControllerBase {
+        
+        private static function isView(component:DisplayObject):Boolean{
+            if( component == null ){
+                return false;
+            }
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            if( frameworkBridge.isContainer(component)){
+                const namingConvention:NamingConvention = YuiFrameworkGlobals.public::namingConvention as NamingConvention;
+                return namingConvention.isViewClassName( getCanonicalName(component) );
+            } else {
+                return false;
+            }
+        }
+        
+        private static function isComponent( target:DisplayObject ):Boolean{
+            if( target == null ){
+                return false;
+            }
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            return frameworkBridge.isComponent(target);            
+        }
         
         private static function getDocumentOf(target:DisplayObject):UIComponent{
-            if( target == null ){
+            if( target == null || !isComponent(target) ){
                 return null;
             }
             const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
@@ -166,6 +188,13 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public override function customizeComponent( container:DisplayObjectContainer, child:DisplayObject ):void{
+            if( container == null || !isView(container) ){
+                return;
+            }
+            if( child == null || !isComponent(child) ){
+                return;
+            }
+            //
             var componentCustomizer_:IComponentCustomizer;
             var view:UIComponent = container as UIComponent;
             var component:UIComponent = child as UIComponent;
@@ -191,6 +220,13 @@ package org.seasar.akabana.yui.framework.core
         }
         
         public override function uncustomizeComponent( container:DisplayObjectContainer, child:DisplayObject ):void{
+            if( container == null || !isView(container) ){
+                return;
+            }
+            if( child == null || !isComponent(child) ){
+                return;
+            }
+            //
             var componentCustomizer_:IComponentCustomizer;
             var view:UIComponent = container as UIComponent;
             var component:UIComponent = child as UIComponent;
@@ -270,7 +306,7 @@ package org.seasar.akabana.yui.framework.core
             }
             const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
             if( frameworkBridge.application == null && frameworkBridge.isApplication(component) ){
-                doRegisterApplication(component as DisplayObjectContainer);
+                processApplicationRegisteration(component as DisplayObjectContainer);
             } else {
                 processViewRegister(component); 
             }
@@ -283,101 +319,30 @@ package org.seasar.akabana.yui.framework.core
             doRegisterComponent(event.target as DisplayObject);
         }
         
-        protected override function doRegisterComponent( target:DisplayObject ):void{
-            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
+        private function applicationInitialize():void{
             
-            var component:UIComponent = target as UIComponent;
-            if( component == null || !component.initialized ){
-                return;
+            if( _customizers == null ){
+                _customizers = getDefaultCustomizers();
             }
-            if( isView(component) ){
-                customizeView(component);
-            } else {
-                if( settings.isAutoMonitoring ){
-                    if( isComponent(component) ){
-                        var document:UIComponent = getDocumentOf(component);
-                        if( isView(document) ){
-                            customizeComponent(document,component);
-                        }
-                    }
-                }
+            CONFIG::DEBUG{
+                _debug("ViewAssembleStart");
             }
-        }
-        
-        protected override function doUnregisterComponent(target:DisplayObject):void{
-            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
-            
-            var component:UIComponent = target as UIComponent;
-            if( component == null || !component.initialized ){
-                return;
-            }
-            if( isView(component)){
-                uncustomizeView( component as DisplayObjectContainer);
-            } else {
-                if( settings.isAutoMonitoring ){
-                    if( isComponent(component) ){
-                        var document:UIComponent = getDocumentOf(component);
-                        if( isView(document) ){
-                            uncustomizeComponent(document,component);
-                        }
-                    }
-                }
-            }
-        }
-        
-        protected override function doRegisterApplication(component:DisplayObjectContainer):void{
-            super.doRegisterApplication(component);
-            
-            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
-            const root:DisplayObject = frameworkBridge.systemManager;
-            CONFIG::UNCAUGHT_ERROR_GLOBAL{
-                root.loaderInfo.uncaughtErrorEvents
-                    .addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfoUncaughtErrorHandler,false,int.MAX_VALUE);
-            }
-            if( root is SystemManager ){
-                var sm:SystemManager = root as SystemManager;
-                var preloadedRSLs:Dictionary = sm.preloadedRSLs;
-                var loaderInfo:LoaderInfo;
-                
-                for( var item:Object in preloadedRSLs ){
-                    loaderInfo = item as LoaderInfo;
-                    CONFIG::DEBUG{
-                        debug(this,"preloadedRSLs:"+loaderInfo.url);
-                    }
-                    CONFIG::UNCAUGHT_ERROR_GLOBAL{
-                        loaderInfo.loader.uncaughtErrorEvents
-                            .addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfoUncaughtErrorHandler,false,int.MAX_VALUE);
-                    }
-                }
-            }
-        }
-        
-        protected override function processApplicationStart():void{
-            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
-            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
-            const root:DisplayObject = frameworkBridge.systemManager;
-            const app:UIComponent = frameworkBridge.application as UIComponent;
-            const rootView:DisplayObjectContainer = frameworkBridge.rootView as DisplayObjectContainer;
-            app.setVisible(true,true);
-            super.processApplicationStart();
             
             var allView:Dictionary = ViewComponentRepository.allView;
-            var fevent:YuiFrameworkEvent;
-            for each (var view:UIComponent in allView) 
-            {
-                if( view === rootView ){
-                    continue;
+            for ( var viewName:String in allView ){
+                CONFIG::DEBUG{
+                    _debug("ViewAssembleing",viewName);
                 }
-                if( view.hasEventListener(YuiFrameworkEvent.APPLICATION_START)){
-                    fevent = new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_START);
-                    view.dispatchEvent( fevent );
+                customizeView(ViewComponentRepository.getComponent(viewName));
+                CONFIG::DEBUG{
+                    _debug("ViewAssembled",viewName);
                 }
             }
-            _isApplicationStarted = true;
             
-            if( settings.isAutoMonitoring ){
-                componentMonitoringStart(root);
+            CONFIG::DEBUG{
+                _debug("ViewAssembleEnd");
             }
+            callLater( processApplicationStart );
         }
         
         protected override function getDefaultCustomizerClasses():Array{
@@ -411,31 +376,133 @@ package org.seasar.akabana.yui.framework.core
             }
             return result;
         }
+        
+        protected override function doRegisterComponent( target:DisplayObject ):void{
+            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
+            
+            var component:UIComponent = target as UIComponent;
+            if( component == null || !component.initialized ){
+                return;
+            }
+            if( isView(component) ){
+                customizeView(component);
+            } else {
+                if( settings.isAutoMonitoring ){
+                    customizeComponent(getDocumentOf(component),component);
+                }
+            }
+        }
+        
+        protected override function doUnregisterComponent(target:DisplayObject):void{
+            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
+            
+            var component:UIComponent = target as UIComponent;
+            if( component == null || !component.initialized ){
+                return;
+            }
+            if( isView(component)){
+                uncustomizeView( component as DisplayObjectContainer);
+            } else {
+                if( settings.isAutoMonitoring ){
+                    uncustomizeComponent(getDocumentOf(component),component);
+                }
+            }
+        }
+        
+        private function processApplicationRegisteration(component:DisplayObjectContainer):void{
+            CONFIG::DEBUG{
+                _debug("ApplicationRegistered",component.toString());
+            }
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            frameworkBridge.application = component;
+            Environment.yui_internal::setRoot( component );
+            Environment.yui_internal::setParameters( frameworkBridge.parameters );
+            
+            const root:DisplayObject = frameworkBridge.systemManager;
+            CONFIG::UNCAUGHT_ERROR_GLOBAL{
+                root.loaderInfo.uncaughtErrorEvents
+                    .addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfoUncaughtErrorHandler,false,int.MAX_VALUE);
+            }
+            if( root is SystemManager ){
+                var sm:SystemManager = root as SystemManager;
+                var preloadedRSLs:Dictionary = sm.preloadedRSLs;
+                var loaderInfo:LoaderInfo;
+                
+                for( var item:Object in preloadedRSLs ){
+                    loaderInfo = item as LoaderInfo;
+                    CONFIG::DEBUG{
+                        debug(this,"preloadedRSLs:"+loaderInfo.url);
+                    }
+                    CONFIG::UNCAUGHT_ERROR_GLOBAL{
+                        loaderInfo.loader.uncaughtErrorEvents
+                            .addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, loaderInfoUncaughtErrorHandler,false,int.MAX_VALUE);
+                    }
+                }
+            }
+        }
+        
+        private function processApplicationStart():void{
+            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
+            const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
+            
+            const root:DisplayObject = frameworkBridge.systemManager;
+            const app:UIComponent = frameworkBridge.application as UIComponent;
+            const rootView:DisplayObjectContainer = frameworkBridge.rootView as DisplayObjectContainer;
+            CONFIG::DEBUG{
+                _info("ApplicationStart");
+            }
 
-        yui_internal override function applicationInitialize():void{
-            
-            if( _customizers == null ){
-                _customizers = getDefaultCustomizers();
+            app.setVisible(true,true);
+            if( rootView != null ){
+                if( rootView.hasEventListener(YuiFrameworkEvent.APPLICATION_START)){
+                    rootView.dispatchEvent( new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_START));
+                }
+                rootView.visible = true;
             }
-            CONFIG::DEBUG{
-                _debug("ViewAssembleStart");
-            }
-            
+
             var allView:Dictionary = ViewComponentRepository.allView;
-            for ( var viewName:String in allView ){
-                CONFIG::DEBUG{
-                    _debug("ViewAssembleing",viewName);
+            var fevent:YuiFrameworkEvent;
+            for each (var view:UIComponent in allView) 
+            {
+                if( view === rootView ){
+                    continue;
                 }
-                customizeView(ViewComponentRepository.getComponent(viewName));
-                CONFIG::DEBUG{
-                    _debug("ViewAssembled",viewName);
+                if( view.hasEventListener(YuiFrameworkEvent.APPLICATION_START)){
+                    fevent = new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_START);
+                    view.dispatchEvent( fevent );
                 }
             }
+            _isApplicationStarted = true;
             
-            CONFIG::DEBUG{
-                _debug("ViewAssembleEnd");
+            if( settings.isAutoMonitoring ){
+                componentMonitoringStart(root);
             }
-            callLater( processApplicationStart );
+        }
+
+        private function processViewRegister( container:DisplayObjectContainer ):void{
+            if( isView(container)){
+                const namingConvention:NamingConvention = YuiFrameworkGlobals.public::namingConvention;
+                const componentId:String = namingConvention.getComponentName(container);
+                if( !ViewComponentRepository.hasComponent( componentId )){
+                    ViewComponentRepository.addComponent( container );
+                    CONFIG::DEBUG{
+                        _debug("ViewRegistered",container.toString());
+                    }
+                }
+            }
+        }
+        
+        private function processViewUnregister( container:DisplayObjectContainer ):void{
+            if( isView(container)){
+                const namingConvention:NamingConvention = YuiFrameworkGlobals.public::namingConvention;
+                const componentId:String = namingConvention.getComponentName(container);
+                if( ViewComponentRepository.hasComponent( componentId )){
+                    ViewComponentRepository.removeComponent( container );
+                    CONFIG::DEBUG{
+                        _debug("ViewUnRegistered",container.toString());
+                    }
+                }
+            }
         }
         
         yui_internal function systemManagerMonitoringStart( root:DisplayObject ):void{

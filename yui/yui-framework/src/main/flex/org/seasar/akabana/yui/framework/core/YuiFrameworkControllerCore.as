@@ -136,6 +136,27 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        CONFIG::FP9{
+            protected function getDefaultCustomizers():Array{
+                var classes:Array = getDefaultCustomizerClasses();
+                var result:Array = [];
+                for each( var customizerClass:Class in classes ){
+                    result.push(new customizerClass());
+                }
+                return result;
+            }
+        }
+        
+        CONFIG::FP10{
+            protected function getDefaultCustomizers():Vector.<IElementCustomizer>{
+                var classes:Array = getDefaultCustomizerClasses();
+                var result:Vector.<IElementCustomizer> = new Vector.<IElementCustomizer>();
+                for each( var customizerClass:Class in classes ){
+                    result.push(new customizerClass());
+                }
+                return result;
+            }
+        }
         protected function getDefaultCustomizerClasses():Array{
             return [];
         }

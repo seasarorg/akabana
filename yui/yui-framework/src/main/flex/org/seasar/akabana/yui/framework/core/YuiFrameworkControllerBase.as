@@ -48,30 +48,8 @@ package org.seasar.akabana.yui.framework.core
     use namespace yui_internal;
     
     [ExcludeClass]
-    public class YuiFrameworkControllerBase extends YuiFrameworkControllerCore
-    {
-        
-        protected static function isView(component:DisplayObject):Boolean{
-            if( component == null ){
-                return false;
-            }
-            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
-            if( frameworkBridge.isContainer(component)){
-                const namingConvention:NamingConvention = YuiFrameworkGlobals.public::namingConvention as NamingConvention;
-                return namingConvention.isViewClassName( getCanonicalName(component) );
-            } else {
-                return false;
-            }
-        }
-        
-        protected static function isComponent( target:DisplayObject ):Boolean{
-            if( target == null ){
-                return false;
-            }
-            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
-            return frameworkBridge.isComponent(target);            
-        }
-        
+    public class YuiFrameworkControllerBase extends YuiFrameworkControllerCore {
+
         CONFIG::FP9{
             public function get customizers():Array{
                 return _customizers;
@@ -121,7 +99,7 @@ package org.seasar.akabana.yui.framework.core
             CONFIG::DEBUG{
                 _debug("ExternalRootRemove",root);
             }
-            super.removeRootDisplayObject(root);            
+            super.removeRootDisplayObject(root);
             if( root in _rootDisplayObjectMap ){
                 applicationMonitoringStop(root);
             }
@@ -157,78 +135,6 @@ package org.seasar.akabana.yui.framework.core
         
         protected function doUnregisterComponent(component:DisplayObject):void{
         }
-        
-        protected function doRegisterApplication(component:DisplayObjectContainer):void{
-            CONFIG::DEBUG{
-                _debug("ApplicationRegistered",component.toString());
-            }
-            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
-            frameworkBridge.application = component;
-            Environment.yui_internal::setRoot( component );
-            Environment.yui_internal::setParameters( frameworkBridge.parameters );
-        }
-        
-        protected function processApplicationStart():void{
-            const frameworkBridge:FrameworkBridge = YuiFrameworkGlobals.public::frameworkBridge as FrameworkBridge;
-            const rootView:DisplayObjectContainer = frameworkBridge.rootView as DisplayObjectContainer;
-            CONFIG::DEBUG{
-                _info("ApplicationStart");
-            }
-            if( rootView != null ){
-                if( rootView.hasEventListener(YuiFrameworkEvent.APPLICATION_START)){
-                    rootView.dispatchEvent( new YuiFrameworkEvent(YuiFrameworkEvent.APPLICATION_START));
-                }
-                rootView.visible = true;
-            }
-        }
-        
-        protected function processViewRegister( container:DisplayObjectContainer ):void{
-            if( isView(container)){
-                const componentId:String = YuiFrameworkGlobals.public::namingConvention.getComponentName(container);
-                if( !ViewComponentRepository.hasComponent( componentId )){
-                    ViewComponentRepository.addComponent( container );
-                    CONFIG::DEBUG{
-                        _debug("ViewRegistered",container.toString());
-                    }
-                }
-            }
-        }
-        
-        protected function processViewUnregister( container:DisplayObjectContainer ):void{
-            if( isView(container)){
-                const componentId:String = YuiFrameworkGlobals.public::namingConvention.getComponentName(container);
-                if( ViewComponentRepository.hasComponent( componentId )){
-                    ViewComponentRepository.removeComponent( container );
-                    CONFIG::DEBUG{
-                        _debug("ViewUnRegistered",container.toString());
-                    }
-                }
-            }
-        }
-        
-        CONFIG::FP9{
-            protected function getDefaultCustomizers():Array{
-                var classes:Array = getDefaultCustomizerClasses();
-                var result:Array = [];
-                for each( var customizerClass:Class in classes ){
-                    result.push(new customizerClass());
-                }
-                return result;
-            }
-        }
-        
-        CONFIG::FP10{
-            protected function getDefaultCustomizers():Vector.<IElementCustomizer>{
-                var classes:Array = getDefaultCustomizerClasses();
-                var result:Vector.<IElementCustomizer> = new Vector.<IElementCustomizer>();
-                for each( var customizerClass:Class in classes ){
-                    result.push(new customizerClass());
-                }
-                return result;
-            }
-        }
-        
-        
         
         CONFIG::UNCAUGHT_ERROR_GLOBAL{
             yui_internal function loaderInfoUncaughtErrorHandler(event:UncaughtErrorEvent):void
@@ -310,9 +216,6 @@ package org.seasar.akabana.yui.framework.core
                 systemManager_removeFromStageHandler,
                 true
             );
-        }
-        
-        yui_internal function applicationInitialize():void{
         }
     }
 }

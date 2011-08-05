@@ -24,8 +24,8 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.logging.debug;
     
     [ExcludeClass]
-    public final class InstanceCache
-    {
+    public final class InstanceCache {
+        
         private static const INSTANCE_REF_CACHE:Dictionary = new Dictionary(true);
         
         public static function newInstance(classRef:ClassRef,...args):Object{

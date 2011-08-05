@@ -18,7 +18,7 @@ package org.seasar.akabana.yui.framework.event
     import flash.events.ErrorEvent;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
-
+    
     public final class RuntimeErrorEvent extends ErrorEvent {
         
         public static const RUNTIME_ERROR:String = "runtimeError";
