@@ -39,6 +39,12 @@ package org.seasar.akabana.yui.command.core.impl
 
         protected var _arguments:Array = [];
         
+        private var _hasResult:Boolean;
+        
+        public function get hasResult():Boolean{
+            return _hasResult;
+        }
+        
         private var _result:Object;
 
         public function get result():Object{
@@ -47,6 +53,13 @@ package org.seasar.akabana.yui.command.core.impl
 
         public function set result(value:Object):void{
             _result = value;
+            _hasResult = true;
+        }
+        
+        private var _hasStatus:Boolean;
+        
+        public function get hasStatus():Boolean{
+            return _hasStatus;
         }
         
         private var _status:Object;
@@ -57,6 +70,7 @@ package org.seasar.akabana.yui.command.core.impl
         
         public function set status(value:Object):void{
             _status = value;
+            _hasStatus = true;
         }
         
         /**

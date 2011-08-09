@@ -21,12 +21,24 @@ package org.seasar.akabana.yui.command.core
      * 
      */
     public interface ICommand {
+
+        /**
+         * コマンドの結果があるか
+         * 
+         */
+        function get hasResult():Boolean;
         
         /**
          * コマンドの結果
          * 
          */
         function get result():Object;
+        
+        /**
+         * コマンドのエラーステータスがあるか
+         * 
+         */
+        function get hasStatus():Boolean;
         
         /**
          * コマンドのエラーステータス
