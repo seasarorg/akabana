@@ -20,6 +20,8 @@ package org.seasar.akabana.yui.command
     
     public final class WaitCommand extends AsyncCommand {
         
+        protected var _invoker:FunctionInvoker;
+        
         protected var _sleep:int;
 
         public function get sleep():int{
@@ -36,10 +38,14 @@ package org.seasar.akabana.yui.command
         }
         
         protected override function run():void{
-            new FunctionInvoker(doSleepEnd).invokeDelay(_sleep);
+            if( _invoker != null && _invoker.isStarted ){
+                return;
+            }
+            _invoker = new FunctionInvoker(doSleepEnd).invokeDelay(_sleep);
         }
         
         protected function doSleepEnd():void{
+            _invoker = null;
             doDone();
         }
     }

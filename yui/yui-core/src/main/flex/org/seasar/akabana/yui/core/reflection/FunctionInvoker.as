@@ -35,13 +35,25 @@ package org.seasar.akabana.yui.core.reflection
         
         private var _invokeFrame:int;
         
+        public function get isStarted():Boolean{
+            return (_timer != null && _timer.running);
+        }
+        
         public function FunctionInvoker(func:Function, args:Array=null){
             super();
             _func = func;
             _args = args;
         }
         
-        public function invokeLater(base:DisplayObject,invokeFrame:int=1):void{
+        public function invokeDelay(delay:Number=10):FunctionInvoker{
+            _timer = new Timer(delay);
+            _timer.addEventListener(TimerEvent.TIMER, timerEventHandler);
+            _timer.start();
+            
+            return this;
+        }
+        
+        public function invokeLater(base:DisplayObject,invokeFrame:int=1):FunctionInvoker{
             if( base == null ){
                 clear();
             } else {
@@ -49,7 +61,7 @@ package org.seasar.akabana.yui.core.reflection
                 _invokeFrame = invokeFrame;
                 base.addEventListener(Event.ENTER_FRAME,baseEnterFrameHandler);
             }
-            
+            return this;
         }
         
         private function baseEnterFrameHandler(event:Event):void{
@@ -59,12 +71,6 @@ package org.seasar.akabana.yui.core.reflection
                 base.removeEventListener(Event.ENTER_FRAME,baseEnterFrameHandler);
                 doInvoke();
             }
-        }
-        
-        public function invokeDelay(delay:Number=10):void{
-            _timer = new Timer(delay);
-            _timer.addEventListener(TimerEvent.TIMER, timerEventHandler);
-            _timer.start();
         }
         
         private function timerEventHandler(event:TimerEvent):void{

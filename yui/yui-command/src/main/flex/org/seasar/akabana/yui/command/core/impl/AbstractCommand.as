@@ -139,11 +139,10 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         public function complete( handler:Function ):ICommand{
-            if( handler == null ){
-                if( _completeEventListener.handler != null ){
-                    removeEventListener( CommandEvent.COMPLETE, _completeEventListener.handler, false );
-                }                
-            } else {
+            if( _completeEventListener.handler != null ){
+                removeEventListener( CommandEvent.COMPLETE, _completeEventListener.handler, false );
+            }
+            if( handler != null ){
                 _completeEventListener.handler = handler;
                 addEventListener( CommandEvent.COMPLETE, _completeEventListener.handler, false, int.MAX_VALUE, true );
             }
@@ -157,11 +156,10 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         public function error( handler:Function ):ICommand{
-            if( handler == null ){
-                if( _errorEventListener.handler != null ){
-                    removeEventListener( CommandEvent.ERROR,_errorEventListener.handler, false );
-                }                
-            } else {
+            if( _errorEventListener.handler != null ){
+                removeEventListener( CommandEvent.ERROR,_errorEventListener.handler, false );
+            }
+            if( handler != null ){
                 _errorEventListener.handler = handler;
                 addEventListener( CommandEvent.ERROR, _errorEventListener.handler, false, int.MAX_VALUE, true );
             }
