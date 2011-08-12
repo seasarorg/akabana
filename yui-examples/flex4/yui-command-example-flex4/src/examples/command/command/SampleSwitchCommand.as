@@ -3,6 +3,7 @@ package examples.command.command
     import org.seasar.akabana.yui.command.CallBackCommand;
     import org.seasar.akabana.yui.command.SequenceCommand;
     import org.seasar.akabana.yui.command.SwitchCommand;
+    import org.seasar.akabana.yui.command.WaitCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
     
     public class SampleSwitchCommand extends SequenceCommand
@@ -12,15 +13,19 @@ package examples.command.command
             super();
             add( new RandomDataCommnad() );
             add( new SwitchCommand()
-                    .caseCommand( "high", new CallBackCommand(traceHandler))
-                    .caseCallBack( "low", traceHandler )
+                    .caseCommand( "high", new CallBackCommand(highHandler))
+                    .caseCallBack( "low", lowHandler )
             )
+            add( new WaitCommand(1000));
         }
         
-        private function traceHandler(data:Object):Object
+        private function highHandler(data:Object):String
+        {
+            return data.toString()+"!!!!";
+        }
+        private function lowHandler(data:Object):void
         {
             trace(data);
-            return data;
         }
     }
 }

@@ -15,25 +15,56 @@
  */
 package org.seasar.akabana.yui.command.core.impl
 {
-    import flash.events.TimerEvent;
-    import flash.utils.Timer;
-    
     import org.seasar.akabana.yui.command.core.ICommand;
+    import org.seasar.akabana.yui.core.reflection.FunctionInvoker;
     
     public class AbstractAsyncCommand extends AbstractSubCommand {
         
-        protected var _dispatchTimer:Timer;
+        private var _hasPendingResultChanged:Boolean;
         
-        protected var _pendingResult:Object;
+        private var _pendingResult:Object;
+
+        protected function get pendingResult():Object
+        {
+            return _pendingResult;
+        }
+
+        protected function set pendingResult(value:Object):void
+        {
+            _pendingResult = value;
+            _hasPendingResultChanged = true;
+        }
         
-        protected var _pendingStatus:Object;
+        private var _hasPendingStatusChanged:Boolean;
         
+        private var _pendingStatus:Object;
+
+        protected function get pendingStatus():Object
+        {
+            return _pendingStatus;
+        }
+
+        protected function set pendingStatus(value:Object):void
+        {
+            _pendingStatus = value;
+            _hasPendingStatusChanged = true;
+        }
+
         /**
          * 
          * 
          */
         public function AbstractAsyncCommand(){
-            _dispatchTimer = new Timer(1);
+        }
+        
+        /**
+         * 
+         * @param args
+         * 
+         */
+        public override function start( ...args ):ICommand{
+            new FunctionInvoker(super.start, args ).invokeDelay(1);
+            return this;
         }
         
         /**
@@ -48,9 +79,8 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function doDoneCommand( value:Object = null ):void{
-            dispatchTimerStop();
-            _pendingResult = value;
-            dispatchTimerStart();
+            pendingResult = value;
+            doDone();
         } 
 
         /**
@@ -59,28 +89,16 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function doFailedCommand( error:Object = null ):void{
-            dispatchTimerStop();
-            _pendingStatus = error;
-            dispatchTimerStart();
+            pendingStatus = error;
+            doDone();
         }
         
         /**
          * 
          * 
          */
-        protected function dispatchTimerStart():void{
-            _dispatchTimer.addEventListener(TimerEvent.TIMER,dispatchTimerHandler);
-            _dispatchTimer.start();
-        }
-        
-        /**
-         * 
-         * 
-         */
-        protected function dispatchTimerStop():void{
-            if( _dispatchTimer.running ){
-                _dispatchTimer.stop();
-            }
+        protected function doDone():void{
+            new FunctionInvoker(finalyTask).invokeDelay(1);
         }
         
         /**
@@ -88,16 +106,18 @@ package org.seasar.akabana.yui.command.core.impl
          * @param event
          * 
          */
-        protected function dispatchTimerHandler(event:TimerEvent):void{
-            _dispatchTimer.removeEventListener(TimerEvent.TIMER,dispatchTimerHandler);
-            dispatchTimerStop();
+        protected function finalyTask():void{
             if( _pendingStatus == null ){
-                result = _pendingResult;
+                if( _hasPendingResultChanged ){
+                    result = _pendingResult;
+                }
                 _pendingResult = null;
                 _pendingStatus = null;
                 super.done();
             } else {
-                status = _pendingStatus;
+                if( _hasPendingStatusChanged ){
+                    status = _pendingStatus;
+                }
                 _pendingResult = null;
                 _pendingStatus = null;
                 super.failed();

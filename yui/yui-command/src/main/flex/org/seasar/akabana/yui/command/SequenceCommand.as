@@ -36,6 +36,9 @@ package org.seasar.akabana.yui.command
             if( _childCompleteEventListener.handler != null ){
                 _childCompleteEventListener.handler(event);
             }
+            if( _lastCommand.hasResult ){
+                pendingResult = _lastCommand.result;
+            }
             _currentCommandIndex++;
             if( _currentCommandIndex < _commands.length ){
                 var args:Array = null;
@@ -46,15 +49,15 @@ package org.seasar.akabana.yui.command
                     if( _lastCommand is AbstractComplexCommand ){
                         args = _arguments;
                     } else {
-                        args = [_lastCommand.result];
+                        args = [pendingResult];
                     }
                 }
                 
                 doStartCommandAt(_currentCommandIndex,args);
             } else {
-                doDoneCommand(_lastCommand.result);
+                doDone();
             }
-        }     
+        }
 
         protected override function childCommandErrorEventHandler(event:CommandEvent):void{
             _lastCommand = event.command;

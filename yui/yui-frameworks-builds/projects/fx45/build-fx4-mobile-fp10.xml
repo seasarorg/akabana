@@ -5,9 +5,9 @@
         <property name="projectdir" value="${PROJECT_WORKSPACE}${file.separator}fx45${file.separator}${ant.project.name}"/>
         <projectInit projectname="${ant.project.name}" projectdir="${projectdir}"/>
         <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-core"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-command"/>
         <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework" defaultsCss="defaults-mobile.css"/>
         <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework-bridge-flex4" defaultsCss="defaults-mobile.css"/>
-        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-mobile-flex4" defaultsCss="defaults.css"/>
 
         <projectCompilePrepare projectdir="${projectdir}"/>
         <projectCompileWithMobileFlexLibrary projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10.2"/>

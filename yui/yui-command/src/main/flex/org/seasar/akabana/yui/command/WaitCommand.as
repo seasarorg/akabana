@@ -15,14 +15,10 @@
  */
 package org.seasar.akabana.yui.command
 {
-    import flash.events.TimerEvent;
-    import flash.utils.Timer;
-    
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
+    import org.seasar.akabana.yui.core.reflection.FunctionInvoker;
     
     public final class WaitCommand extends AsyncCommand {
-        
-        protected var _timer:Timer;
         
         protected var _sleep:int;
 
@@ -40,23 +36,11 @@ package org.seasar.akabana.yui.command
         }
         
         protected override function run():void{
-            _timer = createTimer();
-            _timer.start();
+            new FunctionInvoker(doSleepEnd).invokeDelay(_sleep);
         }
         
-        protected function createTimer():Timer{
-            var result:Timer = new Timer(_sleep);
-            result.addEventListener(TimerEvent.TIMER,timerHandler,false,int.MAX_VALUE,false);
-            return result;
-        }
-        
-        protected function timerHandler( event:TimerEvent ):void{
-            if( _timer != null ){
-                _timer.stop();
-                _timer.removeEventListener(TimerEvent.TIMER,timerHandler,false);
-                _timer = null;
-            }
-            doDoneCommand();
+        protected function doSleepEnd():void{
+            doDone();
         }
     }
 }

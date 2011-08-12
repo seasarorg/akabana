@@ -76,7 +76,11 @@ package org.seasar.akabana.yui.command
         }
         
         protected function commandCompleteEventListener(event:CommandEvent):void{
-            doDoneCommand(event.data);
+            if( event.command.hasResult ){
+                doDoneCommand(event.command.result);
+            } else {
+                doDone();
+            }
         }
 
         protected function commandErrorEventListener(event:CommandEvent):void{

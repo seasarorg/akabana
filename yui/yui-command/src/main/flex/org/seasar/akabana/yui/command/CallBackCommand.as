@@ -15,12 +15,9 @@
  */
 package org.seasar.akabana.yui.command
 {
-    import flash.events.TimerEvent;
-    import flash.utils.Timer;
-    
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     
-    public class CallBackCommand extends Command {
+    public class CallBackCommand extends AsyncCommand {
         
         protected var _callback:Function;
         
@@ -30,7 +27,17 @@ package org.seasar.akabana.yui.command
         }
         
         protected override function run():void{
-            result = _callback.apply(null,_arguments);
+            try{
+                var callbackResult:* = _callback.apply(null,_arguments);
+                
+                if( callbackResult == undefined ){
+                    doDone();
+                } else {
+                    doDoneCommand(callbackResult);
+                }
+            } catch( e:Error ) {
+                doFailedCommand(e);
+            }
         }
     }
 }
