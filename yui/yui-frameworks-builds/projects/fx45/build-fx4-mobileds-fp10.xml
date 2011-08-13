@@ -9,6 +9,7 @@
         <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework" defaultsCss="defaults-mobile.css"/>
         <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework-bridge-flex4" defaultsCss="defaults-mobile.css"/>
         <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-ds"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-command"/>
 
         <projectCompilePrepare projectdir="${projectdir}"/>
         <projectCompileWithMobileFlexLibrary projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10.2"/>
