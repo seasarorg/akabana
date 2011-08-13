@@ -53,7 +53,7 @@ package org.seasar.akabana.yui.command.core.impl
             _name = value;
         }
         
-        protected var _argument:Object = null;
+        private var _argument:Object = null;
 
         /**
          * コマンドの引数を指定

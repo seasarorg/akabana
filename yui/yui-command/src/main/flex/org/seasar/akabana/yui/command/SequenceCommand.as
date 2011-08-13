@@ -44,12 +44,12 @@ package org.seasar.akabana.yui.command
                 var args:Array = [];
                 
                 if( _lastCommand == null ){
-                    args = [_argument];
+                    args = [argument];
                 } else {
                     if( hasPendingResult ){
                         args = [pendingResult];
                     } else {
-                        args = [_argument];
+                        args = [argument];
                     }
                 }
                 
@@ -69,7 +69,7 @@ package org.seasar.akabana.yui.command
         
         protected final function doStartCommands():void{
             _currentCommandIndex = 0;
-            doStartCommandAt(_currentCommandIndex,[_argument]);
+            doStartCommandAt(_currentCommandIndex,[argument]);
         }
     }
 }

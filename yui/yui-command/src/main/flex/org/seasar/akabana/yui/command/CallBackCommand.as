@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.command
         
         protected final override function runAsync():void{
             try{
-                var callbackResult:* = _callback.apply(null,[_argument]);
+                var callbackResult:* = _callback.apply(null,[argument]);
                 
                 if( callbackResult == undefined ){
                     doneAsync();

@@ -42,14 +42,15 @@ package org.seasar.akabana.yui.command
         }
 
         
-        public function SwitchCommand(){
+        public function SwitchCommand(property:String=null){
             super();
+            this.property = property;
             _commandMap = new Dictionary();
         }
         
         protected override function runAsync():void{
             var cmd:ICommand = null;
-            var arg:Object = _argument;
+            var arg:Object = argument;
             var key:Object = arg;
             if( !StringUtil.isEmpty(property) && (property in arg)){
                 key = arg[ property ];

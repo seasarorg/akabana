@@ -2,6 +2,7 @@ package examples.command.behavior
 {
     import examples.command.command.SampleSwitchCommand;
     import examples.command.helper.RootHelper;
+    import examples.command.model.DataModel;
     
     import org.seasar.akabana.yui.command.SequenceCommand;
     import org.seasar.akabana.yui.command.WaitCommand;
@@ -21,14 +22,15 @@ package examples.command.behavior
 
         handler function runCommand4_click():void{
             //コマンドスタート
-            cmd4.start();
+            var model:DataModel = new DataModel();
+            cmd4.start(model);
         }
         
         /**
          * cmd3コマンドの完了イベントハンドラ
          */
-        handler function cmd4_complete():void{
-            trace(4,cmd4.result);
+        handler function cmd4_complete(e:CommandEvent):void{
+            trace(4,cmd4.result,cmd4.argument);
         }
         
         /**
