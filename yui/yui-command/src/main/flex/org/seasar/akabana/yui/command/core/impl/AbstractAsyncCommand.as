@@ -44,7 +44,7 @@ package org.seasar.akabana.yui.command.core.impl
 
         protected function get hasPendingStatus():Boolean
         {
-            return _hasPendingResult;
+            return _hasPendingStatus;
         }
         
         private var _pendingStatus:Object;
