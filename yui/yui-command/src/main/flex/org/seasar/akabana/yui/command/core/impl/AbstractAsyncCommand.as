@@ -74,8 +74,6 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public override function clear():void{
             super.clear();
-            _completeEventListener.clear();
-            _errorEventListener.clear();
             _pendingResult = null;
             _pendingStatus = null;
             _hasPendingResult = false;
