@@ -46,14 +46,10 @@ package org.seasar.akabana.yui.command
                 if( _lastCommand == null ){
                     args = [_argument];
                 } else {
-                    if( _lastCommand is AbstractComplexCommand ){
-                        args = [_argument];
+                    if( hasPendingResult ){
+                        args = [pendingResult];
                     } else {
-                        if( hasPendingResult ){
-                            args = [pendingResult];
-                        } else {
-                            args = [_argument];
-                        }
+                        args = [_argument];
                     }
                 }
                 
