@@ -5,11 +5,14 @@
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
         <modifiedEntries>
-          <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/core.swc" useDefaultLinkType="true"/>
-          <libraryPathEntry index="4" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/mx/mx.swc" useDefaultLinkType="true"/>
-          <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/air/aircore.swc" useDefaultLinkType="true"/>
-          <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/air/airframework.swc" useDefaultLinkType="true"/>
-          <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/air/airspark.swc" useDefaultLinkType="true"/>
+          <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/core.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="1" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="2" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/spark.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="3" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/sparkskins.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="4" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/mx/mx.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/air/aircore.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/air/airframework.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/air/airspark.swc" useDefaultLinkType="false"/>
         </modifiedEntries>
         <excludedEntries>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/air/servicemonitor.swc" useDefaultLinkType="false"/>
