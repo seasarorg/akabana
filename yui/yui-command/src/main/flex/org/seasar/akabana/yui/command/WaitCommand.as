@@ -37,16 +37,16 @@ package org.seasar.akabana.yui.command
             this._sleep = sleep;
         }
         
-        protected override function run():void{
+        protected override function runAsync():void{
             if( _invoker != null && _invoker.isStarted ){
                 return;
             }
             _invoker = new FunctionInvoker(doSleepEnd).invokeDelay(_sleep);
         }
         
-        protected function doSleepEnd():void{
+        private function doSleepEnd():void{
             _invoker = null;
-            doDone();
+            completeAsync();
         }
     }
 }

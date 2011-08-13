@@ -22,11 +22,11 @@ package org.seasar.akabana.yui.command.core.impl
         
         protected var _parent:IComplexCommand;
 
-        public function get parent():IComplexCommand{
+        public final function get parent():IComplexCommand{
             return _parent;
         }
         
-        public function set parent( value:IComplexCommand ):void{
+        public final function set parent( value:IComplexCommand ):void{
             _parent = value;
         }  
     }

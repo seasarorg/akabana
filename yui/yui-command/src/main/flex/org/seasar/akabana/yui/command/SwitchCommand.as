@@ -34,7 +34,7 @@ package org.seasar.akabana.yui.command
             _caseMap = {};
         }
         
-        protected override function run():void{
+        protected override function runAsync():void{
             var cmd:ICommand = null;
             var lastCommand:ICommand = _parent.lastCommand;
             if( lastCommand == null && _name != null && _name.length > 0 ){
@@ -77,14 +77,14 @@ package org.seasar.akabana.yui.command
         
         protected function commandCompleteEventListener(event:CommandEvent):void{
             if( event.command.hasResult ){
-                doDoneCommand(event.command.result);
+                doneAsync(event.command.result);
             } else {
-                doDone();
+                completeAsync();
             }
         }
 
         protected function commandErrorEventListener(event:CommandEvent):void{
-            doFailedCommand(event.data);
+            faildAsync(event.data);
         }
     }
 }

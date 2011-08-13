@@ -54,14 +54,14 @@ package org.seasar.akabana.yui.command.core.impl
         /**
          * 
          */
-        public function get lastCommand():ICommand{
+        public final function get lastCommand():ICommand{
             return _lastCommand;
         }
         
         /**
          * 
          */
-        public function AbstractComplexCommand(){
+        public final function AbstractComplexCommand(){
             super();
             _commands = [];
             _commandMap = {};
@@ -75,7 +75,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function childComplete(handler:Function):IComplexCommand{
+        public final function childComplete(handler:Function):IComplexCommand{
             this._childCompleteEventListener.handler = handler;
             return this;
         }
@@ -86,7 +86,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function childError(handler:Function):IComplexCommand{
+        public final function childError(handler:Function):IComplexCommand{
             this._childErrorEventListener.handler = handler;
             return this;
         }
@@ -97,7 +97,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function add(command:ICommand,name:String=null):IComplexCommand{
+        public final function add(command:ICommand,name:String=null):IComplexCommand{
             if( command is AbstractCommand ){
                 doAddCommand(command as AbstractCommand);
             }
@@ -114,7 +114,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function commandByName(name:String):ICommand{
+        public final function commandByName(name:String):ICommand{
             var result:ICommand = _commandMap[name];
             return result;
         }
@@ -124,7 +124,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param index
          * 
          */
-        protected function doStartCommandAt(index:int,args:Array):ICommand{
+        protected final function doStartCommandAt(index:int,args:Array):ICommand{
             var command:ICommand = _commands[ index ];
             new FunctionInvoker(command.start as Function,args).invokeDelay();
             return command;
@@ -151,7 +151,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param command
          * 
          */
-        protected function doAddCommand(command:AbstractCommand):void{
+        protected final function doAddCommand(command:AbstractCommand):void{
             command
                 .complete(childCommandCompleteEventHandler)         
                 .error(childCommandErrorEventHandler);
@@ -162,7 +162,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param command
          * 
          */
-        protected function doRegisterCommand(command:ICommand):void{
+        protected final function doRegisterCommand(command:ICommand):void{
             _commands.push(command);
             if( command is ISubCommand ){
                 (command as ISubCommand).parent = this;

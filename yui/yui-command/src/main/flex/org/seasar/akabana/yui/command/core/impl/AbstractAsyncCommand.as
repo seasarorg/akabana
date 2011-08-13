@@ -20,34 +20,44 @@ package org.seasar.akabana.yui.command.core.impl
     
     public class AbstractAsyncCommand extends AbstractSubCommand {
         
-        private var _hasPendingResultChanged:Boolean;
+        private var _hasPendingResult:Boolean;
+
+        protected function get hasPendingResult():Boolean
+        {
+            return _hasPendingResult;
+        }
         
         private var _pendingResult:Object;
 
-        protected function get pendingResult():Object
+        protected final function get pendingResult():Object
         {
             return _pendingResult;
         }
 
-        protected function set pendingResult(value:Object):void
+        protected final function set pendingResult(value:Object):void
         {
             _pendingResult = value;
-            _hasPendingResultChanged = true;
+            _hasPendingResult = true;
         }
         
-        private var _hasPendingStatusChanged:Boolean;
+        private var _hasPendingStatus:Boolean;
+
+        protected function get hasPendingStatus():Boolean
+        {
+            return _hasPendingResult;
+        }
         
         private var _pendingStatus:Object;
 
-        protected function get pendingStatus():Object
+        protected final function get pendingStatus():Object
         {
             return _pendingStatus;
         }
 
-        protected function set pendingStatus(value:Object):void
+        protected final function set pendingStatus(value:Object):void
         {
             _pendingStatus = value;
-            _hasPendingStatusChanged = true;
+            _hasPendingStatus = true;
         }
 
         /**
@@ -56,31 +66,34 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public function AbstractAsyncCommand(){
         }
+
+        /**
+         * 
+         */
+        protected final override function done():void{
+        }  
         
         /**
          * 
-         * @param args
-         * 
          */
-        public override function start( ...args ):ICommand{
-            new FunctionInvoker(super.start, args ).invokeDelay(1);
-            return this;
+        protected final override function run():void{
+            runAsync();
         }
         
         /**
          * 
          */
-        protected override function done():void{
-        }  
+        protected function runAsync():void{
+        }
         
         /**
          * 
          * @param value
          * 
          */
-        protected function doDoneCommand( value:Object = null ):void{
+        protected final function doneAsync( value:Object = null ):void{
             pendingResult = value;
-            doDone();
+            completeAsync();
         } 
 
         /**
@@ -88,17 +101,17 @@ package org.seasar.akabana.yui.command.core.impl
          * @param message
          * 
          */
-        protected function doFailedCommand( error:Object = null ):void{
+        protected final function faildAsync( error:Object = null ):void{
             pendingStatus = error;
-            doDone();
+            completeAsync();
         }
         
         /**
          * 
          * 
          */
-        protected function doDone():void{
-            new FunctionInvoker(finalyTask).invokeDelay(1);
+        protected final function completeAsync():void{
+            new FunctionInvoker(stopAsync).invokeDelay(1);
         }
         
         /**
@@ -106,20 +119,28 @@ package org.seasar.akabana.yui.command.core.impl
          * @param event
          * 
          */
-        protected function finalyTask():void{
+        protected final function stopAsync():void{
             if( _pendingStatus == null ){
-                if( _hasPendingResultChanged ){
+                if( _hasPendingResult ){
                     result = _pendingResult;
                 }
+                
                 _pendingResult = null;
                 _pendingStatus = null;
+                _hasPendingResult = false;
+                _hasPendingStatus = false;
+                
                 super.done();
             } else {
-                if( _hasPendingStatusChanged ){
+                if( _hasPendingStatus ){
                     status = _pendingStatus;
                 }
+                
                 _pendingResult = null;
                 _pendingStatus = null;
+                _hasPendingResult = false;
+                _hasPendingStatus = false;
+
                 super.failed();
             }
         }

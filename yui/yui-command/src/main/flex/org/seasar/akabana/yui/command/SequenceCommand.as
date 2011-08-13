@@ -22,16 +22,16 @@ package org.seasar.akabana.yui.command
 
         protected var _currentCommandIndex:int;
         
-        protected override function run():void{
+        protected final override function runAsync():void{
             _currentCommandIndex = 0;
             if( _commands.length > 0 ){
                 doStartCommands();
             } else {
-                doDoneCommand();
+                doneAsync();
             }
         }
         
-        protected override function childCommandCompleteEventHandler(event:CommandEvent):void{
+        protected final override function childCommandCompleteEventHandler(event:CommandEvent):void{
             _lastCommand = event.command;
             if( _childCompleteEventListener.handler != null ){
                 _childCompleteEventListener.handler(event);
@@ -49,25 +49,29 @@ package org.seasar.akabana.yui.command
                     if( _lastCommand is AbstractComplexCommand ){
                         args = _arguments;
                     } else {
-                        args = [pendingResult];
+                        if( hasPendingResult ){
+                            args = [pendingResult];
+                        } else {
+                            args = _arguments;
+                        }
                     }
                 }
                 
                 doStartCommandAt(_currentCommandIndex,args);
             } else {
-                doDone();
+                completeAsync();
             }
         }
 
-        protected override function childCommandErrorEventHandler(event:CommandEvent):void{
+        protected final override function childCommandErrorEventHandler(event:CommandEvent):void{
             _lastCommand = event.command;
             if( _childErrorEventListener.handler != null ){
                 _childErrorEventListener.handler(event);
             }
-            doFailedCommand(event.data);
+            faildAsync(event.data);
         }
         
-        protected function doStartCommands():void{
+        protected final function doStartCommands():void{
             _currentCommandIndex = 0;
 
             doStartCommandAt(_currentCommandIndex,_arguments);

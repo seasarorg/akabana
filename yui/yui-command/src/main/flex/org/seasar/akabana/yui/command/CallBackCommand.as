@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.command
 {
     import org.seasar.akabana.yui.command.core.impl.AbstractCommand;
     
-    public class CallBackCommand extends AsyncCommand {
+    public final class CallBackCommand extends AsyncCommand {
         
         protected var _callback:Function;
         
@@ -26,17 +26,17 @@ package org.seasar.akabana.yui.command
             _callback = callback;
         }
         
-        protected override function run():void{
+        protected final override function runAsync():void{
             try{
                 var callbackResult:* = _callback.apply(null,_arguments);
                 
                 if( callbackResult == undefined ){
-                    doDone();
+                    completeAsync();
                 } else {
-                    doDoneCommand(callbackResult);
+                    doneAsync(callbackResult);
                 }
             } catch( e:Error ) {
-                doFailedCommand(e);
+                faildAsync(e);
             }
         }
     }

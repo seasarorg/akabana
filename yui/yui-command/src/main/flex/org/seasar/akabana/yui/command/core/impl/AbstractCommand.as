@@ -36,39 +36,67 @@ package org.seasar.akabana.yui.command.core.impl
         protected var _errorEventListener:EventListener;
 
         protected var _name:String;
-
+        
+        /**
+         * コマンドの名前を指定
+         * 
+         * @param value 名前
+         * 
+         */
+        public final function get name():String{
+            return _name;
+        }
+                
+        public final function set name(value:String):void{
+            _name = value;
+        }
+        
         protected var _arguments:Array = [];
+        
+        /**
+         * コマンドの引数を指定
+         * 
+         * @param value 名前
+         * 
+         */
+        public final function get arguments():Array{
+            return _arguments;
+        }
+        
+        public final function set arguments(...args):void{
+            _arguments = args;
+        }
         
         private var _hasResult:Boolean;
         
-        public function get hasResult():Boolean{
+        public final function get hasResult():Boolean{
             return _hasResult;
         }
         
         private var _result:Object;
 
-        public function get result():Object{
+        public final function get result():Object{
             return _result;
         }
 
-        public function set result(value:Object):void{
+        public final function set result(value:Object):void{
             _result = value;
             _hasResult = true;
         }
         
         private var _hasStatus:Boolean;
         
-        public function get hasStatus():Boolean{
+        public final function get hasStatus():Boolean{
             return _hasStatus;
         }
         
         private var _status:Object;
         
-        public function get status():Object{
+        public final function get status():Object{
             return _status;
         }
         
-        public function set status(value:Object):void{
+        public final function set status(value:Object):void{
             _status = value;
             _hasStatus = true;
         }
@@ -84,34 +112,12 @@ package org.seasar.akabana.yui.command.core.impl
         }
         
         /**
-         * コマンドの名前を指定
-         * 
-         * @param value 名前
-         * 
-         */
-        public function name(value:String):ICommand{
-            _name = value;
-            return this;
-        }
-        
-        /**
-         * コマンドの引数を指定
-         * 
-         * @param value 名前
-         * 
-         */
-        public function arguments(...args):ICommand{
-            _arguments = args;
-            return this;
-        }
-        
-        /**
          * 
          * @param args
          * 
          */
-        public function start( ...args ):ICommand{
-            arguments(args);
+        public final function start( ...args ):ICommand{
+            _arguments = args;
             try{
                 run();
                 done();
@@ -127,7 +133,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param args
          * 
          */
-        public function stop():void{
+        public final function stop():void{
             _completeEventListener.clear();
             _errorEventListener.clear();
         }
@@ -138,7 +144,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function complete( handler:Function ):ICommand{
+        public final function complete( handler:Function ):ICommand{
             if( _completeEventListener.handler != null ){
                 removeEventListener( CommandEvent.COMPLETE, _completeEventListener.handler, false );
             }
@@ -155,7 +161,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function error( handler:Function ):ICommand{
+        public final function error( handler:Function ):ICommand{
             if( _errorEventListener.handler != null ){
                 removeEventListener( CommandEvent.ERROR,_errorEventListener.handler, false );
             }
@@ -172,7 +178,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public function listener( listenerObj:Object ):ICommand{
+        public final function listener( listenerObj:Object ):ICommand{
             if( _name == null ){
                 throw new IllegalOperationError(this+" is no name.");
             }
@@ -217,7 +223,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param message
          * 
          */
-        protected function failed():void{
+        protected final function failed():void{
             dispatchEvent( CommandEvent.createErrorEvent( this, status ) );
             stop();
         }
@@ -226,7 +232,6 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function run():void{
-            throw new Error( "no implements" );
-        } 
+        }
     }
 }

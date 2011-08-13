@@ -52,7 +52,8 @@ package org.seasar.akabana.yui.command.core
          * @param value 名前
          * 
          */
-        function name(value:String):ICommand;
+        function get name():String;
+        function set name(value:String):void;
         
         /**
          * コマンドの引数を指定
@@ -60,7 +61,8 @@ package org.seasar.akabana.yui.command.core
          * @param value 名前
          * 
          */
-        function arguments(...args):ICommand;
+        function get arguments():Array;
+        function set arguments(...args):void;
         
         /**
          * コマンドを開始する
