@@ -30,7 +30,7 @@ package examples.command.behavior
          * cmd3コマンドの完了イベントハンドラ
          */
         handler function cmd4_complete(e:CommandEvent):void{
-            trace(4,cmd4.result,cmd4.argument);
+            trace(4,cmd4.result.type,cmd4.argument.type);
         }
         
         /**
