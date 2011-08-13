@@ -41,18 +41,18 @@ package org.seasar.akabana.yui.command
             }
             _currentCommandIndex++;
             if( _currentCommandIndex < _commands.length ){
-                var args:Array = null;
+                var args:Array = [];
                 
                 if( _lastCommand == null ){
-                    args = _arguments;
+                    args = [_argument];
                 } else {
                     if( _lastCommand is AbstractComplexCommand ){
-                        args = _arguments;
+                        args = [_argument];
                     } else {
                         if( hasPendingResult ){
                             args = [pendingResult];
                         } else {
-                            args = _arguments;
+                            args = [_argument];
                         }
                     }
                 }
@@ -68,13 +68,12 @@ package org.seasar.akabana.yui.command
             if( _childErrorEventListener.handler != null ){
                 _childErrorEventListener.handler(event);
             }
-            faildAsync(event.data);
+            errorAsync(event.data);
         }
         
         protected final function doStartCommands():void{
             _currentCommandIndex = 0;
-
-            doStartCommandAt(_currentCommandIndex,_arguments);
+            doStartCommandAt(_currentCommandIndex,[_argument]);
         }
     }
 }

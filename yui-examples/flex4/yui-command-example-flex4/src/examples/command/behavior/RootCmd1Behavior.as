@@ -15,7 +15,8 @@ package examples.command.behavior
         
         public function RootCmd1Behavior(){
             //一時停止コマンドを生成してcommand1という名前を設定
-            cmd1 = new WaitCommand(1000).name("command1");
+            cmd1 = new WaitCommand(1000)
+            cmd1.name = "command1";
         }
 
         handler function runCommand1_click():void{

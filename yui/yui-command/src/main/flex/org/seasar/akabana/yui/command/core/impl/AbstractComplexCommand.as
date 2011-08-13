@@ -136,7 +136,7 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function childCommandCompleteEventHandler(event:CommandEvent):void{
-        }        
+        }
 
         /**
          * 
@@ -144,7 +144,7 @@ package org.seasar.akabana.yui.command.core.impl
          * 
          */
         protected function childCommandErrorEventHandler(event:CommandEvent):void{
-        }   
+        }
         
         /**
          * 
@@ -153,8 +153,8 @@ package org.seasar.akabana.yui.command.core.impl
          */
         protected final function doAddCommand(command:AbstractCommand):void{
             command
-                .complete(childCommandCompleteEventHandler)         
-                .error(childCommandErrorEventHandler);
+                .completeCallBack(childCommandCompleteEventHandler)
+                .errorCallBack(childCommandErrorEventHandler);
         }
         
         /**

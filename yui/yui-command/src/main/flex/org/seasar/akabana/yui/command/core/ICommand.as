@@ -61,8 +61,7 @@ package org.seasar.akabana.yui.command.core
          * @param value 名前
          * 
          */
-        function get arguments():Array;
-        function set arguments(...args):void;
+        function get argument():Object;
         
         /**
          * コマンドを開始する
@@ -70,13 +69,13 @@ package org.seasar.akabana.yui.command.core
          * @param args コマンド引数
          * 
          */
-        function start(...args):ICommand;
+        function start(data:Object=null):ICommand;
 
         /**
-         * コマンドを停止する
+         * コマンドを初期化する
          * 
-         */        
-        function stop():void;
+         */
+        function clear():void;
         
         /**
          * コマンド完了イベントリスナーを設定する
@@ -85,7 +84,7 @@ package org.seasar.akabana.yui.command.core
          * @return コマンド
          * 
          */
-        function complete(handler:Function):ICommand;
+        function completeCallBack(handler:Function):ICommand;
 
         /**
          * コマンドエラーイベントリスナーを設定する
@@ -94,7 +93,7 @@ package org.seasar.akabana.yui.command.core
          * @return コマンド
          * 
          */
-        function error(handler:Function):ICommand;
+        function errorCallBack(handler:Function):ICommand;
 
         /**
          * コマンドイベントリスナーを設定する

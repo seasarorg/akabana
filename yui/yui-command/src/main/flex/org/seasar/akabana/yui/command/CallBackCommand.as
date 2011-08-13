@@ -28,7 +28,7 @@ package org.seasar.akabana.yui.command
         
         protected final override function runAsync():void{
             try{
-                var callbackResult:* = _callback.apply(null,_arguments);
+                var callbackResult:* = _callback.apply(null,[_argument]);
                 
                 if( callbackResult == undefined ){
                     doneAsync();
@@ -36,7 +36,7 @@ package org.seasar.akabana.yui.command
                     returnAsync(callbackResult);
                 }
             } catch( e:Error ) {
-                faildAsync(e);
+                errorAsync(e);
             }
         }
     }

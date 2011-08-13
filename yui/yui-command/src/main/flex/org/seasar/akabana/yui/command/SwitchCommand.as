@@ -16,57 +16,67 @@
 package org.seasar.akabana.yui.command
 {
     import flash.errors.IllegalOperationError;
+    import flash.utils.Dictionary;
     
     import org.seasar.akabana.yui.command.core.ICommand;
     import org.seasar.akabana.yui.command.core.impl.AbstractAsyncCommand;
-    import org.seasar.akabana.yui.command.core.impl.AbstractSubCommand;
     import org.seasar.akabana.yui.command.events.CommandEvent;
-    import org.seasar.akabana.yui.core.error.NotFoundError;
+    import org.seasar.akabana.yui.util.StringUtil;
 
     public final class SwitchCommand extends AbstractAsyncCommand{ 
         
-        protected var _caseMap:Object;
+        protected var _commandMap:Dictionary;
         
         protected var _defaultCommand:ICommand;
         
+        private var _property:String;
+
+        public function get property():String
+        {
+            return _property;
+        }
+
+        public function set property(value:String):void
+        {
+            _property = value;
+        }
+
+        
         public function SwitchCommand(){
             super();
-            _caseMap = {};
+            _commandMap = new Dictionary();
         }
         
         protected override function runAsync():void{
             var cmd:ICommand = null;
-            var lastCommand:ICommand = _parent.lastCommand;
-            if( lastCommand == null && _name != null && _name.length > 0 ){
-                lastCommand = _parent.commandByName(_name);
+            var arg:Object = _argument;
+            var key:Object = arg;
+            if( !StringUtil.isEmpty(property) && (property in arg)){
+                key = arg[ property ];
             }
-            var targetResult:Object = lastCommand.result;
-            if( lastCommand == null ){
+            if( key in _commandMap){
+                cmd = _commandMap[ key ];
+            } else {
                 cmd = _defaultCommand;
-            } else {
-                if( targetResult in _caseMap){
-                    cmd = _caseMap[ targetResult ];
-                } else {
-                    cmd = _defaultCommand;
-                }
             }
+
             if( cmd == null ){
-                status = new IllegalOperationError("Command Not Found for " + targetResult);
-                failed();
+                status = new IllegalOperationError("Command Not Found for " + key);
+                error();
             } else {
-                cmd.complete(commandCompleteEventListener);
-                cmd.error(commandErrorEventListener);
-                cmd.start(targetResult);
+                cmd.completeCallBack(commandCompleteEventListener);
+                cmd.errorCallBack(commandErrorEventListener);
+                cmd.start(arg);
             }
         }
         
-        public function caseCommand( value:Object, command:ICommand ):SwitchCommand{
-            _caseMap[ value ] = command;
+        public function caseCommand( key:Object, command:ICommand ):SwitchCommand{
+            _commandMap[ key ] = command;
             return this;
         }
         
-        public function caseCallBack( value:Object, callback:Function ):SwitchCommand{
-            _caseMap[ value ] = new CallBackCommand(callback);
+        public function caseCallBack( key:Object, callback:Function ):SwitchCommand{
+            _commandMap[ key ] = new CallBackCommand(callback);
             return this;
         }
 
@@ -84,7 +94,7 @@ package org.seasar.akabana.yui.command
         }
 
         protected function commandErrorEventListener(event:CommandEvent):void{
-            faildAsync(event.data);
+            errorAsync(event.data);
         }
     }
 }

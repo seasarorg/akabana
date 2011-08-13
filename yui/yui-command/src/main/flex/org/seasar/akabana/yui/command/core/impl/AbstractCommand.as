@@ -34,6 +34,8 @@ package org.seasar.akabana.yui.command.core.impl
         protected var _completeEventListener:EventListener;
         
         protected var _errorEventListener:EventListener;
+        
+        private var _isStarted:Boolean;
 
         protected var _name:String;
         
@@ -51,20 +53,16 @@ package org.seasar.akabana.yui.command.core.impl
             _name = value;
         }
         
-        protected var _arguments:Array = [];
-        
+        protected var _argument:Object = null;
+
         /**
          * コマンドの引数を指定
          * 
          * @param value 名前
          * 
          */
-        public final function get arguments():Array{
-            return _arguments;
-        }
-        
-        public final function set arguments(...args):void{
-            _arguments = args;
+        public final function get argument():Object{
+            return _argument;
         }
         
         private var _hasResult:Boolean;
@@ -116,26 +114,36 @@ package org.seasar.akabana.yui.command.core.impl
          * @param args
          * 
          */
-        public final function start( ...args ):ICommand{
-            _arguments = args;
+        public final function start( data:Object = null):ICommand{
+            if( _isStarted ){
+                throw new IllegalOperationError("Command already started.");
+                return;
+            }
+            _isStarted = true;
+            
+            _argument = data;
             try{
                 run();
                 done();
             }catch( e:Error ){
                 status = e;
-                failed();
+                error();
             }
             return this;
         }
-
+        
         /**
          * 
          * @param args
          * 
          */
-        public final function stop():void{
+        public function clear():void{
             _completeEventListener.clear();
             _errorEventListener.clear();
+            _result = null;
+            _status = null;
+            _hasResult = false;
+            _hasStatus = false;
         }
         
         /**
@@ -144,7 +152,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public final function complete( handler:Function ):ICommand{
+        public final function completeCallBack( handler:Function ):ICommand{
             if( _completeEventListener.handler != null ){
                 removeEventListener( CommandEvent.COMPLETE, _completeEventListener.handler, false );
             }
@@ -161,7 +169,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @return 
          * 
          */
-        public final function error( handler:Function ):ICommand{
+        public final function errorCallBack( handler:Function ):ICommand{
             if( _errorEventListener.handler != null ){
                 removeEventListener( CommandEvent.ERROR,_errorEventListener.handler, false );
             }
@@ -199,13 +207,19 @@ package org.seasar.akabana.yui.command.core.impl
                 const errorFuncDef:FunctionRef = classRef.getFunctionRef( errorMethod, ns );
 
                 if( completeFuncDef != null ){
-                    complete(completeFuncDef.getFunction(listenerObj));
+                    completeCallBack(completeFuncDef.getFunction(listenerObj));
                 }
                 if( errorFuncDef != null ){
-                    error(errorFuncDef.getFunction(listenerObj));
+                    errorCallBack(errorFuncDef.getFunction(listenerObj));
                 }
             }
             return this;
+        }
+        
+        /**
+         * 
+         */
+        protected function run():void{
         }
         
         /**
@@ -223,15 +237,22 @@ package org.seasar.akabana.yui.command.core.impl
          * @param message
          * 
          */
-        protected final function failed():void{
+        protected final function error():void{
             dispatchEvent( CommandEvent.createErrorEvent( this, status ) );
             stop();
         }
-
+        
         /**
          * 
+         * @param args
+         * 
          */
-        protected function run():void{
+        protected final function stop():void{
+            _isStarted = false;
+            _result = null;
+            _status = null;
+            _hasResult = false;
+            _hasStatus = false;
         }
     }
 }

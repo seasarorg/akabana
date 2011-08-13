@@ -66,6 +66,20 @@ package org.seasar.akabana.yui.command.core.impl
          */
         public function AbstractAsyncCommand(){
         }
+        
+        /**
+         * 
+         * @param args
+         * 
+         */
+        public override function clear():void{
+            _completeEventListener.clear();
+            _errorEventListener.clear();
+            _pendingResult = null;
+            _pendingStatus = null;
+            _hasPendingResult = false;
+            _hasPendingStatus = false;
+        }
 
         /**
          * 
@@ -109,7 +123,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param message
          * 
          */
-        protected final function faildAsync( error:Object = null ):void{
+        protected final function errorAsync( error:Object = null ):void{
             pendingStatus = error;
             doneAsync();
         }
@@ -128,7 +142,7 @@ package org.seasar.akabana.yui.command.core.impl
                 _hasPendingResult = false;
                 _hasPendingStatus = false;
                 
-                super.failed();
+                super.error();
             } else { 
                 if( hasPendingResult ){
                     result = _pendingResult;
