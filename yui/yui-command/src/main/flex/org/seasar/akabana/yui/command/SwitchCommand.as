@@ -77,9 +77,9 @@ package org.seasar.akabana.yui.command
         
         protected function commandCompleteEventListener(event:CommandEvent):void{
             if( event.command.hasResult ){
-                doneAsync(event.command.result);
+                returnAsync(event.command.result);
             } else {
-                completeAsync();
+                doneAsync();
             }
         }
 

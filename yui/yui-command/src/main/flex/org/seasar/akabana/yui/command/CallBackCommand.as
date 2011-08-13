@@ -31,9 +31,9 @@ package org.seasar.akabana.yui.command
                 var callbackResult:* = _callback.apply(null,_arguments);
                 
                 if( callbackResult == undefined ){
-                    completeAsync();
+                    doneAsync();
                 } else {
-                    doneAsync(callbackResult);
+                    returnAsync(callbackResult);
                 }
             } catch( e:Error ) {
                 faildAsync(e);

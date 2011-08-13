@@ -91,11 +91,19 @@ package org.seasar.akabana.yui.command.core.impl
          * @param value
          * 
          */
-        protected final function doneAsync( value:Object = null ):void{
+        protected final function returnAsync( value:Object = null ):void{
             pendingResult = value;
-            completeAsync();
+            doneAsync();
         } 
-
+        
+        /**
+         * 
+         * 
+         */
+        protected final function doneAsync():void{
+            new FunctionInvoker(stopAsync).invokeDelay(1);
+        }
+        
         /**
          * 
          * @param message
@@ -103,15 +111,7 @@ package org.seasar.akabana.yui.command.core.impl
          */
         protected final function faildAsync( error:Object = null ):void{
             pendingStatus = error;
-            completeAsync();
-        }
-        
-        /**
-         * 
-         * 
-         */
-        protected final function completeAsync():void{
-            new FunctionInvoker(stopAsync).invokeDelay(1);
+            doneAsync();
         }
         
         /**
@@ -119,9 +119,18 @@ package org.seasar.akabana.yui.command.core.impl
          * @param event
          * 
          */
-        protected final function stopAsync():void{
-            if( _pendingStatus == null ){
-                if( _hasPendingResult ){
+        private function stopAsync():void{
+            if( hasPendingStatus ){
+                status = _pendingStatus;
+
+                _pendingResult = null;
+                _pendingStatus = null;
+                _hasPendingResult = false;
+                _hasPendingStatus = false;
+                
+                super.failed();
+            } else { 
+                if( hasPendingResult ){
                     result = _pendingResult;
                 }
                 
@@ -131,17 +140,6 @@ package org.seasar.akabana.yui.command.core.impl
                 _hasPendingStatus = false;
                 
                 super.done();
-            } else {
-                if( _hasPendingStatus ){
-                    status = _pendingStatus;
-                }
-                
-                _pendingResult = null;
-                _pendingStatus = null;
-                _hasPendingResult = false;
-                _hasPendingStatus = false;
-
-                super.failed();
             }
         }
         

@@ -46,7 +46,7 @@ package org.seasar.akabana.yui.command
         
         private function doSleepEnd():void{
             _invoker = null;
-            completeAsync();
+            doneAsync();
         }
     }
 }

@@ -59,7 +59,7 @@ package org.seasar.akabana.yui.command
                 
                 doStartCommandAt(_currentCommandIndex,args);
             } else {
-                completeAsync();
+                doneAsync();
             }
         }
 
