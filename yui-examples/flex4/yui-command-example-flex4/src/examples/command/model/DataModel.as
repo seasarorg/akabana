@@ -5,5 +5,11 @@ package examples.command.model
         public var value:int;
         
         public var type:String;
+        
+        public function toString():String 
+        {
+            return "{value:"+value+",type:"+type+"}";
+        }
+        
     }
 }

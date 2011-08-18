@@ -16,28 +16,27 @@ package examples.command.behavior
         
         /** 自作サンプルコマンド */        
         public var cmd4:SampleSwitchCommand;
-        
-        public function RootCmd4Behavior(){
-        }
 
         handler function runCommand4_click():void{
             //コマンドスタート
             var model:DataModel = new DataModel();
-            cmd4.start(model);
+            cmd4.start(model);    
         }
         
         /**
-         * cmd3コマンドの完了イベントハンドラ
+         * 
+         * @param event コマンドの実行結果
          */
-        handler function cmd4_complete(e:CommandEvent):void{
-            trace(4,cmd4.result.type,cmd4.argument.type);
+        handler function cmd4_complete(event:CommandEvent):void{
+            trace("[COMPLETE:cmd4]"+event.data);
         }
         
         /**
-         * cmd3コマンドのエラーイベントハンドラ
+         * 
+         * @param event コマンドの実行エラー
          */
-        handler function cmd4_error():void{
-            trace(4,cmd4.status);
+        handler function cmd4_error(event:CommandEvent):void{
+            trace("[ERROR:cmd4]"+event);
         }
     }
 }
