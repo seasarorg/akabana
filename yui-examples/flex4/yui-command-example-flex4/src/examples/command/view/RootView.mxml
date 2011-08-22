@@ -5,8 +5,8 @@
           horizontalAlign="left"
           xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:view="examples.viewstack.view.*"
           >
-    <s:Button id="runCommand1"/>
-    <s:Button id="runCommand2"/>
-    <s:Button id="runCommand3"/>
-    <s:Button id="runCommand4"/>
+    <s:Button id="runCommand1" label="1秒停止コマンド"/>
+    <s:Button id="runCommand2" label="シーケンスコマンド"/>
+    <s:Button id="runCommand3" label="カスタムコマンド"/>
+    <s:Button id="runCommand4" label="分岐コマンド"/>
 </s:VGroup>
