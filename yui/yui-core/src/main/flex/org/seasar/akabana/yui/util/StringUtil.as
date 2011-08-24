@@ -52,17 +52,19 @@ CONFIG::FP10{
         }
 
         public static function isWhitespace(character:String):Boolean{
+            var result:Boolean = true;
             switch( character ){
                 case " ":
                 case "\t":
                 case "\r":
                 case "\n":
                 case "\f":
-                    return true;
+                    break;
 
                 default:
-                    return false;
+                    result = false;
             }
+            return result;
         }
 
         public static function substitute(str:String, ... rest):String{

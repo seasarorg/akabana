@@ -20,9 +20,9 @@ package org.seasar.akabana.yui.command
     
     public final class WaitCommand extends AsyncCommand {
         
-        protected var _invoker:FunctionInvoker;
+        private var _invoker:FunctionInvoker;
         
-        protected var _sleep:int;
+        private var _sleep:int;
 
         public function get sleep():int{
             return _sleep;

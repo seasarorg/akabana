@@ -26,33 +26,33 @@ package org.seasar.akabana.yui.service.ds {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
-    import org.seasar.akabana.yui.service.ManagedService;
+    import org.seasar.akabana.yui.service.IManagedService;
+    import org.seasar.akabana.yui.service.IPendingCall;
+    import org.seasar.akabana.yui.service.IService;
     import org.seasar.akabana.yui.service.OperationCallBack;
-    import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.Service;
     import org.seasar.akabana.yui.service.ds.responder.RpcDefaultEventResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcEventResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcNoneResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcObjectResponder;
     import org.seasar.akabana.yui.service.ds.responder.RpcResponderFactory;
-    import org.seasar.akabana.yui.service.resonder.Responder;
-    import org.seasar.akabana.yui.service.resonder.ResponderFactory;
+    import org.seasar.akabana.yui.service.resonder.IServiceResponder;
+    import org.seasar.akabana.yui.service.resonder.ServiceResponderFactory;
 
     use namespace mx_internal;
 
     [ExcludeClass]
-    public final class DsPendingCall extends AsyncToken implements PendingCall {
+    public final class DsPendingCall extends AsyncToken implements IPendingCall {
 
         private static const RESULT_HANDLER:String = "ResultHandler";
 
         private static const FAULT_HANDLER:String = "FaultHandler";
 
-        private static const _responderFactory:ResponderFactory = new RpcResponderFactory();
+        private static const RESPONDER_FACTORY:ServiceResponderFactory = new RpcResponderFactory();
 
         private static function createResponder( destination:String,operationName:String, responder:Object ):IResponder{
             const classRef:ClassRef = getClassRef(responder);
-            const resultFuncDef:FunctionRef = _responderFactory.findResultFunctionRef( classRef, destination, operationName );
-            const faultFuncDef:FunctionRef = _responderFactory.findFaultFunctionRef( classRef, destination, operationName );
+            const resultFuncDef:FunctionRef = RESPONDER_FACTORY.findResultFunctionRef( classRef, destination, operationName );
+            const faultFuncDef:FunctionRef = RESPONDER_FACTORY.findFaultFunctionRef( classRef, destination, operationName );
 
             var result:IResponder = null;
             var responderClass:Class;
@@ -74,9 +74,9 @@ package org.seasar.akabana.yui.service.ds {
             return result;
         }
 
-        protected var _internalAsyncToken:AsyncToken;
+        private var _internalAsyncToken:AsyncToken;
 
-        protected var _responder:IResponder;
+        private var _responder:IResponder;
 
         private var _responderOwner:Object;
 
@@ -101,12 +101,12 @@ package org.seasar.akabana.yui.service.ds {
             if( responder is IResponder ){
                 _responderOwner = null;
                 _responder = responder as IResponder;
-            } else if( responder is org.seasar.akabana.yui.service.resonder.Responder ){
+            } else if( responder is IServiceResponder ){
                 _responderOwner = null;
                 _responder = new RpcEventResponder(responder.onResult,responder.onFault);
             } else {
                 _responderOwner = responder;
-                var service:Service = _operation.service as Service;
+                var service:IService = _operation.service as IService;
                 _responder = createResponder( service.name, _operation.name, responder );
             }
         }
@@ -119,13 +119,13 @@ package org.seasar.akabana.yui.service.ds {
             }
         }
 
-        public function get service():Service{
-            return _operation.service as Service;
+        public function get service():IService{
+            return _operation.service as IService;
         }
 
         public function onResult( resultEvent:ResultEvent ):void{
-            if( service is ManagedService ){
-                ( service as ManagedService ).finalizePendingCall(this);
+            if( service is IManagedService ){
+                ( service as IManagedService ).finalizePendingCall(this);
             }
 
             if( OperationCallBack.resultCallBack != null ){
@@ -143,8 +143,8 @@ package org.seasar.akabana.yui.service.ds {
         }
 
         public function onStatus( faultEvent:FaultEvent ):void{
-            if( service is ManagedService ){
-                ( service as ManagedService ).finalizePendingCall(this);
+            if( service is IManagedService ){
+                ( service as IManagedService ).finalizePendingCall(this);
             }
             
             if( OperationCallBack.faultCallBack != null ){

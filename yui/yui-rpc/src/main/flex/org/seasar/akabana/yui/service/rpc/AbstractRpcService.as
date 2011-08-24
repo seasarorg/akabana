@@ -21,16 +21,16 @@ package org.seasar.akabana.yui.service.rpc {
     import flash.utils.Proxy;
     import flash.utils.flash_proxy;
     
-    import org.seasar.akabana.yui.service.ManagedService;
-    import org.seasar.akabana.yui.service.Operation;
-    import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.IManagedService;
+    import org.seasar.akabana.yui.service.IOperation;
+    import org.seasar.akabana.yui.service.IPendingCall;
+    import org.seasar.akabana.yui.service.IService;
     import org.seasar.akabana.yui.service.error.IllegalDestinationError;
 
     use namespace flash_proxy;
 
     [ExcludeClass]
-    public dynamic class AbstractRpcService extends Proxy implements ManagedService {
+    public dynamic class AbstractRpcService extends Proxy implements IManagedService {
 
         private static const OBJECT_FUNCTION_MAP:Object = {
             hasOwnProperty:true,
@@ -99,7 +99,7 @@ package org.seasar.akabana.yui.service.rpc {
             }
         }
 
-        public function getOperation( name:String ):Operation{
+        public function getOperation( name:String ):IOperation{
             return operations[ name ];
         }
 
@@ -136,11 +136,11 @@ package org.seasar.akabana.yui.service.rpc {
 
         }
         
-        public function finalizePendingCall(pc:PendingCall):void{
+        public function finalizePendingCall(pc:IPendingCall):void{
             
         }
         
-        public function invokeMethod(name:String,args:Array):PendingCall{
+        public function invokeMethod(name:String,args:Array):IPendingCall{
             return null;
         }
         
@@ -148,7 +148,7 @@ package org.seasar.akabana.yui.service.rpc {
             return null;
         }
 
-        protected function invokeOperation( operationName:String, operationArgs:Array ):PendingCall{
+        protected function invokeOperation( operationName:String, operationArgs:Array ):IPendingCall{
             return null;
         }
 

@@ -25,7 +25,7 @@ package org.seasar.akabana.yui.core.event
      */
     public final class MessageEvent extends Event {
         
-        protected var _data:Object;
+        private var _data:Object;
         
         public function get data():Object {
             return _data;
@@ -34,6 +34,14 @@ package org.seasar.akabana.yui.core.event
         public function MessageEvent(type:String,data:Object){
             super(type, false, true);
             _data = data;
-        }        
+        }
+
+        public override function clone():Event{
+            return new MessageEvent(type, _data);
+        }
+        
+        public override function toString():String{
+            return formatToString("MessageEvent", "type", "bubbles", "cancelable","eventPhase","data");
+        }
     }
 }

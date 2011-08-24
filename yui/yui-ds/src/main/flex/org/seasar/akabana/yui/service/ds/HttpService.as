@@ -25,10 +25,10 @@ package org.seasar.akabana.yui.service.ds
     import mx.rpc.AsyncToken;
     import mx.rpc.http.HTTPMultiService;
     
-    import org.seasar.akabana.yui.service.ManagedService;
+    import org.seasar.akabana.yui.service.IManagedService;
     import org.seasar.akabana.yui.service.OperationCallBack;
-    import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.IPendingCall;
+    import org.seasar.akabana.yui.service.IService;
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.ServiceManager;
     import org.seasar.akabana.yui.service.ds.local.LocalOperation;
@@ -36,8 +36,7 @@ package org.seasar.akabana.yui.service.ds
     use namespace flash_proxy;
     use namespace mx_internal;
     
-    public dynamic class HttpService extends HTTPMultiService implements ManagedService, IMXMLObject
-    {
+    public dynamic class HttpService extends HTTPMultiService implements IManagedService, IMXMLObject {
         
         private var _responderOwner:Object;
         
@@ -47,50 +46,45 @@ package org.seasar.akabana.yui.service.ds
         
         private var _name:String;
                 
-        public function get name():String
-        {
+        public function get name():String{
             return _name;
         }
         
-        public function set name(value:String):void
-        {
+        public function set name(value:String):void{
             _name = value;
         }
         
-        public function HttpService(rootURL:String=null, destination:String=null)
-        {
+        public function HttpService(rootURL:String=null, destination:String=null){
             super(rootURL, destination);
             _pendingCallMap = new Dictionary();
         }
         
-        public function initialized(document:Object, id:String):void
-        {
+        public function initialized(document:Object, id:String):void{
             if( baseURL == null && name != null){
                 baseURL = ServiceGatewayUrlResolver.resolve( name );
             }
             ServiceManager.addService( this );
         }
         
-        public override function getOperation(name:String):AbstractOperation
-        {
-            var o:Object = _operations[name];
-            var op:AbstractOperation = null;
-            if( o != null && o is AbstractOperation){
-                op = o as AbstractOperation; 
+        public override function getOperation(name:String):AbstractOperation{
+            var opeObj:Object = _operations[name];
+            var ope:AbstractOperation = null;
+            if( opeObj != null && opeObj is AbstractOperation){
+                ope = opeObj as AbstractOperation; 
             }
-            if (op == null)
+            if (ope == null)
             {
                 if( baseURL == null ){
                     baseURL = ServiceGatewayUrlResolver.resolve( destination );
                 }
                 if( ServiceGatewayUrlResolver.isLocalUrl(baseURL) ){
-                    op = new LocalOperation(this, name, baseURL);
-                    _operations[name] = op;
+                    ope = new LocalOperation(this, name, baseURL);
+                    _operations[name] = ope;
                 } else {
-                    op = super.getOperation(name);
+                    ope = super.getOperation(name);
                 }
             }
-            return op;
+            return ope;
         }
         
         public function finalizeResponder(responder:Object):void{
@@ -102,14 +96,14 @@ package org.seasar.akabana.yui.service.ds
             }
         }
         
-        public function finalizePendingCall(pc:PendingCall):void{
+        public function finalizePendingCall(pc:IPendingCall):void{
             if( pc != null ){
                 _pendingCallMap[ pc ] = null;
                 delete _pendingCallMap[ pc ];
             }
         }
         
-        public function invokeMethod(name:String,args:Array):PendingCall{
+        public function invokeMethod(name:String,args:Array):IPendingCall{
             return internalInvoke(name,args);
         }
         

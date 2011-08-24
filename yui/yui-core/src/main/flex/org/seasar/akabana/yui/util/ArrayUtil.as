@@ -15,16 +15,18 @@
  */
 package org.seasar.akabana.yui.util
 {
+    import flash.utils.Dictionary;
+
     public final class ArrayUtil {
         
         private static const _UID_:String = "uid";
         
-        public static function toUidMap(value:Array,key:String=null):Object{
+        public static function toUidMap(value:Array):Dictionary{
             return toMap(value,_UID_);
         }
         
-        public static function toMap(value:Array,key:String=null):Object{
-            var map:Object = null;
+        public static function toMap(value:Array,key:String=null):Dictionary{
+            var map:Dictionary = null;
             if( value != null ){
                 if( key == null ){
                     map = toStringMap(value);
@@ -35,8 +37,8 @@ package org.seasar.akabana.yui.util
             return map;
         }
         
-        private static function toStringMap(value:Array):Object{
-            var map:Object = {};
+        private static function toStringMap(value:Array):Dictionary{
+            var map:Dictionary = new Dictionary();
             
             for each( var item:String in value ){
                 map[ item ] = null;
@@ -45,8 +47,8 @@ package org.seasar.akabana.yui.util
             return map;
         }
         
-        private static function toObjectMap(value:Array,key:String):Object{
-            var map:Object = {};
+        private static function toObjectMap(value:Array,key:String):Dictionary{
+            var map:Dictionary = new Dictionary();
             
             for each( var item:Object in value ){
                 if( item.hasOwnProperty( key )){

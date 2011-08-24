@@ -20,10 +20,10 @@ package org.seasar.akabana.yui.framework.logging
     
     public final class SimpleLoggerFactory implements ILoggerFactory {
         
-        private static const _logger:SimpleLogger = new SimpleLogger();
+        private static const LOGGER:SimpleLogger = new SimpleLogger();
         
         public function getLogger(target:Object):ILogger{
-            return _logger;
+            return LOGGER;
         }
     }
 }

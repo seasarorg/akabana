@@ -19,7 +19,7 @@ package org.seasar.akabana.yui.command
     
     public final class CallBackCommand extends AsyncCommand {
         
-        protected var _callback:Function;
+        private var _callback:Function;
         
         public function CallBackCommand(callback:Function){
             super();

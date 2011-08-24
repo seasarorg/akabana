@@ -133,7 +133,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         
-        protected function setHelperProperties(container:UIComponent,obj:Object):void{
+        private function setHelperProperties(container:UIComponent,obj:Object):void{
             const viewProperties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
             const targetClassRef:ClassRef = getClassRef(obj);
@@ -177,7 +177,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
 
-        protected function setViewParts(container:UIComponent,helperClassRef:ClassRef,helper:Object):void{
+        private function setViewParts(container:UIComponent,helperClassRef:ClassRef,helper:Object):void{
             const ns:Namespace = viewpart;
             CONFIG::FP9 {
                 const helperProps:Array = helperClassRef.properties;

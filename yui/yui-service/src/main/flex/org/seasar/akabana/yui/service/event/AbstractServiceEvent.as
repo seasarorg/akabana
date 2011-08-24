@@ -17,20 +17,52 @@ package org.seasar.akabana.yui.service.event {
     
     import flash.events.Event;
     
-    import org.seasar.akabana.yui.service.Operation;
-    import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.IOperation;
+    import org.seasar.akabana.yui.service.IPendingCall;
+    import org.seasar.akabana.yui.service.IService;
     
     internal class AbstractServiceEvent extends Event {
         
-        public var service:Service;
+        private var _service:IService;
+
+        public function get service():IService{
+            return _service;
+        }
+
+        public function set service(value:IService):void{
+            _service = value;
+        }
         
-        public var operation:Operation;
+        private var _operation:IOperation;
+
+        public function get operation():IOperation{
+            return _operation;
+        }
+
+        public function set operation(value:IOperation):void{
+            _operation = value;
+        }
         
-        public var pendigCall:PendingCall;
+        private var _pendigCall:IPendingCall;
+
+        public function get pendigCall():IPendingCall{
+            return _pendigCall;
+        }
+
+        public function set pendigCall(value:IPendingCall):void{
+            _pendigCall = value;
+        }
         
         public function AbstractServiceEvent( type:String, bubbles:Boolean = false, cancelable:Boolean = false ){
             super(type,bubbles,cancelable);
+        }
+
+        public override function clone():Event{
+            return new AbstractServiceEvent(type, bubbles, cancelable);
+        }
+
+        public override function toString():String{
+            return formatToString("AbstractServiceEvent", "type", "bubbles", "cancelable","eventPhase","service","operation","pendingCall");
         }
     }
 }

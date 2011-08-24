@@ -15,11 +15,11 @@
  */
 package org.seasar.akabana.yui.logging.layout
 {
-    import org.seasar.akabana.yui.logging.Layout;
+    import org.seasar.akabana.yui.logging.ILayout;
     import org.seasar.akabana.yui.logging.LoggingData;
 
     [ExcludeClass]
-    public class LayoutBase implements Layout {
+    public class LayoutBase implements ILayout {
 
         private static const EMPTY_STRING:String = "";
 

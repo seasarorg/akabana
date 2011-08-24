@@ -25,9 +25,9 @@ package org.seasar.akabana.yui.command
 
     public final class SwitchCommand extends AbstractAsyncCommand{ 
         
-        protected var _commandMap:Dictionary;
+        private var _commandMap:Dictionary;
         
-        protected var _defaultCommand:ICommand;
+        private var _defaultCommand:ICommand;
         
         private var _property:String;
 
@@ -65,8 +65,8 @@ package org.seasar.akabana.yui.command
                 status = new IllegalOperationError("Command Not Found for " + key);
                 error();
             } else {
-                cmd.completeCallBack(commandCompleteEventListener);
-                cmd.errorCallBack(commandErrorEventListener);
+                cmd.completeCallBack(childCmd_completeHandler);
+                cmd.errorCallBack(childCmd_errorHandler);
                 cmd.start(arg);
             }
         }
@@ -86,7 +86,7 @@ package org.seasar.akabana.yui.command
             return this;
         }
         
-        protected function commandCompleteEventListener(event:CommandEvent):void{
+        private function childCmd_completeHandler(event:CommandEvent):void{
             if( event.command.hasResult ){
                 returnAsync(event.command.result);
             } else {
@@ -94,7 +94,7 @@ package org.seasar.akabana.yui.command
             }
         }
 
-        protected function commandErrorEventListener(event:CommandEvent):void{
+        private function childCmd_errorHandler(event:CommandEvent):void{
             errorAsync(event.data);
         }
     }

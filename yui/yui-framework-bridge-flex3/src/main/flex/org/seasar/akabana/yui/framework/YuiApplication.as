@@ -48,8 +48,7 @@ package org.seasar.akabana.yui.framework
             _setting = new YuiFrameworkSettings();
         }
 
-        public override function dispatchEvent(event:Event):Boolean
-        {
+        public override function dispatchEvent(event:Event):Boolean{
             var result:Boolean = super.dispatchEvent(event);
             if( !(event.type in YuiApplicationConsts.UNRECOMMEND_EVENT_MAP)){
                 if( result ){

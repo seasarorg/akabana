@@ -15,20 +15,20 @@
  */
 package org.seasar.akabana.yui.service.rpc {
     import org.seasar.akabana.yui.service.OperationCallBack;
-    import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.IPendingCall;
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.FaultStatus;
     import org.seasar.akabana.yui.service.event.ResultEvent;
-    import org.seasar.akabana.yui.service.resonder.Responder;
-    import org.seasar.akabana.yui.service.resonder.ResponderFactory;
+    import org.seasar.akabana.yui.service.resonder.IServiceResponder;
+    import org.seasar.akabana.yui.service.resonder.ServiceResponderFactory;
     import org.seasar.akabana.yui.service.rpc.responder.RpcResponderFactory;
 
     [ExcludeClass]
-    public final class RpcPendingCall implements PendingCall {
+    public final class RpcPendingCall implements IPendingCall {
 
-        private static const _responderFactory:ResponderFactory = new RpcResponderFactory();
+        private static const RESPONDER_FACTORY:ServiceResponderFactory = new RpcResponderFactory();
 
-        private var _responder:Responder;
+        private var _responder:IServiceResponder;
 
         private var _responderOwner:Object;
 
@@ -47,12 +47,12 @@ package org.seasar.akabana.yui.service.rpc {
         }
 
         public function setResponder( responder:Object ):void{
-            if( responder is Responder ){
+            if( responder is IServiceResponder ){
                 _responderOwner = null;
-                _responder = responder as Responder;
+                _responder = responder as IServiceResponder;
             } else {
                 _responderOwner = responder;
-                _responder = _responderFactory.createResponder( _operation, responder );
+                _responder = RESPONDER_FACTORY.createResponder( _operation, responder );
             }
         }
 

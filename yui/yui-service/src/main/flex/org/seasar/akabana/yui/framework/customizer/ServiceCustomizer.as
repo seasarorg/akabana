@@ -23,9 +23,9 @@ package org.seasar.akabana.yui.framework.customizer
     import org.seasar.akabana.yui.core.reflection.PropertyRef;
     import org.seasar.akabana.yui.framework.YuiFrameworkGlobals;
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
-    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.IService;
     import org.seasar.akabana.yui.service.ServiceManager;
-    import org.seasar.akabana.yui.service.ManagedService;
+    import org.seasar.akabana.yui.service.IManagedService;
     import org.seasar.akabana.yui.framework.logging.debug;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
 
@@ -84,7 +84,7 @@ package org.seasar.akabana.yui.framework.customizer
         protected function processCustomize(target:Object):void {
             const classRef:ClassRef = getClassRef(target);
 
-            var service:Service;
+            var service:IService;
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 var className:String = propertyRef.typeClassRef.className;
                 if(
@@ -106,7 +106,7 @@ package org.seasar.akabana.yui.framework.customizer
         protected function processUncustomize(target:Object):void {
             const classRef:ClassRef = getClassRef(target);
 
-            var service:Service;
+            var service:IService;
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 var className:String = propertyRef.typeClassRef.className;
                 if(
@@ -116,10 +116,10 @@ package org.seasar.akabana.yui.framework.customizer
                     CONFIG::DEBUG {
                         _debug("Uncustomizing",classRef.name,propertyRef.name);
                     }
-                    service = propertyRef.getValue(target) as Service;
+                    service = propertyRef.getValue(target) as IService;
                     
-                    if( service is ManagedService ){
-                        (service as ManagedService).finalizeResponder(target);
+                    if( service is IManagedService ){
+                        (service as IManagedService).finalizeResponder(target);
                     }
                     propertyRef.setValue(target,null);
                     CONFIG::DEBUG {

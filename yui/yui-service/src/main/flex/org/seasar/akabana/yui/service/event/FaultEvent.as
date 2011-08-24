@@ -19,7 +19,15 @@ package org.seasar.akabana.yui.service.event {
         
         public static const FAULT:String = "fault";
         
-        public var faultStatus:FaultStatus;
+        private var _faultStatus:FaultStatus;
+
+        public function get faultStatus():FaultStatus{
+            return _faultStatus;
+        }
+
+        public function set faultStatus(value:FaultStatus):void{
+            _faultStatus = value;
+        }
         
         public function FaultEvent( faultStatus:FaultStatus, bubbles:Boolean = false, cancelable:Boolean = false){
             super( FAULT, bubbles, cancelable);

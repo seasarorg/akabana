@@ -2,11 +2,11 @@
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
     <classEntry path="org.seasar.akabana.yui.framework.customizer.ServiceCustomizer"/>
-    <classEntry path="org.seasar.akabana.yui.service.ManagedService"/>
-    <classEntry path="org.seasar.akabana.yui.service.Operation"/>
+    <classEntry path="org.seasar.akabana.yui.service.IManagedService"/>
+    <classEntry path="org.seasar.akabana.yui.service.IOperation"/>
+    <classEntry path="org.seasar.akabana.yui.service.IPendingCall"/>
     <classEntry path="org.seasar.akabana.yui.service.OperationCallBack"/>
-    <classEntry path="org.seasar.akabana.yui.service.PendingCall"/>
-    <classEntry path="org.seasar.akabana.yui.service.Service"/>
+    <classEntry path="org.seasar.akabana.yui.service.IService"/>
     <classEntry path="org.seasar.akabana.yui.service.ServiceGatewayUrlResolver"/>
     <classEntry path="org.seasar.akabana.yui.service.ServiceManager"/>
     <classEntry path="org.seasar.akabana.yui.service.ServiceMethod"/>
@@ -23,9 +23,9 @@
     <classEntry path="org.seasar.akabana.yui.service.ns.rpc_fault"/>
     <classEntry path="org.seasar.akabana.yui.service.ns.rpc_result"/>
     <classEntry path="org.seasar.akabana.yui.service.ns.service"/>
-    <classEntry path="org.seasar.akabana.yui.service.resonder.AbstractResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.resonder.Responder"/>
-    <classEntry path="org.seasar.akabana.yui.service.resonder.ResponderFactory"/>
+    <classEntry path="org.seasar.akabana.yui.service.resonder.AbstractServiceResponder"/>
+    <classEntry path="org.seasar.akabana.yui.service.resonder.IServiceResponder"/>
+    <classEntry path="org.seasar.akabana.yui.service.resonder.ServiceResponderFactory"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>

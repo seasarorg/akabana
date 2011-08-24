@@ -42,7 +42,7 @@ package org.seasar.akabana.yui.framework.logging
             log.apply(null,["[WARN_]",message].concat(args));
         }
         
-        protected function log(level:String,message:String,...args):void{
+        private function log(level:String,message:String,...args):void{
             var time:String = "[" + DateUtil.getCurrentDateString() + "]";
             if( args.length == 0 ){
                 trace(time,level,message);

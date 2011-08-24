@@ -43,13 +43,6 @@ package org.seasar.akabana.yui.service.rpc {
             super.connect( url, rest);
         }
 
-        protected function reconnect( newUri:String ):void{
-            if( this.uri != null ){
-                this.close();
-            }
-            this.connect( newUri );
-        }
-
         public function ReplaceGatewayUrl(url:String):void{
             reconnect(url);
         }
@@ -64,6 +57,13 @@ package org.seasar.akabana.yui.service.rpc {
                 url += append_;
             }
             return url;
+        }
+
+        private function reconnect( newUri:String ):void{
+            if( this.uri != null ){
+                this.close();
+            }
+            this.connect( newUri );
         }
 
         public function appendToGatewayUrl(append:String):void{

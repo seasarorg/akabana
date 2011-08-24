@@ -30,10 +30,10 @@ package org.seasar.akabana.yui.core.reflection
             return _type;
         }
 
-        private var _optional:Boolean;
+        private var _isOptional:Boolean;
 
-        public function get optional():Boolean{
-            return _optional;
+        public function get isOptional():Boolean{
+            return _isOptional;
         }
 
         private var _isAnyType:Boolean;
@@ -41,8 +41,6 @@ package org.seasar.akabana.yui.core.reflection
         public function get isAnyType():Boolean{
             return _isAnyType;
         }
-
-        private var _isEvent:Boolean;
 
         public function get isEvent():Boolean{
             return getClassRef(_type).isEvent;
@@ -65,7 +63,7 @@ package org.seasar.akabana.yui.core.reflection
         private function assembleThis( rootDescribeTypeXml:XML ):void{
             _index = parseInt( rootDescribeTypeXml.@index.toString());
             _type = getTypeString(rootDescribeTypeXml.@type.toString());
-            _optional = ( rootDescribeTypeXml.@type.toString() == ObjectRef.BOOL_TRUE);
+            _isOptional = ( rootDescribeTypeXml.@type.toString() == ObjectRef.BOOL_TRUE);
 
             _isAnyType = ( _type == ObjectRef.TYPE_ANY );
         }

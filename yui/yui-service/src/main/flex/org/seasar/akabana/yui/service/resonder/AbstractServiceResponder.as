@@ -21,13 +21,13 @@ package org.seasar.akabana.yui.service.resonder {
     import org.seasar.akabana.yui.service.event.ResultEvent;
 
     [ExcludeClass]
-    public class AbstractResponder implements Responder {
+    public class AbstractServiceResponder implements IServiceResponder {
 
         public var resultFunctionDef:Dictionary;
 
         public var faultFunctionDef:Dictionary;
 
-        public function AbstractResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){
+        public function AbstractServiceResponder( resultFunction:Function, faultFunction:Function = null, weakReference:Boolean=false){
             resultFunctionDef = new Dictionary(weakReference);
             resultFunctionDef[ resultFunction ] = weakReference;
             faultFunctionDef = new Dictionary(weakReference);

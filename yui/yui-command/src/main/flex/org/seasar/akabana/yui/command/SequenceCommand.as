@@ -31,7 +31,7 @@ package org.seasar.akabana.yui.command
             }
         }
         
-        protected final override function childCommandCompleteEventHandler(event:CommandEvent):void{
+        protected final override function childCmd_completeHandler(event:CommandEvent):void{
             _lastCommand = event.command;
             if( _childCompleteEventListener.handler != null ){
                 _childCompleteEventListener.handler(event);
@@ -59,7 +59,7 @@ package org.seasar.akabana.yui.command
             }
         }
 
-        protected final override function childCommandErrorEventHandler(event:CommandEvent):void{
+        protected final override function childCmd_errorHandler(event:CommandEvent):void{
             _lastCommand = event.command;
             if( _childErrorEventListener.handler != null ){
                 _childErrorEventListener.handler(event);

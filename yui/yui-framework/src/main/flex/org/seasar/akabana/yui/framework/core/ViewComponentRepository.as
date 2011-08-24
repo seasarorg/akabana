@@ -27,24 +27,24 @@ package org.seasar.akabana.yui.framework.core {
     [ExcludeClass]
     public final class ViewComponentRepository {
         
-        public static const componentInstanceMap:Dictionary = new Dictionary(true);
+        private static const COMPONENT_INSTANCE_MAP:Dictionary = new Dictionary(true);
         
-        private static const _viewDic:Dictionary = new Dictionary(true);
+        private static const VIEW_MAP:Dictionary = new Dictionary(true);
 
         public static function get allView():Dictionary{
-            return _viewDic;
+            return VIEW_MAP;
         }
         
         public static function addComponent( component:DisplayObject ):void{
             var className:String = getCanonicalName(component);
-            if( componentInstanceMap[ className ] == null ){
-                componentInstanceMap[ className ] = new Dictionary(true);
+            if( COMPONENT_INSTANCE_MAP[ className ] == null ){
+                COMPONENT_INSTANCE_MAP[ className ] = new Dictionary(true);
             }
-            var componentInstances:Object = componentInstanceMap[ className ];
+            var componentInstances:Object = COMPONENT_INSTANCE_MAP[ className ];
 
             var componentId:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
-            if( _viewDic[ componentId ] == null ){
-                _viewDic[ componentId ] = component;
+            if( VIEW_MAP[ componentId ] == null ){
+                VIEW_MAP[ componentId ] = component;
                 componentInstances[ componentId ] = component;
             } else {
                 throw new ComponentDuplicatedRegistrationError(componentId);
@@ -52,14 +52,14 @@ package org.seasar.akabana.yui.framework.core {
         }
 
         public static function removeComponent( component:DisplayObject ):void{
-            if( _viewDic.hasOwnProperty(component.name)){
+            if( VIEW_MAP.hasOwnProperty(component.name)){
                 var componentId:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
-                _viewDic[ componentId ] = null;
-                delete _viewDic[ componentId ];
+                VIEW_MAP[ componentId ] = null;
+                delete VIEW_MAP[ componentId ];
 
                 var className:String = getCanonicalName(component);
 
-                var componentInstances:Object = componentInstanceMap[ className ];
+                var componentInstances:Object = COMPONENT_INSTANCE_MAP[ className ];
                 componentInstances[ componentId ] = null;
                 delete componentInstances[ componentId ];
             }
@@ -71,7 +71,7 @@ package org.seasar.akabana.yui.framework.core {
             do{
                 if( key is Class ){
                     var className:String = getCanonicalName(result);
-                    componentInstances = componentInstanceMap[ className ];
+                    componentInstances = COMPONENT_INSTANCE_MAP[ className ];
                     if( componentId != null){
                         result = componentInstances[ componentId ] as DisplayObjectContainer;
                     } else {
@@ -86,10 +86,10 @@ package org.seasar.akabana.yui.framework.core {
                 }
                 if( key is String ){
                     if( componentId != null ){
-                        componentInstances = componentInstanceMap[ key ];
+                        componentInstances = COMPONENT_INSTANCE_MAP[ key ];
                         result = componentInstances[ componentId ] as DisplayObjectContainer;
                     } else {
-                        result = _viewDic[ key ] as DisplayObjectContainer;
+                        result = VIEW_MAP[ key ] as DisplayObjectContainer;
                     }
                     break;
                 }
@@ -102,7 +102,7 @@ package org.seasar.akabana.yui.framework.core {
             var component:DisplayObject = null;
 
             var className:String = getCanonicalName(key);
-            var componentInstances:Object = componentInstanceMap[ className ];
+            var componentInstances:Object = COMPONENT_INSTANCE_MAP[ className ];
 
             for each( var component_:DisplayObject in componentInstances ){
                 if( parent.contains(component_) ){
@@ -115,7 +115,7 @@ package org.seasar.akabana.yui.framework.core {
         }
 
         public static function hasComponent( name:String ):Boolean{
-            return _viewDic.hasOwnProperty( name );
+            return VIEW_MAP.hasOwnProperty( name );
         }
     }
 }

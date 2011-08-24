@@ -68,5 +68,16 @@ package org.seasar.akabana.yui.command.events
         public function CommandEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) {
             super(type, bubbles, cancelable);
         }
+
+        public override function clone():Event{
+            var result:CommandEvent = new CommandEvent(type, bubbles, cancelable);
+            result.command = _command;
+            result.data = _data;
+            return result;
+        }
+        
+        public override function toString():String{
+            return formatToString("CommandEvent", "type", "bubbles", "cancelable","eventPhase","command","data");
+        }
     }
 }

@@ -16,15 +16,16 @@
 package org.seasar.akabana.yui.logging
 {
     [ExcludeClass]
-    public interface Category{
+    public interface IAppender{
 
         function get name():String;
         function set name( value:String ):void;
 
-        function get level():Level;
-        function set level( value:Level ):void;
+        function get layout():ILayout;
+        function set layout( value:ILayout ):void;
 
-        function get appender():Appender;
-        function set appender( value:Appender ):void;
+        function close():void;
+        function append( data:LoggingData ):void;
+
     }
 }

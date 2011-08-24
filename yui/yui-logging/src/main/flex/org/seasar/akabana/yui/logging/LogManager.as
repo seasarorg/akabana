@@ -34,18 +34,18 @@ package org.seasar.akabana.yui.logging
 
         private static var CATEGORY_NAME:Array = [];
 
-        private static var ROOT_LOGGER:Category;
+        private static var ROOT_LOGGER:ICategory;
 
-        private static var VALUE:String = "value";
+        //private static var VALUE:String = "value";
 
-        private static const _logManager:LogManager = new LogManager();
+        private static const LOG_MANAGER:LogManager = new LogManager();
 
         public static function init():void{
-            _logManager.init(ConfigurationProvider.createConfiguration());
+            LOG_MANAGER.init(ConfigurationProvider.createConfiguration());
         }
 
         public static function getLogger( target:Object ):Logger{
-            return _logManager.getLogger( target );
+            return LOG_MANAGER.getLogger( target );
         }
 
         public function LogManager(){
@@ -60,10 +60,10 @@ package org.seasar.akabana.yui.logging
         }
 
         private function configureAppenders( appenderConfigMap:Object ):void{
-            var appender:Appender;
+            var appender:IAppender;
             for each( var appenderConfig:AppenderConfig in appenderConfigMap ){
                 var appenderClass:Class = appenderConfig.clazz;
-                appender = new appenderClass() as Appender;
+                appender = new appenderClass() as IAppender;
 
                 if( appender != null ){
                     appender.layout = configureLayout( appenderConfig.layout);
@@ -73,9 +73,9 @@ package org.seasar.akabana.yui.logging
             }
         }
 
-        private function configureLayout( layoutConfig:LayoutConfig ):Layout{
+        private function configureLayout( layoutConfig:LayoutConfig ):ILayout{
             var layoutClass:Class = layoutConfig.clazz;
-            var layout:Layout = new layoutClass() as Layout;
+            var layout:ILayout = new layoutClass() as ILayout;
 
             for each( var param:ParamConfig in layoutConfig.paramMap ){
                 if( Object(layout).hasOwnProperty( param.name )){
@@ -90,12 +90,12 @@ package org.seasar.akabana.yui.logging
             ROOT_LOGGER = configureCategory( categoryConfig );
         }
 
-        private function configureCategory( categoryConfig:CategoryConfig ):Category{
+        private function configureCategory( categoryConfig:CategoryConfig ):ICategory{
             var categoryClass:Class = categoryConfig.clazz;
-            var category:Category = new categoryClass() as Category;
+            var category:ICategory = new categoryClass() as ICategory;
             category.level = Level.getLevel(categoryConfig.level.value);
 
-            category.appender = APPENDER_CACHE[categoryConfig.appenderRef] as Appender;
+            category.appender = APPENDER_CACHE[categoryConfig.appenderRef] as IAppender;
 
             CATEGORY_NAME.push( categoryConfig.name );
             CATEGORY_CACHE[ categoryConfig.name ] = category;
@@ -121,7 +121,7 @@ package org.seasar.akabana.yui.logging
 
             if( logger_ == null ){
 
-                var category:Category = null;
+                var category:ICategory = null;
                 for each( var categoryName:String in CATEGORY_NAME ){
                     if( fullClassName.indexOf(categoryName) == 0 ){
                         category = CATEGORY_CACHE[ categoryName ];

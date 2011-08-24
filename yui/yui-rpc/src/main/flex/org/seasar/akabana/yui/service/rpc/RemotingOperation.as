@@ -25,12 +25,9 @@ package org.seasar.akabana.yui.service.rpc {
     import flash.net.Responder;
     
     import org.seasar.akabana.yui.service.OperationCallBack;
-    import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.IPendingCall;
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.FaultStatus;
-    import org.seasar.akabana.yui.service.rpc.AbstractRpcOperation;
-    import org.seasar.akabana.yui.service.rpc.AbstractRpcService;
-    import org.seasar.akabana.yui.service.rpc.RpcPendingCall;
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
@@ -118,9 +115,9 @@ package org.seasar.akabana.yui.service.rpc {
             }
         }
 
-        protected override function doInvoke( operationArgs:Array ):PendingCall{
+        protected override function doInvoke( operationArgs:Array ):IPendingCall{
             const rc:RemotingConnection = lookupConnection();
-            const pendingCall:PendingCall = new RpcPendingCall(this);
+            const pendingCall:IPendingCall = new RpcPendingCall(this);
 
             const serviceOperationName:String = getServiceOperationName();
             const invokeArgs:Array = createServiceInvokeArgs( serviceOperationName, operationArgs, pendingCall );
@@ -135,7 +132,7 @@ package org.seasar.akabana.yui.service.rpc {
             return pendingCall;
         }
 
-        protected function lookupConnection():RemotingConnection{
+        private function lookupConnection():RemotingConnection{
             if( _name == null && _name.length <= 0){
                 throw new IllegalOperationError(_name);
             }

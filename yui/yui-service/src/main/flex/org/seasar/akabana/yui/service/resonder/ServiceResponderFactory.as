@@ -19,13 +19,13 @@ package org.seasar.akabana.yui.service.resonder
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.core.reflection.ParameterRef;
-    import org.seasar.akabana.yui.service.Operation;
+    import org.seasar.akabana.yui.service.IOperation;
     import org.seasar.akabana.yui.service.ns.rpc_fault;
     import org.seasar.akabana.yui.service.ns.rpc_result;
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
-    public class ResponderFactory {
+    public class ServiceResponderFactory {
         
         private static const EVENT_SEPARETOR:String = "_";
 
@@ -39,16 +39,16 @@ package org.seasar.akabana.yui.service.resonder
 
         protected var noneResponderClassRef:ClassRef;
 
-        public function ResponderFactory(){
+        public function ServiceResponderFactory(){
 
         }
 
-        public function createResponder( operation:Operation, responder:Object ):Responder{
+        public function createResponder( operation:IOperation, responder:Object ):IServiceResponder{
             const classRef:ClassRef = getClassRef(responder);
             const resultFuncDef:FunctionRef = findResultFunctionRef( classRef, operation.serviceName, operation.name );
             const faultFuncDef:FunctionRef = findFaultFunctionRef( classRef, operation.serviceName, operation.name  );
 
-            var rpcResponder:Responder = null;
+            var rpcResponder:IServiceResponder = null;
             var responderClassRef:ClassRef;
             if( resultFuncDef.parameters.length <= 0 ){
                 responderClassRef = noneResponderClassRef;
@@ -61,11 +61,11 @@ package org.seasar.akabana.yui.service.resonder
                 }
             }
             if( faultFuncDef == null){
-                rpcResponder = responderClassRef.newInstance(resultFuncDef.getFunction(responder),null,true) as Responder;
+                rpcResponder = responderClassRef.newInstance(resultFuncDef.getFunction(responder),null,true) as IServiceResponder;
             } else {
-                rpcResponder = responderClassRef.newInstance(resultFuncDef.getFunction(responder),faultFuncDef.getFunction(responder),true) as Responder;
+                rpcResponder = responderClassRef.newInstance(resultFuncDef.getFunction(responder),faultFuncDef.getFunction(responder),true) as IServiceResponder;
             }
-            return rpcResponder as Responder;
+            return rpcResponder as IServiceResponder;
         }
 
         public function findResultFunctionRef( classRef:ClassRef, serviceName:String, serviceMethodName:String ):FunctionRef{

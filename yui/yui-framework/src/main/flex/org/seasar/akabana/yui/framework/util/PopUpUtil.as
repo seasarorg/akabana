@@ -177,7 +177,7 @@ package org.seasar.akabana.yui.framework.util
                 ( window as UIComponent)
                     .addEventListener(
                             FlexEvent.CREATION_COMPLETE,
-                            onPopupCreationCompleteHandler,
+                            popup_creationCompleteHandler,
                             false,
                             0,
                             true
@@ -209,7 +209,7 @@ package org.seasar.akabana.yui.framework.util
             PopUpManager.removePopUp(popUp);
         }
 
-        private static function onPopupCreationCompleteHandler(event:FlexEvent):void{
+        private static function popup_creationCompleteHandler(event:FlexEvent):void{
             if( event.eventPhase == EventPhase.AT_TARGET ){
                 IEventDispatcher(event.target).removeEventListener(FlexEvent.CREATION_COMPLETE,arguments.callee);
                 lookupCallBack(event.target as UIComponent).apply(null,[event]);

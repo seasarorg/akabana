@@ -29,8 +29,8 @@ package org.seasar.akabana.yui.framework.message
         
         private var _bundleName:String;
         
-        public function Messages(bundleName:String):void{
-            _bundleName = bundleName;            
+        public function Messages(bundleName:String){
+            _bundleName = bundleName;
         }
         
         flash_proxy override function getProperty(name:*):* {

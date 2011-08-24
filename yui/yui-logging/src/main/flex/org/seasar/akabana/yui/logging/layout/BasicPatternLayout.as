@@ -40,6 +40,7 @@ package org.seasar.akabana.yui.logging.layout
             if( this.pattern == null ){
                 this.pattern = "%m";
             }
+            var now:Date = new Date();
             var patternCharArray:Array = this.pattern.split("");
             var result_:String = "";
             for( var i:int = 0; i < patternCharArray.length; i++ ){
@@ -53,7 +54,7 @@ package org.seasar.akabana.yui.logging.layout
                                 result_ += data.categoryName;
                                 break;
                             case 'd':
-                                result_ = (new Date()).toString();
+                                result_ = now.toString();
                                 break;
                             case 'e':
                                 result_ += data.error != null ? data.error.getStackTrace() : "";

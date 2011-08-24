@@ -99,7 +99,7 @@ package org.seasar.akabana.yui.framework.customizer
         }
         
         
-        protected function setValidatorProperties(container:UIComponent,obj:Object):void{
+        private function setValidatorProperties(container:UIComponent,obj:Object):void{
             const viewProperties:Object = UIComponentUtil.getProperties(container);
             const viewClassName:String = getCanonicalName(container);
             const targetClassRef:ClassRef = getClassRef(obj);
@@ -142,7 +142,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         
-        protected function setViewParts(container:UIComponent,validatorClassRef:ClassRef,validator:Object):void{
+        private function setViewParts(container:UIComponent,validatorClassRef:ClassRef,validator:Object):void{
             const ns:Namespace = viewpart;
             CONFIG::FP9 {
                 const validatorProps:Array = validatorClassRef.properties;

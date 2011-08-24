@@ -56,23 +56,23 @@ package org.seasar.akabana.yui.core.reflection
             assembleThis( describeTypeXml );
         }
 
-        public function getValue( object:Object ):Object{
+        public function getValue( target:Object ):Object{
             var result:Object = null;
             if( _uri == null || _uri.length == 0 ){
-                result = object[ _name ];
+                result = target[ _name ];
             } else {
                 var ns:Namespace = new Namespace(_uri);
-                result = object.ns::[ _name ];
+                result = target.ns::[ _name ];
             }
             return result;
         }
 
-        public function setValue( object:Object, value:Object ):void{
+        public function setValue( target:Object, value:Object ):void{
             if( _uri == null || _uri.length == 0 ){
-                object[ _name ] = value;
+                target[ _name ] = value;
             } else {
                 var ns:Namespace = new Namespace(_uri);
-                object.ns::[ _name ] = value;
+                target.ns::[ _name ] = value;
             }
         }
 

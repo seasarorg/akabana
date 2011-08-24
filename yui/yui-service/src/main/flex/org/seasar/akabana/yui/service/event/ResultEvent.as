@@ -19,10 +19,17 @@ package org.seasar.akabana.yui.service.event
         
         public static const RESULT:String = "result";
         
-        public var result:Object;
-        
-        public function ResultEvent( result:Object = null, bubbles:Boolean = false, cancelable:Boolean = false  )
-        {
+        private var _result:Object;
+
+        public function get result():Object{
+            return _result;
+        }
+
+        public function set result(value:Object):void{
+            _result = value;
+        }
+
+        public function ResultEvent( result:Object = null, bubbles:Boolean = false, cancelable:Boolean = false  ){
             super( RESULT, bubbles, cancelable );
             
             this.result = result;

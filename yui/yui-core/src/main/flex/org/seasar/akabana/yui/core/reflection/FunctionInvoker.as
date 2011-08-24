@@ -47,7 +47,7 @@ package org.seasar.akabana.yui.core.reflection
         
         public function invokeDelay(delay:Number=10):FunctionInvoker{
             _timer = new Timer(delay);
-            _timer.addEventListener(TimerEvent.TIMER, timerEventHandler);
+            _timer.addEventListener(TimerEvent.TIMER, delayTimer_timerEventHandler);
             _timer.start();
             
             return this;
@@ -59,23 +59,23 @@ package org.seasar.akabana.yui.core.reflection
             } else {
                 _frameCount = 0;
                 _invokeFrame = invokeFrame;
-                base.addEventListener(Event.ENTER_FRAME,baseEnterFrameHandler);
+                base.addEventListener(Event.ENTER_FRAME,displayObject_enterFrameHandler);
             }
             return this;
         }
         
-        private function baseEnterFrameHandler(event:Event):void{
+        private function displayObject_enterFrameHandler(event:Event):void{
             _frameCount++;
             if( _frameCount > 0 && _frameCount >= _invokeFrame ){
                 var base:DisplayObject = event.target as DisplayObject;
-                base.removeEventListener(Event.ENTER_FRAME,baseEnterFrameHandler);
+                base.removeEventListener(Event.ENTER_FRAME,displayObject_enterFrameHandler);
                 doInvoke();
             }
         }
         
-        private function timerEventHandler(event:TimerEvent):void{
+        private function delayTimer_timerEventHandler(event:TimerEvent):void{
             _timer.stop();
-            _timer.removeEventListener(TimerEvent.TIMER, timerEventHandler);
+            _timer.removeEventListener(TimerEvent.TIMER, delayTimer_timerEventHandler);
             _timer = null;
             
             doInvoke();

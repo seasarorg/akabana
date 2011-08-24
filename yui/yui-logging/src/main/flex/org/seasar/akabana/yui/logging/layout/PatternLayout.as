@@ -32,7 +32,7 @@ package org.seasar.akabana.yui.logging.layout
      */
     public class PatternLayout extends LayoutBase
     {
-        private static const dateFormatter:DateFormatter = new DateFormatter();
+        private static const DATE_FORMATTER:DateFormatter = new DateFormatter();
 
         private static const DATE_FORMAT:String = "YYYY/MM/DD JJ:NN:SS";
 
@@ -68,8 +68,8 @@ package org.seasar.akabana.yui.logging.layout
                                         i++;
                                     }
                                 }
-                                dateFormatter.formatString = formatString;
-                                result_ = dateFormatter.format(new Date());
+                                DATE_FORMATTER.formatString = formatString;
+                                result_ = DATE_FORMATTER.format(new Date());
                                 break;
                             case 'e':
                                 result_ += data.error != null ? data.error.getStackTrace() : "";

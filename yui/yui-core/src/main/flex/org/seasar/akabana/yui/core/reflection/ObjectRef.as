@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
-    internal class ObjectRef implements Reflector {
+    internal class ObjectRef implements IReflector {
         
         internal static const BOOL_TRUE:String = "true";
         
@@ -27,9 +27,9 @@ package org.seasar.akabana.yui.core.reflection
 
         internal static const TYPE_ANY:String = "*";
 
-        internal static const excludeDeclaredByFilterRegExp:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|(air\.)|(org.seasar\.))/);
+        internal static const EXCLUDE_DECLARED_BY_FILTER_REGEXP:RegExp = new RegExp(/^((mx\.)|(flash\.)|(fl\.)|(spark\.)|(air\.)|(org.seasar\.))/);
 
-        internal static const excludeUriFilterRegExp:RegExp = new RegExp(/^(http:\/\/adobe.com)/);
+        internal static const EXCLUDE_URI_FILTER_REGEXP:RegExp = new RegExp(/^(http:\/\/adobe.com)/);
 
         internal static function getTypeString( type:String ):String{
             if( type != TYPE_ANY){

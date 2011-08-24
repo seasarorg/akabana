@@ -18,14 +18,14 @@ package org.seasar.akabana.yui.service.rpc {
     import flash.events.EventDispatcher;
     import flash.net.Responder;
     
-    import org.seasar.akabana.yui.service.Operation;
-    import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.IOperation;
+    import org.seasar.akabana.yui.service.IPendingCall;
     import org.seasar.akabana.yui.service.error.IllegalOperationError;
     import org.seasar.akabana.yui.service.event.InvokeEvent;
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
-    public class AbstractRpcOperation extends EventDispatcher implements Operation {
+    public class AbstractRpcOperation extends EventDispatcher implements IOperation {
 
         protected var _name:String;
 
@@ -49,23 +49,23 @@ package org.seasar.akabana.yui.service.rpc {
             return _service.name;
         }
 
-        public function invoke( args:Array ):PendingCall{
+        public function invoke( args:Array ):IPendingCall{
             if( _name == null || _name.length <= 0 ){
                 throw new IllegalOperationError(_name);
             }
 
-            var pendingCall:PendingCall = doInvoke( args );
+            var pendingCall:IPendingCall = doInvoke( args );
 
             dispatchInvokeEvent( pendingCall );
 
             return pendingCall;
         }
         
-        protected function doInvoke( operationArgs:Array ):PendingCall{
+        protected function doInvoke( operationArgs:Array ):IPendingCall{
             return null;
         }
 
-        protected function dispatchInvokeEvent( pendingCall:PendingCall ):void{
+        protected function dispatchInvokeEvent( pendingCall:IPendingCall ):void{
             var event:InvokeEvent = new InvokeEvent();
             event.pendigCall = pendingCall;
             event.service = _service;
@@ -73,7 +73,7 @@ package org.seasar.akabana.yui.service.rpc {
             _service.dispatchEvent( event );
         }
         
-        protected function createServiceInvokeArgs( serviceOperationName:String, operationArgs:Array, pendingCall:PendingCall ):Array{
+        protected function createServiceInvokeArgs( serviceOperationName:String, operationArgs:Array, pendingCall:IPendingCall ):Array{
             var callArgs:Array = null;
             
             if( operationArgs.length > 0 ){

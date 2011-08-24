@@ -34,7 +34,7 @@ CONFIG::FP10{
                 var list:XMLList = metadataXML.@declaredBy;
                 if( list.length() > 0 ){
                     var declaredBy_:String = list[0].toString();
-                    if( excludeDeclaredByFilterRegExp.test(declaredBy_)){
+                    if( EXCLUDE_DECLARED_BY_FILTER_REGEXP.test(declaredBy_)){
                         isTarget = false;
                     }
                 }

@@ -24,15 +24,24 @@ package org.seasar.akabana.yui.framework.event
         public static const RUNTIME_ERROR:String = "runtimeError";
         
         public static function createEvent( e:Error ):RuntimeErrorEvent{
-            var runtimeErrorEvent:RuntimeErrorEvent = new RuntimeErrorEvent(RUNTIME_ERROR);
+            var runtimeErrorEvent:RuntimeErrorEvent = new RuntimeErrorEvent(RUNTIME_ERROR, e);
             runtimeErrorEvent.error = e;
             return runtimeErrorEvent;
         }
         
-        public var error:Error;
+        private var _error:Error;
 
-        public function RuntimeErrorEvent(type:String, bubbles:Boolean = true, cancelable:Boolean = true, error:*=null){
-            super(type,bubbles,cancelable,text);
+        public function get error():Error{
+            return _error;
+        }
+
+        public function set error(value:Error):void{
+            _error = value;
+        }
+
+        public function RuntimeErrorEvent(type:String, error:Error, bubbles:Boolean = true, cancelable:Boolean = true){
+            super(type,bubbles,cancelable,error.toString(),error.errorID);
+            this.error = error;
         }
     }
 }

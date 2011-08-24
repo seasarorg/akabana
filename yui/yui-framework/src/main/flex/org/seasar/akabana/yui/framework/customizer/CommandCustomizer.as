@@ -79,7 +79,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         
-        protected function processCustomize(target:Object):void {
+        private function processCustomize(target:Object):void {
             const classRef:ClassRef = getClassRef(target);
             
             var command:Object;
@@ -101,10 +101,9 @@ package org.seasar.akabana.yui.framework.customizer
             }
         }
         
-        protected function processUncustomize(target:Object):void {
+        private function processUncustomize(target:Object):void {
             const classRef:ClassRef = getClassRef(target);
             
-            var command:Object;
             for each(var propertyRef:PropertyRef in classRef.properties) {
                 var className:String = propertyRef.typeClassRef.className;
                 if(

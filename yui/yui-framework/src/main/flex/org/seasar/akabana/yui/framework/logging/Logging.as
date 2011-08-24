@@ -29,7 +29,7 @@ package org.seasar.akabana.yui.framework.logging
     
     public final class Logging {
         
-        private static const _defaultLoggerFactory:ILoggerFactory = new SimpleLoggerFactory();
+        private static const DEFAULT_LOGGER_FACTORY:ILoggerFactory = new SimpleLoggerFactory();
         
         private static var _loggerFactory:ILoggerFactory;
         
@@ -44,7 +44,7 @@ package org.seasar.akabana.yui.framework.logging
             } catch( e:Error ){
             }
             if( clazz == null ){
-                _loggerFactory = _defaultLoggerFactory;
+                _loggerFactory = DEFAULT_LOGGER_FACTORY;
             } else {
                 _loggerFactory = new clazz() as ILoggerFactory;
             }

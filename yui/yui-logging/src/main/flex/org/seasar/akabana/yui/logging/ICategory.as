@@ -9,30 +9,22 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.service {
-    
-    import flash.events.IEventDispatcher;
-    
-    public interface Service extends IEventDispatcher {
-        
-        {
-            ServiceGatewayUrlResolver;
-        }
-        
+package org.seasar.akabana.yui.logging
+{
+    [ExcludeClass]
+    public interface ICategory{
+
         function get name():String;
-        
         function set name( value:String ):void;
-        
-        function get destination():String;
-        
-        function set destination( value:String ):void;
-        
-        function setCredentials(username:String, password:String, charset:String=null):void;
-        
-        function invokeMethod( name:String, args:Array ):PendingCall;
+
+        function get level():Level;
+        function set level( value:Level ):void;
+
+        function get appender():IAppender;
+        function set appender( value:IAppender ):void;
     }
 }

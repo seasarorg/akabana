@@ -19,20 +19,19 @@ package org.seasar.akabana.yui.service
     
     import org.seasar.akabana.yui.core.error.NotFoundError;
     import org.seasar.akabana.yui.core.event.MessageEvent;
-    import org.seasar.akabana.yui.service.ServiceManager;
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.ResultEvent;
-    import org.seasar.akabana.yui.service.resonder.Responder;
+    import org.seasar.akabana.yui.service.resonder.IServiceResponder;
     
-    public class ServiceMethod extends EventDispatcher implements Responder{
+    public class ServiceMethod extends EventDispatcher implements IServiceResponder{
         
         protected var _serviceName:String;
         
         protected var _methodName:String;
         
-        protected var _service:Service;
+        protected var _service:IService;
         
-        public function get service():Service{
+        public function get service():IService{
             return _service;
         }
         

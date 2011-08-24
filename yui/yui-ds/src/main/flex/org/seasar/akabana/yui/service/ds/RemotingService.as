@@ -51,10 +51,10 @@ package org.seasar.akabana.yui.service.ds {
     import mx.rpc.events.FaultEvent;
     import mx.rpc.remoting.mxml.RemoteObject;
     
-    import org.seasar.akabana.yui.service.ManagedService;
+    import org.seasar.akabana.yui.service.IManagedService;
     import org.seasar.akabana.yui.service.OperationCallBack;
-    import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.IPendingCall;
+    import org.seasar.akabana.yui.service.IService;
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.ServiceManager;
     import org.seasar.akabana.yui.service.ds.local.LocalOperation;
@@ -64,7 +64,7 @@ package org.seasar.akabana.yui.service.ds {
     use namespace flash_proxy;
     use namespace mx_internal;
 
-    public dynamic class RemotingService extends RemoteObject implements ManagedService {
+    public dynamic class RemotingService extends RemoteObject implements IManagedService {
 
         public static const HTTP_AMF_ENDPOINT_NAME:String = "http-amf";
 
@@ -120,26 +120,25 @@ package org.seasar.akabana.yui.service.ds {
             _pendingCallMap = new Dictionary();
         }
         
-        public override function getOperation(name:String):AbstractOperation
-        {
-            var o:Object = _operations[name];
-            var op:AbstractOperation = null;
-            if( o != null && o is AbstractOperation){
-                op = o as AbstractOperation; 
+        public override function getOperation(name:String):AbstractOperation{
+            var opeObj:Object = _operations[name];
+            var ope:AbstractOperation = null;
+            if( opeObj != null && opeObj is AbstractOperation){
+                ope = opeObj as AbstractOperation; 
             }
-            if (op == null)
+            if (ope == null)
             {
                 if( endpoint == null ){
                     endpoint = ServiceGatewayUrlResolver.resolve( name );
                 }
                 if( ServiceGatewayUrlResolver.isLocalUrl(endpoint) ){
-                    op = new LocalOperation(this, name, endpoint);
-                    _operations[name] = op;
+                    ope = new LocalOperation(this, name, endpoint);
+                    _operations[name] = ope;
                 } else {
-                    op = super.getOperation(name);
+                    ope = super.getOperation(name);
                 }
             }
-            return op;
+            return ope;
         }
         
         public function finalizeResponder(responder:Object):void{
@@ -151,7 +150,7 @@ package org.seasar.akabana.yui.service.ds {
             }
         }
 
-        public function finalizePendingCall(pc:PendingCall):void{
+        public function finalizePendingCall(pc:IPendingCall):void{
             if( pc != null ){
                 _pendingCallMap[ pc ] = null;
                 delete _pendingCallMap[ pc ];
@@ -169,7 +168,7 @@ package org.seasar.akabana.yui.service.ds {
             ServiceManager.addService( this );
         }
         
-        public function invokeMethod(name:String,args:Array):PendingCall{
+        public function invokeMethod(name:String,args:Array):IPendingCall{
             return internalInvoke( new QName(name),args);
         }
         

@@ -18,12 +18,12 @@ package org.seasar.akabana.yui.service.rpc {
     import flash.utils.Dictionary;
     import flash.utils.getTimer;
 
-    import org.seasar.akabana.yui.service.Operation;
-    import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.IOperation;
+    import org.seasar.akabana.yui.service.IPendingCall;
     
     import org.seasar.akabana.yui.service.OperationCallBack;
-    import org.seasar.akabana.yui.service.PendingCall;
-    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.IPendingCall;
+    import org.seasar.akabana.yui.service.IService;
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.ServiceManager;
     import org.seasar.akabana.yui.service.rpc.local.LocalOperation;
@@ -49,14 +49,14 @@ package org.seasar.akabana.yui.service.rpc {
             }
         }
 
-        public override function finalizePendingCall(pc:PendingCall):void{
+        public override function finalizePendingCall(pc:IPendingCall):void{
             if( pc != null ){
                 _pendingCallMap[ pc ] = null;
                 delete _pendingCallMap[ pc ];
             }
         }
         
-        public override function invokeMethod(name:String,args:Array):PendingCall{
+        public override function invokeMethod(name:String,args:Array):IPendingCall{
             return invokeOperation( name,args);
         }
 
@@ -68,8 +68,8 @@ package org.seasar.akabana.yui.service.rpc {
             }
         }
 
-        protected override function invokeOperation( operationName:String, operationArgs:Array ):PendingCall{
-            var operation:Operation;
+        protected override function invokeOperation( operationName:String, operationArgs:Array ):IPendingCall{
+            var operation:IOperation;
             if( !hasOperation( operationName )){
                 addOperation(operationName);
             }
@@ -79,7 +79,7 @@ package org.seasar.akabana.yui.service.rpc {
                 RemotingOperation(operation).credentialsPassword = _credentialsPassword;
             }
 
-            var result:PendingCall = operation.invoke( operationArgs );
+            var result:IPendingCall = operation.invoke( operationArgs );
             if( result != null ){
                 _pendingCallMap[ result ] = getTimer();
             }

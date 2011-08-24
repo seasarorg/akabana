@@ -9,23 +9,16 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.logging
+package org.seasar.akabana.yui.core.reflection
 {
-    [ExcludeClass]
-    public interface Appender{
+    internal interface IReflector {
 
         function get name():String;
-        function set name( value:String ):void;
 
-        function get layout():Layout;
-        function set layout( value:Layout ):void;
-
-        function close():void;
-        function append( data:LoggingData ):void;
-
+        function get describeType():XML;
     }
 }

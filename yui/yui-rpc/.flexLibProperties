@@ -13,7 +13,7 @@
     <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcDefaultEventResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcNoneResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcObjectResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcResponder"/>
+    <classEntry path="org.seasar.akabana.yui.service.rpc.responder.IRpcResponder"/>
     <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcResponderFactory"/>
   </includeClasses>
   <includeResources/>

@@ -18,7 +18,7 @@ package org.seasar.akabana.yui.logging
     [ExcludeClass]
     public class LoggingData{
 
-        public static const startTime:Number = new Date().time;
+        public static const START_TIME:Number = new Date().time;
 
         public var categoryName:String;
 
@@ -32,7 +32,7 @@ package org.seasar.akabana.yui.logging
         
         public var args:Array;
 
-        public function LoggingData( message:String, level:Level=null, logger:Category=null, error:Error=null, args:Array=null){
+        public function LoggingData( message:String, level:Level=null, logger:ICategory=null, error:Error=null, args:Array=null){
             this.timeStamp = new Date().time;
             this.categoryName = logger.name;
             this.message = message;

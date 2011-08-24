@@ -16,10 +16,10 @@
 package org.seasar.akabana.yui.service.ds.responder
 {
     import org.seasar.akabana.yui.core.reflection.ClassRef;
-    import org.seasar.akabana.yui.service.resonder.ResponderFactory;
+    import org.seasar.akabana.yui.service.resonder.ServiceResponderFactory;
 
     [ExcludeClass]
-    public final class RpcResponderFactory extends ResponderFactory
+    public final class RpcResponderFactory extends ServiceResponderFactory
     {
         public function RpcResponderFactory()
         {

@@ -28,7 +28,9 @@ package org.seasar.akabana.yui.logging.config.factory
     import org.seasar.akabana.yui.util.StringUtil;
 
     internal class PropertiesConfigurationBuilder{
-
+        
+        public static const LOG4YUI_ROOT_LOGGER:String = PREFIX + ROOT_LOGGER;
+        
         private static var PREFIX:String = "log4yui.";
 
         private static var APPENDER:String = "appender";
@@ -40,8 +42,6 @@ package org.seasar.akabana.yui.logging.config.factory
         private static var LAYOUT:String = "layout";
 
         private static var VALUE:String = "value";
-
-        public static var LOG4YUI_ROOT_LOGGER:String = PREFIX + ROOT_LOGGER;
 
         private static var PACKAGE_ROOT:String = "";
 

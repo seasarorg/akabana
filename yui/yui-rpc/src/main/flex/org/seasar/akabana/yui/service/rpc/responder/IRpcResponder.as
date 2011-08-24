@@ -13,14 +13,10 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.service.resonder {
+package org.seasar.akabana.yui.service.rpc.responder {
+    import org.seasar.akabana.yui.service.resonder.IServiceResponder;
 
-    import org.seasar.akabana.yui.service.event.FaultEvent;
-    import org.seasar.akabana.yui.service.event.ResultEvent;
-    
     [ExcludeClass]
-    public interface Responder {
-        function onResult( resultEvent:ResultEvent ):void;
-        function onFault( faultEvent:FaultEvent ):void;
+    public interface IRpcResponder extends IServiceResponder {
     }
 }

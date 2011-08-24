@@ -13,12 +13,17 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.akabana.yui.service
-{
-    public interface PendingCall
-    {
-        function setResponder( responder:Object ):void;
-        
-        function getResponder():Object;
+package org.seasar.akabana.yui.service {
+
+    import flash.events.IEventDispatcher;
+
+
+    public interface IOperation extends IEventDispatcher {
+
+        function get name():String;
+
+        function get serviceName():String;
+
+        function invoke( operationArgs:Array ):IPendingCall;
     }
 }

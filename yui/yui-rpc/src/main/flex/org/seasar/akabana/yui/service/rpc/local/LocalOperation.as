@@ -17,7 +17,7 @@ package org.seasar.akabana.yui.service.rpc.local
 {
     import flash.events.Event;
     
-    import org.seasar.akabana.yui.service.PendingCall;
+    import org.seasar.akabana.yui.service.IPendingCall;
     import org.seasar.akabana.yui.service.ServiceGatewayUrlResolver;
     import org.seasar.akabana.yui.service.event.FaultEvent;
     import org.seasar.akabana.yui.service.event.FaultStatus;
@@ -39,10 +39,9 @@ package org.seasar.akabana.yui.service.rpc.local
             serviceInvoker = new LocalServiceInvoker();
         }
         
-        protected override function doInvoke( operationArgs:Array ):PendingCall{
+        protected override function doInvoke( operationArgs:Array ):IPendingCall{
             const lpackage:String = ServiceGatewayUrlResolver.getLocalPackage(service.gatewayUrl);
-            var pendingCall:PendingCall = new RpcPendingCall(this);
-            var invokeArgs:Array = createServiceInvokeArgs( getServiceOperationName(), operationArgs, pendingCall );
+            var pendingCall:IPendingCall = new RpcPendingCall(this);
             
             try{
                 const value:Object = serviceInvoker.invoke.apply(null,[lpackage,service.name,name].concat(operationArgs));
@@ -55,10 +54,11 @@ package org.seasar.akabana.yui.service.rpc.local
             return pendingCall;
         }
 
-        protected function resultCallBack(value:Object,pendingCall:RpcPendingCall):void{
+        private function resultCallBack(value:Object,pendingCall:RpcPendingCall):void{
             pendingCall.onResult(value);
         }
-        protected function faultCallBack(status:Error,pendingCall:RpcPendingCall):void{
+        
+        private function faultCallBack(status:Error,pendingCall:RpcPendingCall):void{
             pendingCall.onStatus(status);
         }
     }

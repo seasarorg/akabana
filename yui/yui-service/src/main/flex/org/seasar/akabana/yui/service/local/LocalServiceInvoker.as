@@ -20,7 +20,7 @@ package org.seasar.akabana.yui.service.local
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.framework.convention.NamingConvention;
-    import org.seasar.akabana.yui.service.Service;
+    import org.seasar.akabana.yui.service.IService;
     import org.seasar.akabana.yui.util.StringUtil;
 
     [ExcludeClass]
@@ -40,7 +40,7 @@ package org.seasar.akabana.yui.service.local
             return result;
         }
         
-        protected function getServiceInstance(serviceClassName:String):Object{
+        private function getServiceInstance(serviceClassName:String):Object{
             var result:Object = null;
             if( serviceClassName in SERVICE_REF_CACHE ){
                 result = SERVICE_REF_CACHE[serviceClassName];
@@ -51,7 +51,7 @@ package org.seasar.akabana.yui.service.local
             return result;
         }
         
-        protected function doInvokeServiceMethod(service:Object, methodName:String, args:Array ):Object{
+        private function doInvokeServiceMethod(service:Object, methodName:String, args:Array ):Object{
             const method:Function = service[methodName] as Function;
             const result:Object = method.apply(null,args);
             return result;

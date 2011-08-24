@@ -24,8 +24,8 @@ package org.seasar.akabana.yui.service {
 
         private static var serviceMap:Dictionary = new Dictionary(true);
 
-        public static function createService( serviceClass:Class, name:String = null ):Service{
-            var result:Service = getService( name );
+        public static function createService( serviceClass:Class, name:String = null ):IService{
+            var result:IService = getService( name );
             if( result == null ){
                 result = new serviceClass();
                 result.name = name;
@@ -37,17 +37,17 @@ package org.seasar.akabana.yui.service {
             return result;
         }
 
-        public static function addService( service:Service ):void{
+        public static function addService( service:IService ):void{
             serviceMap[ service.name ] = service;
         }
 
-        public static function removeService( service:Service ):void{
+        public static function removeService( service:IService ):void{
             serviceMap[ service.name ] = null;
             delete serviceMap[ service.name ];
         }
 
-        public static function getService( name:String ):Service{
-            return serviceMap[ name ] as Service;
+        public static function getService( name:String ):IService{
+            return serviceMap[ name ] as IService;
         }
 
         public static function hasService( name:String ):Boolean{

@@ -15,6 +15,8 @@
  */
 package org.seasar.akabana.yui.command.core.impl
 {
+    import flash.utils.Dictionary;
+    
     import org.seasar.akabana.yui.command.core.ICommand;
     import org.seasar.akabana.yui.command.core.IComplexCommand;
     import org.seasar.akabana.yui.command.core.ISubCommand;
@@ -34,7 +36,7 @@ package org.seasar.akabana.yui.command.core.impl
         /**
          * 
          */
-        protected var _commandMap:Object;
+        protected var _commandMap:Dictionary;
         
         /**
          * 
@@ -64,7 +66,7 @@ package org.seasar.akabana.yui.command.core.impl
         public final function AbstractComplexCommand(){
             super();
             _commands = [];
-            _commandMap = {};
+            _commandMap = new Dictionary();
             _childCompleteEventListener = new EventListener();
             _childErrorEventListener = new EventListener();
         }
@@ -135,7 +137,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param event
          * 
          */
-        protected function childCommandCompleteEventHandler(event:CommandEvent):void{
+        protected function childCmd_completeHandler(event:CommandEvent):void{
         }
 
         /**
@@ -143,7 +145,7 @@ package org.seasar.akabana.yui.command.core.impl
          * @param event
          * 
          */
-        protected function childCommandErrorEventHandler(event:CommandEvent):void{
+        protected function childCmd_errorHandler(event:CommandEvent):void{
         }
         
         /**
@@ -153,8 +155,8 @@ package org.seasar.akabana.yui.command.core.impl
          */
         protected final function doAddCommand(command:AbstractCommand):void{
             command
-                .completeCallBack(childCommandCompleteEventHandler)
-                .errorCallBack(childCommandErrorEventHandler);
+                .completeCallBack(childCmd_completeHandler)
+                .errorCallBack(childCmd_errorHandler);
         }
         
         /**

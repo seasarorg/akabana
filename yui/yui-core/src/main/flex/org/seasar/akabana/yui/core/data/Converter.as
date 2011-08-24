@@ -31,7 +31,7 @@ package org.seasar.akabana.yui.core.data
         
         private static var _instance:Converter;
                 
-        public static function getInstanceBy(toClass:Class):Converter{
+        public static function getInstanceBy():Converter{
             if( _instance == null ){
                 _instance = new Converter();
             }
@@ -48,13 +48,13 @@ package org.seasar.akabana.yui.core.data
             return result;
         }
         
-        protected function processObjectConvert(value:Object,toClass:Class):Object{
+        private function processObjectConvert(value:Object,toClass:Class):Object{
             var result:Object = new toClass();
             
             var toClassRef:ClassRef = ClassRef.getInstance(toClass);
-            var objectCclassRef:ClassRef = ClassRef.getInstance(value);
+            var objectClassRef:ClassRef = ClassRef.getInstance(value);
             
-            if( toClassRef.name == objectCclassRef.name ){
+            if( toClassRef.name == objectClassRef.name ){
                 return doClone(value);
             } else {
                 if(!toClassRef.isInterface){
@@ -69,7 +69,7 @@ package org.seasar.akabana.yui.core.data
             return result;
         }
         
-        protected function processPropertyConvert(value:Object,classRef:ClassRef):*{
+        private function processPropertyConvert(value:Object,classRef:ClassRef):*{
             var result:Object;
             if( classRef.isPrimitive ){
                 result = value;
@@ -85,7 +85,7 @@ package org.seasar.akabana.yui.core.data
             return result;
         }
         
-        protected function doClone(value:Object):*{
+        private function doClone(value:Object):*{
             if( value == null ){
                 return null;
             }
@@ -106,11 +106,11 @@ package org.seasar.akabana.yui.core.data
             return result;
         }
         
-        protected function doArrayConvert(value:Array):*{
+        private function doArrayConvert(value:Array):*{
             return doClone(value);
         }
         
-        protected function doVectorConvert(value:Object,classRef:ClassRef):*{
+        private function doVectorConvert(value:Object,classRef:ClassRef):*{
             if( value == null ){
                 return null;
             }
@@ -126,7 +126,7 @@ package org.seasar.akabana.yui.core.data
             return result;
         }
         
-        protected function doConvertTypedObject(value:Object,classRef:ClassRef):*{
+        private function doConvertTypedObject(value:Object,classRef:ClassRef):*{
             if( value == null ){
                 return null;
             }

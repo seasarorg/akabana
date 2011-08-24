@@ -15,12 +15,12 @@
  */
 package org.seasar.akabana.yui.logging.category
 {
-    import org.seasar.akabana.yui.logging.Appender;
-    import org.seasar.akabana.yui.logging.Category;
+    import org.seasar.akabana.yui.logging.IAppender;
+    import org.seasar.akabana.yui.logging.ICategory;
     import org.seasar.akabana.yui.logging.Level;
 
     [ExcludeClass]
-    public class CategoryBase implements Category {
+    public class CategoryBase implements ICategory {
 
         protected var _name:String;
 
@@ -42,13 +42,13 @@ package org.seasar.akabana.yui.logging.category
             _level = value;
         }
 
-        protected var _appender:Appender;
+        protected var _appender:IAppender;
 
-        public function get appender():Appender{
+        public function get appender():IAppender{
             return _appender;
         }
 
-        public function set appender( value:Appender ):void{
+        public function set appender( value:IAppender ):void{
             _appender = value;
         }
 

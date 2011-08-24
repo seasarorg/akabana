@@ -26,9 +26,9 @@ package org.seasar.akabana.yui.framework.message
     [ResourceBundle("errors")]
     [ResourceBundle("yui_framework")]    
     public final class MessageManager {
-        public static var messages:Messages = new Messages("messages");
-        public static var application:Messages = new Messages("application");
-        public static var errors:Messages = new Messages("errors");
-        yui_internal static var yuiframework:Messages = new Messages("yui_framework");
+        public static const messages:Messages = new Messages("messages");
+        public static const application:Messages = new Messages("application");
+        public static const errors:Messages = new Messages("errors");
+        yui_internal static const yuiframework:Messages = new Messages("yui_framework");
     }
 }

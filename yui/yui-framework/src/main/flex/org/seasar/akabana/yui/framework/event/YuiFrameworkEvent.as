@@ -31,5 +31,13 @@ package org.seasar.akabana.yui.framework.event
         public function YuiFrameworkEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false){
             super(type, bubbles, cancelable);
         }
+        
+        public override function clone():Event{
+            return new YuiFrameworkEvent(type, bubbles, cancelable);
+        }
+        
+        public override function toString():String{
+            return formatToString("YuiFrameworkEvent", "type", "bubbles", "cancelable","eventPhase");
+        }
     }
 }

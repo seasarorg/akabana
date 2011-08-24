@@ -88,8 +88,8 @@ CONFIG::FP10{
 
             return (name_.indexOf(_UNDER_) != 0) && 
                 (!(
-                    excludeDeclaredByFilterRegExp.test(declaredBy_) ||
-                    excludeUriFilterRegExp.test(uri_)
+                    EXCLUDE_DECLARED_BY_FILTER_REGEXP.test(declaredBy_) ||
+                    EXCLUDE_URI_FILTER_REGEXP.test(uri_)
                 ));
         }
 
@@ -100,8 +100,8 @@ CONFIG::FP10{
 
             return (name_.indexOf(_UNDER_) != 0) &&
                 (!(
-                    excludeDeclaredByFilterRegExp.test(declaredBy_) ||
-                    excludeUriFilterRegExp.test(uri_)
+                    EXCLUDE_DECLARED_BY_FILTER_REGEXP.test(declaredBy_) ||
+                    EXCLUDE_URI_FILTER_REGEXP.test(uri_)
                 ));
         }
 
@@ -112,8 +112,8 @@ CONFIG::FP10{
 
             return (name_.indexOf(_UNDER_) != 0) &&
                 (!(
-                    excludeDeclaredByFilterRegExp.test(declaredBy_) ||
-                    excludeUriFilterRegExp.test(uri_)
+                    EXCLUDE_DECLARED_BY_FILTER_REGEXP.test(declaredBy_) ||
+                    EXCLUDE_URI_FILTER_REGEXP.test(uri_)
                 ));
         }
 

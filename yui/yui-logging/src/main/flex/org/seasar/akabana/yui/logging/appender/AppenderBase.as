@@ -15,12 +15,12 @@
  */
 package org.seasar.akabana.yui.logging.appender
 {
-    import org.seasar.akabana.yui.logging.Appender;
-    import org.seasar.akabana.yui.logging.Layout;
+    import org.seasar.akabana.yui.logging.IAppender;
+    import org.seasar.akabana.yui.logging.ILayout;
     import org.seasar.akabana.yui.logging.LoggingData;
 
     [ExcludeClass]
-    public class AppenderBase implements Appender
+    public class AppenderBase implements IAppender
     {
 
         protected var _name:String;
@@ -35,14 +35,14 @@ package org.seasar.akabana.yui.logging.appender
             _name = value;
         }
 
-        protected var _layout:Layout;
+        protected var _layout:ILayout;
 
-        public function get layout():Layout
+        public function get layout():ILayout
         {
             return _layout;
         }
 
-        public function set layout(value:Layout):void
+        public function set layout(value:ILayout):void
         {
             _layout = value;
         }

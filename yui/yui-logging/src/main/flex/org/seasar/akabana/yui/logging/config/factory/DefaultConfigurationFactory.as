@@ -40,9 +40,9 @@ package org.seasar.akabana.yui.logging.config.factory
             param.name = "pattern";
             param.value = "%d [%c] %l - %m%t";
 
-            var detailParam:ParamConfig = new ParamConfig();
-            param.name = "pattern";
-            param.value = "%d(%t)[%c] %l - %m%t";
+//            var detailParam:ParamConfig = new ParamConfig();
+//            param.name = "pattern";
+//            param.value = "%d(%t)[%c] %l - %m%t";
 
             var layout:LayoutConfig = new LayoutConfig();
             layout.clazz = BasicPatternLayout;
