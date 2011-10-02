@@ -114,14 +114,14 @@ package org.seasar.akabana.yui.command.core.impl
          * @param args
          * 
          */
-        public final function start( data:Object = null):ICommand{
+        public final function start( args:Object = null):ICommand{
             if( _isStarted ){
                 throw new IllegalOperationError("Command already started.");
                 return;
             }
             _isStarted = true;
             
-            _argument = data;
+            _argument = args;
             try{
                 run();
                 done();

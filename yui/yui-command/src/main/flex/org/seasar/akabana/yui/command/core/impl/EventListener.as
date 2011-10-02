@@ -16,7 +16,8 @@
 package org.seasar.akabana.yui.command.core.impl
 {
     import flash.utils.Dictionary;
-
+    
+    [ExcludeClass]
     internal class EventListener {
         
         protected var _handler:Function;

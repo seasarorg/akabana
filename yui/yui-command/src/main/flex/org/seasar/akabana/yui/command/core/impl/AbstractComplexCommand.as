@@ -23,6 +23,7 @@ package org.seasar.akabana.yui.command.core.impl
     import org.seasar.akabana.yui.command.events.CommandEvent;
     import org.seasar.akabana.yui.core.reflection.FunctionInvoker;
     
+    [ExcludeClass]
     /**
      * 
      * 

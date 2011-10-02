@@ -18,6 +18,7 @@ package org.seasar.akabana.yui.command.core.impl
     import org.seasar.akabana.yui.command.core.ICommand;
     import org.seasar.akabana.yui.core.reflection.FunctionInvoker;
     
+    [ExcludeClass]
     public class AbstractAsyncCommand extends AbstractSubCommand {
         
         private var _hasPendingResult:Boolean;
