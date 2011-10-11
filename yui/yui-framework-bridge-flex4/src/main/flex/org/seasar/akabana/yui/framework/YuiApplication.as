@@ -24,7 +24,7 @@ package org.seasar.akabana.yui.framework
     
     import spark.components.Application;
 
-    [Style(name="rootViewClass", type="Class")]
+    [Style(name="rootViewClass", type="Class",inherit="no")]
     public class YuiApplication extends Application {
         
         private static const ROOT_VIEW_CLASS:String = "rootViewClass";

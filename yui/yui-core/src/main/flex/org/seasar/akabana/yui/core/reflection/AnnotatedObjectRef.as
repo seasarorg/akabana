@@ -19,7 +19,8 @@ CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
 
-    internal class AnnotatedObjectRef extends ObjectRef implements AnnotatedReflector {
+    [ExcludeClass]
+    internal class AnnotatedObjectRef extends ObjectRef implements IAnnotatedReflector {
 
         private static const METADATA_HELP:String = "__go_to_definition_help";
 

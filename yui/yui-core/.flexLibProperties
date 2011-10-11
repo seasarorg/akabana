@@ -16,7 +16,7 @@
     <classEntry path="org.seasar.akabana.yui.core.logging.ILoggerFactory"/>
     <classEntry path="org.seasar.akabana.yui.core.ns.yui_internal"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedObjectRef"/>
-    <classEntry path="org.seasar.akabana.yui.core.reflection.AnnotatedReflector"/>
+    <classEntry path="org.seasar.akabana.yui.core.reflection.IAnnotatedReflector"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.ClassRef"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.FunctionInvoker"/>
     <classEntry path="org.seasar.akabana.yui.core.reflection.FunctionRef"/>

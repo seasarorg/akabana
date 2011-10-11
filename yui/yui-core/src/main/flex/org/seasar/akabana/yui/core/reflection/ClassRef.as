@@ -25,7 +25,8 @@ CONFIG::FP10{
 
     import org.seasar.akabana.yui.core.ClassLoader;
     import org.seasar.akabana.yui.core.error.ClassNotFoundError;
-
+    
+    [ExcludeClass]
     public final class ClassRef extends AnnotatedObjectRef {
         
         public static const ARRAY_CLASS:String = "Array";

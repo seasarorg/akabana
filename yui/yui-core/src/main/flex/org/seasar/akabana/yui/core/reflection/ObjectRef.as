@@ -15,6 +15,7 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
+    [ExcludeClass]
     internal class ObjectRef implements IReflector {
         
         internal static const BOOL_TRUE:String = "true";

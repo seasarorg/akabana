@@ -15,6 +15,7 @@
 */
 package org.seasar.akabana.yui.framework.core.rule
 {
+    [ExcludeClass]
     public interface IVolatileObject {
     }
 }

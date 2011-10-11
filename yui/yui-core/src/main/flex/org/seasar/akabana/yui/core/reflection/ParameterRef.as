@@ -15,7 +15,7 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
-
+    [ExcludeClass]
     public final class ParameterRef extends ObjectRef {
         
         private var _index:int;

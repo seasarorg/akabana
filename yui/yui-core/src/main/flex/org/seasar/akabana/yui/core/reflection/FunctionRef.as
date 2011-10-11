@@ -18,6 +18,7 @@ package org.seasar.akabana.yui.core.reflection
 CONFIG::FP10{
     import __AS3__.vec.Vector;
 }
+    [ExcludeClass]
     public final class FunctionRef extends AnnotatedObjectRef {
         
         private var _isInitialiedParameters:Boolean;

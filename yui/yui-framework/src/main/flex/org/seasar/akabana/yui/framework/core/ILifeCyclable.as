@@ -15,6 +15,7 @@
 */
 package org.seasar.akabana.yui.framework.core
 {
+    [ExcludeClass]
     public interface ILifeCyclable
     {
         function start():void;

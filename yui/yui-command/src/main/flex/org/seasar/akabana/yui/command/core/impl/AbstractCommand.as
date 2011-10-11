@@ -24,7 +24,8 @@ package org.seasar.akabana.yui.command.core.impl
     import org.seasar.akabana.yui.core.reflection.ClassRef;
     import org.seasar.akabana.yui.core.reflection.FunctionRef;
     import org.seasar.akabana.yui.util.StringUtil;
-
+    
+    [ExcludeClass]
     /**
      * 
      * 

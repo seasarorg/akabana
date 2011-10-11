@@ -20,7 +20,7 @@ CONFIG::FP10{
 }
 
     [ExcludeClass]
-    public interface AnnotatedReflector extends IReflector {
+    public interface IAnnotatedReflector extends IReflector {
 CONFIG::FP9{
         function get metadatas():Array;
 }

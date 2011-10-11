@@ -15,6 +15,7 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
+    [ExcludeClass]
     internal interface IReflector {
 
         function get name():String;

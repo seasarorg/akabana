@@ -22,8 +22,8 @@ package org.seasar.akabana.yui.framework
     
     import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
     import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
-
-    [Style(name="rootViewClass", type="Class")]
+    
+    [Style(name="rootViewClass", type="Class",inherit="no")]
     public class YuiApplication extends Application {
         
         private static const ROOT_VIEW_CLASS:String = "rootViewClass";

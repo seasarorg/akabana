@@ -19,7 +19,8 @@ package org.seasar.akabana.yui.framework
     import flash.utils.Dictionary;
     
     import mx.events.FlexEvent;
-
+    
+    [ExcludeClass]
     public final class YuiApplicationConsts {
         
         public static const UNRECOMMEND_EVENT_MAP:Object = {

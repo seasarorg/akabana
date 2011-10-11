@@ -15,6 +15,7 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
+    [ExcludeClass]
     public final class PropertyRef extends AnnotatedObjectRef {
         
         private static const WRITE_ONLY:String = "writeonly";
