@@ -13,7 +13,7 @@
 * either express or implied. See the License for the specific language
 * governing permissions and limitations under the License.
 */
-package org.seasar.akabana.yui.framework.bridge
+package net.akb7.yui.bridge
 {
     import flash.display.DisplayObject;
     import flash.display.DisplayObjectContainer;
@@ -26,6 +26,8 @@ package org.seasar.akabana.yui.framework.bridge
     import spark.components.Group;
     import spark.components.SkinnableContainer;
     import spark.components.supportClasses.Skin;
+    
+    import net.akb7.yui.bridge.IFrameworkBridgePlugin;
 
     [ExcludeClass]
     public final class Flex4FrameworkBridgePlugin implements IFrameworkBridgePlugin {

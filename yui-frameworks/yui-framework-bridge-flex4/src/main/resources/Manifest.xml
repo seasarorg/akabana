@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <componentPackage>
-    <component id="YuiApplication" class="org.seasar.akabana.yui.framework.YuiApplication"/>
+    <component id="YuiApplication" class="net.akb7.yui.YuiApplication"/>
 </componentPackage>

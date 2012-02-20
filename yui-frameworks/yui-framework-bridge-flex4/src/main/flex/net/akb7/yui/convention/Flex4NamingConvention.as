@@ -13,13 +13,13 @@
 * either express or implied. See the License for the specific language
 * governing permissions and limitations under the License.
 */
-package org.seasar.akabana.yui.framework.convention
+package net.akb7.yui.convention
 {
     import flash.display.DisplayObject;
     
     import mx.core.UIComponent;
     
-    import org.seasar.akabana.yui.util.StringUtil;
+    import net.akb7.yui.util.StringUtil;
 
     [ExcludeClass]
     public final class Flex4NamingConvention extends NamingConvention {

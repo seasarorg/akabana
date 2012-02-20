@@ -1,7 +1,8 @@
-@namespace yui "http://yui.akabana.seasar.org/2.0";
+@namespace yui "http://yui.akb7.net/2.0";
+@namespace core "net.akb7.yui.core.*";
 
-yui|YuiFrameworkSettings {
-    namingConventionClass:ClassReference("org.seasar.akabana.yui.framework.convention.Flex4NamingConvention");
-    frameworkBridgePlugin:ClassReference("org.seasar.akabana.yui.framework.bridge.Flex4FrameworkBridgePlugin");
+core|YuiFrameworkSettings {
+    namingConventionClass:ClassReference("net.akb7.yui.convention.Flex4NamingConvention");
+    frameworkBridgePlugin:ClassReference("net.akb7.yui.bridge.Flex4FrameworkBridgePlugin");
     autoMonitoring:false;
 }

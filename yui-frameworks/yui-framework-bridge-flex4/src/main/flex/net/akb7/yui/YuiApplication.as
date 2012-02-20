@@ -13,16 +13,17 @@
 * either express or implied. See the License for the specific language
 * governing permissions and limitations under the License.
 */
-package org.seasar.akabana.yui.framework
+package net.akb7.yui
 {
     import flash.events.Event;
     
     import mx.core.UIComponent;
     
-    import org.seasar.akabana.yui.framework.core.YuiFrameworkSettings;
-    import org.seasar.akabana.yui.framework.error.YuiFrameworkError;
+    import net.akb7.yui.core.YuiFrameworkSettings;
+    import net.akb7.yui.error.YuiFrameworkError;
     
     import spark.components.Application;
+    import net.akb7.yui.YuiApplicationConsts;
 
     [Style(name="rootViewClass", type="Class",inherit="no")]
     public class YuiApplication extends Application {
