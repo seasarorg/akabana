@@ -1,7 +1,0 @@
-PopupOwnerView{
-    action:ClassReference("examples.yui.popup.action.PopupOwnerAction");
-}
-
-PopupView{
-    action:ClassReference("examples.yui.popup.action.PopupAction");
-}
