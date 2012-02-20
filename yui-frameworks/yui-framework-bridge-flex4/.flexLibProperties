@@ -9,6 +9,6 @@
     <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
   </includeResources>
   <namespaceManifests>
-    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akabana.seasar.org/1.0"/>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akabana.seasar.org/2.0"/>
   </namespaceManifests>
 </flexLibProperties>

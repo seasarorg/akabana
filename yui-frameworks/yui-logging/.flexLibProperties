@@ -31,6 +31,6 @@
     <resourceEntry destPath="locale/ja_JP/log4yui.properties" sourcePath="locale/ja_JP/log4yui.properties"/>
   </includeResources>
   <namespaceManifests>
-    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akabana.seasar.org/1.0"/>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akabana.seasar.org/2.0"/>
   </namespaceManifests>
 </flexLibProperties>
