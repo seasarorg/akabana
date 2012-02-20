@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcOperation"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.AbstractRpcService"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.RemotingConnection"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.RemotingConnectionFactory"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.RemotingOperation"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.RemotingService"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.RpcPendingCall"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.local.LocalOperation"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.responder.AbstractRpcEventResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcDefaultEventResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcNoneResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcObjectResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.responder.IRpcResponder"/>
-    <classEntry path="org.seasar.akabana.yui.service.rpc.responder.RpcResponderFactory"/>
+    <classEntry path="net.akb7.yui.rpc.AbstractRpcOperation"/>
+    <classEntry path="net.akb7.yui.rpc.AbstractRpcService"/>
+    <classEntry path="net.akb7.yui.rpc.RemotingConnection"/>
+    <classEntry path="net.akb7.yui.rpc.RemotingConnectionFactory"/>
+    <classEntry path="net.akb7.yui.rpc.RemotingOperation"/>
+    <classEntry path="net.akb7.yui.rpc.RemotingService"/>
+    <classEntry path="net.akb7.yui.rpc.RpcPendingCall"/>
+    <classEntry path="net.akb7.yui.rpc.local.LocalOperation"/>
+    <classEntry path="net.akb7.yui.rpc.responder.AbstractRpcEventResponder"/>
+    <classEntry path="net.akb7.yui.rpc.responder.RpcDefaultEventResponder"/>
+    <classEntry path="net.akb7.yui.rpc.responder.RpcNoneResponder"/>
+    <classEntry path="net.akb7.yui.rpc.responder.RpcObjectResponder"/>
+    <classEntry path="net.akb7.yui.rpc.responder.IRpcResponder"/>
+    <classEntry path="net.akb7.yui.rpc.responder.RpcResponderFactory"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

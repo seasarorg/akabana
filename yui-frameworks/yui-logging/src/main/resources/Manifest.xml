@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <componentPackage>
-   <component id="LoggingSettings" class="org.seasar.akabana.yui.logging.config.LoggingSettings"/>
+   <component id="LoggingSettings" class="net.akb7.yui.logging.config.LoggingSettings"/>
 </componentPackage>

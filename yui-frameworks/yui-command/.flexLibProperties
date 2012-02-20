@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
-    <classEntry path="org.seasar.akabana.yui.command.AsyncCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.CallBackCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.Command"/>
-    <classEntry path="org.seasar.akabana.yui.command.SequenceCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.SwitchCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.WaitCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.ICommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.IComplexCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.ISubCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractAsyncCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractComplexCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.impl.AbstractSubCommand"/>
-    <classEntry path="org.seasar.akabana.yui.command.core.impl.EventListener"/>
-    <classEntry path="org.seasar.akabana.yui.command.events.CommandEvent"/>
+    <classEntry path="net.akb7.yui.cmd.AsyncCommand"/>
+    <classEntry path="net.akb7.yui.cmd.CallBackCommand"/>
+    <classEntry path="net.akb7.yui.cmd.Command"/>
+    <classEntry path="net.akb7.yui.cmd.SequenceCommand"/>
+    <classEntry path="net.akb7.yui.cmd.SwitchCommand"/>
+    <classEntry path="net.akb7.yui.cmd.WaitCommand"/>
+    <classEntry path="net.akb7.yui.cmd.core.ICommand"/>
+    <classEntry path="net.akb7.yui.cmd.core.IComplexCommand"/>
+    <classEntry path="net.akb7.yui.cmd.core.ISubCommand"/>
+    <classEntry path="net.akb7.yui.cmd.core.impl.AbstractAsyncCommand"/>
+    <classEntry path="net.akb7.yui.cmd.core.impl.AbstractCommand"/>
+    <classEntry path="net.akb7.yui.cmd.core.impl.AbstractComplexCommand"/>
+    <classEntry path="net.akb7.yui.cmd.core.impl.AbstractSubCommand"/>
+    <classEntry path="net.akb7.yui.cmd.core.impl.EventListener"/>
+    <classEntry path="net.akb7.yui.cmd.events.CommandEvent"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
