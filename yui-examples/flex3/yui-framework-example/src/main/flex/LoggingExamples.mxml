@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+    applicationComplete="initApp()"
+    >
+    <mx:Script>
+        <![CDATA[
+            import org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory;
+            import examples.yui.helloworld.view.HelloWorldView;
+            import examples.yui.helloworld.action.HelloWorldAction;
+            import examples.yui.helloworld.helper.HelloWorldHelper;
+            import org.seasar.akabana.yui.core.reflection.ClassRef;
+            import org.seasar.akabana.yui.logging.LogManager;
+            import org.seasar.akabana.yui.logging.Logger;
+
+            private function initApp():void{
+                //ConfigurationFactory;                
+                LogManager.init();
+                
+                trace( getClassRef(LoggingExamples).name );
+                
+                Logger.getLogger(HelloWorldView).debug("debug");
+                Logger.getLogger(HelloWorldAction).debug("debug");
+                Logger.getLogger(HelloWorldHelper).debug("debug");
+                
+
+                Logger.getLogger(HelloWorldView).warn("warn");
+                Logger.getLogger(HelloWorldAction).warn("warn");
+                Logger.getLogger(HelloWorldHelper).warn("warn");
+
+
+                Logger.getLogger(HelloWorldView).fatal("fatal");
+                Logger.getLogger(HelloWorldAction).fatal("fatal");
+                Logger.getLogger(HelloWorldHelper).fatal("fatal");
+
+
+                Logger.getLogger(HelloWorldView).info("info");
+                Logger.getLogger(HelloWorldAction).info("info");
+                Logger.getLogger(HelloWorldHelper).info("info");
+
+                Logger.getLogger(HelloWorldView).error("error");
+                Logger.getLogger(HelloWorldAction).error("error");
+                Logger.getLogger(HelloWorldHelper).error("error");
+
+
+            }
+        ]]>
+    </mx:Script>
+</mx:Application>

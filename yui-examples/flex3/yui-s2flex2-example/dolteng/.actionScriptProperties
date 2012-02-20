@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionScriptProperties mainApplicationPath="Main.mxml" version="3">
+<compiler additionalCompilerArguments="-locale ja_JP -keep" copyDependentFiles="true" enableModuleDebug="false" flexSDK="Flex 3.4" generateAccessible="false" htmlExpressInstall="false" htmlGenerate="true" htmlHistoryManagement="false" htmlPlayerVersion="10.0.0" htmlPlayerVersionCheck="true" outputFolderPath="src/main/webapp/bin" rootURL="http://localhost:8400/dolteng/bin" sourceFolderPath="src/main/flex" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
+<compilerSourcePath/>
+<libraryPath defaultLinkType="3">
+<libraryPathEntry kind="4" path="">
+<modifiedEntries>
+<libraryPathEntry autoExtract="true" kind="3" linkType="3" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" rslUrl="framework.swf" useDefaultLinkType="true"/>
+</modifiedEntries>
+<excludedEntries>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_flashflexkit.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/datavisualization.swc" useDefaultLinkType="false"/>
+<libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
+</excludedEntries>
+</libraryPathEntry>
+<libraryPathEntry kind="3" linkType="4" path="rsls/yui-frameworks-1.0.0-beta-2-rc2.swc" useDefaultLinkType="true">
+<crossDomainRsls>
+<crossDomainRslEntry autoExtract="false" policyFileUrl="" rslUrl="yui-frameworks-1.0.0-beta-2-rc2.swf"/>
+</crossDomainRsls>
+</libraryPathEntry>
+<libraryPathEntry autoExtract="true" kind="3" linkType="3" path="/dolteng_libs/bin/dolteng_libs.swc" rslUrl="dolteng_libs.swf" useDefaultLinkType="true"/>
+</libraryPath>
+<sourceAttachmentPath/>
+</compiler>
+<applications>
+<application path="Main.mxml"/>
+</applications>
+<modules/>
+<buildCSSFiles/>
+</actionScriptProperties>

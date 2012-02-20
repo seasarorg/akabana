@@ -1,0 +1,9 @@
+HelloWorldView{
+    action:ClassReference("examples.yui.helloworld.action.HelloWorldAction");
+    helper:ClassReference("examples.yui.helloworld.helper.HelloWorldHelper");
+}
+
+MessagePanelView{
+    action:ClassReference("examples.yui.helloworld.action.MessagePanelAction");
+    helper:ClassReference("examples.yui.helloworld.helper.MessagePanelHelper");
+}

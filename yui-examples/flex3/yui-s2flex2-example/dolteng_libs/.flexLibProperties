@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties version="1">
+  <includeClasses>
+    <classEntry path="examples.yui.employee.action.EmpAction"/>
+    <classEntry path="examples.yui.employee.entity.Emp"/>
+    <classEntry path="examples.yui.employee.helper.EmpHelper"/>
+    <classEntry path="examples.yui.employee.view.EmpView"/>
+  </includeClasses>
+  <includeResources>
+    <resourceEntry destPath="dependencies.css" sourcePath="dependencies.css"/>
+  </includeResources>
+  <namespaceManifests/>
+</flexLibProperties>

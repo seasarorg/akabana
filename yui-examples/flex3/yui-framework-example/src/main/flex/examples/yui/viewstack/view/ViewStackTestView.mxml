@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="100%" height="100%"
+xmlns:view="examples.yui.viewstack.view.*">
+    <mx:ViewStack width="100%" height="100%" id="myViewStack">
+       <view:ViewStackTestMainView/>
+       <view:ViewStackTestSubView/>
+    </mx:ViewStack>
+</mx:Canvas>

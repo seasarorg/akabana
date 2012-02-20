@@ -1,0 +1,4 @@
+
+.dependencies{
+    Emp:ClassReference("examples.yui.employee.entity.Emp");
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<yui:YuiApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+                    xmlns:yui="http://yui.akabana.seasar.org/1.0"
+                    rootViewClass="examples.command.view.RootView">
+    <fx:Script>
+        <![CDATA[
+            import examples.command.action.RootAction;
+            
+            import mx.core.UIComponent;
+            import mx.core.mx_internal;
+            
+            RootAction;
+            
+//            private static function hook(...args):void{
+//                //trace.apply(null,args);
+//            }
+//            
+//            {
+//                UIComponent.mx_internal::dispatchEventHook = hook;
+//            }
+        ]]>
+    </fx:Script>
+</yui:YuiApplication>
