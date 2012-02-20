@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="yui-logging" basedir="." default="all">
+    <!-- -->
+    <property file="flex45.properties" />
+    <property file="build.properties" />
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}${file.separator}ant${file.separator}lib${file.separator}flexTasks.jar" />
+
+    <!-- -->
+    <target name="all">
+        <property name="projectdir" value="${PROJECT_WORKSPACE}${file.separator}${ant.project.name}"/>
+    	<projectInit projectname="${ant.project.name}" projectdir="${projectdir}"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-logging"/>
+        <projectCompilePrepare projectdir="${projectdir}"/>
+        <projectCompileWithFlexLibrary projectname="${ant.project.name}" projectdir="${projectdir}"/>
+        <projectRsl projectname="${ant.project.name}" projectdir="${projectdir}"/>
+    </target>
+
+
+    <!-- -->
+    <macrodef name="projectInit">
+        <attribute name="projectname" />
+        <attribute name="projectdir" />
+        <sequential>
+            <echo message="@{projectname} Project initialize at @{projectdir}." />
+            <delete dir="@{projectdir}" />
+            <mkdir dir="@{projectdir}" />
+            <mkdir dir="${projectdir}${FLEX_SRC}"/>
+            <mkdir dir="${projectdir}${FLEX_RESOURCES}"/>
+        </sequential>
+    </macrodef>
+
+
+    <macrodef name="projectAddSubProject">
+        <attribute name="projectdir" />
+        <attribute name="subprojectdir" />
+        <sequential>
+            <echo message="Add Project @{projectdir}" />
+
+            <!-- -->
+            <echo message="Add Include File" />
+            <property name="project-includes-config" value="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
+
+            <concat destfile="${project-includes-config}" fixlastline="true" append="true" encoding="utf-8">
+                <filelist>
+                    <file name="@{subprojectdir}${file.separator}${FLEX_LIB_PROPERTIES}" />
+                </filelist>
+            </concat>
+            <echo message="@{subprojectdir}${file.separator}${FLEX_LIB_PROPERTIES} add to ${project-includes-config}." />
+
+            <!-- -->
+            <echo message="Add Manifest File" />
+            <property name="project-manifest" value="@{projectdir}${FLEX_MANIFEST_PATH}" />
+
+            <concat destfile="${project-manifest}" fixlastline="true" append="true" encoding="utf-8">
+                <filelist>
+                    <file name="@{subprojectdir}${FLEX_MANIFEST_PATH}" />
+                </filelist>
+            </concat>
+            <echo message="@{subprojectdir}${FLEX_MANIFEST_PATH} add to ${project-manifest}." />
+
+            <!-- -->
+            <echo message="Add Defaults CSS File" />
+            <property name="project-defaults_css" value="@{projectdir}${FLEX_DEFAULT_CSS_PATH}" />
+
+            <concat destfile="${project-defaults_css}" fixlastline="true" append="true" encoding="utf-8">
+                <filelist>
+                    <file name="@{subprojectdir}${FLEX_DEFAULT_CSS_PATH}" />
+                </filelist>
+            </concat>
+            <echo message="@{subprojectdir}${FLEX_DEFAULT_CSS_PATH} add to ${project-defaults_css}." />
+
+            <!-- -->
+            <echo message="Copy Sources" />
+            <copy todir="@{projectdir}${FLEX_SRC}" overwrite="true">
+                <fileset dir="@{subprojectdir}${FLEX_SRC}">
+                    <exclude name="*Classes.as" />
+                    <exclude name="*.xml" />
+                    <exclude name="*.properties" />
+                </fileset>
+            </copy>
+            <copy todir="@{projectdir}${FLEX_LOCALE}" overwrite="true">
+                <fileset dir="@{subprojectdir}${FLEX_LOCALE}">
+                </fileset>
+            </copy>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="projectCompilePrepare">
+        <attribute name="projectdir" />
+        <sequential>
+
+            <echo message="Compile on @{projectdir}${FLEX_SWC_OUTPUT}${FLEX_SRC}." />
+
+            <property name="project-includes-config" value="@{projectdir}${file.separator}${FLEX_SWC_OUTPUT}${file.separator}${FLEX_INCLUDE_CONFIG_PATH}" />
+
+            <replaceregexp file="${project-includes-config}" replace="&lt;includeClasses&gt;&lt;/includeClasses&gt;" flags="gs" byline="false">
+                <regexp pattern="&lt;includeClasses\s*/&gt;" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-includes-config}" replace="" flags="gs" byline="false">
+                <regexp pattern="&lt;/includeClasses.*?includeClasses&gt;" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-includes-config}" replace="" flags="gs" byline="false">
+                <regexp pattern="&lt;includeResources.*?&lt;/namespaceManifests&gt;" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-includes-config}" replace="" flags="gs" byline="false">
+                <regexp pattern="&lt;includeResources.*/&gt;" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-includes-config}" replace="" flags="gs" byline="false">
+                <regexp pattern="&lt;namespaceManifests.*/&gt;" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-includes-config}" replace="flex-config" flags="gs" byline="true">
+                <regexp pattern="flexLibProperties" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-includes-config}" replace="flex-config xmlns=&quot;http://www.adobe.com/2006/flex-config&quot;" flags="gs" byline="true">
+                <regexp pattern="flex-config version=&quot;.+&quot;" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-includes-config}" replace="includes" flags="gs" byline="true">
+                <regexp pattern="includeClasses" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-includes-config}" replace="&lt;symbol&gt;" flags="gs" byline="true">
+                <regexp pattern="&lt;classEntry path=&quot;" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-includes-config}" replace="&lt;/symbol&gt;" flags="gs" byline="false">
+                <regexp pattern="&quot;/&gt;" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-includes-config}" replace="" flags="gs" byline="false">
+                <regexp pattern="${line.separator}" />
+            </replaceregexp>
+
+            <echo message="Check Include File is ${project-includes-config}." />
+
+            <property name="project-manifest" value="@{projectdir}${file.separator}${FLEX_SWC_OUTPUT}${file.separator}${FLEX_MANIFEST_PATH}" />
+
+            <replaceregexp file="${project-manifest}" replace="" flags="gs" byline="false">
+                <regexp pattern="&lt;/componentPackage&gt;.*?&lt;componentPackage&gt;" />
+            </replaceregexp>
+
+            <replaceregexp file="${project-manifest}" replace="" flags="gs" byline="false">
+                <regexp pattern="${line.separator}" />
+            </replaceregexp>
+
+        </sequential>
+    </macrodef>
+
+    <macrodef name="projectCompileWithFlexLibrary">
+        <attribute name="projectname" />
+        <attribute name="projectdir" />
+        <sequential>
+            <property name="project-full-name" value="@{projectname}-${LIB_VERSION}" />
+
+        	<compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="10.2" locale="">
+                <define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}" />
+                <define name="CONFIG::DEBUG_EVENT" value="false" />
+                <define name="CONFIG::FP9" value="false" />
+                <define name="CONFIG::FP10" value="true" />
+                <define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="false" />
+                <define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="true" />
+                <load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}flex-config.xml" />
+                <load-config filename="@{projectdir}${FLEX_INCLUDE_CONFIG_PATH}" />
+        		
+            	<library-path dir="${PROJECT_WORKSPACE}" append="true">
+                    <include name="**/yui-frameworks-fx4-fp10-${LIB_VERSION}.swc" />
+            	</library-path>
+            	
+                <source-path path-element="${projectdir}${FLEX_SRC}" />
+
+                <include-namespaces uri="${LIB_NAMESPACE}" />
+
+                <namespace uri="${LIB_NAMESPACE}" manifest="@{projectdir}${FLEX_MANIFEST_PATH}" />
+                   	
+        		<external-library-path dir="${FLEX_FRAMEWORK}" append="true">
+                    <include name="libs" />
+                </external-library-path>
+                <external-library-path dir="${PROJECT_WORKSPACE}" append="true">
+                    <include name="**/yui-frameworks-fx4-fp10-${LIB_VERSION}.swc" />
+                </external-library-path>
+            </compc>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="projectRsl">
+        <attribute name="projectname" />
+        <attribute name="projectdir" />
+        <sequential>
+            <property name="project-full-name" value="@{projectname}-${LIB_VERSION}" />
+            <property name="project-output" value="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}" />
+            <property name="project-output-swc" value="${project-output}${FLEX_SWC_SUFFIX}" />
+            <property name="project-output-swf" value="${project-output}${FLEX_SWF_SUFFIX}" />
+            <unzip src="${project-output-swc}" dest="${project-output}" />
+            <java jar="${FLEX_HOME}${file.separator}lib${file.separator}optimizer.jar" fork="true" failonerror="true">
+                <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib='${FLEX_HOME}${file.separator}frameworks' -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" />
+                <arg line="'${project-output}${file.separator}library.swf' --output '${project-output-swf}' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient,RemoteClass' " />
+            </java>
+            <java jar="${FLEX_HOME}${file.separator}lib${file.separator}digest.jar" fork="true" failonerror="true">
+                <jvmarg line="-ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" />
+                <arg line="--digest.rsl-file '${project-output-swf}' --digest.swc-path '${project-output-swc}'" />
+            </java>
+        </sequential>
+    </macrodef>
+</project>

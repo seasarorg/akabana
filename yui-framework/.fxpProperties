@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fxpProperties abbreviated="false" authoringTool="Flex Builder" parentProject="6cc9d54b-797d-4033-951b-6c841b889efb" projectUUID="05bc8dd8-3a7a-4268-88c9-14badf2ab28a" sdkVersion="4.1.0" uuid="5ad93daf-9d08-4aea-abd6-94170e503927" version="4">
+  <projects>
+    <project filename="yui-core.fxpl" position="1" projectUUID="8861437d-0817-4126-82bf-94b3700af297" uuid="5ad93daf-9d08-4aea-abd6-94170e503927"/>
+  </projects>
+  <src>
+    <linked isMain="false" location="src/main/resources" path="src/main/resources" position="0" uuid="5ad93daf-9d08-4aea-abd6-94170e503927"/>
+  </src>
+  <swc>
+    <linked location="sdkPlaceHolder" path="sdkPlaceHolder" position="0" uuid="5ad93daf-9d08-4aea-abd6-94170e503927"/>
+  </swc>
+  <misc/>
+  <theme/>
+</fxpProperties>

@@ -1,0 +1,7 @@
+@namespace yui "http://yui.akabana.seasar.org/1.0";
+
+yui|YuiFrameworkSettings {
+    namingConventionClass:ClassReference("org.seasar.akabana.yui.framework.convention.Flex4NamingConvention");
+    frameworkBridgePlugin:ClassReference("org.seasar.akabana.yui.framework.bridge.Flex4FrameworkBridgePlugin");
+    autoMonitoring:false;
+}

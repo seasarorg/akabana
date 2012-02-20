@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="yui-frameworks-fx4-mobilerpc-fp10" basedir="." default="all">
+
+    <target name="all">
+        <property name="projectdir" value="${PROJECT_WORKSPACE}${file.separator}fx45${file.separator}${ant.project.name}"/>
+        <projectInit projectname="${ant.project.name}" projectdir="${projectdir}"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-core"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-service"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-rpc"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework" defaultsCss="defaults-mobile.css"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework-bridge-flex4" defaultsCss="defaults-mobile.css"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-command"/>
+
+        <projectCompilePrepare projectdir="${projectdir}"/>
+        <projectCompileWithMobileFlexLibrary projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10.2"/>
+        <projectRsl projectname="${ant.project.name}" projectdir="${projectdir}"/>
+    </target>
+</project>

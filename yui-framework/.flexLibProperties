@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
+  <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.framework.YuiApplicationConsts"/>
+    <classEntry path="org.seasar.akabana.yui.framework.YuiFrameworkGlobals"/>
+    <classEntry path="org.seasar.akabana.yui.framework.bridge.FrameworkBridge"/>
+    <classEntry path="org.seasar.akabana.yui.framework.bridge.IFrameworkBridgePlugin"/>
+    <classEntry path="org.seasar.akabana.yui.framework.convention.NamingConvention"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.ILifeCyclable"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.IYuiFrameworkController"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.InstanceCache"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.ViewComponentRepository"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkController"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkControllerBase"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkControllerCore"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.YuiFrameworkSettings"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.mixin.YuiFrameworkMixin"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.rule.IAction"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.rule.IBehavior"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.rule.IHelper"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.rule.IStateful"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.rule.IValidator"/>
+    <classEntry path="org.seasar.akabana.yui.framework.core.rule.IVolatileObject"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentEventCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.AbstractComponentEventListenerCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ActionCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.BehaviorCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.CommandCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.HelperCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.IComponentCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.IElementCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.IViewCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.customizer.ValidatorCustomizer"/>
+    <classEntry path="org.seasar.akabana.yui.framework.error.ComponentDuplicatedRegistrationError"/>
+    <classEntry path="org.seasar.akabana.yui.framework.error.YuiFrameworkError"/>
+    <classEntry path="org.seasar.akabana.yui.framework.event.RuntimeErrorEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.event.YuiFrameworkEvent"/>
+    <classEntry path="org.seasar.akabana.yui.framework.logging.Logging"/>
+    <classEntry path="org.seasar.akabana.yui.framework.logging.SimpleLogger"/>
+    <classEntry path="org.seasar.akabana.yui.framework.logging.SimpleLoggerFactory"/>
+    <classEntry path="org.seasar.akabana.yui.framework.logging.debug"/>
+    <classEntry path="org.seasar.akabana.yui.framework.logging.dump"/>
+    <classEntry path="org.seasar.akabana.yui.framework.logging.info"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.MessageManager"/>
+    <classEntry path="org.seasar.akabana.yui.framework.message.Messages"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.action"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.behavior"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.handler"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.helper"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.viewlogic"/>
+    <classEntry path="org.seasar.akabana.yui.framework.ns.viewpart"/>
+    <classEntry path="org.seasar.akabana.yui.framework.util.PopUpUtil"/>
+    <classEntry path="org.seasar.akabana.yui.framework.util.StyleManagerUtil"/>
+    <classEntry path="org.seasar.akabana.yui.framework.util.SystemManagerUtil"/>
+    <classEntry path="org.seasar.akabana.yui.framework.util.UIComponentUtil"/>
+  </includeClasses>
+  <includeResources>
+    <resourceEntry destPath="locale/en_US/errors.properties" sourcePath="locale/en_US/errors.properties"/>
+    <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
+    <resourceEntry destPath="locale/ja_JP/errors.properties" sourcePath="locale/ja_JP/errors.properties"/>
+    <resourceEntry destPath="locale/en_US/messages.properties" sourcePath="locale/en_US/messages.properties"/>
+    <resourceEntry destPath="locale/ja_JP/yui_framework.properties" sourcePath="locale/ja_JP/yui_framework.properties"/>
+    <resourceEntry destPath="locale/en_US/application.properties" sourcePath="locale/en_US/application.properties"/>
+    <resourceEntry destPath="locale/en_US/yui_framework.properties" sourcePath="locale/en_US/yui_framework.properties"/>
+    <resourceEntry destPath="locale/ja_JP/messages.properties" sourcePath="locale/ja_JP/messages.properties"/>
+    <resourceEntry destPath="locale/ja_JP/application.properties" sourcePath="locale/ja_JP/application.properties"/>
+  </includeResources>
+  <namespaceManifests>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akabana.seasar.org/1.0"/>
+  </namespaceManifests>
+</flexLibProperties>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fxpProperties abbreviated="false" authoringTool="Flex Builder" parentProject="fcd1e856-662e-4c3f-a700-962ae793c186" projectUUID="fa60eb7f-0657-4aad-8087-5d6c468c5d74" sdkVersion="4.1.0" uuid="5ad93daf-9d08-4aea-abd6-94170e503927" version="4">
+  <projects>
+    <project filename="yui-core.fxpl" position="1" projectUUID="8861437d-0817-4126-82bf-94b3700af297" uuid="5ad93daf-9d08-4aea-abd6-94170e503927"/>
+    <project filename="yui-service.fxpl" position="2" projectUUID="a8f73d34-b89d-4af2-be65-f985809fa987" uuid="5ad93daf-9d08-4aea-abd6-94170e503927"/>
+    <project filename="yui-logging.fxpl" position="3" projectUUID="ead4dda0-43cb-45f4-af74-4346fa3ebb4a" uuid="5ad93daf-9d08-4aea-abd6-94170e503927"/>
+  </projects>
+  <src>
+    <linked isMain="false" location="src/main/resources" path="src/main/resources" position="0" uuid="5ad93daf-9d08-4aea-abd6-94170e503927"/>
+  </src>
+  <swc>
+    <linked location="sdkPlaceHolder" path="sdkPlaceHolder" position="0" uuid="5ad93daf-9d08-4aea-abd6-94170e503927"/>
+  </swc>
+  <misc/>
+  <theme/>
+</fxpProperties>

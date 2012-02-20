@@ -1,0 +1,5 @@
+
+YuiFrameworkSettings {
+    namingConventionClass:ClassReference("org.seasar.akabana.yui.framework.convention.Flex3NamingConvention");
+    frameworkBridgePlugin:ClassReference("org.seasar.akabana.yui.framework.bridge.Flex3FrameworkBridgePlugin");
+}

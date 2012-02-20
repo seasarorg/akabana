@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
+  <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.service.ds.DsPendingCall"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.HttpService"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.RemotingService"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.local.LocalMessage"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.local.LocalOperation"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.responder.AbstractRpcEventResponder"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcDefaultEventResponder"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcEventResponder"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcNoneResponder"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcObjectResponder"/>
+    <classEntry path="org.seasar.akabana.yui.service.ds.responder.RpcResponderFactory"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akabana.seasar.org/1.0"/>
+  </namespaceManifests>
+</flexLibProperties>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="yui-frameworks-fx3-airrpc-fp10" basedir="." default="all">
+
+    <target name="all">
+        <property name="projectdir" value="${PROJECT_WORKSPACE}${file.separator}fx3${file.separator}${ant.project.name}"/>
+        <projectInit projectname="${ant.project.name}" projectdir="${projectdir}"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-core"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-service"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-rpc"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-framework-bridge-flex3"/>
+        <projectAddSubProject projectdir="${projectdir}" subprojectdir="..${file.separator}yui-air-flex3"/>
+
+        <projectCompilePrepare projectdir="${projectdir}"/>
+        <projectCompileWithAIRFlexLibrary projectname="${ant.project.name}" projectdir="${projectdir}" flashplayer="10" uncaughtError="0"/>
+        <projectRsl projectname="${ant.project.name}" projectdir="${projectdir}"/>
+    </target>
+</project>

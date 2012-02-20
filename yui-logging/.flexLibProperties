@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
+  <includeClasses>
+    <classEntry path="org.seasar.akabana.yui.logging.Level"/>
+    <classEntry path="org.seasar.akabana.yui.logging.Logger"/>
+    <classEntry path="org.seasar.akabana.yui.logging.LoggingData"/>
+    <classEntry path="org.seasar.akabana.yui.logging.appender.AppenderBase"/>
+    <classEntry path="org.seasar.akabana.yui.logging.appender.SimpleAppender"/>
+    <classEntry path="org.seasar.akabana.yui.logging.category.CategoryBase"/>
+    <classEntry path="org.seasar.akabana.yui.logging.category.SimpleCategory"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.AppenderConfig"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.CategoryConfig"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.Configuration"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.ConfigurationProvider"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.LayoutConfig"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.LevelConfig"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.LoggingSettings"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.ParamConfig"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.factory.DefaultConfigurationFactory"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.factory.IConfigurationFactory"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.factory.LogConfigurationFactory"/>
+    <classEntry path="org.seasar.akabana.yui.logging.config.factory.PropertiesConfigurationBuilder"/>
+    <classEntry path="org.seasar.akabana.yui.logging.layout.BasicPatternLayout"/>
+    <classEntry path="org.seasar.akabana.yui.logging.layout.LayoutBase"/>
+    <classEntry path="org.seasar.akabana.yui.logging.layout.PatternLayout"/>
+    <classEntry path="org.seasar.akabana.yui.logging.layout.SimpleLayout"/>
+    <classEntry path="org.seasar.akabana.yui.logging.mixin.LoggingMixin"/>
+  </includeClasses>
+  <includeResources>
+    <resourceEntry destPath="locale/en_US/log4yui.properties" sourcePath="locale/en_US/log4yui.properties"/>
+    <resourceEntry destPath="locale/ja_JP/log4yui.properties" sourcePath="locale/ja_JP/log4yui.properties"/>
+  </includeResources>
+  <namespaceManifests>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akabana.seasar.org/1.0"/>
+  </namespaceManifests>
+</flexLibProperties>
