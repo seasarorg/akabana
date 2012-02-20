@@ -13,11 +13,13 @@
 * either express or implied. See the License for the specific language
 * governing permissions and limitations under the License.
 */
-package
+package net.akb7.yui.core.logging
 {
-    import net.akb7.yui.core.reflection.ClassRef;
-
-    public function getClassRef(target:Object):ClassRef{
-        return ClassRef.getInstance(target);
+    public interface ILogger {
+        function error(message:String,...args):void;
+        function debug(message:String,...args):void;
+        function info(message:String,...args):void;
+        function fatal(message:String,...args):void;
+        function warn(message:String,...args):void;
     }
 }

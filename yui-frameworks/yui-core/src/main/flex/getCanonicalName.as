@@ -15,7 +15,7 @@
 */
 package
 {
-    import org.seasar.akabana.yui.core.reflection.ClassRef;
+    import net.akb7.yui.core.reflection.ClassRef;
 
     public function getCanonicalName(object:Object):String{
         return ClassRef.getCanonicalName(object);

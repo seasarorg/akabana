@@ -13,11 +13,8 @@
 * either express or implied. See the License for the specific language
 * governing permissions and limitations under the License.
 */
-package
+package net.akb7.yui.core.ns
 {
-    import net.akb7.yui.core.reflection.ClassRef;
-
-    public function getClassRef(target:Object):ClassRef{
-        return ClassRef.getInstance(target);
-    }
+[Exclude]
+public namespace yui_internal = "http://yui.akb7.net/internal";
 }
