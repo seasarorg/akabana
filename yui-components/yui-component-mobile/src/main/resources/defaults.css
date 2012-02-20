@@ -1,0 +1,11 @@
+@namespace s "library://ns.adobe.com/flex/spark";
+
+s|ViewNavigatorApplication
+{
+    skinClass: ClassReference("org.seasar.akabana.yui.mobile.skins.YuiViewNavigatorApplicationSkin");
+}
+
+/*s|TabbedViewNavigatorApplication
+{
+skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorSkin");
+}*/
