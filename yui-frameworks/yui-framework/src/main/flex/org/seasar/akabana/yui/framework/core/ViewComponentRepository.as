@@ -25,16 +25,35 @@ package org.seasar.akabana.yui.framework.core {
     import org.seasar.akabana.yui.framework.util.UIComponentUtil;
 
     [ExcludeClass]
+    /**
+     * 
+     */
     public final class ViewComponentRepository {
         
+        /**
+         * @private
+         */
         private static const COMPONENT_INSTANCE_MAP:Dictionary = new Dictionary(true);
         
+        /**
+         * @private
+         */
         private static const VIEW_MAP:Dictionary = new Dictionary(true);
 
+        /**
+         * 
+         * @return 
+         * 
+         */
         public static function get allView():Dictionary{
             return VIEW_MAP;
         }
         
+        /**
+         * 
+         * @param component
+         * 
+         */
         public static function addComponent( component:DisplayObject ):void{
             var className:String = getCanonicalName(component);
             if( COMPONENT_INSTANCE_MAP[ className ] == null ){
@@ -51,6 +70,11 @@ package org.seasar.akabana.yui.framework.core {
             }
         }
 
+        /**
+         * 
+         * @param component
+         * 
+         */
         public static function removeComponent( component:DisplayObject ):void{
             if( VIEW_MAP.hasOwnProperty(component.name)){
                 var componentId:String = YuiFrameworkGlobals.namingConvention.getComponentName(component);
@@ -65,6 +89,13 @@ package org.seasar.akabana.yui.framework.core {
             }
         }
 
+        /**
+         * 
+         * @param key
+         * @param componentId
+         * @return 
+         * 
+         */
         public static function getComponent( key:Object, componentId:String = null):DisplayObjectContainer{
             var result:DisplayObjectContainer = null;
             var componentInstances:Object;
@@ -98,6 +129,13 @@ package org.seasar.akabana.yui.framework.core {
             return result;
         }
 
+        /**
+         * 
+         * @param key
+         * @param parent
+         * @return 
+         * 
+         */
         public static function getComponentByParent( key:Class, parent:DisplayObjectContainer):DisplayObject{
             var component:DisplayObject = null;
 
@@ -114,6 +152,12 @@ package org.seasar.akabana.yui.framework.core {
             return component;
         }
 
+        /**
+         * 
+         * @param name
+         * @return 
+         * 
+         */
         public static function hasComponent( name:String ):Boolean{
             return VIEW_MAP.hasOwnProperty( name );
         }

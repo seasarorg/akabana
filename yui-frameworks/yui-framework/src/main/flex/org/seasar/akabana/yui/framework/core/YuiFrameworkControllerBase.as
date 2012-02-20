@@ -15,13 +15,11 @@
 */
 package org.seasar.akabana.yui.framework.core
 {
-    CONFIG::FP10{
-        import __AS3__.vec.Vector;
-    }
-    
     CONFIG::UNCAUGHT_ERROR_GLOBAL{
         import flash.events.UncaughtErrorEvent;
     }
+
+    import __AS3__.vec.Vector;
     
     import flash.events.Event;
     import flash.system.Capabilities;
@@ -48,25 +46,40 @@ package org.seasar.akabana.yui.framework.core
     use namespace yui_internal;
     
     [ExcludeClass]
+    /**
+     * 
+     * @author arikawa.eiichi
+     * 
+     */
     public class YuiFrameworkControllerBase extends YuiFrameworkControllerCore {
 
-        CONFIG::FP9{
-            public function get customizers():Array{
-                return _customizers;
-            }
-        }
-        CONFIG::FP10{
-            public function get customizers():Vector.<IElementCustomizer>{
-                return _customizers;
-            }
+        /**
+         * 
+         * @return 
+         * 
+         */
+        public function get customizers():Vector.<IElementCustomizer>{
+            return _customizers;
         }
         
+        /**
+         * 
+         */
         protected var _currentRoot:DisplayObject;
         
+        /**
+         * 
+         * @return 
+         * 
+         */
         public override function get currentRoot():DisplayObject{
             return _currentRoot;
         }
         
+        /**
+         * 
+         * 
+         */
         public function YuiFrameworkControllerBase(){
             super();
             
@@ -82,6 +95,11 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        /**
+         * 
+         * @param root
+         * 
+         */
         public override function addRootDisplayObject(root:DisplayObject):void{
             CONFIG::DEBUG{
                 _debug("ExternalRootAdd",root);
@@ -95,6 +113,11 @@ package org.seasar.akabana.yui.framework.core
             super.addRootDisplayObject(root);
         }
         
+        /**
+         * 
+         * @param root
+         * 
+         */
         public override function removeRootDisplayObject(root:DisplayObject):void{
             CONFIG::DEBUG{
                 _debug("ExternalRootRemove",root);
@@ -112,6 +135,9 @@ package org.seasar.akabana.yui.framework.core
             InstanceCache.removeRoot(root);
         }
         
+        /**
+         * @private
+         */
         private function systemManager_addedToStageHandler( event:Event ):void{
             CONFIG::DEBUG_EVENT{
                 dump(this,event);
@@ -121,6 +147,9 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        /**
+         * @private
+         */
         private function systemManager_removeFromStageHandler(event:Event):void{
             CONFIG::DEBUG_EVENT{
                 dump(this,event);
@@ -130,9 +159,19 @@ package org.seasar.akabana.yui.framework.core
             }
         }
 
+        /**
+         * 
+         * @param component
+         * 
+         */
         protected function doRegisterComponent( component:DisplayObject ):void{
         }
         
+        /**
+         * 
+         * @param component
+         * 
+         */
         protected function doUnregisterComponent(component:DisplayObject):void{
         }
         
@@ -147,6 +186,11 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        /**
+         * 
+         * @param root
+         * 
+         */
         yui_internal function applicationMonitoringStart(root:DisplayObject):void{
             const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
             //
@@ -160,6 +204,11 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        /**
+         * 
+         * @param root
+         * 
+         */
         yui_internal function applicationMonitoringStop(root:DisplayObject):void{
             const settings:YuiFrameworkSettings = YuiFrameworkGlobals.public::settings;
             //stop detecting component addition for register
@@ -172,6 +221,11 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        /**
+         * 
+         * @param root
+         * 
+         */
         yui_internal function componentMonitoringStart(root:DisplayObject):void{
             
             //detecting component addition for assemble
@@ -205,6 +259,11 @@ package org.seasar.akabana.yui.framework.core
             );
         }
         
+        /**
+         * 
+         * @param root
+         * 
+         */
         yui_internal function componentMonitoringStop(root:DisplayObject):void{
             root.removeEventListener(
                 Event.ADDED_TO_STAGE,

@@ -90,12 +90,7 @@ package org.seasar.akabana.yui.core.data
                 return null;
             }
             
-            CONFIG::FP10 {
-                cloneBuffer.clear();
-            }
-            CONFIG::FP9 {
-                cloneBuffer = new ByteArray();
-            }
+            cloneBuffer.clear();
             cloneBuffer.position = 0;
             
             cloneBuffer.writeObject(value);

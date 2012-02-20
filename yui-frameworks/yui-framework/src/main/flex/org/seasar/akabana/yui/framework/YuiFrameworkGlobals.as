@@ -15,9 +15,7 @@
  */
 package org.seasar.akabana.yui.framework
 {
-CONFIG::FP10{
     import __AS3__.vec.Vector;
-}
 
     import mx.core.IFactory;
     import mx.resources.ResourceManager;
@@ -87,12 +85,8 @@ CONFIG::FP10{
             initNamingConventionClassFactory();
 
             var namingConvention:NamingConvention = _namingConventionClassFactory.newInstance() as NamingConvention;
-CONFIG::FP9{
-            namingConvention.conventions = ResourceManager.getInstance().getStringArray("conventions","package");
-}
-CONFIG::FP10{
             namingConvention.conventions = Vector.<String>(ResourceManager.getInstance().getStringArray("conventions","package"));
-}
+
             YuiFrameworkGlobals.yui_internal::setNamingConvention( namingConvention );
         }
     }

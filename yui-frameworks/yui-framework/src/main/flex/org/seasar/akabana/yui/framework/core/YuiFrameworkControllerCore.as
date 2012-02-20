@@ -15,9 +15,7 @@
 */
 package org.seasar.akabana.yui.framework.core
 {
-    CONFIG::FP10{
-        import __AS3__.vec.Vector;
-    }
+    import __AS3__.vec.Vector;
     
     import flash.events.TimerEvent;
     import flash.utils.Timer;
@@ -38,80 +36,144 @@ package org.seasar.akabana.yui.framework.core
     use namespace yui_internal;
     
     [ExcludeClass]
+    /**
+     * 
+     * @author arikawa.eiichi
+     * 
+     */
     internal class YuiFrameworkControllerCore implements IYuiFrameworkController
     {
         include "../Version.as";
         
+        /**
+         * 
+         */
         protected var _isApplicationStarted:Boolean = true;
         
+        /**
+         * 
+         */
         protected var _namingConvention:NamingConvention;
         
+        /**
+         * 
+         */
         protected var _rootDisplayObjectMap:Dictionary;
         
-        CONFIG::FP9{
-            protected var _customizers:Array;
-        }
-        CONFIG::FP10{
-            protected var _customizers:Vector.<IElementCustomizer>;
+        /**
+         * 
+         */
+        protected var _customizers:Vector.<IElementCustomizer>;
+        
+        /**
+         * 
+         */
+        protected var _rootDisplayObjects:Vector.<DisplayObject>;
+        
+        /**
+         * 
+         * @return 
+         * 
+         */
+        public function get rootDisplayObjects():Vector.<DisplayObject>{
+            return _rootDisplayObjects;
         }
         
-        CONFIG::FP9{
-            protected var _rootDisplayObjects:Array;
-            
-            public function get rootDisplayObjects():Array{
-                return _rootDisplayObjects;
-            }
-        }
-        CONFIG::FP10{
-            protected var _rootDisplayObjects:Vector.<DisplayObject>;
-            
-            public function get rootDisplayObjects():Vector.<DisplayObject>{
-                return _rootDisplayObjects;
-            }
-        }
-        
+        /**
+         * 
+         * @return 
+         * 
+         */
         public function get currentRoot():DisplayObject{
             return null;
         }
         
+        /**
+         * 
+         * 
+         */
         public function YuiFrameworkControllerCore(){
-            CONFIG::FP9{
-                _rootDisplayObjects = [];
-            }
-            CONFIG::FP10{
-                _rootDisplayObjects = new Vector.<DisplayObject>;
-            }
+            _rootDisplayObjects = new Vector.<DisplayObject>;
             _rootDisplayObjectMap = new Dictionary(true);
         }
         
+        /**
+         * 
+         * @param root
+         * 
+         */
         public function addRootDisplayObject(root:DisplayObject ):void{
         }
         
+        /**
+         * 
+         * @param root
+         * 
+         */
         public function removeRootDisplayObject(root:DisplayObject ):void{
         }
         
+        /**
+         * 
+         * @param container
+         * 
+         */
         public function customizeView( container:DisplayObjectContainer ):void{
         }
         
+        /**
+         * 
+         * @param container
+         * 
+         */
         public function uncustomizeView( container:DisplayObjectContainer ):void{
         }
         
+        /**
+         * 
+         * @param container
+         * @param child
+         * 
+         */
         public function customizeComponent( container:DisplayObjectContainer, child:DisplayObject):void{
         }
         
+        /**
+         * 
+         * @param container
+         * @param child
+         * 
+         */
         public function uncustomizeComponent( container:DisplayObjectContainer, child:DisplayObject):void{
         }
         
+        /**
+         * 
+         * @param callBack
+         * 
+         */
         public function callLater(callBack:Function):void{
             new FunctionInvoker(callBack).invokeDelay();
         }
         
         CONFIG::DEBUG{
+            /**
+             * 
+             * @param resourceName
+             * @param parameters
+             * 
+             */
             protected function _debug(resourceName:String,...parameters):void{
                 debug(this,MessageManager.yui_internal::yuiframework.getMessage.apply(null,[resourceName].concat(parameters)));
             }
         }
         CONFIG::DEBUG{
+            /**
+             * 
+             * @param resourceName
+             * @param parameters
+             * 
+             */
             protected function _info(resourceName:String,...parameters):void{
                 info(this,MessageManager.yui_internal::yuiframework.getMessage.apply(null,[resourceName].concat(parameters)));
             }
@@ -136,27 +198,15 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
-        CONFIG::FP9{
-            protected function getDefaultCustomizers():Array{
-                var classes:Array = getDefaultCustomizerClasses();
-                var result:Array = [];
-                for each( var customizerClass:Class in classes ){
-                    result.push(new customizerClass());
-                }
-                return result;
+        protected function getDefaultCustomizers():Vector.<IElementCustomizer>{
+            var classes:Array = getDefaultCustomizerClasses();
+            var result:Vector.<IElementCustomizer> = new Vector.<IElementCustomizer>();
+            for each( var customizerClass:Class in classes ){
+                result.push(new customizerClass());
             }
+            return result;
         }
-        
-        CONFIG::FP10{
-            protected function getDefaultCustomizers():Vector.<IElementCustomizer>{
-                var classes:Array = getDefaultCustomizerClasses();
-                var result:Vector.<IElementCustomizer> = new Vector.<IElementCustomizer>();
-                for each( var customizerClass:Class in classes ){
-                    result.push(new customizerClass());
-                }
-                return result;
-            }
-        }
+
         protected function getDefaultCustomizerClasses():Array{
             return [];
         }

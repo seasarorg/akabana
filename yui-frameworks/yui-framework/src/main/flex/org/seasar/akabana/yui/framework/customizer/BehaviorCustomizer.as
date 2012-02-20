@@ -15,9 +15,7 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
-    CONFIG::FP10 {
-        import __AS3__.vec.Vector;
-    }
+    import __AS3__.vec.Vector;
 
     import mx.core.UIComponent;
 
@@ -44,12 +42,7 @@ package org.seasar.akabana.yui.framework.customizer
                     //no action
                 } else {
                     const actionClassRef:ClassRef = getClassRef(action);
-                    CONFIG::FP9 {
-                        var props:Array = actionClassRef.properties;
-                    }
-                    CONFIG::FP10 {
-                        var props:Vector.<PropertyRef> = actionClassRef.properties;
-                    }
+                    const props:Vector.<PropertyRef> = actionClassRef.properties;
     
                     var behaviors:Array = viewProperties[NamingConvention.BEHAVIOR] = [];
                     var behavior:Object;
@@ -97,12 +90,7 @@ package org.seasar.akabana.yui.framework.customizer
             }
             try {
                 const actionClassRef:ClassRef = getClassRef(action);
-                CONFIG::FP9 {
-                    var props:Array = actionClassRef.properties;
-                }
-                CONFIG::FP10 {
-                    var props:Vector.<PropertyRef> = actionClassRef.properties;
-                }
+                const props:Vector.<PropertyRef> = actionClassRef.properties;
 
                 var behaviors:Array = viewProperties[NamingConvention.BEHAVIOR];
                 var behaviorClassName:String;

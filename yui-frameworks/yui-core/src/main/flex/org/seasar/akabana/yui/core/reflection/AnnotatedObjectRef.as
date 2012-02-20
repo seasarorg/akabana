@@ -15,9 +15,7 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
-CONFIG::FP10{
     import __AS3__.vec.Vector;
-}
 
     [ExcludeClass]
     internal class AnnotatedObjectRef extends ObjectRef implements IAnnotatedReflector {
@@ -45,17 +43,7 @@ CONFIG::FP10{
         }
         
         private var _isInitialiedMetadata:Boolean;
-CONFIG::FP9{
-        private var _metadatas:Array;
 
-        public function get metadatas():Array{
-            if( !_isInitialiedMetadata ){
-                assembleMetadataRef(describeType);
-            }
-            return _metadatas;
-        }
-}
-CONFIG::FP10{
         private var _metadatas:Vector.<MetadataRef>;
 
         public function get metadatas():Vector.<MetadataRef>{
@@ -64,18 +52,12 @@ CONFIG::FP10{
             }
             return _metadatas;
         }
-}
 
         private var _metadataMap:Object;
 
         public function AnnotatedObjectRef( describeTypeXml:XML ){
             super( describeTypeXml );
-CONFIG::FP9{
-            _metadatas = [];
-}
-CONFIG::FP10{
             _metadatas = new Vector.<MetadataRef>();
-}
             _metadataMap = {};
         }
 

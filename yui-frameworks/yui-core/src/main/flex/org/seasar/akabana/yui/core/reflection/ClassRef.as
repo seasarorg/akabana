@@ -15,9 +15,7 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
-CONFIG::FP10{
     import __AS3__.vec.Vector;
-}
 
     import flash.utils.describeType;
     import flash.utils.getQualifiedClassName;
@@ -160,17 +158,7 @@ CONFIG::FP10{
         }
 
         private var _isInitialiedProperties:Boolean;
-CONFIG::FP9{
-        private var _properties:Array;
 
-        public function get properties():Array{
-            if( !_isInitialiedProperties){ 
-                assemblePropertyRef(_describeTypeXml.factory[0]);
-            }
-            return _properties;
-        }
-}
-CONFIG::FP10{
         private var _properties:Vector.<PropertyRef>;
 
         public function get properties():Vector.<PropertyRef>{
@@ -179,24 +167,13 @@ CONFIG::FP10{
             }
             return _properties;
         }
-}
 
         private var _propertyMap:Object;
 
         private var _typeToPropertyMap:Object;
 
         private var _isInitialiedFunctions:Boolean;
-CONFIG::FP9{
-        private var _functions:Array;
 
-        public function get functions():Array{
-            if( !_isInitialiedFunctions ){ 
-                assembleFunctionRef(_describeTypeXml.factory[0]);
-            }
-            return _functions;
-        }
-}
-CONFIG::FP10{
         private var _functions:Vector.<FunctionRef>;
 
         public function get functions():Vector.<FunctionRef>{
@@ -205,24 +182,13 @@ CONFIG::FP10{
             }
             return _functions;
         }
-}
 
         private var _functionMap:Object;
 
         private var _returnTypeToFunctionMap:Object;
         
         private var _isInitialiedSuperClasses:Boolean;
-CONFIG::FP9{
-        private var _superClasses:Array;
-        
-        public function get superClasses():Array{
-            if( !_isInitialiedSuperClasses ){ 
-                assembleSuperClasses(_describeTypeXml.factory[0]);
-            }
-            return _superClasses;
-        }
-}
-CONFIG::FP10{
+
         private var _superClasses:Vector.<String>;
         
         public function get superClasses():Vector.<String>{
@@ -231,22 +197,11 @@ CONFIG::FP10{
             }
             return _superClasses;
         }
-}
         
         private var _superClassMap:Object;
         
         private var _isInitialiedInterfaces:Boolean;
-CONFIG::FP9{
-        private var _interfaces:Array;
-        
-        public function get interfaces():Array{
-            if( !_isInitialiedInterfaces ){
-                assembleInterfaces(_describeTypeXml.factory[0]);
-            }
-            return _interfaces;
-        }
-}
-CONFIG::FP10{
+
         private var _interfaces:Vector.<String>;
         
         public function get interfaces():Vector.<String>{
@@ -255,7 +210,6 @@ CONFIG::FP10{
             }
             return _interfaces;
         }
-}
 
         private var _interfaceMap:Object;
 
@@ -369,16 +323,6 @@ CONFIG::FP10{
             return _propertyMap[ propertyName ] as PropertyRef;
         }
 
-CONFIG::FP9{
-        public function getPropertyRefByType( propertyType:String ):Array{
-            if( !_isInitialiedProperties){ 
-                assemblePropertyRef(_describeTypeXml.factory[0]);
-                _isInitialiedProperties = true;
-            }
-            return _typeToPropertyMap[ propertyType ];
-        }
-}
-CONFIG::FP10{
         public function getPropertyRefByType( propertyType:String ):Vector.<PropertyRef>{
             if( !_isInitialiedProperties){ 
                 assemblePropertyRef(_describeTypeXml.factory[0]);
@@ -386,15 +330,11 @@ CONFIG::FP10{
             }
             return _typeToPropertyMap[ propertyType ];
         }
-}
 
         private final function assemblePropertyRef( rootDescribeTypeXml:XML ):void{
-CONFIG::FP9{
-            _properties = [];
-}
-CONFIG::FP10{
+
             _properties = new Vector.<PropertyRef>();
-}
+
             const typeName:String = describeType.@type.toString();
 
             var propertysXMLList:XMLList = rootDescribeTypeXml.accessor;
@@ -427,28 +367,17 @@ CONFIG::FP10{
         }
 
         private final function assembleTypeOfPropertyRef( propertyRef:PropertyRef ):void{
-CONFIG::FP9{
-            var rproperties_:Array = _typeToPropertyMap[ propertyRef.type ];
-            if( rproperties_ == null ){
-                rproperties_ = _typeToPropertyMap[ propertyRef.type ] = [];
-            }
-}
-CONFIG::FP10{
             var rproperties_:Vector.<PropertyRef> = _typeToPropertyMap[ propertyRef.type ];
             if( rproperties_ == null ){
                 rproperties_ = _typeToPropertyMap[ propertyRef.type ] = new Vector.<PropertyRef>();
             }
-}
+
             rproperties_.push(propertyRef);
         }
 
         private final function assembleFunctionRef( rootDescribeTypeXml:XML ):void{
-CONFIG::FP9{
-            _functions = [];
-}
-CONFIG::FP10{
             _functions = new Vector.<FunctionRef>();
-}
+
             _functionMap = {};
             _returnTypeToFunctionMap = {};
 
@@ -481,12 +410,7 @@ CONFIG::FP10{
         }
 
         private final function assembleInterfaces( rootDescribeTypeXml:XML ):void{
-CONFIG::FP9{
-            _interfaces = [];
-}
-CONFIG::FP10{
             _interfaces = new Vector.<String>();
-}
             _interfaceMap = {};
 
             const interfacesXMLList:XMLList = rootDescribeTypeXml.implementsInterface;
@@ -502,12 +426,7 @@ CONFIG::FP10{
         }
 
         private final function assembleSuperClasses( rootDescribeTypeXml:XML ):void{
-CONFIG::FP9{
-            _superClasses = [];
-}
-CONFIG::FP10{
             _superClasses = new Vector.<String>();
-}
             _superClassMap = {};
 
             var extendsClassXMLList:XMLList = rootDescribeTypeXml.extendsClass;

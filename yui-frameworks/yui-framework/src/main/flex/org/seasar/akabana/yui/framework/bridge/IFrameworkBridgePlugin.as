@@ -15,9 +15,8 @@
  */
 package org.seasar.akabana.yui.framework.bridge
 {
-CONFIG::FP10{
     import __AS3__.vec.Vector;
-}
+
     import flash.display.DisplayObjectContainer;
     import flash.display.DisplayObject;
     import flash.display.DisplayObjectContainer;
@@ -42,13 +41,6 @@ CONFIG::FP10{
 
         function getDocumentOf(component:DisplayObject):DisplayObject;
         
-CONFIG::FP9{
-        function getChildren(component:DisplayObjectContainer):Array;
-}
-
-CONFIG::FP10{
         function getChildren(component:DisplayObjectContainer):Vector.<DisplayObject>;
-}
-
     }
 }

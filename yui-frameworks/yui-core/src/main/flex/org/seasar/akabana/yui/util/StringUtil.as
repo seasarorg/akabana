@@ -15,9 +15,7 @@
  */
 package org.seasar.akabana.yui.util
 {
-CONFIG::FP10{
     import __AS3__.vec.Vector;
-}
 
     public final class StringUtil {
         
@@ -73,27 +71,13 @@ CONFIG::FP10{
             }
 
             var len:uint = rest.length;
-CONFIG::FP9{
-            var args:Array;
-}
-CONFIG::FP10{
             var args:Vector.<Object>;
-}
+
             if( len == 1 && rest[0] is Array ){
-CONFIG::FP9{
-                args = rest[0] as Array;
-}
-CONFIG::FP10{
                 args = Vector.<Object>(rest[0]);
-}
                 len = args.length;
             } else {
-CONFIG::FP9{
-                args = rest;
-}
-CONFIG::FP10{
                 args = Vector.<Object>(rest);
-}
             }
 
             for( var i:int = 0; i < len; i++ ){

@@ -161,8 +161,6 @@
         	<compc output="@{projectdir}${FLEX_OUTPUT}${file.separator}${project-full-name}${FLEX_SWC_SUFFIX}" compute-digest="true" incremental="false" debug="${LIB_DEBUG_MODE}" optimize="${LIB_OPTIMIZE}" target-player="10.2" locale="">
                 <define name="CONFIG::DEBUG" value="${LIB_DEBUG_MODE}" />
                 <define name="CONFIG::DEBUG_EVENT" value="false" />
-                <define name="CONFIG::FP9" value="false" />
-                <define name="CONFIG::FP10" value="true" />
                 <define name="CONFIG::UNCAUGHT_ERROR_EVENT" value="false" />
                 <define name="CONFIG::UNCAUGHT_ERROR_GLOBAL" value="true" />
                 <load-config filename="${FLEX_HOME}${file.separator}frameworks${file.separator}flex-config.xml" />

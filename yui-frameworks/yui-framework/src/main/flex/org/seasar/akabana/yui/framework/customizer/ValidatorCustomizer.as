@@ -15,9 +15,8 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
-    CONFIG::FP10 {
-        import __AS3__.vec.Vector;
-    }
+    import __AS3__.vec.Vector;
+
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
@@ -104,21 +103,12 @@ package org.seasar.akabana.yui.framework.customizer
             const viewClassName:String = getCanonicalName(container);
             const targetClassRef:ClassRef = getClassRef(obj);
             const validatorMap:Object = viewProperties[NamingConvention.VALIDATOR];
-            CONFIG::FP9 {
-                const props:Array = targetClassRef.properties.filter(
-                        function(item:*,index:int,array:Array):Boolean {
-                            return ( YuiFrameworkGlobals.namingConvention.isValidatorOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
-                        }
-                    );
-            }
-            CONFIG::FP10 {
-                const props:Vector.<PropertyRef> = 
-                    targetClassRef.properties.filter(
-                        function(item:*,index:int,array:Vector.<PropertyRef>):Boolean {
-                            return ( YuiFrameworkGlobals.namingConvention.isValidatorOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
-                        }
-                    );
-            }
+            const props:Vector.<PropertyRef> = 
+                targetClassRef.properties.filter(
+                    function(item:*,index:int,array:Vector.<PropertyRef>):Boolean {
+                        return ( YuiFrameworkGlobals.namingConvention.isValidatorOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
+                    }
+                );
             
             var validator:Object;
             var validatorClassRef:ClassRef;
@@ -144,12 +134,7 @@ package org.seasar.akabana.yui.framework.customizer
         
         private function setViewParts(container:UIComponent,validatorClassRef:ClassRef,validator:Object):void{
             const ns:Namespace = viewpart;
-            CONFIG::FP9 {
-                const validatorProps:Array = validatorClassRef.properties;
-            }
-            CONFIG::FP10 {
-                const validatorProps:Vector.<PropertyRef> = validatorClassRef.properties;
-            }
+            const validatorProps:Vector.<PropertyRef> = validatorClassRef.properties;
             
             for each(var validatorProp:PropertyRef in validatorProps) {
                 if( validatorProp.uri == ns.uri){

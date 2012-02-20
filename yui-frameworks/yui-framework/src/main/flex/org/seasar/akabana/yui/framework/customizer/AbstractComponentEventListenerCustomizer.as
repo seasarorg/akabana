@@ -15,9 +15,7 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
-    CONFIG::FP10 {
-        import __AS3__.vec.Vector;
-    }
+    import __AS3__.vec.Vector;
     
     import flash.events.IEventDispatcher;
     
@@ -32,90 +30,49 @@ package org.seasar.akabana.yui.framework.customizer
         
         protected function doEventCustomize(name:String,component:UIComponent,listener:Object):void {
             const listenerClassRef:ClassRef = getClassRef(listener);
-            CONFIG::FP9 {
-                var props:Array = listenerClassRef.properties;
-            }
-            CONFIG::FP10 {
-                var props:Vector.<PropertyRef> = listenerClassRef.properties;
-            }
+            const props:Vector.<PropertyRef> = listenerClassRef.properties;
             
             var child:Object;
             for each(var prop:PropertyRef in props) {
                 child = prop.getValue(listener);
                 
                 if(child != null && child is IEventDispatcher) {
-                    CONFIG::FP9 {
-                        doCustomizingByComponent(
-                            component,
-                            prop.name,
-                            child as IEventDispatcher,
-                            listener,
-                            listenerClassRef.functions.filter(
-                                function(item:*,index:int,array:Array):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                }
-                            ),
-                            int.MAX_VALUE>>2
-                        );
-                    }
-                    CONFIG::FP10 {
-                        doCustomizingByComponent(
-                            component,
-                            prop.name,
-                            child as IEventDispatcher,
-                            listener,
-                            listenerClassRef.functions.filter(
-                                function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                }
-                            ),
-                            int.MAX_VALUE>>2
-                        );
-                    }
+                    doCustomizingByComponent(
+                        component,
+                        prop.name,
+                        child as IEventDispatcher,
+                        listener,
+                        listenerClassRef.functions.filter(
+                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                return ((item as FunctionRef).name.indexOf(prop.name) == 0);
+                            }
+                        ),
+                        int.MAX_VALUE>>2
+                    );
                 }
             }
         }
         
         protected function doEventUncustomize(component:UIComponent,listener:Object):void {
             const listenerClassRef:ClassRef = getClassRef(listener);
-            CONFIG::FP9 {
-                var props:Array = listenerClassRef.properties;
-            }
-            CONFIG::FP10 {
-                var props:Vector.<PropertyRef> = listenerClassRef.properties;
-            }
+            const props:Vector.<PropertyRef> = listenerClassRef.properties;
             
             var child:Object;
             for each(var prop:PropertyRef in props) {
                 child = prop.getValue(listener);
                 
                 if(child != null && child is IEventDispatcher) {
-                    CONFIG::FP9 {
-                        doUnCustomizingByComponent(
-                            component,
-                            prop.name,
-                            child as IEventDispatcher,
-                            listener,
-                            listenerClassRef.functions.filter(
-                                function(item:*,index:int,array:Array):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                }
-                            )
-                        );
-                    }
-                    CONFIG::FP10 {
-                        doUnCustomizingByComponent(
-                            component,
-                            prop.name,
-                            child as IEventDispatcher,
-                            listener,
-                            listenerClassRef.functions.filter(
-                                function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                }
-                            )
-                        );
-                    }
+                    doUnCustomizingByComponent(
+                        component,
+                        prop.name,
+                        child as IEventDispatcher,
+                        listener,
+                        listenerClassRef.functions.filter(
+                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                return ((item as FunctionRef).name.indexOf(prop.name) == 0);
+                            }
+                        )
+                    );
                 }
             }
         }

@@ -15,9 +15,7 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
-    CONFIG::FP10 {
-        import __AS3__.vec.Vector;
-    }
+    import __AS3__.vec.Vector;
 
     import flash.events.IEventDispatcher;
 

@@ -34,58 +34,144 @@ package org.seasar.akabana.yui.framework.core
             MessageManager;
         }
         
+        /**
+         * @private
+         */
         private var _styles:Object = {};
         
+        /**
+         * @private
+         */
         private var _autoMonitoring:Boolean = true;
         
+        /**
+         * 
+         * @return 
+         * 
+         */
         public function get isAutoMonitoring():Boolean
         {
             return _autoMonitoring;
         }
         
+        /**
+         * 
+         * 
+         */
         public function YuiFrameworkSettings(){
             YuiFrameworkGlobals.yui_internal::setSettings( this );
         }
 
+        /**
+         * 
+         * @param document
+         * @param id
+         * 
+         */
         public function initialized(document:Object, id:String):void{
         }
         
+        /**
+         * 
+         * @return 
+         * 
+         */
         public function get styleName():Object{
             return null;
         }
             
+        /**
+         * 
+         * @param value
+         * 
+         */
         public function set styleName(value:Object):void{}
                 
+        /**
+         * 
+         * @param styleProp
+         * 
+         */
         public function styleChanged(styleProp:String):void{}
         
         
+        /**
+         * 
+         * @return 
+         * 
+         */
         public function get className():String{
             return "YuiFrameworkSettings";
         }
         
+        /**
+         * 
+         * @return 
+         * 
+         */
         public function get inheritingStyles():Object{
             return {};
         }
         
+        /**
+         * 
+         * @param value
+         * 
+         */
         public function set inheritingStyles(value:Object):void{}
         
+        /**
+         * 
+         * @return 
+         * 
+         */
         public function get nonInheritingStyles():Object{
             return _styles;
         }
         
+        /**
+         * 
+         * @param value
+         * 
+         */
         public function set nonInheritingStyles(value:Object):void{}
         
+        /**
+         * @private 
+         */
         private var _styleDeclaration:CSSStyleDeclaration;
+        /**
+         * 
+         * @return 
+         * 
+         */
         public function get styleDeclaration():CSSStyleDeclaration{
             return _styleDeclaration;
         }
         
+        /**
+         * 
+         * @param value
+         * 
+         */
         public function set styleDeclaration(value:CSSStyleDeclaration):void{}
         
+        /**
+         * 
+         * @param styleProp
+         * @return 
+         * 
+         */
         public function getStyle(styleProp:String):*{
             return _styles[styleProp];
         }
         
+        /**
+         * 
+         * @param styleProp
+         * @param newValue
+         * 
+         */
         public function setStyle(styleProp:String, newValue:*):void{
             _styles[styleProp] = newValue;
             if( styleProp == "autoMonitoring"){
@@ -93,16 +179,42 @@ package org.seasar.akabana.yui.framework.core
             }
         }
             
+        /**
+         * 
+         * @param styleProp
+         * 
+         */
         public function clearStyle(styleProp:String):void{}
             
+        /**
+         * 
+         * @return 
+         * 
+         */
         public function getClassStyleDeclarations():Array{
             return [];
         }
             
+        /**
+         * 
+         * @param styleProp
+         * @param recursive
+         * 
+         */
         public function notifyStyleChangeInChildren(styleProp:String,recursive:Boolean):void{}
             
+        /**
+         * 
+         * @param recursive
+         * 
+         */
         public function regenerateStyleCache(recursive:Boolean):void{}
             
+        /**
+         * 
+         * @param effects
+         * 
+         */
         public function registerEffects(effects:Array /* of String */):void{}
     }
 }

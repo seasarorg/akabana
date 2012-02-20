@@ -24,10 +24,23 @@ package org.seasar.akabana.yui.framework.core
     import org.seasar.akabana.yui.framework.logging.debug;
     
     [ExcludeClass]
+    /**
+     * 
+     */
     public final class InstanceCache {
         
+        /**
+         * @private 
+         */
         private static const INSTANCE_REF_CACHE:Dictionary = new Dictionary(true);
         
+        /**
+         * 
+         * @param classRef
+         * @param args
+         * @return 
+         * 
+         */
         public static function newInstance(classRef:ClassRef,...args):Object{
             var result:Object = null;
             var cache:Dictionary = getCurrentInstanceRefCache();
@@ -43,6 +56,11 @@ package org.seasar.akabana.yui.framework.core
             return result;
         }
 
+        /**
+         * 
+         * @param root
+         * 
+         */
         public static function addRoot(root:Object):void{
             if( root != null ){
                 removeRoot(root);
@@ -50,6 +68,11 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        /**
+         * 
+         * @param root
+         * 
+         */
         public static function removeRoot(root:Object):void{
             if( root != null && root in INSTANCE_REF_CACHE ){
                 INSTANCE_REF_CACHE[root] = null;
@@ -57,6 +80,9 @@ package org.seasar.akabana.yui.framework.core
             }
         }
         
+        /**
+         * @private
+         */
         private static function getCurrentInstanceRefCache():Dictionary{
             const currentRoot:Object = YuiFrameworkController.getInstance().currentRoot;
             var result:Dictionary;

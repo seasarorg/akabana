@@ -19,20 +19,60 @@ package org.seasar.akabana.yui.framework.core
     import flash.display.DisplayObjectContainer;
 
     [ExcludeClass]
+    /**
+     * 
+     */
     public interface IYuiFrameworkController
     {
+        /**
+         * 
+         * @return 
+         * 
+         */
         function get currentRoot():DisplayObject;
         
+        /**
+         * 
+         * @param systemManager
+         * 
+         */
         function addRootDisplayObject(systemManager:DisplayObject):void;
         
+        /**
+         * 
+         * @param systemManager
+         * 
+         */
         function removeRootDisplayObject(systemManager:DisplayObject):void;
 
+        /**
+         * 
+         * @param container
+         * 
+         */
         function customizeView( container:DisplayObjectContainer ):void;
 
+        /**
+         * 
+         * @param container
+         * 
+         */
         function uncustomizeView( container:DisplayObjectContainer ):void;
 
+        /**
+         * 
+         * @param container
+         * @param child
+         * 
+         */
         function customizeComponent( container:DisplayObjectContainer, child:DisplayObject):void;
         
+        /**
+         * 
+         * @param container
+         * @param child
+         * 
+         */
         function uncustomizeComponent( container:DisplayObjectContainer, child:DisplayObject):void;
     }
 }

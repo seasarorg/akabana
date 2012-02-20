@@ -7,15 +7,5 @@
 <value>true</value>
 </define>
 
-<define>
-<name>CONFIG::FP9</name>
-<value>false</value>
-</define>
-
-<define>
-<name>CONFIG::FP10</name>
-<value>true</value>
-</define>
-
 </compiler>
 </flex-config>

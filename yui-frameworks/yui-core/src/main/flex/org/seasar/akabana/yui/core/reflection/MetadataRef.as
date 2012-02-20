@@ -15,27 +15,17 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
-CONFIG::FP10{
     import __AS3__.vec.Vector;
-}
 
     [ExcludeClass]
     public final class MetadataRef extends ObjectRef {
 
-CONFIG::FP9{
-        private var _args:Array;
-
-        public function get args():Array{
-            return _args;
-        }
-}
-CONFIG::FP10{
         private var _args:Vector.<String>;
 
         public function get args():Vector.<String>{
             return _args;
         }
-}
+
         private var _argMap:Object;
 
         public function MetadataRef( describeTypeXml:XML )
@@ -65,12 +55,7 @@ CONFIG::FP10{
         }
 
         private function assembleArgs( rootDescribeTypeXml:XML ):void{
-CONFIG::FP9{
-            _args = [];
-}
-CONFIG::FP10{
             _args = new Vector.<String>();
-}
             _argMap = {};
 
             var argsXMLList:XMLList = rootDescribeTypeXml.arg;

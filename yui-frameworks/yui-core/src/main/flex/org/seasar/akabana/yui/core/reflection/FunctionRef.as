@@ -15,24 +15,13 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
-CONFIG::FP10{
     import __AS3__.vec.Vector;
-}
+
     [ExcludeClass]
     public final class FunctionRef extends AnnotatedObjectRef {
         
         private var _isInitialiedParameters:Boolean;
-CONFIG::FP9{
-        private var _parameters:Array;
 
-        public function get parameters():Array{
-            if( !_isInitialiedParameters ){
-                assembleParameter(_describeTypeXml );
-            }
-            return _parameters;
-        }
-}
-CONFIG::FP10{
         private var _parameters:Vector.<ParameterRef>;
 
         public function get parameters():Vector.<ParameterRef>{
@@ -41,7 +30,6 @@ CONFIG::FP10{
             }
             return _parameters;
         }
-}
 
         private var _parameterMap:Object;
 
@@ -89,12 +77,7 @@ CONFIG::FP10{
         }
 
         private function assembleParameter( rootDescribeTypeXml:XML ):void{
-CONFIG::FP9{
-            _parameters = [];
-}
-CONFIG::FP10{
             _parameters = new Vector.<ParameterRef>();
-}
             _parameterMap = {};
 
             var parameterRef:ParameterRef = null;

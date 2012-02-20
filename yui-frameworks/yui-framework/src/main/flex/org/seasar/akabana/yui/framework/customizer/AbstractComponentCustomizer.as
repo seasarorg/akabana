@@ -15,9 +15,7 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
-    CONFIG::FP10 {
-        import __AS3__.vec.Vector;
-    }
+    import __AS3__.vec.Vector;
 
     import flash.errors.IllegalOperationError;
 
@@ -37,12 +35,7 @@ package org.seasar.akabana.yui.framework.customizer
 
         protected function setPropertiesValue(target:Object,varClassName:String,value:Object):void {
             const targetClassRef:ClassRef = getClassRef(target);
-            CONFIG::FP9 {
-                const propertyRefs:Array = targetClassRef.getPropertyRefByType(varClassName);
-            }
-            CONFIG::FP10 {
-                const propertyRefs:Vector.<PropertyRef> = targetClassRef.getPropertyRefByType(varClassName);
-            }
+            const propertyRefs:Vector.<PropertyRef> = targetClassRef.getPropertyRefByType(varClassName);
             
             if(propertyRefs != null) {
                 for each(var propertyRef:PropertyRef in propertyRefs) {

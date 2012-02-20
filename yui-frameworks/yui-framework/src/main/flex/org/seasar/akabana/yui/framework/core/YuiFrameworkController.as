@@ -15,13 +15,11 @@
 */
 package org.seasar.akabana.yui.framework.core
 {
-    CONFIG::FP10{
-        import __AS3__.vec.Vector;
-    }
-    
     CONFIG::UNCAUGHT_ERROR_GLOBAL{
         import flash.events.UncaughtErrorEvent;
     }
+
+    import __AS3__.vec.Vector;    
     
     import flash.events.Event;
     import flash.errors.IllegalOperationError;
@@ -506,7 +504,9 @@ package org.seasar.akabana.yui.framework.core
         }
         
         yui_internal function systemManagerMonitoringStart( root:DisplayObject ):void{
-            Logging.initialize();
+            CONFIG::DEBUG{
+                Logging.initialize();
+            }
             root.addEventListener(
                 FlexEvent.INIT_COMPLETE,
                 application_initCompleteHandler,

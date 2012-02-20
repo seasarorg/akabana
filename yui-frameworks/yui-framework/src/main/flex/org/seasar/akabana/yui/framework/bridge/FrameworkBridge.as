@@ -15,9 +15,8 @@
  */
 package org.seasar.akabana.yui.framework.bridge
 {
-CONFIG::FP10{
     import __AS3__.vec.Vector;
-}
+
     import flash.errors.IllegalOperationError;
     import flash.display.DisplayObjectContainer;
     import flash.display.DisplayObject;
@@ -85,15 +84,8 @@ CONFIG::FP10{
             return _plugin.getDocumentOf(component);
         }
         
-CONFIG::FP9{
-        public function getChildren(component:DisplayObjectContainer):Array{
-            return _plugin.getChildren(component);
-        }
-}
-CONFIG::FP10{
         public function getChildren(component:DisplayObjectContainer):Vector.<DisplayObject>{
             return _plugin.getChildren(component);
         }
-}
     }
 }

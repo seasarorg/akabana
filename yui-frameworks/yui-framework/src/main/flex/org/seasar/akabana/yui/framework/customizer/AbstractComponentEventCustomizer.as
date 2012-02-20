@@ -171,100 +171,48 @@ CONFIG::UNCAUGHT_ERROR_GLOBAL {
             return func_ as Function;
         }
 
-        CONFIG::FP9 {
-            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Array,priority:int):void {
-                var eventName:String;
-                var enhancedEventName:String;
-                var enhancedFunction:Function;
+        protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Vector.<FunctionRef>,priority:int):void {
+            var eventName:String;
+            var enhancedEventName:String;
+            var enhancedFunction:Function;
 
-                for each(var functionRef:FunctionRef in functionRefs) {
-                    eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName,listener);
-                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
+            for each(var functionRef:FunctionRef in functionRefs) {
+                eventName = getEventName(functionRef,componentName);
+                enhancedEventName = getEnhancedEventName(componentName,eventName,listener);
+                enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
 
-                    if(enhancedFunction != null) {
-                        continue;
-                    }
+                if(enhancedFunction != null) {
+                    continue;
+                }
 
-                    if(functionRef.parameters.length > 0) {
-                        enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(listener));
-                    } else {
-                        enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(listener));
-                    }
-                    addEventListener(component,eventName,enhancedFunction,priority);
-                    storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
+                if(functionRef.parameters.length > 0) {
+                    enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(listener));
+                } else {
+                    enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(listener));
+                }
+                addEventListener(component,eventName,enhancedFunction,priority);
+                storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
+                CONFIG::DEBUG {
+                    _debug("Event_AddEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,getCanonicalName(listener),functionRef.name);
+                }
+            }
+        }
+
+        protected function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Vector.<FunctionRef>):void {
+            var eventName:String;
+            var enhancedEventName:String;
+            var enhancedFunction:Function;
+
+            for each(var functionRef:FunctionRef in functionRefs) {
+                eventName = getEventName(functionRef,componentName);
+                enhancedEventName = getEnhancedEventName(componentName,eventName,listener);
+                enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
+
+                if(enhancedFunction != null) {
+                    component.removeEventListener(eventName,enhancedFunction);
+                    removeEnhancedEventHandler(view,enhancedEventName);
                     CONFIG::DEBUG {
-                        _debug("Event_AddEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,getCanonicalName(listener),functionRef.name);
-                    }
-                }
-            }
-        }
-        CONFIG::FP10 {
-            protected function doCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Vector.<FunctionRef>,priority:int):void {
-                var eventName:String;
-                var enhancedEventName:String;
-                var enhancedFunction:Function;
-
-                for each(var functionRef:FunctionRef in functionRefs) {
-                    eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName,listener);
-                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
-
-                    if(enhancedFunction != null) {
-                        continue;
-                    }
-
-                    if(functionRef.parameters.length > 0) {
-                        enhancedFunction = createEnhancedEventHandler(view,functionRef.getFunction(listener));
-                    } else {
-                        enhancedFunction = createEnhancedEventNoneHandler(view,functionRef.getFunction(listener));
-                    }
-                    addEventListener(component,eventName,enhancedFunction,priority);
-                    storeEnhancedEventHandler(view,enhancedEventName,enhancedFunction);
-                    CONFIG::DEBUG {
-                        _debug("Event_AddEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.name : componentName,eventName,getCanonicalName(listener),functionRef.name);
-                    }
-                }
-            }
-        }
-        CONFIG::FP9 {
-            protected function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Array):void {
-                var eventName:String;
-                var enhancedEventName:String;
-                var enhancedFunction:Function;
-
-                for each(var functionRef:FunctionRef in functionRefs) {
-                    eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName,listener);
-                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
-
-                    if(enhancedFunction != null) {
-                        component.removeEventListener(eventName,enhancedFunction);
-                        removeEnhancedEventHandler(view,enhancedEventName);
-                        CONFIG::DEBUG {
-                            _debug("Event_RemoveEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,getCanonicalName(listener),functionRef.name);
-                        }
-                    }
-                }
-            }
-        }
-        CONFIG::FP10 {
-            protected function doUnCustomizingByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,listener:Object,functionRefs:Vector.<FunctionRef>):void {
-                var eventName:String;
-                var enhancedEventName:String;
-                var enhancedFunction:Function;
-
-                for each(var functionRef:FunctionRef in functionRefs) {
-                    eventName = getEventName(functionRef,componentName);
-                    enhancedEventName = getEnhancedEventName(componentName,eventName,listener);
-                    enhancedFunction = getEnhancedEventHandler(view,enhancedEventName);
-
-                    if(enhancedFunction != null) {
-                        component.removeEventListener(eventName,enhancedFunction);
-                        removeEnhancedEventHandler(view,enhancedEventName);
-                        CONFIG::DEBUG {
-                            _debug("Event_RemoveEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,getCanonicalName(listener),functionRef.name);
-                        }
+                        _debug("Event_RemoveEventListener",getCanonicalName(view),componentName == YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix() ? view.toString() : componentName,eventName,getCanonicalName(listener),functionRef.name);
                     }
                 }
             }

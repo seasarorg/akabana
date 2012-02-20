@@ -15,9 +15,8 @@
  */
 package org.seasar.akabana.yui.framework.core.mixin
 {
-CONFIG::FP10{
     import __AS3__.vec.Vector;
-}
+
     import flash.net.registerClassAlias;
     import flash.display.DisplayObject;
 
@@ -40,7 +39,6 @@ CONFIG::FP10{
      */
     public final class YuiFrameworkMixin
     {
-
         private static var _this:YuiFrameworkMixin;
 
         private static var _container:YuiFrameworkController;

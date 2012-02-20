@@ -15,23 +15,16 @@
  */
 package org.seasar.akabana.yui.core.reflection
 {
-CONFIG::FP10{
     import __AS3__.vec.Vector;
-}
 
     [ExcludeClass]
     public interface IAnnotatedReflector extends IReflector {
-CONFIG::FP9{
-        function get metadatas():Array;
-}
-CONFIG::FP10{
+
         function get metadatas():Vector.<MetadataRef>;
-}
 
         function hasMetadata( metadata:String ):Boolean;
 
         function getMetadata( metadata:String ):MetadataRef;
-
 
     }
 }

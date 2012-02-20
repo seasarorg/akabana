@@ -15,9 +15,8 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
-    CONFIG::FP10 {
-        import __AS3__.vec.Vector;
-    }
+    import __AS3__.vec.Vector;
+
     import mx.core.UIComponent;
     
     import org.seasar.akabana.yui.core.reflection.ClassRef;
@@ -138,22 +137,12 @@ package org.seasar.akabana.yui.framework.customizer
             const viewClassName:String = getCanonicalName(container);
             const targetClassRef:ClassRef = getClassRef(obj);
             const helperMap:Object = viewProperties[NamingConvention.HELPER];
-            CONFIG::FP9 {
-                const props:Array =
-                    targetClassRef.properties.filter(
-                        function(item:*,index:int,array:Array):Boolean {
-                            return ( YuiFrameworkGlobals.namingConvention.isHelperOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
-                        }
-                    );
-            }
-            CONFIG::FP10 {
-                const props:Vector.<PropertyRef> =
-                    targetClassRef.properties.filter(
-                        function(item:*,index:int,array:Vector.<PropertyRef>):Boolean {
-                            return ( YuiFrameworkGlobals.namingConvention.isHelperOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
-                        }
-                    );
-            }
+            const props:Vector.<PropertyRef> =
+                targetClassRef.properties.filter(
+                    function(item:*,index:int,array:Vector.<PropertyRef>):Boolean {
+                        return ( YuiFrameworkGlobals.namingConvention.isHelperOfView( viewClassName, (item as PropertyRef).typeClassRef.name ));
+                    }
+                );
             
             var helper:Object;
             var helperClassRef:ClassRef;
@@ -179,12 +168,7 @@ package org.seasar.akabana.yui.framework.customizer
 
         private function setViewParts(container:UIComponent,helperClassRef:ClassRef,helper:Object):void{
             const ns:Namespace = viewpart;
-            CONFIG::FP9 {
-                const helperProps:Array = helperClassRef.properties;
-            }
-            CONFIG::FP10 {
-                const helperProps:Vector.<PropertyRef> = helperClassRef.properties;
-            }
+            const helperProps:Vector.<PropertyRef> = helperClassRef.properties;
             
             for each(var helperProp:PropertyRef in helperProps) {
                 if( helperProp.uri == ns.uri){

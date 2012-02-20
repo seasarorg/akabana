@@ -15,9 +15,8 @@
  */
 package org.seasar.akabana.yui.framework.customizer
 {
-    CONFIG::FP10 {
-        import __AS3__.vec.Vector;
-    }
+    import __AS3__.vec.Vector;
+
     import flash.events.IEventDispatcher;
     import mx.core.IMXMLObject;
     import mx.core.UIComponent;
@@ -50,34 +49,18 @@ package org.seasar.akabana.yui.framework.customizer
                 CONFIG::DEBUG {
                     _debug("Customizing",ownerName+"#"+componentName,actionClassRef.name);
                 }
-                CONFIG::FP9 {
-                    doCustomizingByComponent(
-                        owner,
-                        componentName,
-                        component,
-                        ownerAction_,
-                        actionClassRef.functions.filter(
-                            function(item:*,index:int,array:Array):Boolean {
-                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                            }
-                        ),
-                        int.MAX_VALUE>>1
-                    );
-                }
-                CONFIG::FP10 {
-                    doCustomizingByComponent(
-                        owner,
-                        componentName,
-                        component,
-                        ownerAction_,
-                        actionClassRef.functions.filter(
-                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                            }
-                        ),
-                        int.MAX_VALUE>>1
-                    );
-                }
+                doCustomizingByComponent(
+                    owner,
+                    componentName,
+                    component,
+                    ownerAction_,
+                    actionClassRef.functions.filter(
+                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                        }
+                    ),
+                    int.MAX_VALUE>>1
+                );
                 CONFIG::DEBUG {
                     _debug("Customized",ownerName+"#"+componentName,actionClassRef.name);
                 }
@@ -92,34 +75,18 @@ package org.seasar.akabana.yui.framework.customizer
                     CONFIG::DEBUG {
                         _debug("Customizing",ownerClassName+"#"+componentName,behaviorClassRef.name);
                     }
-                    CONFIG::FP9 {
-                        doCustomizingByComponent(
-                            owner,
-                            componentName,
-                            component,
-                            ownerBehavior_,
-                            behaviorClassRef.functions.filter(
-                                function(item:*,index:int,array:Array):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                }
-                            ),
-                            0
-                        );
-                    }
-                    CONFIG::FP10 {
-                        doCustomizingByComponent(
-                            owner,
-                            componentName,
-                            component,
-                            ownerBehavior_,
-                            behaviorClassRef.functions.filter(
-                                function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                }
-                            ),
-                            0
-                        );
-                    }
+                    doCustomizingByComponent(
+                        owner,
+                        componentName,
+                        component,
+                        ownerBehavior_,
+                        behaviorClassRef.functions.filter(
+                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                            }
+                        ),
+                        0
+                    );
                     CONFIG::DEBUG {
                         _debug("Customized",ownerClassName+"#"+componentName,behaviorClassRef.name);
                     }
@@ -181,32 +148,17 @@ package org.seasar.akabana.yui.framework.customizer
                 CONFIG::DEBUG {
                     _debug("Uncustomizing",ownerClassName+"#"+componentName,actionClassRef.name);
                 }
-                CONFIG::FP9 {
-                    doUnCustomizingByComponent(
-                        owner,
-                        componentName,
-                        component,
-                        ownerAction_,
-                        actionClassRef.functions.filter(
-                            function(item:*,index:int,array:Array):Boolean {
-                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                            }
-                        )
-                    );
-                }
-                CONFIG::FP10 {
-                    doUnCustomizingByComponent(
-                        owner,
-                        componentName,
-                        component,
-                        ownerAction_,
-                        actionClassRef.functions.filter(
-                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                            }
-                        )
-                    );
-                }
+                doUnCustomizingByComponent(
+                    owner,
+                    componentName,
+                    component,
+                    ownerAction_,
+                    actionClassRef.functions.filter(
+                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                            return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                        }
+                    )
+                );
                 CONFIG::DEBUG {
                     _debug("Uncustomized",ownerClassName+"#"+componentName,actionClassRef.name);
                 }
@@ -221,32 +173,17 @@ package org.seasar.akabana.yui.framework.customizer
                     CONFIG::DEBUG {
                         _debug("Uncustomizing",ownerClassName+"#"+componentName,behaviorClassRef.name);
                     }
-                    CONFIG::FP9 {
-                        doUnCustomizingByComponent(
-                            owner,
-                            componentName,
-                            component,
-                            ownerBehavior_,
-                            behaviorClassRef.functions.filter(
-                                function(item:*,index:int,array:Array):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                }
-                            )
-                        );
-                    }
-                    CONFIG::FP10 {
-                        doUnCustomizingByComponent(
-                            owner,
-                            componentName,
-                            component,
-                            ownerBehavior_,
-                            behaviorClassRef.functions.filter(
-                                function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(componentName) == 0);
-                                }
-                            )
-                        );
-                    }
+                    doUnCustomizingByComponent(
+                        owner,
+                        componentName,
+                        component,
+                        ownerBehavior_,
+                        behaviorClassRef.functions.filter(
+                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                return ((item as FunctionRef).name.indexOf(componentName) == 0);
+                            }
+                        )
+                    );
                     CONFIG::DEBUG {
                         _debug("Uncustomized",ownerClassName+"#"+componentName,behaviorClassRef.name);
                     }
@@ -296,12 +233,7 @@ package org.seasar.akabana.yui.framework.customizer
         protected function doCustomize(container:UIComponent,action:Object,priority:int = int.MAX_VALUE):void {    
             const actionClassRef:ClassRef = getClassRef(action);
             //for children
-            CONFIG::FP9 {
-                var props:Array = getClassRef(container).properties;
-            }
-            CONFIG::FP10 {
-                var props:Vector.<PropertyRef> = getClassRef(container).properties;
-            }
+            const props:Vector.<PropertyRef> = getClassRef(container).properties;
             
             var child:Object;
             for each(var prop:PropertyRef in props) {
@@ -310,115 +242,57 @@ package org.seasar.akabana.yui.framework.customizer
                 if(child != null &&
                                 child is IEventDispatcher &&
                                 (child is IUIComponent || child is IMXMLObject || child is IEffect)) {
-                    CONFIG::FP9 {
-                        doCustomizeByComponent(
-                                        container,
-                                        prop.name,
-                                        child as IEventDispatcher,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Array):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                        }
-                                        ),
-                                        priority
-                                        );
-                    }
-                    CONFIG::FP10 {
-                        doCustomizeByComponent(
-                                        container,
-                                        prop.name,
-                                        child as IEventDispatcher,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                        }
-                                        ),
-                                        priority
-                                        );
-                    }
+                    doCustomizeByComponent(
+                                    container,
+                                    prop.name,
+                                    child as IEventDispatcher,
+                                    action,
+                                    actionClassRef.functions.filter(
+                                    function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                        return ((item as FunctionRef).name.indexOf(prop.name) == 0);
+                                    }
+                                    ),
+                                    priority
+                                    );
                 }
             }
             //for self
-            CONFIG::FP9 {
-                doCustomizeByComponent(
-                                container,
-                                null,
-                                null,
-                                action,
-                                actionClassRef.functions.filter(
-                                function(item:*,index:int,array:Array):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
-                                }
-                                ),
-                                priority
-                                );
-            }
-            CONFIG::FP10 {
-                doCustomizeByComponent(
-                                container,
-                                null,
-                                null,
-                                action,
-                                actionClassRef.functions.filter(
-                                function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
-                                }
-                                ),
-                                priority
-                                );
-            }
+            doCustomizeByComponent(
+                            container,
+                            null,
+                            null,
+                            action,
+                            actionClassRef.functions.filter(
+                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
+                            }
+                            ),
+                            priority
+                            );
         }
 
-        CONFIG::FP9 {
-            protected function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array,priority:int):void {
-                var componentName:String;
+        protected function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>,priority:int):void {
+            var componentName:String;
 
-                if(componentName != null) {
-                    if(component == null) {
-                        if(view.hasOwnProperty(componentName)) {
-                            component = view[componentName] as IEventDispatcher;
-                        } else {
-                            component = view.getChildByName(componentName) as IEventDispatcher;
-                        }
+            if(componentName != null) {
+                if(component == null) {
+                    if(view.hasOwnProperty(componentName)) {
+                        component = view[componentName] as IEventDispatcher;
+                    } else {
+                        component = view.getChildByName(componentName) as IEventDispatcher;
                     }
-                } else {
-                    componentName = YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix();
-                    component = view;
                 }
-                doCustomizingByComponent(view,componentName,component,action,functionRefs,priority);
+            } else {
+                componentName = YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix();
+                component = view;
             }
-        }
-        CONFIG::FP10 {
-            protected function doCustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>,priority:int):void {
-                var componentName:String;
-
-                if(componentName != null) {
-                    if(component == null) {
-                        if(view.hasOwnProperty(componentName)) {
-                            component = view[componentName] as IEventDispatcher;
-                        } else {
-                            component = view.getChildByName(componentName) as IEventDispatcher;
-                        }
-                    }
-                } else {
-                    componentName = YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix();
-                    component = view;
-                }
-                doCustomizingByComponent(view,componentName,component,action,functionRefs,priority);
-            }
+            doCustomizingByComponent(view,componentName,component,action,functionRefs,priority);
         }
 
         protected function doUncustomize(container:UIComponent,action:Object):void {
             const actionClassRef:ClassRef = getClassRef(action);
             //for children
-            CONFIG::FP9 {
-                const props:Array = getClassRef(container).properties;
-            }
-            CONFIG::FP10 {
-                const props:Vector.<PropertyRef> = getClassRef(container).properties;
-            }
+            const props:Vector.<PropertyRef> = getClassRef(container).properties;
 
             var child:Object;
             for each(var prop:PropertyRef in props) {
@@ -427,102 +301,50 @@ package org.seasar.akabana.yui.framework.customizer
                 if(child != null &&
                         child is IEventDispatcher &&
                         (child is IUIComponent || child is IMXMLObject || child is IEffect)) {
-                    CONFIG::FP9 {
-                        doUncustomizeByComponent(
-                                        container,
-                                        prop.name,
-                                        child as IEventDispatcher,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Array):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                        }
-                                        )
-                                        );
-                    }
-                    CONFIG::FP10 {
-                        doUncustomizeByComponent(
-                                        container,
-                                        prop.name,
-                                        child as IEventDispatcher,
-                                        action,
-                                        actionClassRef.functions.filter(
-                                        function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                            return ((item as FunctionRef).name.indexOf(prop.name) == 0);
-                                        }
-                                        )
-                                        );
-                    }
+                   doUncustomizeByComponent(
+                                    container,
+                                    prop.name,
+                                    child as IEventDispatcher,
+                                    action,
+                                    actionClassRef.functions.filter(
+                                    function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                        return ((item as FunctionRef).name.indexOf(prop.name) == 0);
+                                    }
+                                    )
+                                    );
                 }
             }
             //for self
-            CONFIG::FP9 {
-                doUncustomizeByComponent(
-                                container,
-                                null,
-                                null,
-                                action,
-                                actionClassRef.functions.filter(
-                                function(item:*,index:int,array:Array):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
-                                }
-                                )
-                                );
-            }
-            CONFIG::FP10 {
-                doUncustomizeByComponent(
-                                container,
-                                null,
-                                null,
-                                action,
-                                actionClassRef.functions.filter(
-                                function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
-                                    return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
-                                }
-                                )
-                                );
-            }
+            doUncustomizeByComponent(
+                            container,
+                            null,
+                            null,
+                            action,
+                            actionClassRef.functions.filter(
+                            function(item:*,index:int,array:Vector.<FunctionRef>):Boolean {
+                                return ((item as FunctionRef).name.indexOf(YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix()) == 0);
+                            }
+                            )
+                            );
         }
 
-        CONFIG::FP9 {
-            protected function doUncustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Array):void {
-                var componentName:String;
+        protected function doUncustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
+            var componentName:String;
+            var component:IEventDispatcher;
 
-                if(componentName != null) {
-                    if(component == null) {
-                        if(view.hasOwnProperty(componentName)) {
-                            component = view[componentName] as IEventDispatcher;
-                        } else {
-                            component = view.getChildByName(componentName) as IEventDispatcher;
-                        }
+            if(componentName != null) {
+                if(component == null) {
+                    if(view.hasOwnProperty(componentName)) {
+                        component = view[componentName] as IEventDispatcher;
+                    } else {
+                        component = view.getChildByName(componentName) as IEventDispatcher;
                     }
-                } else {
-                    componentName = YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix();
-                    component = view;
                 }
-                doUnCustomizingByComponent(view,componentName,component,action,functionRefs);
+            } else {
+                componentName = YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix();
+                component = view;
             }
+            doUnCustomizingByComponent(view,componentName,component,action,functionRefs);
         }
-        CONFIG::FP10 {
-            protected function doUncustomizeByComponent(view:UIComponent,componentName:String,component:IEventDispatcher,action:Object,functionRefs:Vector.<FunctionRef>):void {
-                var componentName:String;
-                var component:IEventDispatcher;
-
-                if(componentName != null) {
-                    if(component == null) {
-                        if(view.hasOwnProperty(componentName)) {
-                            component = view[componentName] as IEventDispatcher;
-                        } else {
-                            component = view.getChildByName(componentName) as IEventDispatcher;
-                        }
-                    }
-                } else {
-                    componentName = YuiFrameworkGlobals.namingConvention.getOwnHandlerPrefix();
-                    component = view;
-                }
-                doUnCustomizingByComponent(view,componentName,component,action,functionRefs);
-            }
-        }
-
     }
 }
