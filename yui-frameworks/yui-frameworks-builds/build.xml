@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="all">
     <!-- -->
-    <target name="all" depends="flex3,flex45,logging,rb">
-    </target>
-    <target name="flex3">
-        <ant antfile="build-fx3.xml"/>
+    <target name="all" depends="flex45,logging,rb">
     </target>
     <target name="flex45">
         <ant antfile="build-fx45.xml"/>
@@ -17,20 +14,6 @@
     </target>
     <target name="distAll">
         <property file="build.properties" />
-        <!-- -->
-        <dist libname="fx3/yui-frameworks-fx3-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="fx3/yui-frameworks-fx3-fp9" libver="${LIB_VERSION}"  />
-        <dist libname="fx3/yui-frameworks-fx3-ds-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="fx3/yui-frameworks-fx3-ds-fp9" libver="${LIB_VERSION}"  />
-        <dist libname="fx3/yui-frameworks-fx3-rpc-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="fx3/yui-frameworks-fx3-rpc-fp9" libver="${LIB_VERSION}"  />
-        <!-- -->
-        <dist libname="fx3/yui-frameworks-fx3-air-fp10" libver="${LIB_VERSION}" />
-        <dist libname="fx3/yui-frameworks-fx3-air-fp9" libver="${LIB_VERSION}" />
-        <dist libname="fx3/yui-frameworks-fx3-airds-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="fx3/yui-frameworks-fx3-airds-fp9" libver="${LIB_VERSION}"  />
-        <dist libname="fx3/yui-frameworks-fx3-airrpc-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="fx3/yui-frameworks-fx3-airrpc-fp9" libver="${LIB_VERSION}"  />
         <!-- -->
         <dist libname="fx45/yui-frameworks-fx4-fp10" libver="${LIB_VERSION}"  />
         <dist libname="fx45/yui-frameworks-fx4-ds-fp10" libver="${LIB_VERSION}"  />
