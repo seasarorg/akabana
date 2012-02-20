@@ -1,4 +1,4 @@
-@namespace yui "http://yui.akabana.seasar.org/1.0";
+@namespace yui "http://yui.akabana.seasar.org/2.0";
 
 yui|YuiFrameworkSettings {
     namingConventionClass:ClassReference("org.seasar.akabana.yui.framework.convention.Flex4NamingConvention");
