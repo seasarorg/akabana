@@ -1,8 +1,8 @@
 
 .customizers{
-    c10:ClassReference("org.seasar.akabana.yui.framework.customizer.ActionCustomizer");
-    c20:ClassReference("org.seasar.akabana.yui.framework.customizer.BehaviorCustomizer");
-    c25:ClassReference("org.seasar.akabana.yui.framework.customizer.CommandCustomizer");
-    c30:ClassReference("org.seasar.akabana.yui.framework.customizer.HelperCustomizer");
-    c40:ClassReference("org.seasar.akabana.yui.framework.customizer.EventHandlerCustomizer");
+    c10:ClassReference("net.akb7.yui.customizer.ActionCustomizer");
+    c20:ClassReference("net.akb7.yui.customizer.BehaviorCustomizer");
+    c25:ClassReference("net.akb7.yui.customizer.CommandCustomizer");
+    c30:ClassReference("net.akb7.yui.customizer.HelperCustomizer");
+    c40:ClassReference("net.akb7.yui.customizer.EventHandlerCustomizer");
 }
