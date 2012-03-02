@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
-    <classEntry path="net.akb7.yui.air.core.Window"/>
-    <classEntry path="net.akb7.yui.air.YuiWindowedApplication"/>
+    <classEntry path="jp.akb7.yui.air.core.Window"/>
+    <classEntry path="jp.akb7.yui.air.YuiWindowedApplication"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests>
-    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akb7.net/2.0"/>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akb7.jp/2.0"/>
   </namespaceManifests>
 </flexLibProperties>

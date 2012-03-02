@@ -1,7 +1,7 @@
-@namespace yui "http://yui.akb7.net/2.0";
-@namespace core "net.akb7.yui.core.*";
+@namespace yui "http://yui.akb7.jp/2.0";
+@namespace core "jp.akb7.yui.core.*";
 
 core|YuiFrameworkSettings {
-    namingConventionClass:ClassReference("net.akb7.yui.convention.Flex4NamingConvention");
-    frameworkBridgePlugin:ClassReference("net.akb7.yui.bridge.Flex4FrameworkBridgePlugin");
+    namingConventionClass:ClassReference("jp.akb7.yui.convention.Flex4NamingConvention");
+    frameworkBridgePlugin:ClassReference("jp.akb7.yui.bridge.Flex4FrameworkBridgePlugin");
 }

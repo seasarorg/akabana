@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
-    <classEntry path="net.akb7.yui.rpc.AbstractRpcOperation"/>
-    <classEntry path="net.akb7.yui.rpc.AbstractRpcService"/>
-    <classEntry path="net.akb7.yui.rpc.RemotingConnection"/>
-    <classEntry path="net.akb7.yui.rpc.RemotingConnectionFactory"/>
-    <classEntry path="net.akb7.yui.rpc.RemotingOperation"/>
-    <classEntry path="net.akb7.yui.rpc.RemotingService"/>
-    <classEntry path="net.akb7.yui.rpc.RpcPendingCall"/>
-    <classEntry path="net.akb7.yui.rpc.local.LocalOperation"/>
-    <classEntry path="net.akb7.yui.rpc.responder.AbstractRpcEventResponder"/>
-    <classEntry path="net.akb7.yui.rpc.responder.RpcDefaultEventResponder"/>
-    <classEntry path="net.akb7.yui.rpc.responder.RpcNoneResponder"/>
-    <classEntry path="net.akb7.yui.rpc.responder.RpcObjectResponder"/>
-    <classEntry path="net.akb7.yui.rpc.responder.IRpcResponder"/>
-    <classEntry path="net.akb7.yui.rpc.responder.RpcResponderFactory"/>
+    <classEntry path="jp.akb7.yui.rpc.AbstractRpcOperation"/>
+    <classEntry path="jp.akb7.yui.rpc.AbstractRpcService"/>
+    <classEntry path="jp.akb7.yui.rpc.RemotingConnection"/>
+    <classEntry path="jp.akb7.yui.rpc.RemotingConnectionFactory"/>
+    <classEntry path="jp.akb7.yui.rpc.RemotingOperation"/>
+    <classEntry path="jp.akb7.yui.rpc.RemotingService"/>
+    <classEntry path="jp.akb7.yui.rpc.RpcPendingCall"/>
+    <classEntry path="jp.akb7.yui.rpc.local.LocalOperation"/>
+    <classEntry path="jp.akb7.yui.rpc.responder.AbstractRpcEventResponder"/>
+    <classEntry path="jp.akb7.yui.rpc.responder.RpcDefaultEventResponder"/>
+    <classEntry path="jp.akb7.yui.rpc.responder.RpcNoneResponder"/>
+    <classEntry path="jp.akb7.yui.rpc.responder.RpcObjectResponder"/>
+    <classEntry path="jp.akb7.yui.rpc.responder.IRpcResponder"/>
+    <classEntry path="jp.akb7.yui.rpc.responder.RpcResponderFactory"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
-    <classEntry path="net.akb7.yui.ds.DsPendingCall"/>
-    <classEntry path="net.akb7.yui.ds.HttpService"/>
-    <classEntry path="net.akb7.yui.ds.RemotingService"/>
-    <classEntry path="net.akb7.yui.ds.local.LocalMessage"/>
-    <classEntry path="net.akb7.yui.ds.local.LocalOperation"/>
-    <classEntry path="net.akb7.yui.ds.responder.AbstractRpcEventResponder"/>
-    <classEntry path="net.akb7.yui.ds.responder.RpcDefaultEventResponder"/>
-    <classEntry path="net.akb7.yui.ds.responder.RpcEventResponder"/>
-    <classEntry path="net.akb7.yui.ds.responder.RpcNoneResponder"/>
-    <classEntry path="net.akb7.yui.ds.responder.RpcObjectResponder"/>
-    <classEntry path="net.akb7.yui.ds.responder.RpcResponderFactory"/>
+    <classEntry path="jp.akb7.yui.ds.DsPendingCall"/>
+    <classEntry path="jp.akb7.yui.ds.HttpService"/>
+    <classEntry path="jp.akb7.yui.ds.RemotingService"/>
+    <classEntry path="jp.akb7.yui.ds.local.LocalMessage"/>
+    <classEntry path="jp.akb7.yui.ds.local.LocalOperation"/>
+    <classEntry path="jp.akb7.yui.ds.responder.AbstractRpcEventResponder"/>
+    <classEntry path="jp.akb7.yui.ds.responder.RpcDefaultEventResponder"/>
+    <classEntry path="jp.akb7.yui.ds.responder.RpcEventResponder"/>
+    <classEntry path="jp.akb7.yui.ds.responder.RpcNoneResponder"/>
+    <classEntry path="jp.akb7.yui.ds.responder.RpcObjectResponder"/>
+    <classEntry path="jp.akb7.yui.ds.responder.RpcResponderFactory"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests>
-    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akb7.net/2.0"/>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akb7.jp/2.0"/>
   </namespaceManifests>
 </flexLibProperties>

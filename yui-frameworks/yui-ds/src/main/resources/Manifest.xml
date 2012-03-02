@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <componentPackage>
-    <component id="RemotingService" class="net.akb7.yui.ds.RemotingService"/>
-    <component id="HttpService" class="net.akb7.yui.ds.HttpService"/>
+    <component id="RemotingService" class="jp.akb7.yui.ds.RemotingService"/>
+    <component id="HttpService" class="jp.akb7.yui.ds.HttpService"/>
 </componentPackage>

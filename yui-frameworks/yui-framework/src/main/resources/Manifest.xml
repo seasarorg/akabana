@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <componentPackage>
-   <component id="YuiFrameworkSettings" class="net.akb7.yui.core.YuiFrameworkSettings"/>
+   <component id="YuiFrameworkSettings" class="jp.akb7.yui.core.YuiFrameworkSettings"/>
 </componentPackage>

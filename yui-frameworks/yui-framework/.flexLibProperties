@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
-    <classEntry path="net.akb7.yui.YuiApplicationConsts"/>
-    <classEntry path="net.akb7.yui.YuiFrameworkGlobals"/>
-    <classEntry path="net.akb7.yui.bridge.FrameworkBridge"/>
-    <classEntry path="net.akb7.yui.bridge.IFrameworkBridgePlugin"/>
-    <classEntry path="net.akb7.yui.convention.NamingConvention"/>
-    <classEntry path="net.akb7.yui.core.ILifeCyclable"/>
-    <classEntry path="net.akb7.yui.core.IYuiFrameworkController"/>
-    <classEntry path="net.akb7.yui.core.InstanceCache"/>
-    <classEntry path="net.akb7.yui.core.ViewComponentRepository"/>
-    <classEntry path="net.akb7.yui.core.YuiFrameworkController"/>
-    <classEntry path="net.akb7.yui.core.YuiFrameworkControllerBase"/>
-    <classEntry path="net.akb7.yui.core.YuiFrameworkControllerCore"/>
-    <classEntry path="net.akb7.yui.core.YuiFrameworkSettings"/>
-    <classEntry path="net.akb7.yui.core.mixin.YuiFrameworkMixin"/>
-    <classEntry path="net.akb7.yui.core.rule.IAction"/>
-    <classEntry path="net.akb7.yui.core.rule.IBehavior"/>
-    <classEntry path="net.akb7.yui.core.rule.IHelper"/>
-    <classEntry path="net.akb7.yui.core.rule.IStateful"/>
-    <classEntry path="net.akb7.yui.core.rule.IValidator"/>
-    <classEntry path="net.akb7.yui.core.rule.IVolatileObject"/>
-    <classEntry path="net.akb7.yui.customizer.AbstractComponentCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.AbstractComponentEventCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.AbstractComponentEventListenerCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.ActionCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.BehaviorCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.CommandCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.EventHandlerCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.HelperCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.IComponentCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.IElementCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.IViewCustomizer"/>
-    <classEntry path="net.akb7.yui.customizer.ValidatorCustomizer"/>
-    <classEntry path="net.akb7.yui.error.ComponentDuplicatedRegistrationError"/>
-    <classEntry path="net.akb7.yui.error.YuiFrameworkError"/>
-    <classEntry path="net.akb7.yui.event.RuntimeErrorEvent"/>
-    <classEntry path="net.akb7.yui.event.YuiFrameworkEvent"/>
-    <classEntry path="net.akb7.yui.logging.Logging"/>
-    <classEntry path="net.akb7.yui.logging.SimpleLogger"/>
-    <classEntry path="net.akb7.yui.logging.SimpleLoggerFactory"/>
-    <classEntry path="net.akb7.yui.logging.debug"/>
-    <classEntry path="net.akb7.yui.logging.dump"/>
-    <classEntry path="net.akb7.yui.logging.info"/>
-    <classEntry path="net.akb7.yui.message.MessageManager"/>
-    <classEntry path="net.akb7.yui.message.Messages"/>
-    <classEntry path="net.akb7.yui.ns.action"/>
-    <classEntry path="net.akb7.yui.ns.behavior"/>
-    <classEntry path="net.akb7.yui.ns.helper"/>
-    <classEntry path="net.akb7.yui.ns.viewlogic"/>
-    <classEntry path="net.akb7.yui.ns.viewpart"/>
-    <classEntry path="net.akb7.yui.util.PopUpUtil"/>
-    <classEntry path="net.akb7.yui.util.StyleManagerUtil"/>
-    <classEntry path="net.akb7.yui.util.SystemManagerUtil"/>
-    <classEntry path="net.akb7.yui.util.UIComponentUtil"/>
+    <classEntry path="jp.akb7.yui.YuiApplicationConsts"/>
+    <classEntry path="jp.akb7.yui.YuiFrameworkGlobals"/>
+    <classEntry path="jp.akb7.yui.bridge.FrameworkBridge"/>
+    <classEntry path="jp.akb7.yui.bridge.IFrameworkBridgePlugin"/>
+    <classEntry path="jp.akb7.yui.convention.NamingConvention"/>
+    <classEntry path="jp.akb7.yui.core.ILifeCyclable"/>
+    <classEntry path="jp.akb7.yui.core.IYuiFrameworkController"/>
+    <classEntry path="jp.akb7.yui.core.InstanceCache"/>
+    <classEntry path="jp.akb7.yui.core.ViewComponentRepository"/>
+    <classEntry path="jp.akb7.yui.core.YuiFrameworkController"/>
+    <classEntry path="jp.akb7.yui.core.YuiFrameworkControllerBase"/>
+    <classEntry path="jp.akb7.yui.core.YuiFrameworkControllerCore"/>
+    <classEntry path="jp.akb7.yui.core.YuiFrameworkSettings"/>
+    <classEntry path="jp.akb7.yui.core.mixin.YuiFrameworkMixin"/>
+    <classEntry path="jp.akb7.yui.core.rule.IAction"/>
+    <classEntry path="jp.akb7.yui.core.rule.IBehavior"/>
+    <classEntry path="jp.akb7.yui.core.rule.IHelper"/>
+    <classEntry path="jp.akb7.yui.core.rule.IStateful"/>
+    <classEntry path="jp.akb7.yui.core.rule.IValidator"/>
+    <classEntry path="jp.akb7.yui.core.rule.IVolatileObject"/>
+    <classEntry path="jp.akb7.yui.customizer.AbstractComponentCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.AbstractComponentEventCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.AbstractComponentEventListenerCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.ActionCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.BehaviorCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.CommandCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.EventHandlerCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.HelperCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.IComponentCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.IElementCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.IViewCustomizer"/>
+    <classEntry path="jp.akb7.yui.customizer.ValidatorCustomizer"/>
+    <classEntry path="jp.akb7.yui.error.ComponentDuplicatedRegistrationError"/>
+    <classEntry path="jp.akb7.yui.error.YuiFrameworkError"/>
+    <classEntry path="jp.akb7.yui.event.RuntimeErrorEvent"/>
+    <classEntry path="jp.akb7.yui.event.YuiFrameworkEvent"/>
+    <classEntry path="jp.akb7.yui.logging.Logging"/>
+    <classEntry path="jp.akb7.yui.logging.SimpleLogger"/>
+    <classEntry path="jp.akb7.yui.logging.SimpleLoggerFactory"/>
+    <classEntry path="jp.akb7.yui.logging.debug"/>
+    <classEntry path="jp.akb7.yui.logging.dump"/>
+    <classEntry path="jp.akb7.yui.logging.info"/>
+    <classEntry path="jp.akb7.yui.message.MessageManager"/>
+    <classEntry path="jp.akb7.yui.message.Messages"/>
+    <classEntry path="jp.akb7.yui.ns.action"/>
+    <classEntry path="jp.akb7.yui.ns.behavior"/>
+    <classEntry path="jp.akb7.yui.ns.helper"/>
+    <classEntry path="jp.akb7.yui.ns.viewlogic"/>
+    <classEntry path="jp.akb7.yui.ns.viewpart"/>
+    <classEntry path="jp.akb7.yui.util.PopUpUtil"/>
+    <classEntry path="jp.akb7.yui.util.StyleManagerUtil"/>
+    <classEntry path="jp.akb7.yui.util.SystemManagerUtil"/>
+    <classEntry path="jp.akb7.yui.util.UIComponentUtil"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="locale/en_US/errors.properties" sourcePath="locale/en_US/errors.properties"/>
@@ -67,6 +67,6 @@
     <resourceEntry destPath="locale/ja_JP/application.properties" sourcePath="locale/ja_JP/application.properties"/>
   </includeResources>
   <namespaceManifests>
-    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akb7.net/2.0"/>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akb7.jp/2.0"/>
   </namespaceManifests>
 </flexLibProperties>

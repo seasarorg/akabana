@@ -17,7 +17,7 @@ package
 {
     import flash.events.Event;
     import flash.events.IEventDispatcher;
-    import net.akb7.yui.core.event.NotificationEvent;
+    import jp.akb7.yui.core.event.NotificationEvent;
 
     /**
      * 指定されたターゲットに対して通知を送ります。

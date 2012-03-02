@@ -15,7 +15,7 @@
 */
 package
 {
-    import net.akb7.yui.core.reflection.ClassRef;
+    import jp.akb7.yui.core.reflection.ClassRef;
 
     public function getClassRef(target:Object):ClassRef{
         return ClassRef.getInstance(target);

@@ -1,9 +1,9 @@
 
 .customizers{
-    c10:ClassReference("net.akb7.yui.customizer.ActionCustomizer");
-    c20:ClassReference("net.akb7.yui.customizer.BehaviorCustomizer");
-    c25:ClassReference("net.akb7.yui.customizer.CommandCustomizer");
-    c30:ClassReference("net.akb7.yui.customizer.HelperCustomizer");
-    c35:ClassReference("net.akb7.yui.customizer.ValidatorCustomizer");
-    c40:ClassReference("net.akb7.yui.customizer.EventHandlerCustomizer");
+    c10:ClassReference("jp.akb7.yui.customizer.ActionCustomizer");
+    c20:ClassReference("jp.akb7.yui.customizer.BehaviorCustomizer");
+    c25:ClassReference("jp.akb7.yui.customizer.CommandCustomizer");
+    c30:ClassReference("jp.akb7.yui.customizer.HelperCustomizer");
+    c35:ClassReference("jp.akb7.yui.customizer.ValidatorCustomizer");
+    c40:ClassReference("jp.akb7.yui.customizer.EventHandlerCustomizer");
 }

@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
-    <classEntry path="net.akb7.yui.framework.customizer.ServiceCustomizer"/>
-    <classEntry path="net.akb7.yui.service.IManagedService"/>
-    <classEntry path="net.akb7.yui.service.IOperation"/>
-    <classEntry path="net.akb7.yui.service.IPendingCall"/>
-    <classEntry path="net.akb7.yui.service.OperationCallBack"/>
-    <classEntry path="net.akb7.yui.service.IService"/>
-    <classEntry path="net.akb7.yui.service.ServiceGatewayUrlResolver"/>
-    <classEntry path="net.akb7.yui.service.ServiceManager"/>
-    <classEntry path="net.akb7.yui.service.ServiceMethod"/>
-    <classEntry path="net.akb7.yui.service.error.ErrorCode"/>
-    <classEntry path="net.akb7.yui.service.error.IllegalDestinationError"/>
-    <classEntry path="net.akb7.yui.service.error.IllegalGatewayError"/>
-    <classEntry path="net.akb7.yui.service.error.IllegalOperationError"/>
-    <classEntry path="net.akb7.yui.service.event.AbstractServiceEvent"/>
-    <classEntry path="net.akb7.yui.service.event.FaultEvent"/>
-    <classEntry path="net.akb7.yui.service.event.FaultStatus"/>
-    <classEntry path="net.akb7.yui.service.event.InvokeEvent"/>
-    <classEntry path="net.akb7.yui.service.event.ResultEvent"/>
-    <classEntry path="net.akb7.yui.service.local.LocalServiceInvoker"/>
-    <classEntry path="net.akb7.yui.service.ns.rpc_fault"/>
-    <classEntry path="net.akb7.yui.service.ns.rpc_result"/>
-    <classEntry path="net.akb7.yui.service.ns.service"/>
-    <classEntry path="net.akb7.yui.service.resonder.AbstractServiceResponder"/>
-    <classEntry path="net.akb7.yui.service.resonder.IServiceResponder"/>
-    <classEntry path="net.akb7.yui.service.resonder.ServiceResponderFactory"/>
+    <classEntry path="jp.akb7.yui.framework.customizer.ServiceCustomizer"/>
+    <classEntry path="jp.akb7.yui.service.IManagedService"/>
+    <classEntry path="jp.akb7.yui.service.IOperation"/>
+    <classEntry path="jp.akb7.yui.service.IPendingCall"/>
+    <classEntry path="jp.akb7.yui.service.OperationCallBack"/>
+    <classEntry path="jp.akb7.yui.service.IService"/>
+    <classEntry path="jp.akb7.yui.service.ServiceGatewayUrlResolver"/>
+    <classEntry path="jp.akb7.yui.service.ServiceManager"/>
+    <classEntry path="jp.akb7.yui.service.ServiceMethod"/>
+    <classEntry path="jp.akb7.yui.service.error.ErrorCode"/>
+    <classEntry path="jp.akb7.yui.service.error.IllegalDestinationError"/>
+    <classEntry path="jp.akb7.yui.service.error.IllegalGatewayError"/>
+    <classEntry path="jp.akb7.yui.service.error.IllegalOperationError"/>
+    <classEntry path="jp.akb7.yui.service.event.AbstractServiceEvent"/>
+    <classEntry path="jp.akb7.yui.service.event.FaultEvent"/>
+    <classEntry path="jp.akb7.yui.service.event.FaultStatus"/>
+    <classEntry path="jp.akb7.yui.service.event.InvokeEvent"/>
+    <classEntry path="jp.akb7.yui.service.event.ResultEvent"/>
+    <classEntry path="jp.akb7.yui.service.local.LocalServiceInvoker"/>
+    <classEntry path="jp.akb7.yui.service.ns.rpc_fault"/>
+    <classEntry path="jp.akb7.yui.service.ns.rpc_result"/>
+    <classEntry path="jp.akb7.yui.service.ns.service"/>
+    <classEntry path="jp.akb7.yui.service.resonder.AbstractServiceResponder"/>
+    <classEntry path="jp.akb7.yui.service.resonder.IServiceResponder"/>
+    <classEntry path="jp.akb7.yui.service.resonder.ServiceResponderFactory"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>

@@ -15,7 +15,7 @@
 */
 package
 {
-    import net.akb7.yui.core.data.Converter;
+    import jp.akb7.yui.core.data.Converter;
 
     public function convert(value:Object,toClass:Class):*{
         return Converter.getInstanceBy().convert(value,toClass);
