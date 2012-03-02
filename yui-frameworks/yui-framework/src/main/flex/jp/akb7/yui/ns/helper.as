@@ -15,5 +15,5 @@
  */
 package jp.akb7.yui.ns
 {
-    public namespace helper = "http://yui.akb7.jp/framework/helper";
+    public namespace helper = "http://akb7.jp/yui/framework/helper";
 }

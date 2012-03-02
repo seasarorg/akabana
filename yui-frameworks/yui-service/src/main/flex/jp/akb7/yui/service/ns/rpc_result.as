@@ -15,6 +15,6 @@
 */
 package jp.akb7.yui.service.ns
 {
-    public namespace rpc_result = "http://yui.akb7.jp/service/rpc/result";
+    public namespace rpc_result = "http://akb7.jp/yui/service/rpc/result";
 
 }

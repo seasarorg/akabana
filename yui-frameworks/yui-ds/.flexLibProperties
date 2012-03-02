@@ -15,6 +15,6 @@
   </includeClasses>
   <includeResources/>
   <namespaceManifests>
-    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://yui.akb7.jp/2.0"/>
+    <namespaceManifestEntry manifest="../resources/Manifest.xml" namespace="http://akb7.jp/yui/2.0"/>
   </namespaceManifests>
 </flexLibProperties>

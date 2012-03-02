@@ -16,5 +16,5 @@
 package jp.akb7.yui.core.ns
 {
 [Exclude]
-public namespace yui_internal = "http://yui.akb7.jp/internal";
+public namespace yui_internal = "http://akb7.jp/yui/internal";
 }

@@ -15,5 +15,5 @@
  */
 package jp.akb7.yui.ns
 {
-    public namespace behavior = "http://yui.akb7.jp/framework/behavior";
+    public namespace behavior = "http://akb7.jp/yui/framework/behavior";
 }

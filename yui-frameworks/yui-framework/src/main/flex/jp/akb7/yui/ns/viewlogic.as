@@ -15,5 +15,5 @@
  */
 package jp.akb7.yui.ns
 {
-    public namespace viewlogic = "http://yui.akb7.jp/framework/viewlogic";
+    public namespace viewlogic = "http://akb7.jp/yui/framework/viewlogic";
 }

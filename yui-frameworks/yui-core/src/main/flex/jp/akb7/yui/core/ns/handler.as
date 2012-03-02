@@ -15,5 +15,5 @@
  */
 package jp.akb7.yui.core.ns
 {
-    public namespace handler = "http://yui.akb7.jp/core/handler";
+    public namespace handler = "http://akb7.jp/yui/core/handler";
 }

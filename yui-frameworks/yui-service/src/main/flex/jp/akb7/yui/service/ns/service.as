@@ -15,5 +15,5 @@
  */
 package jp.akb7.yui.service.ns
 {
-    public namespace service = "http://yui.akb7.jp/framework/service";
+    public namespace service = "http://akb7.jp/yui/framework/service";
 }

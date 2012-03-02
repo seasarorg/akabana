@@ -15,5 +15,5 @@
  */
 package jp.akb7.yui.ns
 {
-    public namespace viewpart = "http://yui.akb7.jp/framework/viewpart";
+    public namespace viewpart = "http://akb7.jp/yui/framework/viewpart";
 }

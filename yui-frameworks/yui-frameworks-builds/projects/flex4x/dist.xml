@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="yui-frameworks" basedir="." default="all">
+    <!-- -->
+    <target name="all">
+        <property file="../../build.properties" />
+        <!-- -->
+        <dist libname="flex4x/yui-frameworks" libver="${LIB_VERSION}"  />
+        <dist libname="flex4x/yui-frameworks-ds" libver="${LIB_VERSION}"  />
+        <dist libname="flex4x/yui-frameworks-rpc" libver="${LIB_VERSION}"  />
+        <!-- -->
+        <dist libname="flex4x/yui-frameworks-air" libver="${LIB_VERSION}"  />
+        <dist libname="flex4x/yui-frameworks-airds" libver="${LIB_VERSION}"  />
+        <dist libname="flex4x/yui-frameworks-airrpc" libver="${LIB_VERSION}"  />
+        <!-- -->
+        <dist libname="flex4x/yui-logging" libver="${LIB_VERSION}"   />
+        <dist libname="flex4x/yui-frameworks-rb"  libver="${LIB_VERSION}"  />
+    </target>
+    <!-- =================================
+          macro: dist
+         ================================= -->
+    <macrodef name="dist" description="dist the project..">
+        <attribute name="libname"/>
+        <attribute name="libver"/>
+        <sequential>
+            <echo>libname:@{libname}</echo>
+            <echo>target/@{libname}-@{libver}.zip</echo>
+            <echo>target/${basedir}</echo>
+            <zip zipfile="target/@{libname}-@{libver}-sources.zip">
+                <zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_SRC}"/>
+                <zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_RESOURCES}"/>
+            </zip>
+            <zip zipfile="target/@{libname}-@{libver}-swc.zip">
+                <zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_OUTPUT}">
+                    <include name="**/*.swc"/>
+                    <include name="**/*.swf"/>
+                </zipfileset>
+            </zip>
+        </sequential>
+    </macrodef>
+</project>

@@ -1,51 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="yui-frameworks" basedir="." default="all">
     <!-- -->
-    <target name="all" depends="flex45,logging,rb">
+    <target name="all" depends="flex4x">
     </target>
-    <target name="flex45">
-        <ant antfile="build-fx45.xml"/>
+    <target name="flex4x">
+        <ant antfile="build-flex4x.xml"/>
     </target>
-    <target name="logging">
-        <ant antfile="build-logging.xml"/>
-    </target>
-    <target name="rb">
-        <ant antfile="build-rb.xml"/>
-    </target>
-    <target name="distAll">
-        <property file="build.properties" />
-        <!-- -->
-        <dist libname="fx45/yui-frameworks-fx4-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="fx45/yui-frameworks-fx4-ds-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="fx45/yui-frameworks-fx4-rpc-fp10" libver="${LIB_VERSION}"  />
-        <!-- -->
-        <dist libname="fx45/yui-frameworks-fx4-air-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="fx45/yui-frameworks-fx4-airds-fp10" libver="${LIB_VERSION}"  />
-        <dist libname="fx45/yui-frameworks-fx4-airrpc-fp10" libver="${LIB_VERSION}"  />
-        <!-- -->
-        <dist libname="yui-logging" libver="${LIB_VERSION}"   />
-        <dist libname="yui-frameworks-rb"  libver="${LIB_VERSION}"  />
-    </target>
-    <!-- =================================
-          macro: dist
-         ================================= -->
-    <macrodef name="dist" description="dist the project..">
-        <attribute name="libname"/>
-        <attribute name="libver"/>
-        <sequential>
-            <echo>libname:@{libname}</echo>
-            <echo>target/@{libname}-@{libver}.zip</echo>
-            <echo>target/${basedir}</echo>
-            <zip zipfile="target/@{libname}-@{libver}-sources.zip">
-                <zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_SRC}"/>
-                <zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_RESOURCES}"/>
-            </zip>
-            <zip zipfile="target/@{libname}-@{libver}-swc.zip">
-                <zipfileset prefix="@{libname}" dir="${basedir}${file.separator}target${file.separator}@{libname}${FLEX_OUTPUT}">
-                    <include name="**/*.swc"/>
-                    <include name="**/*.swf"/>
-                </zipfileset>
-            </zip>
-        </sequential>
-    </macrodef>
 </project>

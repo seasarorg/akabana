@@ -15,5 +15,5 @@
  */
 package jp.akb7.yui.ns
 {
-    public namespace action = "http://yui.akb7.jp/framework/action";
+    public namespace action = "http://akb7.jp/yui/framework/action";
 }

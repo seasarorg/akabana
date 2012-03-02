@@ -15,6 +15,6 @@
 */
 package jp.akb7.yui.service.ns
 {
-    public namespace rpc_fault = "http://yui.akb7.jp/service/rpc/fault";
+    public namespace rpc_fault = "http://akb7.jp/yui/service/rpc/fault";
 
 }
